@@ -1,0 +1,1 @@
+node replace-scripts.js --install
