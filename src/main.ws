@@ -24,32 +24,40 @@ statemachine class CRandomEncounters extends CEntity {
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;
 
+    LogChannel('modRandomEncounters', "RandomEncounter spawned");
+
     theGame.GetEntitiesByTag('RandomEncounterTag', ents);
 
     if (ents.Size() > 1) {
       this.Destroy();
 
-      return true;
+      // return true;
+    }
+    else {
+      this.AddTag('RandomEncounterTag');
+
+      theInput.RegisterListener(this, 'OnRefreshSettings', 'RefreshRESetting');
+      theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
+
+      super.OnSpawned(spawn_data);
+
+      rExtra = new CModRExtra in this;
+      settings = new RE_Settings in this;
+      resources = new RE_Resources in this;
+
+      this.initiateRandomEncounters();
     }
     
-    this.AddTag('RandomEncounterTag');
-
-    theInput.RegisterListener(this, 'OnRefreshSettings', 'RefreshRESetting');
-    theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
-
-    super.OnSpawned(spawn_data);
-
-    rExtra = new CModRExtra in this;
-    settings = new RE_Settings in this;
-    resources = new RE_Resources in this;
-
-    this.initiateRandomEncounters();
   }
 
   event OnRefreshSettings(action: SInputAction) {
     if (IsPressed(action)) {
       this.settings.loadXMLSettings(true);
     }
+  }
+
+  event OnSpawnMonster(action: SInputAction) {
+    LogChannel('modRandomEncounters', "on spawn event");
   }
 
   private function initiateRandomEncounters() {
@@ -70,6 +78,8 @@ statemachine class CRandomEncounters extends CEntity {
     if (this.ticks_before_spawn < 0) {
       // adding a timer to avoid spending too much time in this
       // supposedly quick function.
+      this.ticks_before_spawn = this.calculateRandomTicksBeforeSpawn();
+
       AddTimer('triggerCreaturesSpawn', 0.1, false);
     }
 
@@ -146,8 +156,10 @@ statemachine class CRandomEncounters extends CEntity {
      || theGame.IsCurrentlyPlayingNonGameplayScene()
      || theGame.IsFading()
      || theGame.IsBlackscreen()) {
-      // postpone the spawning for later
-      this.ticks_before_spawn = RandRange(30, 120);
+      // spawn should have occured, but was cancelled due to
+      // reasons above.
+      // make it so the next attempt will come a bit faster
+      this.ticks_before_spawn = this.ticks_before_spawn / 3;
 
       return;
     }
@@ -204,29 +216,29 @@ statemachine class CRandomEncounters extends CEntity {
     if (choice.Size() > 0) {
       picked_entity_type = choice[RandRange(choice.Size())];
 
-      LogChannel('modRandomEncounter', "spawning humans");
+      LogChannel('modRandomEncounters', "spawning humans");
 
       this.trySpawnHuman();
 
       switch (picked_entity_type) {
         case ET_GROUND:
-          LogChannel('modRandomEncounter', "spawning type ET_GROUND ");
+          LogChannel('modRandomEncounters', "spawning type ET_GROUND ");
           break;
 
         case ET_FLYING:
-          LogChannel('modRandomEncounter', "spawning type ET_FLYING ");
+          LogChannel('modRandomEncounters', "spawning type ET_FLYING ");
           break;
 
         case ET_HUMAN:
-          LogChannel('modRandomEncounter', "spawning type ET_HUMAN ");
+          LogChannel('modRandomEncounters', "spawning type ET_HUMAN ");
           break;
 
         case ET_GROUP:
-          LogChannel('modRandomEncounter', "spawning type ET_GROUP ");
+          LogChannel('modRandomEncounters', "spawning type ET_GROUP ");
           break;
 
         case ET_WILDHUNT:
-          LogChannel('modRandomEncounter', "spawning type ET_WILDHUNT ");
+          LogChannel('modRandomEncounters', "spawning type ET_WILDHUNT ");
           break;
       }
     }
@@ -241,7 +253,10 @@ statemachine class CRandomEncounters extends CEntity {
     var initial_human_position: Vector;
     var current_human_position: Vector;
     var template_human_array: array<SEnemyTemplate>;
+    var template_human_array_copy: array<SEnemyTemplate>;
     var i: int;
+    var selected_template_to_increment: int;
+    var current_human_template: SEnemyTemplate;
 
     current_area = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
@@ -397,20 +412,44 @@ statemachine class CRandomEncounters extends CEntity {
       6 + this.settings.selectedDifficulty
     );
 
+    // make a copy of the array
+    template_human_array_copy = this.resources.copy_template_list(template_human_array);
+
     LogChannel('modRandomEncounters', "number of humans: " + number_of_humans);
+    LogChannel('modRandomEncounters', "template humans size: " + template_human_array.Size());
+    LogChannel('modRandomEncounters', "template humans copy size: " + template_human_array_copy.Size());
 
-    this.PrepareEnemyTemplate(template_human_array);
-
-    if (!this.getInitialHumanPosition(initial_human_position)) {
+    if (!this.getInitialHumanPosition(initial_human_position, 15)) {
       // could net get a proper initial position
       return false;
     }
 
-    this.spawnEntities(
-      (CEntityTemplate)LoadResource(this.ObtainTemplateForEnemy(template_human_array), true),
-      initial_human_position,
-      number_of_humans
-    );
+    while (number_of_humans > 0) {
+      selected_template_to_increment = RandRange(template_human_array_copy.Size());
+
+      LogChannel('modRandomEncounters', "selected template: " + selected_template_to_increment);
+
+      if (template_human_array_copy[selected_template_to_increment].max > -1
+       && template_human_array_copy[selected_template_to_increment].count >= template_human_array_copy[selected_template_to_increment].max) {
+        continue;
+      }
+
+      template_human_array[selected_template_to_increment].count += 1;
+
+      number_of_humans -= 1;
+    }
+
+    for (i = 0; i < template_human_array.Size(); i += 1) {
+      current_human_template = template_human_array[i];
+
+      if (current_human_template.count > 0) {
+        this.spawnEntities(
+          (CEntityTemplate)LoadResource(current_human_template.template, true),
+          initial_human_position,
+          current_human_template.count
+        );
+      }
+    }
 
     return true;
   }
@@ -453,16 +492,14 @@ statemachine class CRandomEncounters extends CEntity {
     var s, r, x, y: float;
     var createEntityHelper: CCreateEntityHelper;
 
-    entity_template = (CEntityTemplate)LoadResource("dlc\modtemplates\randomencounterdlc\data\re_human.w2ent", true);
+    // entity_template = (CEntityTemplate)LoadResource("characters\npc_entities\monsters\wolf_white_lvl2.w2ent", true);
+    // entity_template = (CEntityTemplate)LoadResource("gameplay\templates\characters\presets\inquisition\inq_1h_sword_t2.w2ent", true);
     
     quantity = Max(quantity, 1);
 
     LogChannel('modRandomEncounters', "spawning " + quantity + " entities");
 	
     rot = thePlayer.GetWorldRotation();	
-    // rot.Yaw += 180;		//the front placed entities will face the player
-
-    player = thePlayer.GetWorldPosition();
 
     //const values used in the loop
     pos_fin.Z = initial_position.Z;			//final spawn pos
@@ -489,20 +526,11 @@ statemachine class CRandomEncounters extends CEntity {
 
       theGame.GetWorld().StaticTrace( pos_fin + Vector(0,0,3), pos_fin - Vector(0,0,3), pos_fin, normal);
 
+      createEntityHelper = new CCreateEntityHelper in this;
+      createEntityHelper.SetPostAttachedCallback( this, 'onEntitySpawned' );
+      theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
 
-      ent = theGame.CreateEntity(entity_template, pos_fin - Vector(0, 0, 2), rot, true, false, true, PM_Persist);
-
-      // createEntityHelper = new CCreateEntityHelper in this;
-      // createEntityHelper.SetPostAttachedCallback( this, 'onEntitySpawned' );
-
-      // LogChannel('modRandomEncounters', "player position" + thePlayer.GetWorldPosition());
-      LogChannel('modRandomEncounters', "player at " + player.X + " " + player.Y + " " + player.Z);
       LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
-
-      // theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
-      ((CNewNPC)ent).SetLevel(GetWitcherPlayer().GetLevel());
-      ((CNewNPC)ent).NoticeActor(thePlayer);
-      ((CActor)ent).SetTemporaryAttitudeGroup( 'hostile_to_player', AGP_Default );
     }
   }
 
@@ -529,8 +557,8 @@ statemachine class CRandomEncounters extends CEntity {
       distance = 3.0; // meters
     }
 
-    camera_direction.X *= distance;
-    camera_direction.Y *= distance;
+    camera_direction.X *= -distance;
+    camera_direction.Y *= -distance;
 
     player_position = thePlayer.GetWorldPosition();
 

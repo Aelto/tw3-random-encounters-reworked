@@ -12,6 +12,7 @@ class RE_Resources {
 
   function load_resources() {
     this.load_blood_splats();
+		this.load_default_entities();
 
     if (isBloodAndWineActive()) {
       this.loadBloodAndWineResources();
@@ -21,6 +22,23 @@ class RE_Resources {
       this.loadHearOfStoneResources();
     }
   }
+
+	function copy_template_list(list_to_copy: array<SEnemyTemplate>): array<SEnemyTemplate> {
+		var copy: array<SEnemyTemplate>;
+		var i: int;
+
+		for (i = 0; i < list_to_copy.Size(); i += 1) {
+			copy.PushBack(
+				makeEnemyTemplate(
+					list_to_copy[i].template,
+					list_to_copy[i].max,
+					list_to_copy[i].count
+				)
+			);
+		}
+
+		return copy;
+	}
 
   private function load_blood_splats() {
     blood_splats.PushBack("quests\prologue\quest_files\living_world\entities\clues\blood\lw_clue_blood_splat_big.w2ent");	
