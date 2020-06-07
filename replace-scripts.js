@@ -44,7 +44,7 @@ function replace_content_files() {
   );
 }
 
-function revert_content_files(randomencounter_content_path) {
+function revert_content_files() {
   copy_directory(
     backup_directory,
     randomencounter_content_path
