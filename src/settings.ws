@@ -33,14 +33,8 @@ class RE_Settings {
   public	var selectedDifficulty	: int;
   public var chanceDay, chanceNight : int;
 
-  function loadXMLSettings(show: bool) {
+  function loadXMLSettings() {
     var inGameConfigWrapper : CInGameConfigWrapper;
-
-    if (show) {
-      theGame
-      .GetGuiManager()
-      .ShowNotification("Random Encounters XML settings loaded");
-    }
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
@@ -63,6 +57,14 @@ class RE_Settings {
 		this.customGroundMonsterList(inGameConfigWrapper);
 		this.groupMonsterList(inGameConfigWrapper);
 		this.customGroupMonsterList(inGameConfigWrapper);
+  }
+
+  function loadXMLSettingsAndShowNotification() {
+    this.loadXMLSettings();
+
+    theGame
+    .GetGuiManager()
+    .ShowNotification("Random Encounters XML settings loaded");
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {

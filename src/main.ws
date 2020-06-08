@@ -30,8 +30,6 @@ statemachine class CRandomEncounters extends CEntity {
 
     if (ents.Size() > 1) {
       this.Destroy();
-
-      // return true;
     }
     else {
       this.AddTag('RandomEncounterTag');
@@ -47,12 +45,11 @@ statemachine class CRandomEncounters extends CEntity {
 
       this.initiateRandomEncounters();
     }
-    
   }
 
   event OnRefreshSettings(action: SInputAction) {
     if (IsPressed(action)) {
-      this.settings.loadXMLSettings(true);
+      this.settings.loadXMLSettingsAndShowNotification();
     }
   }
 
@@ -61,7 +58,7 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   private function initiateRandomEncounters() {
-    this.settings.loadXMLSettings(false);
+    this.settings.loadXMLSettings();
     this.resources.load_resources();
 
     this.ticks_before_spawn = this.calculateRandomTicksBeforeSpawn();
@@ -131,117 +128,147 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   timer function triggerCreaturesSpawn(optional delta: float, optional id: Int32) {
-    var current_state: CName;
-    var is_meditating: bool;
-    var current_zone: EREZone;
-    var choice : array<EEncounterType>;
-    var flying_active, ground_active, human_active, group_active, wild_hunt_active: int;
-    var i: int;
     var picked_entity_type: int;
     
-    current_zone = this.rExtra.getCustomZone(thePlayer.GetWorldPosition());
-
-    current_state = thePlayer.GetCurrentStateName();
-    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
-
-    if (is_meditating 
-     || thePlayer.IsInInterior()
-     || thePlayer.IsInCombat()
-     || thePlayer.IsUsingBoat()
-     || thePlayer.IsInFistFightMiniGame()
-     || thePlayer.IsSwimming()
-     || thePlayer.IsInNonGameplayCutscene()
-     || thePlayer.IsInGameplayScene()
-     || theGame.IsDialogOrCutscenePlaying()
-     || theGame.IsCurrentlyPlayingNonGameplayScene()
-     || theGame.IsFading()
-     || theGame.IsBlackscreen()) {
+    if (this.shouldAbortCreatureSpawn()) {
       // spawn should have occured, but was cancelled due to
-      // reasons above.
+      // reasons.
       // make it so the next attempt will come a bit faster
       this.ticks_before_spawn = this.ticks_before_spawn / 3;
 
       return;
     }
 
-    if (current_zone == REZ_CITY && !this.settings.cityBruxa && !this.settings.citySpawn) {
-      return;
+    picked_entity_type = this.getRandomEntityTypeWithSettings();
+
+    this.trySpawnHuman();
+
+    switch (picked_entity_type) {
+      case ET_GROUND:
+        LogChannel('modRandomEncounters', "spawning type ET_GROUND ");
+        break;
+
+      case ET_FLYING:
+        LogChannel('modRandomEncounters', "spawning type ET_FLYING ");
+        break;
+
+      case ET_HUMAN:
+        LogChannel('modRandomEncounters', "spawning type ET_HUMAN ");
+        break;
+
+      case ET_GROUP:
+        LogChannel('modRandomEncounters', "spawning type ET_GROUP ");
+        break;
+
+      case ET_WILDHUNT:
+        LogChannel('modRandomEncounters', "spawning type ET_WILDHUNT ");
+        break;
+
+      case ET_NONE:
+        // do nothing when no EntityType was available
+        // this is here for reminding me this case exists.
+        break;
     }
+  }
+
+  private function shouldAbortCreatureSpawn(): bool {
+    var current_state: CName;
+    var is_meditating: bool;
+    var current_zone: EREZone;
+
+
+    current_state = thePlayer.GetCurrentStateName();
+    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
+    current_zone = this.rExtra.getCustomZone(thePlayer.GetWorldPosition());
+
+    return is_meditating 
+        || thePlayer.IsInInterior()
+        || thePlayer.IsInCombat()
+        || thePlayer.IsUsingBoat()
+        || thePlayer.IsInFistFightMiniGame()
+        || thePlayer.IsSwimming()
+        || thePlayer.IsInNonGameplayCutscene()
+        || thePlayer.IsInGameplayScene()
+        || theGame.IsDialogOrCutscenePlaying()
+        || theGame.IsCurrentlyPlayingNonGameplayScene()
+        || theGame.IsFading()
+        || theGame.IsBlackscreen()
+        || current_zone == REZ_CITY 
+        && !this.settings.cityBruxa 
+        && !this.settings.citySpawn;
+  }
+
+  private function getRandomEntityTypeWithSettings(): EEncounterType {
+    var choice : array<EEncounterType>;
 
     if (theGame.envMgr.IsNight()) {
-      for (i = 0; i < this.settings.isGroundActiveN; i += 1) {
-        choice.PushBack(ET_GROUND);
-      }
-
-      // TODO: add inForest factor, maybe 0.5?
-      for (i = 0; i < this.settings.isFlyingActiveN; i += 1) {
-        choice.PushBack(ET_FLYING);
-      }
-
-      for (i = 0; i < this.settings.isHumanActiveN; i += 1) {
-        choice.PushBack(ET_HUMAN);
-      }
-
-      for (i = 0; i < this.settings.isGroupActiveN; i += 1) {
-        choice.PushBack(ET_GROUP);
-      }
-
-      for (i = 0; i < this.settings.isWildHuntActiveN; i += 1) {
-        choice.PushBack(ET_WILDHUNT);
-      }
+      choice = this.getRandomEntityTypeForNight();
     }
     else {
-      for (i = 0; i < this.settings.isGroundActiveD; i += 1) {
-        choice.PushBack(ET_GROUND);
-      }
-
-      // TODO: add inForest factor, maybe 0.5?
-      for (i = 0; i < this.settings.isFlyingActiveD; i += 1) {
-        choice.PushBack(ET_FLYING);
-      }
-
-      for (i = 0; i < this.settings.isHumanActiveD; i += 1) {
-        choice.PushBack(ET_HUMAN);
-      }
-
-      for (i = 0; i < this.settings.isGroupActiveD; i += 1) {
-        choice.PushBack(ET_GROUP);
-      }
-
-      for (i = 0; i < this.settings.isWildHuntActiveD; i += 1) {
-        choice.PushBack(ET_WILDHUNT);
-      }
+      choice = this.getRandomEntityTypeForDay();
     }
 
-    if (choice.Size() > 0) {
-      picked_entity_type = choice[RandRange(choice.Size())];
-
-      LogChannel('modRandomEncounters', "spawning humans");
-
-      this.trySpawnHuman();
-
-      switch (picked_entity_type) {
-        case ET_GROUND:
-          LogChannel('modRandomEncounters', "spawning type ET_GROUND ");
-          break;
-
-        case ET_FLYING:
-          LogChannel('modRandomEncounters', "spawning type ET_FLYING ");
-          break;
-
-        case ET_HUMAN:
-          LogChannel('modRandomEncounters', "spawning type ET_HUMAN ");
-          break;
-
-        case ET_GROUP:
-          LogChannel('modRandomEncounters', "spawning type ET_GROUP ");
-          break;
-
-        case ET_WILDHUNT:
-          LogChannel('modRandomEncounters', "spawning type ET_WILDHUNT ");
-          break;
-      }
+    if (choice.Size() < 1) {
+      return ET_NONE;
     }
+
+    return choice[RandRange(choice.Size())];
+  }
+
+  private function getRandomEntityTypeForNight(): array<EEncounterType> {
+    var choice: array<EEncounterType>;
+    var i: int;
+
+    for (i = 0; i < this.settings.isGroundActiveN; i += 1) {
+      choice.PushBack(ET_GROUND);
+    }
+
+    // TODO: add inForest factor, maybe 0.5?
+    for (i = 0; i < this.settings.isFlyingActiveN; i += 1) {
+      choice.PushBack(ET_FLYING);
+    }
+
+    for (i = 0; i < this.settings.isHumanActiveN; i += 1) {
+      choice.PushBack(ET_HUMAN);
+    }
+
+    for (i = 0; i < this.settings.isGroupActiveN; i += 1) {
+      choice.PushBack(ET_GROUP);
+    }
+
+    for (i = 0; i < this.settings.isWildHuntActiveN; i += 1) {
+      choice.PushBack(ET_WILDHUNT);
+    }
+
+    return choice;
+  }
+
+  private function getRandomEntityTypeForDay(): array<EEncounterType> {
+    var choice: array<EEncounterType>;
+    var i: int;
+
+    for (i = 0; i < this.settings.isGroundActiveD; i += 1) {
+      choice.PushBack(ET_GROUND);
+    }
+
+    // TODO: add inForest factor, maybe 0.5?
+    for (i = 0; i < this.settings.isFlyingActiveD; i += 1) {
+      choice.PushBack(ET_FLYING);
+    }
+
+    for (i = 0; i < this.settings.isHumanActiveD; i += 1) {
+      choice.PushBack(ET_HUMAN);
+    }
+
+    for (i = 0; i < this.settings.isGroupActiveD; i += 1) {
+      choice.PushBack(ET_GROUP);
+    }
+
+    for (i = 0; i < this.settings.isWildHuntActiveD; i += 1) {
+      choice.PushBack(ET_WILDHUNT);
+    }
+
+    return choice;
   }
 
   private function trySpawnHuman(): bool {

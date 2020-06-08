@@ -6,6 +6,7 @@ enum EEncounterType
   ET_HUMAN    = 3,
   ET_GROUP    = 4,
   ET_WILDHUNT = 5,
+  ET_NONE
 };
 
 enum EGroundEncounterType
