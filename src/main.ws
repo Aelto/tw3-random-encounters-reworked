@@ -274,211 +274,67 @@ statemachine class CRandomEncounters extends CEntity {
   private function trySpawnHuman(): bool {
     var human_template: CEntityTemplate;
     var number_of_humans: int;
-    var current_area: string;
-    var choice: array<EHumanType>;
     var picked_human_type: EHumanType;
     var initial_human_position: Vector;
-    var current_human_position: Vector;
     var template_human_array: array<SEnemyTemplate>;
-    var template_human_array_copy: array<SEnemyTemplate>;
-    var i: int;
-    var selected_template_to_increment: int;
-    var current_human_template: SEnemyTemplate;
-
-    current_area = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-    if (current_area == "prolog_village") {
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-      
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-      
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
-    }
-    else if (current_area == "skellige") {
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_SKELBANDIT);
-      }
-      
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_SKELBANDIT2);
-      }
-  
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_SKELPIRATE);
-      }
-    }
-    else if (current_area == "kaer_morhen") {
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
-    }
-    else if (current_area == "novigrad" || current_area == "no_mans_land") {
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_NOVBANDIT);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_PIRATE);
-      }
-
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NILFGAARDIAN);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_WITCHHUNTER);
-      }
-    }
-    else if (current_area == "bob") {
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NOVBANDIT);
-      }
-
-      for (i=0; i<4; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NILFGAARDIAN);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
-    }
-    else {
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NOVBANDIT);
-      }
-
-      for (i=0; i<4; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NILFGAARDIAN);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
-    }
-
-    picked_human_type = choice[RandRange(choice.Size())];
-
-    if (picked_human_type == HT_BANDIT) {
-      template_human_array = this.resources.bandit;
-    }
-    else if (picked_human_type == HT_NOVBANDIT) {
-      template_human_array = this.resources.novbandit;
-    }
-    else if (picked_human_type == HT_SKELBANDIT) {
-      template_human_array = this.resources.skelbandit;
-    }
-    else if (picked_human_type == HT_SKELBANDIT2) {
-      template_human_array = this.resources.skel2bandit;
-    }
-    else if (picked_human_type == HT_CANNIBAL) {
-      template_human_array = this.resources.cannibal;
-    }
-    else if (picked_human_type == HT_RENEGADE) {
-      template_human_array = this.resources.renegade;
-    }
-    else if (picked_human_type == HT_PIRATE) {
-      template_human_array = this.resources.pirate;
-    }
-    else if (picked_human_type == HT_SKELPIRATE) {
-      template_human_array = this.resources.skelpirate;
-    }
-    else if (picked_human_type == HT_NILFGAARDIAN) {
-      template_human_array = this.resources.nilf;
-    }
-    else if (picked_human_type == HT_WITCHHUNTER) {
-      template_human_array = this.resources.whunter;
-    }
-    else {
-      template_human_array = this.resources.bandit;
-    }
-
-    number_of_humans = RandRange(
-      4 + this.settings.selectedDifficulty,
-      6 + this.settings.selectedDifficulty
-    );
-
-    // make a copy of the array
-    template_human_array_copy = this.resources.copy_template_list(template_human_array);
-
-    LogChannel('modRandomEncounters', "number of humans: " + number_of_humans);
-    LogChannel('modRandomEncounters', "template humans size: " + template_human_array.Size());
-    LogChannel('modRandomEncounters', "template humans copy size: " + template_human_array_copy.Size());
 
     if (!this.getInitialHumanPosition(initial_human_position, 15)) {
       // could net get a proper initial position
       return false;
     }
 
-    while (number_of_humans > 0) {
-      selected_template_to_increment = RandRange(template_human_array_copy.Size());
+    picked_human_type = this.rExtra.getRandomHumanTypeByCurrentArea();
+    
+    template_human_array = this.resources.copy_template_list(
+      this.resources.getHumanResourcesByHumanType(picked_human_type)
+    );
+
+    number_of_humans = RandRange(
+      4 + this.settings.selectedDifficulty,
+      6 + this.settings.selectedDifficulty
+    );
+
+    this.spawnGroupOfEntities(template_human_array, number_of_humans, initial_human_position);
+
+    return true;
+  }
+
+  private function spawnGroupOfEntities(entities_templates: array<SEnemyTemplate>, total_number_of_entities: int, initial_entity_position: Vector) {
+    var current_entity_template: SEnemyTemplate;
+    var current_entity_position: Vector;
+    var selected_template_to_increment: int;
+    var i: int;
+
+    LogChannel('modRandomEncounters', "spawning total of " + total_number_of_entities + " entities");
+
+    // randomly increase the entity count for each type of template
+    // based on the maximum of entities this entity template allows
+    while (total_number_of_entities > 0) {
+      selected_template_to_increment = RandRange(entities_templates.Size());
 
       LogChannel('modRandomEncounters', "selected template: " + selected_template_to_increment);
 
-      if (template_human_array_copy[selected_template_to_increment].max > -1
-       && template_human_array_copy[selected_template_to_increment].count >= template_human_array_copy[selected_template_to_increment].max) {
+      if (entities_templates[selected_template_to_increment].max > -1
+       && entities_templates[selected_template_to_increment].count >= entities_templates[selected_template_to_increment].max) {
         continue;
       }
 
-      template_human_array[selected_template_to_increment].count += 1;
+      entities_templates[selected_template_to_increment].count += 1;
 
-      number_of_humans -= 1;
+      total_number_of_entities -= 1;
     }
 
-    for (i = 0; i < template_human_array.Size(); i += 1) {
-      current_human_template = template_human_array[i];
+    for (i = 0; i < entities_templates.Size(); i += 1) {
+      current_entity_template = entities_templates[i];
 
-      if (current_human_template.count > 0) {
+      if (current_entity_template.count > 0) {
         this.spawnEntities(
-          (CEntityTemplate)LoadResource(current_human_template.template, true),
-          initial_human_position,
-          current_human_template.count
+          (CEntityTemplate)LoadResource(current_entity_template.template, true),
+          initial_entity_position,
+          current_entity_template.count
         );
       }
     }
-
-    return true;
   }
 
   protected function ObtainTemplateForEnemy( tempArray : array<SEnemyTemplate> ) : string

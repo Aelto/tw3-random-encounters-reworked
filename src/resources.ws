@@ -23,7 +23,7 @@ class RE_Resources {
     }
   }
 
-	function copy_template_list(list_to_copy: array<SEnemyTemplate>): array<SEnemyTemplate> {
+	public function copy_template_list(list_to_copy: array<SEnemyTemplate>): array<SEnemyTemplate> {
 		var copy: array<SEnemyTemplate>;
 		var i: int;
 
@@ -38,6 +38,41 @@ class RE_Resources {
 		}
 
 		return copy;
+	}
+
+	public function getHumanResourcesByHumanType(human_type: EHumanType): array<SEnemyTemplate> {
+		if (human_type == HT_BANDIT) {
+      return this.bandit;
+    }
+    else if (human_type == HT_NOVBANDIT) {
+      return this.novbandit;
+    }
+    else if (human_type == HT_SKELBANDIT) {
+      return this.skelbandit;
+    }
+    else if (human_type == HT_SKELBANDIT2) {
+      return this.skel2bandit;
+    }
+    else if (human_type == HT_CANNIBAL) {
+      return this.cannibal;
+    }
+    else if (human_type == HT_RENEGADE) {
+      return this.renegade;
+    }
+    else if (human_type == HT_PIRATE) {
+      return this.pirate;
+    }
+    else if (human_type == HT_SKELPIRATE) {
+      return this.skelpirate;
+    }
+    else if (human_type == HT_NILFGAARDIAN) {
+      return this.nilf;
+    }
+    else if (human_type == HT_WITCHHUNTER) {
+      return this.whunter;
+    }
+    
+		return this.bandit;
 	}
 
   private function load_blood_splats() {
