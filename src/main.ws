@@ -15,11 +15,11 @@ function modCreate_RandomEncounters() : CMod {
 }
 
 statemachine class CRandomEncounters extends CEntity {
-  private	var rExtra: CModRExtra;
-  private var settings: RE_Settings;
-  private var resources: RE_Resources;
+  var rExtra: CModRExtra;
+  var settings: RE_Settings;
+  var resources: RE_Resources;
 
-  private var ticks_before_spawn: int;
+  var ticks_before_spawn: int;
 
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;
@@ -61,29 +61,19 @@ statemachine class CRandomEncounters extends CEntity {
     this.settings.loadXMLSettings();
     this.resources.load_resources();
 
-    this.ticks_before_spawn = this.calculateRandomTicksBeforeSpawn();
+    // this.ticks_before_spawn = this.calculateRandomTicksBeforeSpawn();
 
     AddTimer('onceReady', 3.0, false);
-    AddTimer('randomEncounterTick', 1.0, true);
+    // AddTimer('randomEncounterTick', 1.0, true);
+
+    this.GotoState('Waiting');
   }
 
   timer function onceReady(optional delta: float, optional id: Int32) {
     displayRandomEncounterEnabledNotification();
   }
 
-  timer function randomEncounterTick(optional delta: float, optional id: Int32) {
-    if (this.ticks_before_spawn < 0) {
-      // adding a timer to avoid spending too much time in this
-      // supposedly quick function.
-      this.ticks_before_spawn = this.calculateRandomTicksBeforeSpawn();
-
-      AddTimer('triggerCreaturesSpawn', 0.1, false);
-    }
-
-    this.ticks_before_spawn -= 1;
-  }
-
-  private function calculateRandomTicksBeforeSpawn(): int {
+  function calculateRandomTicksBeforeSpawn(): int {
     if (this.settings.customFrequency) {
       if (theGame.envMgr.IsNight()) {
         return RandRange(this.settings.customNightMin, this.settings.customNightMax);
@@ -127,19 +117,75 @@ statemachine class CRandomEncounters extends CEntity {
     return 99999;
   }
 
-  timer function triggerCreaturesSpawn(optional delta: float, optional id: Int32) {
+  
+  function trySpawnGroundCreatures() {
+    var entity_template: CEntityTemplate;
+    var number_of_creatures: int;
+    var picked_creature_type: EGroundMonsterType;
+  }
+}
+
+state SpawningCancelled {
+  event OnEnterState(previous_state_name: namme) {
+    super.OnEnterState(previous_state_name);
+
+    parent.GotoState('Waiting');
+  }
+}
+
+state Waiting in CRandomEncounters {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "Entering state WAITING");
+
+    parent.ticks_before_spawn = parent.calculateRandomTicksBeforeSpawn();
+
+    if (previous_state_name == 'SpawningCancelled') {
+      parent.ticks_before_spawn = parent.ticks_before_spawn / 3;
+    }
+
+    this.startWaiting();
+  }
+
+  entry function startWaiting() {
+    
+    parent.AddTimer('randomEncounterTick', 1.0, true);
+  }
+
+  timer function randomEncounterTick(optional delta: float, optional id: Int32) {
+    if (parent.ticks_before_spawn < 0) {
+      parent.GotoState('Spawning');
+    }
+
+    parent.ticks_before_spawn -= 1;
+  }
+}
+
+
+state Spawning in CRandomEncounters {
+  event OnEnterState(previous_state_name: name) {
+    parent.RemoveTimer('randomEncounterTick');
+
+		super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "Entering state SPAWNING");
+
+    triggerCreaturesSpawn();
+  }
+
+  entry function triggerCreaturesSpawn() {
     var picked_entity_type: int;
+
+    LogChannel('modRandomEncounters', "creatures spawning triggered");
     
     if (this.shouldAbortCreatureSpawn()) {
-      // spawn should have occured, but was cancelled due to
-      // reasons.
-      // make it so the next attempt will come a bit faster
-      this.ticks_before_spawn = this.ticks_before_spawn / 3;
+      parent.GotoState('SpawningCancelled');
 
       return;
     }
 
     picked_entity_type = this.getRandomEntityTypeWithSettings();
+
+    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type);
 
     this.trySpawnHuman();
 
@@ -171,135 +217,125 @@ statemachine class CRandomEncounters extends CEntity {
     }
   }
 
-  private function shouldAbortCreatureSpawn(): bool {
-    var current_state: CName;
-    var is_meditating: bool;
-    var current_zone: EREZone;
-
-
-    current_state = thePlayer.GetCurrentStateName();
-    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
-    current_zone = this.rExtra.getCustomZone(thePlayer.GetWorldPosition());
-
-    return is_meditating 
-        || thePlayer.IsInInterior()
-        || thePlayer.IsInCombat()
-        || thePlayer.IsUsingBoat()
-        || thePlayer.IsInFistFightMiniGame()
-        || thePlayer.IsSwimming()
-        || thePlayer.IsInNonGameplayCutscene()
-        || thePlayer.IsInGameplayScene()
-        || theGame.IsDialogOrCutscenePlaying()
-        || theGame.IsCurrentlyPlayingNonGameplayScene()
-        || theGame.IsFading()
-        || theGame.IsBlackscreen()
-        || current_zone == REZ_CITY 
-        && !this.settings.cityBruxa 
-        && !this.settings.citySpawn;
-  }
-
-  private function getRandomEntityTypeWithSettings(): EEncounterType {
-    var choice : array<EEncounterType>;
-
-    if (theGame.envMgr.IsNight()) {
-      choice = this.getRandomEntityTypeForNight();
-    }
-    else {
-      choice = this.getRandomEntityTypeForDay();
-    }
-
-    if (choice.Size() < 1) {
-      return ET_NONE;
-    }
-
-    return choice[RandRange(choice.Size())];
-  }
-
-  private function getRandomEntityTypeForNight(): array<EEncounterType> {
-    var choice: array<EEncounterType>;
-    var i: int;
-
-    for (i = 0; i < this.settings.isGroundActiveN; i += 1) {
-      choice.PushBack(ET_GROUND);
-    }
-
-    // TODO: add inForest factor, maybe 0.5?
-    for (i = 0; i < this.settings.isFlyingActiveN; i += 1) {
-      choice.PushBack(ET_FLYING);
-    }
-
-    for (i = 0; i < this.settings.isHumanActiveN; i += 1) {
-      choice.PushBack(ET_HUMAN);
-    }
-
-    for (i = 0; i < this.settings.isGroupActiveN; i += 1) {
-      choice.PushBack(ET_GROUP);
-    }
-
-    for (i = 0; i < this.settings.isWildHuntActiveN; i += 1) {
-      choice.PushBack(ET_WILDHUNT);
-    }
-
-    return choice;
-  }
-
-  private function getRandomEntityTypeForDay(): array<EEncounterType> {
-    var choice: array<EEncounterType>;
-    var i: int;
-
-    for (i = 0; i < this.settings.isGroundActiveD; i += 1) {
-      choice.PushBack(ET_GROUND);
-    }
-
-    // TODO: add inForest factor, maybe 0.5?
-    for (i = 0; i < this.settings.isFlyingActiveD; i += 1) {
-      choice.PushBack(ET_FLYING);
-    }
-
-    for (i = 0; i < this.settings.isHumanActiveD; i += 1) {
-      choice.PushBack(ET_HUMAN);
-    }
-
-    for (i = 0; i < this.settings.isGroupActiveD; i += 1) {
-      choice.PushBack(ET_GROUP);
-    }
-
-    for (i = 0; i < this.settings.isWildHuntActiveD; i += 1) {
-      choice.PushBack(ET_WILDHUNT);
-    }
-
-    return choice;
-  }
-
-  private function trySpawnHuman(): bool {
+  latent function trySpawnHuman() {
     var human_template: CEntityTemplate;
     var number_of_humans: int;
     var picked_human_type: EHumanType;
     var initial_human_position: Vector;
     var template_human_array: array<SEnemyTemplate>;
 
+    LogChannel('modRandomEncounters', "trying to spawn humans");
+
     if (!this.getInitialHumanPosition(initial_human_position, 15)) {
+        LogChannel('modRandomEncounters', "could not get initial human position");
+
       // could net get a proper initial position
-      return false;
+      return;
     }
 
-    picked_human_type = this.rExtra.getRandomHumanTypeByCurrentArea();
+    LogChannel('modRandomEncounters', "could get initial human position");
+
+    picked_human_type = parent.rExtra.getRandomHumanTypeByCurrentArea();
     
-    template_human_array = this.resources.copy_template_list(
-      this.resources.getHumanResourcesByHumanType(picked_human_type)
+    template_human_array = parent.resources.copy_template_list(
+      parent.resources.getHumanResourcesByHumanType(picked_human_type)
     );
 
     number_of_humans = RandRange(
-      4 + this.settings.selectedDifficulty,
-      6 + this.settings.selectedDifficulty
+      4 + parent.settings.selectedDifficulty,
+      6 + parent.settings.selectedDifficulty
     );
 
     this.spawnGroupOfEntities(template_human_array, number_of_humans, initial_human_position);
 
-    return true;
+    parent.GotoState('Waiting');
   }
 
-  private function spawnGroupOfEntities(entities_templates: array<SEnemyTemplate>, total_number_of_entities: int, initial_entity_position: Vector) {
+  latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int) {
+    var ent: CEntity;
+    var player, pos_fin, normal: Vector;
+    var rot: EulerAngles;
+    var i, sign: int;
+    var s, r, x, y: float;
+    var createEntityHelper: CCreateEntityHelper;
+    
+    quantity = Max(quantity, 1);
+
+    LogChannel('modRandomEncounters', "spawning " + quantity + " entities");
+  
+    rot = thePlayer.GetWorldRotation();  
+
+    //const values used in the loop
+    pos_fin.Z = initial_position.Z;
+    s = quantity / 0.2; // maintain a constant density of 0.2 unit per m2
+    r = SqrtF(s/Pi());
+
+    createEntityHelper = new CCreateEntityHelper in this;
+    createEntityHelper.SetPostAttachedCallback(this, 'onEntitySpawned');
+
+    for (i = 0; i < quantity; i += 1) {
+      x = RandF() * r;        // add random value within range to X
+      y = RandF() * (r - x);  // add random value to Y so that the point is within the disk
+
+      if(RandRange(2))        // randomly select the sign for misplacement
+        sign = 1;
+      else
+        sign = -1;
+        
+      pos_fin.X = initial_position.X + sign * x;  //final X pos
+      
+      if(RandRange(2))        // randomly select the sign for misplacement
+        sign = 1;
+      else
+        sign = -1;
+        
+      pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
+
+      theGame.GetWorld().StaticTrace( pos_fin + Vector(0,0,3), pos_fin - Vector(0,0,3), pos_fin, normal);
+
+      createEntityHelper.Reset();
+      theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
+
+      LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
+
+      while(createEntityHelper.IsCreating()) {						
+        SleepOneFrame();
+      }
+      
+      // l_splitEntity = m_createEntityHelper.GetCreatedEntity();
+    }
+  }
+
+  private function getInitialHumanPosition(out initial_pos: Vector, optional distance: float) : bool {
+    var collision_normal: Vector;
+    var camera_direction: Vector;
+    var player_position: Vector;
+
+    camera_direction = theCamera.GetCameraDirection();
+
+    if (distance == 0.0) {
+      distance = 3.0; // meters
+    }
+
+    camera_direction.X *= -distance;
+    camera_direction.Y *= -distance;
+
+    player_position = thePlayer.GetWorldPosition();
+
+    initial_pos = player_position + camera_direction;
+    initial_pos.Z = player_position.Z;
+
+    return theGame
+      .GetWorld()
+      .StaticTrace(
+        initial_pos + 5,// Vector(0,0,5),
+        initial_pos - 5,//Vector(0,0,5),
+        initial_pos,
+        collision_normal
+      );
+  }
+
+  latent function spawnGroupOfEntities(entities_templates: array<SEnemyTemplate>, total_number_of_entities: int, initial_entity_position: Vector) {
     var current_entity_template: SEnemyTemplate;
     var current_entity_position: Vector;
     var selected_template_to_increment: int;
@@ -337,86 +373,6 @@ statemachine class CRandomEncounters extends CEntity {
     }
   }
 
-  protected function ObtainTemplateForEnemy( tempArray : array<SEnemyTemplate> ) : string
-  {
-    var i : int;
-    var _tempArray : array<SEnemyTemplate>;
-    var _templateid : int;
-    var _template : SEnemyTemplate;
-
-    for (i = 0; i < tempArray.Size(); i += 1)
-    {
-      if (tempArray[i].max < 0 || tempArray[i].count < tempArray[i].max)
-      {
-        _tempArray.PushBack(tempArray[i]);
-      }
-    }
-
-    _templateid = RandRange(_tempArray.Size());
-    _template = _tempArray[_templateid];
-
-    for (i = 0; i < tempArray.Size(); i += 1)
-    {
-      if (tempArray[i] == _template)
-      {
-        tempArray[i].count += 1;
-        break;
-      }
-    }
-
-    return _template.template;
-  }
-
-  private function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int) {
-    var ent: CEntity;
-    var player, pos_fin, normal: Vector;
-    var rot: EulerAngles;
-    var i, sign: int;
-    var s, r, x, y: float;
-    var createEntityHelper: CCreateEntityHelper;
-
-    // entity_template = (CEntityTemplate)LoadResource("characters\npc_entities\monsters\wolf_white_lvl2.w2ent", true);
-    // entity_template = (CEntityTemplate)LoadResource("gameplay\templates\characters\presets\inquisition\inq_1h_sword_t2.w2ent", true);
-    
-    quantity = Max(quantity, 1);
-
-    LogChannel('modRandomEncounters', "spawning " + quantity + " entities");
-	
-    rot = thePlayer.GetWorldRotation();	
-
-    //const values used in the loop
-    pos_fin.Z = initial_position.Z;			//final spawn pos
-    s = quantity / 0.2;			//maintain a constant density of 0.2 unit per m2
-    r = SqrtF(s/Pi());
-
-    for (i = 0; i < quantity; i += 1) {
-      x = RandF() * r;			//add random value within range to X
-		  y = RandF() * (r - x);		//add random value to Y so that the point is within the disk
-
-      if(RandRange(2))					//randomly select the sign for misplacement
-        sign = 1;
-      else
-        sign = -1;
-        
-      pos_fin.X = initial_position.X + sign * x;	//final X pos
-      
-      if(RandRange(2))					//randomly select the sign for misplacement
-        sign = 1;
-      else
-        sign = -1;
-        
-      pos_fin.Y = initial_position.Y + sign * y;	//final Y pos
-
-      theGame.GetWorld().StaticTrace( pos_fin + Vector(0,0,3), pos_fin - Vector(0,0,3), pos_fin, normal);
-
-      createEntityHelper = new CCreateEntityHelper in this;
-      createEntityHelper.SetPostAttachedCallback( this, 'onEntitySpawned' );
-      theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
-
-      LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
-    }
-  }
-
   function onEntitySpawned(entity: CEntity) {
     var summon: CNewNPC;
     LogChannel('modRandomEncounters', "1 entity spawned");
@@ -429,109 +385,103 @@ statemachine class CRandomEncounters extends CEntity {
     summon.SetTemporaryAttitudeGroup('hostile_to_player', AGP_Default);
   }
 
-  private function getInitialHumanPosition(out initial_pos: Vector, optional distance: float) : bool {
-    var collision_normal: Vector;
-    var camera_direction: Vector;
-    var player_position: Vector;
+  function shouldAbortCreatureSpawn(): bool {
+    var current_state: CName;
+    var is_meditating: bool;
+    var current_zone: EREZone;
 
-    camera_direction = theCamera.GetCameraDirection();
 
-    if (distance == 0.0) {
-      distance = 3.0; // meters
-    }
+    current_state = thePlayer.GetCurrentStateName();
+    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
+    current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
 
-    camera_direction.X *= -distance;
-    camera_direction.Y *= -distance;
-
-    player_position = thePlayer.GetWorldPosition();
-
-    initial_pos = player_position + camera_direction;
-    initial_pos.Z = player_position.Z;
-
-    return theGame
-      .GetWorld()
-      .StaticTrace(
-        initial_pos + 5,// Vector(0,0,5),
-        initial_pos - 5,//Vector(0,0,5),
-        initial_pos,
-        collision_normal
-      );
-
-    // var i: int;
-    // var pos: Vector;
-    // var z: float;
-
-    // for (i = 0; i < 30; i += 1) {
-    //   pos = thePlayer.GetWorldPosition() + VecConeRand(theCamera.GetCameraHeading(), -170, -20, -25);
-
-    //   FixZAxis(pos);
-
-    //   if (!this.canSpawnEnt(pos)) {
-    //     return false;
-    //   }
-
-    //   initial_pos = pos;
-
-    //   return true;
-    // }
+    return is_meditating 
+        || thePlayer.IsInInterior()
+        || thePlayer.IsInCombat()
+        || thePlayer.IsUsingBoat()
+        || thePlayer.IsInFistFightMiniGame()
+        || thePlayer.IsSwimming()
+        || thePlayer.IsInNonGameplayCutscene()
+        || thePlayer.IsInGameplayScene()
+        || theGame.IsDialogOrCutscenePlaying()
+        || theGame.IsCurrentlyPlayingNonGameplayScene()
+        || theGame.IsFading()
+        || theGame.IsBlackscreen()
+        || current_zone == REZ_CITY 
+        && !parent.settings.cityBruxa 
+        && !parent.settings.citySpawn;
   }
 
-  protected function PrepareEnemyTemplate(arr: array<SEnemyTemplate>) {
+  function getRandomEntityTypeWithSettings(): EEncounterType {
+    var choice : array<EEncounterType>;
+
+    if (theGame.envMgr.IsNight()) {
+      choice = this.getRandomEntityTypeForNight();
+    }
+    else {
+      choice = this.getRandomEntityTypeForDay();
+    }
+
+    if (choice.Size() < 1) {
+      return ET_NONE;
+    }
+
+    return choice[RandRange(choice.Size())];
+  }
+
+  function getRandomEntityTypeForNight(): array<EEncounterType> {
+    var choice: array<EEncounterType>;
     var i: int;
 
-    for (i = 0; i < arr.Size(); i += 1) {
-      arr[i].count = 0;
+    for (i = 0; i < parent.settings.isGroundActiveN; i += 1) {
+      choice.PushBack(ET_GROUND);
     }
+
+    // TODO: add inForest factor, maybe 0.5?
+    for (i = 0; i < parent.settings.isFlyingActiveN; i += 1) {
+      choice.PushBack(ET_FLYING);
+    }
+
+    for (i = 0; i < parent.settings.isHumanActiveN; i += 1) {
+      choice.PushBack(ET_HUMAN);
+    }
+
+    for (i = 0; i < parent.settings.isGroupActiveN; i += 1) {
+      choice.PushBack(ET_GROUP);
+    }
+
+    for (i = 0; i < parent.settings.isWildHuntActiveN; i += 1) {
+      choice.PushBack(ET_WILDHUNT);
+    }
+
+    return choice;
   }
 
-  public function canSpawnEnt(pos : Vector) : bool {
-    var template : CEntityTemplate;
-    var rot : EulerAngles;
-    var canSpawn : bool;
-    var ract : CActor;
-    var currentArea : string;
-    var inSettlement : bool;
+  function getRandomEntityTypeForDay(): array<EEncounterType> {
+    var choice: array<EEncounterType>;
+    var i: int;
 
-    canSpawn = false;
-
-    template = (CEntityTemplate)LoadResource( "characters\npc_entities\animals\hare.w2ent", true );	
-    ract = (CActor)theGame.CreateEntity(template, pos, rot);
-    
-    ((CNewNPC)ract).SetGameplayVisibility(false);
-    ((CNewNPC)ract).SetVisibility(false);		
-    
-    ract.EnableCharacterCollisions(false);
-    ract.EnableDynamicCollisions(false);
-    ract.EnableStaticCollisions(false);
-    ract.SetImmortalityMode(AIM_Invulnerable, AIC_Default);
-
-    inSettlement = ract.TestIsInSettlement();
-
-    if (!inSettlement
-      && pos.Z >= theGame.GetWorld().GetWaterLevel(pos, true)
-      && !((CNewNPC)ract).IsInInterior()) {
-
-      canSpawn = true;
+    for (i = 0; i < parent.settings.isGroundActiveD; i += 1) {
+      choice.PushBack(ET_GROUND);
     }
 
-    ract.Destroy();
+    // TODO: add inForest factor, maybe 0.5?
+    for (i = 0; i < parent.settings.isFlyingActiveD; i += 1) {
+      choice.PushBack(ET_FLYING);
+    }
 
-    return canSpawn;
+    for (i = 0; i < parent.settings.isHumanActiveD; i += 1) {
+      choice.PushBack(ET_HUMAN);
+    }
+
+    for (i = 0; i < parent.settings.isGroupActiveD; i += 1) {
+      choice.PushBack(ET_GROUP);
+    }
+
+    for (i = 0; i < parent.settings.isWildHuntActiveD; i += 1) {
+      choice.PushBack(ET_WILDHUNT);
+    }
+
+    return choice;
   }
-
-}
-
-function FixZAxis(out pos : Vector) {
-    var world : CWorld;
-    var z : float;
-
-    world = theGame.GetWorld();
-
-    if (world.NavigationComputeZ(pos, pos.Z - 128, pos.Z + 128, z)) {
-      pos.Z = z;
-    }
-
-    if (world.PhysicsCorrectZ(pos, z)) {
-      pos.Z = z;
-    }
 }
