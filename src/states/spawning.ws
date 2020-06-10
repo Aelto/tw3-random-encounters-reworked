@@ -9,7 +9,7 @@ state Spawning in CRandomEncounters {
   }
 
   entry function triggerCreaturesSpawn() {
-    var picked_entity_type: int;
+    var picked_entity_type: EEncounterType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
     
@@ -23,7 +23,9 @@ state Spawning in CRandomEncounters {
 
     LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type);
 
-    this.trySpawnHuman();
+    // this.trySpawnHuman();
+
+    makeGroupComposition(ET_HUMAN, parent);
 
     switch (picked_entity_type) {
       case ET_GROUND:
@@ -53,8 +55,34 @@ state Spawning in CRandomEncounters {
     }
   }
 
+  function shouldAbortCreatureSpawn(): bool {
+    var current_state: CName;
+    var is_meditating: bool;
+    var current_zone: EREZone;
+
+
+    current_state = thePlayer.GetCurrentStateName();
+    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
+    current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
+
+    return is_meditating 
+        || thePlayer.IsInInterior()
+        || thePlayer.IsInCombat()
+        || thePlayer.IsUsingBoat()
+        || thePlayer.IsInFistFightMiniGame()
+        || thePlayer.IsSwimming()
+        || thePlayer.IsInNonGameplayCutscene()
+        || thePlayer.IsInGameplayScene()
+        || theGame.IsDialogOrCutscenePlaying()
+        || theGame.IsCurrentlyPlayingNonGameplayScene()
+        || theGame.IsFading()
+        || theGame.IsBlackscreen()
+        || current_zone == REZ_CITY 
+        && !parent.settings.cityBruxa 
+        && !parent.settings.citySpawn;
+  }
+
   latent function trySpawnHuman() {
-    var human_template: CEntityTemplate;
     var number_of_humans: int;
     var picked_human_type: EHumanType;
     var initial_human_position: Vector;
@@ -87,59 +115,13 @@ state Spawning in CRandomEncounters {
     parent.GotoState('Waiting');
   }
 
-  latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int) {
-    var ent: CEntity;
-    var player, pos_fin, normal: Vector;
-    var rot: EulerAngles;
-    var i, sign: int;
-    var s, r, x, y: float;
-    var createEntityHelper: CCreateEntityHelper;
-    
-    quantity = Max(quantity, 1);
+  latent function trySpawnGroundCreatures() {
+    var entity_template: CEntityTemplate;
+    var number_of_creatures: int;
+    var picked_creature_type: EGroundMonsterType;
 
-    LogChannel('modRandomEncounters', "spawning " + quantity + " entities");
-  
-    rot = thePlayer.GetWorldRotation();  
+    LogChannel('modRandomEncounters', "trying to spawn ground creatures");
 
-    //const values used in the loop
-    pos_fin.Z = initial_position.Z;
-    s = quantity / 0.2; // maintain a constant density of 0.2 unit per m2
-    r = SqrtF(s/Pi());
-
-    createEntityHelper = new CCreateEntityHelper in this;
-    createEntityHelper.SetPostAttachedCallback(this, 'onEntitySpawned');
-
-    for (i = 0; i < quantity; i += 1) {
-      x = RandF() * r;        // add random value within range to X
-      y = RandF() * (r - x);  // add random value to Y so that the point is within the disk
-
-      if(RandRange(2))        // randomly select the sign for misplacement
-        sign = 1;
-      else
-        sign = -1;
-        
-      pos_fin.X = initial_position.X + sign * x;  //final X pos
-      
-      if(RandRange(2))        // randomly select the sign for misplacement
-        sign = 1;
-      else
-        sign = -1;
-        
-      pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
-
-      theGame.GetWorld().StaticTrace( pos_fin + Vector(0,0,3), pos_fin - Vector(0,0,3), pos_fin, normal);
-
-      createEntityHelper.Reset();
-      theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
-
-      LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
-
-      while(createEntityHelper.IsCreating()) {            
-        SleepOneFrame();
-      }
-      
-      // l_splitEntity = m_createEntityHelper.GetCreatedEntity();
-    }
   }
 
   private function getInitialHumanPosition(out initial_pos: Vector, optional distance: float) : bool {
@@ -209,6 +191,61 @@ state Spawning in CRandomEncounters {
     }
   }
 
+  latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int) {
+    var ent: CEntity;
+    var player, pos_fin, normal: Vector;
+    var rot: EulerAngles;
+    var i, sign: int;
+    var s, r, x, y: float;
+    var createEntityHelper: CCreateEntityHelper;
+    
+    quantity = Max(quantity, 1);
+
+    LogChannel('modRandomEncounters', "spawning " + quantity + " entities");
+  
+    rot = thePlayer.GetWorldRotation();  
+
+    //const values used in the loop
+    pos_fin.Z = initial_position.Z;
+    s = quantity / 0.2; // maintain a constant density of 0.2 unit per m2
+    r = SqrtF(s/Pi());
+
+    createEntityHelper = new CCreateEntityHelper in this;
+    createEntityHelper.SetPostAttachedCallback(this, 'onEntitySpawned');
+
+    for (i = 0; i < quantity; i += 1) {
+      x = RandF() * r;        // add random value within range to X
+      y = RandF() * (r - x);  // add random value to Y so that the point is within the disk
+
+      if(RandRange(2))        // randomly select the sign for misplacement
+        sign = 1;
+      else
+        sign = -1;
+        
+      pos_fin.X = initial_position.X + sign * x;  //final X pos
+      
+      if(RandRange(2))        // randomly select the sign for misplacement
+        sign = 1;
+      else
+        sign = -1;
+        
+      pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
+
+      theGame.GetWorld().StaticTrace( pos_fin + Vector(0,0,3), pos_fin - Vector(0,0,3), pos_fin, normal);
+
+      createEntityHelper.Reset();
+      theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
+
+      LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
+
+      while(createEntityHelper.IsCreating()) {            
+        SleepOneFrame();
+      }
+      
+      // l_splitEntity = m_createEntityHelper.GetCreatedEntity();
+    }
+  }
+
   function onEntitySpawned(entity: CEntity) {
     var summon: CNewNPC;
     LogChannel('modRandomEncounters', "1 entity spawned");
@@ -219,33 +256,6 @@ state Spawning in CRandomEncounters {
     summon.SetLevel(GetWitcherPlayer().GetLevel());
     summon.NoticeActor(thePlayer);
     summon.SetTemporaryAttitudeGroup('hostile_to_player', AGP_Default);
-  }
-
-  function shouldAbortCreatureSpawn(): bool {
-    var current_state: CName;
-    var is_meditating: bool;
-    var current_zone: EREZone;
-
-
-    current_state = thePlayer.GetCurrentStateName();
-    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
-    current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
-
-    return is_meditating 
-        || thePlayer.IsInInterior()
-        || thePlayer.IsInCombat()
-        || thePlayer.IsUsingBoat()
-        || thePlayer.IsInFistFightMiniGame()
-        || thePlayer.IsSwimming()
-        || thePlayer.IsInNonGameplayCutscene()
-        || thePlayer.IsInGameplayScene()
-        || theGame.IsDialogOrCutscenePlaying()
-        || theGame.IsCurrentlyPlayingNonGameplayScene()
-        || theGame.IsFading()
-        || theGame.IsBlackscreen()
-        || current_zone == REZ_CITY 
-        && !parent.settings.cityBruxa 
-        && !parent.settings.citySpawn;
   }
 
   function getRandomEntityTypeWithSettings(): EEncounterType {

@@ -50,6 +50,7 @@ statemachine class CRandomEncounters extends CEntity {
   event OnRefreshSettings(action: SInputAction) {
     if (IsPressed(action)) {
       this.settings.loadXMLSettingsAndShowNotification();
+      this.GotoState('Waiting');
     }
   }
 
@@ -68,13 +69,6 @@ statemachine class CRandomEncounters extends CEntity {
   timer function onceReady(optional delta: float, optional id: Int32) {
     displayRandomEncounterEnabledNotification();
   }
-
-
-  // function trySpawnGroundCreatures() {
-  //   var entity_template: CEntityTemplate;
-  //   var number_of_creatures: int;
-  //   var picked_creature_type: EGroundMonsterType;
-  // }
 }
 
 

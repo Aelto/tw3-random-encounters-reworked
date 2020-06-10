@@ -13,7 +13,6 @@ state Waiting in CRandomEncounters {
   }
 
   entry function startWaiting() {
-    
     parent.AddTimer('randomEncounterTick', 1.0, true);
   }
 
