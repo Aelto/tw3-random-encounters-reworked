@@ -35,6 +35,7 @@ latent function createRandomHumanComposition(random_encounters_class: CRandomEnc
       break;
 
     case HumanComposition_AmbushWitcher:
+      makeHumanCompositionAmbushWitcher(random_encounters_class);
       break;
   }
 }
@@ -195,10 +196,10 @@ latent function makeHumanCompositionAgainstWolves(master: CRandomEncounters) {
   );
 
   if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig) {
-    wolves_entities = master.resources.skelwolf;
+    wolves_templates = master.resources.skelwolf;
   }
   else {
-    wolves_entities = master.resources.wolf;
+    wolves_templates = master.resources.wolf;
   }
 
   humans_templates = master.resources.copy_template_list(
@@ -256,7 +257,7 @@ latent function makeHumanCompositionAgainstDrowners(master: CRandomEncounters) {
     2 * master.settings.selectedDifficulty + 1
   );
 
-  drowners_entities = master.resources.drowner;
+  drowners_templates = master.resources.drowner;
 
   humans_templates = master.resources.copy_template_list(
     master.resources.getHumanResourcesByHumanType(
@@ -313,7 +314,7 @@ latent function makeHumanCompositionAgainstNekkers(master: CRandomEncounters) {
     2 * master.settings.selectedDifficulty + 1
   );
 
-  nekkers_entities = master.resources.nekker;
+  nekkers_templates = master.resources.nekker;
 
   humans_templates = master.resources.copy_template_list(
     master.resources.getHumanResourcesByHumanType(
@@ -360,7 +361,6 @@ latent function makeHumanCompositionAmbushWitcher(master: CRandomEncounters) {
     5 + master.settings.selectedDifficulty
   );
 
-
   humans_templates = master.resources.copy_template_list(
     master.resources.getHumanResourcesByHumanType(
       master.rExtra.getRandomHumanTypeByCurrentArea()
@@ -369,7 +369,6 @@ latent function makeHumanCompositionAmbushWitcher(master: CRandomEncounters) {
 
   humans_templates = fillEnemyTemplates(humans_templates, number_of_humans);
 
-  nekkers_entities = spawnTemplateList(nekkers_templates, initial_position);
   humans_entities = spawnTemplateList(humans_templates, initial_position, 0.01);
 
   for (i = 0; i < humans_entities.Size(); i += 1) {
