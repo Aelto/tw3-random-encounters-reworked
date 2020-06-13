@@ -4,6 +4,7 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
   var current_iteration_entities: array<CEntity>;
 
   var current_entity_template: SEnemyTemplate;
+  var current_template: CEntityTemplate;
 
   var i: int;
   var j: int;
@@ -12,8 +13,10 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
     current_entity_template = entities_templates[i];
 
     if (current_entity_template.count > 0) {
+      current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
+
       current_iteration_entities = spawnEntities(
-        (CEntityTemplate)LoadResource(current_entity_template.template, true),
+        current_template,
         position,
         current_entity_template.count,
         density
