@@ -53,6 +53,8 @@ state Spawning in CRandomEncounters {
         // this is here for reminding me this case exists.
         break;
     }
+
+    parent.GotoState('Waiting');
   }
 
   function shouldAbortCreatureSpawn(): bool {
