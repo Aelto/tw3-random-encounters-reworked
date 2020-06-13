@@ -16,3 +16,14 @@
     theGame.GetWorld().StaticTrace( l_spawnPos + Vector(0,0,5), l_spawnPos - Vector(0,0,5), l_spawnPos, l_normal );
   }
   ```
+
+- spawning blood spills
+  ```js
+  public final function CreateBloodSpill()
+	{
+		var bloodTemplate : CEntityTemplate;
+	
+		bloodTemplate = (CEntityTemplate)LoadResource("blood_0" + RandRange(4));
+		theGame.CreateEntity(bloodTemplate, GetWorldPosition() + VecRingRand(0, 0.5) , EulerAngles(0, RandF() * 360, 0));
+	}
+  ```

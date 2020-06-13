@@ -168,6 +168,7 @@ latent function makeHumanCompositionAgainstWolves(master: CRandomEncounters) {
   var wolves_templates: array<SEnemyTemplate>;
   var humans_templates: array<SEnemyTemplate>;
   var number_of_humans: int;
+  var number_of_wolves: int;
 
   var wolves_entities: array<CEntity>;
   var humans_entities: array<CEntity>;
@@ -229,6 +230,7 @@ latent function makeHumanCompositionAgainstDrowners(master: CRandomEncounters) {
   var drowners_templates: array<SEnemyTemplate>;
   var humans_templates: array<SEnemyTemplate>;
   var number_of_humans: int;
+  var number_of_drowners: int;
 
   var drowners_entities: array<CEntity>;
   var humans_entities: array<CEntity>;
@@ -285,6 +287,7 @@ latent function makeHumanCompositionAgainstNekkers(master: CRandomEncounters) {
   var nekkers_templates: array<SEnemyTemplate>;
   var humans_templates: array<SEnemyTemplate>;
   var number_of_humans: int;
+  var number_of_nekkers: int;
 
   var nekkers_entities: array<CEntity>;
   var humans_entities: array<CEntity>;
@@ -373,7 +376,7 @@ latent function makeHumanCompositionAmbushWitcher(master: CRandomEncounters) {
     summon = (CNewNPC) humans_entities[i];
 
     summon.SetLevel(GetWitcherPlayer().GetLevel());
-    summon.NoticeActor(thePlayer)
+    summon.NoticeActor(thePlayer);
     summon.SignalGameplayEventParamObject('ForceTarget', thePlayer);
   }
 }
