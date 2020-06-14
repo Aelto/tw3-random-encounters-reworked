@@ -75,6 +75,208 @@ class RE_Resources {
     return this.bandit;
   }
 
+  public function getCreatureResourceByGroundMonsterType(monster_type: EGroundMonsterType): array<SEnemyTemplate> {
+    LogChannel('modRandomEncounters', "get creature resource by ground monster type: " + monster_type);
+
+    switch (monster_type) {
+      case GM_LESHEN:
+        return this.leshen;
+        break;
+
+      case GM_WEREWOLF:
+        return this.werewolf;
+        break;
+
+      case GM_FIEND:
+        return this.fiend;
+        break;
+
+      case GM_EKIMMARA:
+        return this.ekimmara;
+        break;
+
+      case GM_KATAKAN:
+        return this.katakan;
+        break;
+
+      case GM_BEAR:
+        if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig) {
+          if(RandRange(10) > 5) {
+            return this.skelbear;
+          }
+
+          return this.bear;
+        }
+
+        return this.bear;
+        break;
+
+      case GM_GOLEM:
+        return golem;
+        break;
+
+      case GM_ELEMENTAL:
+        return elemental;
+        break;
+
+      case GM_NIGHTWRAITH:
+        return nightwraith;
+        break;
+
+      case GM_NOONWRAITH:
+        return noonwraith;
+        break;
+
+      case GM_CHORT:
+        return chort;
+        break;
+    
+      case GM_ARACHAS:
+        return arachas;
+        break;
+
+      case GM_CYCLOPS:
+        return cyclop;
+        break;
+
+      case GM_TROLL:
+        if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig){
+          if(RandRange(10)>5) {
+            return skeltroll;
+          }
+          return troll;
+        }
+
+        return troll;
+        break;
+    
+      case GM_HAG:
+        return hag;
+        break;
+
+      case GM_BRUXA:
+        return bruxa;
+        break;
+
+      case GM_DETLAFF:
+        return detlaff;
+        break;
+
+      case GM_GARKAIN:
+        return garkain;
+        break;
+
+      case GM_FLEDER:
+        return fleder;
+        break;
+
+      case GM_PANTHER:
+        return panther;
+        break;
+
+      case GM_SHARLEY:
+        return sharley;
+        break;
+
+      case GM_GIANTDLC:
+        return giant;
+        break;
+
+      case GM_BOAR:
+        return boar;
+        break;
+
+      case GM_BARGHEST:
+        return this.barghest;
+        break;
+
+      case GM_FOGLET:
+        return fogling;
+        break;
+
+      case GM_ENDREGA:
+        return endrega;
+        break;
+
+      case GM_GHOUL:
+        return ghoul;
+        break;
+
+      case GM_ALGHOUL:
+        return alghoul;
+        break;
+
+      case GM_NEKKER:
+        return nekker;
+        break;
+
+      case GM_DROWNER:
+        return drowner;
+        break;
+
+      case GM_ROTFIEND:
+        return rotfiend;
+        break;
+
+      case GM_WOLF:
+        if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig) {
+          if(RandRange(10)>5) {
+            return skelwolf;
+          }
+
+          return wolf;
+        }
+        
+        return wolf;
+        break;
+
+      case GM_WRAITH:
+        return wraith;
+        break;
+
+      case GM_HARPY:
+        return harpy;
+        break;
+
+      case GM_SPIDER:
+        return spider;
+        break;
+
+      case GM_HAG:
+        return hag;
+        break;
+
+      // BLOOD AND WINE
+      case GM_CENTIEDE:   
+        return centipede;
+        break;
+
+      case GM_ECHINOPS:
+        return echinops;
+        break;
+
+      case GM_KIKIMORE:
+        return kikimore;
+        break;
+
+      case GM_BARGHEST:
+        return barghest;
+        break;
+
+      case GM_WIGHT:
+        return wight;
+        break;
+
+      case GM_DROWNERDLC:
+        return gravier;
+        break;
+
+      case GM_SKELETON:
+        return skeleton;
+        break;
+    }
+  }
+
   private function load_blood_splats() {
     blood_splats.PushBack("quests\prologue\quest_files\living_world\entities\clues\blood\lw_clue_blood_splat_big.w2ent");  
     blood_splats.PushBack("quests\prologue\quest_files\living_world\entities\clues\blood\lw_clue_blood_splat_medium.w2ent");    

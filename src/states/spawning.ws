@@ -23,36 +23,7 @@ state Spawning in CRandomEncounters {
 
     LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type);
 
-    // this.trySpawnHuman();
-
-    makeGroupComposition(ET_HUMAN, parent);
-
-    switch (picked_entity_type) {
-      case ET_GROUND:
-        LogChannel('modRandomEncounters', "spawning type ET_GROUND ");
-        break;
-
-      case ET_FLYING:
-        LogChannel('modRandomEncounters', "spawning type ET_FLYING ");
-        break;
-
-      case ET_HUMAN:
-        LogChannel('modRandomEncounters', "spawning type ET_HUMAN ");
-        break;
-
-      case ET_GROUP:
-        LogChannel('modRandomEncounters', "spawning type ET_GROUP ");
-        break;
-
-      case ET_WILDHUNT:
-        LogChannel('modRandomEncounters', "spawning type ET_WILDHUNT ");
-        break;
-
-      case ET_NONE:
-        // do nothing when no EntityType was available
-        // this is here for reminding me this case exists.
-        break;
-    }
+    makeGroupComposition(picked_entity_type, parent);
 
     parent.GotoState('Waiting');
   }
@@ -105,14 +76,14 @@ state Spawning in CRandomEncounters {
     var choice: array<EEncounterType>;
     var i: int;
 
-    for (i = 0; i < parent.settings.isGroundActiveN; i += 1) {
-      choice.PushBack(ET_GROUND);
-    }
+    // for (i = 0; i < parent.settings.isGroundActiveN; i += 1) {
+    //   choice.PushBack(ET_GROUND);
+    // }
 
     // TODO: add inForest factor, maybe 0.5?
-    for (i = 0; i < parent.settings.isFlyingActiveN; i += 1) {
-      choice.PushBack(ET_FLYING);
-    }
+    // for (i = 0; i < parent.settings.isFlyingActiveN; i += 1) {
+    //   choice.PushBack(ET_FLYING);
+    // }
 
     for (i = 0; i < parent.settings.isHumanActiveN; i += 1) {
       choice.PushBack(ET_HUMAN);
@@ -122,9 +93,9 @@ state Spawning in CRandomEncounters {
       choice.PushBack(ET_GROUP);
     }
 
-    for (i = 0; i < parent.settings.isWildHuntActiveN; i += 1) {
-      choice.PushBack(ET_WILDHUNT);
-    }
+    // for (i = 0; i < parent.settings.isWildHuntActiveN; i += 1) {
+    //   choice.PushBack(ET_WILDHUNT);
+    // }
 
     return choice;
   }
@@ -133,14 +104,14 @@ state Spawning in CRandomEncounters {
     var choice: array<EEncounterType>;
     var i: int;
 
-    for (i = 0; i < parent.settings.isGroundActiveD; i += 1) {
-      choice.PushBack(ET_GROUND);
-    }
+    // for (i = 0; i < parent.settings.isGroundActiveD; i += 1) {
+    //   choice.PushBack(ET_GROUND);
+    // }
 
     // TODO: add inForest factor, maybe 0.5?
-    for (i = 0; i < parent.settings.isFlyingActiveD; i += 1) {
-      choice.PushBack(ET_FLYING);
-    }
+    // for (i = 0; i < parent.settings.isFlyingActiveD; i += 1) {
+    //   choice.PushBack(ET_FLYING);
+    // }
 
     for (i = 0; i < parent.settings.isHumanActiveD; i += 1) {
       choice.PushBack(ET_HUMAN);
@@ -150,9 +121,9 @@ state Spawning in CRandomEncounters {
       choice.PushBack(ET_GROUP);
     }
 
-    for (i = 0; i < parent.settings.isWildHuntActiveD; i += 1) {
-      choice.PushBack(ET_WILDHUNT);
-    }
+    // for (i = 0; i < parent.settings.isWildHuntActiveD; i += 1) {
+    //   choice.PushBack(ET_WILDHUNT);
+    // }
 
     return choice;
   }

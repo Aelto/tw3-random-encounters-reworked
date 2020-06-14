@@ -14,34 +14,22 @@ latent function makeGroupComposition(encounter_type: EEncounterType, random_enco
       break;
 
     case ET_HUMAN:
-      makeGroupCompositionForHumans(random_encounters_class);
       LogChannel('modRandomEncounters', "spawning type ET_HUMAN ");
+      createRandomHumanComposition(random_encounters_class);
       break;
 
     case ET_GROUP:
       LogChannel('modRandomEncounters', "spawning type ET_GROUP ");
+      createRandomGroupCreatureComposition(random_encounters_class);
       break;
 
     case ET_WILDHUNT:
       LogChannel('modRandomEncounters', "spawning type ET_WILDHUNT ");
       break;
+
+    case ET_NONE:
+        // do nothing when no EntityType was available
+        // this is here for reminding me this case exists.
+        break;
   }
-}
-
-latent function makeGroupCompositionForHumans(random_encounters_class: CRandomEncounters) {
-  var picked_human_type: EHumanType;
-  var template_human_array: array<SEnemyTemplate>;
-
-  LogChannel('modRandomEncounters', "making group composition for humans");
-
-  picked_human_type = random_encounters_class.rExtra.getRandomHumanTypeByCurrentArea();
-  template_human_array = random_encounters_class.resources.copy_template_list(
-    random_encounters_class.resources.getHumanResourcesByHumanType(picked_human_type)
-  );
-
-  createRandomHumanComposition(random_encounters_class);
-}
-
-function makeGroupCompositionForCreature(random_encounters_class: CRandomEncounters) {
-  // TODO
 }
