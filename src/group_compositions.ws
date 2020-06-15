@@ -7,6 +7,7 @@ latent function makeGroupComposition(encounter_type: EEncounterType, random_enco
   switch (encounter_type) {
     case ET_GROUND:
       LogChannel('modRandomEncounters', "spawning type ET_GROUND ");
+      createRandomGroundCreatureComposition(random_encounters_class);
       break;
 
     case ET_FLYING:
