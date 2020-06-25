@@ -36,7 +36,6 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   var current_entity_template: SEnemyTemplate;
   var rer_entity_template: CEntityTemplate;
   var chosen_template: CEntityTemplate;
-  var create_entity_helper: CCreateEntityHelper;
   var initial_position: Vector;
   var player_position: Vector;
   var blood_splats_templates: array<CEntityTemplate>;
@@ -73,20 +72,14 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
 
   blood_splats_templates = master.resources.getBloodSplatsResources();
 
-  create_entity_helper = new CCreateEntityHelper;
-  create_entity_helper.Reset();
-  theGame.CreateEntityAsync(create_entity_helper, chosen_template, initial_position, thePlayer.GetWorldRotation(), true, false, false, PM_DontPersist);
+  gryphon_entity = theGame.CreateEntity(
+    chosen_template,
+    initial_position,
+    thePlayer.GetWorldRotation(),
+    true, false, false, PM_DontPersist
+  );
 
   LogChannel('modRandomEncounters', "spawning entity at " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
-
-  player_position = thePlayer.GetWorldPosition();
-  LogChannel('modRandomEncounters', "player at " + player_position.X + " " + player_position.Y + " " + player_position.Z);
-
-  while(create_entity_helper.IsCreating()) {            
-    SleepOneFrame();
-  }
-
-  gryphon_entity = create_entity_helper.GetCreatedEntity();
 
   rer_gryphon_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
     rer_entity_template,
@@ -105,7 +98,6 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   }
 
   rer_gryphon_entity.startEncounter(blood_splats_templates);
-  
 }
 
 latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
