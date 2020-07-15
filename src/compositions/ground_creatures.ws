@@ -33,7 +33,7 @@ latent function makeGroundCreatureAmbushWitcher(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making ground creatures composition ambush witcher");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   number_of_creatures = 1;
 

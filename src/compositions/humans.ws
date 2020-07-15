@@ -85,7 +85,7 @@ latent function makeHumanCompositionAgainstCyclop(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making human composition against cyclop");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   number_of_humans = RandRange(
     3 + master.settings.selectedDifficulty,
@@ -132,7 +132,7 @@ latent function makeHumanCompositionAgainstGiant(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making human composition against giant");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   number_of_humans = RandRange(
     3 + master.settings.selectedDifficulty,
@@ -180,7 +180,7 @@ latent function makeHumanCompositionAgainstWolves(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making human composition against wolves");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   // few number of humans
   number_of_humans = RandRange(
@@ -242,7 +242,7 @@ latent function makeHumanCompositionAgainstDrowners(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making human composition against drowners");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   // few number of humans
   number_of_humans = RandRange(
@@ -299,7 +299,7 @@ latent function makeHumanCompositionAgainstNekkers(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making human composition against nekkers");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   // few number of humans
   number_of_humans = RandRange(
@@ -354,7 +354,7 @@ latent function makeHumanCompositionAmbushWitcher(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making human composition ambush witcher");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   number_of_humans = RandRange(
     2 + master.settings.selectedDifficulty,

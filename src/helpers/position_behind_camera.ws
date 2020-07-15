@@ -4,21 +4,19 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
   var player_position: Vector;
   var minimum_distance: float;
 
-  minimum_distance = 3.0;
+  minimum_distance = 10.0;
 
-  // camera_direction = theCamera.GetCameraDirection();
-
+  // value of `0.0` means the parameter was not supplied
   if (distance == 0.0) {
+    distance = 60;
+  }
+  else if (distance < minimum_distance) {
     distance = minimum_distance; // meters
   }
-
-  // camera_direction.X *= -distance;
-  // camera_direction.Y *= -distance;
 
   player_position = thePlayer.GetWorldPosition();
 
   initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -distance, -minimum_distance);
-  // initial_pos = player_position + camera_direction;
   initial_pos.Z = player_position.Z;
 
   return theGame

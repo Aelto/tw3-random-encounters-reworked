@@ -33,7 +33,7 @@ latent function makeGroupCreatureAmbushWitcher(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making group creatures composition ambush witcher");
 
-  getRandomPositionBehindCamera(initial_position, 30);
+  getRandomPositionBehindCamera(initial_position);
 
   number_of_creatures = RandRange(
     2 + master.settings.selectedDifficulty,
