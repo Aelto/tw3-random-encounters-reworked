@@ -1,61 +1,61 @@
 
-enum GroupCreatureComposition {
-  GroupCreature_AmbushWitcher = 1
-}
+// enum GroupCreatureComposition {
+//   GroupCreature_AmbushWitcher = 1
+// }
 
-latent function createRandomGroupCreatureComposition(random_encounters_class: CRandomEncounters) {
-  var group_creature_composition: GroupCreatureComposition;
+// latent function createRandomGroupCreatureComposition(random_encounters_class: CRandomEncounters) {
+//   var group_creature_composition: GroupCreatureComposition;
 
-  group_creature_composition = GroupCreature_AmbushWitcher;
+//   group_creature_composition = GroupCreature_AmbushWitcher;
 
-  switch (group_creature_composition) {
-    case GroupCreature_AmbushWitcher:
-      makeGroupCreatureAmbushWitcher(random_encounters_class);
-      break;
-  }
-}
-
-
-          //////////////////////////////////////
-          // maker functions for compositions //
-          //////////////////////////////////////
+//   switch (group_creature_composition) {
+//     case GroupCreature_AmbushWitcher:
+//       makeGroupCreatureAmbushWitcher(random_encounters_class);
+//       break;
+//   }
+// }
 
 
-latent function makeGroupCreatureAmbushWitcher(master: CRandomEncounters) {
-  var creatures_templates: array<SEnemyTemplate>;
-  var number_of_creatures: int;
+//           //////////////////////////////////////
+//           // maker functions for compositions //
+//           //////////////////////////////////////
 
-  var creatures_entities: array<CEntity>;
 
-  var i: int;
-  var summon: CNewNPC;
-  var initial_position: Vector;
+// latent function makeGroupCreatureAmbushWitcher(master: CRandomEncounters) {
+//   var creatures_templates: array<SEnemyTemplate>;
+//   var number_of_creatures: int;
 
-  LogChannel('modRandomEncounters', "making group creatures composition ambush witcher");
+//   var creatures_entities: array<CEntity>;
 
-  getRandomPositionBehindCamera(initial_position);
+//   var i: int;
+//   var summon: CNewNPC;
+//   var initial_position: Vector;
 
-  number_of_creatures = RandRange(
-    2 + master.settings.selectedDifficulty,
-    4 + master.settings.selectedDifficulty
-  );
+//   LogChannel('modRandomEncounters', "making group creatures composition ambush witcher");
 
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+//   getRandomPositionBehindCamera(initial_position);
 
-  creatures_templates = master.resources.copy_template_list(
-    master.resources.getCreatureResourceByGroundMonsterType(
-      master.rExtra.getRandomGroupCreatureByCurrentArea(master.settings)
-    )
-  );
+//   number_of_creatures = RandRange(
+//     2 + master.settings.selectedDifficulty,
+//     4 + master.settings.selectedDifficulty
+//   );
 
-  creatures_templates = fillEnemyTemplates(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates, initial_position, 0.01);
+//   LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
 
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    summon = (CNewNPC) creatures_entities[i];
+//   creatures_templates = master.resources.copy_template_list(
+//     master.resources.getCreatureResourceByGroundMonsterType(
+//       master.rExtra.getRandomGroupCreatureByCurrentArea(master.settings)
+//     )
+//   );
 
-    summon.SetLevel(GetWitcherPlayer().GetLevel());
-    summon.NoticeActor(thePlayer);
-    summon.SignalGameplayEventParamObject('ForceTarget', thePlayer);
-  }
-}
+//   creatures_templates = fillEnemyTemplates(creatures_templates, number_of_creatures);
+//   creatures_entities = spawnTemplateList(creatures_templates, initial_position, 0.01);
+
+//   for (i = 0; i < creatures_entities.Size(); i += 1) {
+//     summon = (CNewNPC) creatures_entities[i];
+
+//     summon.SetLevel(GetWitcherPlayer().GetLevel());
+//     summon.NoticeActor(thePlayer);
+//     summon.SignalGameplayEventParamObject('ForceTarget', thePlayer);
+//   }
+// }

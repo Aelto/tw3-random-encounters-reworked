@@ -1,11 +1,11 @@
 
 class RE_Resources {
-  public var novbandit, pirate, skelpirate, bandit, nilf, cannibal, renegade, skelbandit, skel2bandit, whunter: array<SEnemyTemplate>;
-  public var gryphon, gryphonf, forktail, wyvern, cockatrice, cockatricef, basilisk, basiliskf, wight, sharley  : array<SEnemyTemplate>;
-  public var fiend, chort, wildHunt, endrega, fogling, ghoul, alghoul, bear, skelbear, golem, elemental, hag, nekker : array<SEnemyTemplate>;
-  public var ekimmara, katakan, whh, drowner, rotfiend, nightwraith, noonwraith, troll, skeltroll, wolf, skelwolf, wraith : array<SEnemyTemplate>;
-  public var spider, harpy, leshen, werewolf, cyclop, arachas, vampire, skelelemental, bruxacity : array<SEnemyTemplate>;
-  public var centipede, giant, panther, kikimore, gravier, garkain, fleder, echinops, bruxa, barghest, skeleton, detlaff, boar : array<SEnemyTemplate>;
+  public var novbandit, pirate, skelpirate, bandit, nilf, cannibal, renegade, skelbandit, skel2bandit, whunter: EnemyTemplateList;
+  public var gryphon, gryphonf, forktail, wyvern, cockatrice, cockatricef, basilisk, basiliskf, wight, sharley  : EnemyTemplateList;
+  public var fiend, chort, wildHunt, endrega, fogling, ghoul, alghoul, bear, skelbear, golem, elemental, hag, nekker : EnemyTemplateList;
+  public var ekimmara, katakan, whh, drowner, rotfiend, nightwraith, noonwraith, troll, skeltroll, wolf, skelwolf, wraith : EnemyTemplateList;
+  public var spider, harpy, leshen, werewolf, cyclop, arachas, vampire, skelelemental, bruxacity : EnemyTemplateList;
+  public var centipede, giant, panther, kikimore, gravier, garkain, fleder, echinops, bruxa, barghest, skeleton, detlaff, boar : EnemyTemplateList;
 
   public var blood_splats : array<string>;
 
@@ -23,24 +23,7 @@ class RE_Resources {
     }
   }
 
-  public function copy_template_list(list_to_copy: array<SEnemyTemplate>): array<SEnemyTemplate> {
-    var copy: array<SEnemyTemplate>;
-    var i: int;
-
-    for (i = 0; i < list_to_copy.Size(); i += 1) {
-      copy.PushBack(
-        makeEnemyTemplate(
-          list_to_copy[i].template,
-          list_to_copy[i].max,
-          list_to_copy[i].count
-        )
-      );
-    }
-
-    return copy;
-  }
-
-  public function getHumanResourcesByHumanType(human_type: EHumanType): array<SEnemyTemplate> {
+  public function getHumanResourcesByHumanType(human_type: EHumanType): EnemyTemplateList {
     if (human_type == HT_BANDIT) {
       return this.bandit;
     }
@@ -75,206 +58,167 @@ class RE_Resources {
     return this.bandit;
   }
 
-  public function getCreatureResourceByGroundMonsterType(monster_type: EGroundMonsterType): array<SEnemyTemplate> {
-    LogChannel('modRandomEncounters', "get creature resource by ground monster type: " + monster_type);
+  public function getCreatureResourceBySmallCreatureType(creature_type: SmallCreatureType, out rExtra: CModRExtra): EnemyTemplateList {
+    LogChannel('modRandomEncounters', "get creature resource by small creature type: " + creature_type);
 
-    switch (monster_type) {
-      case GM_LESHEN:
-        return this.leshen;
-        break;
+    switch (creature_type) {
+      case SmallCreatureHuman:
+        return this.getHumanResourcesByHumanType(
+          rExtra.getRandomHumanTypeByCurrentArea()
+        );
 
-      case GM_WEREWOLF:
-        return this.werewolf;
-        break;
+      case (SmallCreatureARACHAS):
+        return this.arachas;
 
-      case GM_FIEND:
-        return this.fiend;
-        break;
+      case (SmallCreatureENDREGA):
+        return this.endrega;
+      
+      case (SmallCreatureGHOUL):
+        return this.ghoul;
 
-      case GM_EKIMMARA:
-        return this.ekimmara;
-        break;
+      case (SmallCreatureALGHOUL):
+        return this.alghoul;
+      
+      case (SmallCreatureNEKKER):
+        return this.nekker;
 
-      case GM_KATAKAN:
-        return this.katakan;
-        break;
+      case (SmallCreatureDROWNER):
+        return this.drowner;
 
-      case GM_BEAR:
-        if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig) {
-          if(RandRange(10) > 5) {
-            return this.skelbear;
-          }
+      case (SmallCreatureROTFIEND):
+        return this.rotfiend;
 
-          return this.bear;
-        }
+      case (SmallCreatureWOLF):
+        return this.wolf;
 
+      case (SmallCreatureWRAITH):
+        return this.wraith;
+
+      case (SmallCreatureHARPY):
+        return this.harpy;
+
+      case (SmallCreatureSPIDER):
+        return this.spider;
+
+      case (SmallCreatureCENTIPEDE):
+        return this.centipede;
+
+      case (SmallCreatureDROWNERDLC):
+        return this.gravier;
+
+      case (SmallCreatureBOAR):
+        return this.boar;
+
+      case (SmallCreatureBEAR):
         return this.bear;
-        break;
 
-      case GM_GOLEM:
-        return golem;
-        break;
+      case (SmallCreaturePANTHER):
+        return this.panther;
 
-      case GM_ELEMENTAL:
-        return elemental;
-        break;
+      case (SmallCreatureSKELETON):
+        return this.skeleton;
 
-      case GM_NIGHTWRAITH:
-        return nightwraith;
-        break;
-
-      case GM_NOONWRAITH:
-        return noonwraith;
-        break;
-
-      case GM_CHORT:
-        return chort;
-        break;
-    
-      case GM_ARACHAS:
-        return arachas;
-        break;
-
-      case GM_CYCLOPS:
-        return cyclop;
-        break;
-
-      case GM_TROLL:
-        if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig){
-          if(RandRange(10)>5) {
-            return skeltroll;
-          }
-          return troll;
-        }
-
-        return troll;
-        break;
-    
-      case GM_HAG:
-        return hag;
-        break;
-
-      case GM_BRUXA:
-        return bruxa;
-        break;
-
-      case GM_DETLAFF:
-        return detlaff;
-        break;
-
-      case GM_GARKAIN:
-        return garkain;
-        break;
-
-      case GM_FLEDER:
-        return fleder;
-        break;
-
-      case GM_PANTHER:
-        return panther;
-        break;
-
-      case GM_SHARLEY:
-        return sharley;
-        break;
-
-      case GM_GIANTDLC:
-        return giant;
-        break;
-
-      case GM_BOAR:
-        return boar;
-        break;
-
-      case GM_BARGHEST:
+      case (SmallCreatureBARGHEST):
         return this.barghest;
-        break;
 
-      case GM_FOGLET:
-        return fogling;
-        break;
-
-      case GM_ENDREGA:
-        return endrega;
-        break;
-
-      case GM_GHOUL:
-        return ghoul;
-        break;
-
-      case GM_ALGHOUL:
-        return alghoul;
-        break;
-
-      case GM_NEKKER:
-        return nekker;
-        break;
-
-      case GM_DROWNER:
-        return drowner;
-        break;
-
-      case GM_ROTFIEND:
-        return rotfiend;
-        break;
-
-      case GM_WOLF:
-        if (theGame.GetCommonMapManager().GetCurrentArea() == AN_Skellige_ArdSkellig) {
-          if(RandRange(10)>5) {
-            return skelwolf;
-          }
-
-          return wolf;
-        }
-        
-        return wolf;
-        break;
-
-      case GM_WRAITH:
-        return wraith;
-        break;
-
-      case GM_HARPY:
-        return harpy;
-        break;
-
-      case GM_SPIDER:
-        return spider;
-        break;
-
-      case GM_HAG:
-        return hag;
-        break;
-
-      // BLOOD AND WINE
-      case GM_CENTIEDE:   
-        return centipede;
-        break;
-
-      case GM_ECHINOPS:
-        return echinops;
-        break;
-
-      case GM_KIKIMORE:
-        return kikimore;
-        break;
-
-      case GM_BARGHEST:
-        return barghest;
-        break;
-
-      case GM_WIGHT:
-        return wight;
-        break;
-
-      case GM_DROWNERDLC:
-        return gravier;
-        break;
-
-      case GM_SKELETON:
-        return skeleton;
-        break;
+      case (SmallCreatureKIKIMORE):
+        return this.kikimore;
     }
+
+    LogChannel('modRandomEncounters', "unhandled small creature type, default to human: " + creature_type);
+
+    return this.getHumanResourcesByHumanType(
+      rExtra.getRandomHumanTypeByCurrentArea()
+    );
+  }
+
+  public function getCreatureResourceByLargeCreatureType(creature_type: LargeCreatureType): EnemyTemplateList {
+    switch (creature_type) {
+      case (LargeCreatureLESHEN):
+        return this.leshen;
+
+      case (LargeCreatureWEREWOLF):
+        return this.werewolf;
+
+      case (LargeCreatureFIEND):
+        return this.fiend;
+
+      case (LargeCreatureEKIMMARA):
+        return this.ekimmara;
+
+      case (LargeCreatureKATAKAN):
+        return this.katakan;
+
+      case (LargeCreatureGOLEM):
+        return this.golem;
+
+      case (LargeCreatureELEMENTAL):
+        return this.elemental;
+
+      case (LargeCreatureNIGHTWRAITH):
+        return this.nightwraith;
+
+      case (LargeCreatureNOONWRAITH):
+        return this.noonwraith;
+
+      case (LargeCreatureCHORT):
+        return this.chort;
+
+      case (LargeCreatureCYCLOPS):
+        return this.cyclop;
+
+      case (LargeCreatureTROLL):
+        return this.troll;
+
+      case (LargeCreatureHAG):
+        return this.hag;
+
+      case (LargeCreatureFOGLET):
+        return this.fogling;
+
+      case (LargeCreatureBRUXA):
+        return this.bruxa;
+
+      case (LargeCreatureFLEDER):
+        return this.fleder;
+
+      case (LargeCreatureGARKAIN):
+        return this.garkain;
+
+      case (LargeCreatureDETLAFF):
+        return this.detlaff;
+
+      case (LargeCreatureGIANT):
+        return this.giant;
+
+      case (LargeCreatureSHARLEY):
+        return this.sharley;
+
+      case (LargeCreatureWIGHT):
+        return this.wight;
+
+      case (LargeCreatureVAMPIRE):
+        return this.vampire;
+
+      case (LargeCreatureGRYPHON):
+        return this.gryphon;
+
+      case (LargeCreatureCOCKATRICE):
+        return this.cockatrice;
+
+      case (LargeCreatureBASILISK):
+        return this.basilisk;
+
+      case (LargeCreatureWYVERN):
+        return this.wyvern;
+
+      case (LargeCreatureFORKTAIL):
+        return this.forktail;
+    }
+
+    LogChannel('modRandomEncounters', "unhandled small creature type, default to werewolf: " + creature_type);
+
+    return this.werewolf;
   }
 
   private function load_blood_splats() {

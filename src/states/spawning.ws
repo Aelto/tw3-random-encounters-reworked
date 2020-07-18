@@ -9,7 +9,7 @@ state Spawning in CRandomEncounters {
   }
 
   entry function triggerCreaturesSpawn() {
-    var picked_entity_type: EEncounterType;
+    var picked_entity_type: CreatureType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
     
@@ -55,76 +55,20 @@ state Spawning in CRandomEncounters {
         && !parent.settings.citySpawn;
   }
 
-  function getRandomEntityTypeWithSettings(): EEncounterType {
-    var choice : array<EEncounterType>;
-
+  function getRandomEntityTypeWithSettings(): CreatureType {
     if (theGame.envMgr.IsNight()) {
-      choice = this.getRandomEntityTypeForNight();
+      if (RandRange(100) < 10) {
+        return LARGE_CREATURE;
+      }
+
+      return SMALL_CREATURE;
     }
     else {
-      choice = this.getRandomEntityTypeForDay();
+      if (RandRange(100) < 5) {
+        return LARGE_CREATURE;
+      }
+
+      return SMALL_CREATURE;
     }
-
-    if (choice.Size() < 1) {
-      return ET_NONE;
-    }
-
-    return choice[RandRange(choice.Size())];
-  }
-
-  function getRandomEntityTypeForNight(): array<EEncounterType> {
-    var choice: array<EEncounterType>;
-    var i: int;
-
-    // for (i = 0; i < parent.settings.isGroundActiveN; i += 1) {
-    //   choice.PushBack(ET_GROUND);
-    // }
-
-    // TODO: add inForest factor, maybe 0.5?
-    // for (i = 0; i < parent.settings.isFlyingActiveN; i += 1) {
-    //   choice.PushBack(ET_FLYING);
-    // }
-
-    for (i = 0; i < parent.settings.isHumanActiveN; i += 1) {
-      choice.PushBack(ET_HUMAN);
-    }
-
-    for (i = 0; i < parent.settings.isGroupActiveN; i += 1) {
-      choice.PushBack(ET_GROUP);
-    }
-
-    // for (i = 0; i < parent.settings.isWildHuntActiveN; i += 1) {
-    //   choice.PushBack(ET_WILDHUNT);
-    // }
-
-    return choice;
-  }
-
-  function getRandomEntityTypeForDay(): array<EEncounterType> {
-    var choice: array<EEncounterType>;
-    var i: int;
-
-    // for (i = 0; i < parent.settings.isGroundActiveD; i += 1) {
-    //   choice.PushBack(ET_GROUND);
-    // }
-
-    // TODO: add inForest factor, maybe 0.5?
-    // for (i = 0; i < parent.settings.isFlyingActiveD; i += 1) {
-    //   choice.PushBack(ET_FLYING);
-    // }
-
-    for (i = 0; i < parent.settings.isHumanActiveD; i += 1) {
-      choice.PushBack(ET_HUMAN);
-    }
-
-    for (i = 0; i < parent.settings.isGroupActiveD; i += 1) {
-      choice.PushBack(ET_GROUP);
-    }
-
-    // for (i = 0; i < parent.settings.isWildHuntActiveD; i += 1) {
-    //   choice.PushBack(ET_WILDHUNT);
-    // }
-
-    return choice;
   }
 }

@@ -9,6 +9,8 @@ state Waiting in CRandomEncounters {
       parent.ticks_before_spawn = parent.ticks_before_spawn / 3;
     }
 
+    LogChannel('modRandomEncounters', "waiting " + parent.ticks_before_spawn + " ticks");
+
     this.startWaiting();
   }
 
@@ -25,46 +27,10 @@ state Waiting in CRandomEncounters {
   }
 
   function calculateRandomTicksBeforeSpawn(): int {
-    if (parent.settings.customFrequency) {
-      if (theGame.envMgr.IsNight()) {
-        return RandRange(parent.settings.customNightMin, parent.settings.customNightMax);
-      }
-
-      return RandRange(parent.settings.customDayMin, parent.settings.customDayMax);
-    }
-    
     if (theGame.envMgr.IsNight()) {
-      switch (parent.settings.chanceNight) {
-        case 1:
-          return RandRange(1400, 3200);
-          break;
-        
-        case 2:
-          return RandRange(800, 1600);
-          break;
-
-        case 3:
-          return RandRange(500, 900);
-          break;
-      }
-
-      return 99999;
+      return RandRange(parent.settings.customNightMin, parent.settings.customNightMax);
     }
 
-    switch (parent.settings.chanceDay) {
-      case 1:
-        return RandRange(1400, 3900);
-        break;
-
-      case 2:
-        return RandRange(800, 1800);
-        break;
-
-      case 3:
-        return RandRange(500, 1100);
-        break;
-    }
-
-    return 99999;
+    return RandRange(parent.settings.customDayMin, parent.settings.customDayMax);
   }
 }

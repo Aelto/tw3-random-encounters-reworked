@@ -16,8 +16,13 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
 
   player_position = thePlayer.GetWorldPosition();
 
-  initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -distance, -minimum_distance);
-  initial_pos.Z = player_position.Z;
+  initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -minimum_distance, -distance);
+  
+  FixZAxis(initial_pos);
+
+  if (initial_pos.Z >= theGame.GetWorld().GetWaterLevel(initial_pos, true)) {
+    return false;
+  }
 
   return theGame
     .GetWorld()

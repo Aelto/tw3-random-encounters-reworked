@@ -1,58 +1,58 @@
 
-enum GroundCreatureComposition {
-  GroundCreature_AmbushWitcher = 1
-}
+// enum GroundCreatureComposition {
+//   GroundCreature_AmbushWitcher = 1
+// }
 
-latent function createRandomGroundCreatureComposition(random_encounters_class: CRandomEncounters) {
-  var ground_creature_composition: GroundCreatureComposition;
+// latent function createRandomGroundCreatureComposition(random_encounters_class: CRandomEncounters) {
+//   var ground_creature_composition: GroundCreatureComposition;
 
-  ground_creature_composition = GroundCreature_AmbushWitcher;
+//   ground_creature_composition = GroundCreature_AmbushWitcher;
 
-  switch (ground_creature_composition) {
-    case GroundCreature_AmbushWitcher:
-      makeGroundCreatureAmbushWitcher(random_encounters_class);
-      break;
-  }
-}
-
-
-          //////////////////////////////////////
-          // maker functions for compositions //
-          //////////////////////////////////////
+//   switch (ground_creature_composition) {
+//     case GroundCreature_AmbushWitcher:
+//       makeGroundCreatureAmbushWitcher(random_encounters_class);
+//       break;
+//   }
+// }
 
 
-latent function makeGroundCreatureAmbushWitcher(master: CRandomEncounters) {
-  var creatures_templates: array<SEnemyTemplate>;
-  var number_of_creatures: int;
+//           //////////////////////////////////////
+//           // maker functions for compositions //
+//           //////////////////////////////////////
 
-  var creatures_entities: array<CEntity>;
 
-  var i: int;
-  var summon: CNewNPC;
-  var initial_position: Vector;
+// latent function makeGroundCreatureAmbushWitcher(master: CRandomEncounters) {
+//   var creatures_templates: array<SEnemyTemplate>;
+//   var number_of_creatures: int;
 
-  LogChannel('modRandomEncounters', "making ground creatures composition ambush witcher");
+//   var creatures_entities: array<CEntity>;
 
-  getRandomPositionBehindCamera(initial_position);
+//   var i: int;
+//   var summon: CNewNPC;
+//   var initial_position: Vector;
 
-  number_of_creatures = 1;
+//   LogChannel('modRandomEncounters', "making ground creatures composition ambush witcher");
 
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+//   getRandomPositionBehindCamera(initial_position);
 
-  creatures_templates = master.resources.copy_template_list(
-    master.resources.getCreatureResourceByGroundMonsterType(
-      master.rExtra.getRandomGroundCreatureByCurrentArea(master.settings)
-    )
-  );
+//   number_of_creatures = 1;
 
-  creatures_templates = fillEnemyTemplates(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates, initial_position, 0.01);
+//   LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
 
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    summon = (CNewNPC) creatures_entities[i];
+//   creatures_templates = master.resources.copy_template_list(
+//     master.resources.getCreatureResourceByGroundMonsterType(
+//       master.rExtra.getRandomGroundCreatureByCurrentArea(master.settings)
+//     )
+//   );
 
-    summon.SetLevel(GetWitcherPlayer().GetLevel());
-    summon.NoticeActor(thePlayer);
-    summon.SignalGameplayEventParamObject('ForceTarget', thePlayer);
-  }
-}
+//   creatures_templates = fillEnemyTemplates(creatures_templates, number_of_creatures);
+//   creatures_entities = spawnTemplateList(creatures_templates, initial_position, 0.01);
+
+//   for (i = 0; i < creatures_entities.Size(); i += 1) {
+//     summon = (CNewNPC) creatures_entities[i];
+
+//     summon.SetLevel(GetWitcherPlayer().GetLevel());
+//     summon.NoticeActor(thePlayer);
+//     summon.SignalGameplayEventParamObject('ForceTarget', thePlayer);
+//   }
+// }
