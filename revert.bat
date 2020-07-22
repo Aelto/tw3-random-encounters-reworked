@@ -1,1 +1,0 @@
-node replace-scripts.js --revert
