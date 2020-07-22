@@ -9,8 +9,33 @@ class RE_Resources {
 
   public var blood_splats : array<string>;
 
+  public var small_creatures_resources: array<EnemyTemplateList>;
+  public var large_creatures_resources: array<EnemyTemplateList>;
+  public var humans_resources: array<EnemyTemplateList>;
+
 
   function load_resources() {
+    var i: int;
+    var empty_enemy_template_list: EnemyTemplateList;
+
+    if (this.small_creatures_resources.Size() == 0) {
+      for (i = 0; i < SmallCreatureMAX; i += 1) {
+        this.small_creatures_resources.PushBack(empty_enemy_template_list);
+      }
+    }
+
+    if (this.large_creatures_resources.Size() == 0) {
+      for (i = 0; i < LargeCreatureMAX; i += 1) {
+        this.large_creatures_resources.PushBack(empty_enemy_template_list);
+      }
+    }
+
+    if (this.humans_resources.Size() == 0) {
+      for (i = 0; i < HT_MAX; i += 1) {
+        this.humans_resources.PushBack(empty_enemy_template_list);
+      }
+    }
+
     this.load_blood_splats();
     this.load_default_entities();
 
@@ -24,201 +49,27 @@ class RE_Resources {
   }
 
   public function getHumanResourcesByHumanType(human_type: EHumanType): EnemyTemplateList {
-    if (human_type == HT_BANDIT) {
-      return this.bandit;
-    }
-    else if (human_type == HT_NOVBANDIT) {
-      return this.novbandit;
-    }
-    else if (human_type == HT_SKELBANDIT) {
-      return this.skelbandit;
-    }
-    else if (human_type == HT_SKELBANDIT2) {
-      return this.skel2bandit;
-    }
-    else if (human_type == HT_CANNIBAL) {
-      return this.cannibal;
-    }
-    else if (human_type == HT_RENEGADE) {
-      return this.renegade;
-    }
-    else if (human_type == HT_PIRATE) {
-      return this.pirate;
-    }
-    else if (human_type == HT_SKELPIRATE) {
-      return this.skelpirate;
-    }
-    else if (human_type == HT_NILFGAARDIAN) {
-      return this.nilf;
-    }
-    else if (human_type == HT_WITCHHUNTER) {
-      return this.whunter;
-    }
-    
-    return this.bandit;
+    LogChannel('modRandomEncounters', "get human resource by human type: " + human_type);
+
+    return this.humans_resources[human_type];
   }
 
   public function getCreatureResourceBySmallCreatureType(creature_type: SmallCreatureType, out rExtra: CModRExtra): EnemyTemplateList {
     LogChannel('modRandomEncounters', "get creature resource by small creature type: " + creature_type);
 
-    switch (creature_type) {
-      case SmallCreatureHuman:
-        return this.getHumanResourcesByHumanType(
-          rExtra.getRandomHumanTypeByCurrentArea()
-        );
-
-      case (SmallCreatureARACHAS):
-        return this.arachas;
-
-      case (SmallCreatureENDREGA):
-        return this.endrega;
-      
-      case (SmallCreatureGHOUL):
-        return this.ghoul;
-
-      case (SmallCreatureALGHOUL):
-        return this.alghoul;
-      
-      case (SmallCreatureNEKKER):
-        return this.nekker;
-
-      case (SmallCreatureDROWNER):
-        return this.drowner;
-
-      case (SmallCreatureROTFIEND):
-        return this.rotfiend;
-
-      case (SmallCreatureWOLF):
-        return this.wolf;
-
-      case (SmallCreatureWRAITH):
-        return this.wraith;
-
-      case (SmallCreatureHARPY):
-        return this.harpy;
-
-      case (SmallCreatureSPIDER):
-        return this.spider;
-
-      case (SmallCreatureCENTIPEDE):
-        return this.centipede;
-
-      case (SmallCreatureDROWNERDLC):
-        return this.gravier;
-
-      case (SmallCreatureBOAR):
-        return this.boar;
-
-      case (SmallCreatureBEAR):
-        return this.bear;
-
-      case (SmallCreaturePANTHER):
-        return this.panther;
-
-      case (SmallCreatureSKELETON):
-        return this.skeleton;
-
-      case (SmallCreatureBARGHEST):
-        return this.barghest;
-
-      case (SmallCreatureKIKIMORE):
-        return this.kikimore;
+    if (creature_type == SmallCreatureHuman) {
+      return this.getHumanResourcesByHumanType(
+        rExtra.getRandomHumanTypeByCurrentArea()
+      );
     }
 
-    LogChannel('modRandomEncounters', "unhandled small creature type, default to human: " + creature_type);
-
-    return this.getHumanResourcesByHumanType(
-      rExtra.getRandomHumanTypeByCurrentArea()
-    );
+    return this.small_creatures_resources[creature_type];
   }
 
   public function getCreatureResourceByLargeCreatureType(creature_type: LargeCreatureType): EnemyTemplateList {
-    switch (creature_type) {
-      case (LargeCreatureLESHEN):
-        return this.leshen;
+    LogChannel('modRandomEncounters', "get creature resource by large creature type: " + creature_type);
 
-      case (LargeCreatureWEREWOLF):
-        return this.werewolf;
-
-      case (LargeCreatureFIEND):
-        return this.fiend;
-
-      case (LargeCreatureEKIMMARA):
-        return this.ekimmara;
-
-      case (LargeCreatureKATAKAN):
-        return this.katakan;
-
-      case (LargeCreatureGOLEM):
-        return this.golem;
-
-      case (LargeCreatureELEMENTAL):
-        return this.elemental;
-
-      case (LargeCreatureNIGHTWRAITH):
-        return this.nightwraith;
-
-      case (LargeCreatureNOONWRAITH):
-        return this.noonwraith;
-
-      case (LargeCreatureCHORT):
-        return this.chort;
-
-      case (LargeCreatureCYCLOPS):
-        return this.cyclop;
-
-      case (LargeCreatureTROLL):
-        return this.troll;
-
-      case (LargeCreatureHAG):
-        return this.hag;
-
-      case (LargeCreatureFOGLET):
-        return this.fogling;
-
-      case (LargeCreatureBRUXA):
-        return this.bruxa;
-
-      case (LargeCreatureFLEDER):
-        return this.fleder;
-
-      case (LargeCreatureGARKAIN):
-        return this.garkain;
-
-      case (LargeCreatureDETLAFF):
-        return this.detlaff;
-
-      case (LargeCreatureGIANT):
-        return this.giant;
-
-      case (LargeCreatureSHARLEY):
-        return this.sharley;
-
-      case (LargeCreatureWIGHT):
-        return this.wight;
-
-      case (LargeCreatureVAMPIRE):
-        return this.vampire;
-
-      case (LargeCreatureGRYPHON):
-        return this.gryphon;
-
-      case (LargeCreatureCOCKATRICE):
-        return this.cockatrice;
-
-      case (LargeCreatureBASILISK):
-        return this.basilisk;
-
-      case (LargeCreatureWYVERN):
-        return this.wyvern;
-
-      case (LargeCreatureFORKTAIL):
-        return this.forktail;
-    }
-
-    LogChannel('modRandomEncounters', "unhandled small creature type, default to werewolf: " + creature_type);
-
-    return this.werewolf;
+    return this.large_creatures_resources[creature_type];
   }
 
   private function load_blood_splats() {
@@ -229,77 +80,85 @@ class RE_Resources {
   }
 
   private function loadBloodAndWineResources() {
-    wight = re_wight();
-    sharley = re_sharley();
-    centipede = re_centipede();
-    giant = re_giant();
-    panther = re_panther();
-    kikimore = re_kikimore();
-    gravier = re_gravier();
-    garkain = re_garkain();
-    fleder = re_fleder();
-    echinops = re_echinops();
-    bruxa = re_bruxa();
-    barghest = re_barghest();
-    skeleton = re_skeleton();
-    detlaff = re_detlaff();
+    this.large_creatures_resources[LargeCreatureWIGHT] = re_wight();
+    this.large_creatures_resources[LargeCreatureSHARLEY] = re_sharley();
+    this.small_creatures_resources[SmallCreatureCENTIPEDE] = re_centipede();
+    this.large_creatures_resources[LargeCreatureGIANT] = re_giant();
+    this.small_creatures_resources[SmallCreaturePANTHER] = re_panther();
+    this.small_creatures_resources[SmallCreatureKIKIMORE] = re_kikimore();
+    this.small_creatures_resources[SmallCreatureDROWNERDLC] = re_gravier();
+    this.large_creatures_resources[LargeCreatureGARKAIN] = re_garkain();
+    this.large_creatures_resources[LargeCreatureFLEDER] = re_fleder();
+    this.small_creatures_resources[SmallCreatureECHINOPS] = re_echinops();
+    this.large_creatures_resources[LargeCreatureBRUXA] = re_bruxa();
+    this.small_creatures_resources[SmallCreatureBARGHEST] = re_barghest();
+    this.small_creatures_resources[SmallCreatureSKELETON] = re_skeleton();
+    this.large_creatures_resources[LargeCreatureDETLAFF] = re_detlaff();
   }
 
   private function loadHearOfStoneResources() {
-    spider = re_spider();
-    boar = re_boar();
+    this.small_creatures_resources[SmallCreatureSPIDER] = re_spider();
+    this.small_creatures_resources[SmallCreatureBOAR] = re_boar();
   }
 
   private function load_default_entities() {
-    novbandit = re_novbandit();
-    pirate = re_pirate();
-    skelpirate = re_skelpirate();
-    bandit = re_bandit();
-    nilf = re_nilf();
-    cannibal = re_cannibal();
-    renegade = re_renegade();
-    skelbandit = re_skelbandit();
-    skel2bandit = re_skel2bandit();
-    whunter = re_whunter();
-    gryphon = re_gryphon();
-    //gryphonf = re_gryphonf();
-    forktail = re_forktail();
-    wyvern = re_wyvern();
-    cockatrice = re_cockatrice();
+    this.large_creatures_resources[LargeCreatureGRYPHON] = re_gryphon();
+    this.large_creatures_resources[LargeCreatureFORKTAIL] = re_forktail();
+    this.large_creatures_resources[LargeCreatureWYVERN] = re_wyvern();
+    this.large_creatures_resources[LargeCreatureCOCKATRICE] = re_cockatrice();
     //cockatricef = re_cockatricef();
-    basilisk = re_basilisk();
+    this.large_creatures_resources[LargeCreatureBASILISK] = re_basilisk();
     //basiliskf = re_basiliskf();
-    fiend = re_fiend();
-    chort = re_chort();
-    endrega = re_endrega();
-    fogling = re_fogling();
-    ghoul = re_ghoul();
-    alghoul = re_alghoul();
-    bear = re_bear();
-    skelbear = re_skelbear();
-    golem = re_golem();
-    elemental = re_elemental();
-    hag = re_hag();
-    nekker = re_nekker();
-    ekimmara = re_ekimmara();
-    katakan = re_katakan();
-    whh = re_whh();
-    wildHunt = re_wildhunt();
-    drowner = re_drowner();
-    rotfiend = re_rotfiend();
-    nightwraith = re_nightwraith();
-    noonwraith = re_noonwraith();
-    troll = re_troll();
-    skeltroll = re_skeltroll();
-    wolf = re_wolf();
-    skelwolf = re_skelwolf();
-    wraith = re_wraith();    
-    harpy = re_harpy();
-    leshen = re_leshen();
-    werewolf = re_werewolf();
-    cyclop = re_cyclop();
-    arachas = re_arachas();
-    bruxacity = re_bruxacity();
+    this.small_creatures_resources[LargeCreatureFIEND] = re_fiend();
+    this.large_creatures_resources[LargeCreatureCHORT] = re_chort();
+    this.small_creatures_resources[SmallCreatureENDREGA] = re_endrega();
+    this.large_creatures_resources[LargeCreatureFOGLET] = re_fogling();
+    this.small_creatures_resources[SmallCreatureGHOUL] = re_ghoul();
+    this.small_creatures_resources[SmallCreatureALGHOUL] = re_alghoul();
+    this.small_creatures_resources[SmallCreatureBEAR] = re_bear();
+    
+    
+    this.large_creatures_resources[LargeCreatureGOLEM] = re_golem();
+    this.large_creatures_resources[LargeCreatureELEMENTAL] = re_elemental();
+    this.large_creatures_resources[LargeCreatureHAG] = re_hag();
+    this.small_creatures_resources[SmallCreatureNEKKER] = re_nekker();
+    this.large_creatures_resources[LargeCreatureEKIMMARA] = re_ekimmara();
+    this.large_creatures_resources[LargeCreatureKATAKAN] = re_katakan();
+    
+    
+    this.small_creatures_resources[SmallCreatureDROWNER] = re_drowner();
+    this.small_creatures_resources[SmallCreatureROTFIEND] = re_rotfiend();
+    this.large_creatures_resources[LargeCreatureNIGHTWRAITH] = re_nightwraith();
+    this.large_creatures_resources[LargeCreatureNOONWRAITH] = re_noonwraith();
+    this.large_creatures_resources[LargeCreatureTROLL] = re_troll();
+    
+    this.small_creatures_resources[SmallCreatureWOLF] = re_wolf();
+    
+    this.small_creatures_resources[SmallCreatureWRAITH] = re_wraith();    
+    this.small_creatures_resources[SmallCreatureHARPY] = re_harpy();
+    this.large_creatures_resources[LargeCreatureLESHEN] = re_leshen();
+    this.large_creatures_resources[LargeCreatureWEREWOLF] = re_werewolf();
+    this.large_creatures_resources[LargeCreatureCYCLOPS] = re_cyclop();
+    this.small_creatures_resources[SmallCreatureARACHAS] = re_arachas();
+    this.large_creatures_resources[LargeCreatureBRUXA] = re_bruxacity();
+
+    this.large_creatures_resources[LargeCreatureSKELTROLL] = re_skeltroll();
+    this.small_creatures_resources[SmallCreatureSKELBEAR] = re_skelbear();
+    this.small_creatures_resources[SmallCreatureSKELWOLF] = re_skelwolf();
+
+    // whh = re_whh();
+    this.small_creatures_resources[SmallCreatureWILDHUNT] = re_wildhunt();
+
+    this.humans_resources[HT_BANDIT] = re_bandit();
+    this.humans_resources[HT_NOVBANDIT] = re_novbandit();
+    this.humans_resources[HT_SKELBANDIT] = re_skelbandit();
+    this.humans_resources[HT_SKELBANDIT2] = re_skel2bandit();
+    this.humans_resources[HT_CANNIBAL] = re_cannibal();
+    this.humans_resources[HT_RENEGADE] = re_renegade();
+    this.humans_resources[HT_PIRATE] = re_pirate();
+    this.humans_resources[HT_SKELPIRATE] = re_skelpirate();
+    this.humans_resources[HT_NILFGAARDIAN] = re_nilf();
+    this.humans_resources[HT_WITCHHUNTER] = re_whunter();
   }
 }
 

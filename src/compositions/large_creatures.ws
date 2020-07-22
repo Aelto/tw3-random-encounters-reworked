@@ -34,10 +34,17 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
   LogChannel('modRandomEncounters', "making large creatures composition ambush witcher");
 
   creatures_templates = master.resources.getCreatureResourceByLargeCreatureType(
-    master.rExtra.getRandomLargeCreatureByCurrentArea(master.settings)
+    master.rExtra.getRandomLargeCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    )
   );
 
-  getRandomPositionBehindCamera(initial_position);
+  if (!getRandomPositionBehindCamera(initial_position)) {
+    LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+    return;
+  }
 
   number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,

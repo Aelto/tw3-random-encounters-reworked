@@ -34,11 +34,18 @@ latent function makeSmallCreatureAmbushWitcher(out master: CRandomEncounters) {
   LogChannel('modRandomEncounters', "making small creatures composition ambush witcher");
 
   creatures_templates = master.resources.getCreatureResourceBySmallCreatureType(
-    master.rExtra.getRandomSmallCreatureByCurrentArea(master.settings),
+    master.rExtra.getRandomSmallCreatureByCurrentArea(master.settings, master.spawn_roller),
     master.rExtra
   );
 
-  getRandomPositionBehindCamera(initial_position);
+  if (!getRandomPositionBehindCamera(initial_position)) {
+    LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+    return;
+  }
+
+  LogChannel('modRandomEncounters', "spawning position found : " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
+
 
   number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,

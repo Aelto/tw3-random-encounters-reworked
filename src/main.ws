@@ -18,6 +18,7 @@ statemachine class CRandomEncounters extends CEntity {
   var rExtra: CModRExtra;
   var settings: RE_Settings;
   var resources: RE_Resources;
+  var spawn_roller: SpawnRoller;
 
   var ticks_before_spawn: int;
 
@@ -34,7 +35,7 @@ statemachine class CRandomEncounters extends CEntity {
     else {
       this.AddTag('RandomEncounterTag');
 
-      theInput.RegisterListener(this, 'OnRefreshSettings', 'RefreshRESetting');
+      theInput.RegisterListener(this, 'OnRefreshSettings', 'OnRefreshSettings');
       theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
 
       super.OnSpawned(spawn_data);
@@ -42,12 +43,17 @@ statemachine class CRandomEncounters extends CEntity {
       rExtra = new CModRExtra in this;
       settings = new RE_Settings in this;
       resources = new RE_Resources in this;
+      spawn_roller = new SpawnRoller in this;
+
+      this.spawn_roller.fill_arrays();
 
       this.initiateRandomEncounters();
     }
   }
 
   event OnRefreshSettings(action: SInputAction) {
+    LogChannel('modRandomEncounters', "settings refreshed");
+    
     if (IsPressed(action)) {
       this.settings.loadXMLSettingsAndShowNotification();
       this.GotoState('Waiting');
@@ -56,6 +62,8 @@ statemachine class CRandomEncounters extends CEntity {
 
   event OnSpawnMonster(action: SInputAction) {
     LogChannel('modRandomEncounters', "on spawn event");
+  
+    this.GotoState('Spawning');
   }
 
   private function initiateRandomEncounters() {

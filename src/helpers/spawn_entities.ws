@@ -44,7 +44,12 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
       
     pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
 
-    theGame.GetWorld().StaticTrace( pos_fin + Vector(0,0,3), pos_fin - Vector(0,0,3), pos_fin, normal);
+    // return false means it could not find ground position
+    // in this case, take the default position
+    // if return true, then pos_fin is updated with the correct position
+    if (!getGroundPosition(pos_fin)) {
+      pos_fin = initial_position;
+    }
 
     createEntityHelper.Reset();
     theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);

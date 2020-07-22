@@ -1,62 +1,38 @@
 
 class RE_Settings {
 
-  public var customFlying, customGround, customGroup : bool;
 	
-	
-	public var isFlyingActiveD, isGroundActiveD, isHumanActiveD, isGroupActiveD, isWildHuntActiveD : int;
-  public	var isFlyingActiveN, isGroundActiveN, isHumanActiveN, isGroupActiveN, isWildHuntActiveN : int;
-	
-	public var isGryphonsD, isCockatriceD, isWyvernsD, isForktailsD, isBasiliskD : int;
-  public var isGryphonsN, isCockatriceN, isWyvernsN, isForktailsN, isBasiliskN : int;
-  public var isCGryphons, isCCockatrice, isCWyverns, isCForktails, isCBasilisk : bool;
-	
-	public var isLeshensD, isWerewolvesD, isFiendsD, isBearsD, isGolemsD, isElementalsD, isHarpyD, isCyclopsD, isArachasD, isTrollD, isBoarD : int;
-  public var isNightWraithsD, isNoonWraithsD, isHagsD, isFoglingD, isEndregaD, isGhoulsD, isAlghoulsD, isChortsD, isEkimmaraD, isKatakanD, isBruxaD : int;
-  public var isNekkersD, isWildhuntHoundsD, isWildhuntSoldiersD, isDrownersD, isRotfiendsD, isWolvesD, isWraithsD, isHigherVampD, isFlederD, isGarkainD : int;
-  public var isSpidersD, isPantherD, isSharleyD, isGiantD, isBarghestD, isEchinopsD, isCentipedeD, isKikimoreD, isWightD, isDrownerDLCD, isSkeletonD : int;
-	
-  public var isLeshensN, isWerewolvesN, isFiendsN, isBearsN, isGolemsN, isElementalsN, isHarpyN, isCyclopsN, isArachasN, isTrollN, isBoarN : int;
-  public var isNightWraithsN, isNoonWraithsN, isHagsN, isFoglingN, isEndregaN, isGhoulsN, isAlghoulsN, isChortsN, isWightN, isEchinopsN, isDrownerDLCN : int;
-  public var isNekkersN, isDrownersN, isRotfiendsN, isWolvesN, isWraithsN, isBruxaN, isHigherVampN, isGarkainN, isFlederN, isKikimoreN, isSkeletonN : int;
-  public var isSpidersN, isWildhuntHoundsN, isWildhuntSoldiersN, isEkimmaraN, isKatakanN, isPantherN, isSharleyN, isGiantN, isBarghestN, isCentipedeN : int;
-	
-	public var isCHarpy, isCCyclops, isCArachas, isCChorts, isCTroll, isCEkimmara, isCKatakan, isCBruxa, isCHigherVamp, isCFleder, isCGarkain : bool;
-  public var isCLeshens, isCWerewolves, isCFiends, isCVampires, isCBears, isCGolems, isCElementals, isCPanther, isCSharley, isCGiant, isCBoar : bool;
-  public var isCNightWraiths, isCNoonWraiths, isCHags, isCFogling, isCEndrega, isCGhouls, isCAlghouls, isCNekkers, isCKikimore, isCWight : bool;
-  public var isCDrowners, isCRotfiends, isCWolves, isCWraiths, isCSpiders, isCSkeleton, isCDrownerDLC, isCBarghest, isCEchinops, isCCentipede : bool;
-
-	public	var customDayMax, customDayMin, customNightMax, customNightMin	: int;
+	public var customDayMax, customDayMin, customNightMax, customNightMin	: int;
 	public var flyingMonsterHunts, groundMonsterHunts, groupMonsterHunts	: int;
-	public var customFrequency, enableTrophies : bool;
+	public var enableTrophies : bool;
   public var cityBruxa, citySpawn : int;
-  public	var selectedDifficulty	: int;
-  public var chanceDay, chanceNight : int;
+  public var selectedDifficulty	: int;
+
+  // uses the enum `SmallCreature` and its values for the index/key.
+  // and the `int` for the value/chance.
+  public var small_creatures_chances_day: array<int>;
+  public var small_creatures_chances_night: array<int>;
+
+  // uses the enum `LargeCreature` and its values for the index/key.
+  // and the `int` for the value/chance.
+  public var large_creatures_chances_day: array<int>;
+  public var large_creatures_chances_night: array<int>;
 
   function loadXMLSettings() {
     var inGameConfigWrapper : CInGameConfigWrapper;
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    this.loadDayEncounterChance(inGameConfigWrapper);
-    this.loadNightEncounterChance(inGameConfigWrapper);
 
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
-
-    this.loadDayFrequency(inGameConfigWrapper);
-    this.loadNightFrequency(inGameConfigWrapper);
 
     this.loadTrophiesSettings(inGameConfigWrapper);
     this.loadDifficultySettings(inGameConfigWrapper);
     this.loadCitySpawnSettings(inGameConfigWrapper);
 
-    this.flyingMonsterList(inGameConfigWrapper);
-		this.customFlyingMonsterList(inGameConfigWrapper);
-		this.groundMonsterList(inGameConfigWrapper);
-		this.customGroundMonsterList(inGameConfigWrapper);
-		this.groupMonsterList(inGameConfigWrapper);
-		this.customGroupMonsterList(inGameConfigWrapper);
+    this.fillSettingsArrays();
+		this.loadCreaturesSpawningChances(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -80,39 +56,11 @@ class RE_Settings {
 		enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies'); 	
   }
 
-  private function loadDayFrequency(inGameConfigWrapper: CInGameConfigWrapper) {
-		chanceDay = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'dayFrequency'));
-  }
-
-  private function loadNightFrequency(inGameConfigWrapper: CInGameConfigWrapper) {
-		chanceNight = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'nightFrequency'));
-  }
-
-  private function loadDayEncounterChance(inGameConfigWrapper: CInGameConfigWrapper) {
-    isFlyingActiveD  = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceDay', 'enableFlyingMonsters')); 
-    isGroundActiveD = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceDay', 'enableGroundMonsters'));	
-    isHumanActiveD = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceDay', 'enableHumanEnemies'));
-    isWildHuntActiveD = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceDay', 'enableWildHunt'));
-    isGroupActiveD = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceDay', 'enableGroupMonsters'));
-  }
-
-  private function loadNightEncounterChance(inGameConfigWrapper: CInGameConfigWrapper) {
-    isFlyingActiveN  = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceNight', 'enableFlyingMonsters')); 
-    isGroundActiveN = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceNight', 'enableGroundMonsters'));	
-    isHumanActiveN = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceNight', 'enableHumanEnemies'));
-    isWildHuntActiveN = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceNight', 'enableWildHunt'));
-    isGroupActiveN = StringToInt(inGameConfigWrapper.GetVarValue('encounterChanceNight', 'enableGroupMonsters'));
-  }
-
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
-    customFrequency = inGameConfigWrapper.GetVarValue('custom', 'customFrequencyToggle'); 		
-		customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyHigh'));
+    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyHigh'));
 		customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyLow'));
 		customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyHigh'));
 		customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyLow'));	
-    customFlying = inGameConfigWrapper.GetVarValue('custom', 'customFlyingMonsters'); 		
-    customGround = inGameConfigWrapper.GetVarValue('custom', 'customGroundMonsters'); 
-    customGroup = inGameConfigWrapper.GetVarValue('custom', 'customGroundMonsters'); // used to be: customGroupMonsters
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -121,169 +69,138 @@ class RE_Settings {
     groupMonsterHunts = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'groupMonsterHunts'));	
   }
   
-  private function flyingMonsterList (inGameConfigWrapper : CInGameConfigWrapper) {
-    isCGryphons = inGameConfigWrapper.GetVarValue('monsterList', 'Gryphons');
-    isCCockatrice = inGameConfigWrapper.GetVarValue('monsterList', 'Cockatrice');
-    isCWyverns = inGameConfigWrapper.GetVarValue('monsterList', 'Wyverns');
-    isCForktails = inGameConfigWrapper.GetVarValue('monsterList', 'Forktails');
+
+	private function fillSettingsArrays() {
+    var i: int;
+
+    if (this.small_creatures_chances_day.Size() == 0) {
+      for (i = 0; i < SmallCreatureMAX; i += 1) {
+        this.small_creatures_chances_day.PushBack(0);
+        this.small_creatures_chances_night.PushBack(0);
+      }
+    }
+
+    if (this.large_creatures_chances_night.Size() == 0) {
+      for (i = 0; i < LargeCreatureMAX; i += 1) {
+        this.large_creatures_chances_day.PushBack(0);
+        this.large_creatures_chances_night.PushBack(0);
+      }
+    }
   }
 
-	private function customFlyingMonsterList (inGameConfigWrapper : CInGameConfigWrapper) {
-    isGryphonsD = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingDay', 'Gryphons'));
-    isCockatriceD = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingDay', 'Cockatrice'));
-    isWyvernsD = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingDay', 'Wyverns'));
-    isForktailsD = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingDay', 'Forktails'));
-
-    isGryphonsN = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingNight', 'Gryphons'));
-    isCockatriceN = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingNight', 'Cockatrice'));
-    isWyvernsN = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingNight', 'Wyverns'));
-    isForktailsN = StringToInt(inGameConfigWrapper.GetVarValue('customFlyingNight', 'Forktails'));
-  }	
-	
-  private function groundMonsterList (inGameConfigWrapper : CInGameConfigWrapper) {
-    isCLeshens = inGameConfigWrapper.GetVarValue('monsterList', 'Leshens');
-    isCWerewolves = inGameConfigWrapper.GetVarValue('monsterList', 'Werewolves');
-    isCCyclops = inGameConfigWrapper.GetVarValue('monsterList', 'Cyclops');
-    isCArachas = inGameConfigWrapper.GetVarValue('monsterList', 'Arachas');
-    isCFiends = inGameConfigWrapper.GetVarValue('monsterList', 'Fiends');
-    isCChorts = inGameConfigWrapper.GetVarValue('monsterList', 'Chorts');
-    isCEkimmara = inGameConfigWrapper.GetVarValue('monsterList', 'Ekimmara');
-    isCKatakan = inGameConfigWrapper.GetVarValue('monsterList', 'Katakan');
-    isCBears = inGameConfigWrapper.GetVarValue('monsterList', 'Bears');
-    isCGolems = inGameConfigWrapper.GetVarValue('monsterList', 'Golems');
-    isCElementals = inGameConfigWrapper.GetVarValue('monsterList', 'Elementals');
-    isCNightWraiths = inGameConfigWrapper.GetVarValue('monsterList', 'NightWraiths');
-    isCNoonWraiths = inGameConfigWrapper.GetVarValue('monsterList', 'NoonWraiths');
-    isCTroll = inGameConfigWrapper.GetVarValue('monsterList', 'Troll');
-    isCHags = inGameConfigWrapper.GetVarValue('monsterList', 'Hags');
-
-    // Blood and Wine
-    isCBruxa = inGameConfigWrapper.GetVarValue('monsterList', 'Bruxa');
-    isCHigherVamp = inGameConfigWrapper.GetVarValue('monsterList', 'HigherVamp');
-    isCFleder = inGameConfigWrapper.GetVarValue('monsterList', 'Fleder');
-    isCGarkain = inGameConfigWrapper.GetVarValue('monsterList', 'Garkain');
-    isCPanther = inGameConfigWrapper.GetVarValue('monsterList', 'Panther');
-    isCSharley = inGameConfigWrapper.GetVarValue('monsterList', 'Sharley');
-    isCGiant = inGameConfigWrapper.GetVarValue('monsterList', 'Giant');
-    isCBoar = inGameConfigWrapper.GetVarValue('monsterList', 'Boars');
-  }
-
-  private function customGroundMonsterList (inGameConfigWrapper : CInGameConfigWrapper) {
-    isWerewolvesD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Werewolves'));
-    isCyclopsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cyclops'));
-    isArachasD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Arachas'));
-    isFiendsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fiends'));
-    isChortsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Chorts'));
-    isEkimmaraD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ekimmara'));
-    isKatakanD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Katakan'));
-    isBearsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
-    isGolemsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Golems'));
-    isElementalsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Elementals'));
-    isNightWraithsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NightWraiths'));
-    isNoonWraithsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NoonWraiths'));
-    isTrollD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
-    isHagsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Hags'));
-
-    isLeshensN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Leshens'));
-    isWerewolvesN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Werewolves'));
-    isCyclopsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cyclops'));
-    isArachasN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Arachas'));
-    isFiendsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fiends'));
-    isChortsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Chorts'));
-    isEkimmaraN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ekimmara'));
-    isKatakanN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Katakan'));
-    isBearsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
-    isGolemsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Golems'));
-    isElementalsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Elementals'));
-    isNightWraithsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NightWraiths'));
-    isNoonWraithsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NoonWraiths'));
-    isTrollN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Troll'));
-    isHagsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Hags'));
-
-		// Blood and Wine
-		isBruxaD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bruxa'));
-		isHigherVampD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'HigherVamp'));
-		isFlederD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fleder'));
-		isGarkainD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Garkain'));
-		isPantherD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Panther'));
-		isSharleyD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));		
-		isGiantD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
-		isBoarD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Boars'));
-		
-		isBruxaN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bruxa'));
-		isHigherVampN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'HigherVamp'));
-		isFlederN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fleder'));
-		isGarkainN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Garkain'));
-		isPantherN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
-		isSharleyN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));		
-		isGiantN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
-		isBoarN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
-  }		
-	
-  private function groupMonsterList (inGameConfigWrapper : CInGameConfigWrapper) {
-    isCHarpy = inGameConfigWrapper.GetVarValue('monsterList', 'Harpies');
-    isCFogling = inGameConfigWrapper.GetVarValue('monsterList', 'Fogling');
-    isCEndrega = inGameConfigWrapper.GetVarValue('monsterList', 'Endrega');
-    isCGhouls = inGameConfigWrapper.GetVarValue('monsterList', 'Ghouls');
-    isCAlghouls = inGameConfigWrapper.GetVarValue('monsterList', 'Alghouls');
-    isCNekkers = inGameConfigWrapper.GetVarValue('monsterList', 'Nekkers');
-    isCDrowners = inGameConfigWrapper.GetVarValue('monsterList', 'Drowners');
-    isCRotfiends = inGameConfigWrapper.GetVarValue('monsterList', 'Rotfiends');
-    isCWolves = inGameConfigWrapper.GetVarValue('monsterList', 'Wolves');
-    isCWraiths = inGameConfigWrapper.GetVarValue('monsterList', 'Wraiths');
-    isCSpiders = inGameConfigWrapper.GetVarValue('monsterList', 'Spiders');
-
-		// Blood and Wine
-		isCDrownerDLC = inGameConfigWrapper.GetVarValue('monsterList', 'DrownerDLC');
-		isCSkeleton = inGameConfigWrapper.GetVarValue('monsterList', 'Skeleton');
-		isCBarghest = inGameConfigWrapper.GetVarValue('monsterList', 'Barghest');
-		isCEchinops = inGameConfigWrapper.GetVarValue('monsterList', 'Echinops');
-		isCCentipede = inGameConfigWrapper.GetVarValue('monsterList', 'Centipede');
-		isCKikimore = inGameConfigWrapper.GetVarValue('monsterList', 'Kikimore');
-		isCWight = inGameConfigWrapper.GetVarValue('monsterList', 'Wight');
-  }
-    
    
-  private function customGroupMonsterList (inGameConfigWrapper : CInGameConfigWrapper) {
-    isHarpyD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Harpies'));
-    isFoglingD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fogling'));
-    isEndregaD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Endrega'));
-    isGhoulsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ghouls'));
-    isAlghoulsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Alghouls'));
-    isNekkersD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Nekkers'));
-    isDrownersD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Drowners'));
-    isRotfiendsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Rotfiends'));
-    isWolvesD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
-    isWraithsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wraiths'));
-    isSpidersD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Spiders'));
+  private function loadCreaturesSpawningChances (out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.small_creatures_chances_day[SmallCreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Harpies'));
+    this.small_creatures_chances_day[SmallCreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Endrega'));
+    this.small_creatures_chances_day[SmallCreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ghouls'));
+    this.small_creatures_chances_day[SmallCreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Alghouls'));
+    this.small_creatures_chances_day[SmallCreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Nekkers'));
+    this.small_creatures_chances_day[SmallCreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Drowners'));
+    this.small_creatures_chances_day[SmallCreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Rotfiends'));
+    this.small_creatures_chances_day[SmallCreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
+    this.small_creatures_chances_day[SmallCreatureSKELWOLF]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
+    this.small_creatures_chances_day[SmallCreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wraiths'));
+    this.small_creatures_chances_day[SmallCreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Spiders'));
+    this.small_creatures_chances_day[SmallCreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'WildHunt'));
+    this.small_creatures_chances_day[SmallCreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Humans'));
+    this.small_creatures_chances_day[SmallCreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Skeleton'));
 
-    isHarpyN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Harpies'));
-    isFoglingN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fogling'));
-    isEndregaN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Endrega'));
-    isGhoulsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ghouls'));
-    isAlghoulsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Alghouls'));
-    isNekkersN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Nekkers'));
-    isDrownersN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Drowners'));
-    isRotfiendsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Rotfiends'));
-    isWolvesN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wolves'));
-    isWraithsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wraiths'));
-    isSpidersN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Spiders'));
+
+    
 
     // Blood and Wine
-    isBarghestD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Barghest')); 
-    isEchinopsD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Echinops')); 
-    isCentipedeD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Centipede'));
-    isKikimoreD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Kikimore'));
-    isWightD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
-    isSkeletonD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Skeleton'));
-    isDrownerDLCD = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'DrownerDLC'));
-    
-    isBarghestN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Barghest')); 
-    isEchinopsN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Echinops')); 
-    isCentipedeN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Centipede'));
-    isKikimoreN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Kikimore'));	
-    isWightN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
-    isSkeletonN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Skeleton'));
-    isDrownerDLCN = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'DrownerDLC'));
+    this.small_creatures_chances_day[SmallCreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Barghest')); 
+    this.small_creatures_chances_day[SmallCreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Echinops')); 
+    this.small_creatures_chances_day[SmallCreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Centipede'));
+    this.small_creatures_chances_day[SmallCreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Kikimore'));
+    this.small_creatures_chances_day[SmallCreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'DrownerDLC'));
+    this.small_creatures_chances_day[SmallCreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Arachas'));
+    this.small_creatures_chances_day[SmallCreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
+    this.small_creatures_chances_day[SmallCreatureSKELBEAR]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
+		this.small_creatures_chances_day[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Panther'));
+		this.small_creatures_chances_day[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Boars'));
+
+		this.large_creatures_chances_day[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Leshens'));
+    this.large_creatures_chances_day[LargeCreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Werewolves'));
+    this.large_creatures_chances_day[LargeCreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fiends'));
+    this.large_creatures_chances_day[LargeCreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ekimmara'));
+    this.large_creatures_chances_day[LargeCreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Katakan'));
+    this.large_creatures_chances_day[LargeCreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Golems'));
+    this.large_creatures_chances_day[LargeCreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Elementals'));
+    this.large_creatures_chances_day[LargeCreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NightWraiths'));
+    this.large_creatures_chances_day[LargeCreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NoonWraiths'));
+    this.large_creatures_chances_day[LargeCreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Chorts'));
+    this.large_creatures_chances_day[LargeCreatureCYCLOPS]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cyclops'));
+    this.large_creatures_chances_day[LargeCreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
+    this.large_creatures_chances_day[LargeCreatureSKELTROLL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
+    this.large_creatures_chances_day[LargeCreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Hags'));
+    this.large_creatures_chances_day[LargeCreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fogling'));
+		this.large_creatures_chances_day[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bruxa'));
+		this.large_creatures_chances_day[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fleder'));
+		this.large_creatures_chances_day[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Garkain'));
+		this.large_creatures_chances_day[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'HigherVamp'));
+		this.large_creatures_chances_day[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
+		this.large_creatures_chances_day[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
+    this.large_creatures_chances_day[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
+    this.large_creatures_chances_day[LargeCreatureVAMPIRE]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Vampires'));
+    this.large_creatures_chances_day[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Gryphons'));
+    this.large_creatures_chances_day[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cockatrice'));
+    this.large_creatures_chances_day[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Basilisk'));
+    this.large_creatures_chances_day[LargeCreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wyverns'));
+    this.large_creatures_chances_day[LargeCreatureFORKTAIL]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Forktails'));
+
+    this.small_creatures_chances_night[SmallCreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Harpies'));
+    this.small_creatures_chances_night[SmallCreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Endrega'));
+    this.small_creatures_chances_night[SmallCreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ghouls'));
+    this.small_creatures_chances_night[SmallCreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Alghouls'));
+    this.small_creatures_chances_night[SmallCreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Nekkers'));
+    this.small_creatures_chances_night[SmallCreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Drowners'));
+    this.small_creatures_chances_night[SmallCreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Rotfiends'));
+    this.small_creatures_chances_night[SmallCreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wolves'));
+    this.small_creatures_chances_night[SmallCreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wraiths'));
+    this.small_creatures_chances_night[SmallCreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Spiders'));
+    this.small_creatures_chances_night[SmallCreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'WildHunt'));
+    this.small_creatures_chances_night[SmallCreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Humans'));
+    this.small_creatures_chances_night[SmallCreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Skeleton'));
+
+
+    // Blood and Wine
+    this.small_creatures_chances_night[SmallCreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Barghest')); 
+    this.small_creatures_chances_night[SmallCreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Echinops')); 
+    this.small_creatures_chances_night[SmallCreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Centipede'));
+    this.small_creatures_chances_night[SmallCreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Kikimore'));
+    this.small_creatures_chances_night[SmallCreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'DrownerDLC'));
+    this.small_creatures_chances_night[SmallCreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Arachas'));
+    this.small_creatures_chances_night[SmallCreatureBEAR]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
+		this.small_creatures_chances_night[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
+		this.small_creatures_chances_night[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
+
+		this.large_creatures_chances_night[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Leshens'));
+    this.large_creatures_chances_night[LargeCreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Werewolves'));
+    this.large_creatures_chances_night[LargeCreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fiends'));
+    this.large_creatures_chances_night[LargeCreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ekimmara'));
+    this.large_creatures_chances_night[LargeCreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Katakan'));
+    this.large_creatures_chances_night[LargeCreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Golems'));
+    this.large_creatures_chances_night[LargeCreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Elementals'));
+    this.large_creatures_chances_night[LargeCreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NightWraiths'));
+    this.large_creatures_chances_night[LargeCreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NoonWraiths'));
+    this.large_creatures_chances_night[LargeCreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Chorts'));
+    this.large_creatures_chances_night[LargeCreatureCYCLOPS]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cyclops'));
+    this.large_creatures_chances_night[LargeCreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Troll'));
+    this.large_creatures_chances_night[LargeCreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Hags'));
+    this.large_creatures_chances_night[LargeCreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fogling'));
+		this.large_creatures_chances_night[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bruxa'));
+		this.large_creatures_chances_night[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fleder'));
+		this.large_creatures_chances_night[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Garkain'));
+		this.large_creatures_chances_night[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'HigherVamp'));
+		this.large_creatures_chances_night[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
+		this.large_creatures_chances_night[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
+    this.large_creatures_chances_night[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
+    this.large_creatures_chances_night[LargeCreatureVAMPIRE]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Vampires'));
+    this.large_creatures_chances_night[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Gryphons'));
+    this.large_creatures_chances_night[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cockatrice'));
+    this.large_creatures_chances_night[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Basilisk'));
+    this.large_creatures_chances_night[LargeCreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wyverns'));
+    this.large_creatures_chances_night[LargeCreatureFORKTAIL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Forktails'));
   }
 }
