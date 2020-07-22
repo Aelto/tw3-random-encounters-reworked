@@ -1,7 +1,7 @@
 # W3_RandomEncounters_Tweaks
 [Witcher 3 Random Encounters mod](https://www.nexusmods.com/witcher3/mods/785?tab=description) tweaks
 
-- see [Installing](#installing) to see how to install the mod
+- Read [Installing](#installing) to see how to install the mod
 
 # Features & Changes
 > I rewrote most of the logic for the mod before adding my features into it. The only thing i kept were the paths to the creatures templates. By doing this i managed to get everything working perfectly with (almost) no bugs. _Note that I am currently playing the game with my version of the mod_
@@ -14,7 +14,7 @@
 
 - Each creature type has his [own spawn count based on difficulty](/src/templates.ws) to keep things balanced
 
-- Each creature spawn has 10% chances of being a large creature encounter, a boss fight. There is no config for it yet though, the 10% is hardcoded at the moment
+- Each creature spawn has 10% chances of being a large creature encounter, a boss fight. There is no config for it yet though, the 10% is [hardcoded](https://github.com/Aelto/W3_RandomEncounters_Tweaks/blob/master/src/states/spawning.ws#L58) at the moment
 
 ## Features coming soon
 
