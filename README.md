@@ -4,3 +4,8 @@
 
 # Using it
 Install the mod as you would do normally, then insert this repository inside `<witcher_root_folder>/mods/modRandomEncounters` and replacing every files.
+
+
+# Credits
+
+- scripts are based on this [repository](https://github.com/CikitosWitcher3Mods/Fatigue)
