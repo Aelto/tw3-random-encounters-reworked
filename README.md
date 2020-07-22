@@ -45,8 +45,8 @@ Install the original mod as you would do normally, then :
        ```
   - Or do it manually:
     1. delete everything that is in `The Witcher 3/mods/modRandomEncounters/content/scripts/`
-    2. copying the content of [/src/](/src) into `The Witcher 3/mods/modRandomEncounters/content/scripts/`
-    3. copying [randomEncounters.xml](/randomEncounters.xml) in `The Witcher 3/bin/config/r4game/user_config_matrix/pc` to replace the original xml file.
+    2. copy the content of [/src/](/src) into `The Witcher 3/mods/modRandomEncounters/content/scripts/`
+    3. copy [randomEncounters.xml](/randomEncounters.xml) in `The Witcher 3/bin/config/r4game/user_config_matrix/pc` to replace the original xml file.
 
 
 # Credits
