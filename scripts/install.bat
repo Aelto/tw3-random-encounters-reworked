@@ -9,6 +9,6 @@ copy "%gamePath%\bin\config\r4game\user_config_matrix\pc\randomEncounters.xml" "
 
 rem install scripts
 rmdir "%gamePath%\mods\%modName%\content\scripts" /s /q
-XCOPY "%modPath%\src" "%gamePath%\mods\%modName%\content\scripts\" /e /s /y
-copy "%modPath%\randomEncounters.xml" "%gamePath%\bin\config\r4game\user_config_matrix\pc\randomEncounters.xml" /y
+XCOPY "%modPath%\src" "%gamePath%\mods\%modName%\content\scripts\rer_local\" /e /s /y
+copy "%modPath%\mod-menu.xml" "%gamePath%\bin\config\r4game\user_config_matrix\pc\%modname%.xml" /y
 

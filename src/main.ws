@@ -1,12 +1,12 @@
 class CRandomEncounterInitializer extends CEntityMod {
-  default modName = 'Random Encounters';
+  default modName = 'Random Encounters Reworked';
   default modAuthor = "erxv";
   default modUrl = "http://www.nexusmods.com/witcher3/mods/785?";
   default modVersion = '1.31';
 
   default logLevel = MLOG_DEBUG;
 
-  default template = "dlc\modtemplates\randomencounterdlc\data\re_initializer.w2ent";
+  default template = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_initializer.w2ent";
 }
 
 

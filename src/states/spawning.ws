@@ -23,7 +23,13 @@ state Spawning in CRandomEncounters {
 
     LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type);
 
-    makeGroupComposition(picked_entity_type, parent);
+    if (this.getRandomEncounterType() == EncounterType_HUNT) {
+      makeCreatureHunt(parent);
+    }
+    else {
+      makeGroupComposition(picked_entity_type, parent);
+    }
+
 
     parent.GotoState('Waiting');
   }
@@ -70,5 +76,13 @@ state Spawning in CRandomEncounters {
 
       return SMALL_CREATURE;
     }
+  }
+
+  function getRandomEncounterType(): EncounterType {
+    if (RandRange(100) < parent.settings.all_monster_hunt_chance) {
+      return EncounterType_HUNT;
+    }
+
+    return EncounterType_DEFAULT;
   }
 }

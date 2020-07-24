@@ -48,42 +48,6 @@
 					</Option>
 				</OptionsArray>
 			</Var>
-                      
-            <!-- <Var id="dayFrequency" displayName="modRE_freq_day" displayType="OPTIONS" 
-            tags="customNames;customDisplayName">
-                <OptionsArray>
-                    <Option id="0" displayName="modRE_none">
-                        <Entry varId="dayFrequency" value="0"/>
-                    </Option>
-                    <Option id="1" displayName="modRE_low">
-                        <Entry varId="dayFrequency" value="1"/>
-                    </Option>
-                    <Option id="2" displayName="modRE_med">
-                        <Entry varId="dayFrequency" value="2"/>
-                    </Option>
-                    <Option id="3" displayName="modRE_high">
-                        <Entry varId="dayFrequency" value="3"/>
-                    </Option>					
-                </OptionsArray>
-            </Var> -->
-            
-            <!-- <Var id="nightFrequency" displayName="modRE_freq_night" displayType="OPTIONS" 
-            tags="customNames;customDisplayName">
-                <OptionsArray>
-                    <Option id="0" displayName="modRE_none">
-                        <Entry varId="nightFrequency" value="0"/>
-                    </Option>
-                    <Option id="1" displayName="modRE_low">
-                        <Entry varId="nightFrequency" value="1"/>
-                    </Option>
-                    <Option id="2" displayName="modRE_med">
-                        <Entry varId="nightFrequency" value="2"/>
-                    </Option>
-                    <Option id="3" displayName="modRE_high">
-                        <Entry varId="nightFrequency" value="3"/>
-                    </Option>					
-                </OptionsArray>
-            </Var> -->
             
             <Var id="Difficulty" displayName="modRE_diff" displayType="OPTIONS" 
             tags="customNames;customDisplayName">
@@ -105,29 +69,17 @@
     <Group id="monsterHuntChance" displayName="Mods.modRE_title.modRE_hunt_chance">
         <PresetsArray>
             <Preset id="0" displayName="modRE_off" tags="customNames;customDisplayName">
-                <Entry varId="flyingMonsterHunts"				value="0"	/>
-                <Entry varId="groundMonsterHunts"				value="0"	/>
-                <Entry varId="groupMonsterHunts"				value="0"	/>
+                <Entry varId="allMonsterHuntChance"				value="0"	/>
             </Preset>
             <Preset id="1" displayName="modRE_max" tags="customNames;customDisplayName">
-                <Entry varId="flyingMonsterHunts"				value="10"	/>
-                <Entry varId="groundMonsterHunts"				value="10"	/>
-                <Entry varId="groupMonsterHunts"				value="10"	/>
+                <Entry varId="allMonsterHuntChance"				value="100"	/>
             </Preset>
             <Preset id="2" displayName="modRE_vardefault" tags="customNames;customDisplayName">
-                <Entry varId="flyingMonsterHunts"				value="8"	/>
-                <Entry varId="groundMonsterHunts"				value="6"	/>
-                <Entry varId="groupMonsterHunts"				value="6"	/>
+                <Entry varId="allMonsterHuntChance"				value="15"	/>
             </Preset>
         </PresetsArray>
         <VisibleVars>			
-            <Var id="flyingMonsterHunts" displayName="modRE_fly_hunt" displayType="SLIDER;0;10;10"
-            tags="customNames;customDisplayName"/>	
-            
-            <Var id="groundMonsterHunts" displayName="modRE_ground_hunt" displayType="SLIDER;0;10;10"
-            tags="customNames;customDisplayName"/>		
-
-            <Var id="groupMonsterHunts" displayName="modRE_group_hunt" displayType="SLIDER;0;10;10"
+            <Var id="allMonsterHuntChance" displayName="Mods.modRE_title.modRE_hunt_chance" displayType="SLIDER;0;100;100"
             tags="customNames;customDisplayName"/>	
         </VisibleVars>
     </Group>	
@@ -283,7 +235,7 @@
                     <Entry varId="Ekimmara"             value="10"  />
             </Preset>
 
-            <Preset id="2" displayName="recommended" tags="customNames;customDisplayName">
+            <Preset id="2" displayName="modRE_vardefault" tags="customNames;customDisplayName">
                     <Entry varId="Hags"					value="25"	/>
                     <Entry varId="Fogling"				value="25"	/>
                     <Entry varId="Troll"				value="25"	/>					

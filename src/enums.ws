@@ -94,3 +94,8 @@ enum LargeCreatureType {
   LargeCreatureMAX          = 28,
   LargeCreatureNONE         = 29
 }
+
+enum EncounterType {
+  EncounterType_DEFAULT = 0,
+  EncounterType_HUNT    = 1
+}

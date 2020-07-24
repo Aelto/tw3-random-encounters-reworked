@@ -3,7 +3,7 @@ class RE_Settings {
 
 	
 	public var customDayMax, customDayMin, customNightMax, customNightMin	: int;
-	public var flyingMonsterHunts, groundMonsterHunts, groupMonsterHunts	: int;
+	public var all_monster_hunt_chance: int;
 	public var enableTrophies : bool;
   public var cityBruxa, citySpawn : int;
   public var selectedDifficulty	: int;
@@ -64,9 +64,7 @@ class RE_Settings {
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    flyingMonsterHunts = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'flyingMonsterHunts'));
-    groundMonsterHunts = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'groundMonsterHunts'));
-    groupMonsterHunts = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'groupMonsterHunts'));	
+    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'allMonsterHuntChance'));
   }
   
 
