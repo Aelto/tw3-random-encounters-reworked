@@ -1,5 +1,4 @@
 
-
 enum EHumanType
 {
   HT_BANDIT       = 0,

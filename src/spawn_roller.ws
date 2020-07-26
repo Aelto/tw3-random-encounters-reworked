@@ -1,6 +1,4 @@
 
-
-
 struct LargeCreatureCounter {
   var type: LargeCreatureType;
   var counter: int;

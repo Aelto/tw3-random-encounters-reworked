@@ -1,9 +1,11 @@
-function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float): bool {  // var camera_direction: Vector;
+
+function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float): bool {  // var camera_direction: Vector;
   var player_position: Vector;
-  var minimum_distance: float;
   var point_z: float;
 
-  minimum_distance = 20.0;
+  if (minimum_distance == 0.0) {
+    minimum_distance = 20.0;
+  }
 
   // value of `0.0` means the parameter was not supplied
   if (distance == 0.0) {

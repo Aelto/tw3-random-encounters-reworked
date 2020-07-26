@@ -1,3 +1,4 @@
+
 function getGroundPosition(out input_position: Vector): bool {
   var output_position: Vector;
   var point_z: float;

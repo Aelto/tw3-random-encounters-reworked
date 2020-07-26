@@ -1,12 +1,15 @@
 
-latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int, optional density: float): array<CEntity> {
+latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int, optional density: float): array<RandomEncountersReworkedEntity> {
   var ent: CEntity;
   var player, pos_fin, normal: Vector;
   var rot: EulerAngles;
   var i, sign: int;
   var s, r, x, y: float;
   var createEntityHelper: CCreateEntityHelper;
-  var created_entities: array<CEntity>;
+  var created_entities: array<RandomEncountersReworkedEntity>;
+  var current_rer_entity: RandomEncountersReworkedEntity;
+  var rer_entity_template: CEntityTemplate;
+  var created_entity: CEntity;
   
   quantity = Max(quantity, 1);
 
@@ -25,6 +28,8 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
 
   createEntityHelper = new CCreateEntityHelper;
   // createEntityHelper.SetPostAttachedCallback(this, 'onEntitySpawned');
+
+  rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent", true);
 
   for (i = 0; i < quantity; i += 1) {
     x = RandF() * r;        // add random value within range to X
@@ -60,7 +65,21 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
       SleepOneFrame();
     }
 
-    created_entities.PushBack(createEntityHelper.GetCreatedEntity());
+    current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
+      rer_entity_template,
+      initial_position,
+      thePlayer.GetWorldRotation()
+    );
+
+    created_entity = createEntityHelper.GetCreatedEntity();
+
+    current_rer_entity.attach(
+      (CActor)created_entity,
+      (CNewNPC)created_entity,
+      created_entity
+    );
+
+    created_entities.PushBack(current_rer_entity);
   }
 
   return created_entities;

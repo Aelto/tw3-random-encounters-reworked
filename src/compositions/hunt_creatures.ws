@@ -1,15 +1,15 @@
+
+// TODO: I don't like how this code looks, cleanup needed !
 latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
   var bait: CEntity;
 
-  var creatures_entities: array<CEntity>;
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
   var createEntityHelper: CCreateEntityHelper;
 
   var current_entity_template: SEnemyTemplate;
   var current_template: CEntityTemplate;
-
-  var dummy: RandomEncountersHuntEntity;
 
   var i: int;
   var j: int;
@@ -24,7 +24,7 @@ latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
     )
   );
 
-  if (!getRandomPositionBehindCamera(initial_position, 60)) {
+  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
 
     return;
@@ -32,29 +32,12 @@ latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
 
   number_of_creatures = 1;
 
-
   LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
 
   creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
   creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
 
-
-
-
-
-  current_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunt_entity.w2ent", true);
-  // dummy = (RandomEncountersHuntEntity)spawnEntities(current_template, initial_position);
-  dummy = (RandomEncountersHuntEntity)theGame.CreateEntity(
-    current_template,
-    initial_position,
-    thePlayer.GetWorldRotation()
-  );
-
-  LogChannel('modRandomEncounters', "dummy spawned");
-
-
-
-
+  // creating the bait now
   createEntityHelper = new CCreateEntityHelper;
   createEntityHelper.Reset();
   theGame.CreateEntityAsync(createEntityHelper, (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true), initial_position, thePlayer.GetWorldRotation(), true, false, false, PM_DontPersist);
@@ -64,15 +47,11 @@ latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
   }
 
   bait = createEntityHelper.GetCreatedEntity();
-
-
  
   LogChannel('modRandomEncounters', "bait entity spawned");
 
   for (i = 0; i < creatures_entities.Size(); i += 1) {
     LogChannel('modRandomEncounters', "adding bait to: " + i);
-    
-    dummy.setBaitEntity(bait, (CActor)creatures_entities[i], (CNewNPC)creatures_entities[i], creatures_entities[i]);
-    LogChannel('modRandomEncounters', "bait added to: " + i);
+    creatures_entities[i].startWithBait(bait);
   }
 }

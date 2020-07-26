@@ -1,3 +1,4 @@
+
 state Spawning in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     parent.RemoveTimer('randomEncounterTick');

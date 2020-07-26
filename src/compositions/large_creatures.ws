@@ -25,10 +25,10 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
 
-  var creatures_entities: array<CEntity>;
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var rer_entity: RandomEncountersReworkedEntity;
 
   var i: int;
-  var summon: CNewNPC;
   var initial_position: Vector;
 
   LogChannel('modRandomEncounters', "making large creatures composition ambush witcher");
@@ -57,10 +57,8 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
   creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
 
   for (i = 0; i < creatures_entities.Size(); i += 1) {
-    summon = (CNewNPC) creatures_entities[i];
-
-    summon.SetLevel(GetWitcherPlayer().GetLevel());
-    summon.NoticeActor(thePlayer);
-    summon.SignalGameplayEventParamObject('ForceTarget', thePlayer);
+    rer_entity = creatures_entities[i];
+    rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+    rer_entity.startWithoutBait();
   }
 }

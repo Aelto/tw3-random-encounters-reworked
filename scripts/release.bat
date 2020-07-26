@@ -4,7 +4,10 @@ call bundle.bat
 rmdir "%modpath%\release" /s /q
 mkdir "%modpath%\release"
 
-XCOPY "%modpath%\src\" "%modpath%\release\mods\%modname%\content\scripts\rer_local\" /e /s /y
+REM XCOPY "%modpath%\src\" "%modpath%\release\mods\%modname%\content\scripts\rer_local\" /e /s /y
+
+mkdir "%modpath%\release\mods\%modname%\content\scripts\local\
+> "%modpath%\release\mods\%modname%\content\scripts\local\rer_scripts.min.ws" (for /r "%modpath%\src\" %%F in (*.ws) do @type "%%F")
 XCOPY "%modpath%\strings\" "%modpath%\release\mods\%modname%\content\" /e /s /y
 XCOPY "%modpath%\%modname%\packed\" "%modpath%\release\dlc\dlc%modname%\" /e /s /y
 

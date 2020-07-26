@@ -1,7 +1,7 @@
 
-latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, position: Vector, optional density: float): array<CEntity> {
-  var returned_entities: array<CEntity>;
-  var current_iteration_entities: array<CEntity>;
+latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, position: Vector, optional density: float): array<RandomEncountersReworkedEntity> {
+  var returned_entities: array<RandomEncountersReworkedEntity>;
+  var current_iteration_entities: array<RandomEncountersReworkedEntity>;
 
   var current_entity_template: SEnemyTemplate;
   var current_template: CEntityTemplate;

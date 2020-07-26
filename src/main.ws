@@ -1,3 +1,4 @@
+
 class CRandomEncounterInitializer extends CEntityMod {
   default modName = 'Random Encounters Reworked';
   default modAuthor = "erxv";
@@ -78,6 +79,3 @@ statemachine class CRandomEncounters extends CEntity {
     displayRandomEncounterEnabledNotification();
   }
 }
-
-
-
