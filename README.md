@@ -43,6 +43,7 @@ This mod will add random encounters to your adventure in The Witcher 3. It can b
 ## Missing features not implemented yet
 
 - Removed the trophy system
+- I can't understand how the localization works, you will find missing strings in the mod menu.
 
 # Installing
 
