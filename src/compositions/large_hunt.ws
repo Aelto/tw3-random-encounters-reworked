@@ -1,5 +1,5 @@
 
-latent function createRandomLargeCreatureHunt(random_encounters_class: CRandomEncounters) {
+latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
   var bait: CEntity;
@@ -16,10 +16,10 @@ latent function createRandomLargeCreatureHunt(random_encounters_class: CRandomEn
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  creatures_templates = random_encounters_class.resources.getCreatureResourceByLargeCreatureType(
-    random_encounters_class.rExtra.getRandomLargeCreatureByCurrentArea(
-      random_encounters_class.settings,
-      random_encounters_class.spawn_roller
+  creatures_templates = master.resources.getCreatureResourceByLargeCreatureType(
+    master.rExtra.getRandomLargeCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
     )
   );
 

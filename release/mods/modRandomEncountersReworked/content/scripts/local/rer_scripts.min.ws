@@ -45,6 +45,8 @@ class RandomEncountersReworkedEntity extends CEntity {
     ((CActor)this.bait_entity).EnableStaticCollisions(false);
     ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
 
+    thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );  
+
     this.startWithoutBait();
   }
 
@@ -365,19 +367,35 @@ enum EncounterType {
 // this is what i call a group composition. Imagine a leshen and a few wolves
 // or a giant fighting humans.
 
-latent function makeGroupComposition(creature_type: CreatureType, random_encounters_class: CRandomEncounters) {
-  switch (creature_type) {
-    case SMALL_CREATURE:
-      LogChannel('modRandomEncounters', "spawning type SMALL_CREATURE");
-      createRandomSmallCreatureComposition(random_encounters_class);
-      break;
+latent function makeGroupComposition(encounter_type: EncounterType, creature_type: CreatureType, random_encounters_class: CRandomEncounters) {
+  if (encounter_type == EncounterType_HUNT) {
+    switch (creature_type) {
+      case SMALL_CREATURE:
+        LogChannel('modRandomEncounters', "spawning type SMALL_CREATURE - HUNT");
+        createRandomSmallCreatureHunt(random_encounters_class);
+        break;
 
-    case LARGE_CREATURE:
-      LogChannel('modRandomEncounters', "spawning type LARGE_CREATURE");
-      createRandomLargeCreatureComposition(random_encounters_class);
-      break;
+      case LARGE_CREATURE:
+        LogChannel('modRandomEncounters', "spawning type LARGE_CREATURE - HUNT");
+        createRandomLargeCreatureHunt(random_encounters_class);
+        break;
+    }
+  }
+  else {
+    switch (creature_type) {
+      case SMALL_CREATURE:
+        LogChannel('modRandomEncounters', "spawning type SMALL_CREATURE");
+        createRandomSmallCreatureComposition(random_encounters_class);
+        break;
+
+      case LARGE_CREATURE:
+        LogChannel('modRandomEncounters', "spawning type LARGE_CREATURE");
+        createRandomLargeCreatureComposition(random_encounters_class);
+        break;
+    }
   }
 }
+
 class CRandomEncounterInitializer extends CEntityMod {
   default modName = 'Random Encounters Reworked';
   default modAuthor = "erxv";
@@ -390,7 +408,7 @@ class CRandomEncounterInitializer extends CEntityMod {
 }
 
 
-function modCreate_RandomEncounters() : CMod {
+function modCreate_RandomEncountersReworked() : CMod {
   return new CRandomEncounterInitializer in thePlayer;
 }
 
@@ -459,12 +477,10 @@ statemachine class CRandomEncounters extends CEntity {
   }
 }
 
-
-
-
 function displayRandomEncounterEnabledNotification() {
   theGame.GetGuiManager().ShowNotification("Random Encounters Mod Enabled");
 }
+
 class RE_Resources {
   public var novbandit, pirate, skelpirate, bandit, nilf, cannibal, renegade, skelbandit, skel2bandit, whunter: EnemyTemplateList;
   public var gryphon, gryphonf, forktail, wyvern, cockatrice, cockatricef, basilisk, basiliskf, wight, sharley  : EnemyTemplateList;
@@ -655,6 +671,9 @@ class RE_Settings {
   public var large_creatures_chances_day: array<int>;
   public var large_creatures_chances_night: array<int>;
 
+  // used when picking the EncounterType Large/Small
+  public var large_creature_chance: int;
+
   function loadXMLSettings() {
     var inGameConfigWrapper : CInGameConfigWrapper;
 
@@ -662,6 +681,7 @@ class RE_Settings {
 
 
     this.loadMonsterHuntsChances(inGameConfigWrapper);
+    this.loadLargeCreatureChance(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
     this.loadTrophiesSettings(inGameConfigWrapper);
@@ -701,7 +721,11 @@ class RE_Settings {
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'allMonsterHuntChance'));
+    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'allMonsterHuntChance'));
+  }
+
+  private function loadLargeCreatureChance(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.large_creature_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'largeCreatureChance'));
   }
   
 
@@ -840,8 +864,6 @@ class RE_Settings {
   }
 }
 
-
-
 struct LargeCreatureCounter {
   var type: LargeCreatureType;
   var counter: int;
@@ -963,6 +985,7 @@ class SpawnRoller {
 
   
 }
+
 struct SEnemyTemplate {
   var template : string;
   var max      : int;
@@ -2100,7 +2123,9 @@ function re_bruxacity() : EnemyTemplateList {
   enemy_template_list.difficulty_factor.maximum_count_hard = 1;
 
   return enemy_template_list;
-}//--- RandomEncounters ---
+}
+
+//--- RandomEncounters ---
 // Made by Erxv
 enum EREZone {
   REZ_UNDEF   = 0,
@@ -2675,63 +2700,8 @@ function VecSphere(angleStep : int, radius : float) : array<Vector>
     }
 
     return vectors;
-}// HELLOlatent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-  var bait: CEntity;
-
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var createEntityHelper: CCreateEntityHelper;
-
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
-
-  var i: int;
-  var j: int;
-  var initial_position: Vector;
-
-  LogChannel('modRandomEncounters', "making create hunt");
-
-  creatures_templates = random_encounters_class.resources.getCreatureResourceByLargeCreatureType(
-    random_encounters_class.rExtra.getRandomLargeCreatureByCurrentArea(
-      random_encounters_class.settings,
-      random_encounters_class.spawn_roller
-    )
-  );
-
-  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
-
-    return;
-  }
-
-  number_of_creatures = 1;
-
-
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
-
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
-
-  // creating the bait now
-  createEntityHelper = new CCreateEntityHelper;
-  createEntityHelper.Reset();
-  theGame.CreateEntityAsync(createEntityHelper, (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true), initial_position, thePlayer.GetWorldRotation(), true, false, false, PM_DontPersist);
-
-  while(createEntityHelper.IsCreating()) {            
-    SleepOneFrame();
-  }
-
-  bait = createEntityHelper.GetCreatedEntity();
-
- 
-  LogChannel('modRandomEncounters', "bait entity spawned");
-
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    LogChannel('modRandomEncounters', "adding bait to: " + i);
-    creatures_entities[i].startWithBait(bait);
-  }
 }
+
 enum LargeCreatureComposition {
   LargeCreatureComposition_AmbushWitcher = 1
 }
@@ -2795,6 +2765,75 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
     rer_entity.startWithoutBait();
   }
 }
+
+latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
+  var creatures_templates: EnemyTemplateList;
+  var number_of_creatures: int;
+  var bait: CEntity;
+
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var createEntityHelper: CCreateEntityHelper;
+
+  var current_entity_template: SEnemyTemplate;
+  var current_template: CEntityTemplate;
+
+  var i: int;
+  var j: int;
+  var initial_position: Vector;
+
+  LogChannel('modRandomEncounters', "making create hunt");
+
+  creatures_templates = master.resources.getCreatureResourceByLargeCreatureType(
+    master.rExtra.getRandomLargeCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    )
+  );
+
+  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
+    LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+    return;
+  }
+
+  number_of_creatures = number_of_creatures = rollDifficultyFactor(
+    creatures_templates.difficulty_factor,
+    master.settings.selectedDifficulty
+  );;
+
+  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+
+  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
+  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
+
+  // creating the bait now
+  createEntityHelper = new CCreateEntityHelper;
+  createEntityHelper.Reset();
+  theGame.CreateEntityAsync(
+    createEntityHelper,
+    (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+    initial_position,
+    thePlayer.GetWorldRotation(),
+    true,
+    false,
+    false,
+    PM_DontPersist
+  );
+
+  while(createEntityHelper.IsCreating()) {            
+    SleepOneFrame();
+  }
+
+  bait = createEntityHelper.GetCreatedEntity();
+ 
+  LogChannel('modRandomEncounters', "bait entity spawned");
+
+  for (i = 0; i < creatures_entities.Size(); i += 1) {
+    LogChannel('modRandomEncounters', "adding bait to: " + i);
+    creatures_entities[i].startWithBait(bait);
+  }
+}
+
 enum SmallCreatureComposition {
   SmallCreatureComposition_AmbushWitcher = 1
 }
@@ -2859,6 +2898,73 @@ latent function makeSmallCreatureAmbushWitcher(out master: CRandomEncounters) {
     rer_entity.startWithoutBait();
   }
 }
+
+latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
+  var creatures_templates: EnemyTemplateList;
+  var number_of_creatures: int;
+  var bait: CEntity;
+
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var createEntityHelper: CCreateEntityHelper;
+
+  var current_entity_template: SEnemyTemplate;
+  var current_template: CEntityTemplate;
+
+  var i: int;
+  var j: int;
+  var initial_position: Vector;
+
+  LogChannel('modRandomEncounters', "making create hunt");
+
+  creatures_templates = master.resources.getCreatureResourceBySmallCreatureType(
+    master.rExtra.getRandomSmallCreatureByCurrentArea(master.settings, master.spawn_roller),
+    master.rExtra
+  );
+
+  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
+    LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+    return;
+  }
+
+  number_of_creatures = number_of_creatures = rollDifficultyFactor(
+    creatures_templates.difficulty_factor,
+    master.settings.selectedDifficulty
+  );;
+
+  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+
+  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
+  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
+
+  // creating the bait now
+  createEntityHelper = new CCreateEntityHelper;
+  createEntityHelper.Reset();
+  theGame.CreateEntityAsync(
+    createEntityHelper,
+    (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+    initial_position,
+    thePlayer.GetWorldRotation(),
+    true,
+    false,
+    false,
+    PM_DontPersist
+  );
+
+  while(createEntityHelper.IsCreating()) {            
+    SleepOneFrame();
+  }
+
+  bait = createEntityHelper.GetCreatedEntity();
+ 
+  LogChannel('modRandomEncounters', "bait entity spawned");
+
+  for (i = 0; i < creatures_entities.Size(); i += 1) {
+    LogChannel('modRandomEncounters', "adding bait to: " + i);
+    creatures_entities[i].startWithBait(bait);
+  }
+}
+
 function copyEnemyTemplateList(list_to_copy: EnemyTemplateList): EnemyTemplateList {
   var copy: EnemyTemplateList;
   var i: int;
@@ -2877,6 +2983,7 @@ function copyEnemyTemplateList(list_to_copy: EnemyTemplateList): EnemyTemplateLi
 
   return copy;
 }
+
 /**
  * NOTE: it makes a copy of the list
  **/
@@ -2921,7 +3028,9 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
   }
 
   return template_list;
-}function getGroundPosition(out input_position: Vector): bool {
+}
+
+function getGroundPosition(out input_position: Vector): bool {
   var output_position: Vector;
   var point_z: float;
   var collision_normal: Vector;
@@ -2955,7 +3064,9 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
   return false;
 
   
-}function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float): bool {  // var camera_direction: Vector;
+}
+
+function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float): bool {  // var camera_direction: Vector;
   var player_position: Vector;
   var point_z: float;
 
@@ -2976,6 +3087,7 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
 
   return getGroundPosition(initial_pos);
 }
+
 latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int, optional density: float): array<RandomEncountersReworkedEntity> {
   var ent: CEntity;
   var player, pos_fin, normal: Vector;
@@ -3092,7 +3204,9 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
   }
 
   return returned_entities;
-}state Spawning in CRandomEncounters {
+}
+
+state Spawning in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     parent.RemoveTimer('randomEncounterTick');
 
@@ -3104,6 +3218,7 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
 
   entry function triggerCreaturesSpawn() {
     var picked_entity_type: CreatureType;
+    var picked_encounter_type: EncounterType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
     
@@ -3114,16 +3229,15 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
     }
 
     picked_entity_type = this.getRandomEntityTypeWithSettings();
+    picked_encounter_type = this.getRandomEncounterType();
 
-    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type);
+    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type + ", picked encounter type: " + picked_encounter_type);
 
-    if (this.getRandomEncounterType() == EncounterType_HUNT) {
-      makeCreatureHunt(parent);
-    }
-    else {
-      makeGroupComposition(picked_entity_type, parent);
-    }
-
+    makeGroupComposition(
+      picked_encounter_type,
+      picked_entity_type,
+      parent
+    );
 
     parent.GotoState('Waiting');
   }
@@ -3157,14 +3271,14 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
 
   function getRandomEntityTypeWithSettings(): CreatureType {
     if (theGame.envMgr.IsNight()) {
-      if (RandRange(100) < 10) {
+      if (RandRange(100) < parent.settings.large_creature_chance) {
         return LARGE_CREATURE;
       }
 
       return SMALL_CREATURE;
     }
     else {
-      if (RandRange(100) < 5) {
+      if (RandRange(100) < parent.settings.large_creature_chance * 2) {
         return LARGE_CREATURE;
       }
 
@@ -3180,6 +3294,7 @@ latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, pos
     return EncounterType_DEFAULT;
   }
 }
+
 state SpawningCancelled in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -3188,6 +3303,7 @@ state SpawningCancelled in CRandomEncounters {
     parent.GotoState('Waiting');
   }
 }
+
 state Waiting in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);

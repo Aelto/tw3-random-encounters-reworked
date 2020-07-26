@@ -11,7 +11,7 @@ class CRandomEncounterInitializer extends CEntityMod {
 }
 
 
-function modCreate_RandomEncounters() : CMod {
+function modCreate_RandomEncountersReworked() : CMod {
   return new CRandomEncounterInitializer in thePlayer;
 }
 

@@ -45,6 +45,8 @@ class RandomEncountersReworkedEntity extends CEntity {
     ((CActor)this.bait_entity).EnableStaticCollisions(false);
     ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
 
+    thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );  
+
     this.startWithoutBait();
   }
 

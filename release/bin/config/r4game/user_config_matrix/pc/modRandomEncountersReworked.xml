@@ -9,6 +9,8 @@
                 <Entry varId="enableTrophies"			value="0"	/>
 				<Entry varId="citySpawn"				value="0"	/>
                 <Entry varId="Difficulty"				value="1"	/>
+                <Entry varId="allMonsterHuntChance"		value="15"	/>
+                <Entry varId="largeCreatureChance"		value="15"	/>
             </Preset>
         </PresetsArray>
         <VisibleVars>	
@@ -62,25 +64,13 @@
                         <Entry varId="Difficulty" value="2"/>
                     </Option>
                 </OptionsArray>
-            </Var>					
-        </VisibleVars>
-    </Group>
+            </Var>
 
-    <Group id="monsterHuntChance" displayName="Mods.modRE_title.modRE_hunt_chance">
-        <PresetsArray>
-            <Preset id="0" displayName="modRE_off" tags="customNames;customDisplayName">
-                <Entry varId="allMonsterHuntChance"				value="0"	/>
-            </Preset>
-            <Preset id="1" displayName="modRE_max" tags="customNames;customDisplayName">
-                <Entry varId="allMonsterHuntChance"				value="100"	/>
-            </Preset>
-            <Preset id="2" displayName="modRE_vardefault" tags="customNames;customDisplayName">
-                <Entry varId="allMonsterHuntChance"				value="15"	/>
-            </Preset>
-        </PresetsArray>
-        <VisibleVars>			
             <Var id="allMonsterHuntChance" displayName="Mods.modRE_title.modRE_hunt_chance" displayType="SLIDER;0;100;100"
-            tags="customNames;customDisplayName"/>	
+            tags="customNames;customDisplayName"/>
+
+            <Var id="largeCreatureChance" displayName="large_creature_chance" displayType="SLIDER;0;100;100"
+            tags="customNames;customDisplayName"/>
         </VisibleVars>
     </Group>	
     

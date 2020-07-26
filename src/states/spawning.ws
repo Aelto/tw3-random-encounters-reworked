@@ -11,6 +11,7 @@ state Spawning in CRandomEncounters {
 
   entry function triggerCreaturesSpawn() {
     var picked_entity_type: CreatureType;
+    var picked_encounter_type: EncounterType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
     
@@ -21,16 +22,15 @@ state Spawning in CRandomEncounters {
     }
 
     picked_entity_type = this.getRandomEntityTypeWithSettings();
+    picked_encounter_type = this.getRandomEncounterType();
 
-    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type);
+    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type + ", picked encounter type: " + picked_encounter_type);
 
-    if (this.getRandomEncounterType() == EncounterType_HUNT) {
-      makeCreatureHunt(parent);
-    }
-    else {
-      makeGroupComposition(picked_entity_type, parent);
-    }
-
+    makeGroupComposition(
+      picked_encounter_type,
+      picked_entity_type,
+      parent
+    );
 
     parent.GotoState('Waiting');
   }
@@ -71,7 +71,7 @@ state Spawning in CRandomEncounters {
       return SMALL_CREATURE;
     }
     else {
-      if (RandRange(100) < parent.settings.large_creature_chance / 2) {
+      if (RandRange(100) < parent.settings.large_creature_chance * 2) {
         return LARGE_CREATURE;
       }
 

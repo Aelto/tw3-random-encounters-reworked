@@ -1,5 +1,5 @@
 
-latent function createRandomSmallCreatureHunt(random_encounters_class: CRandomEncounters) {
+latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
   var bait: CEntity;
