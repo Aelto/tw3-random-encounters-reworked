@@ -18,6 +18,9 @@ class RE_Settings {
   public var large_creatures_chances_day: array<int>;
   public var large_creatures_chances_night: array<int>;
 
+  // used when picking the EncounterType Large/Small
+  public var large_creature_chance: int;
+
   function loadXMLSettings() {
     var inGameConfigWrapper : CInGameConfigWrapper;
 
@@ -25,6 +28,7 @@ class RE_Settings {
 
 
     this.loadMonsterHuntsChances(inGameConfigWrapper);
+    this.loadLargeCreatureChance(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
     this.loadTrophiesSettings(inGameConfigWrapper);
@@ -64,7 +68,11 @@ class RE_Settings {
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('monsterHuntChance', 'allMonsterHuntChance'));
+    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'allMonsterHuntChance'));
+  }
+
+  private function loadLargeCreatureChance(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.large_creature_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'largeCreatureChance'));
   }
   
 

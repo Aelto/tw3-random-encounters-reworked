@@ -64,14 +64,14 @@ state Spawning in CRandomEncounters {
 
   function getRandomEntityTypeWithSettings(): CreatureType {
     if (theGame.envMgr.IsNight()) {
-      if (RandRange(100) < 10) {
+      if (RandRange(100) < parent.settings.large_creature_chance) {
         return LARGE_CREATURE;
       }
 
       return SMALL_CREATURE;
     }
     else {
-      if (RandRange(100) < 5) {
+      if (RandRange(100) < parent.settings.large_creature_chance / 2) {
         return LARGE_CREATURE;
       }
 

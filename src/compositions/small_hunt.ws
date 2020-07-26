@@ -1,6 +1,5 @@
 
-// TODO: I don't like how this code looks, cleanup needed !
-latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
+latent function createRandomSmallCreatureHunt(random_encounters_class: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
   var bait: CEntity;
@@ -17,11 +16,9 @@ latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  creatures_templates = random_encounters_class.resources.getCreatureResourceByLargeCreatureType(
-    random_encounters_class.rExtra.getRandomLargeCreatureByCurrentArea(
-      random_encounters_class.settings,
-      random_encounters_class.spawn_roller
-    )
+  creatures_templates = master.resources.getCreatureResourceBySmallCreatureType(
+    master.rExtra.getRandomSmallCreatureByCurrentArea(master.settings, master.spawn_roller),
+    master.rExtra
   );
 
   if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
@@ -30,7 +27,10 @@ latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
     return;
   }
 
-  number_of_creatures = 1;
+  number_of_creatures = number_of_creatures = rollDifficultyFactor(
+    creatures_templates.difficulty_factor,
+    master.settings.selectedDifficulty
+  );;
 
   LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
 
@@ -40,7 +40,16 @@ latent function makeCreatureHunt(random_encounters_class: CRandomEncounters) {
   // creating the bait now
   createEntityHelper = new CCreateEntityHelper;
   createEntityHelper.Reset();
-  theGame.CreateEntityAsync(createEntityHelper, (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true), initial_position, thePlayer.GetWorldRotation(), true, false, false, PM_DontPersist);
+  theGame.CreateEntityAsync(
+    createEntityHelper,
+    (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+    initial_position,
+    thePlayer.GetWorldRotation(),
+    true,
+    false,
+    false,
+    PM_DontPersist
+  );
 
   while(createEntityHelper.IsCreating()) {            
     SleepOneFrame();
