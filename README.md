@@ -81,6 +81,9 @@ This mod will add random encounters to your adventure in The Witcher 3. It can b
 4. Start the game, let it compile the new scripts and open the new mod menu to configure the mod as you want.
 5. Done.
 
+# Source code
+The source code can be found on my github repository : [W3_RandomEncounters_Tweaks](https://github.com/Aelto/W3_RandomEncounters_Tweaks)
+
 # Credits
 
 - original idea by [erxv](https://www.nexusmods.com/witcher3/users/3812549) on nexusmods.
