@@ -3,11 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="master.css">
   <title>Random Encounters - Reworked | The Witcher 3</title>
 </head>
 <body>
+  <menu>
+    <h1>Random Encounters - Reworked | The Witcher 3</h1>
+
+    <a href="#showcase">showcase</a>
+    <a href="#install">install</a>
+    <a href="#source-code">source code</a>
+  </menu>
+
+  <section id="showcase">
+    <div class="background-image"></div>
+    <div class="content">
+      <h2>Showcase</h1>
+  
+      <!-- <a href="https://www.youtube.com/watch?v=LR50xPzPtEs">
+        <img src="31-fight_soon.jpg" controls></img>
+      </a> -->
+
+      <iframe id="player" type="text/html" width="640" height="360"
+        src="http://www.youtube.com/embed/LR50xPzPtEs?enablejsapi=1&origin=https://github.com"
+        frameborder="0"></iframe>
+    </div>
+    <div class="content center">
+      Add random encounters to The Witcher world. Bandits waiting to ambush you, or a pack of wolves attacking you. You can even start tracking large creatures wandering around you by following their tracks
+    </div>
+
+  </section>
+
+  <section id="install">
+    <h2>Install</h2>
+    <p>
+      First install the two dependencies for the mod:
+        <ul>
+          <li><a href="https://www.nexusmods.com/witcher3/mods/2109/?">modBootstrap</a> (the mod was tested with v0.4.1 but user reported it worked for v0.1)</li>
+          <li><a href="https://www.nexusmods.com/witcher3/mods/2110/?">modSharedImports</a></li>
+        </ul>
+    </p>
+
+    <p>
+      Then take the <a href="https://github.com/Aelto/W3_RandomEncounters_Tweaks/tree/master/release">
+        release directory
+      </a> and drop its content (not the directory itself) in your <span>The Witcher 3</span> directory
+    </p>
+
+    <p>
+      Add the following line of code into <span>The Witcher 3\Mods\modBootstrap-registry\content\scripts\local\mods_registry.ws</span>
+      <pre>
+add(modCreate_RandomEncountersReworked());
+      </pre>
+      so the file looks like this :
+      <pre>
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+class CModRegistry extends CModFactory {
+    protected function createMods() {
+        // add mod creation calls here, like this:
+        //
+        // add(modCreate_<ModName>());
+        // ...
+
+        // see example dir
+        //add(modCreate_ExampleMod());
+        //add(modCreate_ExampleEntityMod());
+        //add(modCreate_UiExampleMod());
+
+        add(modCreate_RandomEncountersReworked()); // <-- you added this line
+    }
+}
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+      </pre>
+    </p>
+
+    <p>
+      Start the game, let it compile the new scripts and <span>open the new mod menu to configure the mod as you want</span> (the default values are ridiculous + it need a loading screen to update the settings).
+    </p>
+
+    <p>
+      Done.
+    </p>
+  </section>
+
+  <section id="source-code">
+    <h2>Source Code</h2>
+    <p>
+      If you have ideas about features, or you encountered a bug and want it fixed (or even better you fixed it) head to the <a href="https://github.com/Aelto/W3_RandomEncounters_Tweaks">github repository</a> and create an issue i appreciate any feedback 👍
+    </p>
+  </section>
+
   <p>
-    Random Encounters - Reworked | The Witcher 3
+    
   </p>
 </body>
 </html>

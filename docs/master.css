@@ -1,0 +1,146 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+:root {
+  --var-z-image: 10;
+  --var-z-menu: 9;
+  --var-z-menu-links: 11;
+}
+
+menu {
+  display: flex;
+  align-items: center;
+  padding: 2em 1em;
+  margin: 0;
+  background-image: url(10-around_rosemary_and_thyme.jpg);
+  background-position: 50% 50%;
+  background-size: cover;
+  color: white;;
+  box-shadow: 0 6px 12px rgba(20, 20, 25, .06);
+
+ 
+  z-index: var(--var-z-menu);
+}
+
+menu h1 {
+  font-size: 1em;
+  flex-grow: 1;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+menu a {
+  color: wheat;
+  padding: 5px;
+  border: solid 4px currentColor;
+  text-decoration: none;
+  filter: drop-shadow(0px 0px 4px grey);
+  z-index: var(--var-z-menu-links);
+}
+
+menu a + a {
+  margin-left: 1em;
+}
+
+section {
+  min-height: 200px;
+}
+
+#showcase {
+  position: relative;
+  display: flex;
+  margin-left: 4rem;
+  min-height: 600px;
+}
+
+#showcase .content {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  z-index: var(--var-z-menu-links);
+}
+
+.content + .content {
+  margin-left: 1em;
+}
+
+#showcase .content.center {
+  justify-content: center;
+  mix-blend-mode: luminosity;
+  color: tan;
+  font-size: 1.6em;
+}
+
+section h2 {
+  font-size: 3em;
+  text-decoration: underline;
+  margin: 1em;
+}
+
+#showcase img {
+  position: relative;
+  height: 300px;
+  width: 600px;
+  margin-left: 3rem;
+  background: black;
+
+  z-index: var(--var-z-menu-links);
+}
+
+#showcase img::after {
+  content: "sdqsd▶";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 1em;
+  width: 1em;
+  color: red;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+#showcase .background-image {
+  background-image: url(geralt-contour.png);
+  /* background-attachment: fixed; */
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  background-size: contain;
+  z-index: var(--var-z-image);
+
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  height: 120%;
+  width: 100%;
+  filter: drop-shadow(-6px 0px 12px rgba(20, 20, 20, .05));
+}
+
+#install {
+  background: #0b0a09;
+  color: white;
+  padding: 1em 4em;
+}
+
+#install a {
+  color: white;
+}
+
+#install span {
+  background: rgba(255, 255, 255, 1);
+  padding: .2em .2em;
+  color: black;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#install pre {
+  margin-left: 4em;
+}
+
+#source-code {
+  padding-left: 4em;
+}
