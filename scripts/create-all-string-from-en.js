@@ -3,6 +3,7 @@ const path = require('path');
 
 const strings_directory = path.join(
   __dirname,
+  '..',
   'strings'
 );
 

@@ -16,6 +16,10 @@ latent function makeGroupComposition(encounter_type: EncounterType, creature_typ
         createRandomLargeCreatureHunt(random_encounters_class);
         break;
     }
+
+    if (random_encounters_class.settings.geralt_comments_enabled) {
+      thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
+    }
   }
   else {
     switch (creature_type) {
@@ -28,6 +32,10 @@ latent function makeGroupComposition(encounter_type: EncounterType, creature_typ
         LogChannel('modRandomEncounters', "spawning type LARGE_CREATURE");
         createRandomLargeCreatureComposition(random_encounters_class);
         break;
+    }
+
+    if (random_encounters_class.settings.geralt_comments_enabled) {
+      thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
     }
   }
 }

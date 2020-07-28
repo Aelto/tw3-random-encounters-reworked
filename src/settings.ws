@@ -21,6 +21,10 @@ class RE_Settings {
   // used when picking the EncounterType Large/Small
   public var large_creature_chance: int;
 
+  // controls whether or not geralt will comment
+  // when an encounter appears
+  public var geralt_comments_enabled: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper : CInGameConfigWrapper;
 
@@ -37,6 +41,7 @@ class RE_Settings {
 
     this.fillSettingsArrays();
 		this.loadCreaturesSpawningChances(inGameConfigWrapper);
+    this.loadGeraltCommentsSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -56,8 +61,12 @@ class RE_Settings {
     selectedDifficulty = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'Difficulty'));
   }
 
+  private function loadGeraltCommentsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.geralt_comments_enabled = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'geraltComments');
+  }
+
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-		enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies'); 	
+		enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies');
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
