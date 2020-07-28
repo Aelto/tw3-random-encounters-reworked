@@ -60,10 +60,10 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     if (this.go_towards_bait) {
       AddTimer('intervalHuntFunction', 2, true);
+      AddTimer('teleportBait', 10, true);
     }
     else {
       AddTimer('intervalDefaultFunction', 2, true);
-      AddTimer('teleportBait', 10, true);
     }
   }
 
@@ -152,7 +152,15 @@ class RandomEncountersReworkedEntity extends CEntity {
         .GetMovingAgentComponent()
         .SetGameplayRelativeMoveSpeed(1);
 
-      this.this_newnpc.NoticeActor((CActor)this.bait_entity);
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/6:
+      // when the bait_entity is no longer in the game, force the creatures
+      // to target the player instead.
+      if (this.bait_entity) {
+        this.this_newnpc.NoticeActor((CActor)this.bait_entity);
+      }
+      else {
+        this.this_newnpc.NoticeActor(thePlayer);
+      }
 
       if (distance_from_bait < 5) {
         new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
