@@ -960,12 +960,22 @@ class SpawnRoller {
       total += this.small_creatures_counters[i];
     }
 
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+    // added so the user can disable all SmallCreatureType and it would
+    // cancel the spawn. Useful when the user wants no spawn during the day.
+    if (total <= 0) {
+      return SmallCreatureNONE;
+    }
+
     roll = RandRange(total);
 
     current_position = 0;
 
     for (i = 0; i < SmallCreatureMAX; i += 1) {
-      if (roll <= current_position + this.small_creatures_counters[i]) {
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+      // `this.small_creatures_counters[i] > 0` is add so the user can
+      // disable a SmallCreatureType completely.
+      if (this.small_creatures_counters[i] > 0 && roll <= current_position + this.small_creatures_counters[i]) {
         return i;
       }
 
@@ -986,12 +996,22 @@ class SpawnRoller {
       total += this.large_creatures_counters[i];
     }
 
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+    // added so the user can disable all LargeCreatureType and it would
+    // cancel the spawn. Useful when the user wants no spawn during the day.
+    if (total <= 0) {
+      return LargeCreatureNONE;
+    }
+
     roll = RandRange(total);
 
     current_position = 0;
 
     for (i = 0; i < LargeCreatureMAX; i += 1) {
-      if (roll <= current_position + this.large_creatures_counters[i]) {
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+      // `this.large_creatures_counters[i] > 0` is add so the user can
+      // disable a LargeCreatureType completely.
+      if (this.large_creatures_counters[i] > 0 && roll <= current_position + this.large_creatures_counters[i]) {
         return i;
       }
 
@@ -2752,15 +2772,27 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
 
   var i: int;
   var initial_position: Vector;
+  var large_creature_type: LargeCreatureType;
 
   LogChannel('modRandomEncounters', "making large creatures composition ambush witcher");
 
-  creatures_templates = master.resources.getCreatureResourceByLargeCreatureType(
-    master.rExtra.getRandomLargeCreatureByCurrentArea(
-      master.settings,
-      master.spawn_roller
-    )
+  large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
+    master.settings,
+    master.spawn_roller
   );
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+  // added the NONE check because the SpawnRoller can return
+  // the NONE value if the user set all values to 0.
+  if (large_creature_type == LargeCreatureNONE) {
+    LogChannel('modRandomEncounters', "large_creature_type is NONE, cancelling spawn");
+
+    return;
+  }
+
+  creatures_templates = master
+    .resources
+    .getCreatureResourceByLargeCreatureType(large_creature_type);
 
   if (!getRandomPositionBehindCamera(initial_position)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
@@ -2792,6 +2824,7 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
 
   var creatures_entities: array<RandomEncountersReworkedEntity>;
   var createEntityHelper: CCreateEntityHelper;
+  var large_creature_type: LargeCreatureType;
 
   var current_entity_template: SEnemyTemplate;
   var current_template: CEntityTemplate;
@@ -2802,18 +2835,29 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  creatures_templates = master.resources.getCreatureResourceByLargeCreatureType(
-    master.rExtra.getRandomLargeCreatureByCurrentArea(
-      master.settings,
-      master.spawn_roller
-    )
+  large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
+    master.settings,
+    master.spawn_roller
   );
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+  // added the NONE check because the SpawnRoller can return
+  // the NONE value if the user set all values to 0.
+  if (large_creature_type == LargeCreatureNONE) {
+    LogChannel('modRandomEncounters', "large_creature_type is NONE, cancelling spawn");
+
+    return;
+  }
 
   if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
 
     return;
   }
+
+  creatures_templates = master
+    .resources
+    .getCreatureResourceByLargeCreatureType(large_creature_type);
 
   number_of_creatures = number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,
@@ -2881,16 +2925,26 @@ latent function makeSmallCreatureAmbushWitcher(out master: CRandomEncounters) {
 
   var creatures_entities: array<RandomEncountersReworkedEntity>;
   var rer_entity: RandomEncountersReworkedEntity;
+  var small_creature_type: SmallCreatureType;
 
   var i: int;
   var initial_position: Vector;
 
   LogChannel('modRandomEncounters', "making small creatures composition ambush witcher");
 
-  creatures_templates = master.resources.getCreatureResourceBySmallCreatureType(
-    master.rExtra.getRandomSmallCreatureByCurrentArea(master.settings, master.spawn_roller),
-    master.rExtra
+  small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
+    master.settings,
+    master.spawn_roller
   );
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+  // added the NONE check because the SpawnRoller can return
+  // the NONE value if the user set all values to 0.
+  if (small_creature_type == SmallCreatureNONE) {
+    LogChannel('modRandomEncounters', "small_creature_type is NONE, cancelling spawn");
+
+    return;
+  }
 
   if (!getRandomPositionBehindCamera(initial_position)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
@@ -2898,8 +2952,9 @@ latent function makeSmallCreatureAmbushWitcher(out master: CRandomEncounters) {
     return;
   }
 
-  LogChannel('modRandomEncounters', "spawning position found : " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
-
+  creatures_templates = master
+    .resources
+    .getCreatureResourceBySmallCreatureType(small_creature_type,master.rExtra);
 
   number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,
@@ -2925,6 +2980,7 @@ latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
 
   var creatures_entities: array<RandomEncountersReworkedEntity>;
   var createEntityHelper: CCreateEntityHelper;
+  var small_creature_type: SmallCreatureType;
 
   var current_entity_template: SEnemyTemplate;
   var current_template: CEntityTemplate;
@@ -2935,16 +2991,29 @@ latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  creatures_templates = master.resources.getCreatureResourceBySmallCreatureType(
-    master.rExtra.getRandomSmallCreatureByCurrentArea(master.settings, master.spawn_roller),
-    master.rExtra
+  small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
+    master.settings,
+    master.spawn_roller
   );
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+  // added the NONE check because the SpawnRoller can return
+  // the NONE value if the user set all values to 0.
+  if (small_creature_type == SmallCreatureNONE) {
+    LogChannel('modRandomEncounters', "small_creature_type is NONE, cancelling spawn");
+
+    return;
+  }
 
   if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
 
     return;
   }
+
+  creatures_templates = master
+    .resources
+    .getCreatureResourceBySmallCreatureType(small_creature_type, master.rExtra);
 
   number_of_creatures = number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,

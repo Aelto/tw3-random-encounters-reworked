@@ -6,6 +6,7 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
 
   var creatures_entities: array<RandomEncountersReworkedEntity>;
   var createEntityHelper: CCreateEntityHelper;
+  var large_creature_type: LargeCreatureType;
 
   var current_entity_template: SEnemyTemplate;
   var current_template: CEntityTemplate;
@@ -16,18 +17,29 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  creatures_templates = master.resources.getCreatureResourceByLargeCreatureType(
-    master.rExtra.getRandomLargeCreatureByCurrentArea(
-      master.settings,
-      master.spawn_roller
-    )
+  large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
+    master.settings,
+    master.spawn_roller
   );
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+  // added the NONE check because the SpawnRoller can return
+  // the NONE value if the user set all values to 0.
+  if (large_creature_type == LargeCreatureNONE) {
+    LogChannel('modRandomEncounters', "large_creature_type is NONE, cancelling spawn");
+
+    return;
+  }
 
   if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
 
     return;
   }
+
+  creatures_templates = master
+    .resources
+    .getCreatureResourceByLargeCreatureType(large_creature_type);
 
   number_of_creatures = number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,

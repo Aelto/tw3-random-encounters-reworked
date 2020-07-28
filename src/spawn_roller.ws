@@ -76,12 +76,22 @@ class SpawnRoller {
       total += this.small_creatures_counters[i];
     }
 
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+    // added so the user can disable all SmallCreatureType and it would
+    // cancel the spawn. Useful when the user wants no spawn during the day.
+    if (total <= 0) {
+      return SmallCreatureNONE;
+    }
+
     roll = RandRange(total);
 
     current_position = 0;
 
     for (i = 0; i < SmallCreatureMAX; i += 1) {
-      if (roll <= current_position + this.small_creatures_counters[i]) {
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+      // `this.small_creatures_counters[i] > 0` is add so the user can
+      // disable a SmallCreatureType completely.
+      if (this.small_creatures_counters[i] > 0 && roll <= current_position + this.small_creatures_counters[i]) {
         return i;
       }
 
@@ -102,12 +112,22 @@ class SpawnRoller {
       total += this.large_creatures_counters[i];
     }
 
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+    // added so the user can disable all LargeCreatureType and it would
+    // cancel the spawn. Useful when the user wants no spawn during the day.
+    if (total <= 0) {
+      return LargeCreatureNONE;
+    }
+
     roll = RandRange(total);
 
     current_position = 0;
 
     for (i = 0; i < LargeCreatureMAX; i += 1) {
-      if (roll <= current_position + this.large_creatures_counters[i]) {
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+      // `this.large_creatures_counters[i] > 0` is add so the user can
+      // disable a LargeCreatureType completely.
+      if (this.large_creatures_counters[i] > 0 && roll <= current_position + this.large_creatures_counters[i]) {
         return i;
       }
 
