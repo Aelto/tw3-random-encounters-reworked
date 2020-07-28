@@ -1,10 +1,10 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
 2115018001|        |preset_value_rer_defaults|Load Defaults
-2115018002|        |option_rer_custom_frequency_low_day|Minimum delay during the day
-2115018003|        |option_rer_custom_frequency_high_day|Maximum delay during the day
-2115018004|        |option_rer_custom_frequency_low_night|Minimum delay during the night
-2115018005|        |option_rer_custom_frequency_hight_night|Maximum delay during the night
+2115018002|        |option_rer_custom_frequency_low_day|Minimum delay during the day (in seconds)
+2115018003|        |option_rer_custom_frequency_high_day|Maximum delay during the day (in seconds)
+2115018004|        |option_rer_custom_frequency_low_night|Minimum delay during the night (in seconds)
+2115018005|        |option_rer_custom_frequency_hight_night|Maximum delay during the night (in seconds)
 2115018006|        |preset_value_rer_low|Low
 2115018007|        |preset_value_rer_medium|Medium
 2115018008|        |preset_value_rer_high|High
