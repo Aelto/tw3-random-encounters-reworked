@@ -484,7 +484,11 @@ statemachine class CRandomEncounters extends CEntity {
 }
 
 function displayRandomEncounterEnabledNotification() {
-  theGame.GetGuiManager().ShowNotification("Random Encounters Mod Enabled");
+  theGame
+  .GetGuiManager()
+  .ShowNotification(
+    GetLocStringByKey("option_rer_enabled")
+  );
 }
 
 class RE_Resources {
