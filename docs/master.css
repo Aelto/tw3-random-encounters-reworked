@@ -141,6 +141,15 @@ section h2 {
   margin-left: 4em;
 }
 
+#install .info {
+  display: inline-block;
+  background: rgba(80, 80, 80, .3);
+  font-size: 1.1em;
+  padding: 1em 2em;
+  font-style: italic;
+  margin: 2em 1em;
+}
+
 #source-code {
   padding-left: 4em;
 }
