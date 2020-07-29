@@ -1,6 +1,9 @@
 
 class RandomEncountersReworkedEntity extends CEntity {
   // an invisible entity used to bait the entity
+  // TODO: do i really need a CEntity?
+  // using ActionMoveTo i can force the creature to go
+  // toward a vector. 
   var bait_entity: CEntity;
 
   // control whether the entity goes towards a bait
@@ -63,6 +66,8 @@ class RandomEncountersReworkedEntity extends CEntity {
       AddTimer('teleportBait', 10, true);
     }
     else {
+      this.this_newnpc.NoticeActor(thePlayer);
+
       AddTimer('intervalDefaultFunction', 2, true);
     }
   }
@@ -89,9 +94,14 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
 
-    this.this_newnpc.NoticeActor(thePlayer);
+    // large creatures stay still without it.
+    this.this_actor
+        .ActionMoveToAsync(thePlayer.GetWorldPosition());
 
-    if (distance_from_player < 30) {
+    if (distance_from_player < 20) {
+      this.this_actor
+        .ActionCancelAll();
+
       // the creature is close enough to fight thePlayer,
       // we do not need this intervalFunction anymore.
       this.RemoveTimer('intervalDefaultFunction');
@@ -132,6 +142,9 @@ class RandomEncountersReworkedEntity extends CEntity {
     }
 
     if (distance_from_player < 20) {
+      this.this_actor
+        .ActionCancelAll();
+
       this.this_newnpc.NoticeActor(thePlayer);
 
       // the creature is close enough to fight thePlayer,
@@ -142,35 +155,30 @@ class RandomEncountersReworkedEntity extends CEntity {
 
       // we also kill the bait
       this.bait_entity.Destroy();
-
-      this.this_actor
-        .GetMovingAgentComponent()
-        .SetGameplayRelativeMoveSpeed(-1);
     }
     else {
       this.this_actor
-        .GetMovingAgentComponent()
-        .SetGameplayRelativeMoveSpeed(1);
+        .ActionMoveToAsync(this.bait_entity.GetWorldPosition());
 
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/6:
       // when the bait_entity is no longer in the game, force the creatures
       // to target the player instead.
       if (this.bait_entity) {
         this.this_newnpc.NoticeActor((CActor)this.bait_entity);
+
+        if (distance_from_bait < 5) {
+          new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
+          new_bait_rotation = this.GetWorldRotation();
+          new_bait_rotation.Yaw += RandRange(-20,20);
+          
+          this.bait_entity.TeleportWithRotation(
+            new_bait_position,
+            new_bait_rotation
+          );
+        }
       }
       else {
         this.this_newnpc.NoticeActor(thePlayer);
-      }
-
-      if (distance_from_bait < 5) {
-        new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
-        new_bait_rotation = this.GetWorldRotation();
-        new_bait_rotation.Yaw += RandRange(-20,20);
-        
-        this.bait_entity.TeleportWithRotation(
-          new_bait_position,
-          new_bait_rotation
-        );
       }
 
       this.createTracksOnGround();
@@ -226,6 +234,11 @@ class RandomEncountersReworkedEntity extends CEntity {
       this.clean();
 
       return;
+    }
+
+    if (distance_from_player > 20) {
+      this.this_actor
+        .ActionMoveToAsync(thePlayer.GetWorldPosition());
     }
   }
 
