@@ -94,7 +94,6 @@
                     <Entry varId="Arachas"				value="0"	/>
                     <Entry varId="Fiends"				value="0"	/>
                     <Entry varId="Chorts"				value="0"	/>
-                    <Entry varId="Vampires"				value="0"	/>
                     <Entry varId="Bears"				value="0"	/>
                     <Entry varId="Golems"				value="0"	/>
                     <Entry varId="Elementals"			value="0"	/>
@@ -148,7 +147,6 @@
                     <Entry varId="Arachas"				value="10"	/>
                     <Entry varId="Fiends"				value="10"	/>
                     <Entry varId="Chorts"				value="10"	/>
-                    <Entry varId="Vampires"				value="10"	/>
                     <Entry varId="Bears"				value="10"	/>
                     <Entry varId="Golems"				value="10"	/>
                     <Entry varId="Elementals"			value="10"	/>
@@ -217,7 +215,6 @@
 					<Entry varId="Giant"				value="10"	/>
 					<Entry varId="Sharley"				value="10"	/>
                     <Entry varId="Cyclops"				value="5"	/>
-                    <Entry varId="Vampires"				value="5"	/>
                     <Entry varId="Golems"				value="5"	/>
                     <Entry varId="Elementals"			value="5"	/>
 					<Entry varId="HigherVamp"			value="1"	/>
@@ -261,8 +258,6 @@
             <Var id="Fiends" displayName="rer_fiend" displayType="SLIDER;0;100;100" />
             
             <Var id="Chorts" displayName="rer_chort" displayType="SLIDER;0;100;100" />
-            
-            <Var id="Vampires" displayName="rer_vampire" displayType="SLIDER;0;100;100" />
             
             <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
             
@@ -367,7 +362,6 @@
                     <Entry varId="Arachas"				value="0"	/>
                     <Entry varId="Fiends"				value="0"	/>
                     <Entry varId="Chorts"				value="0"	/>
-                    <Entry varId="Vampires"				value="0"	/>
                     <Entry varId="Bears"				value="0"	/>
                     <Entry varId="Golems"				value="0"	/>
                     <Entry varId="Elementals"			value="0"	/>
@@ -422,7 +416,6 @@
                     <Entry varId="Arachas"				value="10"	/>
                     <Entry varId="Fiends"				value="10"	/>
                     <Entry varId="Chorts"				value="10"	/>
-                    <Entry varId="Vampires"				value="10"	/>
                     <Entry varId="Bears"				value="10"	/>
                     <Entry varId="Golems"				value="10"	/>
                     <Entry varId="Elementals"			value="10"	/>
@@ -490,7 +483,6 @@
 					<Entry varId="Giant"				value="10"	/>
 					<Entry varId="Sharley"				value="10"	/>
                     <Entry varId="Cyclops"				value="5"	/>
-                    <Entry varId="Vampires"				value="5"	/>
                     <Entry varId="Golems"				value="5"	/>
                     <Entry varId="Elementals"			value="5"	/>
 					<Entry varId="HigherVamp"			value="1"	/>
@@ -534,8 +526,6 @@
             <Var id="Fiends" displayName="rer_fiend" displayType="SLIDER;0;100;100" />
             
             <Var id="Chorts" displayName="rer_chort" displayType="SLIDER;0;100;100" />
-            
-            <Var id="Vampires" displayName="rer_vampire" displayType="SLIDER;0;100;100" />
             
             <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
             

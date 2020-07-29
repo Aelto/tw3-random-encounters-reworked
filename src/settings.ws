@@ -157,7 +157,6 @@ class RE_Settings {
 		this.large_creatures_chances_day[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
 		this.large_creatures_chances_day[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
     this.large_creatures_chances_day[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
-    this.large_creatures_chances_day[LargeCreatureVAMPIRE]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Vampires'));
     this.large_creatures_chances_day[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Gryphons'));
     this.large_creatures_chances_day[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cockatrice'));
     this.large_creatures_chances_day[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Basilisk'));
@@ -211,7 +210,6 @@ class RE_Settings {
 		this.large_creatures_chances_night[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
 		this.large_creatures_chances_night[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
     this.large_creatures_chances_night[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
-    this.large_creatures_chances_night[LargeCreatureVAMPIRE]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Vampires'));
     this.large_creatures_chances_night[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Gryphons'));
     this.large_creatures_chances_night[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cockatrice'));
     this.large_creatures_chances_night[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Basilisk'));

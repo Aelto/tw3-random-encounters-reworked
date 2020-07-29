@@ -77,21 +77,20 @@ enum LargeCreatureType {
   LargeCreatureGIANT        = 18,  
   LargeCreatureSHARLEY      = 19,
   LargeCreatureWIGHT        = 20,
-  LargeCreatureVAMPIRE      = 21,
-  LargeCreatureGRYPHON      = 22,
-  LargeCreatureCOCKATRICE   = 23,
-  LargeCreatureBASILISK     = 24,
-  LargeCreatureWYVERN       = 25,
-  LargeCreatureFORKTAIL     = 26,
-  LargeCreatureSKELTROLL    = 27,
+  LargeCreatureGRYPHON      = 21,
+  LargeCreatureCOCKATRICE   = 22,
+  LargeCreatureBASILISK     = 23,
+  LargeCreatureWYVERN       = 24,
+  LargeCreatureFORKTAIL     = 25,
+  LargeCreatureSKELTROLL    = 26,
 
 
   // It is important to keep the numbers continuous.
   // The `SpawnRoller` classes uses these numbers to
   // to fill its arrays.
   // (so that i dont have to write 40 lines by hand)
-  LargeCreatureMAX          = 28,
-  LargeCreatureNONE         = 29
+  LargeCreatureMAX          = 27,
+  LargeCreatureNONE         = 28
 }
 
 enum EncounterType {
