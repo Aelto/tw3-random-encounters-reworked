@@ -45,7 +45,10 @@ state Spawning in CRandomEncounters {
     is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
     current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
 
+    LogChannel('modRandomEncounters', "the player is in settlement:" + this.isInSettlement());
+
     return is_meditating 
+        || current_zone == REZ_NOSPAWN
         || thePlayer.IsInInterior()
         || thePlayer.IsInCombat()
         || thePlayer.IsUsingBoat()
@@ -58,12 +61,33 @@ state Spawning in CRandomEncounters {
         || theGame.IsFading()
         || theGame.IsBlackscreen()
         
-        || current_zone == REZ_CITY 
-        && !parent.settings.cityBruxa 
-        && !parent.settings.citySpawn
-        
         || !parent.settings.citySpawn
-        && thePlayer.IsInSettlement();
+        && (
+          // either from an hardcoded city in RER
+          // or if the game tells us the player is
+          // in a settlement.
+          current_zone == REZ_CITY 
+          || this.isInSettlement()
+        );
+  }
+
+  function isInSettlement(): bool {
+    var current_area : EAreaName;
+
+		current_area = theGame.GetCommonMapManager().GetCurrentArea();
+
+    // the .isInSettlement() method doesn't work when is skellige
+    // it always returns true.
+    if (current_area == AN_Skellige_ArdSkellig) {
+      // HACK: it can be a great way to see if a settlement is nearby
+      // by looking for a noticeboard. Though some settlements don't have
+      // any noticeboard.
+      // TODO: get the nearest signpost and read its tag then check
+      // if it is a known settlement.
+      return parent.rExtra.isNearNoticeboard();
+    }
+    
+    return thePlayer.IsInSettlement();
   }
 
   function getRandomEntityTypeWithSettings(): CreatureType {

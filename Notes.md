@@ -15,6 +15,12 @@
 	}
   ```
 
+- find entities around the player
+  ```js
+    var entities : array<CGameplayEntity>;
+		FindGameplayEntitiesInSphere( entities, thePlayer.GetWorldPosition(), 10, 1,, FLAG_ExcludePlayer,, 'W3FastTravelEntity' ); // 'W3NoticeBoard' for noticeboards
+
+  ```
 
 ## RER spawning system and events
 > The goal is to make a new system controlling when and which creatures will spawn.
