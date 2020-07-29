@@ -57,9 +57,13 @@ state Spawning in CRandomEncounters {
         || theGame.IsCurrentlyPlayingNonGameplayScene()
         || theGame.IsFading()
         || theGame.IsBlackscreen()
+        
         || current_zone == REZ_CITY 
         && !parent.settings.cityBruxa 
-        && !parent.settings.citySpawn;
+        && !parent.settings.citySpawn
+        
+        || !parent.settings.citySpawn
+        && thePlayer.IsInSettlement();
   }
 
   function getRandomEntityTypeWithSettings(): CreatureType {
