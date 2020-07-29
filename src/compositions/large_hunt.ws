@@ -1,19 +1,6 @@
 
 latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-  var bait: CEntity;
-
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var createEntityHelper: CCreateEntityHelper;
   var large_creature_type: LargeCreatureType;
-
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
-
-  var i: int;
-  var j: int;
-  var initial_position: Vector;
 
   LogChannel('modRandomEncounters', "making create hunt");
 
@@ -30,6 +17,34 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
 
     return;
   }
+
+  if (large_creature_type == LargeCreatureGRYPHON) {
+    makeGrpyhonLargeCreatureHunt(master);
+  }
+  else {
+    makeDefaultLargeCreatureHunt(master, large_creature_type);
+  }
+}
+
+latent function makeGrpyhonLargeCreatureHunt(master: CRandomEncounters) {
+  var creatures_templates: EnemyTemplateList;
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+}
+
+latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
+  var creatures_templates: EnemyTemplateList;
+  var number_of_creatures: int;
+  var bait: CEntity;
+
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var createEntityHelper: CCreateEntityHelper;
+
+  var current_entity_template: SEnemyTemplate;
+  var current_template: CEntityTemplate;
+
+  var i: int;
+  var j: int;
+  var initial_position: Vector;
 
   if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
