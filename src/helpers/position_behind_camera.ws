@@ -2,6 +2,7 @@
 function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float): bool {  // var camera_direction: Vector;
   var player_position: Vector;
   var point_z: float;
+  var attempts_left: int;
 
   if (minimum_distance == 0.0) {
     minimum_distance = 20.0;
@@ -11,12 +12,21 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
   if (distance == 0.0) {
     distance = 40;
   }
+
   else if (distance < minimum_distance) {
     distance = minimum_distance; // meters
   }
 
   player_position = thePlayer.GetWorldPosition();
-  initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -minimum_distance, -distance);
+  attempts_left = 3;
 
-  return getGroundPosition(initial_pos);
+  for (attempts_left; attempts_left > 0; attempts_left -= 1) {
+    initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -minimum_distance, -distance);
+
+    if (getGroundPosition(initial_pos)) {
+      return true;
+    }
+  }
+
+  return false;
 }
