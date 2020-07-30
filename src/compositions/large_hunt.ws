@@ -19,16 +19,86 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
   }
 
   if (large_creature_type == LargeCreatureGRYPHON) {
-    makeGrpyhonLargeCreatureHunt(master);
+    makeGryphonLargeCreatureHunt(master);
   }
   else {
     makeDefaultLargeCreatureHunt(master, large_creature_type);
   }
 }
 
-latent function makeGrpyhonLargeCreatureHunt(master: CRandomEncounters) {
+latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var rer_gryphon_entity: RandomEncountersReworkedGryphonHuntEntity;
+  var gryphon_entity: CEntity;
+
+  var i: int;
+  var j: int;
+  var current_entity_template: SEnemyTemplate;
+  var rer_entity_template: CEntityTemplate;
+  var chosen_template: CEntityTemplate;
+  var create_entity_helper: CCreateEntityHelper;
+  var initial_position: Vector;
+  var player_position: Vector;
+
+  LogChannel('modRandomEncounters', "makeGryphonLargeCreatureHunt - starting");
+
+  creatures_templates = master
+    .resources
+    .getCreatureResourceByLargeCreatureType(LargeCreatureGRYPHON);
+
+  creatures_templates = fillEnemyTemplateList(creatures_templates, 1);
+
+  if (!getRandomPositionBehindCamera(initial_position, 120, 80, 10)) {
+    LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+    return;
+  }
+
+  rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent", true);
+
+  for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
+    current_entity_template = creatures_templates.templates[i];
+
+    if (current_entity_template.count == 0) {
+      continue;
+    }
+
+    LogChannel('modRandomEncounters', "chosen template: " + current_entity_template.template);
+
+    chosen_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
+
+    break;
+  }
+
+  create_entity_helper = new CCreateEntityHelper;
+  create_entity_helper.Reset();
+  theGame.CreateEntityAsync(create_entity_helper, chosen_template, initial_position, thePlayer.GetWorldRotation(), true, false, false, PM_DontPersist);
+
+  LogChannel('modRandomEncounters', "spawning entity at " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
+
+  player_position = thePlayer.GetWorldPosition();
+  LogChannel('modRandomEncounters', "player at " + player_position.X + " " + player_position.Y + " " + player_position.Z);
+
+  while(create_entity_helper.IsCreating()) {            
+    SleepOneFrame();
+  }
+
+  gryphon_entity = create_entity_helper.GetCreatedEntity();
+
+  rer_gryphon_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
+    rer_entity_template,
+    initial_position,
+    thePlayer.GetWorldRotation()
+  );
+
+  rer_gryphon_entity.attach(
+    (CActor)gryphon_entity,
+    (CNewNPC)gryphon_entity,
+    gryphon_entity
+  );
+
+  rer_gryphon_entity.start();
+  
 }
 
 latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
@@ -56,10 +126,10 @@ latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_cr
     .resources
     .getCreatureResourceByLargeCreatureType(large_creature_type);
 
-  number_of_creatures = number_of_creatures = rollDifficultyFactor(
+  number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,
     master.settings.selectedDifficulty
-  );;
+  );
 
   LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
 
