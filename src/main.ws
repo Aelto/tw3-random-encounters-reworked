@@ -64,7 +64,9 @@ statemachine class CRandomEncounters extends CEntity {
   event OnSpawnMonster(action: SInputAction) {
     LogChannel('modRandomEncounters', "on spawn event");
   
-    this.GotoState('Spawning');
+    if (this.ticks_before_spawn > 5) {
+      this.ticks_before_spawn = 5;
+    }
   }
 
   private function initiateRandomEncounters() {
