@@ -1,274 +1,4 @@
 
-class RandomEncountersReworkedEntity extends CEntity {
-  // an invisible entity used to bait the entity
-  var bait_entity: CEntity;
-
-  // control whether the entity goes towards a bait
-  // or the player
-  var go_towards_bait: bool;
-  default go_towards_bait = false;
-
-  public var this_entity: CEntity;
-  public var this_actor: CActor;
-  public var this_newnpc: CNewNPC;
-
-  private var tracks_template: CEntityTemplate;
-  private var tracks_entities: array<CEntity>;
-
-  event OnSpawned( spawnData : SEntitySpawnData ){
-		super.OnSpawned(spawnData);
-
-    LogChannel('modRandomEncounters', "RandomEncountersEntity spawned");
-	}
-
-  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
-    this.this_actor = actor;
-    this.this_newnpc = newnpc;
-    this.this_entity = this_entity;
-
-		this.CreateAttachment( this_entity );
-    this.AddTag('RandomEncountersReworked_Entity');
-  }
-
-  // entry point when creating an entity who will
-  // follow a bait and leave tracks behind her.
-  // more suited for: `EncounterType_HUNT`
-  // NOTE: this functions calls `startWithoutBait`
-  public function startWithBait(bait_entity: CEntity) {
-    this.bait_entity = bait_entity;
-    this.go_towards_bait = true;
-
-    ((CNewNPC)this.bait_entity).SetGameplayVisibility(false);
-    ((CNewNPC)this.bait_entity).SetVisibility(false);		
-    ((CActor)this.bait_entity).EnableCharacterCollisions(false);
-    ((CActor)this.bait_entity).EnableDynamicCollisions(false);
-    ((CActor)this.bait_entity).EnableStaticCollisions(false);
-    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);  
-
-    this.startWithoutBait();
-  }
-
-  // entry point when creating an entity who will
-  // directly target the player.
-  // more suited for: `EncounterType_DEFAULT`
-  public function startWithoutBait() {
-    // TODO: create a function getTracksTemplateByCreatureType
-    this.tracks_template = (CEntityTemplate)LoadResource(
-      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
-      true
-    );
-
-    if (this.go_towards_bait) {
-      AddTimer('intervalHuntFunction', 2, true);
-      AddTimer('teleportBait', 10, true);
-    }
-    else {
-      AddTimer('intervalDefaultFunction', 2, true);
-    }
-  }
-
-  timer function intervalDefaultFunction(optional dt : float, optional id : Int32) {
-    var distance_from_player: float;
-
-    if (!this.this_actor.IsAlive()) {
-      this.clean();
-
-      return;
-    }
-
-    distance_from_player = VecDistance(
-      this.GetWorldPosition(),
-      thePlayer.GetWorldPosition()
-    );
-
-    if (distance_from_player > 100) {
-      this.clean();
-
-      return;
-    }
-
-    LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
-
-    this.this_newnpc.NoticeActor(thePlayer);
-
-    if (distance_from_player < 30) {
-      // the creature is close enough to fight thePlayer,
-      // we do not need this intervalFunction anymore.
-      this.RemoveTimer('intervalDefaultFunction');
-
-      this.AddTimer('intervalLifecheckFunction', 10, true);
-    }
-  }
-
-  timer function intervalHuntFunction(optional dt : float, optional id : Int32) {
-    var distance_from_player: float;
-    var distance_from_bait: float;
-    var new_bait_position: Vector;
-    var new_bait_rotation: EulerAngles;
-
-    if (!this.this_newnpc.IsAlive()) {
-      this.clean();
-
-      return;
-    }
-
-    distance_from_player = VecDistance(
-      this.GetWorldPosition(),
-      thePlayer.GetWorldPosition()
-    );
-
-    distance_from_bait = VecDistance(
-      this.GetWorldPosition(),
-      this.bait_entity.GetWorldPosition()
-    );
-
-    LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
-    LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
-
-    if (distance_from_player > 200) {
-      this.clean();
-
-      return;
-    }
-
-    if (distance_from_player < 20) {
-      this.this_newnpc.NoticeActor(thePlayer);
-
-      // the creature is close enough to fight thePlayer,
-      // we do not need this intervalFunction anymore.
-      this.RemoveTimer('intervalHuntFunction');
-      this.RemoveTimer('teleportBait');
-      this.AddTimer('intervalLifecheckFunction', 10, true);
-
-      // we also kill the bait
-      this.bait_entity.Destroy();
-
-      this.this_actor
-        .GetMovingAgentComponent()
-        .SetGameplayRelativeMoveSpeed(-1);
-    }
-    else {
-      this.this_actor
-        .GetMovingAgentComponent()
-        .SetGameplayRelativeMoveSpeed(1);
-
-      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/6:
-      // when the bait_entity is no longer in the game, force the creatures
-      // to target the player instead.
-      if (this.bait_entity) {
-        this.this_newnpc.NoticeActor((CActor)this.bait_entity);
-      }
-      else {
-        this.this_newnpc.NoticeActor(thePlayer);
-      }
-
-      if (distance_from_bait < 5) {
-        new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
-        new_bait_rotation = this.GetWorldRotation();
-        new_bait_rotation.Yaw += RandRange(-20,20);
-        
-        this.bait_entity.TeleportWithRotation(
-          new_bait_position,
-          new_bait_rotation
-        );
-      }
-
-      this.createTracksOnGround();
-    }  
-  }
-
-  private function createTracksOnGround() {
-    var new_track: CEntity;
-    var position: Vector;
-    var rotation: EulerAngles;
-
-    position = this.GetWorldPosition();
-    rotation = this.GetWorldRotation();
-
-    if (getGroundPosition(position)) {
-      new_track = theGame.CreateEntity(
-        this.tracks_template,
-        position,
-        rotation
-      );
-
-      this.tracks_entities.PushBack(new_track);
-
-      if (this.tracks_entities.Size() > 200) {
-        // TODO: clearly not great performance wise.
-        // we could add an index variable going from 0 to 200
-        // and once it has reached 200 goes back to 0 and we start
-        // destroying the old track and replace it with the new one.
-        // Or even better, only change the position of the old one.
-        this.tracks_entities[0].Destroy();
-        this.tracks_entities.Remove(this.tracks_entities[0]);
-      }
-    }
-  }
-
-  // simple interval function call every ten seconds or so to check if the creature is
-  // still alive. Starts the cleaning process if not, and eventually triggers some events.
-  timer function intervalLifecheckFunction(optional dt: float, optional id: Int32) {
-    var distance_from_player: float;
-
-    if (!this.this_newnpc.IsAlive()) {
-      this.clean();
-
-      return;
-    }
-
-    distance_from_player = VecDistance(
-      this.GetWorldPosition(),
-      thePlayer.GetWorldPosition()
-    );
-
-    if (distance_from_player > 200) {
-      this.clean();
-
-      return;
-    }
-  }
-
-  // a timer function called every few seconds o teleport the bait.
-  // In case the bait is in a position the creature can't reach
-  timer function teleportBait(optional dt : float, optional id : Int32) {
-    var new_bait_position: Vector;
-    var new_bait_rotation: EulerAngles;
-
-    new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
-    new_bait_rotation = this.GetWorldRotation();
-    new_bait_rotation.Yaw += RandRange(-20,20);
-    
-    this.bait_entity.TeleportWithRotation(
-      new_bait_position,
-      new_bait_rotation
-    );
-  }
-
-  private function clean() {
-    var i: int;
-
-    RemoveTimer('intervalDefaultFunction');
-    RemoveTimer('intervalHuntFunction');
-    RemoveTimer('teleportBait');
-
-    LogChannel('modRandomEncounters', "RandomEncountersReworked_Entity destroyed");
-
-    if (this.bait_entity) {
-      this.bait_entity.Destroy();
-    }
-
-    for (i = 0; i < this.tracks_entities.Size(); i += 1) {
-      this.tracks_entities[i].Destroy();
-    }
-
-    this.tracks_entities.Clear();
-
-    this.this_actor.Kill('RandomEncountersReworked_Entity', true);
-    this.Destroy();
-  }
-}
-
 enum EHumanType
 {
   HT_BANDIT       = 0,
@@ -347,21 +77,20 @@ enum LargeCreatureType {
   LargeCreatureGIANT        = 18,  
   LargeCreatureSHARLEY      = 19,
   LargeCreatureWIGHT        = 20,
-  LargeCreatureVAMPIRE      = 21,
-  LargeCreatureGRYPHON      = 22,
-  LargeCreatureCOCKATRICE   = 23,
-  LargeCreatureBASILISK     = 24,
-  LargeCreatureWYVERN       = 25,
-  LargeCreatureFORKTAIL     = 26,
-  LargeCreatureSKELTROLL    = 27,
+  LargeCreatureGRYPHON      = 21,
+  LargeCreatureCOCKATRICE   = 22,
+  LargeCreatureBASILISK     = 23,
+  LargeCreatureWYVERN       = 24,
+  LargeCreatureFORKTAIL     = 25,
+  LargeCreatureSKELTROLL    = 26,
 
 
   // It is important to keep the numbers continuous.
   // The `SpawnRoller` classes uses these numbers to
   // to fill its arrays.
   // (so that i dont have to write 40 lines by hand)
-  LargeCreatureMAX          = 28,
-  LargeCreatureNONE         = 29
+  LargeCreatureMAX          = 27,
+  LargeCreatureNONE         = 28
 }
 
 enum EncounterType {
@@ -475,7 +204,9 @@ statemachine class CRandomEncounters extends CEntity {
   event OnSpawnMonster(action: SInputAction) {
     LogChannel('modRandomEncounters', "on spawn event");
   
-    this.GotoState('Spawning');
+    if (this.ticks_before_spawn > 5) {
+      this.ticks_before_spawn = 5;
+    }
   }
 
   private function initiateRandomEncounters() {
@@ -828,7 +559,6 @@ class RE_Settings {
 		this.large_creatures_chances_day[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
 		this.large_creatures_chances_day[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
     this.large_creatures_chances_day[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
-    this.large_creatures_chances_day[LargeCreatureVAMPIRE]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Vampires'));
     this.large_creatures_chances_day[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Gryphons'));
     this.large_creatures_chances_day[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cockatrice'));
     this.large_creatures_chances_day[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Basilisk'));
@@ -882,7 +612,6 @@ class RE_Settings {
 		this.large_creatures_chances_night[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
 		this.large_creatures_chances_night[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
     this.large_creatures_chances_night[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
-    this.large_creatures_chances_night[LargeCreatureVAMPIRE]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Vampires'));
     this.large_creatures_chances_night[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Gryphons'));
     this.large_creatures_chances_night[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cockatrice'));
     this.large_creatures_chances_night[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Basilisk'));
@@ -2001,12 +1730,12 @@ function re_echinops() : EnemyTemplateList {
   enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\echinops_normal_lw.w2ent"));
   enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\echinops_turret.w2ent", 1));
 
-  enemy_template_list.difficulty_factor.minimum_count_easy = 1;
-  enemy_template_list.difficulty_factor.maximum_count_easy = 1;
-  enemy_template_list.difficulty_factor.minimum_count_medium = 1;
-  enemy_template_list.difficulty_factor.maximum_count_medium = 1;
-  enemy_template_list.difficulty_factor.minimum_count_hard = 1;
-  enemy_template_list.difficulty_factor.maximum_count_hard = 1;
+  enemy_template_list.difficulty_factor.minimum_count_easy = 2;
+  enemy_template_list.difficulty_factor.maximum_count_easy = 2;
+  enemy_template_list.difficulty_factor.minimum_count_medium = 2;
+  enemy_template_list.difficulty_factor.maximum_count_medium = 3;
+  enemy_template_list.difficulty_factor.minimum_count_hard = 3;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 4;
 
   return enemy_template_list;
 }
@@ -2277,6 +2006,24 @@ class CModRExtra {
     return zone; 
   }
 
+  public function isNearNoticeboard(): bool {
+    var entities: array<CGameplayEntity>;
+
+     // 'W3NoticeBoard' for noticeboards, 'W3FastTravelEntity' for signpost
+		FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      50, // range, we'll have to check if 50 is too big/small
+      1, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'W3NoticeBoard'
+    );
+
+    return entities.Size() > 0;
+  } 
+
   public function getRandomHumanTypeByCurrentArea(): EHumanType {
     var choice: array<EHumanType>;
     var current_area: string;
@@ -2507,7 +2254,6 @@ class CModRExtra {
       spawn_roller.setLargeCreatureCounter(LargeCreatureDETLAFF, 0);
       spawn_roller.setLargeCreatureCounter(LargeCreatureGIANT, 0);
       spawn_roller.setLargeCreatureCounter(LargeCreatureSHARLEY, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureVAMPIRE, 0);
     }
 
     if (current_area != "skellige") {
@@ -2826,20 +2572,7 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
 }
 
 latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-  var bait: CEntity;
-
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var createEntityHelper: CCreateEntityHelper;
   var large_creature_type: LargeCreatureType;
-
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
-
-  var i: int;
-  var j: int;
-  var initial_position: Vector;
 
   LogChannel('modRandomEncounters', "making create hunt");
 
@@ -2856,6 +2589,34 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
 
     return;
   }
+
+  if (large_creature_type == LargeCreatureGRYPHON) {
+    makeGrpyhonLargeCreatureHunt(master);
+  }
+  else {
+    makeDefaultLargeCreatureHunt(master, large_creature_type);
+  }
+}
+
+latent function makeGrpyhonLargeCreatureHunt(master: CRandomEncounters) {
+  var creatures_templates: EnemyTemplateList;
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+}
+
+latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
+  var creatures_templates: EnemyTemplateList;
+  var number_of_creatures: int;
+  var bait: CEntity;
+
+  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var createEntityHelper: CCreateEntityHelper;
+
+  var current_entity_template: SEnemyTemplate;
+  var current_template: CEntityTemplate;
+
+  var i: int;
+  var j: int;
+  var initial_position: Vector;
 
   if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
@@ -3061,6 +2822,382 @@ latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
   }
 }
 
+class RandomEncountersReworkedEntity extends CEntity {
+  // an invisible entity used to bait the entity
+  // TODO: do i really need a CEntity?
+  // using ActionMoveTo i can force the creature to go
+  // toward a vector. 
+  var bait_entity: CEntity;
+
+  // control whether the entity goes towards a bait
+  // or the player
+  var go_towards_bait: bool;
+  default go_towards_bait = false;
+
+  public var this_entity: CEntity;
+  public var this_actor: CActor;
+  public var this_newnpc: CNewNPC;
+
+  private var tracks_template: CEntityTemplate;
+  private var tracks_entities: array<CEntity>;
+
+  event OnSpawned( spawnData : SEntitySpawnData ){
+		super.OnSpawned(spawnData);
+
+    LogChannel('modRandomEncounters', "RandomEncountersEntity spawned");
+	}
+
+  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
+    this.this_actor = actor;
+    this.this_newnpc = newnpc;
+    this.this_entity = this_entity;
+
+		this.CreateAttachment( this_entity );
+    this.AddTag('RandomEncountersReworked_Entity');
+  }
+
+  // entry point when creating an entity who will
+  // follow a bait and leave tracks behind her.
+  // more suited for: `EncounterType_HUNT`
+  // NOTE: this functions calls `startWithoutBait`
+  public function startWithBait(bait_entity: CEntity) {
+    this.bait_entity = bait_entity;
+    this.go_towards_bait = true;
+
+    ((CNewNPC)this.bait_entity).SetGameplayVisibility(false);
+    ((CNewNPC)this.bait_entity).SetVisibility(false);		
+    ((CActor)this.bait_entity).EnableCharacterCollisions(false);
+    ((CActor)this.bait_entity).EnableDynamicCollisions(false);
+    ((CActor)this.bait_entity).EnableStaticCollisions(false);
+    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);  
+
+    this.startWithoutBait();
+  }
+
+  // entry point when creating an entity who will
+  // directly target the player.
+  // more suited for: `EncounterType_DEFAULT`
+  public function startWithoutBait() {
+    // TODO: create a function getTracksTemplateByCreatureType
+    this.tracks_template = (CEntityTemplate)LoadResource(
+      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
+      true
+    );
+
+    if (this.go_towards_bait) {
+      AddTimer('intervalHuntFunction', 2, true);
+      AddTimer('teleportBait', 10, true);
+    }
+    else {
+      this.this_newnpc.NoticeActor(thePlayer);
+
+      AddTimer('intervalDefaultFunction', 2, true);
+    }
+  }
+
+  timer function intervalDefaultFunction(optional dt : float, optional id : Int32) {
+    var distance_from_player: float;
+
+    if (!this.this_actor.IsAlive()) {
+      this.clean();
+
+      return;
+    }
+
+    distance_from_player = VecDistance(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    );
+
+    if (distance_from_player > 100) {
+      this.clean();
+
+      return;
+    }
+
+    LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
+
+    // large creatures stay still without it.
+    this.this_actor
+        .ActionMoveToAsync(thePlayer.GetWorldPosition());
+
+    if (distance_from_player < 20) {
+      this.this_actor
+        .ActionCancelAll();
+
+      // the creature is close enough to fight thePlayer,
+      // we do not need this intervalFunction anymore.
+      this.RemoveTimer('intervalDefaultFunction');
+
+      this.AddTimer('intervalLifecheckFunction', 10, true);
+    }
+  }
+
+  timer function intervalHuntFunction(optional dt : float, optional id : Int32) {
+    var distance_from_player: float;
+    var distance_from_bait: float;
+    var new_bait_position: Vector;
+    var new_bait_rotation: EulerAngles;
+
+    if (!this.this_newnpc.IsAlive()) {
+      this.clean();
+
+      return;
+    }
+
+    distance_from_player = VecDistance(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    );
+
+    distance_from_bait = VecDistance(
+      this.GetWorldPosition(),
+      this.bait_entity.GetWorldPosition()
+    );
+
+    LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
+    LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
+
+    if (distance_from_player > 200) {
+      this.clean();
+
+      return;
+    }
+
+    if (distance_from_player < 20) {
+      this.this_actor
+        .ActionCancelAll();
+
+      this.this_newnpc.NoticeActor(thePlayer);
+
+      // the creature is close enough to fight thePlayer,
+      // we do not need this intervalFunction anymore.
+      this.RemoveTimer('intervalHuntFunction');
+      this.RemoveTimer('teleportBait');
+      this.AddTimer('intervalLifecheckFunction', 10, true);
+
+      // we also kill the bait
+      this.bait_entity.Destroy();
+    }
+    else {
+      this.this_actor
+        .ActionMoveToAsync(this.bait_entity.GetWorldPosition());
+
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/6:
+      // when the bait_entity is no longer in the game, force the creatures
+      // to target the player instead.
+      if (this.bait_entity) {
+        this.this_newnpc.NoticeActor((CActor)this.bait_entity);
+
+        if (distance_from_bait < 5) {
+          new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
+          new_bait_rotation = this.GetWorldRotation();
+          new_bait_rotation.Yaw += RandRange(-20,20);
+          
+          this.bait_entity.TeleportWithRotation(
+            new_bait_position,
+            new_bait_rotation
+          );
+        }
+      }
+      else {
+        this.this_newnpc.NoticeActor(thePlayer);
+      }
+
+      this.createTracksOnGround();
+    }  
+  }
+
+  private function createTracksOnGround() {
+    var new_track: CEntity;
+    var position: Vector;
+    var rotation: EulerAngles;
+
+    position = this.GetWorldPosition();
+    rotation = this.GetWorldRotation();
+
+    if (getGroundPosition(position)) {
+      new_track = theGame.CreateEntity(
+        this.tracks_template,
+        position,
+        rotation
+      );
+
+      this.tracks_entities.PushBack(new_track);
+
+      if (this.tracks_entities.Size() > 200) {
+        // TODO: clearly not great performance wise.
+        // we could add an index variable going from 0 to 200
+        // and once it has reached 200 goes back to 0 and we start
+        // destroying the old track and replace it with the new one.
+        // Or even better, only change the position of the old one.
+        this.tracks_entities[0].Destroy();
+        this.tracks_entities.Remove(this.tracks_entities[0]);
+      }
+    }
+  }
+
+  // simple interval function call every ten seconds or so to check if the creature is
+  // still alive. Starts the cleaning process if not, and eventually triggers some events.
+  timer function intervalLifecheckFunction(optional dt: float, optional id: Int32) {
+    var distance_from_player: float;
+
+    if (!this.this_newnpc.IsAlive()) {
+      this.clean();
+
+      return;
+    }
+
+    distance_from_player = VecDistance(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    );
+
+    if (distance_from_player > 200) {
+      this.clean();
+
+      return;
+    }
+
+    if (distance_from_player > 20) {
+      this.this_actor
+        .ActionMoveToAsync(thePlayer.GetWorldPosition());
+    }
+  }
+
+  // a timer function called every few seconds o teleport the bait.
+  // In case the bait is in a position the creature can't reach
+  timer function teleportBait(optional dt : float, optional id : Int32) {
+    var new_bait_position: Vector;
+    var new_bait_rotation: EulerAngles;
+
+    new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
+    new_bait_rotation = this.GetWorldRotation();
+    new_bait_rotation.Yaw += RandRange(-20,20);
+    
+    this.bait_entity.TeleportWithRotation(
+      new_bait_position,
+      new_bait_rotation
+    );
+  }
+
+  private function clean() {
+    var i: int;
+
+    RemoveTimer('intervalDefaultFunction');
+    RemoveTimer('intervalHuntFunction');
+    RemoveTimer('teleportBait');
+
+    LogChannel('modRandomEncounters', "RandomEncountersReworked_Entity destroyed");
+
+    if (this.bait_entity) {
+      this.bait_entity.Destroy();
+    }
+
+    for (i = 0; i < this.tracks_entities.Size(); i += 1) {
+      this.tracks_entities[i].Destroy();
+    }
+
+    this.tracks_entities.Clear();
+
+    this.this_actor.Kill('RandomEncountersReworked_Entity', true);
+    this.Destroy();
+  }
+}
+
+statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
+  private var bait_position: Vector;
+
+  public var this_entity: CEntity;
+  public var this_actor: CActor;
+  public var this_newnpc: CNewNPC;
+
+  event OnSpawned( spawnData : SEntitySpawnData ){
+		super.OnSpawned(spawnData);
+
+    LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity spawned");
+	}
+
+  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
+    this.this_actor = actor;
+    this.this_newnpc = newnpc;
+    this.this_entity = this_entity;
+
+		this.CreateAttachment( this_entity );
+    this.AddTag('RandomEncountersReworked_Entity');
+  }
+
+  // ENTRY-POINT for the gryphon fight
+  public function start() {
+    if (RandRange(10) >= 5) {
+      this.GotoState('WaitingForPlayer');
+    }
+    else {
+      this.GotoState('FlyingAbovePlayer');
+    }
+  }
+}
+
+// When the gryphon is on the ground waiting for the player to attack it
+// The gryphon is feeding on a dead beast on the ground. You have to find
+// it with tracks and blood spills on the ground.
+// ENTRY-POINT state.
+state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Gryphon - State WaitingForPlayer");
+  }
+}
+
+// When the gryphon flies over the player, then comes back to attack it
+// Imagine it flying at high-speed above you, he sees you and screems
+// then he does a complete turn and starts attacking you
+// ENTRY-POINT state.
+state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Gryphon - State FlyingAbovePlayer");
+  }
+}
+
+// When the gryphon is fighting with the player. 
+// The gryphon is fighting with you until a health threshold. Where he
+// will start fleeing
+// MULTIPLE state. Can be used multiple times in the encounter
+state GryphonFightingPlayer in RandomEncountersReworkedGryphonHuntEntity {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Gryphon - State GryphonFightingPlayer");
+  }
+}
+
+// The gryphon is fleeing far from the player.
+// The gryphon is hurt, he's bleeding and start flying far from the
+// player at low speed. So the player can catch him with or without
+// Roach. It ends when the gryphon is exhausted and goes on the ground
+// SINGLE state. Used once in the encounter (more would be annoying)
+state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Gryphon - State GryphonFleeingPlayer");
+  }
+}
+
+// The gryphon is tauting the player.
+// The gryphon flies at low altitude above the player in circles
+// The player cannot interrupt it.
+// SINGLE state. Used once in the encounter (more would be annoying)
+state GryphonTauntingPlayer in RandomEncountersReworkedGryphonHuntEntity {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Gryphon - State GryphonTauntingPlayer");
+  }
+}
 function copyEnemyTemplateList(list_to_copy: EnemyTemplateList): EnemyTemplateList {
   var copy: EnemyTemplateList;
   var i: int;
@@ -3348,7 +3485,10 @@ state Spawning in CRandomEncounters {
     is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
     current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
 
+    LogChannel('modRandomEncounters', "the player is in settlement:" + this.isInSettlement());
+
     return is_meditating 
+        || current_zone == REZ_NOSPAWN
         || thePlayer.IsInInterior()
         || thePlayer.IsInCombat()
         || thePlayer.IsUsingBoat()
@@ -3360,9 +3500,34 @@ state Spawning in CRandomEncounters {
         || theGame.IsCurrentlyPlayingNonGameplayScene()
         || theGame.IsFading()
         || theGame.IsBlackscreen()
-        || current_zone == REZ_CITY 
-        && !parent.settings.cityBruxa 
-        && !parent.settings.citySpawn;
+        
+        || !parent.settings.citySpawn
+        && (
+          // either from an hardcoded city in RER
+          // or if the game tells us the player is
+          // in a settlement.
+          current_zone == REZ_CITY 
+          || this.isInSettlement()
+        );
+  }
+
+  function isInSettlement(): bool {
+    var current_area : EAreaName;
+
+		current_area = theGame.GetCommonMapManager().GetCurrentArea();
+
+    // the .isInSettlement() method doesn't work when is skellige
+    // it always returns true.
+    if (current_area == AN_Skellige_ArdSkellig) {
+      // HACK: it can be a great way to see if a settlement is nearby
+      // by looking for a noticeboard. Though some settlements don't have
+      // any noticeboard.
+      // TODO: get the nearest signpost and read its tag then check
+      // if it is a known settlement.
+      return parent.rExtra.isNearNoticeboard();
+    }
+    
+    return thePlayer.IsInSettlement();
   }
 
   function getRandomEntityTypeWithSettings(): CreatureType {
