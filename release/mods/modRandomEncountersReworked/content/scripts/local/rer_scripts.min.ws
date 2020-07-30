@@ -2591,16 +2591,79 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
   }
 
   if (large_creature_type == LargeCreatureGRYPHON) {
-    makeGrpyhonLargeCreatureHunt(master);
+    makeGryphonLargeCreatureHunt(master);
   }
   else {
     makeDefaultLargeCreatureHunt(master, large_creature_type);
   }
 }
 
-latent function makeGrpyhonLargeCreatureHunt(master: CRandomEncounters) {
+latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
+  var rer_gryphon_entity: RandomEncountersReworkedGryphonHuntEntity;
+  var gryphon_entity: CEntity;
+
+  var i: int;
+  var j: int;
+  var current_entity_template: SEnemyTemplate;
+  var rer_entity_template: CEntityTemplate;
+  var chosen_template: CEntityTemplate;
+  var create_entity_helper: CCreateEntityHelper;
+  var initial_position: Vector;
+
+  LogChannel('modRandomEncounters', "makeGryphonLargeCreatureHunt - starting");
+
+  creatures_templates = master
+    .resources
+    .getCreatureResourceByLargeCreatureType(LargeCreatureGRYPHON);
+
+  creatures_templates = fillEnemyTemplateList(creatures_templates, 1);
+
+  if (!getRandomPositionBehindCamera(initial_position, 120, 80, 10)) {
+    LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+    return;
+  }
+
+  rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent", true);
+
+  for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
+    current_entity_template = creatures_templates.templates[i];
+
+    if (current_entity_template.count == 0) {
+      continue;
+    }
+
+    chosen_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
+
+    break;
+  }
+
+  create_entity_helper.Reset();
+  theGame.CreateEntityAsync(create_entity_helper, chosen_template, initial_position, thePlayer.GetWorldRotation(), true, false, false, PM_DontPersist);
+
+  LogChannel('modRandomEncounters', "spawning entity at " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
+
+  while(create_entity_helper.IsCreating()) {            
+    SleepOneFrame();
+  }
+
+  gryphon_entity = create_entity_helper.GetCreatedEntity();
+
+  rer_gryphon_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
+    rer_entity_template,
+    initial_position,
+    thePlayer.GetWorldRotation()
+  );
+
+  rer_gryphon_entity.attach(
+    (CActor)gryphon_entity,
+    (CNewNPC)gryphon_entity,
+    gryphon_entity
+  );
+
+  rer_gryphon_entity.start();
+  
 }
 
 latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
@@ -2628,10 +2691,10 @@ latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_cr
     .resources
     .getCreatureResourceByLargeCreatureType(large_creature_type);
 
-  number_of_creatures = number_of_creatures = rollDifficultyFactor(
+  number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,
     master.settings.selectedDifficulty
-  );;
+  );
 
   LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
 
@@ -3299,9 +3362,10 @@ function getGroundPosition(out input_position: Vector): bool {
   
 }
 
-function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float): bool {  // var camera_direction: Vector;
+function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float, optional attempts: int): bool {
   var player_position: Vector;
   var point_z: float;
+  var attempts_left: int;
 
   if (minimum_distance == 0.0) {
     minimum_distance = 20.0;
@@ -3311,14 +3375,25 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
   if (distance == 0.0) {
     distance = 40;
   }
+
   else if (distance < minimum_distance) {
     distance = minimum_distance; // meters
   }
 
   player_position = thePlayer.GetWorldPosition();
-  initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -minimum_distance, -distance);
+  attempts_left = Max(attempts, 3);
 
-  return getGroundPosition(initial_pos);
+  for (attempts_left; attempts_left > 0; attempts_left -= 1) {
+    initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, -minimum_distance, -distance);
+
+    if (getGroundPosition(initial_pos)) {
+      LogChannel('modRandomEncounters', initial_pos.X + " " + initial_pos.Y + " " + initial_pos.Z);
+
+      return true;
+    }
+  }
+
+  return false;
 }
 
 latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int, optional density: float): array<RandomEncountersReworkedEntity> {

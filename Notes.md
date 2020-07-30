@@ -22,6 +22,22 @@
 
   ```
 
+- npc stances:
+  ```
+  enum ENpcStance
+  {
+    NS_Normal,
+    NS_Strafe,
+    NS_Retreat,
+    NS_Guarded,
+    NS_Wounded,
+    NS_Fly,
+    NS_Swim,
+  }
+  ```
+
+- file `bTaskChangeAltitude.ws` has good example for controlling the gryphon flight
+
 ## RER spawning system and events
 > The goal is to make a new system controlling when and which creatures will spawn.
 
