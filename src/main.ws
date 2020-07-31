@@ -70,6 +70,7 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   private function initiateRandomEncounters() {
+
     this.settings.loadXMLSettings();
     this.resources.load_resources();
 
@@ -78,6 +79,34 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   timer function onceReady(optional delta: float, optional id: Int32) {
-    displayRandomEncounterEnabledNotification();
+    if (!this.settings.hide_next_notifications) {
+      displayRandomEncounterEnabledNotification();
+
+      this.settings.setHideNextNotificationsSettings(true);
+    }
+  }
+
+  event OnDestroyed() {
+    var ents: array<CEntity>;
+    var i: int;
+
+    LogChannel('modRandomEncounters', "On destroyed called on RER main class");
+
+    theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', ents);
+
+    LogChannel('modRandomEncounters', "found " + ents.Size() + " RER entities");
+
+    for (i = 0; i < ents.Size(); i += 1) {
+      ents[i].Destroy();
+    }
+
+    // super.OnDestroyed();
+  }
+
+  event OnDeath( damageAction : W3DamageAction ) {
+    
+    LogChannel('modRandomEncounters', "On death called on RER main class");
+
+    // super.OnDeath( damageAction );
   }
 }

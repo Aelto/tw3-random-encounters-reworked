@@ -69,6 +69,9 @@ class RandomEncountersReworkedEntity extends CEntity {
       this.this_newnpc.NoticeActor(thePlayer);
 
       AddTimer('intervalDefaultFunction', 2, true);
+
+      this.this_actor
+        .ActionMoveToNodeAsync(thePlayer);
     }
   }
 
@@ -94,18 +97,16 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
 
-    // large creatures stay still without it.
-    this.this_actor
-        .ActionMoveToAsync(thePlayer.GetWorldPosition());
 
     if (distance_from_player < 20) {
-      this.this_actor
-        .ActionCancelAll();
+      this.this_newnpc.NoticeActor(thePlayer);
 
       // the creature is close enough to fight thePlayer,
       // we do not need this intervalFunction anymore.
       this.RemoveTimer('intervalDefaultFunction');
 
+      // so it is also called almost instantly
+      this.AddTimer('intervalLifecheckFunction', 0.1, false);
       this.AddTimer('intervalLifecheckFunction', 10, true);
     }
   }
@@ -234,11 +235,6 @@ class RandomEncountersReworkedEntity extends CEntity {
       this.clean();
 
       return;
-    }
-
-    if (distance_from_player > 20) {
-      this.this_actor
-        .ActionMoveToAsync(thePlayer.GetWorldPosition());
     }
   }
 

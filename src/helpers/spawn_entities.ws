@@ -57,13 +57,9 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
     }
 
     createEntityHelper.Reset();
-    theGame.CreateEntityAsync(createEntityHelper, entity_template, pos_fin, rot, true, false, false, PM_DontPersist);
 
     LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
 
-    while(createEntityHelper.IsCreating()) {            
-      SleepOneFrame();
-    }
 
     current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
       rer_entity_template,
@@ -71,7 +67,11 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
       thePlayer.GetWorldRotation()
     );
 
-    created_entity = createEntityHelper.GetCreatedEntity();
+    created_entity = theGame.CreateEntity(
+      entity_template,
+      pos_fin,
+      rot
+    );
 
     current_rer_entity.attach(
       (CActor)created_entity,

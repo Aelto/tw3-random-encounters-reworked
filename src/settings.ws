@@ -5,7 +5,7 @@ class RE_Settings {
 	public var customDayMax, customDayMin, customNightMax, customNightMin	: int;
 	public var all_monster_hunt_chance: int;
 	public var enableTrophies : bool;
-  public var cityBruxa, citySpawn : int;
+  public var citySpawn : int;
   public var selectedDifficulty	: int;
 
   // uses the enum `SmallCreature` and its values for the index/key.
@@ -25,6 +25,9 @@ class RE_Settings {
   // when an encounter appears
   public var geralt_comments_enabled: bool;
 
+  // controls whether or not RER shows notifications
+  public var hide_next_notifications: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper : CInGameConfigWrapper;
 
@@ -42,6 +45,7 @@ class RE_Settings {
     this.fillSettingsArrays();
 		this.loadCreaturesSpawningChances(inGameConfigWrapper);
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
+    this.loadHideNextNotificationsSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -54,7 +58,6 @@ class RE_Settings {
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
 		citySpawn = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'citySpawn'));
-		cityBruxa = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'cityBruxa'));
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -63,6 +66,23 @@ class RE_Settings {
 
   private function loadGeraltCommentsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.geralt_comments_enabled = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'geraltComments');
+  }
+
+  private function loadHideNextNotificationsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.hide_next_notifications = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'hideNextNotifications');
+  }
+
+  public function setHideNextNotificationsSettings(value: bool) {
+    if (value) {
+      theGame.GetInGameConfigWrapper()
+        .SetVarValue('RandomEncountersMENU', 'hideNextNotifications', 1);
+    }
+    else {
+      theGame.GetInGameConfigWrapper()
+        .SetVarValue('RandomEncountersMENU', 'hideNextNotifications', 0);
+    }
+
+    theGame.SaveUserSettings();
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
