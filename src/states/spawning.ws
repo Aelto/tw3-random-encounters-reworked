@@ -74,7 +74,7 @@ state Spawning in CRandomEncounters {
   function isInSettlement(): bool {
     var current_area : EAreaName;
 
-		current_area = theGame.GetCommonMapManager().GetCurrentArea();
+    current_area = theGame.GetCommonMapManager().GetCurrentArea();
 
     // the .isInSettlement() method doesn't work when is skellige
     // it always returns true.
