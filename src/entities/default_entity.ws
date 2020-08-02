@@ -19,17 +19,17 @@ class RandomEncountersReworkedEntity extends CEntity {
   private var tracks_entities: array<CEntity>;
 
   event OnSpawned( spawnData : SEntitySpawnData ){
-		super.OnSpawned(spawnData);
+    super.OnSpawned(spawnData);
 
     LogChannel('modRandomEncounters', "RandomEncountersEntity spawned");
-	}
+  }
 
   public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
     this.this_actor = actor;
     this.this_newnpc = newnpc;
     this.this_entity = this_entity;
 
-		this.CreateAttachment( this_entity );
+    this.CreateAttachment( this_entity );
     this.AddTag('RandomEncountersReworked_Entity');
   }
 
@@ -42,7 +42,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.go_towards_bait = true;
 
     ((CNewNPC)this.bait_entity).SetGameplayVisibility(false);
-    ((CNewNPC)this.bait_entity).SetVisibility(false);		
+    ((CNewNPC)this.bait_entity).SetVisibility(false);
     ((CActor)this.bait_entity).EnableCharacterCollisions(false);
     ((CActor)this.bait_entity).EnableDynamicCollisions(false);
     ((CActor)this.bait_entity).EnableStaticCollisions(false);
