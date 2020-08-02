@@ -1,12 +1,12 @@
 
 class RE_Settings {
 
-	
-	public var customDayMax, customDayMin, customNightMax, customNightMin	: int;
-	public var all_monster_hunt_chance: int;
-	public var enableTrophies : bool;
+  
+  public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
+  public var all_monster_hunt_chance: int;
+  public var enableTrophies : bool;
   public var citySpawn : int;
-  public var selectedDifficulty	: int;
+  public var selectedDifficulty : int;
 
   // uses the enum `SmallCreature` and its values for the index/key.
   // and the `int` for the value/chance.
@@ -29,10 +29,9 @@ class RE_Settings {
   public var hide_next_notifications: bool;
 
   function loadXMLSettings() {
-    var inGameConfigWrapper : CInGameConfigWrapper;
+    var inGameConfigWrapper: CInGameConfigWrapper;
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
-
 
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadLargeCreatureChance(inGameConfigWrapper);
@@ -43,7 +42,7 @@ class RE_Settings {
     this.loadCitySpawnSettings(inGameConfigWrapper);
 
     this.fillSettingsArrays();
-		this.loadCreaturesSpawningChances(inGameConfigWrapper);
+    this.loadCreaturesSpawningChances(inGameConfigWrapper);
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
   }
@@ -57,7 +56,7 @@ class RE_Settings {
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-		citySpawn = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'citySpawn'));
+  citySpawn = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'citySpawn'));
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -86,14 +85,14 @@ class RE_Settings {
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-		enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies');
+    enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies');
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
     customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyHigh'));
-		customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyLow'));
-		customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyHigh'));
-		customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyLow'));	
+    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyLow'));
+    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyHigh'));
+    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyLow'));  
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -105,7 +104,7 @@ class RE_Settings {
   }
   
 
-	private function fillSettingsArrays() {
+  private function fillSettingsArrays() {
     var i: int;
 
     if (this.small_creatures_chances_day.Size() == 0) {
@@ -152,10 +151,10 @@ class RE_Settings {
     this.small_creatures_chances_day[SmallCreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Arachas'));
     this.small_creatures_chances_day[SmallCreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
     this.small_creatures_chances_day[SmallCreatureSKELBEAR]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
-		this.small_creatures_chances_day[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Panther'));
-		this.small_creatures_chances_day[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Boars'));
+    this.small_creatures_chances_day[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Panther'));
+    this.small_creatures_chances_day[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Boars'));
 
-		this.large_creatures_chances_day[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Leshens'));
+    this.large_creatures_chances_day[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Leshens'));
     this.large_creatures_chances_day[LargeCreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Werewolves'));
     this.large_creatures_chances_day[LargeCreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fiends'));
     this.large_creatures_chances_day[LargeCreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ekimmara'));
@@ -170,12 +169,12 @@ class RE_Settings {
     this.large_creatures_chances_day[LargeCreatureSKELTROLL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
     this.large_creatures_chances_day[LargeCreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Hags'));
     this.large_creatures_chances_day[LargeCreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fogling'));
-		this.large_creatures_chances_day[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bruxa'));
-		this.large_creatures_chances_day[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fleder'));
-		this.large_creatures_chances_day[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Garkain'));
-		this.large_creatures_chances_day[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'HigherVamp'));
-		this.large_creatures_chances_day[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
-		this.large_creatures_chances_day[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
+    this.large_creatures_chances_day[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bruxa'));
+    this.large_creatures_chances_day[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fleder'));
+    this.large_creatures_chances_day[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Garkain'));
+    this.large_creatures_chances_day[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'HigherVamp'));
+    this.large_creatures_chances_day[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
+    this.large_creatures_chances_day[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
     this.large_creatures_chances_day[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
     this.large_creatures_chances_day[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Gryphons'));
     this.large_creatures_chances_day[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cockatrice'));
@@ -206,10 +205,10 @@ class RE_Settings {
     this.small_creatures_chances_night[SmallCreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'DrownerDLC'));
     this.small_creatures_chances_night[SmallCreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Arachas'));
     this.small_creatures_chances_night[SmallCreatureBEAR]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
-		this.small_creatures_chances_night[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
-		this.small_creatures_chances_night[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
+    this.small_creatures_chances_night[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
+    this.small_creatures_chances_night[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
 
-		this.large_creatures_chances_night[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Leshens'));
+    this.large_creatures_chances_night[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Leshens'));
     this.large_creatures_chances_night[LargeCreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Werewolves'));
     this.large_creatures_chances_night[LargeCreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fiends'));
     this.large_creatures_chances_night[LargeCreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ekimmara'));
@@ -223,12 +222,12 @@ class RE_Settings {
     this.large_creatures_chances_night[LargeCreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Troll'));
     this.large_creatures_chances_night[LargeCreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Hags'));
     this.large_creatures_chances_night[LargeCreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fogling'));
-		this.large_creatures_chances_night[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bruxa'));
-		this.large_creatures_chances_night[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fleder'));
-		this.large_creatures_chances_night[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Garkain'));
-		this.large_creatures_chances_night[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'HigherVamp'));
-		this.large_creatures_chances_night[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
-		this.large_creatures_chances_night[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
+    this.large_creatures_chances_night[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bruxa'));
+    this.large_creatures_chances_night[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fleder'));
+    this.large_creatures_chances_night[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Garkain'));
+    this.large_creatures_chances_night[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'HigherVamp'));
+    this.large_creatures_chances_night[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
+    this.large_creatures_chances_night[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
     this.large_creatures_chances_night[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
     this.large_creatures_chances_night[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Gryphons'));
     this.large_creatures_chances_night[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cockatrice'));
