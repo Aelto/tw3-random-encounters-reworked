@@ -50,10 +50,10 @@
             <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="OPTIONS">
 				<OptionsArray>
 					<Option id="0" displayName="rer_select_no">
-						<Entry varId="geraltComments" value="0"/>
+						<Entry varId="hideNextNotifications" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="geraltComments" value="1"/>
+						<Entry varId="hideNextNotifications" value="1"/>
 					</Option>
 				</OptionsArray>
 			</Var>

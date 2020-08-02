@@ -39,6 +39,7 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   var create_entity_helper: CCreateEntityHelper;
   var initial_position: Vector;
   var player_position: Vector;
+  var blood_splats_templates: array<CEntityTemplate>;
 
   LogChannel('modRandomEncounters', "makeGryphonLargeCreatureHunt - starting");
 
@@ -48,7 +49,7 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
 
   creatures_templates = fillEnemyTemplateList(creatures_templates, 1);
 
-  if (!getRandomPositionBehindCamera(initial_position, 120, 80, 10)) {
+  if (!getRandomPositionBehindCamera(initial_position, 200, 120, 10)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
 
     return;
@@ -69,6 +70,8 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
 
     break;
   }
+
+  blood_splats_templates = master.resources.getBloodSplatsResources();
 
   create_entity_helper = new CCreateEntityHelper;
   create_entity_helper.Reset();
@@ -97,7 +100,7 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
     gryphon_entity
   );
 
-  rer_gryphon_entity.start();
+  rer_gryphon_entity.startEncounter(blood_splats_templates);
   
 }
 

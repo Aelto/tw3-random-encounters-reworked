@@ -2639,12 +2639,12 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
     return;
   }
 
-  // if (large_creature_type == LargeCreatureGRYPHON) {
-  //   makeGryphonLargeCreatureHunt(master);
-  // }
-  // else {
+  if (large_creature_type == LargeCreatureGRYPHON) {
+    makeGryphonLargeCreatureHunt(master);
+  }
+  else {
     makeDefaultLargeCreatureHunt(master, large_creature_type);
-  // }
+  }
 }
 
 latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {

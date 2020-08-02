@@ -160,6 +160,26 @@ class RE_Resources {
     this.humans_resources[HT_NILFGAARDIAN] = re_nilf();
     this.humans_resources[HT_WITCHHUNTER] = re_whunter();
   }
+
+                  //////////////////////
+                  // PUBLIC FUNCTIONS //
+                  //////////////////////
+
+  public latent function getBloodSplatsResources(): array<CEntityTemplate> {
+    var i: int;
+    var output: array<CEntityTemplate>;
+
+    for (i = 0; i < this.blood_splats.Size(); i += 1) {
+      output.PushBack(
+        (CEntityTemplate)LoadResourceAsync(
+          this.blood_splats[i],
+          true
+        )
+      );
+    }
+
+    return output;
+  }
 }
 
 function isHeartOfStoneActive(): bool {

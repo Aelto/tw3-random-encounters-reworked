@@ -1,5 +1,5 @@
 
-function getGroundPosition(out input_position: Vector): bool {
+function getGroundPosition(out input_position: Vector, optional personal_space: float, optional max_height_check: float): bool {
   var output_position: Vector;
   var point_z: float;
   var collision_normal: Vector;
@@ -7,16 +7,25 @@ function getGroundPosition(out input_position: Vector): bool {
 
   output_position = input_position;
 
-  if (!theGame.GetWorld().NavigationFindSafeSpot(output_position, 1, 10, output_position)) {
-    return false;
-  }
+  personal_space = MaxF(personal_space, 1.0);
+
+  max_height_check = MaxF(max_height_check, 30.0);
 
   // first search for ground based on navigation data.
   theGame
   .GetWorld()
-  .NavigationComputeZ( output_position, output_position.Z - 30.0, output_position.Z + 30.0, point_z );
+  .NavigationComputeZ(
+    output_position,
+    output_position.Z - max_height_check,
+    output_position.Z + max_height_check,
+    point_z
+  );
 
 	output_position.Z = point_z;
+
+  if (!theGame.GetWorld().NavigationFindSafeSpot(output_position, personal_space, 10, output_position)) {
+    return false;
+  }
 
   // then do a static trace to find the position on ground
   // ... okay i'm not sure anymore, is the static trace needed?

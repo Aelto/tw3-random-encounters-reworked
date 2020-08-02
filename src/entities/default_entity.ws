@@ -179,6 +179,14 @@ class RandomEncountersReworkedEntity extends CEntity {
         }
       }
       else {
+        // to avoid creatures who lost their bait because it went too far
+        // and aggroing the player. But instead die too.
+        if (distance_from_player > 170) {
+          this.clean();
+
+          return;
+        }
+
         this.this_newnpc.NoticeActor(thePlayer);
       }
 
