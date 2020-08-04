@@ -32,6 +32,9 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   var blood_tracks_maximum: int;
   default blood_tracks_maximum = 200;
 
+  var horse_corpse_near_geralt: CEntity;
+  var horse_corpse_near_gryphon: CEntity;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
@@ -189,6 +192,9 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
       this.blood_tracks_entities[i].Destroy();
     }
 
+    this.horse_corpse_near_geralt.Destroy();
+    this.horse_corpse_near_gryphon.Destroy();
+
     this.blood_tracks_entities.Clear();
 
     this.GotoState('ExitEncounter');
@@ -206,136 +212,4 @@ state ExitEncounter in RandomEncountersReworkedGryphonHuntEntity {
     super.OnEnterState(previous_state_name);
   }
 }
-
-
-
-// state Test in RandomEncountersReworkedGryphonHuntEntity {
-//   event OnEnterState(previous_state_name: name) {
-//     super.OnEnterState(previous_state_name);
-
-//     this.TestMain4();
-//   }
-
-//   entry function TestMain4() {
-//     flyTo((CNewNPC)parent.this_entity, thePlayer.GetWorldPosition(), 10.0f);
-//   }
-
-  // entry function TestMain() {
-	// 	var ticket 				: SMovementAdjustmentRequestTicket;
-	// 	var movementAdjustor	: CMovementAdjustor;
-	// 	var slidePos 			: Vector;
-	// 	var slideDuration		: float;
-
-  //   LogChannel('modRandomEncounters', "Test main");
-
-		
-	// 	movementAdjustor = parent.this_newnpc.GetMovingAgentComponent().GetMovementAdjustor();
-	// 	movementAdjustor.CancelAll();
-
-	// 	// movementAdjustor.CancelByName( 'SlideAway' );
-		
-	// 	ticket = movementAdjustor.CreateNewRequest( 'SlideTowards' );
-	// 	// slidePos = GetWorldPosition() + ( VecNormalize2D( GetWorldPosition() - thePlayer.GetWorldPosition() ) * 0.75 );
-  //   slidePos = thePlayer.GetWorldPosition() + Vector(0, 0, 100);
-		
-	// 	// if( theGame.GetWorld().NavigationLineTest( parent.this_newnpc.GetWorldPosition(), slidePos, parent.this_newnpc.GetRadius(), false, true ) ) 
-	// 	// {
-	// 		slideDuration = VecDistance2D( parent.this_newnpc.GetWorldPosition(), slidePos ) / 4;
-			
-	// 		movementAdjustor.Continuous( ticket );
-	// 		movementAdjustor.AdjustmentDuration( ticket, slideDuration );
-	// 		movementAdjustor.AdjustLocationVertically( ticket, true );
-	// 		movementAdjustor.BlendIn( ticket, 0.25 );
-	// 		movementAdjustor.SlideTo( ticket, slidePos );
-	// 		movementAdjustor.RotateTowards( ticket, thePlayer );
-	// 	// }
-
-	// 	// return true;	
-  // }
-
-  // // doesn't work
-  // entry function TestMain2() {
-    
-  //   l_aiTree = new CAIMoveToPoint in parent.this_actor;
-  //   l_aiTree.OnCreated();
-    
-  //   l_aiTree.params.destinationPosition = thePlayer.GetWorldPosition();
-  //   l_aiTree.params.destinationHeading = VecHeading(
-  //       thePlayer.GetWorldPosition() - parent.this_entity.GetWorldPosition()
-  //   );
-
-  //   l_aiTree.params.moveSpeed = 4;
-  //   l_aiTree.params.maxIterationsNumber 	= 100;
-  //   l_aiTree.params.maxDistance 	= 10000.0;
-  //   l_aiTree.params.useTimeout				= false;
-  //   l_aiTree.params.timeoutValue 			= 3.f;
-  //   // l_aiTree.params.rotateAfterwards = false;
-    
-  //   // if( speed > 1 )
-  //   // {
-  //     l_aiTree.params.moveType = MT_Sprint;
-  //   // }
-
-  //   parent.AddTimer('forceBehavior', 0.01, true);
-  // }
-
-  // timer function forceBehavior(optional dt : float, optional id : Int32) {
-  //   // parent.this_actor.ActionCancelAll();
-  //   parent.this_actor.ForceAIBehavior( l_aiTree, BTAP_Emergency);
-  // }
-
-  // // doesn't work
-  // entry function TestMain3() {
-  //   var res: bool; 
-  //   LogChannel('modRandomEncounters', "test main 3");
-
-  //   ((CNewNPC)parent.this_entity).ActionCancelAll();
-
-
-  //   res = ((CNewNPC)parent.this_entity).ActionMoveToWithHeading( thePlayer.GetWorldPosition(), VecHeading(
-  //       thePlayer.GetWorldPosition() - parent.this_entity.GetWorldPosition()
-  //   ), MT_Sprint);
-
-  //   if (res) {
-  //     LogChannel('modRandomEncounters', "test main 3 good");
-  //   }
-  //   else {
-  //   LogChannel('modRandomEncounters', "test main 3 not good");
-
-  //   }
-  // }
-
-  // // doesn't work
-  // entry function TextMain4() {
-  //   parent.AddTimer('moveTimer', 0.01, true);
-  // }
-
-  // timer function moveTimer(optional dt : float, optional id : Int32) {
-  //   this.MoveNpcFwd(parent.this_actor, 4, MT_Sprint);
-  // }
-
-  // function MoveNpcFwd( actor : CActor, distance : float, moveType : EMoveType )
-  // {
-  //   var l_actor 			: CActor;
-  //   var l_aiTree			: CAIMoveToPoint;
-    
-  //   l_actor = actor;
-    
-  //   l_aiTree = new CAIMoveToPoint in l_actor;
-  //   l_aiTree.OnCreated();
-    
-  //   l_aiTree.enterExplorationOnStart 		= false;
-  //   l_aiTree.params.destinationHeading 		= VecHeading(l_actor.GetHeadingVector());
-  //   l_aiTree.params.destinationPosition 	= l_actor.GetWorldPosition() + distance*l_actor.GetHeadingVector();
-  //   l_aiTree.params.maxIterationsNumber 	= 0;
-    
-  //   l_aiTree.params.moveType = moveType;
-      
-  //   l_actor.ForceAIBehavior( l_aiTree, BTAP_Emergency);
-  // }
-// }
-
-
-
-
 

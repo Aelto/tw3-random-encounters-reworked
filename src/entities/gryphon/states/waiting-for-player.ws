@@ -18,7 +18,8 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
     this.bloodtrail_target_position = parent.this_actor.GetWorldPosition();
     this.bloodtrail_current_position = thePlayer.GetWorldPosition() + VecRingRand(2, 4);
 
-    this.placeHorseCorpse(this.bloodtrail_current_position);
+    parent.horse_corpse_near_geralt = this.placeHorseCorpse(this.bloodtrail_current_position);
+    parent.horse_corpse_near_gryphon = this.placeHorseCorpse(this.target_position, true);
 
 		thePlayer.PlayVoiceset( 90, "MiscBloodTrail" );  
 
@@ -33,8 +34,15 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
     parent.this_newnpc.SetUnstoppable(true);
   }
 
-  private latent function placeHorseCorpse(position: Vector) {
+  private latent function placeHorseCorpse(position: Vector, optional horse_flat_on_ground: bool): CEntity {
     var horse_template: CEntityTemplate;
+    var horse_rotation: EulerAngles;
+
+    horse_rotation = RotRand(0, 360);
+
+    if (horse_flat_on_ground) {
+      horse_rotation.Yaw = 95;
+    }
 
     horse_template = (CEntityTemplate)LoadResourceAsync(
       "items\quest_items\q103\q103_item__horse_corpse_with_head_lying_beside_it_02.w2ent",
@@ -43,7 +51,7 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     FixZAxis(position);
 
-    theGame.CreateEntity(horse_template, position, RotRand(0, 360));
+    return theGame.CreateEntity(horse_template, position, horse_rotation);
   }
 
   timer function WaitingForPlayer_intervalDefaultFunction(optional dt : float, optional id : Int32) {
