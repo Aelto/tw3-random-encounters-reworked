@@ -1,0 +1,192 @@
+
+// It works but it's completely bugged. I don't understand how to use the functions
+// to controls the gryphon animations. Nothing fully works :(
+latent function flyTo(npc: CNewNPC, destination_point: Vector, destination_radius: float, optional height_from_ground: float) : EBTNodeStatus {
+  var traceStartPos, traceEndPos, traceEffect, normal, groundLevel : Vector;
+  var should_land: bool;
+  var landing_point_set: bool;
+  var random: int;
+  var npcPos: Vector;
+  var full_distance: float;
+
+  flyStartFromLand(npc);
+
+  npc.ChangeStance( NS_Fly );
+  npc.SetBehaviorVariable( '2high', 1 );
+  npc.SetBehaviorVariable( '2low', 0 );
+  npc.SetBehaviorVariable( '2ground', 0 );
+
+  npcPos = npc.GetWorldPosition();
+
+  // Z of destination_point can be under terrain so it must be checked
+  traceStartPos = destination_point;
+  traceEndPos = destination_point;
+  traceStartPos.Z += 200;
+
+  if (theGame.GetWorld().StaticTrace(traceStartPos, traceEndPos, traceEffect, normal)) {
+    if (traceEffect.Z > destination_point.Z) {
+      destination_point = traceEffect;
+    }
+  }
+
+  destination_point.Z += MaxF(height_from_ground, 20.0);
+
+  should_land = false;
+  landing_point_set = false;
+  full_distance = VecDistance(npcPos, destination_point);
+
+  while (true) {
+    npc.SetBehaviorVariable( 'GroundContact', 0.0 );
+    npc.SetBehaviorVariable( 'DistanceFromGround', 100 );
+    
+    if (should_land) {
+      // ((CMovingAgentComponent)npc.GetMovingAgentComponent()).SnapToNavigableSpace( false );
+
+      if (VecDistance(npcPos, destination_point) < destination_radius) {
+        return BTNS_Completed;
+      }
+    }
+    else { // should_land = false
+      npc.SetBehaviorVariable( 'GroundContact', 0.0 );
+      npc.SetBehaviorVariable( 'DistanceFromGround', 0.0 );
+      npc.SetBehaviorVariable( 'FlySpeed', 0.0f );
+      
+    }
+
+    UsePathFinding(npcPos, destination_point, 2.0);
+    CalculateBehaviorVariables(npc, destination_point, full_distance);
+
+    Sleep(0.1f);
+
+    if (VecDistance(npcPos, destination_point) < 10) {
+      should_land = true;
+    }
+  }
+
+  return BTNS_Completed;
+}
+
+function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance: float )
+{
+  var flySpeed					: float;
+  var flyPitch, flyYaw 			: float;
+  var turnSpeedScale				: float;
+  var npcToDestVector				: Vector;
+  var npcToDestVector2			: Vector;
+  var npcToDestDistance			: float;
+  var npcToDestAngle				: float;
+  var npcPos, npcHeadingVec		: Vector;
+  var normal, collision			: Vector;
+  
+  npcPos = npc.GetWorldPosition();
+  npcHeadingVec = npc.GetHeadingVector();
+  
+  npcToDestVector = dest - npcPos;		
+  npcToDestVector2 = npcToDestVector;
+  npcToDestVector2.Z = 0;
+  npcToDestDistance = VecDistance( npcPos, dest );
+  
+  // Calculate Fly Speed
+  npcToDestAngle = AbsF( AngleDistance( VecHeading( dest - npcPos ), VecHeading( npcHeadingVec ) ) );
+  
+  if ( npcToDestAngle > 60 || npcToDestAngle < -60 )
+  {
+    flySpeed = 1.f;
+  }
+  else
+  {
+    flySpeed = 2.f;
+  }
+
+  turnSpeedScale = 2.75f;
+
+  // Calculate Pitch
+  flyPitch = Rad2Deg( AcosF( VecDot( VecNormalize( npcToDestVector ), VecNormalize( npcToDestVector2 ) ) ) );
+  if ( npcPos.X == dest.X && npcPos.Y == dest.Y )
+  {
+    flyPitch = 90;
+  }
+  
+  flyPitch = flyPitch/90;
+  flyPitch = flyPitch * PowF( turnSpeedScale, flyPitch );
+
+  if ( flyPitch > 1 )
+  {
+    flyPitch = 1.f;
+  }
+  else if ( flyPitch < -1 )
+  {
+    flyPitch = -1.f;
+  }
+  
+  if ( dest.Z < npcPos.Z )
+  {
+    flyPitch *= -1;
+  }
+  
+  // Calculate Yaw
+  flyYaw = AngleDistance( VecHeading( npcToDestVector ), VecHeading( npcHeadingVec ) ) ;
+  flyYaw = flyYaw / 180;
+  flyYaw = flyYaw * PowF( turnSpeedScale , AbsF( flyYaw ) );
+  
+  if ( flyYaw > 1 )
+  {
+    flyYaw = 1.f;
+  }
+  else if ( flyYaw < -1 )
+  {
+    flyYaw = -1.f;
+  }
+  
+  // If there is an obstacle in the direction we're trying to turn, go the other way around
+  // If going forward
+  if( flyYaw > -0.5 && flyYaw < 0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + npc.GetWorldForward(), collision, normal ) )
+  {
+    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Forward", collision + Vector(0,0,0.4f), true, 0, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8f, 0.5f, 0.6f, true, Color( 255, 255, 0 ), true, 1 );
+    flyYaw = -1;
+  }
+  // If turning right
+  if( flyYaw < -0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + npc.GetWorldRight(), collision, normal ) )
+  {
+    flyYaw  = 1;			
+    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Right", collision + Vector(0,0,0.4f), true, 0, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8f, 0.5f, 0.6f, true, Color( 255, 255, 0 ), true, 1 );
+  }
+  // If turning left
+  else if ( flyYaw > 0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + ( npc.GetWorldRight() * -1 ) , collision, normal ) )
+  {
+    flyYaw  = -1;
+    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Left", collision + Vector(0,0,0.4f), true, 0, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8f, 0.5f, 0.6f, true, Color( 255, 255, 0 ), true, 1 );			
+  }
+  
+  
+  
+  npc.SetBehaviorVariable( 'FlyYaw', flyYaw );
+  npc.SetBehaviorVariable( 'FlyPitch', flyPitch );
+  npc.SetBehaviorVariable( 'FlySpeed', flySpeed );
+
+  LogChannel('modRandomEncounters', "flyYaw" + flyYaw + " flyPitch" + flyPitch + " flySpeed" + flySpeed);
+  
+  // DebugDisplayDestination( dest );
+  
+}
+
+function UsePathFinding( currentPosition : Vector, out targetPosition : Vector, optional predictionDist : float ) : bool
+{
+	var path : array<Vector>;	
+
+  if( theGame.GetVolumePathManager().IsPathfindingNeeded( currentPosition, targetPosition ) )
+  {
+    path.Clear();
+    if ( theGame.GetVolumePathManager().GetPath( currentPosition, targetPosition, path ) )
+    {
+      targetPosition = path[1];
+      return true;
+    }
+    return false;
+    //targetPosition = theGame.GetVolumePathManager().GetPointAlongPath( currentPosition, targetPosition, predictionDist );
+  }
+  return true;
+}

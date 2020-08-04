@@ -1,0 +1,118 @@
+
+// When the gryphon flies over the player, then comes back to attack it
+// Imagine it flying at high-speed above you, he sees you and screems
+// then he does a complete turn and starts attacking you
+// ENTRY-POINT state.
+state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
+  var bait: CEntity;
+  var ai_behavior_flight: CAIFlightIdleFreeRoam;
+  var bait_distance_from_player: float;
+  var flight_heading: float;
+  var distance_threshold: float;
+
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Gryphon - State FlyingAbovePlayer, from " + previous_state_name);
+
+    parent.this_actor.SetTemporaryAttitudeGroup( 'q104_avallach_friendly_to_all', AGP_Default );
+
+    if (previous_state_name != 'GryphonFleeingPlayer') {
+      parent.this_entity.Teleport(parent.this_entity.GetWorldPosition() + Vector(0, 0, 80));
+    }
+
+    this.FlyingAbovePlayer_main();
+  }
+
+  entry function FlyingAbovePlayer_main() {
+    var i: int;
+
+    bait = theGame.CreateEntity(
+      (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+      parent.this_entity.GetWorldPosition(),
+      thePlayer.GetWorldRotation(),
+      true,
+      false,
+      false,
+      PM_DontPersist
+    );
+
+    for(i=0;i<100;i+=1)
+    {
+      parent.this_newnpc.CancelAIBehavior(i);
+    }
+
+    ((CNewNPC)this.bait).SetGameplayVisibility(false);
+    ((CNewNPC)this.bait).SetVisibility(false);    
+    ((CActor)this.bait).EnableCharacterCollisions(false);
+    ((CActor)this.bait).EnableDynamicCollisions(false);
+    ((CActor)this.bait).EnableStaticCollisions(false);
+    ((CActor)this.bait).SetImmortalityMode(AIM_Immortal, AIC_Default);
+
+    this.ai_behavior_flight = new CAIFlightIdleFreeRoam in this;
+
+    this.flight_heading = VecHeading(
+        thePlayer.GetWorldPosition() - parent.this_entity.GetWorldPosition()
+    );
+    
+    parent.this_actor.ForceAIBehavior( this.ai_behavior_flight, BTAP_Emergency );
+    parent.this_actor.SetTemporaryAttitudeGroup( 'friendly_to_player', AGP_Default );
+
+    this.distance_threshold = VecDistanceSquared(
+      parent.this_entity.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    ) + 100;
+
+    // The two seconds here is important, the gryphon doesn't fly without it
+    parent.AddTimer('FlyingAbovePlayer_intervalDefaultFunction', 2, true);
+  }
+
+  timer function FlyingAbovePlayer_intervalDefaultFunction(optional dt : float, optional id : Int32) {
+    var bait_position: Vector;
+
+    parent.this_actor.SetTemporaryAttitudeGroup( 'monsters', AGP_Default );
+
+    bait_position = parent.this_entity.GetWorldPosition();
+    bait_position += VecConeRand(this.flight_heading, 1, 100, 100);
+    
+    this.bait.Teleport(bait_position);
+
+    if (((CActor)bait).GetDistanceFromGround(500) < 100) {
+      bait_position.Z += 30;
+    }
+    else {
+      bait_position.Z -= 10;
+    }
+
+    this.bait.Teleport(bait_position);
+    
+    parent.this_newnpc.NoticeActor((CActor)this.bait);
+
+    // distance_threshold is already squared
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.this_actor.GetWorldPosition()) > distance_threshold) {
+      parent.RemoveTimer('FlyingAbovePlayer_intervalDefaultFunction');
+      parent.AddTimer('FlyingAbovePlayer_intervalComingToPlayer', 0.5, true);
+    }
+  }
+
+  timer function FlyingAbovePlayer_intervalComingToPlayer(optional dt : float, optional id : Int32) {
+    this.bait.Teleport(thePlayer.GetWorldPosition());
+
+    parent.this_newnpc.NoticeActor((CActor)this.bait);
+
+    // 20 * 20 = 400
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.this_actor.GetWorldPosition()) < 400) {
+      parent.GotoState('GryphonFightingPlayer');
+    }
+  }
+
+  event OnLeaveState( nextStateName : name ) {
+    parent.RemoveTimer('FlyingAbovePlayer_intervalDefaultFunction');
+    parent.RemoveTimer('FlyingAbovePlayer_intervalComingToPlayer');
+
+    this.bait.Destroy();
+
+    super.OnLeaveState(nextStateName);
+  }
+}
+
