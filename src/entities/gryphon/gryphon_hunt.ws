@@ -156,6 +156,14 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     }
   }
 
+  public function removeAllLoot() {
+    var inventory: CInventoryComponent;
+
+    inventory = this.this_actor.GetInventory();
+
+    inventory.EnableLoot(false);
+  }
+
   event OnDestroyed() {
     this.clean();
   }

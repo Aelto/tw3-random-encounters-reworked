@@ -22,7 +22,6 @@ state GryphonFightingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     LogChannel('modRandomEncounters', "Gryphon - State GryphonFightingPlayer");
 
     theSound.SoundEvent("stop_music");
-    theSound.SoundEvent("play_music_nomansgrad");
     theSound.SoundEvent("mus_griffin_combat");
 
     parent.AddTimer('GryphonFightingPlayer_intervalDefaultFunction', 0.5, true);

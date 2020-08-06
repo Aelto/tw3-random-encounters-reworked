@@ -1,6 +1,7 @@
 
 // It works but it's completely bugged. I don't understand how to use the functions
 // to controls the gryphon animations. Nothing fully works :(
+// Not used anywhere
 latent function flyTo(npc: CNewNPC, destination_point: Vector, destination_radius: float, optional height_from_ground: float) : EBTNodeStatus {
   var traceStartPos, traceEndPos, traceEffect, normal, groundLevel : Vector;
   var should_land: bool;

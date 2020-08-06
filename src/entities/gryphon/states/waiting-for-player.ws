@@ -19,7 +19,7 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
     this.bloodtrail_current_position = thePlayer.GetWorldPosition() + VecRingRand(2, 4);
 
     parent.horse_corpse_near_geralt = this.placeHorseCorpse(this.bloodtrail_current_position);
-    parent.horse_corpse_near_gryphon = this.placeHorseCorpse(this.target_position, true);
+    parent.horse_corpse_near_gryphon = this.placeHorseCorpse(this.bloodtrail_target_position, true);
 
 		thePlayer.PlayVoiceset( 90, "MiscBloodTrail" );  
 

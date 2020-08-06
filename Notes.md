@@ -38,6 +38,54 @@
 
 - file `bTaskChangeAltitude.ws` has good example for controlling the gryphon flight
 
+- npc: ReactToBeingHit
+
+-
+  ```js
+    event OnAnimEvent_SlideAway( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
+    {
+      var ticket 				: SMovementAdjustmentRequestTicket;
+      var movementAdjustor	: CMovementAdjustor;
+      var slidePos 			: Vector;
+      var slideDuration		: float;
+      
+      movementAdjustor = GetMovingAgentComponent().GetMovementAdjustor();
+      movementAdjustor.CancelByName( 'SlideAway' );
+      
+      ticket = movementAdjustor.CreateNewRequest( 'SlideAway' );
+      slidePos = GetWorldPosition() + ( VecNormalize2D( GetWorldPosition() - thePlayer.GetWorldPosition() ) * 0.75 );
+      
+      if( theGame.GetWorld().NavigationLineTest( GetWorldPosition(), slidePos, GetRadius(), false, true ) ) 
+      {
+        slideDuration = VecDistance2D( GetWorldPosition(), slidePos ) / 35;
+        
+        movementAdjustor.Continuous( ticket );
+        movementAdjustor.AdjustmentDuration( ticket, slideDuration );
+        movementAdjustor.AdjustLocationVertically( ticket, true );
+        movementAdjustor.BlendIn( ticket, 0.25 );
+        movementAdjustor.SlideTo( ticket, slidePos );
+        movementAdjustor.RotateTowards( ticket, GetTarget() );
+      }
+
+      return true;	
+    }
+  ```
+
+```js
+	function OnGroundContact()
+	{
+		var owner 	: CNewNPC = GetNPC();
+		var mac 	: CMovingPhysicalAgentComponent;
+		owner.SetBehaviorVariable( 'GroundContact', 1.0 );		
+		
+		mac = ((CMovingPhysicalAgentComponent)owner.GetMovingAgentComponent());
+		owner.ChangeStance( NS_Wounded );
+		mac.SetAnimatedMovement( false );
+		owner.EnablePhysicalMovement( false );
+		mac.SnapToNavigableSpace( true );
+	}
+```
+
 ## RER spawning system and events
 > The goal is to make a new system controlling when and which creatures will spawn.
 

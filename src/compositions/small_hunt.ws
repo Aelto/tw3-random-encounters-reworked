@@ -75,7 +75,12 @@ latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
 
   for (i = 0; i < creatures_entities.Size(); i += 1) {
     LogChannel('modRandomEncounters', "adding bait to: " + i);
+
     creatures_entities[i].this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+    if (!master.settings.enable_encounters_loot) {
+      creatures_entities[i].removeAllLoot();
+    }
+
     creatures_entities[i].startWithBait(bait);
   }
 }

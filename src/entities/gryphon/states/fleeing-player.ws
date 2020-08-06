@@ -70,7 +70,6 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     parent.this_newnpc.SetUnstoppable(true);
 
     theSound.SoundEvent("stop_music");
-    theSound.SoundEvent("play_music_nomansgrad");
     theSound.SoundEvent("mus_griffin_chase");
 
     // this.GryphonFleeingPlayer_startFlying();
@@ -104,6 +103,8 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     this.distance_threshold = 150 * 150; // squared value for performances
     this.starting_position = thePlayer.GetWorldPosition();
 
+    theSound.SoundEvent("mus_griffin_chase");
+
     parent.AddTimer('GryphonFleeingPlayer_intervalDefaultFunction', 2, true);
 
     if (this.is_bleeding) {
@@ -128,21 +129,13 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     this.bait.Teleport(bait_position);
     
-    parent.this_newnpc.ForgetActor(thePlayer);
+    parent.this_newnpc.ForgetAllActors();
     parent.this_newnpc.NoticeActor((CActor)this.bait);
 
     parent.this_actor.SetHealthPerc(parent.this_actor.GetHealthPercents() + 0.01);
 
     // attempt at forcing the gryphon to fly
     parent.this_entity.Teleport(parent.this_entity.GetWorldPosition() + Vector(0, 0, 0.1));
-
-    if (thePlayer.IsEnemyVisible(parent.this_actor)) {
-			theSound.SoundEvent("mus_griffin_chase");
-    }
-    else {
-      theSound.InitializeAreaMusic( theGame.GetCommonMapManager().GetCurrentArea() );
-    }
-
 
     // distance_threshold is already squared
     if (VecDistanceSquared(this.starting_position, parent.this_actor.GetWorldPosition()) > distance_threshold) {
@@ -177,6 +170,10 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
         LogChannel('modRandomEncounters', "found landing position");
         this.found_landing_position = true;
+        
+        // so the bait is not completely into the ground
+        this.landing_position.Z += 0.5;
+
         bait_position = this.landing_position;
       }
     }

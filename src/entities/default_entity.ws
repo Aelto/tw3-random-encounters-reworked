@@ -33,6 +33,14 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.AddTag('RandomEncountersReworked_Entity');
   }
 
+  public function removeAllLoot() {
+    var inventory: CInventoryComponent;
+
+    inventory = this.this_actor.GetInventory();
+
+    inventory.EnableLoot(false);
+  }
+
   // entry point when creating an entity who will
   // follow a bait and leave tracks behind her.
   // more suited for: `EncounterType_HUNT`
@@ -97,10 +105,9 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
 
+    this.this_newnpc.NoticeActor(thePlayer);
 
     if (distance_from_player < 20) {
-      this.this_newnpc.NoticeActor(thePlayer);
-
       // the creature is close enough to fight thePlayer,
       // we do not need this intervalFunction anymore.
       this.RemoveTimer('intervalDefaultFunction');
@@ -158,19 +165,18 @@ class RandomEncountersReworkedEntity extends CEntity {
       this.bait_entity.Destroy();
     }
     else {
-      this.this_actor
-        .ActionMoveToAsync(this.bait_entity.GetWorldPosition());
-
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/6:
       // when the bait_entity is no longer in the game, force the creatures
       // to target the player instead.
       if (this.bait_entity) {
         this.this_newnpc.NoticeActor((CActor)this.bait_entity);
 
+        this.this_actor
+        .ActionMoveToAsync(this.bait_entity.GetWorldPosition());
+
         if (distance_from_bait < 5) {
           new_bait_position = this.GetWorldPosition() + VecConeRand(this.GetHeading(), 90, 10, 20);
           new_bait_rotation = this.GetWorldRotation();
-          new_bait_rotation.Yaw += RandRange(-20,20);
           
           this.bait_entity.TeleportWithRotation(
             new_bait_position,
@@ -179,8 +185,8 @@ class RandomEncountersReworkedEntity extends CEntity {
         }
       }
       else {
-        // to avoid creatures who lost their bait because it went too far
-        // and aggroing the player. But instead die too.
+        // to avoid creatures who lost their bait (because it went too far)
+        // aggroing the player. But instead they die too.
         if (distance_from_player > 170) {
           this.clean();
 
@@ -223,7 +229,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     }
   }
 
-  // simple interval function call every ten seconds or so to check if the creature is
+  // simple interval function called every ten seconds or so to check if the creature is
   // still alive. Starts the cleaning process if not, and eventually triggers some events.
   timer function intervalLifecheckFunction(optional dt: float, optional id: Int32) {
     var distance_from_player: float;
@@ -268,6 +274,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     RemoveTimer('intervalDefaultFunction');
     RemoveTimer('intervalHuntFunction');
     RemoveTimer('teleportBait');
+    RemoveTimer('intervalLifecheckFunction');
 
     LogChannel('modRandomEncounters', "RandomEncountersReworked_Entity destroyed");
 

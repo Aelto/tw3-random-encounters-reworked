@@ -113,6 +113,10 @@ function re_basilisk() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\basilisk_lvl1.w2ent"));
+  
+  if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
+    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\basilisk_white.w2ent"));
+  }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -129,6 +133,10 @@ function re_wyvern() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wyvern_lvl1.w2ent"));
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wyvern_lvl2.w2ent"));
+  
+  if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
+    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\oszluzg_young.w2ent"));
+  }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -410,6 +418,7 @@ function re_cyclop() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\cyclop_lvl1.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\ice_giant.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -444,10 +453,14 @@ function re_leshen() : EnemyTemplateList {
 function re_werewolf() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl1.w2ent"));        
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl1.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl2.w2ent")); 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl3__lycan.w2ent"));  
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl4__lycan.w2ent"));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl5__lycan.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl5__lycan.w2ent")); 
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__werewolf.w2ent")); 
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__werewolf_01.w2ent")); 
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__werewolf_02.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -529,6 +542,7 @@ function re_golem() : EnemyTemplateList {
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\golem_lvl1.w2ent"));          // normal greenish golem        
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\golem_lvl2__ifryt.w2ent"));      // fire golem  
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\golem_lvl3.w2ent"));          // weird yellowish golem
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\monsters\gargoyle_lvl1_lvl25.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -597,7 +611,12 @@ function re_nightwraith() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl1.w2ent"));       
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl2.w2ent"));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl3.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl3.w2ent"));       
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__noonwright_pesta.w2ent"));
+
+  if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
+    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee.w2ent"));
+  }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -614,7 +633,8 @@ function re_noonwraith() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl1.w2ent"));
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl2.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl3.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl3.w2ent"));       
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__noonwright_pesta.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -636,7 +656,7 @@ function re_troll() : EnemyTemplateList {
   enemy_template_list.difficulty_factor.minimum_count_medium = 1;
   enemy_template_list.difficulty_factor.maximum_count_medium = 1;
   enemy_template_list.difficulty_factor.minimum_count_hard = 1;
-  enemy_template_list.difficulty_factor.maximum_count_hard = 2;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 3;
 
   return enemy_template_list;
 }
@@ -653,7 +673,7 @@ function re_skeltroll() : EnemyTemplateList {
   enemy_template_list.difficulty_factor.minimum_count_medium = 1;
   enemy_template_list.difficulty_factor.maximum_count_medium = 1;
   enemy_template_list.difficulty_factor.minimum_count_hard = 1;
-  enemy_template_list.difficulty_factor.maximum_count_hard = 2;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 3;
 
   return enemy_template_list;
 }
@@ -682,6 +702,9 @@ function re_harpy() : EnemyTemplateList {
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl2.w2ent"));        // harpy
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl2_customize.w2ent"));    // harpy
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl3__erynia.w2ent", 1));    // harpy
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\siren_lvl1.w2ent", 1));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\siren_lvl2__lamia.w2ent", 1));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\siren_lvl3.w2ent", 1));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 3;
   enemy_template_list.difficulty_factor.maximum_count_easy = 4;
@@ -751,6 +774,7 @@ function re_alghoul() : EnemyTemplateList {
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl2.w2ent", 3));        // dark reddish
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl3.w2ent", 2));        // greyish
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl4.w2ent", 1));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__miscreant_greater.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 2;
@@ -981,6 +1005,7 @@ function re_fleder() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\fleder.w2ent", 1));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\quests\main_quests\quest_files\q704_truth\characters\q704_protofleder.w2ent", 1));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1060,7 +1085,7 @@ function re_giant() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
   enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\q701_dagonet_giant.w2ent"));
-  // enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\q704_cloud_giant.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\q704_cloud_giant.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1081,9 +1106,9 @@ function re_centipede() : EnemyTemplateList {
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
   enemy_template_list.difficulty_factor.minimum_count_medium = 1;
-  enemy_template_list.difficulty_factor.maximum_count_medium = 1;
-  enemy_template_list.difficulty_factor.minimum_count_hard = 1;
-  enemy_template_list.difficulty_factor.maximum_count_hard = 1;
+  enemy_template_list.difficulty_factor.maximum_count_medium = 2;
+  enemy_template_list.difficulty_factor.minimum_count_hard = 2;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 3;
 
   return enemy_template_list;
 }
@@ -1125,8 +1150,8 @@ function re_wight() : EnemyTemplateList {
 function re_bruxacity() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_alp_cloak_always_spawn.w2ent"));  // spoon
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_cloak_always_spawn.w2ent"));     // wight
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_alp_cloak_always_spawn.w2ent"));
+  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_cloak_always_spawn.w2ent"));
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;

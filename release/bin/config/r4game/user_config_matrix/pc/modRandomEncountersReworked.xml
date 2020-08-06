@@ -7,6 +7,7 @@
                 <Entry varId="Difficulty"				value="1"	/>
                 <Entry varId="allMonsterHuntChance"		value="15"	/>
                 <Entry varId="largeCreatureChance"		value="15"	/>
+                <Entry varId="enableEncountersLoot"		value="1"	/>
             </Preset>
         </PresetsArray>
 
@@ -54,6 +55,17 @@
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
 						<Entry varId="hideNextNotifications" value="1"/>
+					</Option>
+				</OptionsArray>
+			</Var>
+
+            <Var id="enableEncountersLoot" displayName="rer_enable_encounters_loot" displayType="OPTIONS">
+				<OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="enableEncountersLoot" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="enableEncountersLoot" value="1"/>
 					</Option>
 				</OptionsArray>
 			</Var>

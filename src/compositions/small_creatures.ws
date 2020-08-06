@@ -70,7 +70,12 @@ latent function makeSmallCreatureAmbushWitcher(out master: CRandomEncounters) {
 
   for (i = 0; i < creatures_entities.Size(); i += 1) {
     rer_entity = creatures_entities[i];
+
     rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+    if (!master.settings.enable_encounters_loot) {
+      rer_entity.removeAllLoot();
+    }
+    
     rer_entity.startWithoutBait();
   }
 }

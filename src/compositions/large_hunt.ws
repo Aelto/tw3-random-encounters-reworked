@@ -100,6 +100,10 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
     gryphon_entity
   );
 
+  if (!master.settings.enable_encounters_loot) {
+    rer_gryphon_entity.removeAllLoot();
+  }
+
   rer_gryphon_entity.startEncounter(blood_splats_templates);
   
 }
@@ -164,6 +168,10 @@ latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_cr
   for (i = 0; i < creatures_entities.Size(); i += 1) {
     LogChannel('modRandomEncounters', "adding bait to: " + i);
     creatures_entities[i].this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+    if (!master.settings.enable_encounters_loot) {
+      creatures_entities[i].removeAllLoot();
+    }
+    
     creatures_entities[i].startWithBait(bait);
   }
 }

@@ -28,6 +28,9 @@ class RE_Settings {
   // controls whether or not RER shows notifications
   public var hide_next_notifications: bool;
 
+  // controls whether or not RER encounters will drop loot
+  public var enable_encounters_loot: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -37,7 +40,7 @@ class RE_Settings {
     this.loadLargeCreatureChance(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
-    this.loadTrophiesSettings(inGameConfigWrapper);
+    // this.loadTrophiesSettings(inGameConfigWrapper);
     this.loadDifficultySettings(inGameConfigWrapper);
     this.loadCitySpawnSettings(inGameConfigWrapper);
 
@@ -45,6 +48,7 @@ class RE_Settings {
     this.loadCreaturesSpawningChances(inGameConfigWrapper);
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
+    this.loadEnableEncountersLootSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -69,6 +73,10 @@ class RE_Settings {
 
   private function loadHideNextNotificationsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.hide_next_notifications = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'hideNextNotifications');
+  }
+
+  private function loadEnableEncountersLootSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.enable_encounters_loot = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableEncountersLoot');
   }
 
   public function setHideNextNotificationsSettings(value: bool) {

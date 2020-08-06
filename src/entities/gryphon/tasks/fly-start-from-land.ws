@@ -1,4 +1,5 @@
 
+// Not used anywhere.
 latent function flyStartFromLand(npc: CNewNPC) {
 	var animation_slot : CAIPlayAnimationSlotAction;
   var ticket 				: SMovementAdjustmentRequestTicket;
@@ -15,19 +16,6 @@ latent function flyStartFromLand(npc: CNewNPC) {
   animation_slot.blendInTime = 1.0f;
   animation_slot.blendOutTime = 1.0f;	
   animation_slot.slotName = 'NPC_ANIM_SLOT';
-  
-  // movementAdjustor = npc.GetMovingAgentComponent().GetMovementAdjustor();
-  // movementAdjustor.CancelAll();
-  
-  // ticket = movementAdjustor.CreateNewRequest( 'FlyStartFromLand' );
-  // slidePos = Vector(0, 0, 15);
-  
-  // movementAdjustor.Continuous( ticket );
-  // movementAdjustor.AdjustmentDuration( ticket, 2 );
-  // movementAdjustor.AdjustLocationVertically( ticket, true );
-  // movementAdjustor.BlendIn( ticket, 1 );
-  // movementAdjustor.SlideBy( ticket, slidePos );
-  // movementAdjustor.RotateTowards( ticket, thePlayer );
 
   npc.ForceAIBehavior(animation_slot, BTAP_Emergency);
   
