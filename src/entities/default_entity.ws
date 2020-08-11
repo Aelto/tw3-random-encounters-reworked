@@ -1,9 +1,13 @@
 
 class RandomEncountersReworkedEntity extends CEntity {
   // an invisible entity used to bait the entity
-  // TODO: do i really need a CEntity?
+  // do i really need a CEntity?
   // using ActionMoveTo i can force the creature to go
-  // toward a vector. 
+  // toward a vector.
+  // Leaving the question here, but yes i tried for
+  // a full week to make the functions ActionMoveTo work
+  // but nothing worked as expected. So a bait is the best
+  // thing. 
   var bait_entity: CEntity;
 
   // control whether the entity goes towards a bait
