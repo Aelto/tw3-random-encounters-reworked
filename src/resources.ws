@@ -1,12 +1,5 @@
 
 class RE_Resources {
-  public var novbandit, pirate, skelpirate, bandit, nilf, cannibal, renegade, skelbandit, skel2bandit, whunter: EnemyTemplateList;
-  public var gryphon, gryphonf, forktail, wyvern, cockatrice, cockatricef, basilisk, basiliskf, wight, sharley  : EnemyTemplateList;
-  public var fiend, chort, wildHunt, endrega, fogling, ghoul, alghoul, bear, skelbear, golem, elemental, hag, nekker : EnemyTemplateList;
-  public var ekimmara, katakan, whh, drowner, rotfiend, nightwraith, noonwraith, troll, skeltroll, wolf, skelwolf, wraith : EnemyTemplateList;
-  public var spider, harpy, leshen, werewolf, cyclop, arachas, vampire, skelelemental, bruxacity : EnemyTemplateList;
-  public var centipede, giant, panther, kikimore, gravier, garkain, fleder, echinops, bruxa, barghest, skeleton, detlaff, boar : EnemyTemplateList;
-
   public var blood_splats : array<string>;
 
   public var small_creatures_resources: array<EnemyTemplateList>;
