@@ -1,0 +1,85 @@
+;meta[language=en]
+; id      |key(hex)|key(str)| text
+2115018001|        |preset_value_rer_defaults|Load Defaults
+2115018002|        |option_rer_custom_frequency_low_day|Minimum delay during the day (in seconds)
+2115018003|        |option_rer_custom_frequency_high_day|Maximum delay during the day (in seconds)
+2115018004|        |option_rer_custom_frequency_low_night|Minimum delay during the night (in seconds)
+2115018005|        |option_rer_custom_frequency_hight_night|Maximum delay during the night (in seconds)
+2115018006|        |preset_value_rer_low|Low
+2115018007|        |preset_value_rer_medium|Medium
+2115018008|        |preset_value_rer_high|High
+2115018009|        |panel_Mods|Mods
+2115018010|        |panel_rer_name|Random Encounters Reworked
+2115018011|        |panel_rer_main_settings|Main settings
+2115018012|        |option_rer_city_spawn|Enable city spawns
+2115018013|        |preset_value_rer_select_yes|Yes
+2115018014|        |preset_value_rer_select_no|No
+2115018015|        |option_rer_difficulty|Encounters difficulty (affects mostly enemy count)
+2115018016|        |preset_value_rer_easy|Easy
+2115018017|        |preset_value_rer_medium|Medium
+2115018018|        |preset_value_rer_hard|Hard
+2115018019|        |option_rer_monster_hunt_ratio|Monster hunt ratio (in %)
+2115018020|        |option_rer_large_creature_ratio|Large creature ratio (in %), doubles at night
+2115018021|        |panel_rer_creature_frequency|Creatures frequencies
+2115018022|        |panel_rer_creatures_ratios|Creatures ratios
+2115018023|        |panel_rer_creatures_ratios_day|Creatures ratios - Day
+2115018024|        |panel_rer_creatures_ratios_night|Creatures ratios - Night
+2115018025|        |preset_value_rer_everything_off|Everything OFF
+2115018026|        |preset_value_rer_everything_on|Everything ON
+2115018027|        |option_rer_leshen|Leshen
+2115018028|        |option_rer_werewolf|Werewolf
+2115018029|        |option_rer_cyclops|Cyclop
+2115018030|        |option_rer_arachas|Arachas
+2115018031|        |option_rer_fiend|Fiend
+2115018032|        |option_rer_chort|Chort
+2115018033|        |option_rer_vampire|Vampire
+2115018034|        |option_rer_bear|Bear
+2115018035|        |option_rer_golem|Golem
+2115018036|        |option_rer_elemental|Elemental
+2115018037|        |option_rer_nightwraith|NightWraith
+2115018038|        |option_rer_noonwraith|NoonWraith
+2115018039|        |option_rer_troll|Troll
+2115018040|        |option_rer_hag|Hag
+2115018041|        |option_rer_harpies|Harpies
+2115018042|        |option_rer_fogling|Fogling (Foglet)
+2115018043|        |option_rer_endrega|Endrega
+2115018044|        |option_rer_ghoul|Ghoul
+2115018045|        |option_rer_alghoul|Alghoul
+2115018046|        |option_rer_nekkers|Nekkers
+2115018047|        |option_rer_drowner|Drowner
+2115018048|        |option_rer_rotfiend|Rotfiend
+2115018049|        |option_rer_wolf|Wolf
+2115018050|        |option_rer_wraith|Wraith
+2115018051|        |option_rer_spider|Spider
+2115018052|        |option_rer_boars|Boar
+2115018053|        |option_rer_Higher_Vampire|Higher Vampire
+2115018054|        |option_rer_Bruxa|Bruxa
+2115018055|        |option_rer_Fleder|Fleder
+2115018056|        |option_rer_Garkain|Garkain
+2115018057|        |option_rer_drownerDLC|Gravier
+2115018058|        |option_rer_Giant|Giant
+2115018059|        |option_rer_Skeleton|Skeleton
+2115018060|        |option_rer_Barghest|Barghet
+2115018061|        |option_rer_Echinops|Echinops
+2115018062|        |option_rer_Centipede|Centipede
+2115018063|        |option_rer_Kikimore|Kikimore
+2115018064|        |option_rer_Panther|Panther
+2115018065|        |option_rer_Sharley|Sharley
+2115018066|        |option_rer_Wight|Wight
+2115018067|        |option_rer_human_chance|Human
+2115018068|        |option_rer_wild_chance|Wild Hunt
+2115018069|        |option_rer_gryphon|Gryphon
+2115018070|        |option_rer_cockatrice|Cockatrice
+2115018071|        |option_rer_Wyvern|Wyvern
+2115018072|        |option_rer_Forktail|Forktial
+2115018073|        |option_rer_Basilisk|Basilisk
+2115018074|        |option_rer_Katakan|Katakan
+2115018075|        |option_rer_Ekimmara|Ekimmara
+2115018076|        |preset_Mods_rer_name_rer_main_settings|Main settings
+2115018077|        |preset_Mods_rer_name_rer_creature_frequency|Creatures frequencies
+2115018078|        |preset_Mods_rer_name_rer_creatures_ratios_day|Creatures ratios - Day
+2115018079|        |preset_Mods_rer_name_rer_creatures_ratios_night|Creatures ratios - Night
+2115018080|        |option_rer_geralt_comments|Enable Geralt comments
+2115018081|        |option_rer_enabled|RandomEncounters Reworked enabled
+2115018082|        |option_rer_hide_notifications|Hide RER notifications
+2115018083|        |option_rer_enable_encounters_loot|Enable encounters loot
