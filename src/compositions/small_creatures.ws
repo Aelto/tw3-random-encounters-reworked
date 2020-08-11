@@ -24,7 +24,7 @@ latent function createRandomSmallCreatureComposition(out random_encounters_class
   }
 
   if (small_creature_type == SmallCreatureWILDHUNT) {
-
+    makeSmallCreatureWildHunt(random_encounters_class);
   }
   else {
     switch (small_creature_composition) {
@@ -40,6 +40,9 @@ latent function createRandomSmallCreatureComposition(out random_encounters_class
           // maker functions for compositions //
           //////////////////////////////////////
 
+// TODO: the wild hunt should change the weather when they spawn.
+// I can't add it now because there is no way for me to know if 
+// all the creatures are alive or not. 
 latent function makeSmallCreatureWildHunt(out master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
@@ -81,6 +84,9 @@ latent function makeSmallCreatureWildHunt(out master: CRandomEncounters) {
 
   for (i = 0; i < creatures_entities.Size(); i += 1) {
     rer_entity = creatures_entities[i];
+
+    rer_entity.this_newnpc.SetTemporaryAttitudeGroup('hostile_to_player', AGP_Default);
+    rer_entity.this_newnpc.NoticeActor(thePlayer);
 
     rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
     if (!master.settings.enable_encounters_loot) {
