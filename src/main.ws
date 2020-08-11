@@ -1,9 +1,9 @@
 
 class CRandomEncounterInitializer extends CEntityMod {
   default modName = 'Random Encounters Reworked';
-  default modAuthor = "erxv";
-  default modUrl = "http://www.nexusmods.com/witcher3/mods/785?";
-  default modVersion = '1.31';
+  default modAuthor = "Aeltoth";
+  default modUrl = "http://www.nexusmods.com/witcher3/mods/5018";
+  default modVersion = '0.9.4.1';
 
   default logLevel = MLOG_DEBUG;
 
