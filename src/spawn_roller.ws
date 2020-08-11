@@ -1,14 +1,4 @@
 
-struct LargeCreatureCounter {
-  var type: LargeCreatureType;
-  var counter: int;
-}
-
-struct SmallCreatureCounter {
-  var type: SmallCreatureType;
-  var counter: int;
-}
-
 // I could not find a better name for it so `SpawnRoller` it is!
 // It's a huge list of all entities and a counter for each one
 // whenever you want to randomly pick an entity, you call
@@ -29,6 +19,7 @@ class SpawnRoller {
   // and the value as the counter.
   private var large_creatures_counters: array<int>;
   private var small_creatures_counters: array<int>;
+  private var humans_variants_counters: array<int>;
 
   public function fill_arrays() {
     var i: int;
@@ -39,6 +30,10 @@ class SpawnRoller {
 
     for (i = 0; i < LargeCreatureMAX; i += 1) {
       this.large_creatures_counters.PushBack(0);
+    }
+
+    for (i = 0; i < HT_MAX; i += 1) {
+      this.humans_variants_counters.PushBack(0);
     }
   }
 
@@ -54,6 +49,10 @@ class SpawnRoller {
     for (i = 0; i < LargeCreatureMAX; i += 1) {
       large_creatures_counters[i] = 0;
     }
+
+    for (i = 0; i < HT_MAX; i += 1) {
+      this.humans_variants_counters[i] = 0;
+    }
   }
 
   public function setLargeCreatureCounter(type: LargeCreatureType, count: int) {
@@ -64,6 +63,10 @@ class SpawnRoller {
     LogChannel('modRandomEncounter', "set small creature: " + type + " counter to " + count);
     
     this.small_creatures_counters[type] = count;
+  }
+
+  public function setHumanVariantCounter(type: EHumanType, count: int) {
+    this.humans_variants_counters[type] = count;
   }
 
   public function rollSmallCreatures(): SmallCreatureType {
@@ -138,5 +141,38 @@ class SpawnRoller {
     return LargeCreatureNONE;
   }
 
-  
+  public function rollHumansVariants(): EHumanType {
+    var current_position: int;
+    var total: int;
+    var roll: int;
+    var i: int;
+
+    for (i = 0; i < HT_MAX; i += 1) {
+      total += this.humans_variants_counters[i];
+    }
+
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+    // if for any reason no human variant is available return HT_NONE
+    if (total <= 0) {
+      return HT_NONE;
+    }
+
+    roll = RandRange(total);
+
+    current_position = 0;
+
+    for (i = 0; i < HT_MAX; i += 1) {
+      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+      // ignore the variants at 0
+      if (this.large_creatures_counters[i] > 0 && roll <= current_position + this.large_creatures_counters[i]) {
+        return i;
+      }
+
+      current_position += this.large_creatures_counters[i];
+    }
+
+    // not supposed to get here but hey, who knows.
+    return HT_NONE;
+  }
+
 }
