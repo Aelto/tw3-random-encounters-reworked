@@ -23,7 +23,7 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
 
   //const values used in the loop
   pos_fin.Z = initial_position.Z;
-  s = quantity / density; // maintain a constant density of 0.2 unit per m2
+  s = quantity / density; // maintain a constant density of `density` unit per m2
   r = SqrtF(s/Pi());
 
   createEntityHelper = new CCreateEntityHelper;

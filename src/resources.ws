@@ -173,6 +173,10 @@ class RE_Resources {
 
     return output;
   }
+
+  public latent function getPortalResource(): CEntityTemplate {
+    return (CEntityTemplate)LoadResourceAsync( "gameplay\interactive_objects\rift\rift.w2ent", true);
+  }
 }
 
 function isHeartOfStoneActive(): bool {
