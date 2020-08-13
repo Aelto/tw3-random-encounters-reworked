@@ -17,8 +17,8 @@ enum EHumanType
 }
 
 enum CreatureType {
-  SMALL_CREATURE,
-  LARGE_CREATURE
+  SMALL_CREATURE = 0,
+  LARGE_CREATURE = 1
 }
 
 enum SmallCreatureType {

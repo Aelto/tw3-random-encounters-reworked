@@ -3,10 +3,17 @@ enum LargeCreatureComposition {
   LargeCreatureComposition_AmbushWitcher = 1
 }
 
-latent function createRandomLargeCreatureComposition(out random_encounters_class: CRandomEncounters) {
+latent function createRandomLargeCreatureComposition(out random_encounters_class: CRandomEncounters, large_creature_type: LargeCreatureType) {
   var large_creature_composition: LargeCreatureComposition;
 
   large_creature_composition = LargeCreatureComposition_AmbushWitcher;
+
+  if (!large_creature_type) {
+    large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    );
+  }
 
   switch (large_creature_composition) {
     case LargeCreatureComposition_AmbushWitcher:
@@ -21,7 +28,7 @@ latent function createRandomLargeCreatureComposition(out random_encounters_class
           //////////////////////////////////////
 
 
-latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
+latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters, large_creature_type: LargeCreatureType) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
 
@@ -30,7 +37,6 @@ latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
 
   var i: int;
   var initial_position: Vector;
-  var large_creature_type: LargeCreatureType;
 
   LogChannel('modRandomEncounters', "making large creatures composition ambush witcher");
 

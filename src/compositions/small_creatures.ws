@@ -3,16 +3,17 @@ enum SmallCreatureComposition {
   SmallCreatureComposition_AmbushWitcher = 1
 }
 
-latent function createRandomSmallCreatureComposition(out random_encounters_class: CRandomEncounters) {
+latent function createRandomSmallCreatureComposition(out random_encounters_class: CRandomEncounters, optional small_creature_type: SmallCreatureType) {
   var small_creature_composition: SmallCreatureComposition;
-  var small_creature_type: SmallCreatureType;
 
   small_creature_composition = SmallCreatureComposition_AmbushWitcher;
 
-  small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
-    master.settings,
-    master.spawn_roller
-  );
+  if (!small_creature_type) {
+    small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    );
+  }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
