@@ -79,6 +79,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     }
     else {
       this.this_newnpc.NoticeActor(thePlayer);
+      this.this_newnpc.SetAttitude(thePlayer, AIA_Hostile);
 
       AddTimer('intervalDefaultFunction', 2, true);
 
