@@ -159,6 +159,7 @@ class RandomEncountersReworkedEntity extends CEntity {
         .ActionCancelAll();
 
       this.this_newnpc.NoticeActor(thePlayer);
+      this.this_newnpc.SetAttitude(thePlayer, AIA_Hostile);
 
       // the creature is close enough to fight thePlayer,
       // we do not need this intervalFunction anymore.
