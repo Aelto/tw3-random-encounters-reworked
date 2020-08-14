@@ -49,7 +49,7 @@ class RandomEncountersReworkedEntity extends CEntity {
   // follow a bait and leave tracks behind her.
   // more suited for: `EncounterType_HUNT`
   // NOTE: this functions calls `startWithoutBait`
-  public function startWithBait(bait_entity: CEntity) {
+  public latent function startWithBait(bait_entity: CEntity) {
     this.bait_entity = bait_entity;
     this.go_towards_bait = true;
 
@@ -58,7 +58,9 @@ class RandomEncountersReworkedEntity extends CEntity {
     ((CActor)this.bait_entity).EnableCharacterCollisions(false);
     ((CActor)this.bait_entity).EnableDynamicCollisions(false);
     ((CActor)this.bait_entity).EnableStaticCollisions(false);
-    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);  
+    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
+
+    this.tracks_template = getTracksTemplate(this.this_actor);  
 
     this.startWithoutBait();
   }
@@ -67,12 +69,6 @@ class RandomEncountersReworkedEntity extends CEntity {
   // directly target the player.
   // more suited for: `EncounterType_DEFAULT`
   public function startWithoutBait() {
-    // TODO: create a function getTracksTemplateByCreatureType
-    this.tracks_template = (CEntityTemplate)LoadResource(
-      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
-      true
-    );
-
     if (this.go_towards_bait) {
       AddTimer('intervalHuntFunction', 2, true);
       AddTimer('teleportBait', 10, true);
