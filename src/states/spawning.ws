@@ -14,28 +14,29 @@ state Spawning in CRandomEncounters {
     var picked_encounter_type: EncounterType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
+
+    picked_entity_type = this.getRandomEntityTypeWithSettings();
+    picked_encounter_type = this.getRandomEncounterType();
     
-    if (this.shouldAbortCreatureSpawn()) {
+    if (this.shouldAbortCreatureSpawn(picked_entity_type)) {
       parent.GotoState('SpawningCancelled');
 
       return;
     }
-
-    picked_entity_type = this.getRandomEntityTypeWithSettings();
-    picked_encounter_type = this.getRandomEncounterType();
 
     LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type + ", picked encounter type: " + picked_encounter_type);
 
     makeGroupComposition(
       picked_encounter_type,
       picked_entity_type,
+      is_city_spawn,
       parent
     );
 
     parent.GotoState('Waiting');
   }
 
-  function shouldAbortCreatureSpawn(): bool {
+  function shouldAbortCreatureSpawn(creature_type: CreatureType): bool {
     var current_state: CName;
     var is_meditating: bool;
     var current_zone: EREZone;
@@ -44,8 +45,6 @@ state Spawning in CRandomEncounters {
     current_state = thePlayer.GetCurrentStateName();
     is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
     current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
-
-    LogChannel('modRandomEncounters', "the player is in settlement:" + this.isInSettlement());
 
     return is_meditating 
         || current_zone == REZ_NOSPAWN
@@ -60,34 +59,15 @@ state Spawning in CRandomEncounters {
         || theGame.IsCurrentlyPlayingNonGameplayScene()
         || theGame.IsFading()
         || theGame.IsBlackscreen()
-        
-        || !parent.settings.citySpawn
+
+        || parent.rExtra.isPlayerInSettlement()
         && (
-          // either from an hardcoded city in RER
-          // or if the game tells us the player is
-          // in a settlement.
-          current_zone == REZ_CITY 
-          || this.isInSettlement()
+          creature_type == LARGE_CREATURE
+          && !parent.settings.doesAllowLargeCitySpawns()
+
+          || CreatureType == SMALL_CREATURE
+          && !parent.settings.doesAllowSmallCitySpawns()
         );
-  }
-
-  function isInSettlement(): bool {
-    var current_area : EAreaName;
-
-    current_area = theGame.GetCommonMapManager().GetCurrentArea();
-
-    // the .isInSettlement() method doesn't work when is skellige
-    // it always returns true.
-    if (current_area == AN_Skellige_ArdSkellig) {
-      // HACK: it can be a great way to see if a settlement is nearby
-      // by looking for a noticeboard. Though some settlements don't have
-      // any noticeboard.
-      // TODO: get the nearest signpost and read its tag then check
-      // if it is a known settlement.
-      return parent.rExtra.isNearNoticeboard();
-    }
-    
-    return thePlayer.IsInSettlement();
   }
 
   function getRandomEntityTypeWithSettings(): CreatureType {

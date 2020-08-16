@@ -5,7 +5,6 @@ class RE_Settings {
   public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
   public var all_monster_hunt_chance: int;
   public var enableTrophies : bool;
-  public var citySpawn : int;
   public var selectedDifficulty : int;
 
   // uses the enum `SmallCreature` and its values for the index/key.
@@ -17,6 +16,11 @@ class RE_Settings {
   // and the `int` for the value/chance.
   public var large_creatures_chances_day: array<int>;
   public var large_creatures_chances_night: array<int>;
+
+  // use the enums `LargeCreature` & `SmallCreature` for the indices.
+  // and the `bool` for the value.
+  public var large_creatures_city_spawns: array<bool>;
+  public var small_creatures_city_spawns: array<bool>;
 
   // used when picking the EncounterType Large/Small
   public var large_creature_chance: int;
@@ -57,10 +61,6 @@ class RE_Settings {
     theGame
     .GetGuiManager()
     .ShowNotification("Random Encounters XML settings loaded");
-  }
-
-  private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-  citySpawn = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'citySpawn'));
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -126,6 +126,18 @@ class RE_Settings {
       for (i = 0; i < LargeCreatureMAX; i += 1) {
         this.large_creatures_chances_day.PushBack(0);
         this.large_creatures_chances_night.PushBack(0);
+      }
+    }
+
+    if (this.large_creatures_city_spawns.Size() == 0) {
+      for (i = 0; i < LargeCreatureMAX; i += 1) {
+        this.large_creatures_city_spawns.PushBack(false);
+      }
+    }
+
+    if (this.small_creatures_chances_day.Size() == 0) {
+      for (i = 0; i < SmallCreatureMAX; i += 1) {
+        this.small_creatures_chances_day.PushBack(false);
       }
     }
   }
@@ -242,5 +254,80 @@ class RE_Settings {
     this.large_creatures_chances_night[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Basilisk'));
     this.large_creatures_chances_night[LargeCreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wyverns'));
     this.large_creatures_chances_night[LargeCreatureFORKTAIL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Forktails'));
+  }
+
+  private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.small_creatures_city_spawns[SmallCreatureHARPY]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Harpies');
+    this.small_creatures_city_spawns[SmallCreatureENDREGA]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Endrega');
+    this.small_creatures_city_spawns[SmallCreatureGHOUL]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Ghouls');
+    this.small_creatures_city_spawns[SmallCreatureALGHOUL]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Alghouls');
+    this.small_creatures_city_spawns[SmallCreatureNEKKER]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Nekkers');
+    this.small_creatures_city_spawns[SmallCreatureDROWNER]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Drowners');
+    this.small_creatures_city_spawns[SmallCreatureROTFIEND]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Rotfiends');
+    this.small_creatures_city_spawns[SmallCreatureWOLF]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wolves');
+    this.small_creatures_city_spawns[SmallCreatureWRAITH]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wraiths');
+    this.small_creatures_city_spawns[SmallCreatureSPIDER]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Spiders');
+    this.small_creatures_city_spawns[SmallCreatureWILDHUNT]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'WildHunt');
+    this.small_creatures_city_spawns[SmallCreatureHuman]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Humans');
+    this.small_creatures_city_spawns[SmallCreatureSKELETON]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Skeleton');
+    this.small_creatures_city_spawns[SmallCreatureBARGHEST]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Barghest')) 
+    this.small_creatures_city_spawns[SmallCreatureECHINOPS]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Echinops')) 
+    this.small_creatures_city_spawns[SmallCreatureCENTIPEDE]  = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Centipede');
+    this.small_creatures_city_spawns[SmallCreatureKIKIMORE]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Kikimore');
+    this.small_creatures_city_spawns[SmallCreatureDROWNERDLC] = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'DrownerDLC');
+    this.small_creatures_city_spawns[SmallCreatureARACHAS]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Arachas');
+    this.small_creatures_city_spawns[SmallCreatureBEAR]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Bears');
+    this.small_creatures_city_spawns[SmallCreaturePANTHER]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Panther');
+    this.small_creatures_city_spawns[SmallCreatureBOAR]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Boars');
+
+    this.large_creatures_city_spawns[LargeCreatureLESHEN]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Leshens');
+    this.large_creatures_city_spawns[LargeCreatureWEREWOLF]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Werewolves');
+    this.large_creatures_city_spawns[LargeCreatureFIEND]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Fiends');
+    this.large_creatures_city_spawns[LargeCreatureEKIMMARA]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Ekimmara');
+    this.large_creatures_city_spawns[LargeCreatureKATAKAN]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Katakan');
+    this.large_creatures_city_spawns[LargeCreatureGOLEM]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Golems');
+    this.large_creatures_city_spawns[LargeCreatureELEMENTAL]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Elementals');
+    this.large_creatures_city_spawns[LargeCreatureNIGHTWRAITH]  = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'NightWraiths');
+    this.large_creatures_city_spawns[LargeCreatureNOONWRAITH]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'NoonWraiths');
+    this.large_creatures_city_spawns[LargeCreatureCHORT]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Chorts');
+    this.large_creatures_city_spawns[LargeCreatureCYCLOPS]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Cyclops');
+    this.large_creatures_city_spawns[LargeCreatureTROLL]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Troll');
+    this.large_creatures_city_spawns[LargeCreatureHAG]          = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Hags');
+    this.large_creatures_city_spawns[LargeCreatureFOGLET]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Fogling');
+    this.large_creatures_city_spawns[LargeCreatureBRUXA]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Bruxa');
+    this.large_creatures_city_spawns[LargeCreatureFLEDER]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Fleder');
+    this.large_creatures_city_spawns[LargeCreatureGARKAIN]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Garkain');
+    this.large_creatures_city_spawns[LargeCreatureDETLAFF]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'HigherVamp');
+    this.large_creatures_city_spawns[LargeCreatureGIANT]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Giant');
+    this.large_creatures_city_spawns[LargeCreatureSHARLEY]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Sharley');
+    this.large_creatures_city_spawns[LargeCreatureWIGHT]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wight');
+    this.large_creatures_city_spawns[LargeCreatureGRYPHON]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Gryphons');
+    this.large_creatures_city_spawns[LargeCreatureCOCKATRICE]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Cockatrice');
+    this.large_creatures_city_spawns[LargeCreatureBASILISK]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Basilisk');
+    this.large_creatures_city_spawns[LargeCreatureWYVERN]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wyverns');
+    this.large_creatures_city_spawns[LargeCreatureFORKTAIL]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Forktails');
+  }
+
+  public function doesAllowLargeCitySpawns(): bool {
+    var i: int;
+
+    for (i = 0; i < LargeCreatureMAX; i += 1) {
+      if (this.large_creatures_city_spawns[i]) {
+        return true;
+      }
+    }
+
+    return false;
+
+  public function doesAllowSmallCitySpawns(): bool {
+    var i: int;
+
+    for (i = 0; i < SmallCreatureMAX; i += 1) {
+      if (this.small_creatures_chances_day[i]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

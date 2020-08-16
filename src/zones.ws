@@ -120,7 +120,34 @@ class CModRExtra {
     );
 
     return entities.Size() > 0;
-  } 
+  }
+
+  public function isPlayerInSettlement(): bool {
+    var current_area : EAreaName;
+    var is_in_rer_cities: bool;
+
+    current_area = theGame.GetCommonMapManager().GetCurrentArea();
+
+    is_in_rer_cities = this
+      .getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY;
+
+    if (is_in_rer_cities) {
+      return true;
+    }
+
+    // the .isInSettlement() method doesn't work when is skellige
+    // it always returns true.
+    if (current_area == AN_Skellige_ArdSkellig) {
+      // HACK: it can be a great way to see if a settlement is nearby
+      // by looking for a noticeboard. Though some settlements don't have
+      // any noticeboard.
+      // TODO: get the nearest signpost and read its tag then check
+      // if it is a known settlement.
+      return this.isNearNoticeboard();
+    }
+    
+    return thePlayer.IsInSettlement();
+  }
 
   public function getRandomHumanTypeByCurrentArea(): EHumanType {
     var current_area: string;
@@ -236,6 +263,17 @@ class CModRExtra {
       spawn_roller.setSmallCreatureCounter(SmallCreatureHARPY, 0);
     }
 
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
+    // when a creature is set to NO in the city spawn menu, 
+    // we remove it from the spawning pool.
+    if (this.isPlayerInSettlement()) {
+      for (i = 0; i < SmallCreatureMAX; i += 1) {
+        if (!settings.small_creatures_city_spawns[i]) {
+          spawn_roller.setSmallCreatureCounter(i, 0);
+        }
+      }
+    }
+
     return spawn_roller.rollSmallCreatures();
   }
 
@@ -325,6 +363,17 @@ class CModRExtra {
     }
     else {
       spawn_roller.setLargeCreatureCounter(LargeCreatureNIGHTWRAITH, 0);
+    }
+
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
+    // when a creature is set to NO in the city spawn menu, 
+    // we remove it from the spawning pool.
+    if (this.isPlayerInSettlement()) {
+      for (i = 0; i < LargeCreatureMAX; i += 1) {
+        if (!settings.large_creatures_city_spawns[i]) {
+          spawn_roller.setLargeCreatureCounter(i, 0);
+        }
+      }
     }
 
     return spawn_roller.rollLargeCreatures();

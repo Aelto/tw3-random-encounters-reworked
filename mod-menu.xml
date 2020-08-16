@@ -3,7 +3,6 @@
     <Group id="RandomEncountersMENU" displayName="Mods.rer_name.rer_main_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-				<Entry varId="citySpawn"				value="0"	/>
                 <Entry varId="Difficulty"				value="1"	/>
                 <Entry varId="allMonsterHuntChance"		value="15"	/>
                 <Entry varId="largeCreatureChance"		value="15"	/>
@@ -12,16 +11,6 @@
         </PresetsArray>
 
         <VisibleVars>	
-			<Var id="citySpawn" displayName="rer_city_spawn" displayType="OPTIONS">
-				<OptionsArray>
-					<Option id="0" displayName="rer_select_no">
-						<Entry varId="citySpawn" value="0"/>
-					</Option>
-					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="citySpawn" value="1"/>
-					</Option>
-				</OptionsArray>
-			</Var>
             <Var id="Difficulty" displayName="rer_difficulty" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_easy">
@@ -640,6 +629,694 @@
             <Var id="Katakan" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
 
             <Var id="Ekimmara" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="RER_CitySpawns" displayName="Mods.rer_name.rer_city_spawns">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_no_city_spawns" >
+                <Entry varId="Hags"					value="0"	/>
+                <Entry varId="Fogling"				value="0"	/>
+                <Entry varId="Troll"				value="0"	/>					
+                <Entry varId="Werewolves"			value="0"	/>
+                <Entry varId="Fiends"				value="0"	/>
+                <Entry varId="Chorts"				value="0"	/>
+                <Entry varId="Gryphons"             value="0"  />
+                <Entry varId="Cockatrice"           value="0"  />
+                <Entry varId="Wyverns"              value="0"  />
+                <Entry varId="Forktails"            value="0"  />
+                <Entry varId="Basilisk"             value="0"  />
+                <Entry varId="NightWraiths"			value="0"	/>
+                <Entry varId="Wight"				value="0"	/>
+                <Entry varId="NoonWraiths"			value="0"	/>
+                <Entry varId="Katakan"              value="0"  />
+                <Entry varId="Ekimmara"             value="0"  />
+                <Entry varId="Leshens"				value="0"	/>
+                <Entry varId="Giant"				value="0"	/>
+                <Entry varId="Sharley"				value="0"	/>
+                <Entry varId="Cyclops"				value="0"	/>
+                <Entry varId="Golems"				value="0"	/>
+                <Entry varId="Elementals"			value="0"	/>
+                <Entry varId="HigherVamp"			value="0"	/>
+                <Entry varId="Bruxa"				value="0"	/>
+                <Entry varId="Fleder"				value="0"	/>
+                <Entry varId="Garkain"				value="0"	/>
+
+                <Entry varId="Humans"               value="0"  />
+                <Entry varId="Nekkers"				value="0"	/>
+                <Entry varId="Drowners"				value="0"	/>
+                <Entry varId="DrownerDLC"			value="0"	/>
+                <Entry varId="Ghouls"				value="0"	/>
+                <Entry varId="Rotfiends"			value="0"	/>
+                <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="Wraiths"				value="0"	/>
+                <Entry varId="Bears"				value="0"	/>
+                <Entry varId="Harpies"				value="0"	/>
+                <Entry varId="Endrega"				value="0"	/>
+                <Entry varId="Alghouls"				value="0"	/>
+                <Entry varId="Arachas"				value="0"	/>
+                <Entry varId="Kikimore"				value="0"	/>
+                <Entry varId="Echinops"				value="0"	/>
+                <Entry varId="Centipede"			value="0"	/>
+                <Entry varId="Spiders"				value="0"	/>
+                <Entry varId="Boars"				value="0"	/>
+                <Entry varId="Panther"				value="0"	/>
+                <Entry varId="Barghest"				value="0"	/>
+                <Entry varId="Skeleton"				value="0"	/>
+                <Entry varId="WildHunt"             value="0"  />
+            </Preset>
+            <Preset id="1" displayName="rer_all_city_spawns" >
+                <Entry varId="Hags"					value="1"	/>
+                <Entry varId="Fogling"				value="1"	/>
+                <Entry varId="Troll"				value="1"	/>					
+                <Entry varId="Werewolves"			value="1"	/>
+                <Entry varId="Fiends"				value="1"	/>
+                <Entry varId="Chorts"				value="1"	/>
+                <Entry varId="Gryphons"             value="1"  />
+                <Entry varId="Cockatrice"           value="1"  />
+                <Entry varId="Wyverns"              value="1"  />
+                <Entry varId="Forktails"            value="1"  />
+                <Entry varId="Basilisk"             value="1"  />
+                <Entry varId="NightWraiths"			value="1"	/>
+                <Entry varId="Wight"				value="1"	/>
+                <Entry varId="NoonWraiths"			value="1"	/>
+                <Entry varId="Katakan"              value="1"  />
+                <Entry varId="Ekimmara"             value="1"  />
+                <Entry varId="Leshens"				value="1"	/>
+                <Entry varId="Giant"				value="1"	/>
+                <Entry varId="Sharley"				value="1"	/>
+                <Entry varId="Cyclops"				value="1"	/>
+                <Entry varId="Golems"				value="1"	/>
+                <Entry varId="Elementals"			value="1"	/>
+                <Entry varId="HigherVamp"			value="1"	/>
+                <Entry varId="Bruxa"				value="1"	/>
+                <Entry varId="Fleder"				value="1"	/>
+                <Entry varId="Garkain"				value="1"	/>
+
+                <Entry varId="Humans"               value="1"  />
+                <Entry varId="Nekkers"				value="1"	/>
+                <Entry varId="Drowners"				value="1"	/>
+                <Entry varId="DrownerDLC"			value="1"	/>
+                <Entry varId="Ghouls"				value="1"	/>
+                <Entry varId="Rotfiends"			value="1"	/>
+                <Entry varId="Wolves"				value="1"	/>
+                <Entry varId="Wraiths"				value="1"	/>
+                <Entry varId="Bears"				value="1"	/>
+                <Entry varId="Harpies"				value="1"	/>
+                <Entry varId="Endrega"				value="1"	/>
+                <Entry varId="Alghouls"				value="1"	/>
+                <Entry varId="Arachas"				value="1"	/>
+                <Entry varId="Kikimore"				value="1"	/>
+                <Entry varId="Echinops"				value="1"	/>
+                <Entry varId="Centipede"			value="1"	/>
+                <Entry varId="Spiders"				value="1"	/>
+                <Entry varId="Boars"				value="1"	/>
+                <Entry varId="Panther"				value="1"	/>
+                <Entry varId="Barghest"				value="1"	/>
+                <Entry varId="Skeleton"				value="1"	/>
+                <Entry varId="WildHunt"             value="1"  />
+            </Preset>
+            <Preset id="2" displayName="rer_defaults" >
+                <Entry varId="Hags"					value="0"	/>
+                <Entry varId="Fogling"				value="0"	/>
+                <Entry varId="Troll"				value="0"	/>
+                <Entry varId="Werewolves"			value="0"	/>
+                <Entry varId="Fiends"				value="0"	/>
+                <Entry varId="Chorts"				value="0"	/>
+                <Entry varId="Gryphons"             value="0"  />
+                <Entry varId="Cockatrice"           value="0"  />
+                <Entry varId="Wyverns"              value="0"  />
+                <Entry varId="Forktails"            value="0"  />
+                <Entry varId="Basilisk"             value="0"  />
+                <Entry varId="NightWraiths"			value="0"	/>
+                <Entry varId="Wight"				value="0"	/>
+                <Entry varId="NoonWraiths"			value="0"	/>
+                <Entry varId="Katakan"              value="0"  />
+                <Entry varId="Ekimmara"             value="0"  />
+                <Entry varId="Leshens"				value="0"	/>
+                <Entry varId="Giant"				value="0"	/>
+                <Entry varId="Sharley"				value="0"	/>
+                <Entry varId="Cyclops"				value="0"	/>
+                <Entry varId="Golems"				value="0"	/>
+                <Entry varId="Elementals"			value="0"	/>
+                <Entry varId="HigherVamp"			value="0"	/>
+                <Entry varId="Bruxa"				value="1"	/>
+                <Entry varId="Fleder"				value="0"	/>
+                <Entry varId="Garkain"				value="0"	/>
+
+                <Entry varId="Humans"               value="1"  />
+                <Entry varId="Nekkers"				value="0"	/>
+                <Entry varId="Drowners"				value="1"	/>
+                <Entry varId="DrownerDLC"			value="1"	/>
+                <Entry varId="Ghouls"				value="1"	/>
+                <Entry varId="Rotfiends"			value="0"	/>
+                <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="Wraiths"				value="0"	/>
+                <Entry varId="Bears"				value="0"	/>
+                <Entry varId="Harpies"				value="0"	/>
+                <Entry varId="Endrega"				value="0"	/>
+                <Entry varId="Alghouls"				value="0"	/>
+                <Entry varId="Arachas"				value="0"	/>
+                <Entry varId="Kikimore"				value="0"	/>
+                <Entry varId="Echinops"				value="0"	/>
+                <Entry varId="Centipede"			value="0"	/>
+                <Entry varId="Spiders"				value="0"	/>
+                <Entry varId="Boars"				value="0"	/>
+                <Entry varId="Panther"				value="0"	/>
+                <Entry varId="Barghest"				value="0"	/>
+                <Entry varId="Skeleton"				value="0"	/>
+                <Entry varId="WildHunt"             value="0"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Leshens" displayName="rer_leshen" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Werewolves" displayName="rer_werewolf" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Cyclops" displayName="rer_cyclops" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Arachas" displayName="rer_arachas" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Fiends" displayName="rer_fiend" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Chorts" displayName="rer_chort" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Bears" displayName="rer_bear" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Golems" displayName="rer_golem" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Elementals" displayName="rer_elemental" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="NightWraiths" displayName="rer_nightwraith" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS"> 	
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="Troll" displayName="rer_troll" displayType="OPTIONS"> 	
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Hags" displayName="rer_hag" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Harpies" displayName="rer_harpies" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Fogling" displayName="rer_fogling" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Endrega" displayName="rer_endrega" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Ghouls" displayName="rer_ghoul" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Alghouls" displayName="rer_alghoul" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Nekkers" displayName="rer_nekkers" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Drowners" displayName="rer_drowner" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Rotfiends" displayName="rer_rotfiend" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Wolves" displayName="rer_wolf" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">/	
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS"> 	
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="Boars" displayName="rer_boars" displayType="OPTIONS"> 	
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+			<Var id="Bruxa" displayName="rer_Bruxa" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Fleder" displayName="rer_Fleder" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Garkain" displayName="rer_Garkain" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Giant" displayName="rer_Giant" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Skeleton" displayName="rer_Skeleton" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+					
+			<Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">		
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Centipede" displayName="rer_Centipede" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+						
+			<Var id="Kikimore" displayName="rer_Kikimore" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">		
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Sharley" displayName="rer_Sharley" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+			
+			<Var id="Wight" displayName="rer_Wight" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <!-- added values -->
+            <Var id="Humans" displayName="rer_human_chance" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="WildHunt" displayName="rer_wild_chance" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="Gryphons" displayName="rer_gryphon" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+        
+            <Var id="Cockatrice" displayName="rer_cockatrice" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+        
+            <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+        
+            <Var id="Forktails" displayName="rer_Forktail" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="Basilisk" displayName="rer_Basilisk" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+            
+            <Var id="Katakan" displayName="rer_Katakan" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="Ekimmara" displayName="rer_Ekimmara" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="citySpawn" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="citySpawn" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
         </VisibleVars>
     </Group>
 

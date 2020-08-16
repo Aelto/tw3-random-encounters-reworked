@@ -83,3 +83,6 @@
 2115018081|        |option_rer_enabled|RandomEncounters Reworked enabled
 2115018082|        |option_rer_hide_notifications|Hide RER notifications
 2115018083|        |option_rer_enable_encounters_loot|Enable encounters loot
+2115018084|        |preset_Mods_rer_name_rer_city_spawns|City spawns
+2115018085|        |preset_value_no_city_spawns|No city spawns
+2115018086|        |preset_value_all_city_spawns|Allow all city spawns
