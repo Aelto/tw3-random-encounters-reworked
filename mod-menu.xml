@@ -34,6 +34,7 @@
 				</OptionsArray>
 			</Var>
             <Var id="allMonsterHuntChance" displayName="rer_monster_hunt_ratio" displayType="SLIDER;0;100;100"/>
+            <Var id="externalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
             <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="OPTIONS">
 				<OptionsArray>

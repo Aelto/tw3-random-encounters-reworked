@@ -26,6 +26,10 @@ class RE_Settings {
   // controls whether or not RER encounters will drop loot
   public var enable_encounters_loot: bool;
 
+  // tells how much impact an external factor has on a creature
+  // spawning chances.
+  public var external_factors_coefficient: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -43,6 +47,7 @@ class RE_Settings {
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
+    this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -67,6 +72,12 @@ class RE_Settings {
 
   private function loadEnableEncountersLootSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.enable_encounters_loot = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableEncountersLoot');
+  }
+
+  private function loadExternalFactorsCoefficientSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.external_factors_coefficient = StringToFloat(
+      inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'externalFactorsImpact')
+    );
   }
 
   public function setHideNextNotificationsSettings(value: bool) {
