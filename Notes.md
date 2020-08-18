@@ -19,7 +19,27 @@
   ```js
     var entities : array<CGameplayEntity>;
 		FindGameplayEntitiesInSphere( entities, thePlayer.GetWorldPosition(), 10, 1,, FLAG_ExcludePlayer,, 'W3FastTravelEntity' ); // 'W3NoticeBoard' for noticeboards
+  ```
 
+- i think it doesn't work in skellige
+  ```js
+  public function TestIsInSettlement() : bool
+	{
+		var ents : array<CEntity>;
+		var trigger : CTriggerAreaComponent;
+		var i : int;
+		
+		theGame.GetEntitiesByTag('settlement', ents);
+		
+		for(i=0; i<ents.Size(); i+=1)
+		{
+			trigger = (CTriggerAreaComponent)(ents[i].GetComponentByClassName('CTriggerAreaComponent'));
+			if(trigger.TestEntityOverlap(this))
+				return true;
+		}
+		
+		return false;
+	}
   ```
 
 - npc stances:
