@@ -125,7 +125,7 @@ exec function start_encounter(optional creature: CreatureType) {
 
   rer_entity = (CRandomEncounters)entities[0];
 
-  // no creature_type nor creature were supplied,
+  // no creature were supplied,
   // so we let RER decides.
   if (!!creature) {
     rer_entity.ticks_before_spawn = 5;
