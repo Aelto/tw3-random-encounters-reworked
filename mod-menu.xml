@@ -4,7 +4,7 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="Difficulty"				value="1"	/>
-                <Entry varId="allMonsterHuntChance"		value="15"	/>
+                <Entry varId="allMonsterHuntChance"		value="25"	/>
                 <Entry varId="enableEncountersLoot"		value="1"	/>
             </Preset>
         </PresetsArray>
@@ -205,55 +205,55 @@
             </Preset>
 
             <Preset id="2" displayName="rer_defaults" >
-                    <Entry varId="Hags"					value="25"	/>
-                    <Entry varId="Fogling"				value="25"	/>
-                    <Entry varId="Troll"				value="25"	/>					
-                    <Entry varId="Werewolves"			value="20"	/>
-                    <Entry varId="Fiends"				value="20"	/>
-                    <Entry varId="Chorts"				value="20"	/>
-                    <Entry varId="Gryphons"             value="20"  />
-                    <Entry varId="Cockatrice"           value="20"  />
-                    <Entry varId="Wyverns"              value="20"  />
-                    <Entry varId="Forktails"            value="20"  />
-                    <Entry varId="Basilisk"             value="20"  />
-                    <Entry varId="NightWraiths"			value="15"	/>
-					<Entry varId="Wight"				value="15"	/>
-                    <Entry varId="NoonWraiths"			value="15"	/>
-                    <Entry varId="Katakan"              value="15"  />
-                    <Entry varId="Ekimmara"             value="15"  />
-                    <Entry varId="Leshens"				value="10"	/>
-					<Entry varId="Giant"				value="10"	/>
-					<Entry varId="Sharley"				value="10"	/>
-                    <Entry varId="Cyclops"				value="5"	/>
-                    <Entry varId="Golems"				value="5"	/>
-                    <Entry varId="Elementals"			value="5"	/>
-					<Entry varId="HigherVamp"			value="1"	/>
-					<Entry varId="Bruxa"				value="5"	/>
-					<Entry varId="Fleder"				value="5"	/>
-					<Entry varId="Garkain"				value="5"	/>
+                <Entry varId="Hags"					value="25"	/>
+                <Entry varId="Fogling"				value="25"	/>
+                <Entry varId="Troll"				value="25"	/>					
+                <Entry varId="Werewolves"			value="20"	/>
+                <Entry varId="Fiends"				value="20"	/>
+                <Entry varId="Chorts"				value="20"	/>
+                <Entry varId="Gryphons"             value="20"  />
+                <Entry varId="Cockatrice"           value="20"  />
+                <Entry varId="Wyverns"              value="20"  />
+                <Entry varId="Forktails"            value="20"  />
+                <Entry varId="Basilisk"             value="20"  />
+                <Entry varId="NightWraiths"			value="15"	/>
+                <Entry varId="Wight"				value="15"	/>
+                <Entry varId="NoonWraiths"			value="15"	/>
+                <Entry varId="Katakan"              value="15"  />
+                <Entry varId="Ekimmara"             value="15"  />
+                <Entry varId="Leshens"				value="10"	/>
+                <Entry varId="Giant"				value="10"	/>
+                <Entry varId="Sharley"				value="10"	/>
+                <Entry varId="Cyclops"				value="5"	/>
+                <Entry varId="Golems"				value="5"	/>
+                <Entry varId="Elementals"			value="5"	/>
+                <Entry varId="Bruxa"				value="5"	/>
+                <Entry varId="Fleder"				value="5"	/>
+                <Entry varId="Garkain"				value="5"	/>
+                <Entry varId="HigherVamp"			value="1"	/>
 
-                    <Entry varId="Humans"               value="100"  />
-                    <Entry varId="Nekkers"				value="25"	/>
-                    <Entry varId="Drowners"				value="25"	/>
-					<Entry varId="DrownerDLC"			value="25"	/>
-                    <Entry varId="Ghouls"				value="25"	/>
-                    <Entry varId="Rotfiends"			value="25"	/>
-                    <Entry varId="Wolves"				value="20"	/>
-                    <Entry varId="Wraiths"				value="20"	/>
-                    <Entry varId="Bears"				value="20"	/>
-                    <Entry varId="Harpies"				value="20"	/>
-                    <Entry varId="Endrega"				value="20"	/>
-                    <Entry varId="Alghouls"				value="15"	/>
-                    <Entry varId="Arachas"				value="15"	/>
-					<Entry varId="Kikimore"				value="15"	/>
-					<Entry varId="Echinops"				value="10"	/>
-					<Entry varId="Centipede"			value="10"	/>
-                    <Entry varId="Spiders"				value="10"	/>
-                    <Entry varId="Boars"				value="10"	/>
-					<Entry varId="Panther"				value="10"	/>
-					<Entry varId="Barghest"				value="10"	/>
-					<Entry varId="Skeleton"				value="5"	/>
-                    <Entry varId="WildHunt"             value="5"  />
+                <Entry varId="Humans"               value="100"  />
+                <Entry varId="Nekkers"				value="30"	/>
+                <Entry varId="Drowners"				value="30"	/>
+                <Entry varId="DrownerDLC"			value="30"	/>
+                <Entry varId="Ghouls"				value="30"	/>
+                <Entry varId="Rotfiends"			value="30"	/>
+                <Entry varId="Wolves"				value="25"	/>
+                <Entry varId="Wraiths"				value="25"	/>
+                <Entry varId="Bears"				value="25"	/>
+                <Entry varId="Harpies"				value="25"	/>
+                <Entry varId="Endrega"				value="25"	/>
+                <Entry varId="Alghouls"				value="20"	/>
+                <Entry varId="Arachas"				value="20"	/>
+                <Entry varId="Kikimore"				value="20"	/>
+                <Entry varId="Echinops"				value="15"	/>
+                <Entry varId="Centipede"			value="15"	/>
+                <Entry varId="Spiders"				value="15"	/>
+                <Entry varId="Boars"				value="15"	/>
+                <Entry varId="Panther"				value="15"	/>
+                <Entry varId="Barghest"				value="15"	/>
+                <Entry varId="Skeleton"				value="10"	/>
+                <Entry varId="WildHunt"             value="10"  />
             </Preset>
 
             <Preset id="3" displayName="rer_no_large_creatures" >
@@ -527,55 +527,55 @@
 
             </Preset>
             <Preset id="2" displayName="rer_defaults" >
-                    <Entry varId="Hags"					value="25"	/>
-                    <Entry varId="Fogling"				value="25"	/>
-                    <Entry varId="Troll"				value="25"	/>					
-                    <Entry varId="Werewolves"			value="20"	/>
-                    <Entry varId="Fiends"				value="20"	/>
-                    <Entry varId="Chorts"				value="20"	/>
-                    <Entry varId="Gryphons"             value="20"  />
-                    <Entry varId="Cockatrice"           value="20"  />
-                    <Entry varId="Wyverns"              value="20"  />
-                    <Entry varId="Forktails"            value="20"  />
-                    <Entry varId="Basilisk"             value="20"  />
-                    <Entry varId="NightWraiths"			value="15"	/>
-					<Entry varId="Wight"				value="15"	/>
-                    <Entry varId="NoonWraiths"			value="15"	/>
-                    <Entry varId="Katakan"              value="15"  />
-                    <Entry varId="Ekimmara"             value="15"  />
-                    <Entry varId="Leshens"				value="10"	/>
-					<Entry varId="Giant"				value="10"	/>
-					<Entry varId="Sharley"				value="10"	/>
-                    <Entry varId="Cyclops"				value="5"	/>
-                    <Entry varId="Golems"				value="5"	/>
-                    <Entry varId="Elementals"			value="5"	/>
-					<Entry varId="HigherVamp"			value="1"	/>
-					<Entry varId="Bruxa"				value="5"	/>
-					<Entry varId="Fleder"				value="5"	/>
-					<Entry varId="Garkain"				value="5"	/>
+                <Entry varId="Hags"					value="25"	/>
+                <Entry varId="Fogling"				value="25"	/>
+                <Entry varId="Troll"				value="25"	/>					
+                <Entry varId="Werewolves"			value="20"	/>
+                <Entry varId="Fiends"				value="20"	/>
+                <Entry varId="Chorts"				value="20"	/>
+                <Entry varId="Gryphons"             value="20"  />
+                <Entry varId="Cockatrice"           value="20"  />
+                <Entry varId="Wyverns"              value="20"  />
+                <Entry varId="Forktails"            value="20"  />
+                <Entry varId="Basilisk"             value="20"  />
+                <Entry varId="NightWraiths"			value="15"	/>
+                <Entry varId="Wight"				value="15"	/>
+                <Entry varId="NoonWraiths"			value="15"	/>
+                <Entry varId="Katakan"              value="15"  />
+                <Entry varId="Ekimmara"             value="15"  />
+                <Entry varId="Leshens"				value="10"	/>
+                <Entry varId="Giant"				value="10"	/>
+                <Entry varId="Sharley"				value="10"	/>
+                <Entry varId="Cyclops"				value="5"	/>
+                <Entry varId="Golems"				value="5"	/>
+                <Entry varId="Elementals"			value="5"	/>
+                <Entry varId="Bruxa"				value="5"	/>
+                <Entry varId="Fleder"				value="5"	/>
+                <Entry varId="Garkain"				value="5"	/>
+                <Entry varId="HigherVamp"			value="1"	/>
 
-                    <Entry varId="Humans"               value="100"  />
-                    <Entry varId="Nekkers"				value="25"	/>
-                    <Entry varId="Drowners"				value="25"	/>
-					<Entry varId="DrownerDLC"			value="25"	/>
-                    <Entry varId="Ghouls"				value="25"	/>
-                    <Entry varId="Rotfiends"			value="25"	/>
-                    <Entry varId="Wolves"				value="20"	/>
-                    <Entry varId="Wraiths"				value="20"	/>
-                    <Entry varId="Bears"				value="20"	/>
-                    <Entry varId="Harpies"				value="20"	/>
-                    <Entry varId="Endrega"				value="20"	/>
-                    <Entry varId="Alghouls"				value="15"	/>
-                    <Entry varId="Arachas"				value="15"	/>
-					<Entry varId="Kikimore"				value="15"	/>
-					<Entry varId="Echinops"				value="10"	/>
-					<Entry varId="Centipede"			value="10"	/>
-                    <Entry varId="Spiders"				value="10"	/>
-                    <Entry varId="Boars"				value="10"	/>
-					<Entry varId="Panther"				value="10"	/>
-					<Entry varId="Barghest"				value="10"	/>
-					<Entry varId="Skeleton"				value="5"	/>
-                    <Entry varId="WildHunt"             value="5"  />
+                <Entry varId="Humans"               value="100"  />
+                <Entry varId="Nekkers"				value="30"	/>
+                <Entry varId="Drowners"				value="30"	/>
+                <Entry varId="DrownerDLC"			value="30"	/>
+                <Entry varId="Ghouls"				value="30"	/>
+                <Entry varId="Rotfiends"			value="30"	/>
+                <Entry varId="Wolves"				value="25"	/>
+                <Entry varId="Wraiths"				value="25"	/>
+                <Entry varId="Bears"				value="25"	/>
+                <Entry varId="Harpies"				value="25"	/>
+                <Entry varId="Endrega"				value="25"	/>
+                <Entry varId="Alghouls"				value="20"	/>
+                <Entry varId="Arachas"				value="20"	/>
+                <Entry varId="Kikimore"				value="20"	/>
+                <Entry varId="Echinops"				value="15"	/>
+                <Entry varId="Centipede"			value="15"	/>
+                <Entry varId="Spiders"				value="15"	/>
+                <Entry varId="Boars"				value="15"	/>
+                <Entry varId="Panther"				value="15"	/>
+                <Entry varId="Barghest"				value="15"	/>
+                <Entry varId="Skeleton"				value="10"	/>
+                <Entry varId="WildHunt"             value="10"  />
             </Preset>
 
             <Preset id="3" displayName="rer_no_large_creatures" >
