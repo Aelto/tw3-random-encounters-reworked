@@ -200,7 +200,7 @@ class CModRExtra {
     return spawn_roller.rollHumansVariants();
   }
 
-  public function getRandomSmallCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller): SmallCreatureType {
+  public function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller): CreatureType {
     var is_in_forest: bool;
     var is_near_water: bool;
     var is_in_swamp: bool;
@@ -218,13 +218,13 @@ class CModRExtra {
 
     if (theGame.envMgr.IsNight()) {
       // first set all the counters to the settings value.
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        spawn_roller.setSmallCreatureCounter(i, settings.small_creatures_chances_night[i]);
+      for (i = 0; i < CreatureMAX; i += 1) {
+        spawn_roller.setCreatureCounter(i, settings.creatures_chances_night[i]);
       }
     }
     else {
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        spawn_roller.setSmallCreatureCounter(i, settings.small_creatures_chances_day[i]);
+      for (i = 0; i < CreatureMAX; i += 1) {
+        spawn_roller.setCreatureCounter(i, settings.creatures_chances_day[i]);
       }
     }
 
@@ -232,151 +232,99 @@ class CModRExtra {
     
     if (current_area == "prolog_village") {
       // we remove some creatures in the prolog area
-      spawn_roller.setSmallCreatureCounter(SmallCreatureHARPY, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureCENTIPEDE, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureECHINOPS, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureBARGHEST, 0);
+      spawn_roller.setCreatureCounter(CreatureHARPY, 0);
+      spawn_roller.setCreatureCounter(CreatureCENTIPEDE, 0);
+      spawn_roller.setCreatureCounter(CreatureECHINOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureBARGHEST, 0);
+      
+      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
+      spawn_roller.setCreatureCounter(CreatureEKIMMARA, 0);
+      spawn_roller.setCreatureCounter(CreatureKATAKAN, 0);
+      spawn_roller.setCreatureCounter(CreatureGOLEM, 0);
+      spawn_roller.setCreatureCounter(CreatureELEMENTAL, 0);
+      spawn_roller.setCreatureCounter(CreatureCYCLOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureBRUXA, 0);
+      spawn_roller.setCreatureCounter(CreatureFLEDER, 0);
+      spawn_roller.setCreatureCounter(CreatureGARKAIN, 0);
+      spawn_roller.setCreatureCounter(CreatureDETLAFF, 0);
+      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
+      spawn_roller.setCreatureCounter(CreatureSHARLEY, 0);
     }
 
     if (current_area != "skellige") {
-      spawn_roller.setSmallCreatureCounter(SmallCreatureSKELWOLF, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureSKELBEAR, 0);
+      spawn_roller.setCreatureCounter(CreatureSKELWOLF, 0);
+      spawn_roller.setCreatureCounter(CreatureSKELBEAR, 0);
+      spawn_roller.setCreatureCounter(CreatureSKELTROLL, 0);
     }
 
     // and now special cases depending on areas
     if (!is_near_water && !is_in_swamp) {
       // well, no water no drowners!
-      spawn_roller.setSmallCreatureCounter(SmallCreatureDROWNER, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureDROWNERDLC, 0);
+      spawn_roller.setCreatureCounter(CreatureDROWNER, 0);
+      spawn_roller.setCreatureCounter(CreatureDROWNERDLC, 0);
     }
 
     if (!is_in_forest) {
       // no forest, no plants
-      spawn_roller.setSmallCreatureCounter(SmallCreatureARACHAS, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureENDREGA, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureECHINOPS, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureSPIDER, 0);
+      spawn_roller.setCreatureCounter(CreatureARACHAS, 0);
+      spawn_roller.setCreatureCounter(CreatureENDREGA, 0);
+      spawn_roller.setCreatureCounter(CreatureECHINOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureSPIDER, 0);
+
+      spawn_roller.setCreatureCounter(CreatureLESHEN, 0);
+    }
+    else { // is_in_forest == true
+      if (theGame.envMgr.IsNight()) {
+        spawn_roller.setCreatureCounter(CreatureCOCKATRICE, settings.creatures_chances_night[CreatureCOCKATRICE] / 2);
+        spawn_roller.setCreatureCounter(CreatureBASILISK, settings.creatures_chances_night[CreatureBASILISK] / 2);
+        spawn_roller.setCreatureCounter(CreatureWYVERN, settings.creatures_chances_night[CreatureWYVERN] / 2);
+        spawn_roller.setCreatureCounter(CreatureFORKTAIL, settings.creatures_chances_night[CreatureFORKTAIL] / 2);
+        spawn_roller.setCreatureCounter(CreatureGRYPHON, settings.creatures_chances_night[CreatureGRYPHON] / 2);
+      }
+      else {
+        spawn_roller.setCreatureCounter(CreatureCOCKATRICE, settings.creatures_chances_day[CreatureCOCKATRICE] / 2);
+        spawn_roller.setCreatureCounter(CreatureBASILISK, settings.creatures_chances_day[CreatureBASILISK] / 2);
+        spawn_roller.setCreatureCounter(CreatureWYVERN, settings.creatures_chances_day[CreatureWYVERN] / 2);
+        spawn_roller.setCreatureCounter(CreatureFORKTAIL, settings.creatures_chances_day[CreatureFORKTAIL] / 2);
+        spawn_roller.setCreatureCounter(CreatureGRYPHON, settings.creatures_chances_day[CreatureGRYPHON] / 2);
+      }
     }
 
     if (is_near_water || is_in_swamp) {
-      spawn_roller.setSmallCreatureCounter(SmallCreatureCENTIPEDE, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureHARPY, 0);
-    }
-
-    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
-    // when a creature is set to NO in the city spawn menu, 
-    // we remove it from the spawning pool.
-    if (this.isPlayerInSettlement()) {
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        if (!settings.small_creatures_city_spawns[i]) {
-          spawn_roller.setSmallCreatureCounter(i, 0);
-        }
-      }
-    }
-
-    return spawn_roller.rollSmallCreatures();
-  }
-
-  public function getRandomLargeCreatureByCurrentArea(settings: RE_Settings, out spawn_roller: SpawnRoller): LargeCreatureType {
-    var i: int;
-    var current_area: string;
-    var is_in_forest: bool;
-    var is_near_water: bool;
-    var is_in_swamp: bool;
-
-    is_in_forest = this.IsPlayerInForest();
-    is_near_water = this.IsPlayerNearWater();
-    is_in_swamp = this.IsPlayerInSwamp();
-
-    current_area = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-    spawn_roller.reset();
-
-    if (theGame.envMgr.IsNight()) {
-      // first set all the counters to the settings value.
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        spawn_roller.setLargeCreatureCounter(i, settings.large_creatures_chances_night[i]);
-      }
+      spawn_roller.setCreatureCounter(CreatureCENTIPEDE, 0);
+      spawn_roller.setCreatureCounter(CreatureHARPY, 0);
     }
     else {
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        spawn_roller.setLargeCreatureCounter(i, settings.large_creatures_chances_day[i]);
-      }
-    }
-
-    // then handle special cases by hand
-    
-    if (current_area == "prolog_village") {
-      // we remove some creatures in the prolog area
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGIANT, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureEKIMMARA, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureKATAKAN, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGOLEM, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureELEMENTAL, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureCYCLOPS, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureBRUXA, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureFLEDER, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGARKAIN, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureDETLAFF, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGIANT, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureSHARLEY, 0);
-    }
-
-    if (current_area != "skellige") {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureSKELTROLL, 0);
-    }
-
-    // and now special cases depending on areas
-    if (is_in_forest) {
-      if (theGame.envMgr.IsNight()) {
-        spawn_roller.setLargeCreatureCounter(LargeCreatureCOCKATRICE, settings.large_creatures_chances_night[LargeCreatureCOCKATRICE] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureBASILISK, settings.large_creatures_chances_night[LargeCreatureBASILISK] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureWYVERN, settings.large_creatures_chances_night[LargeCreatureWYVERN] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureFORKTAIL, settings.large_creatures_chances_night[LargeCreatureFORKTAIL] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureGRYPHON, settings.large_creatures_chances_night[LargeCreatureGRYPHON] / 2);
-      }
-      else {
-        spawn_roller.setLargeCreatureCounter(LargeCreatureCOCKATRICE, settings.large_creatures_chances_day[LargeCreatureCOCKATRICE] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureBASILISK, settings.large_creatures_chances_day[LargeCreatureBASILISK] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureWYVERN, settings.large_creatures_chances_day[LargeCreatureWYVERN] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureFORKTAIL, settings.large_creatures_chances_day[LargeCreatureFORKTAIL] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureGRYPHON, settings.large_creatures_chances_day[LargeCreatureGRYPHON] / 2);
-      }
-    }
-    else {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureLESHEN, 0);
+      spawn_roller.setCreatureCounter(CreatureHAG, 0);
+      spawn_roller.setCreatureCounter(CreatureFOGLET, 0);
     }
 
     if (is_in_swamp) {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureWEREWOLF, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureELEMENTAL, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNOONWRAITH, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNIGHTWRAITH, 0);
-    }
-    else {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureHAG, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureFOGLET, 0);
+      spawn_roller.setCreatureCounter(CreatureWEREWOLF, 0);
+      spawn_roller.setCreatureCounter(CreatureELEMENTAL, 0);
+      spawn_roller.setCreatureCounter(CreatureNOONWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureNIGHTWRAITH, 0);
     }
 
     if (theGame.envMgr.IsNight()) {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNOONWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureNOONWRAITH, 0);
     }
     else {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNIGHTWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureNIGHTWRAITH, 0);
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
     // when a creature is set to NO in the city spawn menu, 
     // we remove it from the spawning pool.
     if (this.isPlayerInSettlement()) {
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        if (!settings.large_creatures_city_spawns[i]) {
-          spawn_roller.setLargeCreatureCounter(i, 0);
+      for (i = 0; i < CreatureMAX; i += 1) {
+        if (!settings.creatures_city_spawns[i]) {
+          spawn_roller.setCreatureCounter(i, 0);
         }
       }
     }
 
-    return spawn_roller.rollLargeCreatures();
+    return spawn_roller.rollCreatures();
   }
 
   public function IsPlayerNearWater() : bool {

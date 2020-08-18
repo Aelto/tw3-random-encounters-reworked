@@ -15,21 +15,16 @@
 // It would greatly improve performances though...
 class SpawnRoller {
 
-  // It uses the enums LargeCreatureType & SmallCreatureType as the index
+  // It uses the enum CreatureType as the index
   // and the value as the counter.
-  private var large_creatures_counters: array<int>;
-  private var small_creatures_counters: array<int>;
+  private var creatures_counters: array<int>;
   private var humans_variants_counters: array<int>;
 
   public function fill_arrays() {
     var i: int;
 
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
-      this.small_creatures_counters.PushBack(0);
-    }
-
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      this.large_creatures_counters.PushBack(0);
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.creatures_counters.PushBack(0);
     }
 
     for (i = 0; i < HT_MAX; i += 1) {
@@ -42,12 +37,8 @@ class SpawnRoller {
   public function reset() {
     var i: int;
     
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
-      small_creatures_counters[i] = 0;
-    }
-
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      large_creatures_counters[i] = 0;
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.creatures_counters[i] = 0;
     }
 
     for (i = 0; i < HT_MAX; i += 1) {
@@ -55,90 +46,48 @@ class SpawnRoller {
     }
   }
 
-  public function setLargeCreatureCounter(type: LargeCreatureType, count: int) {
-    this.large_creatures_counters[type] = count;
-  }
-
-  public function setSmallCreatureCounter(type: SmallCreatureType, count: int) {
-    LogChannel('modRandomEncounter', "set small creature: " + type + " counter to " + count);
-    
-    this.small_creatures_counters[type] = count;
+  public function setCreatureCounter(type: CreatureType, count: int) {
+    this.creatures_counters[type] = count;
   }
 
   public function setHumanVariantCounter(type: EHumanType, count: int) {
     this.humans_variants_counters[type] = count;
   }
 
-  public function rollSmallCreatures(): SmallCreatureType {
+  public function rollCreatures(): CreatureType {
     var current_position: int;
     var total: int;
     var roll: int;
     var i: int;
 
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
-      total += this.small_creatures_counters[i];
+    for (i = 0; i < CreatureMAX; i += 1) {
+      total += this.creatures_counters[i];
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-    // added so the user can disable all SmallCreatureType and it would
+    // added so the user can disable all CreatureType and it would
     // cancel the spawn. Useful when the user wants no spawn during the day.
     if (total <= 0) {
-      return SmallCreatureNONE;
+      return CreatureNONE;
     }
 
     roll = RandRange(total);
 
     current_position = 0;
 
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
+    for (i = 0; i < CreatureMAX; i += 1) {
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-      // `this.small_creatures_counters[i] > 0` is add so the user can
-      // disable a SmallCreatureType completely.
-      if (this.small_creatures_counters[i] > 0 && roll <= current_position + this.small_creatures_counters[i]) {
+      // `this.creatures_counters[i] > 0` is add so the user can
+      // disable a CreatureType completely.
+      if (this.creatures_counters[i] > 0 && roll <= current_position + this.creatures_counters[i]) {
         return i;
       }
 
-      current_position += this.small_creatures_counters[i];
+      current_position += this.creatures_counters[i];
     }
 
     // not supposed to get here but hey, who knows.
-    return SmallCreatureNONE;
-  }
-
-  public function rollLargeCreatures(): LargeCreatureType {
-    var current_position: int;
-    var total: int;
-    var roll: int;
-    var i: int;
-
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      total += this.large_creatures_counters[i];
-    }
-
-    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-    // added so the user can disable all LargeCreatureType and it would
-    // cancel the spawn. Useful when the user wants no spawn during the day.
-    if (total <= 0) {
-      return LargeCreatureNONE;
-    }
-
-    roll = RandRange(total);
-
-    current_position = 0;
-
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-      // `this.large_creatures_counters[i] > 0` is add so the user can
-      // disable a LargeCreatureType completely.
-      if (this.large_creatures_counters[i] > 0 && roll <= current_position + this.large_creatures_counters[i]) {
-        return i;
-      }
-
-      current_position += this.large_creatures_counters[i];
-    }
-
-    // not supposed to get here but hey, who knows.
-    return LargeCreatureNONE;
+    return CreatureNONE;
   }
 
   public function rollHumansVariants(): EHumanType {
@@ -164,11 +113,11 @@ class SpawnRoller {
     for (i = 0; i < HT_MAX; i += 1) {
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
       // ignore the variants at 0
-      if (this.large_creatures_counters[i] > 0 && roll <= current_position + this.large_creatures_counters[i]) {
+      if (this.humans_variants_counters[i] > 0 && roll <= current_position + this.humans_variants_counters[i]) {
         return i;
       }
 
-      current_position += this.large_creatures_counters[i];
+      current_position += this.humans_variants_counters[i];
     }
 
     // not supposed to get here but hey, who knows.

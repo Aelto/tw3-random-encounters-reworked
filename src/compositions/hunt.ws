@@ -1,10 +1,10 @@
 
-latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
-  var large_creature_type: LargeCreatureType;
+latent function createRandomCreatureHunt(master: CRandomEncounters) {
+  var creature_type: CreatureType;
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
+  creature_type = master.rExtra.getRandomCreatureByCurrentArea(
     master.settings,
     master.spawn_roller
   );
@@ -12,21 +12,21 @@ latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (large_creature_type == LargeCreatureNONE) {
-    LogChannel('modRandomEncounters', "large_creature_type is NONE, cancelling spawn");
+  if (creature_type == CreatureNONE) {
+    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  if (large_creature_type == LargeCreatureGRYPHON) {
-    makeGryphonLargeCreatureHunt(master);
+  if (creature_type == CreatureGRYPHON) {
+    makeGryphonCreatureHunt(master);
   }
   else {
-    makeDefaultLargeCreatureHunt(master, large_creature_type);
+    makeDefaultCreatureHunt(master, creature_type);
   }
 }
 
-latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
+latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var rer_gryphon_entity: RandomEncountersReworkedGryphonHuntEntity;
   var gryphon_entity: CEntity;
@@ -40,11 +40,11 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   var player_position: Vector;
   var blood_splats_templates: array<CEntityTemplate>;
 
-  LogChannel('modRandomEncounters', "makeGryphonLargeCreatureHunt - starting");
+  LogChannel('modRandomEncounters', "makeGryphonCreatureHunt - starting");
 
   creatures_templates = master
     .resources
-    .getCreatureResourceByLargeCreatureType(LargeCreatureGRYPHON);
+    .getCreatureResourceByCreatureType(CreatureGRYPHON);
 
   creatures_templates = fillEnemyTemplateList(creatures_templates, 1);
 
@@ -100,7 +100,7 @@ latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
   rer_gryphon_entity.startEncounter(blood_splats_templates);
 }
 
-latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
+latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type: CreatureType) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
   var bait: CEntity;
@@ -123,7 +123,7 @@ latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_cr
 
   creatures_templates = master
     .resources
-    .getCreatureResourceByLargeCreatureType(large_creature_type);
+    .getCreatureResourceByCreatureType(creature_type);
 
   number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,

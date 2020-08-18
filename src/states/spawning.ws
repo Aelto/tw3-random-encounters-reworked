@@ -10,25 +10,22 @@ state Spawning in CRandomEncounters {
   }
 
   entry function triggerCreaturesSpawn() {
-    var picked_entity_type: CreatureType;
     var picked_encounter_type: EncounterType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
 
-    picked_entity_type = this.getRandomEntityTypeWithSettings();
     picked_encounter_type = this.getRandomEncounterType();
     
-    if (this.shouldAbortCreatureSpawn(picked_entity_type)) {
+    if (this.shouldAbortCreatureSpawn()) {
       parent.GotoState('SpawningCancelled');
 
       return;
     }
 
-    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type + ", picked encounter type: " + picked_encounter_type);
+    LogChannel('modRandomEncounters', "picked encounter type: " + picked_encounter_type);
 
     makeGroupComposition(
       picked_encounter_type,
-      picked_entity_type,
       is_city_spawn,
       parent
     );
@@ -36,7 +33,7 @@ state Spawning in CRandomEncounters {
     parent.GotoState('Waiting');
   }
 
-  function shouldAbortCreatureSpawn(creature_type: CreatureType): bool {
+  function shouldAbortCreatureSpawn(): bool {
     var current_state: CName;
     var is_meditating: bool;
     var current_zone: EREZone;
@@ -61,30 +58,7 @@ state Spawning in CRandomEncounters {
         || theGame.IsBlackscreen()
 
         || parent.rExtra.isPlayerInSettlement()
-        && (
-          creature_type == LARGE_CREATURE
-          && !parent.settings.doesAllowLargeCitySpawns()
-
-          || CreatureType == SMALL_CREATURE
-          && !parent.settings.doesAllowSmallCitySpawns()
-        );
-  }
-
-  function getRandomEntityTypeWithSettings(): CreatureType {
-    if (theGame.envMgr.IsNight()) {
-      if (RandRange(100) < parent.settings.large_creature_chance) {
-        return LARGE_CREATURE;
-      }
-
-      return SMALL_CREATURE;
-    }
-    else {
-      if (RandRange(100) < parent.settings.large_creature_chance * 2) {
-        return LARGE_CREATURE;
-      }
-
-      return SMALL_CREATURE;
-    }
+        && !parent.settings.doesAllowCitySpawns();
   }
 
   function getRandomEncounterType(): EncounterType {

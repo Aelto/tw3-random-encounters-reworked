@@ -111,14 +111,14 @@ statemachine class CRandomEncounters extends CEntity {
   }
 }
 
-exec function start_encounter(optional creature_type: CreatureType, optional creature: int) {
-  var rer_entity : W3Door;
+exec function start_encounter(optional creature: CreatureType) {
+  var rer_entity : CRandomEncounters;
   var entities : array<CEntity>;
 
   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
 		
   if (entities.Size() == 0) {
-    LogAssert(false, "No entity found with tag <" + doorTag + ">" );
+    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
     
     return;
   }
@@ -127,34 +127,11 @@ exec function start_encounter(optional creature_type: CreatureType, optional cre
 
   // no creature_type nor creature were supplied,
   // so we let RER decides.
-  if (!creature_type && !creature) {
+  if (!!creature) {
     rer_entity.ticks_before_spawn = 5;
 
     return;
   }
 
-  if (creature_type == SMALL_CREATURE) {
-    if (!creature) {
-      createRandomSmallCreatureComposition(rer_entity);
-    }
-    else {
-      createRandomSmallCreatureComposition(rer_entity, creature);
-    }
-  }
-  else {
-    if (!creature) {
-      createRandomLargeCreatureComposition(rer_entity);
-    }
-    else {
-      createRandomLargeCreatureComposition(rer_entity, creature);
-    }
-  }
-}
-
-exec function start_large_encounter(optional creature: int) {
-  start_encounter(LARGE_CREATURE, creature);
-}
-
-exec function start_small_encounter(optional creature: int) {
-  start_encounter(SMALL_CREATURE, creature);
+  createRandomCreatureComposition(rer_entity, creature);
 }

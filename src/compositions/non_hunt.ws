@@ -1,15 +1,15 @@
 
-enum SmallCreatureComposition {
-  SmallCreatureComposition_AmbushWitcher = 1
+enum CreatureComposition {
+  CreatureComposition_AmbushWitcher = 1
 }
 
-latent function createRandomSmallCreatureComposition(out random_encounters_class: CRandomEncounters, optional small_creature_type: SmallCreatureType) {
-  var small_creature_composition: SmallCreatureComposition;
+latent function createRandomCreatureComposition(out random_encounters_class: CRandomEncounters, optional creature_type: CreatureType) {
+  var creature_composition: CreatureComposition;
 
-  small_creature_composition = SmallCreatureComposition_AmbushWitcher;
+  creature_composition = CreatureComposition_AmbushWitcher;
 
-  if (!small_creature_type) {
-    small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
+  if (!creature_type) {
+    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
       master.spawn_roller
     );
@@ -18,19 +18,19 @@ latent function createRandomSmallCreatureComposition(out random_encounters_class
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (small_creature_type == SmallCreatureNONE) {
-    LogChannel('modRandomEncounters', "small_creature_type is NONE, cancelling spawn");
+  if (creature_type == CreatureNONE) {
+    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  if (small_creature_type == SmallCreatureWILDHUNT) {
-    makeSmallCreatureWildHunt(random_encounters_class);
+  if (creature_type == CreatureWILDHUNT) {
+    makeCreatureWildHunt(random_encounters_class);
   }
   else {
-    switch (small_creature_composition) {
-      case SmallCreatureComposition_AmbushWitcher:
-        makeSmallCreatureAmbushWitcher(small_creature_type, random_encounters_class);
+    switch (creature_composition) {
+      case CreatureComposition_AmbushWitcher:
+        makeCreatureAmbushWitcher(creature_type, random_encounters_class);
         break;
     }
   }
@@ -44,7 +44,7 @@ latent function createRandomSmallCreatureComposition(out random_encounters_class
 // TODO: the wild hunt should change the weather when they spawn.
 // I can't add it now because there is no way for me to know if 
 // all the creatures are alive or not. 
-latent function makeSmallCreatureWildHunt(out master: CRandomEncounters) {
+latent function makeCreatureWildHunt(out master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
 
@@ -67,7 +67,7 @@ latent function makeSmallCreatureWildHunt(out master: CRandomEncounters) {
 
   creatures_templates = master
     .resources
-    .getCreatureResourceBySmallCreatureType(SmallCreatureWILDHUNT, master.rExtra);
+    .getCreatureResourceByCreatureType(CreatureWILDHUNT, master.rExtra);
 
   number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,
@@ -120,7 +120,7 @@ latent function makeSmallCreatureWildHunt(out master: CRandomEncounters) {
   }
 }
 
-latent function makeSmallCreatureAmbushWitcher(small_creature_type: SmallCreatureType, out master: CRandomEncounters) {
+latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out master: CRandomEncounters) {
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
 
@@ -130,7 +130,7 @@ latent function makeSmallCreatureAmbushWitcher(small_creature_type: SmallCreatur
   var i: int;
   var initial_position: Vector;
 
-  LogChannel('modRandomEncounters', "making small creatures composition ambush witcher");
+  LogChannel('modRandomEncounters', "making creatures composition ambush witcher");
 
   if (!getRandomPositionBehindCamera(initial_position)) {
     LogChannel('modRandomEncounters', "could not find proper spawning position");
@@ -140,7 +140,7 @@ latent function makeSmallCreatureAmbushWitcher(small_creature_type: SmallCreatur
 
   creatures_templates = master
     .resources
-    .getCreatureResourceBySmallCreatureType(small_creature_type, master.rExtra);
+    .getCreatureResourceByCreatureType(creature_type, master.rExtra);
 
   number_of_creatures = rollDifficultyFactor(
     creatures_templates.difficulty_factor,
