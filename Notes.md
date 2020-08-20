@@ -42,8 +42,156 @@
 	}
   ```
 
-- npc stances:
+- function for the trophy cutscene:
+  ```js
+  latent quest function SetupTrophySceneQuest( monsterTag : name, offset : float)
+  {
+    var witcher : W3PlayerWitcher;
+    var monster : CNewNPC;
+    var newPosition	 : Vector;
+    var playerPosition	 : Vector;
+    var Position : Vector;
+    var Rotation : EulerAngles;	
+    var placementNode  : CNode;
+    var placementNodes  : array<CNode>;
+    var z : float;
+    var curDistance : float;
+    var minDistance : float;
+    
+    var i : int;
+
+    witcher = GetWitcherPlayer();
+
+    if( witcher )
+    {
+      playerPosition = thePlayer.GetWorldPosition();
+      
+      theGame.GetNodesByTag( 'mh_trophy_safe_placement_point', placementNodes );
+      
+      if( placementNodes.Size() > 0 )
+      {
+        for(i=0; i < placementNodes.Size(); i += 1 ) 
+        {
+          curDistance = VecDistance2D( placementNodes[i].GetWorldPosition(), playerPosition );
+          
+          if( minDistance == 0.0f || curDistance  <= minDistance )
+          {
+            minDistance = curDistance;
+            placementNode = placementNodes[i];
+          }
+        }
+        
+        
+        newPosition = placementNode.GetWorldPosition();
+        
+        if( theGame.GetWorld().NavigationFindSafeSpot( newPosition, 1.0, 6.0, newPosition ) )
+        {
+          if ( theGame.GetWorld().NavigationComputeZ(newPosition, newPosition.Z - 5.0, newPosition.Z + 5.0, z) )
+          {
+            newPosition.Z = z;
+            if ( !theGame.GetWorld().NavigationFindSafeSpot( newPosition, 1.0, 6.0, newPosition ) )
+              return;
+          }
+          
+          witcher.TeleportWithRotation(newPosition, placementNode.GetWorldRotation() );
+          
+          Sleep(0.3f);
+          
+          monster = (CNewNPC) theGame.GetEntityByTag( monsterTag );
+          
+          if( monster )
+          {
+            if( offset == 0.0 )
+              offset = 2.0;
+            
+            Position = witcher.GetWorldPosition();
+            Rotation = witcher.GetWorldRotation();
+            
+            newPosition = Vector(Position.X, Position.Y, Position.Z) + witcher.GetHeadingVector() * offset;
+            
+            if ( theGame.GetWorld().NavigationComputeZ(newPosition, newPosition.Z - 5.0, newPosition.Z + 5.0, z) )
+            {
+              newPosition.Z = z;
+              if ( !theGame.GetWorld().NavigationFindSafeSpot( newPosition, 1.0, 6.0, newPosition ) )
+                return;
+            }
+            
+            monster.TeleportWithRotation(newPosition, EulerNeg(Rotation, EulerAngles(0.0,-90.0,0.0) ) );
+            Sleep(0.3f);
+          }	
+          
+        }
+        
+      }
+    }
+  }
   ```
+
+- function adding all trophies
+  ```js
+  //adds all trophy items to the player's inventory
+  exec function addtrophies()
+  {
+    thePlayer.inv.AddAnItem('Nekkers Trophy',1);
+    thePlayer.inv.AddAnItem('Werewolf Trophy',1);
+    thePlayer.inv.AddAnItem('q002_griffin_trophy',1);
+    thePlayer.inv.AddAnItem('Drowned Dead Trophy',1);
+    thePlayer.inv.AddAnItem('mh101_cockatrice_trophy',1);
+    thePlayer.inv.AddAnItem('mh102_arachas_trophy',1);
+    thePlayer.inv.AddAnItem('mh103_nightwraith_trophy',1);
+    thePlayer.inv.AddAnItem('mh104_ekimma_trophy',1);
+    thePlayer.inv.AddAnItem('mh105_wyvern_trophy',1);
+    thePlayer.inv.AddAnItem('mh106_gravehag_trophy',1);
+    thePlayer.inv.AddAnItem('mh107_czart_trophy',1);
+    thePlayer.inv.AddAnItem('mh108_fogling_trophy',1);
+    thePlayer.inv.AddAnItem('mh201_cave_troll_trophy',1);
+    thePlayer.inv.AddAnItem('mh202_nekker_warrior_trophy',1);
+    thePlayer.inv.AddAnItem('mh203_drowned_dead_trophy',1);
+    thePlayer.inv.AddAnItem('mh204_leshy_trophy',1);
+    thePlayer.inv.AddAnItem('mh205_leshy_trophy',1);
+    thePlayer.inv.AddAnItem('mh206_fiend_trophy',1);
+    thePlayer.inv.AddAnItem('mh207_wraith_trophy',1);
+    thePlayer.inv.AddAnItem('mh208_forktail_trophy',1);
+    thePlayer.inv.AddAnItem('mh209_fogling_trophy',1);
+    thePlayer.inv.AddAnItem('mh210_lamia_trophy',1);
+    thePlayer.inv.AddAnItem('mh211_bies_trophy',1);
+    thePlayer.inv.AddAnItem('mh212_erynie_trophy',1);
+    thePlayer.inv.AddAnItem('mq1024_water_hag_trophy',1);
+    thePlayer.inv.AddAnItem('mq1051_wyvern_trophy',1);
+    thePlayer.inv.AddAnItem('q202_ice_giant_trophy',1);
+    thePlayer.inv.AddAnItem('mh301_gryphon_trophy',1);
+    thePlayer.inv.AddAnItem('mh302_leshy_trophy',1);
+    thePlayer.inv.AddAnItem('mh303_succubus_trophy',1);
+    thePlayer.inv.AddAnItem('mh304_katakan_trophy',1);
+    thePlayer.inv.AddAnItem('mh305_doppler_trophy',1);
+    thePlayer.inv.AddAnItem('mh306_dao_trophy',1);
+    thePlayer.inv.AddAnItem('mh308_noonwraith_trophy',1);
+    thePlayer.inv.AddAnItem('sq108_griffin_trophy',1);
+    thePlayer.inv.AddAnItem('mq0003_noonwraith_trophy',1);
+    
+    theGame.RequestMenuWithBackground( 'InventoryMenu', 'CommonMenu' );
+  }
+  ```
+
+-
+  ```js
+  		//1) some non-quest items might dynamically have 'Quest' tag added so first we remove all items that 
+		//currently have Quest tag
+		inv.RemoveItemByTag('Quest', -1);
+		horseInventory.RemoveItemByTag('Quest', -1);
+
+		//2) some quest items might lose 'Quest' tag during the course of the game so we need to check their 
+		//XML definitions rather than actual items in inventory
+		questItems = theGame.GetDefinitionsManager().GetItemsWithTag('Quest');
+		for(i=0; i<questItems.Size(); i+=1)
+		{
+			inv.RemoveItemByName(questItems[i], -1);
+			horseInventory.RemoveItemByName(questItems[i], -1);
+		}
+  ```
+
+- npc stances:
+  ```js
   enum ENpcStance
   {
     NS_Normal,
