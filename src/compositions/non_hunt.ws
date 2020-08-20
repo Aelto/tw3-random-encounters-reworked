@@ -8,7 +8,7 @@ latent function createRandomCreatureComposition(out random_encounters_class: CRa
 
   creature_composition = CreatureComposition_AmbushWitcher;
 
-  if (!creature_type) {
+  if (!creature_type || creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
       master.spawn_roller

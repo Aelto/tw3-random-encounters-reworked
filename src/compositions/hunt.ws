@@ -1,13 +1,14 @@
 
-latent function createRandomCreatureHunt(master: CRandomEncounters) {
-  var creature_type: CreatureType;
+latent function createRandomCreatureHunt(master: CRandomEncounters, optional creature_type: CreatureType) {
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  creature_type = master.rExtra.getRandomCreatureByCurrentArea(
-    master.settings,
-    master.spawn_roller
-  );
+  if (!creature_type || creature_type == CreatureNONE) {
+    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    );
+  }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
