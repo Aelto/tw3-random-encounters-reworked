@@ -18,7 +18,7 @@
 2115018016|        |preset_value_rer_easy|Easy
 2115018017|        |preset_value_rer_medium|Medium
 2115018018|        |preset_value_rer_hard|Hard
-2115018019|        |option_rer_monster_hunt_ratio|Monster hunt ratio (in %)
+2115018019|        |option_rer_monster_hunt_ratio|Monster hunt frequency
 2115018020|        |option_rer_large_creature_ratio|__UNUSED_TODO_REMOVE_ME__
 2115018021|        |panel_rer_creature_frequency|Creatures frequencies
 2115018022|        |panel_rer_creatures_ratios|Creatures ratios
@@ -89,3 +89,5 @@
 2115018087|        |preset_value_rer_no_large_creatures|No large creatures
 2115018088|        |preset_value_rer_no_small_creatures|No small creatures
 2115018089|        |option_rer_external_factors_coefficient|External factors coefficient
+2115018090|        |option_rer_monster_contract_ratio|Monster contract frequency
+

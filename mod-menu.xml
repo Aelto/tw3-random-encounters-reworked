@@ -5,6 +5,7 @@
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="Difficulty"				value="1"	/>
                 <Entry varId="allMonsterHuntChance"		value="25"	/>
+                <Entry varId="allMonsterHuntChance"		value="25"	/>
                 <Entry varId="enableEncountersLoot"		value="1"	/>
             </Preset>
         </PresetsArray>
@@ -34,6 +35,7 @@
 				</OptionsArray>
 			</Var>
             <Var id="allMonsterHuntChance" displayName="rer_monster_hunt_ratio" displayType="SLIDER;0;100;100"/>
+            <Var id="allMonsterContractChance" displayName="rer_monster_contract_ratio" displayType="SLIDER;0;100;100"/>
             <Var id="externalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
             <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="OPTIONS">
