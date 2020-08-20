@@ -252,27 +252,6 @@ class CModRExtra {
     }
 
     // then handle special cases by hand
-    
-    if (current_area == "prolog_village") {
-      // we remove some creatures in the prolog area
-      spawn_roller.setCreatureCounter(CreatureHARPY, 0);
-      spawn_roller.setCreatureCounter(CreatureCENTIPEDE, 0);
-      spawn_roller.setCreatureCounter(CreatureECHINOPS, 0);
-      spawn_roller.setCreatureCounter(CreatureBARGHEST, 0);
-      
-      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
-      spawn_roller.setCreatureCounter(CreatureEKIMMARA, 0);
-      spawn_roller.setCreatureCounter(CreatureKATAKAN, 0);
-      spawn_roller.setCreatureCounter(CreatureGOLEM, 0);
-      spawn_roller.setCreatureCounter(CreatureELEMENTAL, 0);
-      spawn_roller.setCreatureCounter(CreatureCYCLOPS, 0);
-      spawn_roller.setCreatureCounter(CreatureBRUXA, 0);
-      spawn_roller.setCreatureCounter(CreatureFLEDER, 0);
-      spawn_roller.setCreatureCounter(CreatureGARKAIN, 0);
-      spawn_roller.setCreatureCounter(CreatureDETLAFF, 0);
-      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
-      spawn_roller.setCreatureCounter(CreatureSHARLEY, 0);
-    }
 
     if (current_area != "skellige") {
       spawn_roller.setCreatureCounter(CreatureSKELWOLF, 0);
@@ -376,57 +355,35 @@ class CModRExtra {
         settings.external_factors_coefficient
       );
 
-      if (theGame.envMgr.IsNight()) {
-        spawn_roller.setCreatureCounter(
-          CreatureCOCKATRICE,
-          settings.creatures_chances_night[CreatureCOCKATRICE] / settings.external_factors_coefficient
-        );
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureCOCKATRICE,
+        1 / settings.external_factors_coefficient
+      );
 
-        spawn_roller.setCreatureCounter(
-          CreatureBASILISK,
-          settings.creatures_chances_night[CreatureBASILISK] / settings.external_factors_coefficient
-        );
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBASILISK,
+        1 / settings.external_factors_coefficient
+      );
 
-        spawn_roller.setCreatureCounter(
-          CreatureWYVERN,
-          settings.creatures_chances_night[CreatureWYVERN] / settings.external_factors_coefficient
-        );
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWYVERN,
+        1 / settings.external_factors_coefficient
+      );
 
-        spawn_roller.setCreatureCounter(
-          CreatureFORKTAIL,
-          settings.creatures_chances_night[CreatureFORKTAIL] / settings.external_factors_coefficient
-        );
-        spawn_roller.setCreatureCounter(
-          CreatureGRYPHON, 
-          settings.creatures_chances_night[CreatureGRYPHON] / settings.external_factors_coefficient
-        );
-      }
-      else {
-        spawn_roller.setCreatureCounter(
-          CreatureCOCKATRICE, 
-          settings.creatures_chances_day[CreatureCOCKATRICE] / settings.external_factors_coefficient
-        );
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureFORKTAIL,
+        1 / settings.external_factors_coefficient
+      );
 
-        spawn_roller.setCreatureCounter(
-          CreatureBASILISK, 
-          settings.creatures_chances_day[CreatureBASILISK] / settings.external_factors_coefficient
-        );
-
-        spawn_roller.setCreatureCounter(
-          CreatureWYVERN, 
-          settings.creatures_chances_day[CreatureWYVERN] / settings.external_factors_coefficient
-        );
-
-        spawn_roller.setCreatureCounter(
-          CreatureFORKTAIL, 
-          settings.creatures_chances_day[CreatureFORKTAIL] / settings.external_factors_coefficient
-        );
-
-        spawn_roller.setCreatureCounter(
-          CreatureGRYPHON, 
-          settings.creatures_chances_day[CreatureGRYPHON] / settings.external_factors_coefficient
-        );
-      }
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureGRYPHON,
+        1 / settings.external_factors_coefficient
+      );
     }
 
     if (is_near_water || is_in_swamp) {
@@ -460,6 +417,18 @@ class CModRExtra {
     else {
       spawn_roller.setCreatureCounter(CreatureHAG, 0);
       spawn_roller.setCreatureCounter(CreatureFOGLET, 0);
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureHARPY,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureCENTIPEDE,
+        settings.external_factors_coefficient
+      );
     }
 
     if (is_in_swamp) {
@@ -468,12 +437,90 @@ class CModRExtra {
       spawn_roller.setCreatureCounter(CreatureNOONWRAITH, 0);
       spawn_roller.setCreatureCounter(CreatureNIGHTWRAITH, 0);
     }
+    else {
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWEREWOLF,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureELEMENTAL,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureNOONWRAITH,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureNIGHTWRAITH,
+        settings.external_factors_coefficient
+      );
+    }
+
+    if (!is_in_forest && !is_near_water && !is_in_swamp) {
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureGRYPHON,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureCOCKATRICE,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBASILISK,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureFORKTAIL,
+        settings.external_factors_coefficient
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWYVERN,
+        settings.external_factors_coefficient
+      );
+    }
 
     if (theGame.envMgr.IsNight()) {
       spawn_roller.setCreatureCounter(CreatureNOONWRAITH, 0);
     }
     else {
       spawn_roller.setCreatureCounter(CreatureNIGHTWRAITH, 0);
+    }
+
+    if (current_area == "prolog_village") {
+      // we remove some creatures in the prolog area
+      spawn_roller.setCreatureCounter(CreatureHARPY, 0);
+      spawn_roller.setCreatureCounter(CreatureCENTIPEDE, 0);
+      spawn_roller.setCreatureCounter(CreatureECHINOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureBARGHEST, 0);
+      
+      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
+      spawn_roller.setCreatureCounter(CreatureEKIMMARA, 0);
+      spawn_roller.setCreatureCounter(CreatureKATAKAN, 0);
+      spawn_roller.setCreatureCounter(CreatureGOLEM, 0);
+      spawn_roller.setCreatureCounter(CreatureELEMENTAL, 0);
+      spawn_roller.setCreatureCounter(CreatureCYCLOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureBRUXA, 0);
+      spawn_roller.setCreatureCounter(CreatureFLEDER, 0);
+      spawn_roller.setCreatureCounter(CreatureGARKAIN, 0);
+      spawn_roller.setCreatureCounter(CreatureDETLAFF, 0);
+      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
+      spawn_roller.setCreatureCounter(CreatureSHARLEY, 0);
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
