@@ -62,8 +62,20 @@ state Spawning in CRandomEncounters {
   }
 
   function getRandomEncounterType(): EncounterType {
-    if (RandRange(100) < parent.settings.all_monster_hunt_chance) {
+    var max_roll: int;
+    var roll: int;
+
+    max_roll = parent.settings.all_monster_hunt_chance
+             + parent.settings.all_monster_contract_chance;
+
+    roll = RandRange(max_roll);
+    if (roll < parent.settings.all_monster_hunt_chance) {
       return EncounterType_HUNT;
+    }
+
+    roll -= parent.settings.all_monster_hunt_chance;
+    if (roll < parent.settings.all_monster_contract_chance) {
+      return EncounterType_CONTRACT;
     }
 
     return EncounterType_DEFAULT;

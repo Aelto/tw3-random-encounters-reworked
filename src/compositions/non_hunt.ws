@@ -45,121 +45,124 @@ latent function createRandomCreatureComposition(out random_encounters_class: CRa
 // I can't add it now because there is no way for me to know if 
 // all the creatures are alive or not. 
 latent function makeCreatureWildHunt(out master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
+  var composition: WildHuntAmbushWitcherComposition;
 
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var rer_entity: RandomEncountersReworkedEntity;
+  composition = new WildHuntAmbushWitcherComposition in this;
 
-  var i: int;
-  var initial_position: Vector;
+  composition.init();
+  composition.setCreatureType(CreatureWILDHUNT)
+    .spawn(master);
+}
 
+class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition {
   var portal_template: CEntityTemplate;
   var wildhunt_rift_handler: WildHuntRiftHandler;
 
-  LogChannel('modRandomEncounters', "making small creatures composition ambush witcher");
+  protected latent function forEachEntity(entity: CEntity) {
+    super.forEachEntity(entity);
 
-  if (!getRandomPositionBehindCamera(initial_position)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
-
-    return;
+    ((CNewNPC)entity)
+        .SetTemporaryAttitudeGroup('hostile_to_player', AGP_Default);
+      
+    ((CNewNPC)entity)
+      .NoticeActor(thePlayer);
   }
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByCreatureType(CreatureWILDHUNT, master.rExtra);
-
-  number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );
-
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures, difficulty: " + master.settings.selectedDifficulty);
-
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-
-  // we spawn the WildHunt with 3 units per square-meter to keep them close together because
-  // they are supposed to go through portals.
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 3);
-
-
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    rer_entity = creatures_entities[i];
-
-    rer_entity.this_newnpc.SetTemporaryAttitudeGroup('hostile_to_player', AGP_Default);
-    rer_entity.this_newnpc.NoticeActor(thePlayer);
-
-    rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      rer_entity.removeAllLoot();
+  protected latent function AfterSpawningEntities(): bool {
+    if (!super.AfterSpawningEntities()) {
+      return false;
     }
-    
-    rer_entity.startWithoutBait();
-  }
 
-  portal_template = master.resources.getPortalResource();
-  wildhunt_rift_handler = new WildHuntRiftHandler in this;
-  wildhunt_rift_handler.rifts.PushBack(
-    theGame.createEntity(
-      portal_template,
-      initial_position,
-      thePlayer.GetWorldRotation()
-    )
-  );
+    this.portal_template = master.resources.getPortalResource();
+    this.wildhunt_rift_handler = new WildHuntRiftHandler in this;
+    this.wildhunt_rift_handler.rifts.PushBack(
+      theGame.createEntity(
+        this.portal_template,
+        this.initial_position,
+        thePlayer.GetWorldRotation()
+      )
+    );
 
-  wildhunt_rift_handler.start();
+    this.wildhunt_rift_handler.start();
 
-  // i add this while loop because i don't know how 
-  // the GC (if there is one) works in the engine.
-  // And i don't want the class to be garbage collected
-  // while it's still doing its job with timers and all.
-  // We're in a latent function anyways so it's no big deal,
-  // it's only delaying the next encounter by a few seconds.
-  while (!wildhunt_rift_handler.job_done) {
-    SleepOneFrame();
+    // i add this while loop because i don't know how 
+    // the GC (if there is one) works in the engine.
+    // And i don't want the class to be garbage collected
+    // while it's still doing its job with timers and all.
+    // We're in a latent function anyways so it's no big deal,
+    // it's only delaying the next encounter by a few seconds.
+    while (!this.wildhunt_rift_handler.job_done) {
+      SleepOneFrame();
+    }
+
+    return true;
   }
 }
 
+
 latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
+  var composition: CreatureAmbushWitcherComposition;
 
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var rer_entity: RandomEncountersReworkedEntity;
+  composition = new CreatureAmbushWitcherComposition in this;
 
-  var i: int;
-  var initial_position: Vector;
+  composition.init();
+  composition.setCreatureType(creature_type)
+    .spawn(master);
+}
 
-  LogChannel('modRandomEncounters', "making creatures composition ambush witcher");
-
-  if (!getRandomPositionBehindCamera(initial_position)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
-
-    return;
+class CreatureAmbushWitcherComposition extends CompositionSpawner {
+  public function init() {
+    this
+      .setRandomPositionMinRadius(20)
+      .setRandomPositionMaxRadius(40);
   }
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByCreatureType(creature_type, master.rExtra);
+  var rer_entity_template: CEntityTemplate;
 
-  number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );
+  protected latent function beforeSpawningEntities(): bool {
+    this.rer_entity_template =( CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent",
+      true
+    );
 
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures, difficulty: " + master.settings.selectedDifficulty);
+    return true;
+  }
 
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
+  var rer_entities: array<RandomEncountersReworkedEntity>;
 
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    rer_entity = creatures_entities[i];
+  protected function forEachEntity(entity: CEntity) {
+    var current_rer_entity: RandomEncountersReworkedEntity;
 
-    rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      rer_entity.removeAllLoot();
+    current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
+      rer_entity_template,
+      initial_position,
+      thePlayer.GetWorldRotation()
+    );
+
+    current_rer_entity.attach(
+      (CActor)entity,
+      (CNewNPC)entity,
+      entity
+    );
+
+    this.rer_entities.PushBack(current_rer_entity);
+  }
+
+  protected latent function AfterSpawningEntities(): bool {
+    var i: int;
+    var current_rer_entity: RandomEncountersReworkedEntity;
+
+    for (i = 0; i < this.rer_entities.Size(); i += 1) {
+      current_rer_entity = this.rer_entities[i];
+
+      current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+      if (!master.settings.enable_encounters_loot) {
+        current_rer_entity.removeAllLoot();
+      }
+      
+      current_rer_entity.startWithoutBait();
     }
-    
-    rer_entity.startWithoutBait();
+
+    return true;
   }
 }

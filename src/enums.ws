@@ -81,6 +81,7 @@ enum CreatureType {
 
 
 enum EncounterType {
-  EncounterType_DEFAULT = 0,
-  EncounterType_HUNT    = 1
+  EncounterType_DEFAULT  = 0,
+  EncounterType_HUNT     = 1,
+  EncounterType_CONTRACT = 2
 }

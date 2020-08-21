@@ -5,7 +5,6 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
   var rot: EulerAngles;
   var i, sign: int;
   var s, r, x, y: float;
-  var createEntityHelper: CCreateEntityHelper;
   var created_entities: array<RandomEncountersReworkedEntity>;
   var current_rer_entity: RandomEncountersReworkedEntity;
   var rer_entity_template: CEntityTemplate;
@@ -25,9 +24,6 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
   pos_fin.Z = initial_position.Z;
   s = quantity / density; // maintain a constant density of `density` unit per m2
   r = SqrtF(s/Pi());
-
-  createEntityHelper = new CCreateEntityHelper;
-  // createEntityHelper.SetPostAttachedCallback(this, 'onEntitySpawned');
 
   rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent", true);
 
@@ -55,8 +51,6 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
     if (!getGroundPosition(pos_fin)) {
       pos_fin = initial_position;
     }
-
-    createEntityHelper.Reset();
 
     LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
 

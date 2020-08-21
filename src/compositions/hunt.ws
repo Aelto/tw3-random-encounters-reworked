@@ -101,70 +101,51 @@ latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
   rer_gryphon_entity.startEncounter(blood_splats_templates);
 }
 
+
 latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type: CreatureType) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-  var bait: CEntity;
+  var composition: CreatureHuntComposition;
 
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var createEntityHelper: CCreateEntityHelper;
+  composition = new CreatureHuntComposition in this;
 
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
+  composition.init();
+  composition.setCreatureType(creature_type)
+    .spawn(master);
+}
 
-  var i: int;
-  var j: int;
-  var initial_position: Vector;
-
-  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
-
-    return;
+// CAUTION, it extends `CreatureAmbushWitcherComposition`
+class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
+  public function init() {
+    this
+      .setRandomPositionMinRadius(40)
+      .setRandomPositionMaxRadius(60);
   }
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByCreatureType(creature_type);
+  protected latent function AfterSpawningEntities(): bool {
+    var i: int;
+    var current_rer_entity: RandomEncountersReworkedEntity;
+    var bait: CEntity;
 
-  number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );
+    bait = theGame.CreateEntity(
+      (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+      this.initial_position,
+      thePlayer.GetWorldRotation(),
+      true,
+      false,
+      false,
+      PM_DontPersist
+    );
 
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+    for (i = 0; i < this.rer_entities.Size(); i += 1) {
+      current_rer_entity = this.rer_entities[i];
 
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
-
-  // creating the bait now
-  createEntityHelper = new CCreateEntityHelper;
-  createEntityHelper.Reset();
-  theGame.CreateEntityAsync(
-    createEntityHelper,
-    (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
-    initial_position,
-    thePlayer.GetWorldRotation(),
-    true,
-    false,
-    false,
-    PM_DontPersist
-  );
-
-  while(createEntityHelper.IsCreating()) {            
-    SleepOneFrame();
-  }
-
-  bait = createEntityHelper.GetCreatedEntity();
- 
-  LogChannel('modRandomEncounters', "bait entity spawned");
-
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    LogChannel('modRandomEncounters', "adding bait to: " + i);
-    creatures_entities[i].this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      creatures_entities[i].removeAllLoot();
+      current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+      if (!master.settings.enable_encounters_loot) {
+        current_rer_entity.removeAllLoot();
+      }
+      
+      current_rer_entity.startWithBait(bait);
     }
-    
-    creatures_entities[i].startWithBait(bait);
+
+    return true;
   }
 }
