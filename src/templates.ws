@@ -31,6 +31,45 @@ struct EnemyTemplateList {
   var difficulty_factor: DifficultyFactor;
 }
 
+function mergeEnemyTemplateLists(a, b: EnemyTemplateList): EnemyTemplateList {
+  var output: EnemyTemplateList;
+  var i: int;
+
+  output.difficulty_factor.minimum_count_easy
+    = a.difficulty_factor.minimum_count_easy
+    + b.difficulty_factor.minimum_count_easy;
+
+  output.difficulty_factor.maximum_count_easy
+    = a.difficulty_factor.maximum_count_easy
+    + b.difficulty_factor.maximum_count_easy;
+  
+  output.difficulty_factor.minimum_count_medium
+    = a.difficulty_factor.minimum_count_medium
+    + b.difficulty_factor.minimum_count_medium;
+  
+  output.difficulty_factor.maximum_count_medium 
+    = a.difficulty_factor.maximum_count_medium
+    + b.difficulty_factor.maximum_count_medium;
+  
+  output.difficulty_factor.minimum_count_hard
+    = a.difficulty_factor.minimum_count_hard
+    + b.difficulty_factor.minimum_count_hard;
+
+  output.difficulty_factor.maximum_count_hard
+    = a.difficulty_factor.maximum_count_hard
+    + b.difficulty_factor.maximum_count_hard;
+
+  for (i = 0; i < a.templates.Size(); i += 1) {
+    output.templates.PushBack(a.templates[i]);
+  }
+
+  for (i = 0; i < b.templates.Size(); i += 1) {
+    output.templates.PushBack(b.templates[i]);
+  }
+
+  return output;
+}
+
 function getMaximumCountBasedOnDifficulty(out factor: DifficultyFactor, difficulty: int, optional added_factor: float): int {
   if (added_factor == 0) {
     added_factor = 1;
