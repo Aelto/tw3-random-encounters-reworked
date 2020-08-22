@@ -27,78 +27,74 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   }
 }
 
-latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var rer_gryphon_entity: RandomEncountersReworkedGryphonHuntEntity;
-  var gryphon_entity: CEntity;
 
-  var i: int;
-  var j: int;
-  var current_entity_template: SEnemyTemplate;
+latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
+  var composition: CreatureHuntGryphonComposition;
+
+  composition = new CreatureHuntGryphonComposition in this;
+
+  composition.init();
+  composition.spawn(master);
+}
+
+class CreatureHuntGryphonComposition extends CompositionSpawner {
+  public function init() {
+    this
+      .setRandomPositionMinRadius(120)
+      .setRandomPositionMaxRadius(200)
+      .setCreatureType(CreatureGRYPHON)
+      .setNumberOfCreatures(1);
+  }
+
   var rer_entity_template: CEntityTemplate;
-  var chosen_template: CEntityTemplate;
-  var initial_position: Vector;
-  var player_position: Vector;
   var blood_splats_templates: array<CEntityTemplate>;
 
-  LogChannel('modRandomEncounters', "makeGryphonCreatureHunt - starting");
+  protected latent function beforeSpawningEntities(): bool {
+    this.rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent",
+      true
+    );
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByCreatureType(CreatureGRYPHON);
+    this.blood_splats_templates = this
+      .master
+      .resources
+      .getBloodSplatsResources();
 
-  creatures_templates = fillEnemyTemplateList(creatures_templates, 1);
-
-  if (!getRandomPositionBehindCamera(initial_position, 200, 120, 10)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
-
-    return;
+    return true;
   }
 
-  rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent", true);
+  var rer_entities: array<RandomEncountersReworkedGryphonHuntEntity>;
 
-  for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
-    current_entity_template = creatures_templates.templates[i];
+  protected function forEachEntity(entity: CEntity) {
+    var current_rer_entity: RandomEncountersReworkedGryphonHuntEntity;
 
-    if (current_entity_template.count == 0) {
-      continue;
-    }
-
-    LogChannel('modRandomEncounters', "chosen template: " + current_entity_template.template);
-
-    chosen_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-
-    break;
-  }
-
-  blood_splats_templates = master.resources.getBloodSplatsResources();
-
-  gryphon_entity = theGame.CreateEntity(
-    chosen_template,
-    initial_position,
-    thePlayer.GetWorldRotation(),
-    true, false, false, PM_DontPersist
-  );
-
-  LogChannel('modRandomEncounters', "spawning entity at " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
-
-  rer_gryphon_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
+    current_rer_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
     rer_entity_template,
     initial_position,
     thePlayer.GetWorldRotation()
   );
 
-  rer_gryphon_entity.attach(
-    (CActor)gryphon_entity,
-    (CNewNPC)gryphon_entity,
-    gryphon_entity
-  );
+    current_rer_entity.attach(
+      (CActor)entity,
+      (CNewNPC)entity,
+      entity
+    );
 
-  if (!master.settings.enable_encounters_loot) {
-    rer_gryphon_entity.removeAllLoot();
+    current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+    
+    if (!master.settings.enable_encounters_loot) {
+      current_rer_entity.removeAllLoot();
+    }
+
+    current_rer_entity.startEncounter(this.blood_splats_templates);
+
+
+    this.rer_entities.PushBack(current_rer_entity);
   }
 
-  rer_gryphon_entity.startEncounter(blood_splats_templates);
+  protected latent function AfterSpawningEntities(): bool {
+    return true;
+  }
 }
 
 
