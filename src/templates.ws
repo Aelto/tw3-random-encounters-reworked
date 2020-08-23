@@ -651,7 +651,6 @@ function re_nightwraith() : EnemyTemplateList {
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl1.w2ent"));       
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl2.w2ent"));        
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl3.w2ent"));       
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__noonwright_pesta.w2ent"));
 
   if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
     enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee.w2ent"));
