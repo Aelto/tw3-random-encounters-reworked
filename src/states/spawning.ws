@@ -66,7 +66,8 @@ state Spawning in CRandomEncounters {
     var roll: int;
 
     max_roll = parent.settings.all_monster_hunt_chance
-             + parent.settings.all_monster_contract_chance;
+             + parent.settings.all_monster_contract_chance
+             + parent.settings.all_monster_ambush_chance;
 
     roll = RandRange(max_roll);
     if (roll < parent.settings.all_monster_hunt_chance) {

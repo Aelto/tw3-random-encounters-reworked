@@ -5,6 +5,7 @@ class RE_Settings {
   public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
   public var all_monster_hunt_chance: int;
   public var all_monster_contract_chance: int;
+  public var all_monster_ambush_chance: int;
   public var enableTrophies : bool;
   public var selectedDifficulty : int;
 
@@ -38,6 +39,7 @@ class RE_Settings {
 
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadMonsterContractsChances(inGameConfigWrapper);
+    this.loadMonsterAmbushChances(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
     // this.loadTrophiesSettings(inGameConfigWrapper);
@@ -107,12 +109,18 @@ class RE_Settings {
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'allMonsterHuntChance'));
+    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChance'));
   }
 
   private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {
     this.all_monster_contract_chance = StringToInt(
-      inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'allMonsterContractChance')
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChance')
+    );
+  }
+
+  private function loadMonsterAmbushChances(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.all_monster_ambush_chance = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChance')
     );
   }
   

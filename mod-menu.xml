@@ -34,8 +34,6 @@
 					</Option>
 				</OptionsArray>
 			</Var>
-            <Var id="allMonsterHuntChance" displayName="rer_monster_hunt_ratio" displayType="SLIDER;0;100;100"/>
-            <Var id="allMonsterContractChance" displayName="rer_monster_contract_ratio" displayType="SLIDER;0;100;100"/>
             <Var id="externalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
             <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="OPTIONS">
@@ -60,7 +58,22 @@
 				</OptionsArray>
 			</Var>
         </VisibleVars>
-    </Group>	
+    </Group>
+
+    <Group id="RERencounterTypes" displayName="Mods.rer_name.rer_encounter_type">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="allMonsterAmbushChance"		value="50"	/>
+                <Entry varId="allMonsterHuntChance"	        value="25"	/>
+                <Entry varId="allMonsterContractChance"		value="20"	/>
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>			
+            <Var id="allMonsterAmbushChance" displayName="rer_monster_ambush_ratio" displayType="SLIDER;0;100;100"/>
+            <Var id="allMonsterHuntChance" displayName="rer_monster_hunt_ratio" displayType="SLIDER;0;100;100"/>
+            <Var id="allMonsterContractChance" displayName="rer_monster_contract_ratio" displayType="SLIDER;0;100;100"/>
+        </VisibleVars>
+    </Group>
     
     <Group id="custom" displayName="Mods.rer_name.rer_creature_frequency">
         <PresetsArray>
