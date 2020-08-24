@@ -81,8 +81,6 @@ statemachine class CRandomEncounters extends CEntity {
   timer function onceReady(optional delta: float, optional id: Int32) {
     if (!this.settings.hide_next_notifications) {
       displayRandomEncounterEnabledNotification();
-
-      this.settings.setHideNextNotificationsSettings(true);
     }
   }
 
@@ -111,48 +109,36 @@ statemachine class CRandomEncounters extends CEntity {
   }
 }
 
-exec function rer_start_encounter(optional creature: CreatureType) {
-  var rer_entity : CRandomEncounters;
-  var entities : array<CEntity>;
+// exec function rer_start_encounter(optional creature: CreatureType) {
+//   var rer_entity : CRandomEncounters;
+//   var entities : array<CEntity>;
 
-  theGame.GetEntitiesByTag('RandomEncounterTag', entities);
+//   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
 		
-  if (entities.Size() == 0) {
-    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+//   if (entities.Size() == 0) {
+//     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
     
-    return;
-  }
+//     return;
+//   }
 
-  rer_entity = (CRandomEncounters)entities[0];
+//   rer_entity = (CRandomEncounters)entities[0];
 
-  // no creature were supplied,
-  // so we let RER decides.
-  if (!creature) {
-    creature = CreatureNONE;
-  }
+//   createRandomCreatureComposition(rer_entity, creature);
+// }
 
-  createRandomCreatureComposition(rer_entity, creature);
-}
+// exec function rer_start_hunt(optional creature: CreatureType) {
+//   var rer_entity : CRandomEncounters;
+//   var entities : array<CEntity>;
 
-exec function rer_start_hunt(optional creature: CreatureType) {
-  var rer_entity : CRandomEncounters;
-  var entities : array<CEntity>;
-
-  theGame.GetEntitiesByTag('RandomEncounterTag', entities);
+//   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
 		
-  if (entities.Size() == 0) {
-    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+//   if (entities.Size() == 0) {
+//     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
     
-    return;
-  }
+//     return;
+//   }
 
-  rer_entity = (CRandomEncounters)entities[0];
+//   rer_entity = (CRandomEncounters)entities[0];
 
-  // no creature were supplied,
-  // so we let RER decides.
-  if (!creature) {
-    creature = CreatureNONE;
-  }
-
-  createRandomCreatureHunt(rer_entity, creature);
-}
+//   createRandomCreatureHunt(rer_entity, creature);
+// }

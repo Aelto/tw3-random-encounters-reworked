@@ -3,12 +3,12 @@ enum CreatureComposition {
   CreatureComposition_AmbushWitcher = 1
 }
 
-latent function createRandomCreatureComposition(out random_encounters_class: CRandomEncounters, optional creature_type: CreatureType) {
+latent function createRandomCreatureComposition(out master: CRandomEncounters, creature_type: CreatureType) {
   var creature_composition: CreatureComposition;
 
   creature_composition = CreatureComposition_AmbushWitcher;
 
-  if (!creature_type || creature_type == CreatureNONE) {
+  if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
       master.spawn_roller
@@ -25,12 +25,12 @@ latent function createRandomCreatureComposition(out random_encounters_class: CRa
   }
 
   if (creature_type == CreatureWILDHUNT) {
-    makeCreatureWildHunt(random_encounters_class);
+    makeCreatureWildHunt(master);
   }
   else {
     switch (creature_composition) {
       case CreatureComposition_AmbushWitcher:
-        makeCreatureAmbushWitcher(creature_type, random_encounters_class);
+        makeCreatureAmbushWitcher(creature_type, master);
         break;
     }
   }
@@ -47,7 +47,7 @@ latent function createRandomCreatureComposition(out random_encounters_class: CRa
 latent function makeCreatureWildHunt(out master: CRandomEncounters) {
   var composition: WildHuntAmbushWitcherComposition;
 
-  composition = new WildHuntAmbushWitcherComposition in this;
+  composition = new WildHuntAmbushWitcherComposition in master;
 
   composition.init();
   composition.setCreatureType(CreatureWILDHUNT)
@@ -68,15 +68,18 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
       .NoticeActor(thePlayer);
   }
 
-  protected latent function AfterSpawningEntities(): bool {
-    if (!super.AfterSpawningEntities()) {
+  protected latent function afterSpawningEntities(): bool {
+    var success: bool;
+
+    success = super.afterSpawningEntities();
+    if (!success) {
       return false;
     }
 
     this.portal_template = master.resources.getPortalResource();
     this.wildhunt_rift_handler = new WildHuntRiftHandler in this;
     this.wildhunt_rift_handler.rifts.PushBack(
-      theGame.createEntity(
+      theGame.CreateEntity(
         this.portal_template,
         this.initial_position,
         thePlayer.GetWorldRotation()
@@ -103,7 +106,7 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
 latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out master: CRandomEncounters) {
   var composition: CreatureAmbushWitcherComposition;
 
-  composition = new CreatureAmbushWitcherComposition in this;
+  composition = new CreatureAmbushWitcherComposition in master;
 
   composition.init();
   composition.setCreatureType(creature_type)
@@ -130,7 +133,7 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
 
   var rer_entities: array<RandomEncountersReworkedEntity>;
 
-  protected function forEachEntity(entity: CEntity) {
+  protected latent function forEachEntity(entity: CEntity) {
     var current_rer_entity: RandomEncountersReworkedEntity;
 
     current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
@@ -148,7 +151,7 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     this.rer_entities.PushBack(current_rer_entity);
   }
 
-  protected latent function AfterSpawningEntities(): bool {
+  protected latent function afterSpawningEntities(): bool {
     var i: int;
     var current_rer_entity: RandomEncountersReworkedEntity;
 

@@ -162,7 +162,11 @@ class RE_Resources {
   }
 
   public latent function getPortalResource(): CEntityTemplate {
-    return (CEntityTemplate)LoadResourceAsync( "gameplay\interactive_objects\rift\rift.w2ent", true);
+    var entity_template: CEntityTemplate;
+
+    entity_template = (CEntityTemplate)LoadResourceAsync( "gameplay\interactive_objects\rift\rift.w2ent", true);
+    
+    return entity_template;
   }
 }
 

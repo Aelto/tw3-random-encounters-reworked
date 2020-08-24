@@ -24,6 +24,8 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   var monster_group_position: Vector;
 
+  var entities: array<CEntity>;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
@@ -58,7 +60,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     var i: int;
 
     for (i = 0; i < this.entities.Size(); i += 1) {
-      if (this.entities[i]).IsAlive()) {
+      if (((CActor)this.entities[i]).IsAlive()) {
         return false;
       }
     }

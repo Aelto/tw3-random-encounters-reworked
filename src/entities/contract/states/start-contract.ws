@@ -28,7 +28,7 @@ state StartContract in RandomEncountersReworkedContractEntity {
       parent.RemoveTimer('StartContract_intervalDrawTracks');
     }
 
-    this.usePathFinding(this.current_tracks_position, parent.monster_group_position);
+    // this.usePathFinding(this.current_tracks_position, parent.monster_group_position);
   }
 
   latent function usePathFinding(out current_position: Vector, target_position: Vector) : bool {

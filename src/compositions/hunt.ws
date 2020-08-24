@@ -3,7 +3,7 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  if (!creature_type || creature_type == CreatureNONE) {
+  if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
       master.spawn_roller
@@ -31,7 +31,7 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
 latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
   var composition: CreatureHuntGryphonComposition;
 
-  composition = new CreatureHuntGryphonComposition in this;
+  composition = new CreatureHuntGryphonComposition in master;
 
   composition.init();
   composition.spawn(master);
@@ -65,7 +65,7 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
 
   var rer_entities: array<RandomEncountersReworkedGryphonHuntEntity>;
 
-  protected function forEachEntity(entity: CEntity) {
+  protected latent function forEachEntity(entity: CEntity) {
     var current_rer_entity: RandomEncountersReworkedGryphonHuntEntity;
 
     current_rer_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
@@ -92,7 +92,7 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     this.rer_entities.PushBack(current_rer_entity);
   }
 
-  protected latent function AfterSpawningEntities(): bool {
+  protected latent function afterSpawningEntities(): bool {
     return true;
   }
 }
@@ -101,7 +101,7 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
 latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type: CreatureType) {
   var composition: CreatureHuntComposition;
 
-  composition = new CreatureHuntComposition in this;
+  composition = new CreatureHuntComposition in master;
 
   composition.init();
   composition.setCreatureType(creature_type)
@@ -116,7 +116,7 @@ class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
       .setRandomPositionMaxRadius(60);
   }
 
-  protected latent function AfterSpawningEntities(): bool {
+  protected latent function afterSpawningEntities(): bool {
     var i: int;
     var current_rer_entity: RandomEncountersReworkedEntity;
     var bait: CEntity;

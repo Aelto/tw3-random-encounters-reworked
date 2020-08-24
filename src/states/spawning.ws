@@ -26,7 +26,6 @@ state Spawning in CRandomEncounters {
 
     makeGroupComposition(
       picked_encounter_type,
-      is_city_spawn,
       parent
     );
 

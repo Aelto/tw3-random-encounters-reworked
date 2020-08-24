@@ -1,6 +1,6 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
-2115018001|        |preset_value_rer_defaults|Load Defaults
+2115018001|        |preset_value_rer_defaults|Defaults
 2115018002|        |option_rer_custom_frequency_low_day|Minimum delay during the day (in seconds)
 2115018003|        |option_rer_custom_frequency_high_day|Maximum delay during the day (in seconds)
 2115018004|        |option_rer_custom_frequency_low_night|Minimum delay during the night (in seconds)
@@ -84,11 +84,13 @@
 2115018082|        |option_rer_hide_notifications|Hide RER notifications
 2115018083|        |option_rer_enable_encounters_loot|Enable encounters loot
 2115018084|        |preset_Mods_rer_name_rer_city_spawns|City spawns
-2115018085|        |preset_value_no_city_spawns|No city spawns
-2115018086|        |preset_value_all_city_spawns|Allow all city spawns
+2115018085|        |preset_value_rer_no_city_spawns|No city spawns
+2115018086|        |preset_value_rer_all_city_spawns|Allow all
 2115018087|        |preset_value_rer_no_large_creatures|No large creatures
 2115018088|        |preset_value_rer_no_small_creatures|No small creatures
 2115018089|        |option_rer_external_factors_coefficient|External factors coefficient
 2115018090|        |option_rer_monster_contract_ratio|Monster contract frequency
 2115018091|        |option_rer_monster_ambush_ratio|Monster ambush frequency
-
+2115018092|        |panel_rer_city_spawns|City spawns
+2115018093|        |preset_Mods_rer_name_rer_encounter_type|Encounter types
+2115018094|        |option_rer_mod_initialized|RER initialized

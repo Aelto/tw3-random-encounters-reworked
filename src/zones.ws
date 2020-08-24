@@ -153,11 +153,11 @@ class CModRExtra {
     // with 
     // if (fastTravelEntity && fastTravelEntity.entityName == pin.Tag)
 
-    switch (roadsign.entityName) {
-      case 'TODO':
-        return true;
-        break;
-    }
+    // switch (roadsign.entityName) {
+    //   case 'TODO':
+    //     return true;
+    //     break;
+    // }
 
     return false;
   }
@@ -178,7 +178,7 @@ class CModRExtra {
     );
 
     for (i = 0; i < entities.Size(); i += 1) {
-      if (((CNewNPC)attacker).GetNPCType() == ENGT_Guard) {
+      if (((CNewNPC)entities[i]).GetNPCType() == ENGT_Guard) {
         return true;
       }
     }
@@ -327,19 +327,19 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureSKELWOLF,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureSKELBEAR,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureSKELTROLL,
-        settings.external_factors_coefficient
+        settings
       );
     }
 
@@ -363,91 +363,91 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureWEREWOLF,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureLESHEN,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureSPIDER,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureECHINOPS,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureENDREGA,
-        settings.external_factors_coefficient
+        settings
       );
       
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureARACHAS,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureBEAR,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureWOLF,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureBOAR,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureSPIDER,
-        settings.external_factors_coefficient
+        settings
       );
 
-      this.applyCoefficientToCreature(
+      this.applyCoefficientToCreatureDivide(
         spawn_roller,
         CreatureCOCKATRICE,
-        1 / settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureBASILISK,
-        1 / settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureWYVERN,
-        1 / settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureFORKTAIL,
-        1 / settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureGRYPHON,
-        1 / settings.external_factors_coefficient
+        settings
       );
     }
 
@@ -458,25 +458,25 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureHAG,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureFOGLET,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureDROWNER,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureDROWNERDLC,
-        settings.external_factors_coefficient
+        settings
       );
     }
     else {
@@ -486,13 +486,13 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureHARPY,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureCENTIPEDE,
-        settings.external_factors_coefficient
+        settings
       );
     }
 
@@ -506,25 +506,25 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureWEREWOLF,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureELEMENTAL,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureNOONWRAITH,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureNIGHTWRAITH,
-        settings.external_factors_coefficient
+        settings
       );
     }
 
@@ -532,31 +532,31 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureGRYPHON,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureCOCKATRICE,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureBASILISK,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureFORKTAIL,
-        settings.external_factors_coefficient
+        settings
       );
 
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureWYVERN,
-        settings.external_factors_coefficient
+        settings
       );
     }
 
@@ -602,17 +602,32 @@ class CModRExtra {
     return spawn_roller.rollCreatures();
   }
 
-  private function applyCoefficientToCreature(spawn_roller: SpawnRoller, creature: CreatureType, coefficient: float) {
+  private function applyCoefficientToCreature(spawn_roller: SpawnRoller, creature: CreatureType, settings: RE_Settings) {
     if (theGame.envMgr.IsNight()) {
       spawn_roller.setCreatureCounter(
         creature,
-        settings.creatures_chances_night[creature] * coefficient
+        (int)(settings.creatures_chances_night[creature] * settings.external_factors_coefficient)
       );
     }
     else {
       spawn_roller.setCreatureCounter(
         creature,
-        settings.creatures_chances_day[creature] * coefficient
+        (int)(settings.creatures_chances_day[creature] * settings.external_factors_coefficient)
+      );
+    }
+  }
+
+  private function applyCoefficientToCreatureDivide(spawn_roller: SpawnRoller, creature: CreatureType, settings: RE_Settings) {
+    if (theGame.envMgr.IsNight()) {
+      spawn_roller.setCreatureCounter(
+        creature,
+        (int)(settings.creatures_chances_night[creature] / settings.external_factors_coefficient)
+      );
+    }
+    else {
+      spawn_roller.setCreatureCounter(
+        creature,
+        (int)(settings.creatures_chances_day[creature] / settings.external_factors_coefficient)
       );
     }
   }

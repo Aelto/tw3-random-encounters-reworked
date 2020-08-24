@@ -1,8 +1,11 @@
 
-function getGroupPositions(initial_position: Vector, count: int, density: float): array<int> {
+function getGroupPositions(initial_position: Vector, count: int, density: float): array<Vector> {
   var s, r, x, y: float;
   var pos_fin: Vector;
   var output_positions: array<Vector>;
+  
+  var i: int;
+  var sign: int;
 
   //const values used in the loop
   pos_fin.Z = initial_position.Z;

@@ -1,10 +1,11 @@
 
 latent function getTracksTemplate(actor : CActor): CEntityTemplate {
-  var monsterCategory : EMonsterCategory
+  var monsterCategory : EMonsterCategory;
   var soundMonsterName : CName;
   var isTeleporting : bool;
   var canBeTargeted : bool;
   var canBeHitByFists : bool;
+  var entity_template: CEntityTemplate;
 
   theGame.GetMonsterParamsForActor(
     actor,
@@ -14,14 +15,16 @@ latent function getTracksTemplate(actor : CActor): CEntityTemplate {
     canBeTargeted,canBeTargeted
   );
 
-  switch(mc) {
+  switch(monsterCategory) {
     case MC_Specter :
     case MC_Magicals :
       // TODO: find specter tracks
-      return (CEntityTemplate)LoadResourceAsync(
+      entity_template = (CEntityTemplate)LoadResourceAsync(
         "quests\generic_quests\no_mans_land\quest_files\mh108_fogling\entities\mh108_clue_fogling_tracks.w2ent",
         true
       );
+
+      return entity_template;
       break;
         
       break;
@@ -29,10 +32,12 @@ latent function getTracksTemplate(actor : CActor): CEntityTemplate {
     case MC_Vampire :
     case MC_Human :
       // TODO: find human tracks
-      return (CEntityTemplate)LoadResourceAsync(
+      entity_template = (CEntityTemplate)LoadResourceAsync(
         "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
         true
       );
+
+      return entity_template;
       break;
         
     case MC_Cursed :
@@ -45,9 +50,11 @@ latent function getTracksTemplate(actor : CActor): CEntityTemplate {
     case MC_Beast :
     case MC_Draconide :
     default :
-      return (CEntityTemplate)LoadResourceAsync(
+      entity_template = (CEntityTemplate)LoadResourceAsync(
         "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
         true
       );
+
+      return entity_template;
   }
 }

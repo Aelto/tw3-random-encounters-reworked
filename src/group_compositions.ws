@@ -6,7 +6,7 @@
 latent function makeGroupComposition(encounter_type: EncounterType, random_encounters_class: CRandomEncounters) {
   if (encounter_type == EncounterType_HUNT) {
     LogChannel('modRandomEncounters', "spawning - HUNT");
-    createRandomCreatureHunt(random_encounters_class);
+    createRandomCreatureHunt(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
@@ -14,7 +14,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
   }
   else {
     LogChannel('modRandomEncounters', "spawning - NOT HUNT");
-    createRandomCreatureComposition(random_encounters_class);
+    createRandomCreatureComposition(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
@@ -46,18 +46,24 @@ abstract class CompositionSpawner {
 
   // When you need to force the spawn position
   var spawn_position: Vector;
+  var spawn_position_force: bool;
+  default spawn_position_force = false;
   
   public function setSpawnPosition(position: Vector): CompositionSpawner {
     this.spawn_position = position;
+    this.spawn_position_force = true;
 
     return this;
   }
 
   // When you need to force the creature template
   var _creatures_templates: EnemyTemplateList;
+  var _creatures_templates_force: bool;
+  default _creatures_templates_force = false;
 
   public function setCreaturesTemplates(templates: EnemyTemplateList): CompositionSpawner {
     this._creatures_templates = templates;
+    this._creatures_templates_force = true;
 
     return this;
   }
@@ -108,6 +114,7 @@ abstract class CompositionSpawner {
     var i: int;
     var j: int;
     var group_positions_index: int;
+    var success: bool;
 
     this.master = master;
 
@@ -132,18 +139,13 @@ abstract class CompositionSpawner {
       this._group_positions_density
     );
 
-    if (!this.beforeSpawningEntities(
-      this.creature_type,
-      this.creatures_templates,
-      this.number_of_creatures,
-      initial_position,
-      group_positions
-    )) {
+    success = this.beforeSpawningEntities();
+    if (!success) {
       return;
     }
 
-    for (i = 0; i < this.creatures_templates.Size(); i += 1) {
-      current_entity_template = this.creatures_templates[i];
+    for (i = 0; i < this.creatures_templates.templates.Size(); i += 1) {
+      current_entity_template = this.creatures_templates.templates[i];
 
       if (current_entity_template.count > 0) {
         current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
@@ -168,7 +170,8 @@ abstract class CompositionSpawner {
       );
     }
 
-    if (!this.afterSpawningEntities()) {
+    success = this.afterSpawningEntities();
+    if (!success) {
       return;
     }
   }
@@ -195,14 +198,14 @@ abstract class CompositionSpawner {
   // A method to override if needed,
   // such as creating a custom class for handling the fight.
   // If it returns false the spawn is cancelled.
-  protected latent function AfterSpawningEntities(): bool {
+  protected latent function afterSpawningEntities(): bool {
     return true;
   }
 
 
 
   protected function getCreatureType(master: CRandomEncounters): CreatureType {
-    if (!this._creature_type || this._creature_type == CreatureNONE) {
+    if (this._creature_type == CreatureNONE) {
       return master.rExtra.getRandomCreatureByCurrentArea(
         master.settings,
         master.spawn_roller
@@ -213,13 +216,13 @@ abstract class CompositionSpawner {
   }
 
   protected function getCreaturesTemplates(master: CRandomEncounters, _creature_type: CreatureType): EnemyTemplateList {
-    if (!this._creatures_templates) {
-      return this._creatures_templates;
+    if (this._creatures_templates_force) {
+      return master
+        .resources
+        .getCreatureResourceByCreatureType(_creature_type, master.rExtra);
     }
 
-    return master
-      .resources
-      .getCreatureResourceByCreatureType(_creature_type, master.rExtra);
+    return this._creatures_templates;
   }
 
   protected function getNumberOfCreatures(master: CRandomEncounters, _creatures_templates: EnemyTemplateList): int {
@@ -236,18 +239,18 @@ abstract class CompositionSpawner {
   protected function getInitialPosition(initial_position: Vector): bool {
     var attempt: bool;
 
-    if (!this.spawn_position) {
-      attempt = !getRandomPositionBehindCamera(
-        initial_position,
-        this._random_position_max_radius,
-        this._random_positition_min_radius,
-        10
-      );
-
-      return attempt;
+    if (this.spawn_position_force) {
+      return true;
     }
 
-    return this.spawn_position;
+    attempt = getRandomPositionBehindCamera(
+      initial_position,
+      this._random_position_max_radius,
+      this._random_positition_min_radius,
+      10
+    );
+
+    return attempt;
   }
 
 }

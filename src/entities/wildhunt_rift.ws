@@ -1,5 +1,5 @@
 
-class WildHuntRiftHandler {
+statemachine class WildHuntRiftHandler extends CEntity {
   var rifts: array<CEntity>;
   var job_done: bool;
 
@@ -26,7 +26,6 @@ state WildHuntRift_OpenRifts in WildHuntRiftHandler {
     super.OnEnterState(previous_state_name);
 
     this.WildHuntRift_OpenRifts_Main();
-    this.AddTimer('WildHuntRift_OpenRifts_Leave', 5, false);
   }
 
   entry function WildHuntRift_OpenRifts_Main() {
@@ -35,10 +34,12 @@ state WildHuntRift_OpenRifts in WildHuntRiftHandler {
     for (i = 0; i < parent.rifts.Size(); i += 1) {
       parent.rifts[i].PlayEffect('rift_activate');
     }
+
+    parent.AddTimer('WildHuntRift_OpenRifts_Leave', 5, false);
   }
 
   timer function WildHuntRift_OpenRifts_Leave(optional dt : float, optional id : Int32) {
-    parent.GotoState("WildHuntRift_CloseRifts");
+    parent.GotoState('WildHuntRift_CloseRifts');
   }
 }
 
@@ -47,7 +48,6 @@ state WildHuntRift_CloseRifts in WildHuntRiftHandler {
     super.OnEnterState(previous_state_name);
 
     this.WildHuntRift_CloseRifts_Main();
-    this.AddTimer('WildHuntRift_CloseRifts_Leave', 2, false);
   }
 
   entry function WildHuntRift_CloseRifts_Main() {
@@ -56,6 +56,8 @@ state WildHuntRift_CloseRifts in WildHuntRiftHandler {
     for (i = 0; i < parent.rifts.Size(); i += 1) {
       parent.rifts[i].StopEffect('rift_activate');
     }
+
+    parent.AddTimer('WildHuntRift_CloseRifts_Leave', 2, false);
   }
 
   timer function WildHuntRift_OpenRifts_Leave(optional dt : float, optional id : Int32) {

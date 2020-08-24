@@ -2,7 +2,7 @@
 latent function createRandomCreatureContract(master: CRandomEncounters, optional creature_type: CreatureType) {
   LogChannel('modRandomEncounters', "making create contract");
 
-  if (!creature_type || creature_type == CreatureNONE) {
+  if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
       master.spawn_roller
@@ -18,13 +18,13 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
     return;
   }
   
-  makeDefaultCreatureHunt(master, creature_type);
+  makeDefaultCreatureContract(master, creature_type);
 }
 
-latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type: CreatureType) {
+latent function makeDefaultCreatureContract(master: CRandomEncounters, creature_type: CreatureType) {
   var composition: CreatureContractComposition;
 
-  composition = new CreatureContractComposition in this;
+  composition = new CreatureContractComposition in master;
 
   composition.init();
   composition.setCreatureType(creature_type)
@@ -38,11 +38,11 @@ class CreatureContractComposition extends CompositionSpawner {
       .setRandomPositionMaxRadius(200);
   }
 
-  protected function forEachEntity(entity: CEntity) {
+  protected latent function forEachEntity(entity: CEntity) {
     ((CNewNPC)entity).SetLevel(GetWitcherPlayer().GetLevel());
   }
 
-  protected latent function AfterSpawningEntities(): bool {
+  protected latent function afterSpawningEntities(): bool {
     var rer_contract_entity: RandomEncountersReworkedContractEntity;
     var i: int;
 

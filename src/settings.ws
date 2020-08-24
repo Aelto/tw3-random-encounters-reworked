@@ -37,6 +37,11 @@ class RE_Settings {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
+    if (this.shouldResetRERSettings(inGameConfigWrapper)) {
+      LogChannel('modRandomEncounters', 'reset RER settings');
+      this.resetRERSettings(inGameConfigWrapper);
+    }
+
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadMonsterContractsChances(inGameConfigWrapper);
     this.loadMonsterAmbushChances(inGameConfigWrapper);
@@ -84,28 +89,15 @@ class RE_Settings {
     );
   }
 
-  public function setHideNextNotificationsSettings(value: bool) {
-    if (value) {
-      theGame.GetInGameConfigWrapper()
-        .SetVarValue('RandomEncountersMENU', 'hideNextNotifications', 1);
-    }
-    else {
-      theGame.GetInGameConfigWrapper()
-        .SetVarValue('RandomEncountersMENU', 'hideNextNotifications', 0);
-    }
-
-    theGame.SaveUserSettings();
-  }
-
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies');
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
-    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyHigh'));
-    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyLow'));
-    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyHigh'));
-    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyLow'));  
+    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customdFrequencyHigh'));
+    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customdFrequencyLow'));
+    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customnFrequencyHigh'));
+    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customnFrequencyLow'));  
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -122,6 +114,22 @@ class RE_Settings {
     this.all_monster_ambush_chance = StringToInt(
       inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChance')
     );
+  }
+
+  private function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
+    return !inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERmodInitialized');
+  }
+
+  private function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    inGameConfigWrapper.ApplyGroupPreset('RandomEncountersMENU', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencounterTypes', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreatureFrequency', 1); // medium frequency
+    inGameConfigWrapper.ApplyGroupPreset('customGroundDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
+    
+    inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
+    theGame.SaveUserSettings();
   }
   
 
@@ -219,7 +227,7 @@ class RE_Settings {
     this.creatures_chances_night[CreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Kikimore'));
     this.creatures_chances_night[CreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'DrownerDLC'));
     this.creatures_chances_night[CreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Arachas'));
-    this.creatures_chances_night[CreatureBEAR]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
+    this.creatures_chances_night[CreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
     this.creatures_chances_night[CreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
     this.creatures_chances_night[CreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
 
@@ -233,7 +241,7 @@ class RE_Settings {
     this.creatures_chances_night[CreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NightWraiths'));
     this.creatures_chances_night[CreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NoonWraiths'));
     this.creatures_chances_night[CreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Chorts'));
-    this.creatures_chances_night[CreatureCYCLOPS]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cyclops'));
+    this.creatures_chances_night[CreatureCYCLOPS]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cyclops'));
     this.creatures_chances_night[CreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Troll'));
     this.creatures_chances_night[CreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Hags'));
     this.creatures_chances_night[CreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fogling'));
@@ -265,8 +273,8 @@ class RE_Settings {
     this.creatures_city_spawns[CreatureWILDHUNT]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'WildHunt');
     this.creatures_city_spawns[CreatureHuman]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Humans');
     this.creatures_city_spawns[CreatureSKELETON]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Skeleton');
-    this.creatures_city_spawns[CreatureBARGHEST]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Barghest')) 
-    this.creatures_city_spawns[CreatureECHINOPS]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Echinops')) 
+    this.creatures_city_spawns[CreatureBARGHEST]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Barghest');
+    this.creatures_city_spawns[CreatureECHINOPS]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Echinops');
     this.creatures_city_spawns[CreatureCENTIPEDE]  = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Centipede');
     this.creatures_city_spawns[CreatureKIKIMORE]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Kikimore');
     this.creatures_city_spawns[CreatureDROWNERDLC] = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'DrownerDLC');

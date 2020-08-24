@@ -14,7 +14,7 @@ state WaitingForPlayer in RandomEncountersReworkedContractEntity {
   }
 
   timer function WaitingForPlayer_intervalMain(optional dt : float, optional id: Int32) {
-    var distance_from_player: Vector;
+    var distance_from_player: float;
 
     distance_from_player = VecDistanceSquared(
       thePlayer.GetWorldPosition(),
