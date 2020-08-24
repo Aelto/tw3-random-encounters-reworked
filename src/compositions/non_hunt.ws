@@ -24,6 +24,8 @@ latent function createRandomCreatureComposition(out master: CRandomEncounters, c
     return;
   }
 
+  LogChannel('modRandomEncounters', "spawning ambush - " + creature_type);
+
   if (creature_type == CreatureWILDHUNT) {
     makeCreatureWildHunt(master);
   }
@@ -70,6 +72,11 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
 
   protected latent function afterSpawningEntities(): bool {
     var success: bool;
+    var rift: CRiftEntity;
+    var rifts: array<CRiftEntity>;
+    var i: int;
+
+    LogChannel('modRandomEncounters', "after spawning entities WILDHUNT");
 
     success = super.afterSpawningEntities();
     if (!success) {
@@ -77,26 +84,39 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
     }
 
     this.portal_template = master.resources.getPortalResource();
-    this.wildhunt_rift_handler = new WildHuntRiftHandler in this;
-    this.wildhunt_rift_handler.rifts.PushBack(
-      theGame.CreateEntity(
+    for (i = 0; i < this.group_positions.Size(); i += 1) {
+      rift = (CRiftEntity)theGame.CreateEntity(
         this.portal_template,
-        this.initial_position,
+        this.group_positions[i],
         thePlayer.GetWorldRotation()
-      )
-    );
+      );
+      rift.ActivateRift();
 
-    this.wildhunt_rift_handler.start();
-
-    // i add this while loop because i don't know how 
-    // the GC (if there is one) works in the engine.
-    // And i don't want the class to be garbage collected
-    // while it's still doing its job with timers and all.
-    // We're in a latent function anyways so it's no big deal,
-    // it's only delaying the next encounter by a few seconds.
-    while (!this.wildhunt_rift_handler.job_done) {
-      SleepOneFrame();
+      rifts.PushBack(rift);
     }
+
+
+    // this.portal_template = master.resources.getPortalResource();
+    // this.wildhunt_rift_handler = new WildHuntRiftHandler in this;
+    // this.wildhunt_rift_handler.rifts.PushBack(
+    //   theGame.CreateEntity(
+    //     this.portal_template,
+    //     this.initial_position,
+    //     thePlayer.GetWorldRotation()
+    //   )
+    // );
+
+    // this.wildhunt_rift_handler.start();
+
+    // // i add this while loop because i don't know how 
+    // // the GC (if there is one) works in the engine.
+    // // And i don't want the class to be garbage collected
+    // // while it's still doing its job with timers and all.
+    // // We're in a latent function anyways so it's no big deal,
+    // // it's only delaying the next encounter by a few seconds.
+    // while (!this.wildhunt_rift_handler.job_done) {
+    //   SleepOneFrame();
+    // }
 
     return true;
   }
@@ -115,6 +135,8 @@ latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out maste
 
 class CreatureAmbushWitcherComposition extends CompositionSpawner {
   public function init() {
+    LogChannel('modRandomEncounters', "CreatureAmbushWitcherComposition");
+
     this
       .setRandomPositionMinRadius(20)
       .setRandomPositionMaxRadius(40);
