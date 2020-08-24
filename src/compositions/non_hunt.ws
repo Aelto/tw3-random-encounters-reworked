@@ -58,7 +58,6 @@ latent function makeCreatureWildHunt(out master: CRandomEncounters) {
 
 class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition {
   var portal_template: CEntityTemplate;
-  var wildhunt_rift_handler: WildHuntRiftHandler;
 
   protected latent function forEachEntity(entity: CEntity) {
     super.forEachEntity(entity);
@@ -94,29 +93,6 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
 
       rifts.PushBack(rift);
     }
-
-
-    // this.portal_template = master.resources.getPortalResource();
-    // this.wildhunt_rift_handler = new WildHuntRiftHandler in this;
-    // this.wildhunt_rift_handler.rifts.PushBack(
-    //   theGame.CreateEntity(
-    //     this.portal_template,
-    //     this.initial_position,
-    //     thePlayer.GetWorldRotation()
-    //   )
-    // );
-
-    // this.wildhunt_rift_handler.start();
-
-    // // i add this while loop because i don't know how 
-    // // the GC (if there is one) works in the engine.
-    // // And i don't want the class to be garbage collected
-    // // while it's still doing its job with timers and all.
-    // // We're in a latent function anyways so it's no big deal,
-    // // it's only delaying the next encounter by a few seconds.
-    // while (!this.wildhunt_rift_handler.job_done) {
-    //   SleepOneFrame();
-    // }
 
     return true;
   }
