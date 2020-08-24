@@ -104,7 +104,7 @@ class CModRExtra {
     return zone; 
   }
 
-  public function isNearNoticeboard(): bool {
+  private function isNearNoticeboard(): bool {
     var entities: array<CGameplayEntity>;
 
      // 'W3NoticeBoard' for noticeboards, 'W3FastTravelEntity' for signpost
@@ -120,6 +120,70 @@ class CModRExtra {
     );
 
     return entities.Size() > 0;
+  }
+
+  private function isPlayerNearSafeRoadsign(): bool {
+    var entities: array<CGameplayEntity>;
+    var i: int;
+
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      50, // range, we'll have to check if 50 is too big/small
+      1, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'W3FastTravelEntity'
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      if (this.isRoadsignSafe(entities[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private function isRoadsignSafe(roadsign: CGameplayEntity): bool {
+    // TODO: maybe get the map pin corresponding to the roadsign
+    // then check its `.type`
+    // theGame.GetCommonMapManager().GetMappins()
+    // with 
+    // if (fastTravelEntity && fastTravelEntity.entityName == pin.Tag)
+
+    switch (roadsign.entityName) {
+      case 'TODO':
+        return true;
+        break;
+    }
+
+    return false;
+  }
+
+  private function isNearGuards(): bool {
+    var entities: array<CGameplayEntity>;
+    var i: int;
+
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      50, // range, we'll have to check if 50 is too big/small
+      100, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'CNewNPC'
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      if (((CNewNPC)attacker).GetNPCType() == ENGT_Guard) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public function isPlayerInSettlement(): bool {
@@ -143,7 +207,8 @@ class CModRExtra {
       // any noticeboard.
       // TODO: get the nearest signpost and read its tag then check
       // if it is a known settlement.
-      return this.isNearNoticeboard();
+      return this.isNearNoticeboard()
+          || this.isNearGuards();
     }
     
     return thePlayer.IsInSettlement();
