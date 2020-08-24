@@ -119,8 +119,8 @@ abstract class CompositionSpawner {
     this.master = master;
 
     this.creature_type = this.getCreatureType(master);
-    this.creatures_templates = this.getCreaturesTemplates(master, this.creature_type);
-    this.number_of_creatures = this.getNumberOfCreatures(master, this.creatures_templates);
+    this.creatures_templates = this.getCreaturesTemplates(this.creature_type);
+    this.number_of_creatures = this.getNumberOfCreatures(this.creatures_templates);
 
     this.creatures_templates = fillEnemyTemplateList(
       this.creatures_templates,
@@ -138,6 +138,10 @@ abstract class CompositionSpawner {
       this.number_of_creatures,
       this._group_positions_density
     );
+
+    LogChannel('modRandomEncounters', "GroupComposition span - " + creature_type);
+    LogChannel('modRandomEncounters', "GroupComposition span - number of creatures: " + number_of_creatures);
+    LogChannel('modRandomEncounters', "GroupComposition span - initial position: " + VecToString(initial_position));
 
     success = this.beforeSpawningEntities();
     if (!success) {
@@ -215,28 +219,28 @@ abstract class CompositionSpawner {
     return this._creature_type;
   }
 
-  protected function getCreaturesTemplates(master: CRandomEncounters, _creature_type: CreatureType): EnemyTemplateList {
+  protected function getCreaturesTemplates(creature_type: CreatureType): EnemyTemplateList {
     if (this._creatures_templates_force) {
-      return master
-        .resources
-        .getCreatureResourceByCreatureType(_creature_type, master.rExtra);
+      return this._creatures_templates;
     }
 
-    return this._creatures_templates;
+    return master
+      .resources
+      .getCreatureResourceByCreatureType(creature_type, master.rExtra);
   }
 
-  protected function getNumberOfCreatures(master: CRandomEncounters, _creatures_templates: EnemyTemplateList): int {
+  protected function getNumberOfCreatures(creatures_templates: EnemyTemplateList): int {
     if (this._number_of_creatures != 0) {
       return this._number_of_creatures;
     }
 
     return rollDifficultyFactor(
-      _creatures_templates.difficulty_factor,
+      creatures_templates.difficulty_factor,
       master.settings.selectedDifficulty
     );
   }
 
-  protected function getInitialPosition(initial_position: Vector): bool {
+  protected function getInitialPosition(out initial_position: Vector): bool {
     var attempt: bool;
 
     if (this.spawn_position_force) {
