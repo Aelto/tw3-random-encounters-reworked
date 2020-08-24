@@ -103,6 +103,8 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     this.distance_threshold = 150 * 150; // squared value for performances
     this.starting_position = thePlayer.GetWorldPosition();
 
+    theSound.SoundEvent("stop_music");
+    theSound.SoundEvent("play_music_nomansgrad");
     theSound.SoundEvent("mus_griffin_chase");
 
     parent.AddTimer('GryphonFleeingPlayer_intervalDefaultFunction', 2, true);
