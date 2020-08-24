@@ -592,6 +592,8 @@ class CModRExtra {
     // when a creature is set to NO in the city spawn menu, 
     // we remove it from the spawning pool.
     if (this.isPlayerInSettlement()) {
+      LogChannel('modRandomEncounters', "player in settlement, removing city spawns");
+
       for (i = 0; i < CreatureMAX; i += 1) {
         if (!settings.creatures_city_spawns[i]) {
           spawn_roller.setCreatureCounter(i, 0);
