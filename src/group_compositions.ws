@@ -168,11 +168,32 @@ abstract class CompositionSpawner {
       }
     }
 
+    LogChannel('modRandomEncounters', "Adding trophies");
+
     for (i = 0; i < this.created_entities.Size(); i += 1) {
       this.forEachEntity(
         this.created_entities[i]
       );
+
+      LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
+
+      if (RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
+        LogChannel('modRandomEncounters', "adding 1 trophy " + this.creature_type);
+        
+        ((CActor)this.created_entities[i])
+          .GetInventory()
+          .AddAnItem(
+            master.resources.getCreatureTrophy(this.creature_type),
+            1
+          );
+      }
     }
+
+    // DEBUG, add every trophies to the inventory
+    // for (i = 0; i < CreatureMAX; i += 1) {
+    //   thePlayer.GetInventory()
+    //   .AddAnItem(master.resources.getCreatureTrophy(i), 1);
+    // }
 
     success = this.afterSpawningEntities();
     if (!success) {

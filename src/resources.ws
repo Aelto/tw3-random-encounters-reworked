@@ -5,7 +5,6 @@ class RE_Resources {
   public var creatures_resources: array<EnemyTemplateList>;
   public var humans_resources: array<EnemyTemplateList>;
 
-
   function load_resources() {
     var i: int;
     var empty_enemy_template_list: EnemyTemplateList;
@@ -167,6 +166,131 @@ class RE_Resources {
     entity_template = (CEntityTemplate)LoadResourceAsync( "gameplay\interactive_objects\rift\rift.w2ent", true);
     
     return entity_template;
+  }
+
+  public function getCreatureTrophy(creature_type: CreatureType): name {
+    switch (creature_type) {
+      case CreatureHuman:
+        return 'modrer_human_trophy';
+        break;
+      case CreatureARACHAS:
+        return 'modrer_arachas_trophy';
+        break;
+      case CreatureKIKIMORE:
+      case CreatureENDREGA:
+      case CreatureECHINOPS:
+      case CreatureSPIDER:
+      case CreatureCENTIPEDE:
+        return 'modrer_insectoid_trophy';
+        break;
+      case CreatureGHOUL:
+      case CreatureALGHOUL:
+      case CreatureDROWNER:
+      case CreatureROTFIEND:
+      case CreatureDROWNERDLC:
+        return 'modrer_necrophage_trophy';
+        break;
+      
+      case CreatureNEKKER:
+        return 'modrer_nekker_trophy';
+
+      case CreatureWRAITH:
+        return 'modrer_wraith_trophy';
+        break;
+      case CreatureHARPY:
+        return 'modrer_harpy_trophy';
+        break;
+      case CreatureBARGHEST:
+      case CreatureSKELETON:
+        return 'modrer_spirit_trophy';
+        break;
+      case CreatureWOLF:
+      case CreatureBOAR:
+      case CreatureBEAR:
+      case CreaturePANTHER:
+      case CreatureSKELWOLF:
+      case CreatureSKELBEAR:
+        return 'modrer_beast_trophy';
+        break;
+      case CreatureWILDHUNT:
+        return 'modrer_wildhunt_trophy';
+        break;
+      case CreatureLESHEN:
+        return 'modrer_leshen_trophy';
+        break;
+      case CreatureWEREWOLF:
+        return 'modrer_werewolf_trophy';
+        break;
+      case CreatureFIEND:
+        return 'modrer_fiend_trophy';
+        break;
+      case CreatureEKIMMARA:
+        return 'modrer_katakan_trophy';
+        break;
+      case CreatureKATAKAN:
+        return 'modrer_ekimmara_trophy';
+        break;
+      case CreatureGOLEM:
+      case CreatureELEMENTAL:
+        return 'modrer_elemental_trophy';
+        break;
+      case CreatureNIGHTWRAITH:
+        return 'modrer_nightwraith_trophy';
+        break;
+      case CreatureNOONWRAITH:
+        return 'modrer_noonwraith_trophy';
+        break;
+      case CreatureCHORT:
+        return 'modrer_czart_trophy';
+        break;
+      case CreatureCYCLOPS:
+        return 'modrer_cyclop_trophy';
+        break;
+      case CreatureTROLL:
+      case CreatureHAG:
+        return 'modrer_grave_hag_trophy';
+        break;
+      case CreatureFOGLET:
+        return 'modrer_fogling_trophy';
+        break;
+
+      case CreatureFLEDER:
+      case CreatureGARKAIN:
+        return 'modrer_garkain_trophy';
+        break;
+      case CreatureBRUXA:
+      case CreatureDETLAFF:
+        return 'modrer_vampire_trophy';
+        break;
+
+      case CreatureGIANT:
+        return 'modrer_giant_trophy';
+        break;
+      case CreatureSHARLEY:
+        return 'modrer_sharley_trophy';
+        break;
+      case CreatureWIGHT:
+        return 'modrer_wight_trophy';
+        break;
+      case CreatureGRYPHON:
+        return 'modrer_griffin_trophy';
+        break;
+      case CreatureCOCKATRICE:
+        return 'modrer_cockatrice_trophy';
+        break;
+      case CreatureBASILISK:
+        return 'modrer_basilisk_trophy';
+        break;
+      case CreatureWYVERN:
+        return 'modrer_wyvern_trophy';
+        break;
+      case CreatureFORKTAIL:
+        return 'modrer_forktail_trophy';
+        break;
+      case CreatureSKELTROLL:
+        return 'modrer_troll_trophy';
+        break;
+    }
   }
 }
 

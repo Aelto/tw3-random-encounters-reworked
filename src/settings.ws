@@ -32,6 +32,8 @@ class RE_Settings {
   // spawning chances.
   public var external_factors_coefficient: float;
 
+  public var monster_trophies_chances: array<int>;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -57,6 +59,7 @@ class RE_Settings {
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
     this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
+    this.loadMonsterTrophiesSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -127,6 +130,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('customGroundDay', 0);
     inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -141,6 +145,8 @@ class RE_Settings {
         this.creatures_chances_day.PushBack(0);
         this.creatures_chances_night.PushBack(0);
         this.creatures_city_spawns.PushBack(false);
+        this.monster_trophies_chances.PushBack(0);
+
       }
     }
   }
@@ -309,6 +315,58 @@ class RE_Settings {
     this.creatures_city_spawns[CreatureBASILISK]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Basilisk');
     this.creatures_city_spawns[CreatureWYVERN]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wyverns');
     this.creatures_city_spawns[CreatureFORKTAIL]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Forktails');
+  }
+
+  private function loadMonsterTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.monster_trophies_chances[CreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Harpies'));
+    this.monster_trophies_chances[CreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Endrega'));
+    this.monster_trophies_chances[CreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Ghouls'));
+    this.monster_trophies_chances[CreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Alghouls'));
+    this.monster_trophies_chances[CreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Nekkers'));
+    this.monster_trophies_chances[CreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Drowners'));
+    this.monster_trophies_chances[CreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Rotfiends'));
+    this.monster_trophies_chances[CreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wolves'));
+    this.monster_trophies_chances[CreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wraiths'));
+    this.monster_trophies_chances[CreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Spiders'));
+    this.monster_trophies_chances[CreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'WildHunt'));
+    this.monster_trophies_chances[CreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Humans'));
+    this.monster_trophies_chances[CreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Skeleton'));
+    this.monster_trophies_chances[CreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Barghest'));
+    this.monster_trophies_chances[CreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Echinops'));
+    this.monster_trophies_chances[CreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Centipede'));
+    this.monster_trophies_chances[CreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Kikimore'));
+    this.monster_trophies_chances[CreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'DrownerDLC'));
+    this.monster_trophies_chances[CreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Arachas'));
+    this.monster_trophies_chances[CreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Bears'));
+    this.monster_trophies_chances[CreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Panther'));
+    this.monster_trophies_chances[CreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Boars'));
+
+    this.monster_trophies_chances[CreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Leshens'));
+    this.monster_trophies_chances[CreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Werewolves'));
+    this.monster_trophies_chances[CreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Fiends'));
+    this.monster_trophies_chances[CreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Ekimmara'));
+    this.monster_trophies_chances[CreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Katakan'));
+    this.monster_trophies_chances[CreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Golems'));
+    this.monster_trophies_chances[CreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Elementals'));
+    this.monster_trophies_chances[CreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'NightWraiths'));
+    this.monster_trophies_chances[CreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'NoonWraiths'));
+    this.monster_trophies_chances[CreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Chorts'));
+    this.monster_trophies_chances[CreatureCYCLOPS]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Cyclops'));
+    this.monster_trophies_chances[CreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Troll'));
+    this.monster_trophies_chances[CreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Hags'));
+    this.monster_trophies_chances[CreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Fogling'));
+    this.monster_trophies_chances[CreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Bruxa'));
+    this.monster_trophies_chances[CreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Fleder'));
+    this.monster_trophies_chances[CreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Garkain'));
+    this.monster_trophies_chances[CreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'HigherVamp'));
+    this.monster_trophies_chances[CreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Giant'));
+    this.monster_trophies_chances[CreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Sharley'));
+    this.monster_trophies_chances[CreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wight'));
+    this.monster_trophies_chances[CreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Gryphons'));
+    this.monster_trophies_chances[CreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Cockatrice'));
+    this.monster_trophies_chances[CreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Basilisk'));
+    this.monster_trophies_chances[CreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wyverns'));
+    this.monster_trophies_chances[CreatureFORKTAIL]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Forktails'));
   }
 
   public function doesAllowCitySpawns(): bool {

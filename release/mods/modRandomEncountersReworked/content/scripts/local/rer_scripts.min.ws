@@ -17,121 +17,91 @@ enum EHumanType
 }
 
 enum CreatureType {
-  SMALL_CREATURE,
-  LARGE_CREATURE
-}
+  CreatureHuman        = 0,
+  CreatureARACHAS      = 1,
+  CreatureENDREGA      = 2,
+  CreatureGHOUL        = 3,
+  CreatureALGHOUL      = 4,
+  CreatureNEKKER       = 5,
+  CreatureDROWNER      = 6,
+  CreatureROTFIEND     = 7,
+  CreatureWOLF         = 8,
+  CreatureWRAITH       = 9,
+  CreatureHARPY        = 10,
+  CreatureSPIDER       = 11,
+  CreatureCENTIPEDE    = 12,
+  CreatureDROWNERDLC   = 13,  
+  CreatureBOAR         = 14,  
+  CreatureBEAR         = 15,
+  CreaturePANTHER      = 16,  
+  CreatureSKELETON     = 17,
+  CreatureECHINOPS     = 18,
+  CreatureKIKIMORE     = 19,
+  CreatureBARGHEST     = 20,
+  CreatureSKELWOLF     = 21,
+  CreatureSKELBEAR     = 22,
+  CreatureWILDHUNT     = 23,
 
-enum SmallCreatureType {
-  SmallCreatureHuman        = 0,
-  SmallCreatureARACHAS      = 1,
-  SmallCreatureENDREGA      = 2,
-  SmallCreatureGHOUL        = 3,
-  SmallCreatureALGHOUL      = 4,
-  SmallCreatureNEKKER       = 5,
-  SmallCreatureDROWNER      = 6,
-  SmallCreatureROTFIEND     = 7,
-  SmallCreatureWOLF         = 8,
-  SmallCreatureWRAITH       = 9,
-  SmallCreatureHARPY        = 10,
-  SmallCreatureSPIDER       = 11,
-  SmallCreatureCENTIPEDE    = 12,
-  SmallCreatureDROWNERDLC   = 13,  
-  SmallCreatureBOAR         = 14,  
-  SmallCreatureBEAR         = 15,
-  SmallCreaturePANTHER      = 16,  
-  SmallCreatureSKELETON     = 17,
-  SmallCreatureECHINOPS     = 18,
-  SmallCreatureKIKIMORE     = 19,
-  SmallCreatureBARGHEST     = 20,
-  SmallCreatureSKELWOLF     = 21,
-  SmallCreatureSKELBEAR     = 22,
-  SmallCreatureWILDHUNT     = 23,
-
-  // It is important to keep the numbers continuous.
-  // The `SpawnRoller` classes uses these numbers to
-  // to fill its arrays.
-  // (so that i dont have to write 40 lines by hand)
-  SmallCreatureMAX          = 24,
-  SmallCreatureNONE         = 25,
-}
-
-enum LargeCreatureType {
-  LargeCreatureLESHEN       = 0,
-  LargeCreatureWEREWOLF     = 1,
-  LargeCreatureFIEND        = 2,
-  LargeCreatureEKIMMARA     = 3,
-  LargeCreatureKATAKAN      = 4,
-  LargeCreatureGOLEM        = 5,
-  LargeCreatureELEMENTAL    = 6,
-  LargeCreatureNIGHTWRAITH  = 7,
-  LargeCreatureNOONWRAITH   = 8,
-  LargeCreatureCHORT        = 9,
-  LargeCreatureCYCLOPS      = 10,
-  LargeCreatureTROLL        = 11,
-  LargeCreatureHAG          = 12,
-  LargeCreatureFOGLET       = 13,
-  LargeCreatureBRUXA        = 14,
-  LargeCreatureFLEDER       = 15,
-  LargeCreatureGARKAIN      = 16,
-  LargeCreatureDETLAFF      = 17,
-  LargeCreatureGIANT        = 18,  
-  LargeCreatureSHARLEY      = 19,
-  LargeCreatureWIGHT        = 20,
-  LargeCreatureGRYPHON      = 21,
-  LargeCreatureCOCKATRICE   = 22,
-  LargeCreatureBASILISK     = 23,
-  LargeCreatureWYVERN       = 24,
-  LargeCreatureFORKTAIL     = 25,
-  LargeCreatureSKELTROLL    = 26,
-
+  // large creatures below
+  CreatureLESHEN       = 24,
+  CreatureWEREWOLF     = 25,
+  CreatureFIEND        = 26,
+  CreatureEKIMMARA     = 27,
+  CreatureKATAKAN      = 28,
+  CreatureGOLEM        = 29,
+  CreatureELEMENTAL    = 30,
+  CreatureNIGHTWRAITH  = 31,
+  CreatureNOONWRAITH   = 32,
+  CreatureCHORT        = 33,
+  CreatureCYCLOPS      = 34,
+  CreatureTROLL        = 35,
+  CreatureHAG          = 36,
+  CreatureFOGLET       = 37,
+  CreatureBRUXA        = 38,
+  CreatureFLEDER       = 39,
+  CreatureGARKAIN      = 40,
+  CreatureDETLAFF      = 41,
+  CreatureGIANT        = 42,  
+  CreatureSHARLEY      = 43,
+  CreatureWIGHT        = 44,
+  CreatureGRYPHON      = 45,
+  CreatureCOCKATRICE   = 46,
+  CreatureBASILISK     = 47,
+  CreatureWYVERN       = 48,
+  CreatureFORKTAIL     = 49,
+  CreatureSKELTROLL    = 50,
 
   // It is important to keep the numbers continuous.
   // The `SpawnRoller` classes uses these numbers to
   // to fill its arrays.
   // (so that i dont have to write 40 lines by hand)
-  LargeCreatureMAX          = 27,
-  LargeCreatureNONE         = 28
+  CreatureMAX          = 51,
+  CreatureNONE         = 52,
 }
+
 
 enum EncounterType {
-  EncounterType_DEFAULT = 0,
-  EncounterType_HUNT    = 1
+  EncounterType_DEFAULT  = 0,
+  EncounterType_HUNT     = 1,
+  EncounterType_CONTRACT = 2
 }
 
 // Sometimes solo creatures can be accompanied by smaller creatures,
 // this is what i call a group composition. Imagine a leshen and a few wolves
 // or a giant fighting humans.
 
-latent function makeGroupComposition(encounter_type: EncounterType, creature_type: CreatureType, random_encounters_class: CRandomEncounters) {
+latent function makeGroupComposition(encounter_type: EncounterType, random_encounters_class: CRandomEncounters) {
   if (encounter_type == EncounterType_HUNT) {
-    switch (creature_type) {
-      case SMALL_CREATURE:
-        LogChannel('modRandomEncounters', "spawning type SMALL_CREATURE - HUNT");
-        createRandomSmallCreatureHunt(random_encounters_class);
-        break;
-
-      case LARGE_CREATURE:
-        LogChannel('modRandomEncounters', "spawning type LARGE_CREATURE - HUNT");
-        createRandomLargeCreatureHunt(random_encounters_class);
-        break;
-    }
+    LogChannel('modRandomEncounters', "spawning - HUNT");
+    createRandomCreatureHunt(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
     }
   }
   else {
-    switch (creature_type) {
-      case SMALL_CREATURE:
-        LogChannel('modRandomEncounters', "spawning type SMALL_CREATURE");
-        createRandomSmallCreatureComposition(random_encounters_class);
-        break;
-
-      case LARGE_CREATURE:
-        LogChannel('modRandomEncounters', "spawning type LARGE_CREATURE");
-        createRandomLargeCreatureComposition(random_encounters_class);
-        break;
-    }
+    LogChannel('modRandomEncounters', "spawning - NOT HUNT");
+    createRandomCreatureComposition(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
@@ -139,11 +109,264 @@ latent function makeGroupComposition(encounter_type: EncounterType, creature_typ
   }
 }
 
+abstract class CompositionSpawner {
+
+  // When you need to force a creature type
+  var _creature_type: CreatureType;
+  default _creature_type = CreatureNONE;
+
+  public function setCreatureType(type: CreatureType): CompositionSpawner {
+    this._creature_type = type;
+
+    return this;
+  }
+
+  // When you need to force a number of creatures
+  var _number_of_creatures: int;
+  default _number_of_creatures = 0;
+
+  public function setNumberOfCreatures(count: int): CompositionSpawner {
+    this._number_of_creatures = count;
+
+    return this;
+  }
+
+  // When you need to force the spawn position
+  var spawn_position: Vector;
+  var spawn_position_force: bool;
+  default spawn_position_force = false;
+  
+  public function setSpawnPosition(position: Vector): CompositionSpawner {
+    this.spawn_position = position;
+    this.spawn_position_force = true;
+
+    return this;
+  }
+
+  // When you need to force the creature template
+  var _creatures_templates: EnemyTemplateList;
+  var _creatures_templates_force: bool;
+  default _creatures_templates_force = false;
+
+  public function setCreaturesTemplates(templates: EnemyTemplateList): CompositionSpawner {
+    this._creatures_templates = templates;
+    this._creatures_templates_force = true;
+
+    return this;
+  }
+
+  // When using a random position
+  // this will be the max radius used
+  var _random_position_max_radius: float;
+  default _random_position_max_radius = 200;
+
+  public function setRandomPositionMaxRadius(radius: float): CompositionSpawner {
+    this._random_position_max_radius = radius;
+
+    return this;
+  }
+
+  // When using a random position
+  // this will be the min radius used
+  var _random_positition_min_radius: float;
+  default _random_positition_min_radius = 150;
+
+  public function setRandomPositionMinRadius(radius: float): CompositionSpawner {
+    this._random_positition_min_radius = radius;
+
+    return this;
+  }
+
+  // when spawning multiple creature
+  var _group_positions_density: float;
+  default _group_positions_density = 0.01;
+
+  public function setGroupPositionsDensity(density: float): CompositionSpawner {
+    this._group_positions_density = density;
+
+    return this;
+  }
+
+  var master: CRandomEncounters;
+  var creature_type: CreatureType;
+  var creatures_templates: EnemyTemplateList;
+  var number_of_creatures: int;
+  var initial_position: Vector;
+  var group_positions: array<Vector>;
+  var created_entities: array<CEntity>;
+
+  public latent function spawn(master: CRandomEncounters) {
+    var current_entity_template: SEnemyTemplate;
+    var current_template: CEntityTemplate;
+    var i: int;
+    var j: int;
+    var group_positions_index: int;
+    var success: bool;
+
+    this.master = master;
+
+    this.creature_type = this.getCreatureType(master);
+    this.creatures_templates = this.getCreaturesTemplates(this.creature_type);
+    this.number_of_creatures = this.getNumberOfCreatures(this.creatures_templates);
+
+    this.creatures_templates = fillEnemyTemplateList(
+      this.creatures_templates,
+      this.number_of_creatures
+    );
+
+    if (!this.getInitialPosition(this.initial_position)) {
+      LogChannel('modRandomEncounters', "could not find proper spawning position");
+
+      return;
+    }
+
+    this.group_positions = getGroupPositions(
+      this.initial_position,
+      this.number_of_creatures,
+      this._group_positions_density
+    );
+
+    LogChannel('modRandomEncounters', "GroupComposition span - " + creature_type);
+    LogChannel('modRandomEncounters', "GroupComposition span - number of creatures: " + number_of_creatures);
+    LogChannel('modRandomEncounters', "GroupComposition span - initial position: " + VecToString(initial_position));
+
+    success = this.beforeSpawningEntities();
+    if (!success) {
+      return;
+    }
+
+    for (i = 0; i < this.creatures_templates.templates.Size(); i += 1) {
+      current_entity_template = this.creatures_templates.templates[i];
+
+      if (current_entity_template.count > 0) {
+        current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
+
+        for (j = 0; j < current_entity_template.count; j += 1) {
+          created_entities.PushBack(
+            this.createEntity(
+              current_template,
+              group_positions[group_positions_index],
+              thePlayer.GetWorldRotation()
+            )
+          );
+
+          group_positions_index += 1;
+        }
+      }
+    }
+
+    LogChannel('modRandomEncounters', "Adding trophies");
+
+    for (i = 0; i < this.created_entities.Size(); i += 1) {
+      this.forEachEntity(
+        this.created_entities[i]
+      );
+
+      if (RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
+        ((CActor)this.created_entities[i])
+          .GetInventory()
+          .AddAnItem(
+            master.resources.getCreatureTrophy(this.creature_type),
+            1
+          );
+      }
+    }
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      thePlayer.GetInventory()
+      .AddAnItem(master.resources.getCreatureTrophy(i), 1);
+    }
+
+    success = this.afterSpawningEntities();
+    if (!success) {
+      return;
+    }
+  }
+
+  // A method to override if needed,
+  // such as creating a custom class for handling the fight.
+  // If it returns false the spawn is cancelled.
+  protected latent function beforeSpawningEntities(): bool {
+    return true;
+  }
+
+  protected latent function createEntity(template: CEntityTemplate, position: Vector, rotation: EulerAngles): CEntity {
+    return theGame.CreateEntity(
+      template,
+      position,
+      rotation
+    );
+  }
+
+  // A method to override if needed,
+  // such as creating a custom class and attaching it.
+  protected latent function forEachEntity(entity: CEntity) {}
+
+  // A method to override if needed,
+  // such as creating a custom class for handling the fight.
+  // If it returns false the spawn is cancelled.
+  protected latent function afterSpawningEntities(): bool {
+    return true;
+  }
+
+
+
+  protected function getCreatureType(master: CRandomEncounters): CreatureType {
+    if (this._creature_type == CreatureNONE) {
+      return master.rExtra.getRandomCreatureByCurrentArea(
+        master.settings,
+        master.spawn_roller
+      );
+    }
+
+    return this._creature_type;
+  }
+
+  protected function getCreaturesTemplates(creature_type: CreatureType): EnemyTemplateList {
+    if (this._creatures_templates_force) {
+      return this._creatures_templates;
+    }
+
+    return master
+      .resources
+      .getCreatureResourceByCreatureType(creature_type, master.rExtra);
+  }
+
+  protected function getNumberOfCreatures(creatures_templates: EnemyTemplateList): int {
+    if (this._number_of_creatures != 0) {
+      return this._number_of_creatures;
+    }
+
+    return rollDifficultyFactor(
+      creatures_templates.difficulty_factor,
+      master.settings.selectedDifficulty
+    );
+  }
+
+  protected function getInitialPosition(out initial_position: Vector): bool {
+    var attempt: bool;
+
+    if (this.spawn_position_force) {
+      return true;
+    }
+
+    attempt = getRandomPositionBehindCamera(
+      initial_position,
+      this._random_position_max_radius,
+      this._random_positition_min_radius,
+      10
+    );
+
+    return attempt;
+  }
+
+}
+
 class CRandomEncounterInitializer extends CEntityMod {
   default modName = 'Random Encounters Reworked';
-  default modAuthor = "erxv";
-  default modUrl = "http://www.nexusmods.com/witcher3/mods/785?";
-  default modVersion = '1.31';
+  default modAuthor = "Aeltoth";
+  default modUrl = "http://www.nexusmods.com/witcher3/mods/5018";
+  default modVersion = '0.9.4.1';
 
   default logLevel = MLOG_DEBUG;
 
@@ -221,8 +444,6 @@ statemachine class CRandomEncounters extends CEntity {
   timer function onceReady(optional delta: float, optional id: Int32) {
     if (!this.settings.hide_next_notifications) {
       displayRandomEncounterEnabledNotification();
-
-      this.settings.setHideNextNotificationsSettings(true);
     }
   }
 
@@ -251,6 +472,39 @@ statemachine class CRandomEncounters extends CEntity {
   }
 }
 
+// exec function rer_start_encounter(optional creature: CreatureType) {
+//   var rer_entity : CRandomEncounters;
+//   var entities : array<CEntity>;
+
+//   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
+		
+//   if (entities.Size() == 0) {
+//     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+    
+//     return;
+//   }
+
+//   rer_entity = (CRandomEncounters)entities[0];
+
+//   createRandomCreatureComposition(rer_entity, creature);
+// }
+
+// exec function rer_start_hunt(optional creature: CreatureType) {
+//   var rer_entity : CRandomEncounters;
+//   var entities : array<CEntity>;
+
+//   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
+		
+//   if (entities.Size() == 0) {
+//     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+    
+//     return;
+//   }
+
+//   rer_entity = (CRandomEncounters)entities[0];
+
+//   createRandomCreatureHunt(rer_entity, creature);
+// }
 function displayRandomEncounterEnabledNotification() {
   theGame
   .GetGuiManager()
@@ -260,33 +514,18 @@ function displayRandomEncounterEnabledNotification() {
 }
 
 class RE_Resources {
-  public var novbandit, pirate, skelpirate, bandit, nilf, cannibal, renegade, skelbandit, skel2bandit, whunter: EnemyTemplateList;
-  public var gryphon, gryphonf, forktail, wyvern, cockatrice, cockatricef, basilisk, basiliskf, wight, sharley  : EnemyTemplateList;
-  public var fiend, chort, wildHunt, endrega, fogling, ghoul, alghoul, bear, skelbear, golem, elemental, hag, nekker : EnemyTemplateList;
-  public var ekimmara, katakan, whh, drowner, rotfiend, nightwraith, noonwraith, troll, skeltroll, wolf, skelwolf, wraith : EnemyTemplateList;
-  public var spider, harpy, leshen, werewolf, cyclop, arachas, vampire, skelelemental, bruxacity : EnemyTemplateList;
-  public var centipede, giant, panther, kikimore, gravier, garkain, fleder, echinops, bruxa, barghest, skeleton, detlaff, boar : EnemyTemplateList;
-
   public var blood_splats : array<string>;
 
-  public var small_creatures_resources: array<EnemyTemplateList>;
-  public var large_creatures_resources: array<EnemyTemplateList>;
+  public var creatures_resources: array<EnemyTemplateList>;
   public var humans_resources: array<EnemyTemplateList>;
-
 
   function load_resources() {
     var i: int;
     var empty_enemy_template_list: EnemyTemplateList;
 
-    if (this.small_creatures_resources.Size() == 0) {
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        this.small_creatures_resources.PushBack(empty_enemy_template_list);
-      }
-    }
-
-    if (this.large_creatures_resources.Size() == 0) {
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        this.large_creatures_resources.PushBack(empty_enemy_template_list);
+    if (this.creatures_resources.Size() == 0) {
+      for (i = 0; i < CreatureMAX; i += 1) {
+        this.creatures_resources.PushBack(empty_enemy_template_list);
       }
     }
 
@@ -314,22 +553,16 @@ class RE_Resources {
     return this.humans_resources[human_type];
   }
 
-  public function getCreatureResourceBySmallCreatureType(creature_type: SmallCreatureType, out rExtra: CModRExtra): EnemyTemplateList {
-    LogChannel('modRandomEncounters', "get creature resource by small creature type: " + creature_type);
+  public function getCreatureResourceByCreatureType(creature_type: CreatureType, out rExtra: CModRExtra): EnemyTemplateList {
+    LogChannel('modRandomEncounters', "get creature resource by creature type: " + creature_type);
 
-    if (creature_type == SmallCreatureHuman) {
+    if (creature_type == CreatureHuman) {
       return this.getHumanResourcesByHumanType(
         rExtra.getRandomHumanTypeByCurrentArea()
       );
     }
 
-    return this.small_creatures_resources[creature_type];
-  }
-
-  public function getCreatureResourceByLargeCreatureType(creature_type: LargeCreatureType): EnemyTemplateList {
-    LogChannel('modRandomEncounters', "get creature resource by large creature type: " + creature_type);
-
-    return this.large_creatures_resources[creature_type];
+    return this.creatures_resources[creature_type];
   }
 
   private function load_blood_splats() {
@@ -340,74 +573,74 @@ class RE_Resources {
   }
 
   private function loadBloodAndWineResources() {
-    this.large_creatures_resources[LargeCreatureWIGHT] = re_wight();
-    this.large_creatures_resources[LargeCreatureSHARLEY] = re_sharley();
-    this.small_creatures_resources[SmallCreatureCENTIPEDE] = re_centipede();
-    this.large_creatures_resources[LargeCreatureGIANT] = re_giant();
-    this.small_creatures_resources[SmallCreaturePANTHER] = re_panther();
-    this.small_creatures_resources[SmallCreatureKIKIMORE] = re_kikimore();
-    this.small_creatures_resources[SmallCreatureDROWNERDLC] = re_gravier();
-    this.large_creatures_resources[LargeCreatureGARKAIN] = re_garkain();
-    this.large_creatures_resources[LargeCreatureFLEDER] = re_fleder();
-    this.small_creatures_resources[SmallCreatureECHINOPS] = re_echinops();
-    this.large_creatures_resources[LargeCreatureBRUXA] = re_bruxa();
-    this.small_creatures_resources[SmallCreatureBARGHEST] = re_barghest();
-    this.small_creatures_resources[SmallCreatureSKELETON] = re_skeleton();
-    this.large_creatures_resources[LargeCreatureDETLAFF] = re_detlaff();
+    this.creatures_resources[CreatureWIGHT] = re_wight();
+    this.creatures_resources[CreatureSHARLEY] = re_sharley();
+    this.creatures_resources[CreatureCENTIPEDE] = re_centipede();
+    this.creatures_resources[CreatureGIANT] = re_giant();
+    this.creatures_resources[CreaturePANTHER] = re_panther();
+    this.creatures_resources[CreatureKIKIMORE] = re_kikimore();
+    this.creatures_resources[CreatureDROWNERDLC] = re_gravier();
+    this.creatures_resources[CreatureGARKAIN] = re_garkain();
+    this.creatures_resources[CreatureFLEDER] = re_fleder();
+    this.creatures_resources[CreatureECHINOPS] = re_echinops();
+    this.creatures_resources[CreatureBRUXA] = re_bruxa();
+    this.creatures_resources[CreatureBARGHEST] = re_barghest();
+    this.creatures_resources[CreatureSKELETON] = re_skeleton();
+    this.creatures_resources[CreatureDETLAFF] = re_detlaff();
   }
 
   private function loadHearOfStoneResources() {
-    this.small_creatures_resources[SmallCreatureSPIDER] = re_spider();
-    this.small_creatures_resources[SmallCreatureBOAR] = re_boar();
+    this.creatures_resources[CreatureSPIDER] = re_spider();
+    this.creatures_resources[CreatureBOAR] = re_boar();
   }
 
   private function load_default_entities() {
-    this.large_creatures_resources[LargeCreatureGRYPHON] = re_gryphon();
-    this.large_creatures_resources[LargeCreatureFORKTAIL] = re_forktail();
-    this.large_creatures_resources[LargeCreatureWYVERN] = re_wyvern();
-    this.large_creatures_resources[LargeCreatureCOCKATRICE] = re_cockatrice();
+    this.creatures_resources[CreatureGRYPHON] = re_gryphon();
+    this.creatures_resources[CreatureFORKTAIL] = re_forktail();
+    this.creatures_resources[CreatureWYVERN] = re_wyvern();
+    this.creatures_resources[CreatureCOCKATRICE] = re_cockatrice();
     //cockatricef = re_cockatricef();
-    this.large_creatures_resources[LargeCreatureBASILISK] = re_basilisk();
+    this.creatures_resources[CreatureBASILISK] = re_basilisk();
     //basiliskf = re_basiliskf();
-    this.small_creatures_resources[LargeCreatureFIEND] = re_fiend();
-    this.large_creatures_resources[LargeCreatureCHORT] = re_chort();
-    this.small_creatures_resources[SmallCreatureENDREGA] = re_endrega();
-    this.large_creatures_resources[LargeCreatureFOGLET] = re_fogling();
-    this.small_creatures_resources[SmallCreatureGHOUL] = re_ghoul();
-    this.small_creatures_resources[SmallCreatureALGHOUL] = re_alghoul();
-    this.small_creatures_resources[SmallCreatureBEAR] = re_bear();
+    this.creatures_resources[CreatureFIEND] = re_fiend();
+    this.creatures_resources[CreatureCHORT] = re_chort();
+    this.creatures_resources[CreatureENDREGA] = re_endrega();
+    this.creatures_resources[CreatureFOGLET] = re_fogling();
+    this.creatures_resources[CreatureGHOUL] = re_ghoul();
+    this.creatures_resources[CreatureALGHOUL] = re_alghoul();
+    this.creatures_resources[CreatureBEAR] = re_bear();
     
     
-    this.large_creatures_resources[LargeCreatureGOLEM] = re_golem();
-    this.large_creatures_resources[LargeCreatureELEMENTAL] = re_elemental();
-    this.large_creatures_resources[LargeCreatureHAG] = re_hag();
-    this.small_creatures_resources[SmallCreatureNEKKER] = re_nekker();
-    this.large_creatures_resources[LargeCreatureEKIMMARA] = re_ekimmara();
-    this.large_creatures_resources[LargeCreatureKATAKAN] = re_katakan();
+    this.creatures_resources[CreatureGOLEM] = re_golem();
+    this.creatures_resources[CreatureELEMENTAL] = re_elemental();
+    this.creatures_resources[CreatureHAG] = re_hag();
+    this.creatures_resources[CreatureNEKKER] = re_nekker();
+    this.creatures_resources[CreatureEKIMMARA] = re_ekimmara();
+    this.creatures_resources[CreatureKATAKAN] = re_katakan();
     
     
-    this.small_creatures_resources[SmallCreatureDROWNER] = re_drowner();
-    this.small_creatures_resources[SmallCreatureROTFIEND] = re_rotfiend();
-    this.large_creatures_resources[LargeCreatureNIGHTWRAITH] = re_nightwraith();
-    this.large_creatures_resources[LargeCreatureNOONWRAITH] = re_noonwraith();
-    this.large_creatures_resources[LargeCreatureTROLL] = re_troll();
+    this.creatures_resources[CreatureDROWNER] = re_drowner();
+    this.creatures_resources[CreatureROTFIEND] = re_rotfiend();
+    this.creatures_resources[CreatureNIGHTWRAITH] = re_nightwraith();
+    this.creatures_resources[CreatureNOONWRAITH] = re_noonwraith();
+    this.creatures_resources[CreatureTROLL] = re_troll();
     
-    this.small_creatures_resources[SmallCreatureWOLF] = re_wolf();
+    this.creatures_resources[CreatureWOLF] = re_wolf();
     
-    this.small_creatures_resources[SmallCreatureWRAITH] = re_wraith();    
-    this.small_creatures_resources[SmallCreatureHARPY] = re_harpy();
-    this.large_creatures_resources[LargeCreatureLESHEN] = re_leshen();
-    this.large_creatures_resources[LargeCreatureWEREWOLF] = re_werewolf();
-    this.large_creatures_resources[LargeCreatureCYCLOPS] = re_cyclop();
-    this.small_creatures_resources[SmallCreatureARACHAS] = re_arachas();
-    this.large_creatures_resources[LargeCreatureBRUXA] = re_bruxacity();
+    this.creatures_resources[CreatureWRAITH] = re_wraith();    
+    this.creatures_resources[CreatureHARPY] = re_harpy();
+    this.creatures_resources[CreatureLESHEN] = re_leshen();
+    this.creatures_resources[CreatureWEREWOLF] = re_werewolf();
+    this.creatures_resources[CreatureCYCLOPS] = re_cyclop();
+    this.creatures_resources[CreatureARACHAS] = re_arachas();
+    this.creatures_resources[CreatureBRUXA] = re_bruxacity();
 
-    this.large_creatures_resources[LargeCreatureSKELTROLL] = re_skeltroll();
-    this.small_creatures_resources[SmallCreatureSKELBEAR] = re_skelbear();
-    this.small_creatures_resources[SmallCreatureSKELWOLF] = re_skelwolf();
+    this.creatures_resources[CreatureSKELTROLL] = re_skeltroll();
+    this.creatures_resources[CreatureSKELBEAR] = re_skelbear();
+    this.creatures_resources[CreatureSKELWOLF] = re_skelwolf();
 
     // whh = re_whh();
-    this.small_creatures_resources[SmallCreatureWILDHUNT] = re_wildhunt();
+    this.creatures_resources[CreatureWILDHUNT] = re_wildhunt();
 
     this.humans_resources[HT_BANDIT] = re_bandit();
     this.humans_resources[HT_NOVBANDIT] = re_novbandit();
@@ -440,6 +673,139 @@ class RE_Resources {
 
     return output;
   }
+
+  public latent function getPortalResource(): CEntityTemplate {
+    var entity_template: CEntityTemplate;
+
+    entity_template = (CEntityTemplate)LoadResourceAsync( "gameplay\interactive_objects\rift\rift.w2ent", true);
+    
+    return entity_template;
+  }
+
+  public function getCreatureTrophy(creature_type: CreatureType): name {
+    switch (creature_type) {
+      case CreatureHuman:
+        return 'modrer_human_trophy';
+        break;
+      case CreatureARACHAS:
+        return 'modrer_arachas_trophy';
+        break;
+      case CreatureKIKIMORE:
+      case CreatureENDREGA:
+      case CreatureECHINOPS:
+      case CreatureSPIDER:
+      case CreatureCENTIPEDE:
+        return 'modrer_insectoid_trophy';
+        break;
+      case CreatureGHOUL:
+      case CreatureALGHOUL:
+      case CreatureDROWNER:
+      case CreatureROTFIEND:
+      case CreatureDROWNERDLC:
+        return 'modrer_necrophage_trophy';
+        break;
+      
+      case CreatureNEKKER:
+        return 'modrer_nekker_trophy';
+
+      case CreatureWRAITH:
+        return 'modrer_wraith_trophy';
+        break;
+      case CreatureHARPY:
+        return 'modrer_harpy_trophy';
+        break;
+      case CreatureBARGHEST:
+      case CreatureSKELETON:
+        return 'modrer_spirit_trophy';
+        break;
+      case CreatureWOLF:
+      case CreatureBOAR:
+      case CreatureBEAR:
+      case CreaturePANTHER:
+      case CreatureSKELWOLF:
+      case CreatureSKELBEAR:
+        return 'modrer_beast_trophy';
+        break;
+      case CreatureWILDHUNT:
+        return 'modrer_wildhunt_trophy';
+        break;
+      case CreatureLESHEN:
+        return 'modrer_leshen_trophy';
+        break;
+      case CreatureWEREWOLF:
+        return 'modrer_werewolf_trophy';
+        break;
+      case CreatureFIEND:
+        return 'modrer_fiend_trophy';
+        break;
+      case CreatureEKIMMARA:
+        return 'modrer_katakan_trophy';
+        break;
+      case CreatureKATAKAN:
+        return 'modrer_ekimmara_trophy';
+        break;
+      case CreatureGOLEM:
+      case CreatureELEMENTAL:
+        return 'modrer_elemental_trophy';
+        break;
+      case CreatureNIGHTWRAITH:
+        return 'modrer_nightwraith_trophy';
+        break;
+      case CreatureNOONWRAITH:
+        return 'modrer_noonwraith_trophy';
+        break;
+      case CreatureCHORT:
+        return 'modrer_czart_trophy';
+        break;
+      case CreatureCYCLOPS:
+        return 'modrer_cyclop_trophy';
+        break;
+      case CreatureTROLL:
+      case CreatureHAG:
+        return 'modrer_grave_hag_trophy';
+        break;
+      case CreatureFOGLET:
+        return 'modrer_fogling_trophy';
+        break;
+
+      case CreatureFLEDER:
+      case CreatureGARKAIN:
+        return 'modrer_garkain_trophy';
+        break;
+      case CreatureBRUXA:
+      case CreatureDETLAFF:
+        return 'modrer_vampire_trophy';
+        break;
+
+      case CreatureGIANT:
+        return 'modrer_giant_trophy';
+        break;
+      case CreatureSHARLEY:
+        return 'modrer_sharley_trophy';
+        break;
+      case CreatureWIGHT:
+        return 'modrer_wight_trophy';
+        break;
+      case CreatureGRYPHON:
+        return 'modrer_griffin_trophy';
+        break;
+      case CreatureCOCKATRICE:
+        return 'modrer_cockatrice_trophy';
+        break;
+      case CreatureBASILISK:
+        return 'modrer_basilisk_trophy';
+        break;
+      case CreatureWYVERN:
+        return 'modrer_wyvern_trophy';
+        break;
+      case CreatureFORKTAIL:
+        return 'modrer_forktail_trophy';
+        break;
+      case CreatureSKELTROLL:
+        return 'modrer_troll_trophy';
+        break;
+    }
+  }
 }
 
 function isHeartOfStoneActive(): bool {
@@ -455,22 +821,19 @@ class RE_Settings {
   
   public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
   public var all_monster_hunt_chance: int;
+  public var all_monster_contract_chance: int;
+  public var all_monster_ambush_chance: int;
   public var enableTrophies : bool;
-  public var citySpawn : int;
   public var selectedDifficulty : int;
 
-  // uses the enum `SmallCreature` and its values for the index/key.
+  // uses the enum `Creature` and its values for the index/key.
   // and the `int` for the value/chance.
-  public var small_creatures_chances_day: array<int>;
-  public var small_creatures_chances_night: array<int>;
+  public var creatures_chances_day: array<int>;
+  public var creatures_chances_night: array<int>;
 
-  // uses the enum `LargeCreature` and its values for the index/key.
-  // and the `int` for the value/chance.
-  public var large_creatures_chances_day: array<int>;
-  public var large_creatures_chances_night: array<int>;
-
-  // used when picking the EncounterType Large/Small
-  public var large_creature_chance: int;
+  // use the enums `Creature` & `Creature` for the indices.
+  // and the `bool` for the value.
+  public var creatures_city_spawns: array<bool>;
 
   // controls whether or not geralt will comment
   // when an encounter appears
@@ -482,13 +845,25 @@ class RE_Settings {
   // controls whether or not RER encounters will drop loot
   public var enable_encounters_loot: bool;
 
+  // tells how much impact an external factor has on a creature
+  // spawning chances.
+  public var external_factors_coefficient: float;
+
+  public var monster_trophies_chances: array<int>;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
+    if (this.shouldResetRERSettings(inGameConfigWrapper)) {
+      LogChannel('modRandomEncounters', 'reset RER settings');
+      this.resetRERSettings(inGameConfigWrapper);
+    }
+
     this.loadMonsterHuntsChances(inGameConfigWrapper);
-    this.loadLargeCreatureChance(inGameConfigWrapper);
+    this.loadMonsterContractsChances(inGameConfigWrapper);
+    this.loadMonsterAmbushChances(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
     // this.loadTrophiesSettings(inGameConfigWrapper);
@@ -500,6 +875,8 @@ class RE_Settings {
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
+    this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
+    this.loadMonsterTrophiesSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -508,10 +885,6 @@ class RE_Settings {
     theGame
     .GetGuiManager()
     .ShowNotification("Random Encounters XML settings loaded");
-  }
-
-  private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-  citySpawn = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'citySpawn'));
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -530,17 +903,10 @@ class RE_Settings {
     this.enable_encounters_loot = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableEncountersLoot');
   }
 
-  public function setHideNextNotificationsSettings(value: bool) {
-    if (value) {
-      theGame.GetInGameConfigWrapper()
-        .SetVarValue('RandomEncountersMENU', 'hideNextNotifications', 1);
-    }
-    else {
-      theGame.GetInGameConfigWrapper()
-        .SetVarValue('RandomEncountersMENU', 'hideNextNotifications', 0);
-    }
-
-    theGame.SaveUserSettings();
+  private function loadExternalFactorsCoefficientSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.external_factors_coefficient = StringToFloat(
+      inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'externalFactorsImpact')
+    );
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -548,162 +914,287 @@ class RE_Settings {
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
-    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyHigh'));
-    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customdFrequencyLow'));
-    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyHigh'));
-    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('custom', 'customnFrequencyLow'));  
+    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customdFrequencyHigh'));
+    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customdFrequencyLow'));
+    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customnFrequencyHigh'));
+    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customnFrequencyLow'));  
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'allMonsterHuntChance'));
+    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChance'));
   }
 
-  private function loadLargeCreatureChance(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.large_creature_chance = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'largeCreatureChance'));
+  private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.all_monster_contract_chance = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChance')
+    );
+  }
+
+  private function loadMonsterAmbushChances(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.all_monster_ambush_chance = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChance')
+    );
+  }
+
+  private function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
+    return !inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERmodInitialized');
+  }
+
+  private function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    inGameConfigWrapper.ApplyGroupPreset('RandomEncountersMENU', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencounterTypes', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreatureFrequency', 1); // medium frequency
+    inGameConfigWrapper.ApplyGroupPreset('customGroundDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
+    
+    inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
+    theGame.SaveUserSettings();
   }
   
 
   private function fillSettingsArrays() {
     var i: int;
 
-    if (this.small_creatures_chances_day.Size() == 0) {
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        this.small_creatures_chances_day.PushBack(0);
-        this.small_creatures_chances_night.PushBack(0);
-      }
-    }
-
-    if (this.large_creatures_chances_night.Size() == 0) {
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        this.large_creatures_chances_day.PushBack(0);
-        this.large_creatures_chances_night.PushBack(0);
+    if (this.creatures_chances_day.Size() == 0) {
+      for (i = 0; i < CreatureMAX; i += 1) {
+        this.creatures_chances_day.PushBack(0);
+        this.creatures_chances_night.PushBack(0);
+        this.creatures_city_spawns.PushBack(false);
       }
     }
   }
 
    
   private function loadCreaturesSpawningChances (out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.small_creatures_chances_day[SmallCreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Harpies'));
-    this.small_creatures_chances_day[SmallCreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Endrega'));
-    this.small_creatures_chances_day[SmallCreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ghouls'));
-    this.small_creatures_chances_day[SmallCreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Alghouls'));
-    this.small_creatures_chances_day[SmallCreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Nekkers'));
-    this.small_creatures_chances_day[SmallCreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Drowners'));
-    this.small_creatures_chances_day[SmallCreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Rotfiends'));
-    this.small_creatures_chances_day[SmallCreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
-    this.small_creatures_chances_day[SmallCreatureSKELWOLF]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
-    this.small_creatures_chances_day[SmallCreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wraiths'));
-    this.small_creatures_chances_day[SmallCreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Spiders'));
-    this.small_creatures_chances_day[SmallCreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'WildHunt'));
-    this.small_creatures_chances_day[SmallCreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Humans'));
-    this.small_creatures_chances_day[SmallCreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Skeleton'));
+    this.creatures_chances_day[CreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Harpies'));
+    this.creatures_chances_day[CreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Endrega'));
+    this.creatures_chances_day[CreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ghouls'));
+    this.creatures_chances_day[CreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Alghouls'));
+    this.creatures_chances_day[CreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Nekkers'));
+    this.creatures_chances_day[CreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Drowners'));
+    this.creatures_chances_day[CreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Rotfiends'));
+    this.creatures_chances_day[CreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
+    this.creatures_chances_day[CreatureSKELWOLF]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wolves'));
+    this.creatures_chances_day[CreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wraiths'));
+    this.creatures_chances_day[CreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Spiders'));
+    this.creatures_chances_day[CreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'WildHunt'));
+    this.creatures_chances_day[CreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Humans'));
+    this.creatures_chances_day[CreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Skeleton'));
 
 
     
 
     // Blood and Wine
-    this.small_creatures_chances_day[SmallCreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Barghest')); 
-    this.small_creatures_chances_day[SmallCreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Echinops')); 
-    this.small_creatures_chances_day[SmallCreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Centipede'));
-    this.small_creatures_chances_day[SmallCreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Kikimore'));
-    this.small_creatures_chances_day[SmallCreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'DrownerDLC'));
-    this.small_creatures_chances_day[SmallCreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Arachas'));
-    this.small_creatures_chances_day[SmallCreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
-    this.small_creatures_chances_day[SmallCreatureSKELBEAR]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
-    this.small_creatures_chances_day[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Panther'));
-    this.small_creatures_chances_day[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Boars'));
+    this.creatures_chances_day[CreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Barghest')); 
+    this.creatures_chances_day[CreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Echinops')); 
+    this.creatures_chances_day[CreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Centipede'));
+    this.creatures_chances_day[CreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Kikimore'));
+    this.creatures_chances_day[CreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'DrownerDLC'));
+    this.creatures_chances_day[CreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Arachas'));
+    this.creatures_chances_day[CreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
+    this.creatures_chances_day[CreatureSKELBEAR]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bears'));
+    this.creatures_chances_day[CreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Panther'));
+    this.creatures_chances_day[CreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Boars'));
 
-    this.large_creatures_chances_day[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Leshens'));
-    this.large_creatures_chances_day[LargeCreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Werewolves'));
-    this.large_creatures_chances_day[LargeCreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fiends'));
-    this.large_creatures_chances_day[LargeCreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ekimmara'));
-    this.large_creatures_chances_day[LargeCreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Katakan'));
-    this.large_creatures_chances_day[LargeCreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Golems'));
-    this.large_creatures_chances_day[LargeCreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Elementals'));
-    this.large_creatures_chances_day[LargeCreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NightWraiths'));
-    this.large_creatures_chances_day[LargeCreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NoonWraiths'));
-    this.large_creatures_chances_day[LargeCreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Chorts'));
-    this.large_creatures_chances_day[LargeCreatureCYCLOPS]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cyclops'));
-    this.large_creatures_chances_day[LargeCreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
-    this.large_creatures_chances_day[LargeCreatureSKELTROLL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
-    this.large_creatures_chances_day[LargeCreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Hags'));
-    this.large_creatures_chances_day[LargeCreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fogling'));
-    this.large_creatures_chances_day[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bruxa'));
-    this.large_creatures_chances_day[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fleder'));
-    this.large_creatures_chances_day[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Garkain'));
-    this.large_creatures_chances_day[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'HigherVamp'));
-    this.large_creatures_chances_day[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
-    this.large_creatures_chances_day[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
-    this.large_creatures_chances_day[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
-    this.large_creatures_chances_day[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Gryphons'));
-    this.large_creatures_chances_day[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cockatrice'));
-    this.large_creatures_chances_day[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Basilisk'));
-    this.large_creatures_chances_day[LargeCreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wyverns'));
-    this.large_creatures_chances_day[LargeCreatureFORKTAIL]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Forktails'));
+    this.creatures_chances_day[CreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Leshens'));
+    this.creatures_chances_day[CreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Werewolves'));
+    this.creatures_chances_day[CreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fiends'));
+    this.creatures_chances_day[CreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Ekimmara'));
+    this.creatures_chances_day[CreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Katakan'));
+    this.creatures_chances_day[CreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Golems'));
+    this.creatures_chances_day[CreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Elementals'));
+    this.creatures_chances_day[CreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NightWraiths'));
+    this.creatures_chances_day[CreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'NoonWraiths'));
+    this.creatures_chances_day[CreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Chorts'));
+    this.creatures_chances_day[CreatureCYCLOPS]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cyclops'));
+    this.creatures_chances_day[CreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
+    this.creatures_chances_day[CreatureSKELTROLL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Troll'));
+    this.creatures_chances_day[CreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Hags'));
+    this.creatures_chances_day[CreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fogling'));
+    this.creatures_chances_day[CreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Bruxa'));
+    this.creatures_chances_day[CreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Fleder'));
+    this.creatures_chances_day[CreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Garkain'));
+    this.creatures_chances_day[CreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'HigherVamp'));
+    this.creatures_chances_day[CreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Giant'));
+    this.creatures_chances_day[CreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Sharley'));
+    this.creatures_chances_day[CreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wight'));
+    this.creatures_chances_day[CreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Gryphons'));
+    this.creatures_chances_day[CreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Cockatrice'));
+    this.creatures_chances_day[CreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Basilisk'));
+    this.creatures_chances_day[CreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Wyverns'));
+    this.creatures_chances_day[CreatureFORKTAIL]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Forktails'));
 
-    this.small_creatures_chances_night[SmallCreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Harpies'));
-    this.small_creatures_chances_night[SmallCreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Endrega'));
-    this.small_creatures_chances_night[SmallCreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ghouls'));
-    this.small_creatures_chances_night[SmallCreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Alghouls'));
-    this.small_creatures_chances_night[SmallCreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Nekkers'));
-    this.small_creatures_chances_night[SmallCreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Drowners'));
-    this.small_creatures_chances_night[SmallCreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Rotfiends'));
-    this.small_creatures_chances_night[SmallCreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wolves'));
-    this.small_creatures_chances_night[SmallCreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wraiths'));
-    this.small_creatures_chances_night[SmallCreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Spiders'));
-    this.small_creatures_chances_night[SmallCreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'WildHunt'));
-    this.small_creatures_chances_night[SmallCreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Humans'));
-    this.small_creatures_chances_night[SmallCreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Skeleton'));
+    this.creatures_chances_night[CreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Harpies'));
+    this.creatures_chances_night[CreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Endrega'));
+    this.creatures_chances_night[CreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ghouls'));
+    this.creatures_chances_night[CreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Alghouls'));
+    this.creatures_chances_night[CreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Nekkers'));
+    this.creatures_chances_night[CreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Drowners'));
+    this.creatures_chances_night[CreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Rotfiends'));
+    this.creatures_chances_night[CreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wolves'));
+    this.creatures_chances_night[CreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wraiths'));
+    this.creatures_chances_night[CreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Spiders'));
+    this.creatures_chances_night[CreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'WildHunt'));
+    this.creatures_chances_night[CreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Humans'));
+    this.creatures_chances_night[CreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Skeleton'));
 
 
     // Blood and Wine
-    this.small_creatures_chances_night[SmallCreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Barghest')); 
-    this.small_creatures_chances_night[SmallCreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Echinops')); 
-    this.small_creatures_chances_night[SmallCreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Centipede'));
-    this.small_creatures_chances_night[SmallCreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Kikimore'));
-    this.small_creatures_chances_night[SmallCreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'DrownerDLC'));
-    this.small_creatures_chances_night[SmallCreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Arachas'));
-    this.small_creatures_chances_night[SmallCreatureBEAR]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
-    this.small_creatures_chances_night[SmallCreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
-    this.small_creatures_chances_night[SmallCreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
+    this.creatures_chances_night[CreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Barghest')); 
+    this.creatures_chances_night[CreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Echinops')); 
+    this.creatures_chances_night[CreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Centipede'));
+    this.creatures_chances_night[CreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Kikimore'));
+    this.creatures_chances_night[CreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'DrownerDLC'));
+    this.creatures_chances_night[CreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Arachas'));
+    this.creatures_chances_night[CreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bears'));
+    this.creatures_chances_night[CreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Panther'));
+    this.creatures_chances_night[CreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Boars'));
 
-    this.large_creatures_chances_night[LargeCreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Leshens'));
-    this.large_creatures_chances_night[LargeCreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Werewolves'));
-    this.large_creatures_chances_night[LargeCreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fiends'));
-    this.large_creatures_chances_night[LargeCreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ekimmara'));
-    this.large_creatures_chances_night[LargeCreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Katakan'));
-    this.large_creatures_chances_night[LargeCreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Golems'));
-    this.large_creatures_chances_night[LargeCreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Elementals'));
-    this.large_creatures_chances_night[LargeCreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NightWraiths'));
-    this.large_creatures_chances_night[LargeCreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NoonWraiths'));
-    this.large_creatures_chances_night[LargeCreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Chorts'));
-    this.large_creatures_chances_night[LargeCreatureCYCLOPS]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cyclops'));
-    this.large_creatures_chances_night[LargeCreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Troll'));
-    this.large_creatures_chances_night[LargeCreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Hags'));
-    this.large_creatures_chances_night[LargeCreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fogling'));
-    this.large_creatures_chances_night[LargeCreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bruxa'));
-    this.large_creatures_chances_night[LargeCreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fleder'));
-    this.large_creatures_chances_night[LargeCreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Garkain'));
-    this.large_creatures_chances_night[LargeCreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'HigherVamp'));
-    this.large_creatures_chances_night[LargeCreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
-    this.large_creatures_chances_night[LargeCreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
-    this.large_creatures_chances_night[LargeCreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
-    this.large_creatures_chances_night[LargeCreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Gryphons'));
-    this.large_creatures_chances_night[LargeCreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cockatrice'));
-    this.large_creatures_chances_night[LargeCreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Basilisk'));
-    this.large_creatures_chances_night[LargeCreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wyverns'));
-    this.large_creatures_chances_night[LargeCreatureFORKTAIL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Forktails'));
+    this.creatures_chances_night[CreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Leshens'));
+    this.creatures_chances_night[CreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Werewolves'));
+    this.creatures_chances_night[CreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fiends'));
+    this.creatures_chances_night[CreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Ekimmara'));
+    this.creatures_chances_night[CreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Katakan'));
+    this.creatures_chances_night[CreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Golems'));
+    this.creatures_chances_night[CreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Elementals'));
+    this.creatures_chances_night[CreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NightWraiths'));
+    this.creatures_chances_night[CreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'NoonWraiths'));
+    this.creatures_chances_night[CreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Chorts'));
+    this.creatures_chances_night[CreatureCYCLOPS]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cyclops'));
+    this.creatures_chances_night[CreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Troll'));
+    this.creatures_chances_night[CreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Hags'));
+    this.creatures_chances_night[CreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fogling'));
+    this.creatures_chances_night[CreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Bruxa'));
+    this.creatures_chances_night[CreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Fleder'));
+    this.creatures_chances_night[CreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Garkain'));
+    this.creatures_chances_night[CreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'HigherVamp'));
+    this.creatures_chances_night[CreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Giant'));
+    this.creatures_chances_night[CreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Sharley'));
+    this.creatures_chances_night[CreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wight'));
+    this.creatures_chances_night[CreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Gryphons'));
+    this.creatures_chances_night[CreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Cockatrice'));
+    this.creatures_chances_night[CreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Basilisk'));
+    this.creatures_chances_night[CreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Wyverns'));
+    this.creatures_chances_night[CreatureFORKTAIL]    = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', 'Forktails'));
   }
-}
 
-struct LargeCreatureCounter {
-  var type: LargeCreatureType;
-  var counter: int;
-}
+  private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.creatures_city_spawns[CreatureHARPY]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Harpies');
+    this.creatures_city_spawns[CreatureENDREGA]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Endrega');
+    this.creatures_city_spawns[CreatureGHOUL]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Ghouls');
+    this.creatures_city_spawns[CreatureALGHOUL]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Alghouls');
+    this.creatures_city_spawns[CreatureNEKKER]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Nekkers');
+    this.creatures_city_spawns[CreatureDROWNER]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Drowners');
+    this.creatures_city_spawns[CreatureROTFIEND]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Rotfiends');
+    this.creatures_city_spawns[CreatureWOLF]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wolves');
+    this.creatures_city_spawns[CreatureWRAITH]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wraiths');
+    this.creatures_city_spawns[CreatureSPIDER]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Spiders');
+    this.creatures_city_spawns[CreatureWILDHUNT]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'WildHunt');
+    this.creatures_city_spawns[CreatureHuman]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Humans');
+    this.creatures_city_spawns[CreatureSKELETON]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Skeleton');
+    this.creatures_city_spawns[CreatureBARGHEST]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Barghest');
+    this.creatures_city_spawns[CreatureECHINOPS]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Echinops');
+    this.creatures_city_spawns[CreatureCENTIPEDE]  = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Centipede');
+    this.creatures_city_spawns[CreatureKIKIMORE]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Kikimore');
+    this.creatures_city_spawns[CreatureDROWNERDLC] = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'DrownerDLC');
+    this.creatures_city_spawns[CreatureARACHAS]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Arachas');
+    this.creatures_city_spawns[CreatureBEAR]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Bears');
+    this.creatures_city_spawns[CreaturePANTHER]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Panther');
+    this.creatures_city_spawns[CreatureBOAR]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Boars');
 
-struct SmallCreatureCounter {
-  var type: SmallCreatureType;
-  var counter: int;
+    this.creatures_city_spawns[CreatureLESHEN]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Leshens');
+    this.creatures_city_spawns[CreatureWEREWOLF]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Werewolves');
+    this.creatures_city_spawns[CreatureFIEND]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Fiends');
+    this.creatures_city_spawns[CreatureEKIMMARA]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Ekimmara');
+    this.creatures_city_spawns[CreatureKATAKAN]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Katakan');
+    this.creatures_city_spawns[CreatureGOLEM]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Golems');
+    this.creatures_city_spawns[CreatureELEMENTAL]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Elementals');
+    this.creatures_city_spawns[CreatureNIGHTWRAITH]  = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'NightWraiths');
+    this.creatures_city_spawns[CreatureNOONWRAITH]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'NoonWraiths');
+    this.creatures_city_spawns[CreatureCHORT]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Chorts');
+    this.creatures_city_spawns[CreatureCYCLOPS]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Cyclops');
+    this.creatures_city_spawns[CreatureTROLL]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Troll');
+    this.creatures_city_spawns[CreatureHAG]          = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Hags');
+    this.creatures_city_spawns[CreatureFOGLET]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Fogling');
+    this.creatures_city_spawns[CreatureBRUXA]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Bruxa');
+    this.creatures_city_spawns[CreatureFLEDER]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Fleder');
+    this.creatures_city_spawns[CreatureGARKAIN]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Garkain');
+    this.creatures_city_spawns[CreatureDETLAFF]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'HigherVamp');
+    this.creatures_city_spawns[CreatureGIANT]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Giant');
+    this.creatures_city_spawns[CreatureSHARLEY]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Sharley');
+    this.creatures_city_spawns[CreatureWIGHT]        = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wight');
+    this.creatures_city_spawns[CreatureGRYPHON]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Gryphons');
+    this.creatures_city_spawns[CreatureCOCKATRICE]   = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Cockatrice');
+    this.creatures_city_spawns[CreatureBASILISK]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Basilisk');
+    this.creatures_city_spawns[CreatureWYVERN]       = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Wyverns');
+    this.creatures_city_spawns[CreatureFORKTAIL]     = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Forktails');
+  }
+
+  private function loadMonsterTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.monster_trophies_chances[CreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Harpies'));
+    this.monster_trophies_chances[CreatureENDREGA]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Endrega'));
+    this.monster_trophies_chances[CreatureGHOUL]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Ghouls'));
+    this.monster_trophies_chances[CreatureALGHOUL]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Alghouls'));
+    this.monster_trophies_chances[CreatureNEKKER]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Nekkers'));
+    this.monster_trophies_chances[CreatureDROWNER]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Drowners'));
+    this.monster_trophies_chances[CreatureROTFIEND]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Rotfiends'));
+    this.monster_trophies_chances[CreatureWOLF]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wolves'));
+    this.monster_trophies_chances[CreatureWRAITH]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wraiths'));
+    this.monster_trophies_chances[CreatureSPIDER]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Spiders'));
+    this.monster_trophies_chances[CreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'WildHunt'));
+    this.monster_trophies_chances[CreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Humans'));
+    this.monster_trophies_chances[CreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Skeleton'));
+    this.monster_trophies_chances[CreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Barghest'));
+    this.monster_trophies_chances[CreatureECHINOPS]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Echinops'));
+    this.monster_trophies_chances[CreatureCENTIPEDE]  = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Centipede'));
+    this.monster_trophies_chances[CreatureKIKIMORE]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Kikimore'));
+    this.monster_trophies_chances[CreatureDROWNERDLC] = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'DrownerDLC'));
+    this.monster_trophies_chances[CreatureARACHAS]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Arachas'));
+    this.monster_trophies_chances[CreatureBEAR]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Bears'));
+    this.monster_trophies_chances[CreaturePANTHER]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Panther'));
+    this.monster_trophies_chances[CreatureBOAR]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Boars'));
+
+    this.monster_trophies_chances[CreatureLESHEN]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Leshens'));
+    this.monster_trophies_chances[CreatureWEREWOLF]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Werewolves'));
+    this.monster_trophies_chances[CreatureFIEND]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Fiends'));
+    this.monster_trophies_chances[CreatureEKIMMARA]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Ekimmara'));
+    this.monster_trophies_chances[CreatureKATAKAN]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Katakan'));
+    this.monster_trophies_chances[CreatureGOLEM]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Golems'));
+    this.monster_trophies_chances[CreatureELEMENTAL]    = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Elementals'));
+    this.monster_trophies_chances[CreatureNIGHTWRAITH]  = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'NightWraiths'));
+    this.monster_trophies_chances[CreatureNOONWRAITH]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'NoonWraiths'));
+    this.monster_trophies_chances[CreatureCHORT]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Chorts'));
+    this.monster_trophies_chances[CreatureCYCLOPS]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Cyclops'));
+    this.monster_trophies_chances[CreatureTROLL]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Troll'));
+    this.monster_trophies_chances[CreatureHAG]          = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Hags'));
+    this.monster_trophies_chances[CreatureFOGLET]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Fogling'));
+    this.monster_trophies_chances[CreatureBRUXA]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Bruxa'));
+    this.monster_trophies_chances[CreatureFLEDER]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Fleder'));
+    this.monster_trophies_chances[CreatureGARKAIN]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Garkain'));
+    this.monster_trophies_chances[CreatureDETLAFF]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'HigherVamp'));
+    this.monster_trophies_chances[CreatureGIANT]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Giant'));
+    this.monster_trophies_chances[CreatureSHARLEY]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Sharley'));
+    this.monster_trophies_chances[CreatureWIGHT]        = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wight'));
+    this.monster_trophies_chances[CreatureGRYPHON]      = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Gryphons'));
+    this.monster_trophies_chances[CreatureCOCKATRICE]   = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Cockatrice'));
+    this.monster_trophies_chances[CreatureBASILISK]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Basilisk'));
+    this.monster_trophies_chances[CreatureWYVERN]       = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Wyverns'));
+    this.monster_trophies_chances[CreatureFORKTAIL]     = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', 'Forktails'));
+  }
+
+  public function doesAllowCitySpawns(): bool {
+    var i: int;
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      if (this.creatures_city_spawns[i]) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
 
 // I could not find a better name for it so `SpawnRoller` it is!
@@ -722,20 +1213,20 @@ struct SmallCreatureCounter {
 // It would greatly improve performances though...
 class SpawnRoller {
 
-  // It uses the enums LargeCreatureType & SmallCreatureType as the index
+  // It uses the enum CreatureType as the index
   // and the value as the counter.
-  private var large_creatures_counters: array<int>;
-  private var small_creatures_counters: array<int>;
+  private var creatures_counters: array<int>;
+  private var humans_variants_counters: array<int>;
 
   public function fill_arrays() {
     var i: int;
 
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
-      this.small_creatures_counters.PushBack(0);
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.creatures_counters.PushBack(0);
     }
 
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      this.large_creatures_counters.PushBack(0);
+    for (i = 0; i < HT_MAX; i += 1) {
+      this.humans_variants_counters.PushBack(0);
     }
   }
 
@@ -744,98 +1235,93 @@ class SpawnRoller {
   public function reset() {
     var i: int;
     
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
-      small_creatures_counters[i] = 0;
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.creatures_counters[i] = 0;
     }
 
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      large_creatures_counters[i] = 0;
+    for (i = 0; i < HT_MAX; i += 1) {
+      this.humans_variants_counters[i] = 0;
     }
   }
 
-  public function setLargeCreatureCounter(type: LargeCreatureType, count: int) {
-    this.large_creatures_counters[type] = count;
+  public function setCreatureCounter(type: CreatureType, count: int) {
+    this.creatures_counters[type] = count;
   }
 
-  public function setSmallCreatureCounter(type: SmallCreatureType, count: int) {
-    LogChannel('modRandomEncounter', "set small creature: " + type + " counter to " + count);
-    
-    this.small_creatures_counters[type] = count;
+  public function setHumanVariantCounter(type: EHumanType, count: int) {
+    this.humans_variants_counters[type] = count;
   }
 
-  public function rollSmallCreatures(): SmallCreatureType {
+  public function rollCreatures(): CreatureType {
     var current_position: int;
     var total: int;
     var roll: int;
     var i: int;
 
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
-      total += this.small_creatures_counters[i];
+    for (i = 0; i < CreatureMAX; i += 1) {
+      total += this.creatures_counters[i];
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-    // added so the user can disable all SmallCreatureType and it would
+    // added so the user can disable all CreatureType and it would
     // cancel the spawn. Useful when the user wants no spawn during the day.
     if (total <= 0) {
-      return SmallCreatureNONE;
+      return CreatureNONE;
     }
 
     roll = RandRange(total);
 
     current_position = 0;
 
-    for (i = 0; i < SmallCreatureMAX; i += 1) {
+    for (i = 0; i < CreatureMAX; i += 1) {
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-      // `this.small_creatures_counters[i] > 0` is add so the user can
-      // disable a SmallCreatureType completely.
-      if (this.small_creatures_counters[i] > 0 && roll <= current_position + this.small_creatures_counters[i]) {
+      // `this.creatures_counters[i] > 0` is add so the user can
+      // disable a CreatureType completely.
+      if (this.creatures_counters[i] > 0 && roll <= current_position + this.creatures_counters[i]) {
         return i;
       }
 
-      current_position += this.small_creatures_counters[i];
+      current_position += this.creatures_counters[i];
     }
 
     // not supposed to get here but hey, who knows.
-    return SmallCreatureNONE;
+    return CreatureNONE;
   }
 
-  public function rollLargeCreatures(): LargeCreatureType {
+  public function rollHumansVariants(): EHumanType {
     var current_position: int;
     var total: int;
     var roll: int;
     var i: int;
 
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
-      total += this.large_creatures_counters[i];
+    for (i = 0; i < HT_MAX; i += 1) {
+      total += this.humans_variants_counters[i];
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-    // added so the user can disable all LargeCreatureType and it would
-    // cancel the spawn. Useful when the user wants no spawn during the day.
+    // if for any reason no human variant is available return HT_NONE
     if (total <= 0) {
-      return LargeCreatureNONE;
+      return HT_NONE;
     }
 
     roll = RandRange(total);
 
     current_position = 0;
 
-    for (i = 0; i < LargeCreatureMAX; i += 1) {
+    for (i = 0; i < HT_MAX; i += 1) {
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-      // `this.large_creatures_counters[i] > 0` is add so the user can
-      // disable a LargeCreatureType completely.
-      if (this.large_creatures_counters[i] > 0 && roll <= current_position + this.large_creatures_counters[i]) {
+      // ignore the variants at 0
+      if (this.humans_variants_counters[i] > 0 && roll <= current_position + this.humans_variants_counters[i]) {
         return i;
       }
 
-      current_position += this.large_creatures_counters[i];
+      current_position += this.humans_variants_counters[i];
     }
 
     // not supposed to get here but hey, who knows.
-    return LargeCreatureNONE;
+    return HT_NONE;
   }
 
-  
 }
 
 struct SEnemyTemplate {
@@ -868,6 +1354,45 @@ struct DifficultyFactor {
 struct EnemyTemplateList {
   var templates: array<SEnemyTemplate>;
   var difficulty_factor: DifficultyFactor;
+}
+
+function mergeEnemyTemplateLists(a, b: EnemyTemplateList): EnemyTemplateList {
+  var output: EnemyTemplateList;
+  var i: int;
+
+  output.difficulty_factor.minimum_count_easy
+    = a.difficulty_factor.minimum_count_easy
+    + b.difficulty_factor.minimum_count_easy;
+
+  output.difficulty_factor.maximum_count_easy
+    = a.difficulty_factor.maximum_count_easy
+    + b.difficulty_factor.maximum_count_easy;
+  
+  output.difficulty_factor.minimum_count_medium
+    = a.difficulty_factor.minimum_count_medium
+    + b.difficulty_factor.minimum_count_medium;
+  
+  output.difficulty_factor.maximum_count_medium 
+    = a.difficulty_factor.maximum_count_medium
+    + b.difficulty_factor.maximum_count_medium;
+  
+  output.difficulty_factor.minimum_count_hard
+    = a.difficulty_factor.minimum_count_hard
+    + b.difficulty_factor.minimum_count_hard;
+
+  output.difficulty_factor.maximum_count_hard
+    = a.difficulty_factor.maximum_count_hard
+    + b.difficulty_factor.maximum_count_hard;
+
+  for (i = 0; i < a.templates.Size(); i += 1) {
+    output.templates.PushBack(a.templates[i]);
+  }
+
+  for (i = 0; i < b.templates.Size(); i += 1) {
+    output.templates.PushBack(b.templates[i]);
+  }
+
+  return output;
 }
 
 function getMaximumCountBasedOnDifficulty(out factor: DifficultyFactor, difficulty: int, optional added_factor: float): int {
@@ -1451,7 +1976,6 @@ function re_nightwraith() : EnemyTemplateList {
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl1.w2ent"));       
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl2.w2ent"));        
   enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl3.w2ent"));       
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__noonwright_pesta.w2ent"));
 
   if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
     enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee.w2ent"));
@@ -2107,7 +2631,7 @@ class CModRExtra {
     return zone; 
   }
 
-  public function isNearNoticeboard(): bool {
+  private function isNearNoticeboard(): bool {
     var entities: array<CGameplayEntity>;
 
      // 'W3NoticeBoard' for noticeboards, 'W3FastTravelEntity' for signpost
@@ -2123,130 +2647,175 @@ class CModRExtra {
     );
 
     return entities.Size() > 0;
-  } 
+  }
+
+  private function isPlayerNearSafeRoadsign(): bool {
+    var entities: array<CGameplayEntity>;
+    var i: int;
+
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      50, // range, we'll have to check if 50 is too big/small
+      1, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'W3FastTravelEntity'
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      if (this.isRoadsignSafe(entities[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private function isRoadsignSafe(roadsign: CGameplayEntity): bool {
+    // TODO: maybe get the map pin corresponding to the roadsign
+    // then check its `.type`
+    // theGame.GetCommonMapManager().GetMappins()
+    // with 
+    // if (fastTravelEntity && fastTravelEntity.entityName == pin.Tag)
+
+    // switch (roadsign.entityName) {
+    //   case 'TODO':
+    //     return true;
+    //     break;
+    // }
+
+    return false;
+  }
+
+  private function isNearGuards(): bool {
+    var entities: array<CGameplayEntity>;
+    var i: int;
+
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      50, // range, we'll have to check if 50 is too big/small
+      100, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'CNewNPC'
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      if (((CNewNPC)entities[i]).GetNPCType() == ENGT_Guard) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public function isPlayerInSettlement(): bool {
+    var current_area : EAreaName;
+    var is_in_rer_cities: bool;
+
+    current_area = theGame.GetCommonMapManager().GetCurrentArea();
+
+    is_in_rer_cities = this
+      .getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY;
+
+    if (is_in_rer_cities) {
+      return true;
+    }
+
+    // the .isInSettlement() method doesn't work when is skellige
+    // it always returns true.
+    if (current_area == AN_Skellige_ArdSkellig) {
+      // HACK: it can be a great way to see if a settlement is nearby
+      // by looking for a noticeboard. Though some settlements don't have
+      // any noticeboard.
+      // TODO: get the nearest signpost and read its tag then check
+      // if it is a known settlement.
+      return this.isNearNoticeboard()
+          || this.isNearGuards();
+    }
+    
+    return thePlayer.IsInSettlement();
+  }
 
   public function getRandomHumanTypeByCurrentArea(): EHumanType {
-    var choice: array<EHumanType>;
     var current_area: string;
-    var i: int;
+    var spawn_roller: SpawnRoller;
+
+    spawn_roller = new SpawnRoller in this;
+    spawn_roller.fill_arrays();
+    spawn_roller.reset();
 
     current_area = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
     if (current_area == "prolog_village") {
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-      
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-      
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
+      spawn_roller.setHumanVariantCounter(HT_BANDIT, 3);
+      spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 2);
+      spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
     }
     else if (current_area == "skellige") {
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_SKELBANDIT);
-      }
-      
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_SKELBANDIT2);
-      }
-  
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_SKELPIRATE);
-      }
+      spawn_roller.setHumanVariantCounter(HT_SKELBANDIT, 3);
+      spawn_roller.setHumanVariantCounter(HT_SKELBANDIT2, 3);
+      spawn_roller.setHumanVariantCounter(HT_SKELPIRATE, 2);
     }
     else if (current_area == "kaer_morhen") {
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
+      spawn_roller.setHumanVariantCounter(HT_BANDIT, 3);
+      spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 2);
+      spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
     }
     else if (current_area == "novigrad" || current_area == "no_mans_land") {
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_NOVBANDIT);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_PIRATE);
-      }
-
-      for (i=0; i<3; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NILFGAARDIAN);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_WITCHHUNTER);
-      }
+      spawn_roller.setHumanVariantCounter(HT_NOVBANDIT, 2);
+      spawn_roller.setHumanVariantCounter(HT_PIRATE, 2);
+      spawn_roller.setHumanVariantCounter(HT_NILFGAARDIAN, 1);
+      spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 2);
+      spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
+      spawn_roller.setHumanVariantCounter(HT_WITCHHUNTER, 1);
     }
     else if (current_area == "bob") {
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NOVBANDIT);
-      }
-
-      for (i=0; i<4; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NILFGAARDIAN);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
+      spawn_roller.setHumanVariantCounter(HT_NOVBANDIT, 1);
+      spawn_roller.setHumanVariantCounter(HT_BANDIT, 4);
+      spawn_roller.setHumanVariantCounter(HT_NILFGAARDIAN, 1);
+      spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 1);
+      spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
     }
     else {
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NOVBANDIT);
-      }
-
-      for (i=0; i<4; i+=1) {
-        choice.PushBack(HT_BANDIT);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_NILFGAARDIAN);
-      }
-
-      for (i=0; i<1; i+=1) {
-        choice.PushBack(HT_CANNIBAL);
-      }
-
-      for (i=0; i<2; i+=1) {
-        choice.PushBack(HT_RENEGADE);
-      }
+      spawn_roller.setHumanVariantCounter(HT_NOVBANDIT, 1);
+      spawn_roller.setHumanVariantCounter(HT_BANDIT, 4);
+      spawn_roller.setHumanVariantCounter(HT_NILFGAARDIAN, 1);
+      spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 1);
+      spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
     }
 
-    return choice[RandRange(choice.Size())];
+    return spawn_roller.rollHumansVariants();
   }
 
-  public function getRandomSmallCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller): SmallCreatureType {
+  // TODO: create a better way to declare all this
+  // I imagine a struct like this:
+  //
+  // struct CreatureSpawnFactor {
+  //   var creature: CreatureType;
+  //
+  //   // if set only spawn in the region, and is affected
+  //   // by the external coefficient if it is.
+  //   var region: string; 
+  //
+  //   var only_forest: bool;
+  //   var only_water: bool;
+  //   var only_swamp: bool;
+  //
+  //   var like_forect: bool;
+  //   var like_water: bool;
+  //   var like_swamp: bool;
+  //   
+  //   var no_prolog: bool;
+  // }
+  // 
+  // but filling such a struct for every creature
+  // will result in longer but clearer code.
+  public function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller): CreatureType {
     var is_in_forest: bool;
     var is_near_water: bool;
     var is_in_swamp: bool;
@@ -2264,143 +2833,332 @@ class CModRExtra {
 
     if (theGame.envMgr.IsNight()) {
       // first set all the counters to the settings value.
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        spawn_roller.setSmallCreatureCounter(i, settings.small_creatures_chances_night[i]);
+      for (i = 0; i < CreatureMAX; i += 1) {
+        spawn_roller.setCreatureCounter(i, settings.creatures_chances_night[i]);
       }
     }
     else {
-      for (i = 0; i < SmallCreatureMAX; i += 1) {
-        spawn_roller.setSmallCreatureCounter(i, settings.small_creatures_chances_day[i]);
+      for (i = 0; i < CreatureMAX; i += 1) {
+        spawn_roller.setCreatureCounter(i, settings.creatures_chances_day[i]);
       }
     }
 
     // then handle special cases by hand
-    
-    if (current_area == "prolog_village") {
-      // we remove some creatures in the prolog area
-      spawn_roller.setSmallCreatureCounter(SmallCreatureHARPY, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureCENTIPEDE, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureECHINOPS, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureBARGHEST, 0);
-    }
 
     if (current_area != "skellige") {
-      spawn_roller.setSmallCreatureCounter(SmallCreatureSKELWOLF, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureSKELBEAR, 0);
+      spawn_roller.setCreatureCounter(CreatureSKELWOLF, 0);
+      spawn_roller.setCreatureCounter(CreatureSKELBEAR, 0);
+      spawn_roller.setCreatureCounter(CreatureSKELTROLL, 0);
+    }
+    else {
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureSKELWOLF,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureSKELBEAR,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureSKELTROLL,
+        settings
+      );
     }
 
     // and now special cases depending on areas
     if (!is_near_water && !is_in_swamp) {
       // well, no water no drowners!
-      spawn_roller.setSmallCreatureCounter(SmallCreatureDROWNER, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureDROWNERDLC, 0);
+      spawn_roller.setCreatureCounter(CreatureDROWNER, 0);
+      spawn_roller.setCreatureCounter(CreatureDROWNERDLC, 0);
     }
 
     if (!is_in_forest) {
       // no forest, no plants
-      spawn_roller.setSmallCreatureCounter(SmallCreatureARACHAS, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureENDREGA, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureECHINOPS, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureSPIDER, 0);
+      spawn_roller.setCreatureCounter(CreatureARACHAS, 0);
+      spawn_roller.setCreatureCounter(CreatureENDREGA, 0);
+      spawn_roller.setCreatureCounter(CreatureECHINOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureSPIDER, 0);
+
+      spawn_roller.setCreatureCounter(CreatureLESHEN, 0);
+    }
+    else { // is_in_forest == true
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWEREWOLF,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureLESHEN,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureSPIDER,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureECHINOPS,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureENDREGA,
+        settings
+      );
+      
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureARACHAS,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBEAR,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWOLF,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBOAR,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureSPIDER,
+        settings
+      );
+
+      this.applyCoefficientToCreatureDivide(
+        spawn_roller,
+        CreatureCOCKATRICE,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBASILISK,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWYVERN,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureFORKTAIL,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureGRYPHON,
+        settings
+      );
     }
 
     if (is_near_water || is_in_swamp) {
-      spawn_roller.setSmallCreatureCounter(SmallCreatureCENTIPEDE, 0);
-      spawn_roller.setSmallCreatureCounter(SmallCreatureHARPY, 0);
-    }
+      spawn_roller.setCreatureCounter(CreatureCENTIPEDE, 0);
+      spawn_roller.setCreatureCounter(CreatureHARPY, 0);
 
-    return spawn_roller.rollSmallCreatures();
-  }
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureHAG,
+        settings
+      );
 
-  public function getRandomLargeCreatureByCurrentArea(settings: RE_Settings, out spawn_roller: SpawnRoller): LargeCreatureType {
-    var i: int;
-    var current_area: string;
-    var is_in_forest: bool;
-    var is_near_water: bool;
-    var is_in_swamp: bool;
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureFOGLET,
+        settings
+      );
 
-    is_in_forest = this.IsPlayerInForest();
-    is_near_water = this.IsPlayerNearWater();
-    is_in_swamp = this.IsPlayerInSwamp();
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureDROWNER,
+        settings
+      );
 
-    current_area = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-    spawn_roller.reset();
-
-    if (theGame.envMgr.IsNight()) {
-      // first set all the counters to the settings value.
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        spawn_roller.setLargeCreatureCounter(i, settings.large_creatures_chances_night[i]);
-      }
-    }
-    else {
-      for (i = 0; i < LargeCreatureMAX; i += 1) {
-        spawn_roller.setLargeCreatureCounter(i, settings.large_creatures_chances_day[i]);
-      }
-    }
-
-    // then handle special cases by hand
-    
-    if (current_area == "prolog_village") {
-      // we remove some creatures in the prolog area
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGIANT, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureEKIMMARA, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureKATAKAN, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGOLEM, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureELEMENTAL, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureCYCLOPS, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureBRUXA, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureFLEDER, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGARKAIN, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureDETLAFF, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureGIANT, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureSHARLEY, 0);
-    }
-
-    if (current_area != "skellige") {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureSKELTROLL, 0);
-    }
-
-    // and now special cases depending on areas
-    if (is_in_forest) {
-      if (theGame.envMgr.IsNight()) {
-        spawn_roller.setLargeCreatureCounter(LargeCreatureCOCKATRICE, settings.large_creatures_chances_night[LargeCreatureCOCKATRICE] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureBASILISK, settings.large_creatures_chances_night[LargeCreatureBASILISK] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureWYVERN, settings.large_creatures_chances_night[LargeCreatureWYVERN] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureFORKTAIL, settings.large_creatures_chances_night[LargeCreatureFORKTAIL] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureGRYPHON, settings.large_creatures_chances_night[LargeCreatureGRYPHON] / 2);
-      }
-      else {
-        spawn_roller.setLargeCreatureCounter(LargeCreatureCOCKATRICE, settings.large_creatures_chances_day[LargeCreatureCOCKATRICE] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureBASILISK, settings.large_creatures_chances_day[LargeCreatureBASILISK] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureWYVERN, settings.large_creatures_chances_day[LargeCreatureWYVERN] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureFORKTAIL, settings.large_creatures_chances_day[LargeCreatureFORKTAIL] / 2);
-        spawn_roller.setLargeCreatureCounter(LargeCreatureGRYPHON, settings.large_creatures_chances_day[LargeCreatureGRYPHON] / 2);
-      }
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureDROWNERDLC,
+        settings
+      );
     }
     else {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureLESHEN, 0);
+      spawn_roller.setCreatureCounter(CreatureHAG, 0);
+      spawn_roller.setCreatureCounter(CreatureFOGLET, 0);
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureHARPY,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureCENTIPEDE,
+        settings
+      );
     }
 
     if (is_in_swamp) {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureWEREWOLF, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureELEMENTAL, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNOONWRAITH, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNIGHTWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureWEREWOLF, 0);
+      spawn_roller.setCreatureCounter(CreatureELEMENTAL, 0);
+      spawn_roller.setCreatureCounter(CreatureNOONWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureNIGHTWRAITH, 0);
     }
     else {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureHAG, 0);
-      spawn_roller.setLargeCreatureCounter(LargeCreatureFOGLET, 0);
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWEREWOLF,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureELEMENTAL,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureNOONWRAITH,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureNIGHTWRAITH,
+        settings
+      );
+    }
+
+    if (!is_in_forest && !is_near_water && !is_in_swamp) {
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureGRYPHON,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureCOCKATRICE,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBASILISK,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureFORKTAIL,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureWYVERN,
+        settings
+      );
     }
 
     if (theGame.envMgr.IsNight()) {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNOONWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureNOONWRAITH, 0);
     }
     else {
-      spawn_roller.setLargeCreatureCounter(LargeCreatureNIGHTWRAITH, 0);
+      spawn_roller.setCreatureCounter(CreatureNIGHTWRAITH, 0);
     }
 
-    return spawn_roller.rollLargeCreatures();
+    if (current_area == "prolog_village") {
+      // we remove some creatures in the prolog area
+      spawn_roller.setCreatureCounter(CreatureHARPY, 0);
+      spawn_roller.setCreatureCounter(CreatureCENTIPEDE, 0);
+      spawn_roller.setCreatureCounter(CreatureECHINOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureBARGHEST, 0);
+      
+      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
+      spawn_roller.setCreatureCounter(CreatureEKIMMARA, 0);
+      spawn_roller.setCreatureCounter(CreatureKATAKAN, 0);
+      spawn_roller.setCreatureCounter(CreatureGOLEM, 0);
+      spawn_roller.setCreatureCounter(CreatureELEMENTAL, 0);
+      spawn_roller.setCreatureCounter(CreatureCYCLOPS, 0);
+      spawn_roller.setCreatureCounter(CreatureBRUXA, 0);
+      spawn_roller.setCreatureCounter(CreatureFLEDER, 0);
+      spawn_roller.setCreatureCounter(CreatureGARKAIN, 0);
+      spawn_roller.setCreatureCounter(CreatureDETLAFF, 0);
+      spawn_roller.setCreatureCounter(CreatureGIANT, 0);
+      spawn_roller.setCreatureCounter(CreatureSHARLEY, 0);
+    }
+
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
+    // when a creature is set to NO in the city spawn menu, 
+    // we remove it from the spawning pool.
+    if (this.isPlayerInSettlement()) {
+      LogChannel('modRandomEncounters', "player in settlement, removing city spawns");
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        if (!settings.creatures_city_spawns[i]) {
+          spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
+    }
+
+    return spawn_roller.rollCreatures();
+  }
+
+  private function applyCoefficientToCreature(spawn_roller: SpawnRoller, creature: CreatureType, settings: RE_Settings) {
+    if (theGame.envMgr.IsNight()) {
+      spawn_roller.setCreatureCounter(
+        creature,
+        (int)(settings.creatures_chances_night[creature] * settings.external_factors_coefficient)
+      );
+    }
+    else {
+      spawn_roller.setCreatureCounter(
+        creature,
+        (int)(settings.creatures_chances_day[creature] * settings.external_factors_coefficient)
+      );
+    }
+  }
+
+  private function applyCoefficientToCreatureDivide(spawn_roller: SpawnRoller, creature: CreatureType, settings: RE_Settings) {
+    if (theGame.envMgr.IsNight()) {
+      spawn_roller.setCreatureCounter(
+        creature,
+        (int)(settings.creatures_chances_night[creature] / settings.external_factors_coefficient)
+      );
+    }
+    else {
+      spawn_roller.setCreatureCounter(
+        creature,
+        (int)(settings.creatures_chances_day[creature] / settings.external_factors_coefficient)
+      );
+    }
   }
 
   public function IsPlayerNearWater() : bool {
@@ -2594,269 +3352,255 @@ function VecSphere(angleStep : int, radius : float) : array<Vector> {
   return vectors;
 }
 
-enum LargeCreatureComposition {
-  LargeCreatureComposition_AmbushWitcher = 1
-}
+latent function createRandomCreatureContract(master: CRandomEncounters, optional creature_type: CreatureType) {
+  LogChannel('modRandomEncounters', "making create contract");
 
-latent function createRandomLargeCreatureComposition(out random_encounters_class: CRandomEncounters) {
-  var large_creature_composition: LargeCreatureComposition;
-
-  large_creature_composition = LargeCreatureComposition_AmbushWitcher;
-
-  switch (large_creature_composition) {
-    case LargeCreatureComposition_AmbushWitcher:
-      makeLargeCreatureAmbushWitcher(random_encounters_class);
-      break;
+  if (creature_type == CreatureNONE) {
+    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    );
   }
-}
-
-
-          //////////////////////////////////////
-          // maker functions for compositions //
-          //////////////////////////////////////
-
-
-latent function makeLargeCreatureAmbushWitcher(out master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var rer_entity: RandomEncountersReworkedEntity;
-
-  var i: int;
-  var initial_position: Vector;
-  var large_creature_type: LargeCreatureType;
-
-  LogChannel('modRandomEncounters', "making large creatures composition ambush witcher");
-
-  large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
-    master.settings,
-    master.spawn_roller
-  );
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (large_creature_type == LargeCreatureNONE) {
-    LogChannel('modRandomEncounters', "large_creature_type is NONE, cancelling spawn");
+  if (creature_type == CreatureNONE) {
+    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
+  
+  makeDefaultCreatureContract(master, creature_type);
+}
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByLargeCreatureType(large_creature_type);
+latent function makeDefaultCreatureContract(master: CRandomEncounters, creature_type: CreatureType) {
+  var composition: CreatureContractComposition;
 
-  if (!getRandomPositionBehindCamera(initial_position)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
+  composition = new CreatureContractComposition in master;
 
-    return;
+  composition.init();
+  composition.setCreatureType(creature_type)
+    .spawn(master);
+}
+
+class CreatureContractComposition extends CompositionSpawner {
+  public function init() {
+    this
+      .setRandomPositionMinRadius(190)
+      .setRandomPositionMaxRadius(200);
   }
 
-  number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );
+  protected latent function forEachEntity(entity: CEntity) {
+    ((CNewNPC)entity).SetLevel(GetWitcherPlayer().GetLevel());
+  }
 
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+  protected latent function afterSpawningEntities(): bool {
+    var rer_contract_entity: RandomEncountersReworkedContractEntity;
+    var i: int;
 
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
+    rer_contract_entity = (RandomEncountersReworkedContractEntity)theGame.CreateEntity(
+      (CEntityTemplate)LoadResourceAsync(
+        "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_contract_entity.w2ent",
+        true
+      ),
+      this.initial_position,
+      thePlayer.GetWorldRotation()
+    );
 
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    rer_entity = creatures_entities[i];
-    
-    rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      rer_entity.removeAllLoot();
+    if (!this.master.settings.enable_encounters_loot) {
+      rer_contract_entity.removeAllLoot();
     }
 
-    rer_entity.startWithoutBait();
+    rer_contract_entity.start();
+
+    return true;
   }
 }
 
-latent function createRandomLargeCreatureHunt(master: CRandomEncounters) {
-  var large_creature_type: LargeCreatureType;
+latent function createRandomCreatureHunt(master: CRandomEncounters, optional creature_type: CreatureType) {
 
   LogChannel('modRandomEncounters', "making create hunt");
 
-  large_creature_type = master.rExtra.getRandomLargeCreatureByCurrentArea(
-    master.settings,
-    master.spawn_roller
-  );
+  if (creature_type == CreatureNONE) {
+    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    );
+  }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (large_creature_type == LargeCreatureNONE) {
-    LogChannel('modRandomEncounters', "large_creature_type is NONE, cancelling spawn");
+  if (creature_type == CreatureNONE) {
+    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  if (large_creature_type == LargeCreatureGRYPHON) {
-    makeGryphonLargeCreatureHunt(master);
+  if (creature_type == CreatureGRYPHON) {
+    makeGryphonCreatureHunt(master);
   }
   else {
-    makeDefaultLargeCreatureHunt(master, large_creature_type);
+    makeDefaultCreatureHunt(master, creature_type);
   }
 }
 
-latent function makeGryphonLargeCreatureHunt(master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var rer_gryphon_entity: RandomEncountersReworkedGryphonHuntEntity;
-  var gryphon_entity: CEntity;
 
-  var i: int;
-  var j: int;
-  var current_entity_template: SEnemyTemplate;
+latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
+  var composition: CreatureHuntGryphonComposition;
+
+  composition = new CreatureHuntGryphonComposition in master;
+
+  composition.init();
+  composition.spawn(master);
+}
+
+class CreatureHuntGryphonComposition extends CompositionSpawner {
+  public function init() {
+    this
+      .setRandomPositionMinRadius(120)
+      .setRandomPositionMaxRadius(200)
+      .setCreatureType(CreatureGRYPHON)
+      .setNumberOfCreatures(1);
+  }
+
   var rer_entity_template: CEntityTemplate;
-  var chosen_template: CEntityTemplate;
-  var initial_position: Vector;
-  var player_position: Vector;
   var blood_splats_templates: array<CEntityTemplate>;
 
-  LogChannel('modRandomEncounters', "makeGryphonLargeCreatureHunt - starting");
+  protected latent function beforeSpawningEntities(): bool {
+    this.rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent",
+      true
+    );
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByLargeCreatureType(LargeCreatureGRYPHON);
+    this.blood_splats_templates = this
+      .master
+      .resources
+      .getBloodSplatsResources();
 
-  creatures_templates = fillEnemyTemplateList(creatures_templates, 1);
-
-  if (!getRandomPositionBehindCamera(initial_position, 200, 120, 10)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
-
-    return;
+    return true;
   }
 
-  rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent", true);
+  var rer_entities: array<RandomEncountersReworkedGryphonHuntEntity>;
 
-  for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
-    current_entity_template = creatures_templates.templates[i];
+  protected latent function forEachEntity(entity: CEntity) {
+    var current_rer_entity: RandomEncountersReworkedGryphonHuntEntity;
 
-    if (current_entity_template.count == 0) {
-      continue;
-    }
-
-    LogChannel('modRandomEncounters', "chosen template: " + current_entity_template.template);
-
-    chosen_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-
-    break;
-  }
-
-  blood_splats_templates = master.resources.getBloodSplatsResources();
-
-  gryphon_entity = theGame.CreateEntity(
-    chosen_template,
-    initial_position,
-    thePlayer.GetWorldRotation(),
-    true, false, false, PM_DontPersist
-  );
-
-  LogChannel('modRandomEncounters', "spawning entity at " + initial_position.X + " " + initial_position.Y + " " + initial_position.Z);
-
-  rer_gryphon_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
+    current_rer_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
     rer_entity_template,
     initial_position,
     thePlayer.GetWorldRotation()
   );
 
-  rer_gryphon_entity.attach(
-    (CActor)gryphon_entity,
-    (CNewNPC)gryphon_entity,
-    gryphon_entity
-  );
+    current_rer_entity.attach(
+      (CActor)entity,
+      (CNewNPC)entity,
+      entity
+    );
 
-  if (!master.settings.enable_encounters_loot) {
-    rer_gryphon_entity.removeAllLoot();
+    current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+    
+    if (!master.settings.enable_encounters_loot) {
+      current_rer_entity.removeAllLoot();
+    }
+
+    current_rer_entity.startEncounter(this.blood_splats_templates);
+
+
+    this.rer_entities.PushBack(current_rer_entity);
   }
 
-  rer_gryphon_entity.startEncounter(blood_splats_templates);
+  protected latent function afterSpawningEntities(): bool {
+    return true;
+  }
 }
 
-latent function makeDefaultLargeCreatureHunt(master: CRandomEncounters, large_creature_type: LargeCreatureType) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-  var bait: CEntity;
 
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var createEntityHelper: CCreateEntityHelper;
+latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type: CreatureType) {
+  var composition: CreatureHuntComposition;
 
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
+  composition = new CreatureHuntComposition in master;
 
-  var i: int;
-  var j: int;
-  var initial_position: Vector;
+  composition.init();
+  composition.setCreatureType(creature_type)
+    .spawn(master);
+}
 
-  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
+// CAUTION, it extends `CreatureAmbushWitcherComposition`
+class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
+  public function init() {
+    this
+      .setRandomPositionMinRadius(40)
+      .setRandomPositionMaxRadius(60);
+  }
+
+  protected latent function afterSpawningEntities(): bool {
+    var i: int;
+    var current_rer_entity: RandomEncountersReworkedEntity;
+    var bait: CEntity;
+
+    bait = theGame.CreateEntity(
+      (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+      this.initial_position,
+      thePlayer.GetWorldRotation(),
+      true,
+      false,
+      false,
+      PM_DontPersist
+    );
+
+    for (i = 0; i < this.rer_entities.Size(); i += 1) {
+      current_rer_entity = this.rer_entities[i];
+
+      current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+      if (!master.settings.enable_encounters_loot) {
+        current_rer_entity.removeAllLoot();
+      }
+      
+      current_rer_entity.startWithBait(bait);
+    }
+
+    return true;
+  }
+}
+
+enum CreatureComposition {
+  CreatureComposition_AmbushWitcher = 1
+}
+
+latent function createRandomCreatureComposition(out master: CRandomEncounters, creature_type: CreatureType) {
+  var creature_composition: CreatureComposition;
+
+  creature_composition = CreatureComposition_AmbushWitcher;
+
+  if (creature_type == CreatureNONE) {
+    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
+      master.settings,
+      master.spawn_roller
+    );
+  }
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
+  // added the NONE check because the SpawnRoller can return
+  // the NONE value if the user set all values to 0.
+  if (creature_type == CreatureNONE) {
+    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceByLargeCreatureType(large_creature_type);
+  LogChannel('modRandomEncounters', "spawning ambush - " + creature_type);
 
-  number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );
-
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
-
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
-
-  // creating the bait now
-  createEntityHelper = new CCreateEntityHelper;
-  createEntityHelper.Reset();
-  theGame.CreateEntityAsync(
-    createEntityHelper,
-    (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
-    initial_position,
-    thePlayer.GetWorldRotation(),
-    true,
-    false,
-    false,
-    PM_DontPersist
-  );
-
-  while(createEntityHelper.IsCreating()) {            
-    SleepOneFrame();
+  if (creature_type == CreatureWILDHUNT) {
+    makeCreatureWildHunt(master);
   }
-
-  bait = createEntityHelper.GetCreatedEntity();
- 
-  LogChannel('modRandomEncounters', "bait entity spawned");
-
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    LogChannel('modRandomEncounters', "adding bait to: " + i);
-    creatures_entities[i].this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      creatures_entities[i].removeAllLoot();
+  else {
+    switch (creature_composition) {
+      case CreatureComposition_AmbushWitcher:
+        makeCreatureAmbushWitcher(creature_type, master);
+        break;
     }
-    
-    creatures_entities[i].startWithBait(bait);
-  }
-}
-
-enum SmallCreatureComposition {
-  SmallCreatureComposition_AmbushWitcher = 1
-}
-
-latent function createRandomSmallCreatureComposition(out random_encounters_class: CRandomEncounters) {
-  var small_creature_composition: SmallCreatureComposition;
-
-  small_creature_composition = SmallCreatureComposition_AmbushWitcher;
-
-  switch (small_creature_composition) {
-    case SmallCreatureComposition_AmbushWitcher:
-      makeSmallCreatureAmbushWitcher(random_encounters_class);
-      break;
   }
 }
 
@@ -2865,157 +3609,140 @@ latent function createRandomSmallCreatureComposition(out random_encounters_class
           // maker functions for compositions //
           //////////////////////////////////////
 
+// TODO: the wild hunt should change the weather when they spawn.
+// I can't add it now because there is no way for me to know if 
+// all the creatures are alive or not. 
+latent function makeCreatureWildHunt(out master: CRandomEncounters) {
+  var composition: WildHuntAmbushWitcherComposition;
 
-latent function makeSmallCreatureAmbushWitcher(out master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
+  composition = new WildHuntAmbushWitcherComposition in master;
 
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var rer_entity: RandomEncountersReworkedEntity;
-  var small_creature_type: SmallCreatureType;
+  composition.init();
+  composition.setCreatureType(CreatureWILDHUNT)
+    .spawn(master);
+}
 
-  var i: int;
-  var initial_position: Vector;
+class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition {
+  var portal_template: CEntityTemplate;
 
-  LogChannel('modRandomEncounters', "making small creatures composition ambush witcher");
+  protected latent function forEachEntity(entity: CEntity) {
+    super.forEachEntity(entity);
 
-  small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
-    master.settings,
-    master.spawn_roller
-  );
-
-  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-  // added the NONE check because the SpawnRoller can return
-  // the NONE value if the user set all values to 0.
-  if (small_creature_type == SmallCreatureNONE) {
-    LogChannel('modRandomEncounters', "small_creature_type is NONE, cancelling spawn");
-
-    return;
+    ((CNewNPC)entity)
+        .SetTemporaryAttitudeGroup('hostile_to_player', AGP_Default);
+      
+    ((CNewNPC)entity)
+      .NoticeActor(thePlayer);
   }
 
-  if (!getRandomPositionBehindCamera(initial_position)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
+  protected latent function afterSpawningEntities(): bool {
+    var success: bool;
+    var rift: CRiftEntity;
+    var rifts: array<CRiftEntity>;
+    var i: int;
 
-    return;
-  }
+    LogChannel('modRandomEncounters', "after spawning entities WILDHUNT");
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceBySmallCreatureType(small_creature_type,master.rExtra);
-
-  number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );
-
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures, difficulty: " + master.settings.selectedDifficulty);
-
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
-
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    rer_entity = creatures_entities[i];
-
-    rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      rer_entity.removeAllLoot();
+    success = super.afterSpawningEntities();
+    if (!success) {
+      return false;
     }
-    
-    rer_entity.startWithoutBait();
+
+    this.portal_template = master.resources.getPortalResource();
+    for (i = 0; i < this.group_positions.Size(); i += 1) {
+      rift = (CRiftEntity)theGame.CreateEntity(
+        this.portal_template,
+        this.group_positions[i],
+        thePlayer.GetWorldRotation()
+      );
+      rift.ActivateRift();
+
+      rifts.PushBack(rift);
+    }
+
+    return true;
   }
 }
 
-latent function createRandomSmallCreatureHunt(master: CRandomEncounters) {
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
-  var bait: CEntity;
 
-  var creatures_entities: array<RandomEncountersReworkedEntity>;
-  var createEntityHelper: CCreateEntityHelper;
-  var small_creature_type: SmallCreatureType;
+latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out master: CRandomEncounters) {
+  var composition: CreatureAmbushWitcherComposition;
 
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
+  composition = new CreatureAmbushWitcherComposition in master;
 
-  var i: int;
-  var j: int;
-  var initial_position: Vector;
+  composition.init();
+  composition.setCreatureType(creature_type)
+    .spawn(master);
+}
 
-  LogChannel('modRandomEncounters', "making create hunt");
+class CreatureAmbushWitcherComposition extends CompositionSpawner {
+  public function init() {
+    LogChannel('modRandomEncounters', "CreatureAmbushWitcherComposition");
 
-  small_creature_type = master.rExtra.getRandomSmallCreatureByCurrentArea(
-    master.settings,
-    master.spawn_roller
-  );
-
-  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-  // added the NONE check because the SpawnRoller can return
-  // the NONE value if the user set all values to 0.
-  if (small_creature_type == SmallCreatureNONE) {
-    LogChannel('modRandomEncounters', "small_creature_type is NONE, cancelling spawn");
-
-    return;
+    this
+      .setRandomPositionMinRadius(20)
+      .setRandomPositionMaxRadius(40);
   }
 
-  if (!getRandomPositionBehindCamera(initial_position, 60, 40)) {
-    LogChannel('modRandomEncounters', "could not find proper spawning position");
+  var rer_entity_template: CEntityTemplate;
 
-    return;
+  protected latent function beforeSpawningEntities(): bool {
+    this.rer_entity_template =( CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent",
+      true
+    );
+
+    return true;
   }
 
-  creatures_templates = master
-    .resources
-    .getCreatureResourceBySmallCreatureType(small_creature_type, master.rExtra);
+  var rer_entities: array<RandomEncountersReworkedEntity>;
 
-  number_of_creatures = number_of_creatures = rollDifficultyFactor(
-    creatures_templates.difficulty_factor,
-    master.settings.selectedDifficulty
-  );;
+  protected latent function forEachEntity(entity: CEntity) {
+    var current_rer_entity: RandomEncountersReworkedEntity;
 
-  LogChannel('modRandomEncounters', "preparing to spawn " + number_of_creatures + " creatures");
+    current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
+      rer_entity_template,
+      initial_position,
+      thePlayer.GetWorldRotation()
+    );
 
-  creatures_templates = fillEnemyTemplateList(creatures_templates, number_of_creatures);
-  creatures_entities = spawnTemplateList(creatures_templates.templates, initial_position, 0.01);
+    current_rer_entity.attach(
+      (CActor)entity,
+      (CNewNPC)entity,
+      entity
+    );
 
-  // creating the bait now
-  createEntityHelper = new CCreateEntityHelper;
-  createEntityHelper.Reset();
-  theGame.CreateEntityAsync(
-    createEntityHelper,
-    (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
-    initial_position,
-    thePlayer.GetWorldRotation(),
-    true,
-    false,
-    false,
-    PM_DontPersist
-  );
-
-  while(createEntityHelper.IsCreating()) {            
-    SleepOneFrame();
+    this.rer_entities.PushBack(current_rer_entity);
   }
 
-  bait = createEntityHelper.GetCreatedEntity();
- 
-  LogChannel('modRandomEncounters', "bait entity spawned");
+  protected latent function afterSpawningEntities(): bool {
+    var i: int;
+    var current_rer_entity: RandomEncountersReworkedEntity;
 
-  for (i = 0; i < creatures_entities.Size(); i += 1) {
-    LogChannel('modRandomEncounters', "adding bait to: " + i);
+    for (i = 0; i < this.rer_entities.Size(); i += 1) {
+      current_rer_entity = this.rer_entities[i];
 
-    creatures_entities[i].this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    if (!master.settings.enable_encounters_loot) {
-      creatures_entities[i].removeAllLoot();
+      current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
+      if (!master.settings.enable_encounters_loot) {
+        current_rer_entity.removeAllLoot();
+      }
+      
+      current_rer_entity.startWithoutBait();
     }
 
-    creatures_entities[i].startWithBait(bait);
+    return true;
   }
 }
 
 class RandomEncountersReworkedEntity extends CEntity {
   // an invisible entity used to bait the entity
-  // TODO: do i really need a CEntity?
+  // do i really need a CEntity?
   // using ActionMoveTo i can force the creature to go
-  // toward a vector. 
+  // toward a vector.
+  // Leaving the question here, but yes i tried for
+  // a full week to make the functions ActionMoveTo work
+  // but nothing worked as expected. So a bait is the best
+  // thing. 
   var bait_entity: CEntity;
 
   // control whether the entity goes towards a bait
@@ -3057,7 +3784,7 @@ class RandomEncountersReworkedEntity extends CEntity {
   // follow a bait and leave tracks behind her.
   // more suited for: `EncounterType_HUNT`
   // NOTE: this functions calls `startWithoutBait`
-  public function startWithBait(bait_entity: CEntity) {
+  public latent function startWithBait(bait_entity: CEntity) {
     this.bait_entity = bait_entity;
     this.go_towards_bait = true;
 
@@ -3066,7 +3793,9 @@ class RandomEncountersReworkedEntity extends CEntity {
     ((CActor)this.bait_entity).EnableCharacterCollisions(false);
     ((CActor)this.bait_entity).EnableDynamicCollisions(false);
     ((CActor)this.bait_entity).EnableStaticCollisions(false);
-    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);  
+    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
+
+    this.tracks_template = getTracksTemplate(this.this_actor);  
 
     this.startWithoutBait();
   }
@@ -3075,18 +3804,13 @@ class RandomEncountersReworkedEntity extends CEntity {
   // directly target the player.
   // more suited for: `EncounterType_DEFAULT`
   public function startWithoutBait() {
-    // TODO: create a function getTracksTemplateByCreatureType
-    this.tracks_template = (CEntityTemplate)LoadResource(
-      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
-      true
-    );
-
     if (this.go_towards_bait) {
       AddTimer('intervalHuntFunction', 2, true);
       AddTimer('teleportBait', 10, true);
     }
     else {
       this.this_newnpc.NoticeActor(thePlayer);
+      this.this_newnpc.SetAttitude(thePlayer, AIA_Hostile);
 
       AddTimer('intervalDefaultFunction', 2, true);
 
@@ -3166,6 +3890,7 @@ class RandomEncountersReworkedEntity extends CEntity {
         .ActionCancelAll();
 
       this.this_newnpc.NoticeActor(thePlayer);
+      this.this_newnpc.SetAttitude(thePlayer, AIA_Hostile);
 
       // the creature is close enough to fight thePlayer,
       // we do not need this intervalFunction anymore.
@@ -3304,6 +4029,228 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.Destroy();
   }
 }
+
+// This "Entity" is different from the others (gryphon/default) because
+// It is not the entity itself but more of a manager who controls multiple
+// entities.
+statemachine class RandomEncountersReworkedContractEntity extends CEntity {
+  var bait_entity: CEntity;
+  
+  // an array containing entities for the tracks when
+  //  using the functions to add a  track on the ground
+  // it adds one to the array, unless we reached the maximum
+  // number of tracks. At this moment we come back to 0 and
+  // start using the _tracks_index and set _tracks_looped  
+  // to true to tell we have already reached the maximum once.
+  // And now instead of creating a new track Entity we simply
+  // move the old one at _tracks_index.
+  var tracks_entities: array<CEntity>;
+  var tracks_index: int;
+  var tracks_looped: bool;
+  default tracks_looped = false;
+  var tracks_maximum: int;
+  default tracks_maximum = 200;
+
+  public var track_resource: CEntityTemplate;
+
+  var monster_group_position: Vector;
+
+  var entities: array<CEntity>;
+
+  event OnSpawned( spawnData : SEntitySpawnData ){
+    super.OnSpawned(spawnData);
+
+    LogChannel(
+      'modRandomEncounters',
+      "RandomEncountersReworkedContractEntity spawned"
+    );
+  }
+
+  public function attach(entities: array<CEntity>) {
+    this.entities = entities;
+
+    this.AddTag('RandomEncountersReworked_Entity');
+  }
+
+  public function removeAllLoot() {
+    var inventory: CInventoryComponent;
+    var i: int;
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      inventory = ((CActor)this.entities[i]).GetInventory();
+
+      inventory.EnableLoot(false);
+    }
+  }
+
+  public latent function start() {
+    this.AddTimer('intervalLifeCheck', 10.0, true);
+  }
+
+  private function areAllEntitiesDead(): bool {
+    var i: int;
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      if (((CActor)this.entities[i]).IsAlive()) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  timer function intervalLifeCheck(optional dt : float, optional id : Int32) {
+    if (this.areAllEntitiesDead()) {
+      this.clean();
+    }
+  }
+
+    public function addTrackHere(position: Vector, heading: EulerAngles) {
+    var new_entity: CEntity;
+
+    if (!this.tracks_looped) {
+      new_entity = theGame.CreateEntity(
+        this.track_resource,
+        position,
+        heading,
+        true,
+        false,
+        false,
+        PM_DontPersist
+      );
+
+      this.tracks_entities.PushBack(new_entity);
+
+      if (this.tracks_entities.Size() == this.tracks_maximum) {
+        this.tracks_looped = true;
+      }
+
+      return;
+    }
+
+    this.tracks_entities[this.tracks_index]
+      .TeleportWithRotation(position, RotRand(0, 360));
+
+    this.tracks_index = (this.tracks_index + 1) % this.tracks_maximum;
+  }
+
+  private function clean() {
+    var i: int;
+
+    LogChannel(
+      'modRandomEncounters',
+      "RandomEncountersReworkedContractEntity destroyed"
+    );
+
+    this.RemoveTimer('intervalLifeCheck');
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      ((CActor)this.entities[i])
+        .Kill('RandomEncountersReworkedContractEntity', true);
+    }
+
+    this.Destroy();
+  }
+}
+
+state StartContract in RandomEncountersReworkedContractEntity {
+  private var current_tracks_position: Vector;
+
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Contract - State StartContract");
+
+    this.StartContract_Main();
+  }
+
+  entry function StartContract_Main() {
+    parent.AddTimer('StartContract_intervalDrawTracks', 0.25, true);
+  }
+
+  timer function StartContract_intervalDrawTracks(optional dt : float, optional id: Int32) {
+    FixZAxis(this.current_tracks_position);
+
+    parent.addTrackHere(
+      current_tracks_position,
+      VecToRotation(
+        this.current_tracks_position - parent.monster_group_position
+      )
+    );
+
+    if (VecDistanceSquared(this.current_tracks_position, parent.monster_group_position) < 5 * 5) {
+      parent.RemoveTimer('StartContract_intervalDrawTracks');
+    }
+
+    // this.usePathFinding(this.current_tracks_position, parent.monster_group_position);
+  }
+
+  latent function usePathFinding(out current_position: Vector, target_position: Vector) : bool {
+    var path : array<Vector>;	
+
+    if(theGame
+      .GetVolumePathManager()
+      .IsPathfindingNeeded(current_position, target_position)) {
+
+      path.Clear();
+      
+      if (theGame
+         .GetVolumePathManager()
+         .GetPath(current_position, target_position, path)) {
+
+        current_position = path[1];
+
+        return true;
+      }
+
+      return false;
+    }
+
+    return true;
+  }
+
+  event OnLeaveState(nextStateName : name) {
+    parent.RemoveTimer('StartContract_intervalDrawTracks');
+
+    super.OnLeaveState(nextStateName);
+  }
+}
+// In this state the monsters aren't doing much.
+state WaitingForPlayer in RandomEncountersReworkedContractEntity {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('modRandomEncounters', "Contract - State WaitingForPlayer");
+
+    this.WaitingForPlayer_Main();
+  }
+
+  entry function WaitingForPlayer_Main() {
+    parent.AddTimer('WaitingForPlayer_intervalMain', 1.0, true);
+  }
+
+  timer function WaitingForPlayer_intervalMain(optional dt : float, optional id: Int32) {
+    var distance_from_player: float;
+
+    distance_from_player = VecDistanceSquared(
+      thePlayer.GetWorldPosition(),
+      parent.monster_group_position
+    );
+
+    if (distance_from_player < 400) {
+      parent.GotoState('FightingPlayer');
+
+      return;
+    }
+  }
+
+  event OnLeaveState(nextStateName : name) {
+    parent.RemoveTimer('WaitingForPlayer_intervalMain');
+
+    super.OnLeaveState(nextStateName);
+  }
+}
+
 
 statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var bait_position: Vector;
@@ -3551,6 +4498,7 @@ state GryphonFightingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     LogChannel('modRandomEncounters', "Gryphon - State GryphonFightingPlayer");
 
     theSound.SoundEvent("stop_music");
+    theSound.SoundEvent("play_music_nomansgrad");
     theSound.SoundEvent("mus_griffin_combat");
 
     parent.AddTimer('GryphonFightingPlayer_intervalDefaultFunction', 0.5, true);
@@ -3679,6 +4627,8 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     this.distance_threshold = 150 * 150; // squared value for performances
     this.starting_position = thePlayer.GetWorldPosition();
 
+    theSound.SoundEvent("stop_music");
+    theSound.SoundEvent("play_music_nomansgrad");
     theSound.SoundEvent("mus_griffin_chase");
 
     parent.AddTimer('GryphonFleeingPlayer_intervalDefaultFunction', 2, true);
@@ -4465,6 +5415,112 @@ function getGroundPosition(out input_position: Vector, optional personal_space: 
   return true;
 }
 
+function getGroupPositions(initial_position: Vector, count: int, density: float): array<Vector> {
+  var s, r, x, y: float;
+  var pos_fin: Vector;
+  var output_positions: array<Vector>;
+  
+  var i: int;
+  var sign: int;
+
+  //const values used in the loop
+  pos_fin.Z = initial_position.Z;
+  s = count / density; // maintain a constant density of `density` unit per m2
+  r = SqrtF(s/Pi());
+
+  for (i = 0; i < count; i += 1) {
+    x = RandF() * r;        // add random value within range to X
+    y = RandF() * (r - x);  // add random value to Y so that the point is within the disk
+
+    if(RandRange(2))        // randomly select the sign for misplacement
+      sign = 1;
+    else
+      sign = -1;
+      
+    pos_fin.X = initial_position.X + sign * x;  //final X pos
+    
+    if(RandRange(2))        // randomly select the sign for misplacement
+      sign = 1;
+    else
+      sign = -1;
+      
+    pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
+
+    // return false means it could not find ground position
+    // in this case, take the default position
+    // if return true, then pos_fin is updated with the correct position
+    if (!getGroundPosition(pos_fin)) {
+      pos_fin = initial_position;
+    }
+
+    output_positions.PushBack(pos_fin);
+  }
+
+  return output_positions;
+}
+
+latent function getTracksTemplate(actor : CActor): CEntityTemplate {
+  var monsterCategory : EMonsterCategory;
+  var soundMonsterName : CName;
+  var isTeleporting : bool;
+  var canBeTargeted : bool;
+  var canBeHitByFists : bool;
+  var entity_template: CEntityTemplate;
+
+  theGame.GetMonsterParamsForActor(
+    actor,
+    monsterCategory,
+    soundMonsterName,
+    isTeleporting,
+    canBeTargeted,canBeTargeted
+  );
+
+  switch(monsterCategory) {
+    case MC_Specter :
+    case MC_Magicals :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\generic_quests\skellige\quest_files\mh207_wraith\entities\mh207_area_fog.w2ent",
+        true
+      );
+
+      return entity_template;
+      break;
+        
+      break;
+        
+    case MC_Vampire :
+    case MC_Human :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\minor_quests\no_mans_land\quest_files\mq1051_monster_hunt_nilfgaard1\entities\mq1051_mc_scout_footprint.w2ent",
+        true
+      );
+
+      return entity_template;
+      break;
+        
+    case MC_Insectoid :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\generic_quests\no_mans_land\quest_files\mh102_arachas\entities\mh102_arachas_tracks.w2ent",
+        true
+      );
+    case MC_Cursed :
+    case MC_Troll :
+    case MC_Animal :
+    case MC_Necrophage :
+    case MC_Hybrid :
+    case MC_Relic :
+    case MC_Beast :
+    case MC_Draconide :
+    default :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
+        true
+      );
+
+      return entity_template;
+  }
+}
+
 function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float, optional attempts: int): bool {
   var player_position: Vector;
   var point_z: float;
@@ -4511,7 +5567,6 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
   var rot: EulerAngles;
   var i, sign: int;
   var s, r, x, y: float;
-  var createEntityHelper: CCreateEntityHelper;
   var created_entities: array<RandomEncountersReworkedEntity>;
   var current_rer_entity: RandomEncountersReworkedEntity;
   var rer_entity_template: CEntityTemplate;
@@ -4529,11 +5584,8 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
 
   //const values used in the loop
   pos_fin.Z = initial_position.Z;
-  s = quantity / density; // maintain a constant density of 0.2 unit per m2
+  s = quantity / density; // maintain a constant density of `density` unit per m2
   r = SqrtF(s/Pi());
-
-  createEntityHelper = new CCreateEntityHelper;
-  // createEntityHelper.SetPostAttachedCallback(this, 'onEntitySpawned');
 
   rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent", true);
 
@@ -4561,8 +5613,6 @@ latent function spawnEntities(entity_template: CEntityTemplate, initial_position
     if (!getGroundPosition(pos_fin)) {
       pos_fin = initial_position;
     }
-
-    createEntityHelper.Reset();
 
     LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
 
@@ -4634,10 +5684,11 @@ state Spawning in CRandomEncounters {
   }
 
   entry function triggerCreaturesSpawn() {
-    var picked_entity_type: CreatureType;
     var picked_encounter_type: EncounterType;
 
     LogChannel('modRandomEncounters', "creatures spawning triggered");
+
+    picked_encounter_type = this.getRandomEncounterType();
     
     if (this.shouldAbortCreatureSpawn()) {
       parent.GotoState('SpawningCancelled');
@@ -4645,14 +5696,10 @@ state Spawning in CRandomEncounters {
       return;
     }
 
-    picked_entity_type = this.getRandomEntityTypeWithSettings();
-    picked_encounter_type = this.getRandomEncounterType();
-
-    LogChannel('modRandomEncounters', "picked entity type: " + picked_entity_type + ", picked encounter type: " + picked_encounter_type);
+    LogChannel('modRandomEncounters', "picked encounter type: " + picked_encounter_type);
 
     makeGroupComposition(
       picked_encounter_type,
-      picked_entity_type,
       parent
     );
 
@@ -4669,8 +5716,6 @@ state Spawning in CRandomEncounters {
     is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
     current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
 
-    LogChannel('modRandomEncounters', "the player is in settlement:" + this.isInSettlement());
-
     return is_meditating 
         || current_zone == REZ_NOSPAWN
         || thePlayer.IsInInterior()
@@ -4684,56 +5729,27 @@ state Spawning in CRandomEncounters {
         || theGame.IsCurrentlyPlayingNonGameplayScene()
         || theGame.IsFading()
         || theGame.IsBlackscreen()
-        
-        || !parent.settings.citySpawn
-        && (
-          // either from an hardcoded city in RER
-          // or if the game tells us the player is
-          // in a settlement.
-          current_zone == REZ_CITY 
-          || this.isInSettlement()
-        );
-  }
 
-  function isInSettlement(): bool {
-    var current_area : EAreaName;
-
-    current_area = theGame.GetCommonMapManager().GetCurrentArea();
-
-    // the .isInSettlement() method doesn't work when is skellige
-    // it always returns true.
-    if (current_area == AN_Skellige_ArdSkellig) {
-      // HACK: it can be a great way to see if a settlement is nearby
-      // by looking for a noticeboard. Though some settlements don't have
-      // any noticeboard.
-      // TODO: get the nearest signpost and read its tag then check
-      // if it is a known settlement.
-      return parent.rExtra.isNearNoticeboard();
-    }
-    
-    return thePlayer.IsInSettlement();
-  }
-
-  function getRandomEntityTypeWithSettings(): CreatureType {
-    if (theGame.envMgr.IsNight()) {
-      if (RandRange(100) < parent.settings.large_creature_chance) {
-        return LARGE_CREATURE;
-      }
-
-      return SMALL_CREATURE;
-    }
-    else {
-      if (RandRange(100) < parent.settings.large_creature_chance * 2) {
-        return LARGE_CREATURE;
-      }
-
-      return SMALL_CREATURE;
-    }
+        || parent.rExtra.isPlayerInSettlement()
+        && !parent.settings.doesAllowCitySpawns();
   }
 
   function getRandomEncounterType(): EncounterType {
-    if (RandRange(100) < parent.settings.all_monster_hunt_chance) {
+    var max_roll: int;
+    var roll: int;
+
+    max_roll = parent.settings.all_monster_hunt_chance
+             + parent.settings.all_monster_contract_chance
+             + parent.settings.all_monster_ambush_chance;
+
+    roll = RandRange(max_roll);
+    if (roll < parent.settings.all_monster_hunt_chance) {
       return EncounterType_HUNT;
+    }
+
+    roll -= parent.settings.all_monster_hunt_chance;
+    if (roll < parent.settings.all_monster_contract_chance) {
+      return EncounterType_CONTRACT;
     }
 
     return EncounterType_DEFAULT;
