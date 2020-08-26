@@ -72,7 +72,7 @@
         <VisibleVars>			
             <Var id="allMonsterAmbushChance" displayName="rer_monster_ambush_ratio" displayType="SLIDER;0;100;100"/>
             <Var id="allMonsterHuntChance" displayName="rer_monster_hunt_ratio" displayType="SLIDER;0;100;100"/>
-            <Var id="allMonsterContractChance" displayName="rer_monster_contract_ratio" displayType="SLIDER;0;100;100"/>
+            <!-- <Var id="allMonsterContractChance" displayName="rer_monster_contract_ratio" displayType="SLIDER;0;100;100"/> -->
         </VisibleVars>
     </Group>
     

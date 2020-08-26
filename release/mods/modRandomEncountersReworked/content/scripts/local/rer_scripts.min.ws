@@ -262,7 +262,11 @@ abstract class CompositionSpawner {
         this.created_entities[i]
       );
 
+      LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
+
       if (RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
+        LogChannel('modRandomEncounters', "adding 1 trophy " + this.creature_type);
+        
         ((CActor)this.created_entities[i])
           .GetInventory()
           .AddAnItem(
@@ -272,10 +276,11 @@ abstract class CompositionSpawner {
       }
     }
 
-    for (i = 0; i < CreatureMAX; i += 1) {
-      thePlayer.GetInventory()
-      .AddAnItem(master.resources.getCreatureTrophy(i), 1);
-    }
+    // DEBUG, add every trophies to the inventory
+    // for (i = 0; i < CreatureMAX; i += 1) {
+    //   thePlayer.GetInventory()
+    //   .AddAnItem(master.resources.getCreatureTrophy(i), 1);
+    // }
 
     success = this.afterSpawningEntities();
     if (!success) {
@@ -739,10 +744,10 @@ class RE_Resources {
         return 'modrer_fiend_trophy';
         break;
       case CreatureEKIMMARA:
-        return 'modrer_katakan_trophy';
+        return 'modrer_ekimmara_trophy';
         break;
       case CreatureKATAKAN:
-        return 'modrer_ekimmara_trophy';
+        return 'modrer_katakan_trophy';
         break;
       case CreatureGOLEM:
       case CreatureELEMENTAL:
@@ -761,6 +766,8 @@ class RE_Resources {
         return 'modrer_cyclop_trophy';
         break;
       case CreatureTROLL:
+        return 'modrer_troll_trophy';
+        break;
       case CreatureHAG:
         return 'modrer_grave_hag_trophy';
         break;
@@ -962,6 +969,8 @@ class RE_Settings {
         this.creatures_chances_day.PushBack(0);
         this.creatures_chances_night.PushBack(0);
         this.creatures_city_spawns.PushBack(false);
+        this.monster_trophies_chances.PushBack(0);
+
       }
     }
   }
@@ -5739,7 +5748,7 @@ state Spawning in CRandomEncounters {
     var roll: int;
 
     max_roll = parent.settings.all_monster_hunt_chance
-             + parent.settings.all_monster_contract_chance
+            //  + parent.settings.all_monster_contract_chance
              + parent.settings.all_monster_ambush_chance;
 
     roll = RandRange(max_roll);
@@ -5747,10 +5756,10 @@ state Spawning in CRandomEncounters {
       return EncounterType_HUNT;
     }
 
-    roll -= parent.settings.all_monster_hunt_chance;
-    if (roll < parent.settings.all_monster_contract_chance) {
-      return EncounterType_CONTRACT;
-    }
+    // roll -= parent.settings.all_monster_hunt_chance;
+    // if (roll < parent.settings.all_monster_contract_chance) {
+    //   return EncounterType_CONTRACT;
+    // }
 
     return EncounterType_DEFAULT;
   }

@@ -225,10 +225,10 @@ class RE_Resources {
         return 'modrer_fiend_trophy';
         break;
       case CreatureEKIMMARA:
-        return 'modrer_katakan_trophy';
+        return 'modrer_ekimmara_trophy';
         break;
       case CreatureKATAKAN:
-        return 'modrer_ekimmara_trophy';
+        return 'modrer_katakan_trophy';
         break;
       case CreatureGOLEM:
       case CreatureELEMENTAL:
@@ -247,6 +247,8 @@ class RE_Resources {
         return 'modrer_cyclop_trophy';
         break;
       case CreatureTROLL:
+        return 'modrer_troll_trophy';
+        break;
       case CreatureHAG:
         return 'modrer_grave_hag_trophy';
         break;

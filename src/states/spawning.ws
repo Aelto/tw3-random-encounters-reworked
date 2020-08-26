@@ -65,7 +65,7 @@ state Spawning in CRandomEncounters {
     var roll: int;
 
     max_roll = parent.settings.all_monster_hunt_chance
-             + parent.settings.all_monster_contract_chance
+            //  + parent.settings.all_monster_contract_chance
              + parent.settings.all_monster_ambush_chance;
 
     roll = RandRange(max_roll);
@@ -73,10 +73,10 @@ state Spawning in CRandomEncounters {
       return EncounterType_HUNT;
     }
 
-    roll -= parent.settings.all_monster_hunt_chance;
-    if (roll < parent.settings.all_monster_contract_chance) {
-      return EncounterType_CONTRACT;
-    }
+    // roll -= parent.settings.all_monster_hunt_chance;
+    // if (roll < parent.settings.all_monster_contract_chance) {
+    //   return EncounterType_CONTRACT;
+    // }
 
     return EncounterType_DEFAULT;
   }
