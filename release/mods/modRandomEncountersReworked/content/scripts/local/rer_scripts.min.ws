@@ -187,6 +187,16 @@ abstract class CompositionSpawner {
     return this;
   }
 
+  // the distance at which an RER creature is killed
+  var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 200;
+
+  public function setAutomaticKillThresholdDistance(distance: float): CompositionSpawner {
+    this.automatic_kill_threshold_distance = distance;
+
+    return this;
+  }
+
   var master: CRandomEncounters;
   var creature_type: CreatureType;
   var creatures_templates: EnemyTemplateList;
@@ -858,6 +868,10 @@ class RE_Settings {
 
   public var monster_trophies_chances: array<int>;
 
+  public var minimum_spawn_distance: float;
+  public var spawn_diameter: float;
+  public var kill_threshold_distance: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -884,6 +898,7 @@ class RE_Settings {
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
     this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
+    this.loadAdvancedSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -955,6 +970,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -975,6 +991,19 @@ class RE_Settings {
     }
   }
 
+  private function loadAdvancedSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
+    this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
+    this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+
+    if (this.minimum_spawn_distance < 20 || this.spawn_diameter < 20 || this.kill_threshold_distance < 100) {
+      inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
+
+      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
+      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
+      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+    }
+  }
    
   private function loadCreaturesSpawningChances (out inGameConfigWrapper : CInGameConfigWrapper) {
     this.creatures_chances_day[CreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Harpies'));
@@ -3461,15 +3490,16 @@ latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
 
   composition = new CreatureHuntGryphonComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.spawn(master);
 }
 
 class CreatureHuntGryphonComposition extends CompositionSpawner {
-  public function init() {
+  public function init(settings: RE_Settings) {
     this
-      .setRandomPositionMinRadius(120)
-      .setRandomPositionMaxRadius(200)
+      .setRandomPositionMinRadius(settings.minimum_spawn_distance * 3)
+      .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 3)
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 3)
       .setCreatureType(CreatureGRYPHON)
       .setNumberOfCreatures(1);
   }
@@ -3497,16 +3527,19 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     var current_rer_entity: RandomEncountersReworkedGryphonHuntEntity;
 
     current_rer_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
-    rer_entity_template,
-    initial_position,
-    thePlayer.GetWorldRotation()
-  );
+      rer_entity_template,
+      initial_position,
+      thePlayer.GetWorldRotation()
+    );
 
     current_rer_entity.attach(
       (CActor)entity,
       (CNewNPC)entity,
       entity
     );
+
+    current_rer_entity.automatic_kill_threshold_distance = this
+      .automatic_kill_threshold_distance;
 
     current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
     
@@ -3519,10 +3552,6 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
 
     this.rer_entities.PushBack(current_rer_entity);
   }
-
-  protected latent function afterSpawningEntities(): bool {
-    return true;
-  }
 }
 
 
@@ -3531,17 +3560,18 @@ latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type
 
   composition = new CreatureHuntComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.setCreatureType(creature_type)
     .spawn(master);
 }
 
 // CAUTION, it extends `CreatureAmbushWitcherComposition`
 class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
-  public function init() {
+  public function init(settings: RE_Settings) {
     this
-      .setRandomPositionMinRadius(40)
-      .setRandomPositionMaxRadius(60);
+      .setRandomPositionMinRadius(settings.minimum_spawn_distance * 2)
+      .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 2)
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 2);
   }
 
   protected latent function afterSpawningEntities(): bool {
@@ -3626,7 +3656,7 @@ latent function makeCreatureWildHunt(out master: CRandomEncounters) {
 
   composition = new WildHuntAmbushWitcherComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.setCreatureType(CreatureWILDHUNT)
     .spawn(master);
 }
@@ -3679,18 +3709,19 @@ latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out maste
 
   composition = new CreatureAmbushWitcherComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.setCreatureType(creature_type)
     .spawn(master);
 }
 
 class CreatureAmbushWitcherComposition extends CompositionSpawner {
-  public function init() {
+  public function init(settings: RE_Settings) {
     LogChannel('modRandomEncounters', "CreatureAmbushWitcherComposition");
 
     this
-      .setRandomPositionMinRadius(20)
-      .setRandomPositionMaxRadius(40);
+      .setRandomPositionMinRadius(settings.minimum_spawn_distance)
+      .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance);
   }
 
   var rer_entity_template: CEntityTemplate;
@@ -3720,6 +3751,9 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
       (CNewNPC)entity,
       entity
     );
+
+    current_rer_entity.automatic_kill_threshold_distance = this
+      .automatic_kill_threshold_distance;
 
     this.rer_entities.PushBack(current_rer_entity);
   }
@@ -3762,6 +3796,9 @@ class RandomEncountersReworkedEntity extends CEntity {
   public var this_entity: CEntity;
   public var this_actor: CActor;
   public var this_newnpc: CNewNPC;
+
+  public var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 200;
 
   private var tracks_template: CEntityTemplate;
   private var tracks_entities: array<CEntity>;
@@ -3888,7 +3925,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
     LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
 
-    if (distance_from_player > 200) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
       this.clean();
 
       return;
@@ -3991,7 +4028,7 @@ class RandomEncountersReworkedEntity extends CEntity {
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > 200) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
       this.clean();
 
       return;
@@ -4275,6 +4312,9 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var animation_slot: CAIPlayAnimationSlotAction;
 	public var animation_slot_idle : CAIPlayAnimationSlotAction;
 
+  public var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 600;
+
 
   public var blood_resources: array<CEntityTemplate>;
   public var blood_resources_size: int;
@@ -4444,7 +4484,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > 600) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
       this.clean();
 
       return;

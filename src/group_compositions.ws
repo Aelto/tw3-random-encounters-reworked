@@ -100,6 +100,16 @@ abstract class CompositionSpawner {
     return this;
   }
 
+  // the distance at which an RER creature is killed
+  var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 200;
+
+  public function setAutomaticKillThresholdDistance(distance: float): CompositionSpawner {
+    this.automatic_kill_threshold_distance = distance;
+
+    return this;
+  }
+
   var master: CRandomEncounters;
   var creature_type: CreatureType;
   var creatures_templates: EnemyTemplateList;

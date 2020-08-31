@@ -51,7 +51,7 @@ latent function makeCreatureWildHunt(out master: CRandomEncounters) {
 
   composition = new WildHuntAmbushWitcherComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.setCreatureType(CreatureWILDHUNT)
     .spawn(master);
 }
@@ -104,18 +104,19 @@ latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out maste
 
   composition = new CreatureAmbushWitcherComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.setCreatureType(creature_type)
     .spawn(master);
 }
 
 class CreatureAmbushWitcherComposition extends CompositionSpawner {
-  public function init() {
+  public function init(settings: RE_Settings) {
     LogChannel('modRandomEncounters', "CreatureAmbushWitcherComposition");
 
     this
-      .setRandomPositionMinRadius(20)
-      .setRandomPositionMaxRadius(40);
+      .setRandomPositionMinRadius(settings.minimum_spawn_distance)
+      .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance);
   }
 
   var rer_entity_template: CEntityTemplate;
@@ -145,6 +146,9 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
       (CNewNPC)entity,
       entity
     );
+
+    current_rer_entity.automatic_kill_threshold_distance = this
+      .automatic_kill_threshold_distance;
 
     this.rer_entities.PushBack(current_rer_entity);
   }

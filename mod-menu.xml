@@ -1760,4 +1760,19 @@
         </VisibleVars>
     </Group>
 
+    <Group id="RERadvanced" displayName="Mods.rer_name.rer_advanced_settings">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="minSpawnDistance"		value="20"	/>
+                <Entry varId="spawnDiameter"	        value="20"	/>
+                <Entry varId="killThresholdDistance"		value="200"	/>
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>			
+            <Var id="minSpawnDistance" displayName="rer_min_spawn_distance" displayType="SLIDER;10;1010;1000"/>
+            <Var id="spawnDiameter" displayName="rer_spawn_diameter" displayType="SLIDER;10;1010;1000"/>
+            <Var id="killThresholdDistance" displayName="rer_kill_threshold_distance" displayType="SLIDER;100;3100;3000"/>
+        </VisibleVars>
+    </Group>
+
 </UserConfig>

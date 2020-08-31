@@ -19,6 +19,9 @@ class RandomEncountersReworkedEntity extends CEntity {
   public var this_actor: CActor;
   public var this_newnpc: CNewNPC;
 
+  public var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 200;
+
   private var tracks_template: CEntityTemplate;
   private var tracks_entities: array<CEntity>;
 
@@ -98,7 +101,8 @@ class RandomEncountersReworkedEntity extends CEntity {
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > 100) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;
@@ -144,7 +148,8 @@ class RandomEncountersReworkedEntity extends CEntity {
     LogChannel('modRandomEncounters', "distance from player : " + distance_from_player);
     LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
 
-    if (distance_from_player > 200) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;
@@ -189,7 +194,8 @@ class RandomEncountersReworkedEntity extends CEntity {
       else {
         // to avoid creatures who lost their bait (because it went too far)
         // aggroing the player. But instead they die too.
-        if (distance_from_player > 170) {
+        if (distance_from_player > this.automatic_kill_threshold_distance * 0.8) {
+          LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
           this.clean();
 
           return;
@@ -247,7 +253,8 @@ class RandomEncountersReworkedEntity extends CEntity {
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > 200) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;

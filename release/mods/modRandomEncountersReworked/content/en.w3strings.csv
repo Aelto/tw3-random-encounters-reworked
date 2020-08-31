@@ -128,3 +128,6 @@
 2115018126|        |rer_trophy_necrophage|Necrophage trophy
 2115018127|        |rer_trophy_vampire|Vampire trophy
 2115018128|        |rer_trophy_human|Human trophy
+2115018129|        |option_rer_min_spawn_distance|Minimum spawn distance (in meters)
+2115018130|        |option_rer_spawn_diameter|Spawn diameter (in meters)
+2115018131|        |option_rer_kill_threshold_distance|Automatic kill threshold (in meters)

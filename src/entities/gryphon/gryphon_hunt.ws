@@ -13,6 +13,9 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var animation_slot: CAIPlayAnimationSlotAction;
 	public var animation_slot_idle : CAIPlayAnimationSlotAction;
 
+  public var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 600;
+
 
   public var blood_resources: array<CEntityTemplate>;
   public var blood_resources_size: int;
@@ -182,7 +185,8 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > 600) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;

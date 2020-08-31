@@ -34,6 +34,10 @@ class RE_Settings {
 
   public var monster_trophies_chances: array<int>;
 
+  public var minimum_spawn_distance: float;
+  public var spawn_diameter: float;
+  public var kill_threshold_distance: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -60,6 +64,7 @@ class RE_Settings {
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
     this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
+    this.loadAdvancedSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -131,6 +136,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -151,6 +157,20 @@ class RE_Settings {
     }
   }
 
+  private function loadAdvancedSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
+    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'spawnDiameter'));
+    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'killThresholdDistance'));
+
+    if (this.minimum_spawn_distance < 20 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
+      inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
+
+      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
+      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
+      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+      theGame.SaveUserSettings();
+    }
+  }
    
   private function loadCreaturesSpawningChances (out inGameConfigWrapper : CInGameConfigWrapper) {
     this.creatures_chances_day[CreatureHARPY]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Harpies'));
@@ -167,9 +187,6 @@ class RE_Settings {
     this.creatures_chances_day[CreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'WildHunt'));
     this.creatures_chances_day[CreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Humans'));
     this.creatures_chances_day[CreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Skeleton'));
-
-
-    
 
     // Blood and Wine
     this.creatures_chances_day[CreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Barghest')); 

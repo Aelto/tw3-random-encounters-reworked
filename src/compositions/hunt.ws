@@ -33,15 +33,16 @@ latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
 
   composition = new CreatureHuntGryphonComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.spawn(master);
 }
 
 class CreatureHuntGryphonComposition extends CompositionSpawner {
-  public function init() {
+  public function init(settings: RE_Settings) {
     this
-      .setRandomPositionMinRadius(120)
-      .setRandomPositionMaxRadius(200)
+      .setRandomPositionMinRadius(settings.minimum_spawn_distance * 3)
+      .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 3)
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 3)
       .setCreatureType(CreatureGRYPHON)
       .setNumberOfCreatures(1);
   }
@@ -69,16 +70,19 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     var current_rer_entity: RandomEncountersReworkedGryphonHuntEntity;
 
     current_rer_entity = (RandomEncountersReworkedGryphonHuntEntity)theGame.CreateEntity(
-    rer_entity_template,
-    initial_position,
-    thePlayer.GetWorldRotation()
-  );
+      rer_entity_template,
+      initial_position,
+      thePlayer.GetWorldRotation()
+    );
 
     current_rer_entity.attach(
       (CActor)entity,
       (CNewNPC)entity,
       entity
     );
+
+    current_rer_entity.automatic_kill_threshold_distance = this
+      .automatic_kill_threshold_distance;
 
     current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
     
@@ -91,10 +95,6 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
 
     this.rer_entities.PushBack(current_rer_entity);
   }
-
-  protected latent function afterSpawningEntities(): bool {
-    return true;
-  }
 }
 
 
@@ -103,17 +103,18 @@ latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type
 
   composition = new CreatureHuntComposition in master;
 
-  composition.init();
+  composition.init(master.settings);
   composition.setCreatureType(creature_type)
     .spawn(master);
 }
 
 // CAUTION, it extends `CreatureAmbushWitcherComposition`
 class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
-  public function init() {
+  public function init(settings: RE_Settings) {
     this
-      .setRandomPositionMinRadius(40)
-      .setRandomPositionMaxRadius(60);
+      .setRandomPositionMinRadius(settings.minimum_spawn_distance * 2)
+      .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 2)
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 2);
   }
 
   protected latent function afterSpawningEntities(): bool {
