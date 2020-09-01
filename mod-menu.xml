@@ -6,6 +6,7 @@
                 <Entry varId="Difficulty"				    value="1"	/>
                 <Entry varId="enableEncountersLoot"		    value="1"	/>
                 <Entry varId="externalFactorsImpact"		value="2"	/>
+                <Entry varId="RERtrophyPickupAnimation"		    value="1"	/>
             </Preset>
         </PresetsArray>
 
@@ -58,6 +59,7 @@
 					</Option>
 				</OptionsArray>
 			</Var>
+            <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
 
