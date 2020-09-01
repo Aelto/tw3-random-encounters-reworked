@@ -6,7 +6,7 @@
                 <Entry varId="Difficulty"				    value="1"	/>
                 <Entry varId="enableEncountersLoot"		    value="1"	/>
                 <Entry varId="externalFactorsImpact"		value="2"	/>
-                <Entry varId="RERtrophiesAmbush"		    value="1"	/>
+                <Entry varId="RERtrophiesAmbush"		    value="0"	/>
                 <Entry varId="RERtrophiesHunt"		        value="1"	/>
                 <Entry varId="RERtrophiesContract"		    value="1"	/>
                 <Entry varId="RERtrophyPickupAnimation"		    value="1"	/>
