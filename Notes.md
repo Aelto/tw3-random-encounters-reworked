@@ -4,6 +4,8 @@
 
 - to enable logging use `-debugscripts` flag
 
+- `quests\generic_quests\scenes\mh_taking_trophy_no_dialogue.w2scene` for the trophy scene
+
 - spawning blood spills
   ```js
   public final function CreateBloodSpill()
