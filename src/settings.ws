@@ -38,6 +38,10 @@ class RE_Settings {
   public var spawn_diameter: float;
   public var kill_threshold_distance: float;
 
+  public var trophies_enabled_by_encounter: array<bool>;
+
+  public var trophy_pickup_scene: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -53,11 +57,11 @@ class RE_Settings {
     this.loadMonsterAmbushChances(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
-    // this.loadTrophiesSettings(inGameConfigWrapper);
     this.loadDifficultySettings(inGameConfigWrapper);
     this.loadCitySpawnSettings(inGameConfigWrapper);
 
     this.fillSettingsArrays();
+    this.loadTrophiesSettings(inGameConfigWrapper);
     this.loadCreaturesSpawningChances(inGameConfigWrapper);
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
@@ -65,6 +69,7 @@ class RE_Settings {
     this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
     this.loadAdvancedSettings(inGameConfigWrapper);
+    this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -98,7 +103,13 @@ class RE_Settings {
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies');
+    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesAmbush');
+    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesHunt');
+    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesContract');
+  }
+
+  private function loadTrophyPickupAnimationSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophyPickupAnimation');
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -152,7 +163,10 @@ class RE_Settings {
         this.creatures_chances_night.PushBack(0);
         this.creatures_city_spawns.PushBack(false);
         this.monster_trophies_chances.PushBack(0);
+      }
 
+      for (i = 0; i < EncounterType_MAX; i += 1) {
+        this.trophies_enabled_by_encounter.PushBack(false);
       }
     }
   }

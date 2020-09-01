@@ -116,7 +116,9 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance)
       .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
-      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance);
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_DEFAULT])
+      .setAllowTrophyPickupScene(settings.trophy_pickup_scene);
   }
 
   var rer_entity_template: CEntityTemplate;
@@ -144,8 +146,15 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     current_rer_entity.attach(
       (CActor)entity,
       (CNewNPC)entity,
-      entity
+      entity,
+      this.master
     );
+
+    if (this.allow_trophy) {
+      // if the user allows trophy pickup scene, tell the entity
+      // to send RER a request on its death.
+      current_rer_entity.pickup_animation_on_death = this.allow_trophy_pickup_scene;
+    }
 
     current_rer_entity.automatic_kill_threshold_distance = this
       .automatic_kill_threshold_distance;

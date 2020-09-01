@@ -83,7 +83,14 @@ enum CreatureType {
 enum EncounterType {
   EncounterType_DEFAULT  = 0,
   EncounterType_HUNT     = 1,
-  EncounterType_CONTRACT = 2
+  EncounterType_CONTRACT = 2,
+  EncounterType_MAX      = 3
+}
+
+
+enum OutOfCombatRequest {
+  OutOfCombatRequest_TROPHY_CUTSCENE = 0,
+  OutOfCombatRequest_TROPHY_NONE     = 1
 }
 
 // Sometimes solo creatures can be accompanied by smaller creatures,
@@ -197,6 +204,26 @@ abstract class CompositionSpawner {
     return this;
   }
 
+  // should the creature drop a trophy on death
+  var allow_trophy: bool;
+  default allow_trophy = true;
+
+  public function setAllowTrophy(value: bool): CompositionSpawner {
+    this.allow_trophy = value;
+
+    return this;
+  }
+
+  // should the creature trigger a loot pickup cutscene on death
+  var allow_trophy_pickup_scene: bool;
+  default allow_trophy_pickup_scene = false;
+
+  public function setAllowTrophyPickupScene(value: bool): CompositionSpawner {
+    this.allow_trophy_pickup_scene = value;
+
+    return this;
+  }
+
   var master: CRandomEncounters;
   var creature_type: CreatureType;
   var creatures_templates: EnemyTemplateList;
@@ -265,7 +292,6 @@ abstract class CompositionSpawner {
       }
     }
 
-    LogChannel('modRandomEncounters', "Adding trophies");
 
     for (i = 0; i < this.created_entities.Size(); i += 1) {
       this.forEachEntity(
@@ -274,7 +300,7 @@ abstract class CompositionSpawner {
 
       LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
 
-      if (RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
+      if (this.allow_trophy && RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
         LogChannel('modRandomEncounters', "adding 1 trophy " + this.creature_type);
         
         ((CActor)this.created_entities[i])
@@ -285,12 +311,6 @@ abstract class CompositionSpawner {
           );
       }
     }
-
-    // DEBUG, add every trophies to the inventory
-    // for (i = 0; i < CreatureMAX; i += 1) {
-    //   thePlayer.GetInventory()
-    //   .AddAnItem(master.resources.getCreatureTrophy(i), 1);
-    // }
 
     success = this.afterSpawningEntities();
     if (!success) {
@@ -461,6 +481,91 @@ statemachine class CRandomEncounters extends CEntity {
       displayRandomEncounterEnabledNotification();
     }
   }
+
+  //#region OutOfCombat action
+  private var out_of_combat_requests: array<OutOfCombatRequest>;
+
+  // add the requested action for when the player will the combat
+  public function requestOutOfCombatAction(request: OutOfCombatRequest): bool {
+    var i: int;
+    var already_added: bool;
+
+    already_added = false;
+
+    LogChannel('modRandomEncounters', "adding request out of combat: " + request);
+
+    for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
+      if (this.out_of_combat_requests[i] == request) {
+        already_added = true;
+      }
+    }
+
+    if (!already_added) {
+      this.out_of_combat_requests.PushBack(request);
+
+      this.RemoveTimer('waitOutOfCombatTimer');
+      this.AddTimer('waitOutOfCombatTimer', 0.1f, true);
+    }
+
+    // to return if something was added
+    return !already_added;
+  }
+
+  timer function waitOutOfCombatTimer(optional delta: float, optional id: Int32) {
+    var i: int;
+
+    if (thePlayer.IsInCombat()) {
+      return;
+    }
+
+    this.RemoveTimer('waitOutOfCombatTimer');
+
+
+    for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
+      switch (this.out_of_combat_requests[i]) {
+        case OutOfCombatRequest_TROPHY_CUTSCENE:
+          this.AddTimer('outOfCombatTrophyCutscene', 1.5, false);
+        break;
+      }
+    }
+
+    this.out_of_combat_requests.Clear();
+  }
+
+  timer function outOfCombatTrophyCutscene(optional delta: float, optional id: Int32) {
+    var scene: CStoryScene;
+    var entities : array<CGameplayEntity>;
+    var i: int;
+    var items_guids: array<SItemUniqueId>;
+
+    LogChannel('modRandomEncounters', "playing out of combat cutscene");
+
+    scene = (CStoryScene)LoadResource(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
+      true
+    );
+    
+    theGame
+      .GetStorySceneSystem()
+      .PlayScene(scene, "Input");
+
+    LogChannel('modRandomEncounters', "searching lootbag nearby");
+    FindGameplayEntitiesInRange( entities, thePlayer, 10, 10, , FLAG_ExcludePlayer,, 'W3Container' );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      LogChannel('modRandomEncounters', "lootbag - giving all RER_Trophy to player");
+      items_guids = ((W3Container)entities[i]).GetInventory().GetItemsByTag('RER_Trophy');
+      
+      LogChannel('modRandomEncounters', "lootbag - found " + items_guids.Size() + " trophies");
+      ((W3Container)entities[i]).GetInventory()
+        .GiveItemsTo(thePlayer.GetInventory(), items_guids);
+    }
+
+    PlayItemEquipSound('trophy');
+  }
+  //#endregion OutOfCombat action
+
+
 
   event OnDestroyed() {
     var ents: array<CEntity>;
@@ -872,6 +977,10 @@ class RE_Settings {
   public var spawn_diameter: float;
   public var kill_threshold_distance: float;
 
+  public var trophies_enabled_by_encounter: array<bool>;
+
+  public var trophy_pickup_scene: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -887,11 +996,11 @@ class RE_Settings {
     this.loadMonsterAmbushChances(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
-    // this.loadTrophiesSettings(inGameConfigWrapper);
     this.loadDifficultySettings(inGameConfigWrapper);
     this.loadCitySpawnSettings(inGameConfigWrapper);
 
     this.fillSettingsArrays();
+    this.loadTrophiesSettings(inGameConfigWrapper);
     this.loadCreaturesSpawningChances(inGameConfigWrapper);
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
@@ -899,6 +1008,7 @@ class RE_Settings {
     this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
     this.loadAdvancedSettings(inGameConfigWrapper);
+    this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -932,7 +1042,13 @@ class RE_Settings {
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    enableTrophies = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableTrophies');
+    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesAmbush');
+    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesHunt');
+    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesContract');
+  }
+
+  private function loadTrophyPickupAnimationSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophyPickupAnimation');
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -986,22 +1102,26 @@ class RE_Settings {
         this.creatures_chances_night.PushBack(0);
         this.creatures_city_spawns.PushBack(false);
         this.monster_trophies_chances.PushBack(0);
+      }
 
+      for (i = 0; i < EncounterType_MAX; i += 1) {
+        this.trophies_enabled_by_encounter.PushBack(false);
       }
     }
   }
 
   private function loadAdvancedSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
-    this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
-    this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
+    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'spawnDiameter'));
+    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'killThresholdDistance'));
 
-    if (this.minimum_spawn_distance < 20 || this.spawn_diameter < 20 || this.kill_threshold_distance < 100) {
+    if (this.minimum_spawn_distance < 20 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
       inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
 
       this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
       this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
       this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+      theGame.SaveUserSettings();
     }
   }
    
@@ -1020,9 +1140,6 @@ class RE_Settings {
     this.creatures_chances_day[CreatureWILDHUNT]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'WildHunt'));
     this.creatures_chances_day[CreatureHuman]      = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Humans'));
     this.creatures_chances_day[CreatureSKELETON]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Skeleton'));
-
-
-    
 
     // Blood and Wine
     this.creatures_chances_day[CreatureBARGHEST]   = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', 'Barghest')); 
@@ -3500,6 +3617,8 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
       .setRandomPositionMinRadius(settings.minimum_spawn_distance * 3)
       .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 3)
       .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 3)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_HUNT])
+      .setAllowTrophyPickupScene(settings.trophy_pickup_scene)
       .setCreatureType(CreatureGRYPHON)
       .setNumberOfCreatures(1);
   }
@@ -3535,8 +3654,15 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     current_rer_entity.attach(
       (CActor)entity,
       (CNewNPC)entity,
-      entity
+      entity,
+      this.master
     );
+
+    if (this.allow_trophy) {
+      // if the user allows trophy pickup scene, tell the entity
+      // to send RER a request on its death.
+      current_rer_entity.pickup_animation_on_death = this.allow_trophy_pickup_scene;
+    }
 
     current_rer_entity.automatic_kill_threshold_distance = this
       .automatic_kill_threshold_distance;
@@ -3571,7 +3697,9 @@ class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance * 2)
       .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 2)
-      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 2);
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 2)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_HUNT])
+      .setAllowTrophyPickupScene(settings.trophy_pickup_scene);
   }
 
   protected latent function afterSpawningEntities(): bool {
@@ -3721,7 +3849,9 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance)
       .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
-      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance);
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_DEFAULT])
+      .setAllowTrophyPickupScene(settings.trophy_pickup_scene);
   }
 
   var rer_entity_template: CEntityTemplate;
@@ -3749,8 +3879,15 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     current_rer_entity.attach(
       (CActor)entity,
       (CNewNPC)entity,
-      entity
+      entity,
+      this.master
     );
+
+    if (this.allow_trophy) {
+      // if the user allows trophy pickup scene, tell the entity
+      // to send RER a request on its death.
+      current_rer_entity.pickup_animation_on_death = this.allow_trophy_pickup_scene;
+    }
 
     current_rer_entity.automatic_kill_threshold_distance = this
       .automatic_kill_threshold_distance;
@@ -3803,16 +3940,23 @@ class RandomEncountersReworkedEntity extends CEntity {
   private var tracks_template: CEntityTemplate;
   private var tracks_entities: array<CEntity>;
 
+  private var master: CRandomEncounters;
+
+  public var pickup_animation_on_death: bool;
+  default pickup_animation_on_death = false;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
     LogChannel('modRandomEncounters', "RandomEncountersEntity spawned");
   }
 
-  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
+  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity, master: CRandomEncounters) {
     this.this_actor = actor;
     this.this_newnpc = newnpc;
     this.this_entity = this_entity;
+    
+    this.master = master;
 
     this.CreateAttachment( this_entity );
     this.AddTag('RandomEncountersReworked_Entity');
@@ -3879,7 +4023,8 @@ class RandomEncountersReworkedEntity extends CEntity {
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > 100) {
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;
@@ -3896,7 +4041,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
       // so it is also called almost instantly
       this.AddTimer('intervalLifecheckFunction', 0.1, false);
-      this.AddTimer('intervalLifecheckFunction', 10, true);
+      this.AddTimer('intervalLifecheckFunction', 1, true);
     }
   }
 
@@ -3926,6 +4071,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;
@@ -3942,7 +4088,7 @@ class RandomEncountersReworkedEntity extends CEntity {
       // we do not need this intervalFunction anymore.
       this.RemoveTimer('intervalHuntFunction');
       this.RemoveTimer('teleportBait');
-      this.AddTimer('intervalLifecheckFunction', 10, true);
+      this.AddTimer('intervalLifecheckFunction', 1, true);
 
       // we also kill the bait
       this.bait_entity.Destroy();
@@ -3970,7 +4116,8 @@ class RandomEncountersReworkedEntity extends CEntity {
       else {
         // to avoid creatures who lost their bait (because it went too far)
         // aggroing the player. But instead they die too.
-        if (distance_from_player > 170) {
+        if (distance_from_player > this.automatic_kill_threshold_distance * 0.8) {
+          LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
           this.clean();
 
           return;
@@ -4029,6 +4176,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;
@@ -4072,6 +4220,11 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.tracks_entities.Clear();
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
+
+    if (this.pickup_animation_on_death) {
+      this.master.requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+    }
+    
     this.Destroy();
   }
 }
@@ -4319,6 +4472,9 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var blood_resources: array<CEntityTemplate>;
   public var blood_resources_size: int;
 
+  public var pickup_animation_on_death: bool;
+  default pickup_animation_on_death = false;
+
   // an array containing entities for the blood tracks when
   //  using the functions to add a blood track on the ground
   // it adds one to the array, unless we reached the maximum
@@ -4337,6 +4493,8 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   var horse_corpse_near_geralt: CEntity;
   var horse_corpse_near_gryphon: CEntity;
 
+  var master: CRandomEncounters;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
@@ -4354,29 +4512,17 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 		this.animation_slot_idle.blendOutTime = 1.0f;	
 		this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
 
-    // this.animation_slot_idle = new CAIPlayAnimationSlotAction in this;
-		// this.animation_slot_idle.OnCreated();
-		// this.animation_slot_idle.animName = 'monster_gryphon_fly_start_from_ground';	
-		// this.animation_slot_idle.blendInTime = 1.0f;
-		// this.animation_slot_idle.blendOutTime = 1.0f;	
-		// this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
-
-    // this.animation_slot_idle = new CAIPlayAnimationSlotAction in this;
-		// this.animation_slot_idle.OnCreated();
-		// this.animation_slot_idle.animName = 'monster_gryphon_fly_f_land';	
-		// this.animation_slot_idle.blendInTime = 1.0f;
-		// this.animation_slot_idle.blendOutTime = 1.0f;	
-		// this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
-
     this.this_actor.SetTemporaryAttitudeGroup( 'q104_avallach_friendly_to_all', AGP_Default );
 
     LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity spawned");
   }
 
-  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
+  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity, master: CRandomEncounters) {
     this.this_actor = actor;
     this.this_newnpc = newnpc;
     this.this_entity = this_entity;
+
+    this.master = master;
 
     this.CreateAttachment( this_entity );
     this.AddTag('RandomEncountersReworked_Entity');
@@ -4485,6 +4631,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
       this.clean();
 
       return;
@@ -4513,6 +4660,11 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 		theSound.InitializeAreaMusic( theGame.GetCommonMapManager().GetCurrentArea() );
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
+
+    if (this.pickup_animation_on_death) {
+      this.master.requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+    }
+    
     this.Destroy();
   }
 }
@@ -5608,118 +5760,6 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
   }
 
   return false;
-}
-
-latent function spawnEntities(entity_template: CEntityTemplate, initial_position: Vector, optional quantity: int, optional density: float): array<RandomEncountersReworkedEntity> {
-  var ent: CEntity;
-  var player, pos_fin, normal: Vector;
-  var rot: EulerAngles;
-  var i, sign: int;
-  var s, r, x, y: float;
-  var created_entities: array<RandomEncountersReworkedEntity>;
-  var current_rer_entity: RandomEncountersReworkedEntity;
-  var rer_entity_template: CEntityTemplate;
-  var created_entity: CEntity;
-  
-  quantity = Max(quantity, 1);
-
-  if (density == 0) {
-    density = 0.2;
-  }
-
-  LogChannel('modRandomEncounters', "spawning " + quantity + " entities");
-
-  rot = thePlayer.GetWorldRotation();  
-
-  //const values used in the loop
-  pos_fin.Z = initial_position.Z;
-  s = quantity / density; // maintain a constant density of `density` unit per m2
-  r = SqrtF(s/Pi());
-
-  rer_entity_template = (CEntityTemplate)LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent", true);
-
-  for (i = 0; i < quantity; i += 1) {
-    x = RandF() * r;        // add random value within range to X
-    y = RandF() * (r - x);  // add random value to Y so that the point is within the disk
-
-    if(RandRange(2))        // randomly select the sign for misplacement
-      sign = 1;
-    else
-      sign = -1;
-      
-    pos_fin.X = initial_position.X + sign * x;  //final X pos
-    
-    if(RandRange(2))        // randomly select the sign for misplacement
-      sign = 1;
-    else
-      sign = -1;
-      
-    pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
-
-    // return false means it could not find ground position
-    // in this case, take the default position
-    // if return true, then pos_fin is updated with the correct position
-    if (!getGroundPosition(pos_fin)) {
-      pos_fin = initial_position;
-    }
-
-    LogChannel('modRandomEncounters', "spawning entity at " + pos_fin.X + " " + pos_fin.Y + " " + pos_fin.Z);
-
-
-    current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
-      rer_entity_template,
-      initial_position,
-      thePlayer.GetWorldRotation()
-    );
-
-    created_entity = theGame.CreateEntity(
-      entity_template,
-      pos_fin,
-      rot
-    );
-
-    current_rer_entity.attach(
-      (CActor)created_entity,
-      (CNewNPC)created_entity,
-      created_entity
-    );
-
-    created_entities.PushBack(current_rer_entity);
-  }
-
-  return created_entities;
-}
-
-latent function spawnTemplateList(entities_templates: array<SEnemyTemplate>, position: Vector, optional density: float): array<RandomEncountersReworkedEntity> {
-  var returned_entities: array<RandomEncountersReworkedEntity>;
-  var current_iteration_entities: array<RandomEncountersReworkedEntity>;
-
-  var current_entity_template: SEnemyTemplate;
-  var current_template: CEntityTemplate;
-
-  var i: int;
-  var j: int;
-
-  for (i = 0; i < entities_templates.Size(); i += 1) {
-    current_entity_template = entities_templates[i];
-
-    if (current_entity_template.count > 0) {
-      current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-
-      current_iteration_entities = spawnEntities(
-        current_template,
-        position,
-        current_entity_template.count,
-        density
-      );
-
-      for (j = 0; j < current_iteration_entities.Size(); j += 1) {
-        returned_entities.PushBack(current_iteration_entities[j]);
-      }
-    }
-  }
-
-  return returned_entities;
 }
 
 state Spawning in CRandomEncounters {

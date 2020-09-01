@@ -84,6 +84,91 @@ statemachine class CRandomEncounters extends CEntity {
     }
   }
 
+  //#region OutOfCombat action
+  private var out_of_combat_requests: array<OutOfCombatRequest>;
+
+  // add the requested action for when the player will the combat
+  public function requestOutOfCombatAction(request: OutOfCombatRequest): bool {
+    var i: int;
+    var already_added: bool;
+
+    already_added = false;
+
+    LogChannel('modRandomEncounters', "adding request out of combat: " + request);
+
+    for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
+      if (this.out_of_combat_requests[i] == request) {
+        already_added = true;
+      }
+    }
+
+    if (!already_added) {
+      this.out_of_combat_requests.PushBack(request);
+
+      this.RemoveTimer('waitOutOfCombatTimer');
+      this.AddTimer('waitOutOfCombatTimer', 0.1f, true);
+    }
+
+    // to return if something was added
+    return !already_added;
+  }
+
+  timer function waitOutOfCombatTimer(optional delta: float, optional id: Int32) {
+    var i: int;
+
+    if (thePlayer.IsInCombat()) {
+      return;
+    }
+
+    this.RemoveTimer('waitOutOfCombatTimer');
+
+
+    for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
+      switch (this.out_of_combat_requests[i]) {
+        case OutOfCombatRequest_TROPHY_CUTSCENE:
+          this.AddTimer('outOfCombatTrophyCutscene', 1.5, false);
+        break;
+      }
+    }
+
+    this.out_of_combat_requests.Clear();
+  }
+
+  timer function outOfCombatTrophyCutscene(optional delta: float, optional id: Int32) {
+    var scene: CStoryScene;
+    var entities : array<CGameplayEntity>;
+    var i: int;
+    var items_guids: array<SItemUniqueId>;
+
+    LogChannel('modRandomEncounters', "playing out of combat cutscene");
+
+    scene = (CStoryScene)LoadResource(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
+      true
+    );
+    
+    theGame
+      .GetStorySceneSystem()
+      .PlayScene(scene, "Input");
+
+    LogChannel('modRandomEncounters', "searching lootbag nearby");
+    FindGameplayEntitiesInRange( entities, thePlayer, 10, 10, , FLAG_ExcludePlayer,, 'W3Container' );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      LogChannel('modRandomEncounters', "lootbag - giving all RER_Trophy to player");
+      items_guids = ((W3Container)entities[i]).GetInventory().GetItemsByTag('RER_Trophy');
+      
+      LogChannel('modRandomEncounters', "lootbag - found " + items_guids.Size() + " trophies");
+      ((W3Container)entities[i]).GetInventory()
+        .GiveItemsTo(thePlayer.GetInventory(), items_guids);
+    }
+
+    PlayItemEquipSound('trophy');
+  }
+  //#endregion OutOfCombat action
+
+
+
   event OnDestroyed() {
     var ents: array<CEntity>;
     var i: int;

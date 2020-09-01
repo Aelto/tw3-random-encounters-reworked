@@ -43,6 +43,8 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
       .setRandomPositionMinRadius(settings.minimum_spawn_distance * 3)
       .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 3)
       .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 3)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_HUNT])
+      .setAllowTrophyPickupScene(settings.trophy_pickup_scene)
       .setCreatureType(CreatureGRYPHON)
       .setNumberOfCreatures(1);
   }
@@ -78,8 +80,15 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     current_rer_entity.attach(
       (CActor)entity,
       (CNewNPC)entity,
-      entity
+      entity,
+      this.master
     );
+
+    if (this.allow_trophy) {
+      // if the user allows trophy pickup scene, tell the entity
+      // to send RER a request on its death.
+      current_rer_entity.pickup_animation_on_death = this.allow_trophy_pickup_scene;
+    }
 
     current_rer_entity.automatic_kill_threshold_distance = this
       .automatic_kill_threshold_distance;
@@ -114,7 +123,9 @@ class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance * 2)
       .setRandomPositionMaxRadius((settings.minimum_spawn_distance + settings.spawn_diameter) * 2)
-      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 2);
+      .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 2)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_HUNT])
+      .setAllowTrophyPickupScene(settings.trophy_pickup_scene);
   }
 
   protected latent function afterSpawningEntities(): bool {

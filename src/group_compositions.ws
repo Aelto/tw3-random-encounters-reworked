@@ -110,6 +110,26 @@ abstract class CompositionSpawner {
     return this;
   }
 
+  // should the creature drop a trophy on death
+  var allow_trophy: bool;
+  default allow_trophy = true;
+
+  public function setAllowTrophy(value: bool): CompositionSpawner {
+    this.allow_trophy = value;
+
+    return this;
+  }
+
+  // should the creature trigger a loot pickup cutscene on death
+  var allow_trophy_pickup_scene: bool;
+  default allow_trophy_pickup_scene = false;
+
+  public function setAllowTrophyPickupScene(value: bool): CompositionSpawner {
+    this.allow_trophy_pickup_scene = value;
+
+    return this;
+  }
+
   var master: CRandomEncounters;
   var creature_type: CreatureType;
   var creatures_templates: EnemyTemplateList;
@@ -178,7 +198,6 @@ abstract class CompositionSpawner {
       }
     }
 
-    LogChannel('modRandomEncounters', "Adding trophies");
 
     for (i = 0; i < this.created_entities.Size(); i += 1) {
       this.forEachEntity(
@@ -187,7 +206,7 @@ abstract class CompositionSpawner {
 
       LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
 
-      if (RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
+      if (this.allow_trophy && RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
         LogChannel('modRandomEncounters', "adding 1 trophy " + this.creature_type);
         
         ((CActor)this.created_entities[i])
@@ -198,12 +217,6 @@ abstract class CompositionSpawner {
           );
       }
     }
-
-    // DEBUG, add every trophies to the inventory
-    // for (i = 0; i < CreatureMAX; i += 1) {
-    //   thePlayer.GetInventory()
-    //   .AddAnItem(master.resources.getCreatureTrophy(i), 1);
-    // }
 
     success = this.afterSpawningEntities();
     if (!success) {

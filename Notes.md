@@ -4,6 +4,12 @@
 
 - to enable logging use `-debugscripts` flag
 
+- ideas for Event reaction:
+  - maybe higher chance for some creatures to spawn if you're injured. As they are attracted to the blood. by Czartchonn on discord
+  - looting chests, bandits attacking you. by Czartchonn on discord
+  - fighting makes noise, it can attract creatures
+  - bodies attract necrophages
+
 - `quests\generic_quests\scenes\mh_taking_trophy_no_dialogue.w2scene` for the trophy scene
 
 - spawning blood spills

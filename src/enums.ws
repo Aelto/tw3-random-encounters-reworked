@@ -83,5 +83,12 @@ enum CreatureType {
 enum EncounterType {
   EncounterType_DEFAULT  = 0,
   EncounterType_HUNT     = 1,
-  EncounterType_CONTRACT = 2
+  EncounterType_CONTRACT = 2,
+  EncounterType_MAX      = 3
+}
+
+
+enum OutOfCombatRequest {
+  OutOfCombatRequest_TROPHY_CUTSCENE = 0,
+  OutOfCombatRequest_TROPHY_NONE     = 1
 }

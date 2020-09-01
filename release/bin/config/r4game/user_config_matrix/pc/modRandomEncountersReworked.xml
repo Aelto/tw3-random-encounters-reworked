@@ -6,12 +6,17 @@
                 <Entry varId="Difficulty"				    value="1"	/>
                 <Entry varId="enableEncountersLoot"		    value="1"	/>
                 <Entry varId="externalFactorsImpact"		value="2"	/>
+                <Entry varId="RERtrophiesAmbush"		    value="1"	/>
+                <Entry varId="RERtrophiesHunt"		        value="1"	/>
+                <Entry varId="RERtrophiesContract"		    value="1"	/>
+                <Entry varId="RERtrophyPickupAnimation"		    value="1"	/>
             </Preset>
         </PresetsArray>
 
         <VisibleVars>
             <Var id="RERmodInitialized" displayName="rer_mod_initialized" displayType="TOGGLE">
 			</Var>
+
             <Var id="Difficulty" displayName="rer_difficulty" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_easy">
@@ -58,6 +63,12 @@
 					</Option>
 				</OptionsArray>
 			</Var>
+
+            <Var id="RERtrophiesAmbush" displayName="rer_trophies_ambush" displayType="TOGGLE"></Var>
+            <Var id="RERtrophiesHunt" displayName="rer_trophies_hunt" displayType="TOGGLE"></Var>
+            <!-- <Var id="RERtrophiesContract" displayName="rer_trophies_contract" displayType="TOGGLE"></Var> -->
+            
+            <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
 
@@ -1470,28 +1481,28 @@
                 <Entry varId="Garkain"				value="100"  />
                 <Entry varId="HigherVamp"			value="100"  />
 
-                <Entry varId="Humans"               value="80"  />
-                <Entry varId="Nekkers"				value="80"   />
-                <Entry varId="Drowners"				value="80"	/>
-                <Entry varId="DrownerDLC"			value="80"	/>
-                <Entry varId="Ghouls"				value="80"	/>
-                <Entry varId="Rotfiends"			value="80"	/>
-                <Entry varId="Wolves"				value="80"	/>
-                <Entry varId="Wraiths"				value="80"	/>
-                <Entry varId="Bears"				value="80"	/>
-                <Entry varId="Harpies"				value="80"	/>
-                <Entry varId="Endrega"				value="80"	/>
-                <Entry varId="Alghouls"				value="80"	/>
-                <Entry varId="Arachas"				value="80"	/>
-                <Entry varId="Kikimore"				value="80"	/>
-                <Entry varId="Echinops"				value="80"	/>
-                <Entry varId="Centipede"			value="80"	/>
-                <Entry varId="Spiders"				value="80"	/>
-                <Entry varId="Boars"				value="80"	/>
-                <Entry varId="Panther"				value="80"	/>
-                <Entry varId="Barghest"				value="80"	/>
+                <Entry varId="Humans"               value="40"  />
+                <Entry varId="Nekkers"				value="30"   />
+                <Entry varId="Drowners"				value="50"	/>
+                <Entry varId="DrownerDLC"			value="50"	/>
+                <Entry varId="Ghouls"				value="50"	/>
+                <Entry varId="Rotfiends"			value="50"	/>
+                <Entry varId="Wolves"				value="40"	/>
+                <Entry varId="Wraiths"				value="50"	/>
+                <Entry varId="Bears"				value="40"	/>
+                <Entry varId="Harpies"				value="30"	/>
+                <Entry varId="Endrega"				value="50"	/>
+                <Entry varId="Alghouls"				value="60"	/>
+                <Entry varId="Arachas"				value="60"	/>
+                <Entry varId="Kikimore"				value="60"	/>
+                <Entry varId="Echinops"				value="60"	/>
+                <Entry varId="Centipede"			value="60"	/>
+                <Entry varId="Spiders"				value="40"	/>
+                <Entry varId="Boars"				value="60"	/>
+                <Entry varId="Panther"				value="60"	/>
+                <Entry varId="Barghest"				value="60"	/>
                 <Entry varId="Skeleton"				value="0"	/>
-                <Entry varId="WildHunt"             value="100"  />
+                <Entry varId="WildHunt"             value="50"  />
             </Preset>
             <Preset id="1" displayName="rer_everything_off" >
                 <Entry varId="Leshens"				value="0"	/>
@@ -1771,7 +1782,7 @@
         <VisibleVars>			
             <Var id="minSpawnDistance" displayName="rer_min_spawn_distance" displayType="SLIDER;10;1010;1000"/>
             <Var id="spawnDiameter" displayName="rer_spawn_diameter" displayType="SLIDER;10;1010;1000"/>
-            <Var id="killThresholdDistance" displayName="rer_kill_threshold_distance" displayType="SLIDER;100;1010;1000"/>
+            <Var id="killThresholdDistance" displayName="rer_kill_threshold_distance" displayType="SLIDER;100;3100;3000"/>
         </VisibleVars>
     </Group>
 

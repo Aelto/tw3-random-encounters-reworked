@@ -25,16 +25,23 @@ class RandomEncountersReworkedEntity extends CEntity {
   private var tracks_template: CEntityTemplate;
   private var tracks_entities: array<CEntity>;
 
+  private var master: CRandomEncounters;
+
+  public var pickup_animation_on_death: bool;
+  default pickup_animation_on_death = false;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
     LogChannel('modRandomEncounters', "RandomEncountersEntity spawned");
   }
 
-  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
+  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity, master: CRandomEncounters) {
     this.this_actor = actor;
     this.this_newnpc = newnpc;
     this.this_entity = this_entity;
+    
+    this.master = master;
 
     this.CreateAttachment( this_entity );
     this.AddTag('RandomEncountersReworked_Entity');
@@ -119,7 +126,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
       // so it is also called almost instantly
       this.AddTimer('intervalLifecheckFunction', 0.1, false);
-      this.AddTimer('intervalLifecheckFunction', 10, true);
+      this.AddTimer('intervalLifecheckFunction', 1, true);
     }
   }
 
@@ -166,7 +173,7 @@ class RandomEncountersReworkedEntity extends CEntity {
       // we do not need this intervalFunction anymore.
       this.RemoveTimer('intervalHuntFunction');
       this.RemoveTimer('teleportBait');
-      this.AddTimer('intervalLifecheckFunction', 10, true);
+      this.AddTimer('intervalLifecheckFunction', 1, true);
 
       // we also kill the bait
       this.bait_entity.Destroy();
@@ -298,6 +305,11 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.tracks_entities.Clear();
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
+
+    if (this.pickup_animation_on_death) {
+      this.master.requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+    }
+    
     this.Destroy();
   }
 }

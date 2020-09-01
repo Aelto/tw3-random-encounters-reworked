@@ -20,6 +20,9 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var blood_resources: array<CEntityTemplate>;
   public var blood_resources_size: int;
 
+  public var pickup_animation_on_death: bool;
+  default pickup_animation_on_death = false;
+
   // an array containing entities for the blood tracks when
   //  using the functions to add a blood track on the ground
   // it adds one to the array, unless we reached the maximum
@@ -38,6 +41,8 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   var horse_corpse_near_geralt: CEntity;
   var horse_corpse_near_gryphon: CEntity;
 
+  var master: CRandomEncounters;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
@@ -55,29 +60,17 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 		this.animation_slot_idle.blendOutTime = 1.0f;	
 		this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
 
-    // this.animation_slot_idle = new CAIPlayAnimationSlotAction in this;
-		// this.animation_slot_idle.OnCreated();
-		// this.animation_slot_idle.animName = 'monster_gryphon_fly_start_from_ground';	
-		// this.animation_slot_idle.blendInTime = 1.0f;
-		// this.animation_slot_idle.blendOutTime = 1.0f;	
-		// this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
-
-    // this.animation_slot_idle = new CAIPlayAnimationSlotAction in this;
-		// this.animation_slot_idle.OnCreated();
-		// this.animation_slot_idle.animName = 'monster_gryphon_fly_f_land';	
-		// this.animation_slot_idle.blendInTime = 1.0f;
-		// this.animation_slot_idle.blendOutTime = 1.0f;	
-		// this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
-
     this.this_actor.SetTemporaryAttitudeGroup( 'q104_avallach_friendly_to_all', AGP_Default );
 
     LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity spawned");
   }
 
-  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity) {
+  public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity, master: CRandomEncounters) {
     this.this_actor = actor;
     this.this_newnpc = newnpc;
     this.this_entity = this_entity;
+
+    this.master = master;
 
     this.CreateAttachment( this_entity );
     this.AddTag('RandomEncountersReworked_Entity');
@@ -215,6 +208,11 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 		theSound.InitializeAreaMusic( theGame.GetCommonMapManager().GetCurrentArea() );
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
+
+    if (this.pickup_animation_on_death) {
+      this.master.requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+    }
+    
     this.Destroy();
   }
 }
