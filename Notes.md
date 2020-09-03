@@ -10,257 +10,9 @@
   - fighting makes noise, it can attract creatures
   - bodies attract necrophages
 
-- `quests\generic_quests\scenes\mh_taking_trophy_no_dialogue.w2scene` for the trophy scene
+- how to get a creature entry, look at how it's made in `activateAllGlossaryBeastiary`
 
-- spawning blood spills
-  ```js
-  public final function CreateBloodSpill()
-	{
-		var bloodTemplate : CEntityTemplate;
-	
-		bloodTemplate = (CEntityTemplate)LoadResource("blood_0" + RandRange(4));
-		theGame.CreateEntity(bloodTemplate, GetWorldPosition() + VecRingRand(0, 0.5) , EulerAngles(0, RandF() * 360, 0));
-	}
-  ```
 
-- find entities around the player
-  ```js
-    var entities : array<CGameplayEntity>;
-		FindGameplayEntitiesInSphere( entities, thePlayer.GetWorldPosition(), 10, 1,, FLAG_ExcludePlayer,, 'W3FastTravelEntity' ); // 'W3NoticeBoard' for noticeboards
-  ```
-
-- i think it doesn't work in skellige
-  ```js
-  public function TestIsInSettlement() : bool
-	{
-		var ents : array<CEntity>;
-		var trigger : CTriggerAreaComponent;
-		var i : int;
-		
-		theGame.GetEntitiesByTag('settlement', ents);
-		
-		for(i=0; i<ents.Size(); i+=1)
-		{
-			trigger = (CTriggerAreaComponent)(ents[i].GetComponentByClassName('CTriggerAreaComponent'));
-			if(trigger.TestEntityOverlap(this))
-				return true;
-		}
-		
-		return false;
-	}
-  ```
-
-- function for the trophy cutscene:
-  ```js
-  latent quest function SetupTrophySceneQuest( monsterTag : name, offset : float)
-  {
-    var witcher : W3PlayerWitcher;
-    var monster : CNewNPC;
-    var newPosition	 : Vector;
-    var playerPosition	 : Vector;
-    var Position : Vector;
-    var Rotation : EulerAngles;	
-    var placementNode  : CNode;
-    var placementNodes  : array<CNode>;
-    var z : float;
-    var curDistance : float;
-    var minDistance : float;
-    
-    var i : int;
-
-    witcher = GetWitcherPlayer();
-
-    if( witcher )
-    {
-      playerPosition = thePlayer.GetWorldPosition();
-      
-      theGame.GetNodesByTag( 'mh_trophy_safe_placement_point', placementNodes );
-      
-      if( placementNodes.Size() > 0 )
-      {
-        for(i=0; i < placementNodes.Size(); i += 1 ) 
-        {
-          curDistance = VecDistance2D( placementNodes[i].GetWorldPosition(), playerPosition );
-          
-          if( minDistance == 0.0f || curDistance  <= minDistance )
-          {
-            minDistance = curDistance;
-            placementNode = placementNodes[i];
-          }
-        }
-        
-        
-        newPosition = placementNode.GetWorldPosition();
-        
-        if( theGame.GetWorld().NavigationFindSafeSpot( newPosition, 1.0, 6.0, newPosition ) )
-        {
-          if ( theGame.GetWorld().NavigationComputeZ(newPosition, newPosition.Z - 5.0, newPosition.Z + 5.0, z) )
-          {
-            newPosition.Z = z;
-            if ( !theGame.GetWorld().NavigationFindSafeSpot( newPosition, 1.0, 6.0, newPosition ) )
-              return;
-          }
-          
-          witcher.TeleportWithRotation(newPosition, placementNode.GetWorldRotation() );
-          
-          Sleep(0.3f);
-          
-          monster = (CNewNPC) theGame.GetEntityByTag( monsterTag );
-          
-          if( monster )
-          {
-            if( offset == 0.0 )
-              offset = 2.0;
-            
-            Position = witcher.GetWorldPosition();
-            Rotation = witcher.GetWorldRotation();
-            
-            newPosition = Vector(Position.X, Position.Y, Position.Z) + witcher.GetHeadingVector() * offset;
-            
-            if ( theGame.GetWorld().NavigationComputeZ(newPosition, newPosition.Z - 5.0, newPosition.Z + 5.0, z) )
-            {
-              newPosition.Z = z;
-              if ( !theGame.GetWorld().NavigationFindSafeSpot( newPosition, 1.0, 6.0, newPosition ) )
-                return;
-            }
-            
-            monster.TeleportWithRotation(newPosition, EulerNeg(Rotation, EulerAngles(0.0,-90.0,0.0) ) );
-            Sleep(0.3f);
-          }	
-          
-        }
-        
-      }
-    }
-  }
-  ```
-
-- function adding all trophies
-  ```js
-  //adds all trophy items to the player's inventory
-  exec function addtrophies()
-  {
-    thePlayer.inv.AddAnItem('Nekkers Trophy',1);
-    thePlayer.inv.AddAnItem('Werewolf Trophy',1);
-    thePlayer.inv.AddAnItem('q002_griffin_trophy',1);
-    thePlayer.inv.AddAnItem('Drowned Dead Trophy',1);
-    thePlayer.inv.AddAnItem('mh101_cockatrice_trophy',1);
-    thePlayer.inv.AddAnItem('mh102_arachas_trophy',1);
-    thePlayer.inv.AddAnItem('mh103_nightwraith_trophy',1);
-    thePlayer.inv.AddAnItem('mh104_ekimma_trophy',1);
-    thePlayer.inv.AddAnItem('mh105_wyvern_trophy',1);
-    thePlayer.inv.AddAnItem('mh106_gravehag_trophy',1);
-    thePlayer.inv.AddAnItem('mh107_czart_trophy',1);
-    thePlayer.inv.AddAnItem('mh108_fogling_trophy',1);
-    thePlayer.inv.AddAnItem('mh201_cave_troll_trophy',1);
-    thePlayer.inv.AddAnItem('mh202_nekker_warrior_trophy',1);
-    thePlayer.inv.AddAnItem('mh203_drowned_dead_trophy',1);
-    thePlayer.inv.AddAnItem('mh204_leshy_trophy',1);
-    thePlayer.inv.AddAnItem('mh205_leshy_trophy',1);
-    thePlayer.inv.AddAnItem('mh206_fiend_trophy',1);
-    thePlayer.inv.AddAnItem('mh207_wraith_trophy',1);
-    thePlayer.inv.AddAnItem('mh208_forktail_trophy',1);
-    thePlayer.inv.AddAnItem('mh209_fogling_trophy',1);
-    thePlayer.inv.AddAnItem('mh210_lamia_trophy',1);
-    thePlayer.inv.AddAnItem('mh211_bies_trophy',1);
-    thePlayer.inv.AddAnItem('mh212_erynie_trophy',1);
-    thePlayer.inv.AddAnItem('mq1024_water_hag_trophy',1);
-    thePlayer.inv.AddAnItem('mq1051_wyvern_trophy',1);
-    thePlayer.inv.AddAnItem('q202_ice_giant_trophy',1);
-    thePlayer.inv.AddAnItem('mh301_gryphon_trophy',1);
-    thePlayer.inv.AddAnItem('mh302_leshy_trophy',1);
-    thePlayer.inv.AddAnItem('mh303_succubus_trophy',1);
-    thePlayer.inv.AddAnItem('mh304_katakan_trophy',1);
-    thePlayer.inv.AddAnItem('mh305_doppler_trophy',1);
-    thePlayer.inv.AddAnItem('mh306_dao_trophy',1);
-    thePlayer.inv.AddAnItem('mh308_noonwraith_trophy',1);
-    thePlayer.inv.AddAnItem('sq108_griffin_trophy',1);
-    thePlayer.inv.AddAnItem('mq0003_noonwraith_trophy',1);
-    
-    theGame.RequestMenuWithBackground( 'InventoryMenu', 'CommonMenu' );
-  }
-  ```
-
--
-  ```js
-  		//1) some non-quest items might dynamically have 'Quest' tag added so first we remove all items that 
-		//currently have Quest tag
-		inv.RemoveItemByTag('Quest', -1);
-		horseInventory.RemoveItemByTag('Quest', -1);
-
-		//2) some quest items might lose 'Quest' tag during the course of the game so we need to check their 
-		//XML definitions rather than actual items in inventory
-		questItems = theGame.GetDefinitionsManager().GetItemsWithTag('Quest');
-		for(i=0; i<questItems.Size(); i+=1)
-		{
-			inv.RemoveItemByName(questItems[i], -1);
-			horseInventory.RemoveItemByName(questItems[i], -1);
-		}
-  ```
-
-- npc stances:
-  ```js
-  enum ENpcStance
-  {
-    NS_Normal,
-    NS_Strafe,
-    NS_Retreat,
-    NS_Guarded,
-    NS_Wounded,
-    NS_Fly,
-    NS_Swim,
-  }
-  ```
-
-- file `bTaskChangeAltitude.ws` has good example for controlling the gryphon flight
-
-- npc: ReactToBeingHit
-
--
-  ```js
-    event OnAnimEvent_SlideAway( animEventName : name, animEventType : EAnimationEventType, animInfo : SAnimationEventAnimInfo )
-    {
-      var ticket 				: SMovementAdjustmentRequestTicket;
-      var movementAdjustor	: CMovementAdjustor;
-      var slidePos 			: Vector;
-      var slideDuration		: float;
-      
-      movementAdjustor = GetMovingAgentComponent().GetMovementAdjustor();
-      movementAdjustor.CancelByName( 'SlideAway' );
-      
-      ticket = movementAdjustor.CreateNewRequest( 'SlideAway' );
-      slidePos = GetWorldPosition() + ( VecNormalize2D( GetWorldPosition() - thePlayer.GetWorldPosition() ) * 0.75 );
-      
-      if( theGame.GetWorld().NavigationLineTest( GetWorldPosition(), slidePos, GetRadius(), false, true ) ) 
-      {
-        slideDuration = VecDistance2D( GetWorldPosition(), slidePos ) / 35;
-        
-        movementAdjustor.Continuous( ticket );
-        movementAdjustor.AdjustmentDuration( ticket, slideDuration );
-        movementAdjustor.AdjustLocationVertically( ticket, true );
-        movementAdjustor.BlendIn( ticket, 0.25 );
-        movementAdjustor.SlideTo( ticket, slidePos );
-        movementAdjustor.RotateTowards( ticket, GetTarget() );
-      }
-
-      return true;	
-    }
-  ```
-
-```js
-	function OnGroundContact()
-	{
-		var owner 	: CNewNPC = GetNPC();
-		var mac 	: CMovingPhysicalAgentComponent;
-		owner.SetBehaviorVariable( 'GroundContact', 1.0 );		
-		
-		mac = ((CMovingPhysicalAgentComponent)owner.GetMovingAgentComponent());
-		owner.ChangeStance( NS_Wounded );
-		mac.SetAnimatedMovement( false );
-		owner.EnablePhysicalMovement( false );
-		mac.SnapToNavigableSpace( true );
-	}
-```
 
 ## RER spawning system and events
 > The goal is to make a new system controlling when and which creatures will spawn.
@@ -307,3 +59,161 @@ struct SpawningControl {
 
 This way we add a `SpawningControl` to the array and it changes the values from the previous `SpawningControl`s by
 adding a number, multiplying the current values or completely overwriting them (great for disabling a creature).
+
+- bestiary entries:
+  ```
+  dlc\bob\journal\bestiary\alp.journal
+  dlc\bob\journal\bestiary\archespore.journal
+  dlc\bob\journal\bestiary\barghests.journal
+  dlc\bob\journal\bestiary\beanshie.journal
+  dlc\bob\journal\bestiary\bestiarymonsterhuntmh701.journal
+  dlc\bob\journal\bestiary\bestiarymonsterhuntmq7017.journal
+  dlc\bob\journal\bestiary\bestiarymq7004.journal
+  dlc\bob\journal\bestiary\bigbadwolf.journal
+  dlc\bob\journal\bestiary\bruxa.journal
+  dlc\bob\journal\bestiary\dagonet.journal
+  dlc\bob\journal\bestiary\darkpixies.journal
+  dlc\bob\journal\bestiary\dettlaffmonster.journal
+  dlc\bob\journal\bestiary\dracolizard.journal
+  dlc\bob\journal\bestiary\ep2arachnomorphs.journal
+  dlc\bob\journal\bestiary\ep2beast.journal
+  dlc\bob\journal\bestiary\ep2boar.journal
+  dlc\bob\journal\bestiary\ep2sharley.journal
+  dlc\bob\journal\bestiary\ep2virtbeasts.journal
+  dlc\bob\journal\bestiary\ep2virtconstructs.journal
+  dlc\bob\journal\bestiary\ep2virtcursed.journal
+  dlc\bob\journal\bestiary\ep2virtdraconides.journal
+  dlc\bob\journal\bestiary\ep2virtinsectoid.journal
+  dlc\bob\journal\bestiary\ep2virtnecro.journal
+  dlc\bob\journal\bestiary\ep2virtrelicts.journal
+  dlc\bob\journal\bestiary\ep2virtspectres.journal
+  dlc\bob\journal\bestiary\ep2virtvampires.journal
+  dlc\bob\journal\bestiary\fleder.journal
+  dlc\bob\journal\bestiary\garkain.journal
+  dlc\bob\journal\bestiary\kikimora.journal
+  dlc\bob\journal\bestiary\kikimoraworker.journal
+  dlc\bob\journal\bestiary\moreausgolem.journal
+  dlc\bob\journal\bestiary\mq7002grottore.journal
+  dlc\bob\journal\bestiary\mq7002spriggan.journal
+  dlc\bob\journal\bestiary\mq7010dracolizard.journal
+  dlc\bob\journal\bestiary\mq7018basilisk.journal
+  dlc\bob\journal\bestiary\palewidow.journal
+  dlc\bob\journal\bestiary\panther.journal
+  dlc\bob\journal\bestiary\parszywiec.journal
+  dlc\bob\journal\bestiary\protofleder.journal
+  dlc\bob\journal\bestiary\q701bruxa.journal
+  dlc\bob\journal\bestiary\q701sharley.journal
+  dlc\bob\journal\bestiary\q702wight.journal
+  dlc\bob\journal\bestiary\q704alphagarkain.journal
+  dlc\bob\journal\bestiary\q704bigbadwolfasbeast.journal
+  dlc\bob\journal\bestiary\q704cloudgiant.journal
+  dlc\bob\journal\bestiary\q704ftwitch.journal
+  dlc\bob\journal\bestiary\q704rapunzel.journal
+  dlc\bob\journal\bestiary\q704threelittlepigs.journal
+  dlc\bob\journal\bestiary\scolopedromorph.journal
+  dlc\bob\journal\bestiary\wicht.journal
+  dlc\bob\journal\bestiary\wp2virtogrowate.journal
+
+  gameplay\journal\bestiary\armoredarachas.journal
+  gameplay\journal\bestiary\bear.journal
+  gameplay\journal\bestiary\beasts.journal
+  gameplay\journal\bestiary\bestiaryalghoul.journal
+  gameplay\journal\bestiary\bestiarybasilisk.journal
+  gameplay\journal\bestiary\bestiarycockatrice.journal
+  gameplay\journal\bestiary\bestiarycrabspider.journal
+  gameplay\journal\bestiary\bestiaryekkima.journal
+  gameplay\journal\bestiary\bestiaryelemental.journal
+  gameplay\journal\bestiary\bestiaryendriag.journal
+  gameplay\journal\bestiary\bestiaryforktail.journal
+  gameplay\journal\bestiary\bestiaryghoul.journal
+  gameplay\journal\bestiary\bestiarygolem.journal
+  gameplay\journal\bestiary\bestiarygreaterrotfiend.journal
+  gameplay\journal\bestiary\bestiarykatakan.journal
+  gameplay\journal\bestiary\bestiarymiscreant.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh101.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh102.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh103.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh104.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh105.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh106.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh107.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh108.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh202.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh203.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh206.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh207.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh208.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh210.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh302.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh303.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh304.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh305.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh306.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh307.journal
+  gameplay\journal\bestiary\bestiarymonsterhuntmh308.journal
+  gameplay\journal\bestiary\bestiarymoonwright.journal
+  gameplay\journal\bestiary\bestiarynoonwright.journal
+  gameplay\journal\bestiary\bestiarypesta.journal
+  gameplay\journal\bestiary\bestiarywerebear.journal
+  gameplay\journal\bestiary\bestiarywerewolf.journal
+  gameplay\journal\bestiary\bestiarywyvern.journal
+  gameplay\journal\bestiary\bies.journal
+  gameplay\journal\bestiary\constructs.journal
+  gameplay\journal\bestiary\cursed.journal
+  gameplay\journal\bestiary\cyclops.journal
+  gameplay\journal\bestiary\czart.journal
+  gameplay\journal\bestiary\czart1.journal
+  gameplay\journal\bestiary\czart2.journal
+  gameplay\journal\bestiary\dog.journal
+  gameplay\journal\bestiary\doppler.journal
+  gameplay\journal\bestiary\drowner.journal
+  gameplay\journal\bestiary\dzinn.journal
+  gameplay\journal\bestiary\endriagatruten.journal
+  gameplay\journal\bestiary\endriagaworker.journal
+  gameplay\journal\bestiary\erynia.journal
+  gameplay\journal\bestiary\fiend.journal
+  gameplay\journal\bestiary\fiend2.journal
+  gameplay\journal\bestiary\fiends.journal
+  gameplay\journal\bestiary\fireelemental.journal
+  gameplay\journal\bestiary\fogling.journal
+  gameplay\journal\bestiary\gargoyle.journal
+  gameplay\journal\bestiary\godling.journal
+  gameplay\journal\bestiary\gravehag.journal
+  gameplay\journal\bestiary\griffin.journal
+  gameplay\journal\bestiary\harpy.journal
+  gameplay\journal\bestiary\highervampire.journal
+  gameplay\journal\bestiary\him.journal
+  gameplay\journal\bestiary\humans.journal
+  gameplay\journal\bestiary\hybrids.journal
+  gameplay\journal\bestiary\icegiant.journal
+  gameplay\journal\bestiary\icegolem.journal
+  gameplay\journal\bestiary\icetroll.journal
+  gameplay\journal\bestiary\insectoids.journal
+  gameplay\journal\bestiary\leshy.journal
+  gameplay\journal\bestiary\leshy1.journal
+  gameplay\journal\bestiary\leszy.journal
+  gameplay\journal\bestiary\lycanthrope.journal
+  gameplay\journal\bestiary\mq0003noonwraith.journal
+  gameplay\journal\bestiary\necrophages.journal
+  gameplay\journal\bestiary\nekker.journal
+  gameplay\journal\bestiary\ogrelike.journal
+  gameplay\journal\bestiary\ornithosaur.journal
+  gameplay\journal\bestiary\poisonousarachas.journal
+  gameplay\journal\bestiary\relicts.journal
+  gameplay\journal\bestiary\sentient.journal
+  gameplay\journal\bestiary\silvan.journal
+  gameplay\journal\bestiary\silvan1.journal
+  gameplay\journal\bestiary\silvan2.journal
+  gameplay\journal\bestiary\siren.journal
+  gameplay\journal\bestiary\spectre.journal
+  gameplay\journal\bestiary\sq204ancientleszen.journal
+  gameplay\journal\bestiary\succubus.journal
+  gameplay\journal\bestiary\trollcave.journal
+  gameplay\journal\bestiary\vampires.journal
+  gameplay\journal\bestiary\waterhag.journal
+  gameplay\journal\bestiary\whminion.journal
+  gameplay\journal\bestiary\witches.journal
+  gameplay\journal\bestiary\wolf.journal
+  gameplay\journal\bestiary\wraith.journal
+  ```
