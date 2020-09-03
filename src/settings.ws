@@ -42,6 +42,8 @@ class RE_Settings {
 
   public var trophy_pickup_scene: bool;
 
+  public var only_known_bestiary_creatures: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -70,6 +72,7 @@ class RE_Settings {
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
     this.loadAdvancedSettings(inGameConfigWrapper);
     this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
+    this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -100,6 +103,10 @@ class RE_Settings {
     this.external_factors_coefficient = StringToFloat(
       inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'externalFactorsImpact')
     );
+  }
+
+  private function loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.only_known_bestiary_creatures = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERonlyKnownBestiaryCreatures');
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -180,8 +187,8 @@ class RE_Settings {
       inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
 
       this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
-      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
-      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'spawnDiameter'));
+      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'killThresholdDistance'));
       theGame.SaveUserSettings();
     }
   }

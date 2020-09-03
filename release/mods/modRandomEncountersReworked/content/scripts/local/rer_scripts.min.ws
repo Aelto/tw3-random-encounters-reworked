@@ -248,7 +248,8 @@ abstract class CompositionSpawner {
 
     this.creatures_templates = fillEnemyTemplateList(
       this.creatures_templates,
-      this.number_of_creatures
+      this.number_of_creatures,
+      master.settings.only_known_bestiary_creatures
     );
 
     if (!this.getInitialPosition(this.initial_position)) {
@@ -346,12 +347,17 @@ abstract class CompositionSpawner {
 
 
 
-  protected function getCreatureType(master: CRandomEncounters): CreatureType {
+  protected latent function getCreatureType(master: CRandomEncounters): CreatureType {
+    var creature_type: CreatureType;
+
     if (this._creature_type == CreatureNONE) {
-      return master.rExtra.getRandomCreatureByCurrentArea(
+      creature_type = master.rExtra.getRandomCreatureByCurrentArea(
         master.settings,
-        master.spawn_roller
+        master.spawn_roller,
+        master.resources
       );
+
+      return creature_type;
     }
 
     return this._creature_type;
@@ -762,6 +768,11 @@ class RE_Resources {
     // whh = re_whh();
     this.creatures_resources[CreatureWILDHUNT] = re_wildhunt();
 
+    // this resource is almost never used.
+    // there a functions to get random human resources
+    // but it is used for its bestiary entry
+    this.creatures_resources[CreatureHuman] = re_bandit();
+
     this.humans_resources[HT_BANDIT] = re_bandit();
     this.humans_resources[HT_NOVBANDIT] = re_novbandit();
     this.humans_resources[HT_SKELBANDIT] = re_skelbandit();
@@ -981,6 +992,8 @@ class RE_Settings {
 
   public var trophy_pickup_scene: bool;
 
+  public var only_known_bestiary_creatures: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -1009,6 +1022,7 @@ class RE_Settings {
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
     this.loadAdvancedSettings(inGameConfigWrapper);
     this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
+    this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -1039,6 +1053,10 @@ class RE_Settings {
     this.external_factors_coefficient = StringToFloat(
       inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'externalFactorsImpact')
     );
+  }
+
+  private function loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.only_known_bestiary_creatures = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERonlyKnownBestiaryCreatures');
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -1119,8 +1137,8 @@ class RE_Settings {
       inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
 
       this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
-      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('spawnDiameter', 'Harpies'));
-      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('killThresholdDistance', 'Harpies'));
+      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'spawnDiameter'));
+      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'killThresholdDistance'));
       theGame.SaveUserSettings();
     }
   }
@@ -1483,14 +1501,16 @@ struct SEnemyTemplate {
   var template : string;
   var max      : int;
   var count    : int;
+  var bestiary_entry: string;
 }
 
-function makeEnemyTemplate(template: string, optional max: int, optional count: int): SEnemyTemplate {
+function makeEnemyTemplate(template: string, optional max: int, optional count: int, optional bestiary_entry: string): SEnemyTemplate {
   var enemy_template: SEnemyTemplate;
 
   enemy_template.template = template;
   enemy_template.max = max;
   enemy_template.count = count;
+  enemy_template.bestiary_entry = bestiary_entry;
 
   return enemy_template;
 }
@@ -1593,12 +1613,102 @@ function rollDifficultyFactor(out factor: DifficultyFactor, difficulty: int, opt
   );
 }
 
+// return true if atleast of the bestiary entries is known.
+// if all entries are unknown then return false
+latent function bestiaryCanSpawnEnemyTemplateList(template_list: EnemyTemplateList, manager: CWitcherJournalManager): bool {
+  // we use a list too avoid loading twice the same journal entry
+  var already_checked_journals: array<string>;
+  var can_spawn: bool;
+	
+  var i, j: int;
+
+  var resource : CJournalResource;
+	var entryBase : CJournalBase;
+
+  for (i = 0; i < template_list.templates.Size(); i += 1) {
+    // 1. first checking if the entry was already checked
+    for (j = 0; j < already_checked_journals.Size(); j += 1) {
+      // 2. the entry was checked already, we skip it
+      if (already_checked_journals[j] == template_list.templates[i].bestiary_entry) {
+        continue;
+      }
+    }
+
+    // 3. check the entry
+    can_spawn = bestiaryCanSpawnEnemyTemplate(template_list.templates[i], manager);
+    if (can_spawn) {
+      return true;
+    }
+
+    // 4. entry unknown, add it to the checked list
+    already_checked_journals.PushBack(template_list.templates[i].bestiary_entry);
+  }
+
+  return false;
+}
+
+latent function bestiaryCanSpawnEnemyTemplate(enemy_template: SEnemyTemplate, manager: CWitcherJournalManager): bool {
+  var resource : CJournalResource;
+	var entryBase : CJournalBase;
+
+  LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry);
+
+  if (enemy_template.bestiary_entry == "") {
+    LogChannel('modRandomEncounters', "bestiary entry has no value, returning true");
+
+    return true;
+  }
+
+  resource = (CJournalResource)LoadResourceAsync(
+    enemy_template.bestiary_entry, true
+  );
+
+  if (resource) {
+    entryBase = resource.GetEntry();
+
+    if (entryBase) {
+      if (manager.GetEntryHasAdvancedInfo(entryBase)) {
+        return true;
+      }
+    }
+    else {
+      LogChannel('modRandomEncounters', "unknown bestiary entryBase for entry " + enemy_template.bestiary_entry);
+    }
+  }
+  else {
+    LogChannel('modRandomEncounters', "unknown bestiary resource: " + enemy_template.bestiary_entry);
+  }
+
+  return false;
+}
+
 function re_gryphon() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\gryphon_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\gryphon_lvl3__volcanic.w2ent")); 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\gryphon_mh__volcanic.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\gryphon_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\griffin.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\gryphon_lvl3__volcanic.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
+    )
+  ); 
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\gryphon_mh__volcanic.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\generic_quests\novigrad\quest_files\mh301_gryphon\characters\mh301_gryphon.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1616,7 +1726,12 @@ function re_gryphon() : EnemyTemplateList {
 function re_cockatrice() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;  
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\cockatrice_lvl1.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\cockatrice_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarycockatrice.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1631,10 +1746,20 @@ function re_cockatrice() : EnemyTemplateList {
 function re_basilisk() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\basilisk_lvl1.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\basilisk_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarybasilisk.journal"
+      )
+    );
   
   if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
-    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\basilisk_white.w2ent"));
+    enemy_template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\basilisk_white.w2ent",,,
+        "dlc\bob\journal\bestiary\mq7018basilisk.journal"
+      )
+    );
   }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
@@ -1650,11 +1775,26 @@ function re_basilisk() : EnemyTemplateList {
 function re_wyvern() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wyvern_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wyvern_lvl2.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wyvern_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywyvern.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wyvern_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywyvern.journal"
+    )
+  );
   
   if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
-    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\oszluzg_young.w2ent"));
+    enemy_template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\oszluzg_young.w2ent",,,
+        "dlc\bob\journal\bestiary\dracolizard.journal" // TODO: confirm journal
+      )
+    );
   }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
@@ -1670,8 +1810,27 @@ function re_wyvern() : EnemyTemplateList {
 function re_forktail() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\forktail_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\forktail_lvl2.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\forktail_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryforktail.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\forktail_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryforktail.journal"
+    )
+  );
+
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\generic_quests\skellige\quest_files\mh208_forktail\characters\mh208_forktail.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh208.journal"
+    )
+  );
+
+  
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1686,10 +1845,30 @@ function re_forktail() : EnemyTemplateList {
 function re_novbandit() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\characters\presets\novigrad\nov_1h_club.w2ent"));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\characters\presets\novigrad\nov_1h_mace_t1.w2ent"));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\characters\presets\novigrad\nov_2h_hammer.w2ent"));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\characters\presets\novigrad\nov_1h_sword_t1.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "gameplay\templates\characters\presets\novigrad\nov_1h_club.w2ent",,,
+      "gameplay\journal\bestiary\humans.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "gameplay\templates\characters\presets\novigrad\nov_1h_mace_t1.w2ent",,,
+      "gameplay\journal\bestiary\humans.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "gameplay\templates\characters\presets\novigrad\nov_2h_hammer.w2ent",,,
+      "gameplay\journal\bestiary\humans.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "gameplay\templates\characters\presets\novigrad\nov_1h_sword_t1.w2ent",,,
+      "gameplay\journal\bestiary\humans.journal"
+    )
+  );
   
   enemy_template_list.difficulty_factor.minimum_count_easy = 3;
   enemy_template_list.difficulty_factor.maximum_count_easy = 4;
@@ -1897,13 +2076,48 @@ function re_whunter() : EnemyTemplateList {
 function re_wildhunt() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_axe.w2ent", 2));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_halberd.w2ent", 2));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_hammer.w2ent", 1));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_spear.w2ent", 2));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_sword.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wildhunt_minion_lvl1.w2ent", 2));  // hound of the wild hunt   
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wildhunt_minion_lvl2.w2ent", 1));  // spikier hound
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_axe.w2ent", 2,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_halberd.w2ent", 2,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_hammer.w2ent", 1,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_spear.w2ent", 2,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_sword.w2ent", 1,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wildhunt_minion_lvl1.w2ent", 2,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );  // hound of the wild hunt   
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wildhunt_minion_lvl2.w2ent", 1,,
+      "gameplay\journal\bestiary\whminion.journal"
+    )
+  );  // spikier hound
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 3;
   enemy_template_list.difficulty_factor.maximum_count_easy = 4;
@@ -1919,9 +2133,23 @@ function re_wildhunt() : EnemyTemplateList {
 function re_arachas() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\arachas_lvl1.w2ent"));       
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\arachas_lvl2__armored.w2ent", 2));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\arachas_lvl3__poison.w2ent", 2));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\arachas_lvl1.w2ent"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\arachas_lvl2__armored.w2ent", 2,,
+      "gameplay\journal\bestiary\armoredarachas.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\arachas_lvl3__poison.w2ent", 2,,
+      "gameplay\journal\bestiary\poisonousarachas.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 2;
@@ -1936,8 +2164,18 @@ function re_arachas() : EnemyTemplateList {
 function re_cyclop() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\cyclop_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\ice_giant.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\cyclop_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\cyclops.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ice_giant.w2ent",,,
+      "gameplay\journal\bestiary\icegiant.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1952,11 +2190,32 @@ function re_cyclop() : EnemyTemplateList {
 function re_leshen() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\lessog_lvl1.w2ent"));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\lessog_lvl2__ancient.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\lessog_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\leshy.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\lessog_lvl2__ancient.w2ent",,,
+      "gameplay\journal\bestiary\sq204ancientleszen.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh302.journal",,,
+      "quests\generic_quests\novigrad\quest_files\mh302_leshy\characters\mh302_leshy.w2ent"
+    )
+  );
   
   if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
-    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\spriggan.w2ent"));
+    enemy_template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\spriggan.w2ent",,,
+        "dlc\bob\journal\bestiary\mq7002spriggan.journal"
+      )
+    );
   }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
@@ -1972,14 +2231,54 @@ function re_leshen() : EnemyTemplateList {
 function re_werewolf() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl2.w2ent")); 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl3__lycan.w2ent"));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl4__lycan.w2ent"));  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\werewolf_lvl5__lycan.w2ent")); 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__werewolf.w2ent")); 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__werewolf_01.w2ent")); 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__werewolf_02.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\werewolf_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywerewolf.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\werewolf_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywerewolf.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\werewolf_lvl3__lycan.w2ent",,,
+      "gameplay\journal\bestiary\lycanthrope.journal"
+    )
+  );  
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\werewolf_lvl4__lycan.w2ent",,,
+      "gameplay\journal\bestiary\lycanthrope.journal"
+    )
+  );  
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\werewolf_lvl5__lycan.w2ent",,,
+      "gameplay\journal\bestiary\lycanthrope.journal"
+    )
+  ); 
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\_quest__werewolf.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywerewolf.journal"
+    )
+  ); 
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\_quest__werewolf_01.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywerewolf.journal"
+    )
+  ); 
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\_quest__werewolf_02.w2ent",,,
+      "gameplay\journal\bestiary\bestiarywerewolf.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1994,8 +2293,16 @@ function re_werewolf() : EnemyTemplateList {
 function re_fiend() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bies_lvl1.w2ent"));  // fiends        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bies_lvl2.w2ent"));  // red fiend
+  enemy_template_list.templates.PushBack(makeEnemyTemplate(
+    "characters\npc_entities\monsters\bies_lvl1.w2ent",,,
+    "gameplay\journal\bestiary\fiends.journal" // TODO: confirm journal
+    )
+  );  // fiends        
+  enemy_template_list.templates.PushBack(makeEnemyTemplate(
+    "characters\npc_entities\monsters\bies_lvl2.w2ent",,,
+    "gameplay\journal\bestiary\fiends.journal" // TODO: confirm journal
+    )
+  );  // red fiend
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2010,7 +2317,12 @@ function re_fiend() : EnemyTemplateList {
 function re_chort() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\czart_lvl1.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\czart_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\czart.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2025,10 +2337,30 @@ function re_chort() : EnemyTemplateList {
 function re_bear() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bear_lvl1__black.w2ent"));      // black, like it says :)      
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bear_lvl2__grizzly.w2ent"));      // light brown  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bear_lvl3__grizzly.w2ent"));      // light brown  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bear_berserker_lvl1.w2ent"));    // red/brown
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\bear_lvl1__black.w2ent",,,
+      "gameplay\journal\bestiary\bear.journal"
+    )
+  );      // black, like it says :)      
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\bear_lvl2__grizzly.w2ent",,,
+      "gameplay\journal\bestiary\bear.journal"
+    )
+  );      // light brown  
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\bear_lvl3__grizzly.w2ent",,,
+      "gameplay\journal\bestiary\bear.journal"
+    )
+  );      // light brown  
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\bear_berserker_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bear.journal"
+    )
+  );    // red/brown
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2043,7 +2375,12 @@ function re_bear() : EnemyTemplateList {
 function re_skelbear() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\bear_lvl3__white.w2ent"));      // polarbear
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\bear_lvl3__white.w2ent",,,
+      "gameplay\journal\bestiary\bear.journal"
+    )
+  );      // polarbear
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2058,10 +2395,30 @@ function re_skelbear() : EnemyTemplateList {
 function re_golem() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\golem_lvl1.w2ent"));          // normal greenish golem        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\golem_lvl2__ifryt.w2ent"));      // fire golem  
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\golem_lvl3.w2ent"));          // weird yellowish golem
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\monsters\gargoyle_lvl1_lvl25.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\golem_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarygolem.journal"
+    )
+  );          // normal greenish golem        
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\golem_lvl2__ifryt.w2ent",,,
+      "gameplay\journal\bestiary\bestiarygolem.journal"
+    )
+  );      // fire golem  
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\golem_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\bestiarygolem.journal"
+    )
+  );          // weird yellowish golem
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "gameplay\templates\monsters\gargoyle_lvl1_lvl25.w2ent",,,
+      "gameplay\journal\bestiary\gargoyle.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2076,12 +2433,32 @@ function re_golem() : EnemyTemplateList {
 function re_elemental() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\elemental_dao_lvl1.w2ent"));      // earth elemental        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\elemental_dao_lvl2.w2ent"));      // stronger and cliffier elemental
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\elemental_dao_lvl3__ice.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\elemental_dao_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryelemental.journal"
+    )
+  );      // earth elemental        
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\elemental_dao_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryelemental.journal"
+    )
+  );      // stronger and cliffier elemental
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\elemental_dao_lvl3__ice.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryelemental.journal"
+    )
+  );
 
   if(theGame.GetDLCManager().IsEP2Available()  &&   theGame.GetDLCManager().IsEP2Enabled()){
-    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\mq7007_item__golem_grafitti.w2ent"));
+    enemy_template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\mq7007_item__golem_grafitti.w2ent",,,
+        "gameplay\journal\bestiary\bestiaryelemental.journal"
+      )
+    );
   }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
@@ -2097,7 +2474,12 @@ function re_elemental() : EnemyTemplateList {
 function re_ekimmara() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\vampire_ekima_lvl1.w2ent"));    // white vampire
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\vampire_ekima_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh104.journal"
+    )
+  );    // white vampire
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2112,8 +2494,24 @@ function re_ekimmara() : EnemyTemplateList {
 function re_katakan() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\vampire_katakan_lvl1.w2ent"));  // cool blinky vampire     
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\vampire_katakan_lvl3.w2ent"));  // cool blinky vamp
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\vampire_katakan_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarykatakan.journal"
+    )
+  );  // cool blinky vampire     
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\vampire_katakan_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\bestiarykatakan.journal"
+    )
+  );  // cool blinky vamp
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\generic_quests\novigrad\quest_files\mh304_katakan\characters\mh304_katakan.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh304.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2128,12 +2526,32 @@ function re_katakan() : EnemyTemplateList {
 function re_nightwraith() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl1.w2ent"));       
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl2.w2ent"));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nightwraith_lvl3.w2ent"));       
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nightwraith_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymoonwright.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nightwraith_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymoonwright.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nightwraith_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymoonwright.journal"
+    )
+  );
 
   if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
-    enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee.w2ent"));
+    enemy_template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee.w2ent",,,
+        "dlc\bob\journal\bestiary\beanshie.journal"
+      )
+    );
   }
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
@@ -2149,10 +2567,30 @@ function re_nightwraith() : EnemyTemplateList {
 function re_noonwraith() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl2.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\noonwraith_lvl3.w2ent"));       
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__noonwright_pesta.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\noonwraith_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarynoonwright.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\noonwraith_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiarynoonwright.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\noonwraith_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\bestiarynoonwright.journal"
+    )
+  );       
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\_quest__noonwright_pesta.w2ent",,,
+      "gameplay\journal\bestiary\bestiarynoonwright.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2167,7 +2605,12 @@ function re_noonwraith() : EnemyTemplateList {
 function re_troll() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\troll_cave_lvl1.w2ent"));    // grey
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_cave_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\trollcave.journal"
+    )
+  );    // grey
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2182,9 +2625,24 @@ function re_troll() : EnemyTemplateList {
 function re_skeltroll() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\troll_cave_lvl3__ice.w2ent"));  // ice   
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\troll_cave_lvl4__ice.w2ent"));  // ice
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\troll_ice_lvl13.w2ent"));    // ice
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_cave_lvl3__ice.w2ent",,,
+      "gameplay\journal\bestiary\icetroll.journal"
+    )
+  );  // ice   
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_cave_lvl4__ice.w2ent",,,
+      "gameplay\journal\bestiary\icetroll.journal"
+    )
+  );  // ice
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_ice_lvl13.w2ent",,,
+      "gameplay\journal\bestiary\icetroll.journal"
+    )
+  );    // ice
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2199,9 +2657,31 @@ function re_skeltroll() : EnemyTemplateList {
 function re_hag() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\hag_grave_lvl1.w2ent"));          // grave hag 1        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\hag_water_lvl1.w2ent"));          // grey  water hag    
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\hag_water_lvl2.w2ent"));          // greenish water hag
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\hag_grave_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\gravehag.journal"
+    )
+  );          // grave hag 1        
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\hag_water_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\waterhag.journal"
+    )
+  );          // grey  water hag    
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\hag_water_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\waterhag.journal"
+    )
+  );          // greenish water hag
+
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\generic_quests\skellige\quest_files\mh203_water_hag\characters\mh203_water_hag.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh203.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2216,13 +2696,48 @@ function re_hag() : EnemyTemplateList {
 function re_harpy() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl1.w2ent"));        // harpy
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl2.w2ent"));        // harpy
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl2_customize.w2ent"));    // harpy
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\harpy_lvl3__erynia.w2ent", 1));    // harpy
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\siren_lvl1.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\siren_lvl2__lamia.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\siren_lvl3.w2ent", 1));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\harpy_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\harpy.journal"
+    )
+  );        // harpy
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\harpy_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\harpy.journal"
+    )
+  );        // harpy
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\harpy_lvl2_customize.w2ent",,,
+      "gameplay\journal\bestiary\harpy.journal"
+    )
+  );    // harpy
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\harpy_lvl3__erynia.w2ent", 1,,
+      "gameplay\journal\bestiary\erynia.journal"
+    )
+  );    // harpy
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\siren_lvl1.w2ent", 1,,
+      "gameplay\journal\bestiary\siren.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\siren_lvl2__lamia.w2ent", 1,,
+      "gameplay\journal\bestiary\siren.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\siren_lvl3.w2ent", 1,,
+      "gameplay\journal\bestiary\siren.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 3;
   enemy_template_list.difficulty_factor.maximum_count_easy = 4;
@@ -2237,9 +2752,24 @@ function re_harpy() : EnemyTemplateList {
 function re_endrega() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\endriaga_lvl1__worker.w2ent"));      // small endrega
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\endriaga_lvl2__tailed.w2ent", 2));      // bigger tailed endrega
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\endriaga_lvl3__spikey.w2ent", 1));      // big tailless endrega
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\endriaga_lvl1__worker.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryendriag.journal"
+    )
+  );      // small endrega
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\endriaga_lvl2__tailed.w2ent", 2,,
+      "gameplay\journal\bestiary\endriagatruten.journal"
+    )
+  );      // bigger tailed endrega
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\endriaga_lvl3__spikey.w2ent", 1,,
+      "gameplay\journal\bestiary\endriagaworker.journal"
+    ),
+  );      // big tailless endrega
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2254,9 +2784,31 @@ function re_endrega() : EnemyTemplateList {
 function re_fogling() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\fogling_lvl1.w2ent"));          // normal fogling
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\fogling_lvl2.w2ent"));        // normal fogling
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\fogling_lvl3__willowisp.w2ent"));  // green fogling
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\fogling_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\fogling.journal"
+    )
+  );          // normal fogling
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\fogling_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\fogling.journal"
+    )
+  );        // normal fogling
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\fogling_lvl3__willowisp.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh108.journal"
+    )
+  );  // green fogling
+
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\generic_quests\no_mans_land\quest_files\mh108_fogling\characters\mh108_ancient_fogling.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh108.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2271,9 +2823,24 @@ function re_fogling() : EnemyTemplateList {
 function re_ghoul() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\ghoul_lvl1.w2ent"));          // normal ghoul   spawns from the ground
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\ghoul_lvl2.w2ent"));          // red ghoul   spawns from the ground
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\ghoul_lvl3.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ghoul_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryghoul.journal"
+    )
+  );          // normal ghoul   spawns from the ground
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ghoul_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryghoul.journal"
+    )
+  );          // red ghoul   spawns from the ground
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ghoul_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryghoul.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2288,11 +2855,36 @@ function re_ghoul() : EnemyTemplateList {
 function re_alghoul() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl1.w2ent"));        // dark
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl2.w2ent", 3));        // dark reddish
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl3.w2ent", 2));        // greyish
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\alghoul_lvl4.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\_quest__miscreant_greater.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\alghoul_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryalghoul.journal"
+    )
+  );        // dark
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\alghoul_lvl2.w2ent", 3,,
+      "gameplay\journal\bestiary\bestiaryalghoul.journal"
+    )
+  );        // dark reddish
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\alghoul_lvl3.w2ent", 2,,
+      "gameplay\journal\bestiary\bestiaryalghoul.journal"
+    )
+  );        // greyish
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\alghoul_lvl4.w2ent", 1,,
+      "gameplay\journal\bestiary\bestiaryalghoul.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\_quest__miscreant_greater.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymiscreant.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 2;
@@ -2307,11 +2899,43 @@ function re_alghoul() : EnemyTemplateList {
 function re_nekker() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nekker_lvl1.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nekker_lvl2.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nekker_lvl2_customize.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nekker_lvl3_customize.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\nekker_lvl3__warrior.w2ent", 2));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nekker_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\nekker.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nekker_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\nekker.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nekker_lvl2_customize.w2ent",,,
+      "gameplay\journal\bestiary\nekker.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nekker_lvl3_customize.w2ent",,,
+      "gameplay\journal\bestiary\nekker.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\nekker_lvl3__warrior.w2ent", 2,,
+      "gameplay\journal\bestiary\nekker.journal"
+    )
+  );
+
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\characters\mh202_nekker_alpha.w2ent", 1,,
+      "gameplay\journal\bestiary\nekker.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 4;
   enemy_template_list.difficulty_factor.maximum_count_easy = 5;
@@ -2326,10 +2950,30 @@ function re_nekker() : EnemyTemplateList {
 function re_drowner() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\drowner_lvl1.w2ent"));        // drowner
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\drowner_lvl2.w2ent"));        // drowner
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\drowner_lvl3.w2ent"));        // pink drowner
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\drowner_lvl4__dead.w2ent", 2));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\drowner_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\drowner.journal"
+    )
+  );        // drowner
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\drowner_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\drowner.journal"
+    )
+  );        // drowner
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\drowner_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\drowner.journal"
+    )
+  );        // pink drowner
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\drowner_lvl4__dead.w2ent", 2,,
+      "gameplay\journal\bestiary\drowner.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2344,8 +2988,18 @@ function re_drowner() : EnemyTemplateList {
 function re_rotfiend() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\rotfiend_lvl1.w2ent"));        
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\rotfiend_lvl2.w2ent", 1));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\rotfiend_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarygreaterrotfiend.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\rotfiend_lvl2.w2ent", 1,,
+      "gameplay\journal\bestiary\bestiarygreaterrotfiend.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2360,8 +3014,18 @@ function re_rotfiend() : EnemyTemplateList {
 function re_wolf() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wolf_lvl1.w2ent"));        // +4 lvls  grey/black wolf STEEL
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wolf_lvl1__alpha.w2ent", 1));    // +4 lvls brown warg      STEEL
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wolf_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\wolf.journal"
+    )
+  );        // +4 lvls  grey/black wolf STEEL
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wolf_lvl1__alpha.w2ent", 1,,
+      "gameplay\journal\bestiary\wolf.journal"
+    )
+  );    // +4 lvls brown warg      STEEL
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2376,8 +3040,18 @@ function re_wolf() : EnemyTemplateList {
 function re_skelwolf() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wolf_white_lvl2.w2ent"));    // lvl 51 white wolf    STEEL     
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wolf_white_lvl3__alpha.w2ent", 1));  // lvl 51 white wolf     STEEL  37
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wolf_white_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\wolf.journal"
+    )
+  );    // lvl 51 white wolf    STEEL     
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wolf_white_lvl3__alpha.w2ent", 1,,
+      "gameplay\journal\bestiary\wolf.journal"
+    )
+  );  // lvl 51 white wolf     STEEL  37
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2392,11 +3066,36 @@ function re_skelwolf() : EnemyTemplateList {
 function re_wraith() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wraith_lvl1.w2ent"));      // all look the bloody same....
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wraith_lvl2.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wraith_lvl2_customize.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wraith_lvl3.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("characters\npc_entities\monsters\wraith_lvl4.w2ent", 2));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wraith_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\wraith.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wraith_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\wraith.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wraith_lvl2_customize.w2ent",,,
+      "gameplay\journal\bestiary\wraith.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wraith_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\wraith.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\wraith_lvl4.w2ent", 2,,
+      "gameplay\journal\bestiary\wraith.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 2;
@@ -2411,8 +3110,18 @@ function re_wraith() : EnemyTemplateList {
 function re_spider() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\ep1\data\characters\npc_entities\monsters\black_spider.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\ep1\data\characters\npc_entities\monsters\black_spider_large.w2ent",2));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\ep1\data\characters\npc_entities\monsters\black_spider.w2ent",,,
+      "gameplay\journal\bestiary\bestiarycrabspider.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\ep1\data\characters\npc_entities\monsters\black_spider_large.w2ent",2,,
+      "gameplay\journal\bestiary\bestiarycrabspider.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2427,7 +3136,12 @@ function re_spider() : EnemyTemplateList {
 function re_boar() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\ep1\data\characters\npc_entities\monsters\wild_boar_ep1.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\ep1\data\characters\npc_entities\monsters\wild_boar_ep1.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2boar.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2442,7 +3156,12 @@ function re_boar() : EnemyTemplateList {
 function re_detlaff() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\dettlaff_vampire.w2ent", 1));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\dettlaff_vampire.w2ent", 1,,
+      "dlc\bob\journal\bestiary\dettlaffmonster.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2457,8 +3176,18 @@ function re_detlaff() : EnemyTemplateList {
 function re_skeleton() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee_summon.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee_summon_skeleton.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee_summon.w2ent",,,
+      "dlc\bob\journal\bestiary\beanshie.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee_summon_skeleton.w2ent",,,
+      "dlc\bob\journal\bestiary\beanshie.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2473,7 +3202,12 @@ function re_skeleton() : EnemyTemplateList {
 function re_barghest() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\barghest.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\barghest.w2ent",,,
+      "dlc\bob\journal\bestiary\barghests.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2488,8 +3222,18 @@ function re_barghest() : EnemyTemplateList {
 function re_bruxa() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_alp.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\bruxa.w2ent",,,
+      "dlc\bob\journal\bestiary\bruxa.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\bruxa_alp.w2ent",,,
+      "dlc\bob\journal\bestiary\alp.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2504,10 +3248,30 @@ function re_bruxa() : EnemyTemplateList {
 function re_echinops() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\echinops_hard.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\echinops_normal.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\echinops_normal_lw.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\echinops_turret.w2ent", 1));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\echinops_hard.w2ent", 1,,
+      "dlc\bob\journal\bestiary\archespore.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\echinops_normal.w2ent",,,
+      "dlc\bob\journal\bestiary\archespore.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\echinops_normal_lw.w2ent",,,
+      "dlc\bob\journal\bestiary\archespore.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\echinops_turret.w2ent", 1,,
+      "dlc\bob\journal\bestiary\archespore.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 2;
   enemy_template_list.difficulty_factor.maximum_count_easy = 2;
@@ -2522,8 +3286,18 @@ function re_echinops() : EnemyTemplateList {
 function re_fleder() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\fleder.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\quests\main_quests\quest_files\q704_truth\characters\q704_protofleder.w2ent", 1));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\fleder.w2ent", 1,,
+      "dlc\bob\journal\bestiary\fleder.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\quests\main_quests\quest_files\q704_truth\characters\q704_protofleder.w2ent", 1,,
+      "dlc\bob\journal\bestiary\protofleder.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2538,8 +3312,18 @@ function re_fleder() : EnemyTemplateList {
 function re_garkain() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\garkain.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\garkain_mh.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\garkain.w2ent",,,
+      "dlc\bob\journal\bestiary\garkain.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\garkain_mh.w2ent",,,
+      "dlc\bob\journal\bestiary\q704alphagarkain.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2554,7 +3338,12 @@ function re_garkain() : EnemyTemplateList {
 function re_gravier() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\gravier.w2ent")); // fancy drowner
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\gravier.w2ent",,,
+      "dlc\bob\journal\bestiary\parszywiec.journal"
+    )
+  ); // fancy drowner
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 3;
@@ -2569,8 +3358,18 @@ function re_gravier() : EnemyTemplateList {
 function re_kikimore() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\kikimore.w2ent", 1));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\kikimore_small.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\kikimore.w2ent", 1,,
+      "dlc\bob\journal\bestiary\kikimoraworker.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\kikimore_small.w2ent",,,
+      "dlc\bob\journal\bestiary\kikimora.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 2;
@@ -2585,9 +3384,24 @@ function re_kikimore() : EnemyTemplateList {
 function re_panther() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\panther_black.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\panther_leopard.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\panther_mountain.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\panther_black.w2ent",,,
+      "dlc\bob\journal\bestiary\panther.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\panther_leopard.w2ent",,,
+      "dlc\bob\journal\bestiary\panther.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\panther_mountain.w2ent",,,
+      "dlc\bob\journal\bestiary\panther.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2602,8 +3416,18 @@ function re_panther() : EnemyTemplateList {
 function re_giant() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\q701_dagonet_giant.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\q704_cloud_giant.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\q701_dagonet_giant.w2ent",,,
+      "dlc\bob\journal\bestiary\dagonet.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\q704_cloud_giant.w2ent",,,
+      "dlc\bob\journal\bestiary\q704cloudgiant.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2618,8 +3442,18 @@ function re_giant() : EnemyTemplateList {
 function re_centipede() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\scolopendromorph.w2ent")); //worm
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\mq7023_albino_centipede.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\scolopendromorph.w2ent",,,
+      "dlc\bob\journal\bestiary\scolopedromorph.journal"
+    )
+  ); //worm
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\mq7023_albino_centipede.w2ent",,,
+      "dlc\bob\journal\bestiary\scolopedromorph.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2634,10 +3468,30 @@ function re_centipede() : EnemyTemplateList {
 function re_sharley() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\sharley.w2ent"));  // rock boss things
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\sharley_mh.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\sharley_q701.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\sharley_q701_normal_scale.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );  // rock boss things
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley_mh.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley_q701.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley_q701_normal_scale.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2652,8 +3506,18 @@ function re_sharley() : EnemyTemplateList {
 function re_wight() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\spooncollector.w2ent",1));  // spoon
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\wicht.w2ent",2));     // wight
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\spooncollector.w2ent",1,,
+      "dlc\bob\journal\bestiary\wicht.journal"
+    )
+  );  // spoon
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\wicht.w2ent",2,,
+      "dlc\bob\journal\bestiary\wicht.journal"
+    )
+  );     // wight
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2668,8 +3532,18 @@ function re_wight() : EnemyTemplateList {
 function re_bruxacity() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_alp_cloak_always_spawn.w2ent"));
-  enemy_template_list.templates.PushBack(makeEnemyTemplate("dlc\bob\data\characters\npc_entities\monsters\bruxa_cloak_always_spawn.w2ent"));
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\bruxa_alp_cloak_always_spawn.w2ent",,,
+      "dlc\bob\journal\bestiary\alp.journal"
+    )
+  );
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\bruxa_cloak_always_spawn.w2ent",,,
+      "dlc\bob\journal\bestiary\bruxa.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -2970,13 +3844,16 @@ class CModRExtra {
   // 
   // but filling such a struct for every creature
   // will result in longer but clearer code.
-  public function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller): CreatureType {
+  public latent function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller, out resources: RE_Resources): CreatureType {
     var is_in_forest: bool;
     var is_near_water: bool;
     var is_in_swamp: bool;
 
     var i: int;
     var current_area: string;
+
+    var manager : CWitcherJournalManager;
+    var can_spawn_creature: bool;
 
     is_in_forest = this.IsPlayerInForest();
     is_near_water = this.IsPlayerNearWater();
@@ -3283,6 +4160,25 @@ class CModRExtra {
       }
     }
 
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(resources.creatures_resources[i], manager);
+        
+        if (!can_spawn_creature) {
+          spawn_roller.setCreatureCounter(i, 0);
+
+          LogChannel('modRandomEncounters', "unknown bestiary creature, removed " + i + " from spawning pool");
+        }
+        else {
+          LogChannel('modRandomEncounters', "known bestiary creature: " + i);
+        }
+      }
+    }
+
     return spawn_roller.rollCreatures();
   }
 
@@ -3513,7 +4409,8 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
   if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
-      master.spawn_roller
+      master.spawn_roller,
+      master.resources
     );
   }
 
@@ -3580,7 +4477,8 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
-      master.spawn_roller
+      master.spawn_roller,
+      master.resources
     );
   }
 
@@ -3744,7 +4642,8 @@ latent function createRandomCreatureComposition(out master: CRandomEncounters, c
   if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
-      master.spawn_roller
+      master.spawn_roller,
+      master.resources
     );
   }
 
@@ -3994,6 +4893,8 @@ class RandomEncountersReworkedEntity extends CEntity {
   // directly target the player.
   // more suited for: `EncounterType_DEFAULT`
   public function startWithoutBait() {
+    LogChannel('modRandomEncounters', "starting - automatic death threshold = " + this.automatic_kill_threshold_distance);
+
     if (this.go_towards_bait) {
       AddTimer('intervalHuntFunction', 2, true);
       AddTimer('teleportBait', 10, true);
@@ -4024,7 +4925,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -4071,7 +4972,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -4117,7 +5018,7 @@ class RandomEncountersReworkedEntity extends CEntity {
         // to avoid creatures who lost their bait (because it went too far)
         // aggroing the player. But instead they die too.
         if (distance_from_player > this.automatic_kill_threshold_distance * 0.8) {
-          LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+          LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
           this.clean();
 
           return;
@@ -4176,7 +5077,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -4201,6 +5102,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
   private function clean() {
     var i: int;
+    var distance_from_player: float;
 
     RemoveTimer('intervalDefaultFunction');
     RemoveTimer('intervalHuntFunction');
@@ -4221,7 +5123,14 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
 
-    if (this.pickup_animation_on_death) {
+    distance_from_player = VecDistance(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    );
+
+    // 20 here because the cutscene picksup everything around geralt
+    // so the distance doesn't have to be too high.
+    if (this.pickup_animation_on_death && distance_from_player < 20) {
       this.master.requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
     }
     
@@ -4631,7 +5540,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -5513,7 +6422,8 @@ function copyEnemyTemplateList(list_to_copy: EnemyTemplateList): EnemyTemplateLi
       makeEnemyTemplate(
         list_to_copy.templates[i].template,
         list_to_copy.templates[i].max,
-        list_to_copy.templates[i].count
+        list_to_copy.templates[i].count,
+        list_to_copy.templates[i].bestiary_entry
       )
     );
   }
@@ -5524,11 +6434,13 @@ function copyEnemyTemplateList(list_to_copy: EnemyTemplateList): EnemyTemplateLi
 /**
  * NOTE: it makes a copy of the list
  **/
-function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_number_of_enemies: int): EnemyTemplateList {
+latent function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_number_of_enemies: int, optional use_bestiary: bool): EnemyTemplateList {
   var template_list: EnemyTemplateList;
   var selected_template_to_increment: int;
   var max_tries: int;
   var i: int;
+  var manager : CWitcherJournalManager;
+  var can_spawn_creature: bool;
 
   template_list = copyEnemyTemplateList(enemy_template_list);
 
@@ -5546,6 +6458,14 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
 
   LogChannel('modRandomEncounters', "maximum number of tries: " + max_tries);
 
+  if (use_bestiary) {
+    manager = theGame.GetJournalManager();
+
+    // we multiply the max tries number by two
+    // because it can be hard to find a lonely entry in a list
+    max_tries *= 2;
+  }
+
 
   while (total_number_of_enemies > 0 && max_tries > 0) {
     max_tries -= 1;
@@ -5557,6 +6477,17 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
     if (template_list.templates[selected_template_to_increment].max > 0
       && template_list.templates[selected_template_to_increment].count >= template_list.templates[selected_template_to_increment].max) {
       continue;
+    }
+
+    // when use_bestiary is true, we only take known bestiary entries
+    // ignore all unknown entries.
+    
+    if (use_bestiary) {
+      can_spawn_creature = bestiaryCanSpawnEnemyTemplate(template_list.templates[selected_template_to_increment], manager);
+
+      if (!can_spawn_creature) {
+        continue;
+      }
     }
 
     template_list.templates[selected_template_to_increment].count += 1;

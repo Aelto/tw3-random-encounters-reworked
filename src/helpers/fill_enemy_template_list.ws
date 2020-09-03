@@ -2,11 +2,13 @@
 /**
  * NOTE: it makes a copy of the list
  **/
-function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_number_of_enemies: int): EnemyTemplateList {
+latent function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_number_of_enemies: int, optional use_bestiary: bool): EnemyTemplateList {
   var template_list: EnemyTemplateList;
   var selected_template_to_increment: int;
   var max_tries: int;
   var i: int;
+  var manager : CWitcherJournalManager;
+  var can_spawn_creature: bool;
 
   template_list = copyEnemyTemplateList(enemy_template_list);
 
@@ -24,6 +26,14 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
 
   LogChannel('modRandomEncounters', "maximum number of tries: " + max_tries);
 
+  if (use_bestiary) {
+    manager = theGame.GetJournalManager();
+
+    // we multiply the max tries number by two
+    // because it can be hard to find a lonely entry in a list
+    max_tries *= 2;
+  }
+
 
   while (total_number_of_enemies > 0 && max_tries > 0) {
     max_tries -= 1;
@@ -35,6 +45,17 @@ function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_num
     if (template_list.templates[selected_template_to_increment].max > 0
       && template_list.templates[selected_template_to_increment].count >= template_list.templates[selected_template_to_increment].max) {
       continue;
+    }
+
+    // when use_bestiary is true, we only take known bestiary entries
+    // ignore all unknown entries.
+    
+    if (use_bestiary) {
+      can_spawn_creature = bestiaryCanSpawnEnemyTemplate(template_list.templates[selected_template_to_increment], manager);
+
+      if (!can_spawn_creature) {
+        continue;
+      }
     }
 
     template_list.templates[selected_template_to_increment].count += 1;

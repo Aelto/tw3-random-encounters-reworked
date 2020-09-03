@@ -10,7 +10,8 @@ function copyEnemyTemplateList(list_to_copy: EnemyTemplateList): EnemyTemplateLi
       makeEnemyTemplate(
         list_to_copy.templates[i].template,
         list_to_copy.templates[i].max,
-        list_to_copy.templates[i].count
+        list_to_copy.templates[i].count,
+        list_to_copy.templates[i].bestiary_entry
       )
     );
   }

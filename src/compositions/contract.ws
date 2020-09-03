@@ -5,7 +5,8 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
   if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
-      master.spawn_roller
+      master.spawn_roller,
+      master.resources
     );
   }
 

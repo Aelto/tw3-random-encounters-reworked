@@ -128,6 +128,11 @@ class RE_Resources {
     // whh = re_whh();
     this.creatures_resources[CreatureWILDHUNT] = re_wildhunt();
 
+    // this resource is almost never used.
+    // there a functions to get random human resources
+    // but it is used for its bestiary entry
+    this.creatures_resources[CreatureHuman] = re_bandit();
+
     this.humans_resources[HT_BANDIT] = re_bandit();
     this.humans_resources[HT_NOVBANDIT] = re_novbandit();
     this.humans_resources[HT_SKELBANDIT] = re_skelbandit();

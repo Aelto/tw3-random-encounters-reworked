@@ -79,6 +79,8 @@ class RandomEncountersReworkedEntity extends CEntity {
   // directly target the player.
   // more suited for: `EncounterType_DEFAULT`
   public function startWithoutBait() {
+    LogChannel('modRandomEncounters', "starting - automatic death threshold = " + this.automatic_kill_threshold_distance);
+
     if (this.go_towards_bait) {
       AddTimer('intervalHuntFunction', 2, true);
       AddTimer('teleportBait', 10, true);
@@ -109,7 +111,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -156,7 +158,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     LogChannel('modRandomEncounters', "distance from bait : " + distance_from_bait);
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -202,7 +204,7 @@ class RandomEncountersReworkedEntity extends CEntity {
         // to avoid creatures who lost their bait (because it went too far)
         // aggroing the player. But instead they die too.
         if (distance_from_player > this.automatic_kill_threshold_distance * 0.8) {
-          LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+          LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
           this.clean();
 
           return;
@@ -261,7 +263,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -286,6 +288,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
   private function clean() {
     var i: int;
+    var distance_from_player: float;
 
     RemoveTimer('intervalDefaultFunction');
     RemoveTimer('intervalHuntFunction');
@@ -306,7 +309,14 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
 
-    if (this.pickup_animation_on_death) {
+    distance_from_player = VecDistance(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    );
+
+    // 20 here because the cutscene picksup everything around geralt
+    // so the distance doesn't have to be too high.
+    if (this.pickup_animation_on_death && distance_from_player < 20) {
       this.master.requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
     }
     

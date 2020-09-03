@@ -288,13 +288,16 @@ class CModRExtra {
   // 
   // but filling such a struct for every creature
   // will result in longer but clearer code.
-  public function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller): CreatureType {
+  public latent function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller, out resources: RE_Resources): CreatureType {
     var is_in_forest: bool;
     var is_near_water: bool;
     var is_in_swamp: bool;
 
     var i: int;
     var current_area: string;
+
+    var manager : CWitcherJournalManager;
+    var can_spawn_creature: bool;
 
     is_in_forest = this.IsPlayerInForest();
     is_near_water = this.IsPlayerNearWater();
@@ -597,6 +600,25 @@ class CModRExtra {
       for (i = 0; i < CreatureMAX; i += 1) {
         if (!settings.creatures_city_spawns[i]) {
           spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
+    }
+
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(resources.creatures_resources[i], manager);
+        
+        if (!can_spawn_creature) {
+          spawn_roller.setCreatureCounter(i, 0);
+
+          LogChannel('modRandomEncounters', "unknown bestiary creature, removed " + i + " from spawning pool");
+        }
+        else {
+          LogChannel('modRandomEncounters', "known bestiary creature: " + i);
         }
       }
     }

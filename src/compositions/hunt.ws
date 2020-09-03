@@ -6,7 +6,8 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   if (creature_type == CreatureNONE) {
     creature_type = master.rExtra.getRandomCreatureByCurrentArea(
       master.settings,
-      master.spawn_roller
+      master.spawn_roller,
+      master.resources
     );
   }
 

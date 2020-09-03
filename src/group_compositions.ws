@@ -154,7 +154,8 @@ abstract class CompositionSpawner {
 
     this.creatures_templates = fillEnemyTemplateList(
       this.creatures_templates,
-      this.number_of_creatures
+      this.number_of_creatures,
+      master.settings.only_known_bestiary_creatures
     );
 
     if (!this.getInitialPosition(this.initial_position)) {
@@ -252,12 +253,17 @@ abstract class CompositionSpawner {
 
 
 
-  protected function getCreatureType(master: CRandomEncounters): CreatureType {
+  protected latent function getCreatureType(master: CRandomEncounters): CreatureType {
+    var creature_type: CreatureType;
+
     if (this._creature_type == CreatureNONE) {
-      return master.rExtra.getRandomCreatureByCurrentArea(
+      creature_type = master.rExtra.getRandomCreatureByCurrentArea(
         master.settings,
-        master.spawn_roller
+        master.spawn_roller,
+        master.resources
       );
+
+      return creature_type;
     }
 
     return this._creature_type;

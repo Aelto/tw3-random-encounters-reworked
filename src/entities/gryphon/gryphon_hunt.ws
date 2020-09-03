@@ -179,7 +179,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached");
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
