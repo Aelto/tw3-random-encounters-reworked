@@ -224,6 +224,39 @@ abstract class CompositionSpawner {
     return this;
   }
 
+  private function removeQuestItemsFromEntity(actor: CActor) {
+    // the code was taken from `playerWitcher.ws` and from the function
+    // transfering the save to NG+
+    var inv : CInventoryComponent;
+		var questItems : array<name>;
+    var i: int;
+
+    inv = actor.GetInventory();
+
+    //1) some non-quest items might dynamically have 'Quest' tag added so first we remove all items that 
+    //currently have Quest tag
+    inv.RemoveItemByTag('Quest', -1);
+
+    //2) some quest items might lose 'Quest' tag during the course of the game so we need to check their 
+    //XML definitions rather than actual items in inventory
+    questItems = theGame.GetDefinitionsManager().GetItemsWithTag('Quest');
+    for(i=0; i<questItems.Size(); i+=1) {
+      inv.RemoveItemByName(questItems[i], -1);
+    }
+    
+    //3) some quest items don't have 'Quest' tag at all
+    inv.RemoveItemByName('mq1002_artifact_3', -1);
+    
+    //4) some quest items are regular items but become quest items at some point - Quests will mark them with proper tag
+    inv.RemoveItemByTag('NotTransferableToNGP', -1);
+    
+    //remove notice board notices - they are not quest items
+    inv.RemoveItemByTag('NoticeBoardNote', -1);
+
+    //remove trophies
+    inv.RemoveItemByTag('Trophy', -1);
+  }
+
   var master: CRandomEncounters;
   var creature_type: CreatureType;
   var creatures_templates: EnemyTemplateList;
@@ -298,6 +331,9 @@ abstract class CompositionSpawner {
       this.forEachEntity(
         this.created_entities[i]
       );
+
+      // LogChannel('modRandmEncounters', "removing quest items from entity:" + i);
+      // this.removeQuestItemsFromEntity(((CActor)this.created_entities[i]));
 
       LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
 
@@ -491,7 +527,7 @@ statemachine class CRandomEncounters extends CEntity {
   //#region OutOfCombat action
   private var out_of_combat_requests: array<OutOfCombatRequest>;
 
-  // add the requested action for when the player will the combat
+  // add the requested action for when the player will leave combat
   public function requestOutOfCombatAction(request: OutOfCombatRequest): bool {
     var i: int;
     var already_added: bool;
@@ -530,7 +566,10 @@ statemachine class CRandomEncounters extends CEntity {
     for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
       switch (this.out_of_combat_requests[i]) {
         case OutOfCombatRequest_TROPHY_CUTSCENE:
-          this.AddTimer('outOfCombatTrophyCutscene', 1.5, false);
+          // three times because some lootbags can take time to appear
+          this.AddTimer('lootTrophiesAndPlayCutscene', 1.5, false);
+          this.AddTimer('lootTrophiesAndPlayCutscene', 2.25, false);
+          this.AddTimer('lootTrophiesAndPlayCutscene', 3, false);
         break;
       }
     }
@@ -538,36 +577,27 @@ statemachine class CRandomEncounters extends CEntity {
     this.out_of_combat_requests.Clear();
   }
 
-  timer function outOfCombatTrophyCutscene(optional delta: float, optional id: Int32) {
+  timer function lootTrophiesAndPlayCutscene(optional delta: float, optional id: Int32) {
     var scene: CStoryScene;
-    var entities : array<CGameplayEntity>;
-    var i: int;
-    var items_guids: array<SItemUniqueId>;
+    var will_play_cutscene: bool;
 
-    LogChannel('modRandomEncounters', "playing out of combat cutscene");
+    // is set to true only if trophies were picked up
+    will_play_cutscene = lootTrophiesInRadius();
 
-    scene = (CStoryScene)LoadResource(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
-      true
-    );
-    
-    theGame
+    if (will_play_cutscene) {
+      LogChannel('modRandomEncounters', "playing out of combat cutscene");
+      
+      scene = (CStoryScene)LoadResource(
+        "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
+        true
+      );
+
+      theGame
       .GetStorySceneSystem()
       .PlayScene(scene, "Input");
-
-    LogChannel('modRandomEncounters', "searching lootbag nearby");
-    FindGameplayEntitiesInRange( entities, thePlayer, 10, 10, , FLAG_ExcludePlayer,, 'W3Container' );
-
-    for (i = 0; i < entities.Size(); i += 1) {
-      LogChannel('modRandomEncounters', "lootbag - giving all RER_Trophy to player");
-      items_guids = ((W3Container)entities[i]).GetInventory().GetItemsByTag('RER_Trophy');
       
-      LogChannel('modRandomEncounters', "lootbag - found " + items_guids.Size() + " trophies");
-      ((W3Container)entities[i]).GetInventory()
-        .GiveItemsTo(thePlayer.GetInventory(), items_guids);
+      PlayItemEquipSound('trophy');
     }
-
-    PlayItemEquipSound('trophy');
   }
   //#endregion OutOfCombat action
 
@@ -1703,12 +1733,6 @@ function re_gryphon() : EnemyTemplateList {
       "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
     )
   );
-  enemy_template_list.templates.PushBack(
-    makeEnemyTemplate(
-      "quests\generic_quests\novigrad\quest_files\mh301_gryphon\characters\mh301_gryphon.w2ent",,,
-      "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
-    )
-  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -1825,7 +1849,7 @@ function re_forktail() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\skellige\quest_files\mh208_forktail\characters\mh208_forktail.w2ent",,,
+      "characters\npc_entities\monsters\forktail_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh208.journal"
     )
   );
@@ -1847,26 +1871,22 @@ function re_novbandit() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_1h_club.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_1h_club.w2ent"
     )
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_1h_mace_t1.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_1h_mace_t1.w2ent"
     )
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_2h_hammer.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_2h_hammer.w2ent"
     )
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_1h_sword_t1.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_1h_sword_t1.w2ent"
     )
   );
   
@@ -2135,7 +2155,8 @@ function re_arachas() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "characters\npc_entities\monsters\arachas_lvl1.w2ent"
+      "characters\npc_entities\monsters\arachas_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarycrabspider.journal"
     )
   );
   enemy_template_list.templates.PushBack(
@@ -2204,8 +2225,8 @@ function re_leshen() : EnemyTemplateList {
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\journal\bestiary\bestiarymonsterhuntmh302.journal",,,
-      "quests\generic_quests\novigrad\quest_files\mh302_leshy\characters\mh302_leshy.w2ent"
+      "characters\npc_entities\monsters\lessog_mh.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh302.journal"
     )
   );
   
@@ -2508,7 +2529,7 @@ function re_katakan() : EnemyTemplateList {
   );  // cool blinky vamp
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\novigrad\quest_files\mh304_katakan\characters\mh304_katakan.w2ent",,,
+      "characters\npc_entities\monsters\vampire_katakan_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh304.journal"
     )
   );
@@ -2678,7 +2699,7 @@ function re_hag() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\skellige\quest_files\mh203_water_hag\characters\mh203_water_hag.w2ent",,,
+      "characters\npc_entities\monsters\hag_water_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh203.journal"
     )
   );
@@ -2805,7 +2826,7 @@ function re_fogling() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\no_mans_land\quest_files\mh108_fogling\characters\mh108_ancient_fogling.w2ent",,,
+      "characters\npc_entities\monsters\fogling_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh108.journal"
     )
   );
@@ -2932,8 +2953,8 @@ function re_nekker() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\characters\mh202_nekker_alpha.w2ent", 1,,
-      "gameplay\journal\bestiary\nekker.journal"
+      "characters\npc_entities\monsters\nekker_mh__warrior.w2ent", 1,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh202.journal"
     )
   );
 
@@ -6651,6 +6672,39 @@ latent function getTracksTemplate(actor : CActor): CEntityTemplate {
 
       return entity_template;
   }
+}
+
+function lootTrophiesInRadius(): bool {
+  var entities : array<CGameplayEntity>;
+  var items_guids: array<SItemUniqueId>;
+  var looted_a_trophy: bool;
+  var i: int;
+  var guid_used_for_notification: SItemUniqueId;
+
+  looted_a_trophy = false;
+
+  LogChannel('modRandomEncounters', "searching lootbag nearby");
+  FindGameplayEntitiesInRange( entities, thePlayer, 25, 30, , FLAG_ExcludePlayer/*,, 'W3Container'*/ );
+
+  for (i = 0; i < entities.Size(); i += 1) {
+    if (((W3Container)entities[i])) {
+      LogChannel('modRandomEncounters', "lootbag - giving all RER_Trophy to player");
+      items_guids = ((W3Container)entities[i]).GetInventory().GetItemsByTag('RER_Trophy');
+
+      // set `looted_a_trophy` if a trophy was found
+      looted_a_trophy = looted_a_trophy || items_guids.Size() > 0;
+
+      if (items_guids.Size() > 0) {
+        guid_used_for_notification = items_guids[0];
+      }
+      
+      LogChannel('modRandomEncounters', "lootbag - found " + items_guids.Size() + " trophies");
+      ((W3Container)entities[i]).GetInventory()
+        .GiveItemsTo(thePlayer.GetInventory(), items_guids);
+    }
+  }
+
+  return looted_a_trophy;
 }
 
 function getRandomPositionBehindCamera(out initial_pos: Vector, optional distance: float, optional minimum_distance: float, optional attempts: int): bool {

@@ -205,12 +205,6 @@ function re_gryphon() : EnemyTemplateList {
       "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
     )
   );
-  enemy_template_list.templates.PushBack(
-    makeEnemyTemplate(
-      "quests\generic_quests\novigrad\quest_files\mh301_gryphon\characters\mh301_gryphon.w2ent",,,
-      "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
-    )
-  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -327,7 +321,7 @@ function re_forktail() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\skellige\quest_files\mh208_forktail\characters\mh208_forktail.w2ent",,,
+      "characters\npc_entities\monsters\forktail_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh208.journal"
     )
   );
@@ -349,26 +343,22 @@ function re_novbandit() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_1h_club.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_1h_club.w2ent"
     )
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_1h_mace_t1.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_1h_mace_t1.w2ent"
     )
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_2h_hammer.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_2h_hammer.w2ent"
     )
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\templates\characters\presets\novigrad\nov_1h_sword_t1.w2ent",,,
-      "gameplay\journal\bestiary\humans.journal"
+      "gameplay\templates\characters\presets\novigrad\nov_1h_sword_t1.w2ent"
     )
   );
   
@@ -637,7 +627,8 @@ function re_arachas() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "characters\npc_entities\monsters\arachas_lvl1.w2ent"
+      "characters\npc_entities\monsters\arachas_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiarycrabspider.journal"
     )
   );
   enemy_template_list.templates.PushBack(
@@ -706,8 +697,8 @@ function re_leshen() : EnemyTemplateList {
   );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "gameplay\journal\bestiary\bestiarymonsterhuntmh302.journal",,,
-      "quests\generic_quests\novigrad\quest_files\mh302_leshy\characters\mh302_leshy.w2ent"
+      "characters\npc_entities\monsters\lessog_mh.w2ent",,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh302.journal"
     )
   );
   
@@ -1010,7 +1001,7 @@ function re_katakan() : EnemyTemplateList {
   );  // cool blinky vamp
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\novigrad\quest_files\mh304_katakan\characters\mh304_katakan.w2ent",,,
+      "characters\npc_entities\monsters\vampire_katakan_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh304.journal"
     )
   );
@@ -1180,7 +1171,7 @@ function re_hag() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\skellige\quest_files\mh203_water_hag\characters\mh203_water_hag.w2ent",,,
+      "characters\npc_entities\monsters\hag_water_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh203.journal"
     )
   );
@@ -1307,7 +1298,7 @@ function re_fogling() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\no_mans_land\quest_files\mh108_fogling\characters\mh108_ancient_fogling.w2ent",,,
+      "characters\npc_entities\monsters\fogling_mh.w2ent",,,
       "gameplay\journal\bestiary\bestiarymonsterhuntmh108.journal"
     )
   );
@@ -1434,8 +1425,8 @@ function re_nekker() : EnemyTemplateList {
 
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
-      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\characters\mh202_nekker_alpha.w2ent", 1,,
-      "gameplay\journal\bestiary\nekker.journal"
+      "characters\npc_entities\monsters\nekker_mh__warrior.w2ent", 1,,
+      "gameplay\journal\bestiary\bestiarymonsterhuntmh202.journal"
     )
   );
 

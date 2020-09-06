@@ -130,6 +130,39 @@ abstract class CompositionSpawner {
     return this;
   }
 
+  private function removeQuestItemsFromEntity(actor: CActor) {
+    // the code was taken from `playerWitcher.ws` and from the function
+    // transfering the save to NG+
+    var inv : CInventoryComponent;
+		var questItems : array<name>;
+    var i: int;
+
+    inv = actor.GetInventory();
+
+    //1) some non-quest items might dynamically have 'Quest' tag added so first we remove all items that 
+    //currently have Quest tag
+    inv.RemoveItemByTag('Quest', -1);
+
+    //2) some quest items might lose 'Quest' tag during the course of the game so we need to check their 
+    //XML definitions rather than actual items in inventory
+    questItems = theGame.GetDefinitionsManager().GetItemsWithTag('Quest');
+    for(i=0; i<questItems.Size(); i+=1) {
+      inv.RemoveItemByName(questItems[i], -1);
+    }
+    
+    //3) some quest items don't have 'Quest' tag at all
+    inv.RemoveItemByName('mq1002_artifact_3', -1);
+    
+    //4) some quest items are regular items but become quest items at some point - Quests will mark them with proper tag
+    inv.RemoveItemByTag('NotTransferableToNGP', -1);
+    
+    //remove notice board notices - they are not quest items
+    inv.RemoveItemByTag('NoticeBoardNote', -1);
+
+    //remove trophies
+    inv.RemoveItemByTag('Trophy', -1);
+  }
+
   var master: CRandomEncounters;
   var creature_type: CreatureType;
   var creatures_templates: EnemyTemplateList;
@@ -204,6 +237,9 @@ abstract class CompositionSpawner {
       this.forEachEntity(
         this.created_entities[i]
       );
+
+      // LogChannel('modRandmEncounters', "removing quest items from entity:" + i);
+      // this.removeQuestItemsFromEntity(((CActor)this.created_entities[i]));
 
       LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
 
