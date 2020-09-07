@@ -44,6 +44,9 @@ class RE_Settings {
 
   public var only_known_bestiary_creatures: bool;
 
+  public var max_level_allowed: int;
+  public var min_level_allowed: int;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -70,7 +73,8 @@ class RE_Settings {
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
     this.loadExternalFactorsCoefficientSettings(inGameConfigWrapper);
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
-    this.loadAdvancedSettings(inGameConfigWrapper);
+    this.loadAdvancedDistancesSettings(inGameConfigWrapper);
+    this.loadAdvancedLevelsSettings(inGameConfigWrapper);
     this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
     this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
   }
@@ -154,7 +158,8 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedLevels', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -178,19 +183,27 @@ class RE_Settings {
     }
   }
 
-  private function loadAdvancedSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
-    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'spawnDiameter'));
-    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvanced', 'killThresholdDistance'));
+  private function loadAdvancedDistancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'minSpawnDistance'));
+    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'spawnDiameter'));
+    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'killThresholdDistance'));
 
     if (this.minimum_spawn_distance < 20 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
-      inGameConfigWrapper.ApplyGroupPreset('RERadvanced', 0);
+      inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
 
-      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'minSpawnDistance'));
-      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'spawnDiameter'));
-      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERadvanced', 'killThresholdDistance'));
+      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'minSpawnDistance'));
+      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'spawnDiameter'));
+      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'killThresholdDistance'));
       theGame.SaveUserSettings();
     }
+  }
+
+  private function loadAdvancedLevelsSettings(out inGameConfigWrapper: CInGameConfigWrapper) {
+    this.min_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedLevels', 'RERminLevelRange'));
+    this.max_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedLevels', 'RERmaxLevelRange'));
+
+    LogChannel('modRandomEncounters', "settings - min_level_allowed = " + this.min_level_allowed);
+    LogChannel('modRandomEncounters', "settings - max_level_allowed = " + this.max_level_allowed);
   }
    
   private function loadCreaturesSpawningChances (out inGameConfigWrapper : CInGameConfigWrapper) {

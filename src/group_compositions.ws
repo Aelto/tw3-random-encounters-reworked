@@ -234,6 +234,10 @@ abstract class CompositionSpawner {
 
 
     for (i = 0; i < this.created_entities.Size(); i += 1) {
+      ((CNewNPC)this.created_entities[i]).SetLevel(
+        getRandomLevelBasedOnSettings(this.master.settings)
+      );
+
       this.forEachEntity(
         this.created_entities[i]
       );

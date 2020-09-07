@@ -94,8 +94,6 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     current_rer_entity.automatic_kill_threshold_distance = this
       .automatic_kill_threshold_distance;
 
-    current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
-    
     if (!master.settings.enable_encounters_loot) {
       current_rer_entity.removeAllLoot();
     }
@@ -147,7 +145,6 @@ class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
     for (i = 0; i < this.rer_entities.Size(); i += 1) {
       current_rer_entity = this.rer_entities[i];
 
-      current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
       if (!master.settings.enable_encounters_loot) {
         current_rer_entity.removeAllLoot();
       }

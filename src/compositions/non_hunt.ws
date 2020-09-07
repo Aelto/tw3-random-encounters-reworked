@@ -170,7 +170,6 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     for (i = 0; i < this.rer_entities.Size(); i += 1) {
       current_rer_entity = this.rer_entities[i];
 
-      current_rer_entity.this_newnpc.SetLevel(GetWitcherPlayer().GetLevel());
       if (!master.settings.enable_encounters_loot) {
         current_rer_entity.removeAllLoot();
       }
