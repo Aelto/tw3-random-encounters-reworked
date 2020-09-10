@@ -138,3 +138,9 @@
 2115018136|        |option_rer_trophies_contract|Allow trophies in monster contract
 2115018137|        |option_rer_trophy_pickup_animation|Allow trophy pickup animation
 2115018138|        |option_rer_only_known_bestiary_creatures|Only known bestiary creatures
+2115018139|        |preset_Mods_rer_name_rer_advanced_settings_distances|Distances
+2115018140|        |panel_distances|Distances
+2115018141|        |preset_Mods_rer_name_rer_advanced_settings_levels|Levels
+2115018142|        |panel_levels|Levels
+2115018143|        |option_rer_min_level_range|Lowest level allowed (relative to Geralt's)
+2115018144|        |option_rer_max_level_range|Highest level allow (relative to Geralt's)
