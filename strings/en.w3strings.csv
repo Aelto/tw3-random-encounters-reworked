@@ -145,3 +145,9 @@
 2115018143|        |panel_levels|Levels
 2115018144|        |option_rer_min_level_range|Lowest level allowed (relative to Geralt's)
 2115018145|        |option_rer_max_level_range|Highest level allowed (relative to Geralt's)
+2115018146|        |preset_Mods_rer_name_rer_advanced_settings_trophies|Trophies
+2115018147|        |panel_trophies|Trophies
+2115018148|        |option_rer_trophy_prices|Trophy prices
+2115018149|        |preset_value_rer_trophy_prices_low|Low (100%)
+2115018150|        |preset_value_rer_trophy_prices_medium|Medium (200%)
+2115018151|        |preset_value_rer_trophy_prices_high|High (300%)

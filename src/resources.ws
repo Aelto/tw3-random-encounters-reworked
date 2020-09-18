@@ -173,41 +173,41 @@ class RE_Resources {
     return entity_template;
   }
 
-  public function getCreatureTrophy(creature_type: CreatureType): name {
+  public function getCreatureTrophy(creature_type: CreatureType, trophy_price: TrophyVariant): name {
     switch (creature_type) {
       case CreatureHuman:
-        return 'modrer_human_trophy';
+        return getTrophyName(Trophy_HUMAN, trophy_price);
         break;
       case CreatureARACHAS:
-        return 'modrer_arachas_trophy';
+        return getTrophyName(Trophy_ARACHAS, trophy_price);
         break;
       case CreatureKIKIMORE:
       case CreatureENDREGA:
       case CreatureECHINOPS:
       case CreatureSPIDER:
       case CreatureCENTIPEDE:
-        return 'modrer_insectoid_trophy';
+        return getTrophyName(Trophy_INSECTOID, trophy_price);
         break;
       case CreatureGHOUL:
       case CreatureALGHOUL:
       case CreatureDROWNER:
       case CreatureROTFIEND:
       case CreatureDROWNERDLC:
-        return 'modrer_necrophage_trophy';
+        return getTrophyName(Trophy_NECROPHAGE, trophy_price);
         break;
       
       case CreatureNEKKER:
-        return 'modrer_nekker_trophy';
+        return getTrophyName(Trophy_NEKKER, trophy_price);
 
       case CreatureWRAITH:
-        return 'modrer_wraith_trophy';
+        return getTrophyName(Trophy_WRAITH, trophy_price);
         break;
       case CreatureHARPY:
-        return 'modrer_harpy_trophy';
+        return getTrophyName(Trophy_HARPY, trophy_price);
         break;
       case CreatureBARGHEST:
       case CreatureSKELETON:
-        return 'modrer_spirit_trophy';
+        return getTrophyName(Trophy_SPIRIT, trophy_price);
         break;
       case CreatureWOLF:
       case CreatureBOAR:
@@ -215,87 +215,85 @@ class RE_Resources {
       case CreaturePANTHER:
       case CreatureSKELWOLF:
       case CreatureSKELBEAR:
-        return 'modrer_beast_trophy';
+        return getTrophyName(Trophy_BEAST, trophy_price);
         break;
       case CreatureWILDHUNT:
-        return 'modrer_wildhunt_trophy';
+        return getTrophyName(Trophy_WILDHUNT, trophy_price);
         break;
       case CreatureLESHEN:
-        return 'modrer_leshen_trophy';
+        return getTrophyName(Trophy_LESHEN, trophy_price);
         break;
       case CreatureWEREWOLF:
-        return 'modrer_werewolf_trophy';
+        return getTrophyName(Trophy_WEREWOLF, trophy_price);
         break;
       case CreatureFIEND:
-        return 'modrer_fiend_trophy';
+        return getTrophyName(Trophy_FIEND, trophy_price);
         break;
       case CreatureEKIMMARA:
-        return 'modrer_ekimmara_trophy';
+        return getTrophyName(Trophy_EKIMMARA, trophy_price);
         break;
       case CreatureKATAKAN:
-        return 'modrer_katakan_trophy';
+        return getTrophyName(Trophy_KATAKAN, trophy_price);
         break;
       case CreatureGOLEM:
       case CreatureELEMENTAL:
-        return 'modrer_elemental_trophy';
+        return getTrophyName(Trophy_ELEMENTAL, trophy_price);
         break;
       case CreatureNIGHTWRAITH:
-        return 'modrer_nightwraith_trophy';
+        return getTrophyName(Trophy_NIGHTWRAITH, trophy_price);
         break;
       case CreatureNOONWRAITH:
-        return 'modrer_noonwraith_trophy';
+        return getTrophyName(Trophy_NOONWRAITH, trophy_price);
         break;
       case CreatureCHORT:
-        return 'modrer_czart_trophy';
+        return getTrophyName(Trophy_CZART, trophy_price);
         break;
       case CreatureCYCLOPS:
-        return 'modrer_cyclop_trophy';
+        return getTrophyName(Trophy_CYCLOP, trophy_price);
         break;
+      case CreatureSKELTROLL:
       case CreatureTROLL:
-        return 'modrer_troll_trophy';
+        return getTrophyName(Trophy_TROLL, trophy_price);
         break;
       case CreatureHAG:
-        return 'modrer_grave_hag_trophy';
+        return getTrophyName(Trophy_GRAVE_HAG, trophy_price);
         break;
       case CreatureFOGLET:
-        return 'modrer_fogling_trophy';
+        return getTrophyName(Trophy_FOGLING, trophy_price);
         break;
 
       case CreatureFLEDER:
       case CreatureGARKAIN:
-        return 'modrer_garkain_trophy';
+        return getTrophyName(Trophy_GARKAIN, trophy_price);
         break;
       case CreatureBRUXA:
       case CreatureDETLAFF:
-        return 'modrer_vampire_trophy';
+        return getTrophyName(Trophy_VAMPIRE, trophy_price);
         break;
 
       case CreatureGIANT:
-        return 'modrer_giant_trophy';
+        return getTrophyName(Trophy_GIANT, trophy_price);
         break;
       case CreatureSHARLEY:
-        return 'modrer_sharley_trophy';
+        return getTrophyName(Trophy_SHARLEY, trophy_price);
         break;
       case CreatureWIGHT:
-        return 'modrer_wight_trophy';
+        return getTrophyName(Trophy_WIGHT, trophy_price);
         break;
       case CreatureGRYPHON:
-        return 'modrer_griffin_trophy';
+        return getTrophyName(Trophy_GRIFFIN, trophy_price);
         break;
       case CreatureCOCKATRICE:
-        return 'modrer_cockatrice_trophy';
+        return getTrophyName(Trophy_COCKATRICE, trophy_price);
         break;
       case CreatureBASILISK:
-        return 'modrer_basilisk_trophy';
+        return getTrophyName(Trophy_BASILISK, trophy_price);
         break;
       case CreatureWYVERN:
-        return 'modrer_wyvern_trophy';
+        return getTrophyName(Trophy_WYVERN, trophy_price);
         break;
       case CreatureFORKTAIL:
-        return 'modrer_forktail_trophy';
-        break;
-      case CreatureSKELTROLL:
-        return 'modrer_troll_trophy';
+        return getTrophyName(Trophy_FORKTAIL, trophy_price);
         break;
     }
   }

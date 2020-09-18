@@ -3,20 +3,16 @@
     <Group id="RandomEncountersMENU" displayName="Mods.rer_name.rer_main_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="Difficulty"				        value="1"	/>
-                <Entry varId="enableEncountersLoot"		        value="1"	/>
-                <Entry varId="externalFactorsImpact"		    value="2"	/>
-                <Entry varId="RERtrophiesAmbush"		        value="0"	/>
-                <Entry varId="RERtrophiesHunt"		            value="1"	/>
-                <Entry varId="RERtrophiesContract"		        value="1"	/>
-                <Entry varId="RERtrophyPickupAnimation"		    value="1"	/>
-                <Entry varId="RERonlyKnownBestiaryCreatures"    value="1"	/>
+                <Entry varId="Difficulty"                        value="1"    />
+                <Entry varId="enableEncountersLoot"                value="1"    />
+                <Entry varId="externalFactorsImpact"            value="2"    />
+                <Entry varId="RERonlyKnownBestiaryCreatures"    value="1"    />
             </Preset>
         </PresetsArray>
 
         <VisibleVars>
             <Var id="RERmodInitialized" displayName="rer_mod_initialized" displayType="TOGGLE">
-			</Var>
+            </Var>
 
             <Var id="Difficulty" displayName="rer_difficulty" displayType="OPTIONS">
                 <OptionsArray>
@@ -32,57 +28,53 @@
                 </OptionsArray>
             </Var>
             <Var id="geraltComments" displayName="rer_geralt_comments" displayType="OPTIONS">
-				<OptionsArray>
-					<Option id="0" displayName="rer_select_no">
-						<Entry varId="geraltComments" value="0"/>
-					</Option>
-					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="geraltComments" value="1"/>
-					</Option>
-				</OptionsArray>
-			</Var>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_select_no">
+                        <Entry varId="geraltComments" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_select_yes">
+                        <Entry varId="geraltComments" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
             <Var id="externalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
             <Var id="enableEncountersLoot" displayName="rer_enable_encounters_loot" displayType="OPTIONS">
-				<OptionsArray>
-					<Option id="0" displayName="rer_select_no">
-						<Entry varId="enableEncountersLoot" value="0"/>
-					</Option>
-					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="enableEncountersLoot" value="1"/>
-					</Option>
-				</OptionsArray>
-			</Var>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_select_no">
+                        <Entry varId="enableEncountersLoot" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_select_yes">
+                        <Entry varId="enableEncountersLoot" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
 
-            <Var id="RERtrophiesAmbush" displayName="rer_trophies_ambush" displayType="TOGGLE"></Var>
-            <Var id="RERtrophiesHunt" displayName="rer_trophies_hunt" displayType="TOGGLE"></Var>
-            <!-- <Var id="RERtrophiesContract" displayName="rer_trophies_contract" displayType="TOGGLE"></Var> -->
             
-            <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
             <Var id="RERonlyKnownBestiaryCreatures" displayName="rer_only_known_bestiary_creatures" displayType="TOGGLE"></Var>
 
             <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="OPTIONS">
-				<OptionsArray>
-					<Option id="0" displayName="rer_select_no">
-						<Entry varId="hideNextNotifications" value="0"/>
-					</Option>
-					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="hideNextNotifications" value="1"/>
-					</Option>
-				</OptionsArray>
-			</Var>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_select_no">
+                        <Entry varId="hideNextNotifications" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_select_yes">
+                        <Entry varId="hideNextNotifications" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
         </VisibleVars>
     </Group>
 
     <Group id="RERencounterTypes" displayName="Mods.rer_name.rer_encounter_type">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="allMonsterAmbushChance"		value="50"	/>
-                <Entry varId="allMonsterHuntChance"	        value="25"	/>
-                <Entry varId="allMonsterContractChance"		value="20"	/>
+                <Entry varId="allMonsterAmbushChance"        value="50"    />
+                <Entry varId="allMonsterHuntChance"            value="25"    />
+                <Entry varId="allMonsterContractChance"        value="20"    />
             </Preset>
         </PresetsArray>
-        <VisibleVars>			
+        <VisibleVars>            
             <Var id="allMonsterAmbushChance" displayName="rer_monster_ambush_ratio" displayType="SLIDER;0;100;100"/>
             <Var id="allMonsterHuntChance" displayName="rer_monster_hunt_ratio" displayType="SLIDER;0;100;100"/>
             <!-- <Var id="allMonsterContractChance" displayName="rer_monster_contract_ratio" displayType="SLIDER;0;100;100"/> -->
@@ -92,19 +84,19 @@
     <Group id="RERcreatureFrequency" displayName="Mods.rer_name.rer_creature_frequency">
         <PresetsArray>
             <Preset id="0" displayName="rer_low" >
-                <Entry varId="customdFrequencyLow"				value="1600"	/>
-                <Entry varId="customdFrequencyHigh"				value="3200"	/>
-                <Entry varId="customnFrequencyLow"				value="1200"	/>
-                <Entry varId="customnFrequencyHigh"				value="2800"	/>
+                <Entry varId="customdFrequencyLow"                value="1600"    />
+                <Entry varId="customdFrequencyHigh"                value="3200"    />
+                <Entry varId="customnFrequencyLow"                value="1200"    />
+                <Entry varId="customnFrequencyHigh"                value="2800"    />
             </Preset>
             <Preset id="1" displayName="rer_medium" >
-                <Entry varId="customdFrequencyLow"				value="800"	/>
-                <Entry varId="customdFrequencyHigh"				value="1200"	/>
-                <Entry varId="customnFrequencyLow"				value="600"	/>
-                <Entry varId="customnFrequencyHigh"				value="1000"	/>
+                <Entry varId="customdFrequencyLow"                value="800"    />
+                <Entry varId="customdFrequencyHigh"                value="1200"    />
+                <Entry varId="customnFrequencyLow"                value="600"    />
+                <Entry varId="customnFrequencyHigh"                value="1000"    />
             </Preset>
             <Preset id="2" displayName="rer_high" >
-                <Entry varId="customdFrequencyLow"				value="90"	/>
+                <Entry varId="customdFrequencyLow"            	value="90"	/>
                 <Entry varId="customdFrequencyHigh"				value="540"	/>
                 <Entry varId="customnFrequencyLow"				value="60"	/>
                 <Entry varId="customnFrequencyHigh"				value="440"	/>
@@ -1803,5 +1795,39 @@
             <Var id="RERmaxLevelRange" displayName="rer_max_level_range" displayType="SLIDER;-50;50;100"/>
         </VisibleVars>
     </Group>
+
+    <Group id="RERadvancedTrophies" displayName="Mods.rer_name.rer_advanced_settings.trophies">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="RERtrophiesAmbush"		        value="0"	/>
+                <Entry varId="RERtrophiesHunt"		            value="1"	/>
+                <Entry varId="RERtrophiesContract"		        value="1"	/>
+                <Entry varId="RERtrophyPickupAnimation"		    value="1"	/>
+                <Entry varId="RERtrophiesPrices"		        value="0"	/>
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>			
+            <Var id="RERtrophiesAmbush" displayName="rer_trophies_ambush" displayType="TOGGLE"></Var>
+            <Var id="RERtrophiesHunt" displayName="rer_trophies_hunt" displayType="TOGGLE"></Var>
+            <Var id="RERtrophiesContract" displayName="rer_trophies_contract" displayType="TOGGLE"></Var>
+            
+            <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
+
+            <Var id="RERtrophiesPrices" displayName="rer_trophy_prices" displayType="OPTIONS">
+                <OptionsArray>
+				    <Option id="0" displayName="rer_trophy_prices_low">
+                        <Entry varId="RERtrophiesPrices" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_trophy_prices_medium">
+                        <Entry varId="RERtrophiesPrices" value="1"/>
+                    </Option>
+                    <Option id="2" displayName="rer_trophy_prices_high">
+                        <Entry varId="RERtrophiesPrices" value="2"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
+        </VisibleVars>
+    </Group>
+
 
 </UserConfig>

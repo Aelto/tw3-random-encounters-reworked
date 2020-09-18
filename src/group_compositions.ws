@@ -253,7 +253,7 @@ abstract class CompositionSpawner {
         ((CActor)this.created_entities[i])
           .GetInventory()
           .AddAnItem(
-            master.resources.getCreatureTrophy(this.creature_type),
+            master.resources.getCreatureTrophy(this.creature_type, master.settings.trophy_price),
             1
           );
       }

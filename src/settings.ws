@@ -47,6 +47,8 @@ class RE_Settings {
   public var max_level_allowed: int;
   public var min_level_allowed: int;
 
+  public var trophy_price: TrophyVariant;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -114,9 +116,13 @@ class RE_Settings {
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesAmbush');
-    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesHunt');
-    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesContract');
+    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesAmbush');
+    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesHunt');
+    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesContract');
+
+    this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesPrices'));
+
+    LogChannel('modRandomEncounters', "RERadvancedTrophies RERtrophiesPrices - " + this.trophy_price);
   }
 
   private function loadTrophyPickupAnimationSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -160,6 +166,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedLevels', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedTrophies', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
