@@ -151,3 +151,7 @@
 2115018149|        |preset_value_rer_trophy_prices_low|Low (100%)
 2115018150|        |preset_value_rer_trophy_prices_medium|Medium (200%)
 2115018151|        |preset_value_rer_trophy_prices_high|High (300%)
+2115018152|        |preset_Mods_rer_name_rer_advanced_settings_events|Events system
+2115018153|        |panel_events|Events system
+2115018154|        |option_rer_event_system_interval|Event system interval in seconds (0 = disabled)
+2115018155|        |option_rer_event_system_chances_scale|Chances scale, higher means more events (100 = 100%)
