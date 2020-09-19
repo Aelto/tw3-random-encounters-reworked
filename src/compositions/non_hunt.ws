@@ -3,7 +3,7 @@ enum CreatureComposition {
   CreatureComposition_AmbushWitcher = 1
 }
 
-latent function createRandomCreatureComposition(out master: CRandomEncounters, creature_type: CreatureType) {
+latent function createRandomCreatureAmbush(out master: CRandomEncounters, creature_type: CreatureType) {
   var creature_composition: CreatureComposition;
 
   creature_composition = CreatureComposition_AmbushWitcher;

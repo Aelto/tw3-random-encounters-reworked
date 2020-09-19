@@ -9,7 +9,7 @@ enum SpawningControl_Effect {
 struct SpawningControl {
   // so we can identify the SpawningControls
   // and eventually remove them by name
-  var name: string;
+  var id: string;
   var is_active: bool;
   var effect_on_lower_controls: SpawningControl_Effect;
 

@@ -49,6 +49,10 @@ class RE_Settings {
 
   public var trophy_price: TrophyVariant;
 
+  public var event_system_interval: float;
+
+  public var event_system_chances_scale: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -77,8 +81,8 @@ class RE_Settings {
     this.loadMonsterTrophiesSettings(inGameConfigWrapper);
     this.loadAdvancedDistancesSettings(inGameConfigWrapper);
     this.loadAdvancedLevelsSettings(inGameConfigWrapper);
-    this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
     this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
+    this.loadAdvancedEventSystemSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -119,14 +123,12 @@ class RE_Settings {
     this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesAmbush');
     this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesHunt');
     this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesContract');
+    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophyPickupAnimation');
+
 
     this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesPrices'));
 
     LogChannel('modRandomEncounters', "RERadvancedTrophies RERtrophiesPrices - " + this.trophy_price);
-  }
-
-  private function loadTrophyPickupAnimationSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophyPickupAnimation');
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -167,6 +169,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedLevels', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedTrophies', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedEvents', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -188,6 +191,11 @@ class RE_Settings {
         this.trophies_enabled_by_encounter.PushBack(false);
       }
     }
+  }
+
+  private function loadAdvancedEventSystemSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.event_system_interval = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemInterval'));
+    this.event_system_chances_scale = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemChancesScale'));
   }
 
   private function loadAdvancedDistancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {

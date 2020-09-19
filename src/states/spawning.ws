@@ -1,9 +1,16 @@
 
 state Spawning in CRandomEncounters {
+  private var is_spawn_forced: bool;
+
   event OnEnterState(previous_state_name: name) {
     parent.RemoveTimer('randomEncounterTick');
 
     super.OnEnterState(previous_state_name);
+
+    // Set is_spawn_forced if the previous state was SpawningForced
+    this.is_spawn_forced = previous_state_name == 'SpawningForced';
+
+
     LogChannel('modRandomEncounters', "Entering state SPAWNING");
 
     triggerCreaturesSpawn();
@@ -16,7 +23,7 @@ state Spawning in CRandomEncounters {
 
     picked_encounter_type = this.getRandomEncounterType();
     
-    if (this.shouldAbortCreatureSpawn()) {
+    if (!this.is_spawn_forced && this.shouldAbortCreatureSpawn()) {
       parent.GotoState('SpawningCancelled');
 
       return;

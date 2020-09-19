@@ -14,7 +14,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
   }
   else {
     LogChannel('modRandomEncounters', "spawning - NOT HUNT");
-    createRandomCreatureComposition(random_encounters_class, CreatureNONE);
+    createRandomCreatureAmbush(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );

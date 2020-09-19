@@ -60,6 +60,8 @@ class SpawnRoller {
     var roll: int;
     var i: int;
 
+    total = 0;
+
     for (i = 0; i < CreatureMAX; i += 1) {
       total += this.creatures_counters[i];
     }

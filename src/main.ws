@@ -20,6 +20,7 @@ statemachine class CRandomEncounters extends CEntity {
   var settings: RE_Settings;
   var resources: RE_Resources;
   var spawn_roller: SpawnRoller;
+  var events_manager: RER_EventsManager;
 
   var ticks_before_spawn: int;
 
@@ -45,6 +46,7 @@ statemachine class CRandomEncounters extends CEntity {
       settings = new RE_Settings in this;
       resources = new RE_Resources in this;
       spawn_roller = new SpawnRoller in this;
+      events_manager = new RER_EventsManager in this;
 
       this.spawn_roller.fill_arrays();
 
@@ -73,6 +75,9 @@ statemachine class CRandomEncounters extends CEntity {
 
     this.settings.loadXMLSettings();
     this.resources.load_resources();
+
+    this.events_manager.init(this);
+    this.events_manager.start();
 
     AddTimer('onceReady', 3.0, false);
     this.GotoState('Waiting');
