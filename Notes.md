@@ -9,7 +9,7 @@
   - looting chests, bandits attacking you. by Czartchonn on discord
   - fighting makes noise, it can attract creatures
   - bodies attract necrophages
-  - adding more creatures to groups of vanilla creatures
+  - adding more creatures to groups of vanilla creatures by Mimicry
 
 
 ## RER spawning system and events
