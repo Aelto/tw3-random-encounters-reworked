@@ -1,4 +1,212 @@
 
+enum RER_Biome {
+  BiomeForest = 0,
+  BiomeSwamp = 1,
+  BiomeWater = 2
+}
+
+class RER_CreaturePreferences {
+
+  public function reset(): RER_CreaturePreferences {
+    this.only_biomes.Clear();
+    this.disliked_biomes.Clear();
+    this.liked_biomes.Clear();
+
+    return this;
+  }
+
+  public var creature_type: CreatureType;
+  public function setCreatureType(type: CreatureType): RER_CreaturePreferences {
+    this.creature_type = type;
+
+    return this;
+  }
+
+  // If the creature can only spawn in a biome
+  public var only_biomes: array<RER_Biome>;
+  public function addOnlyBiome(biome: RER_Biome): RER_CreaturePreferences {
+    this.only_biomes.PushBack(biome);
+
+    return this;
+  }
+
+  // If the creature has its chance reduce by the external factor
+  // when in the biomes
+  public var disliked_biomes: array<RER_Biome>;
+  public function addDislikedBiome(biome: RER_Biome): RER_CreaturePreferences {
+    this.disliked_biomes.PushBack(biome);
+
+    return this;
+  }
+
+  // If the creature has its chance increased by the external factor
+  // when in the biomes
+  public var liked_biomes: array<RER_Biome>;
+  public function addLikedBiome(biome: RER_Biome): RER_CreaturePreferences {
+    this.liked_biomes.PushBack(biome);
+
+    return this;
+  }
+
+  //#region persistent values
+  // value is not reset
+  public var is_night: bool;
+  public function setIsNight(value: bool): RER_CreaturePreferences {
+    this.is_night = value;
+
+    return this;
+  }
+
+  // value is not reset
+  public var external_factors_coefficient: float;
+  public function setExternalFactorsCoefficient(value: float): RER_CreaturePreferences {
+    this.external_factors_coefficient = value;
+    
+    return this;
+  }
+
+  // value is not reset
+  public var is_near_water: bool;
+  public function setIsNearWater(value: bool): RER_CreaturePreferences {
+    this.is_near_water = value;
+
+    return this;
+  }
+
+  // value is not reset
+  public var is_in_forest: bool;
+  public function setIsInForest(value: bool): RER_CreaturePreferences {
+    this.is_in_forest = value;
+
+    return this;
+  }
+
+  // value is not reset
+  public var is_in_swamp: bool;
+  public function setIsInSwamp(value: bool): RER_CreaturePreferences {
+    this.is_in_swamp = value;
+
+    return this;
+  }
+
+  // value is not reset
+  public var chances_day: array<int>;
+  public function setChancesDay(value: array<int>): RER_CreaturePreferences {
+    this.chances_day = value;
+
+    return this;
+  }
+
+  // value is not reset
+  public var chances_night: array<int>;
+  public function setChancesNight(value: array<int>): RER_CreaturePreferences {
+    this.chances_night = value;
+
+    return this;
+  }
+  //#endregion persistent values
+
+  public function getChances(): int {
+    var i: int;
+    var can_spawn: bool;
+    var spawn_chances: int;
+    var is_in_disliked_biome: bool;
+    var is_in_liked_biome: bool;
+
+    can_spawn = false;
+
+    for (i = 0; i < this.only_biomes.Size(); i += 1) {
+      if (this.only_biomes[i] == BiomeSwamp && this.is_in_swamp) {
+        can_spawn = true;
+      }
+
+      if (this.only_biomes[i] == BiomeForest && this.is_in_forest) {
+        can_spawn = true;
+      }
+
+      if (this.only_biomes[i] == BiomeWater && this.is_near_water) {
+        can_spawn = true;
+      }
+    }
+
+    // no allowed biome, return 0 directly.
+    if (this.only_biomes.Size() > 0 && !can_spawn) {
+      return 0;
+    }
+
+    if (this.is_night) {
+      spawn_chances = this.chances_night[this.creature_type];
+    }
+    else {
+      spawn_chances = this.chances_day[this.creature_type];
+    }
+
+    
+    // being in a disliked biome reduces the spawn chances
+    is_in_disliked_biome = false;
+    for (i = 0; i < this.disliked_biomes.Size(); i += 1) {
+      if (this.disliked_biomes[i] == BiomeSwamp && this.is_in_swamp) {
+        is_in_disliked_biome = true;
+      }
+
+      if (this.disliked_biomes[i] == BiomeForest && this.is_in_forest) {
+        is_in_disliked_biome = true;
+      }
+
+      if (this.disliked_biomes[i] == BiomeWater && this.is_near_water) {
+        is_in_disliked_biome = true;
+      }
+    }
+
+    if (is_in_disliked_biome) {
+      spawn_chances = this.applyCoefficientToCreatureDivide(spawn_chances);
+    }
+
+    // being in a liked biome increases the spawn chances
+    is_in_liked_biome = false;
+    for (i = 0; i < this.liked_biomes.Size(); i += 1) {
+      if (this.liked_biomes[i] == BiomeSwamp && this.is_in_swamp) {
+        is_in_liked_biome = true;
+      }
+
+      if (this.liked_biomes[i] == BiomeForest && this.is_in_forest) {
+        is_in_liked_biome = true;
+      }
+
+      if (this.liked_biomes[i] == BiomeWater && this.is_near_water) {
+        is_in_liked_biome = true;
+      }
+    }
+
+    if (is_in_disliked_biome) {
+      spawn_chances = this.applyCoefficientToCreature(spawn_chances);
+    }
+
+    return spawn_chances;
+  }
+
+  public function fillSpawnRoller(spawn_roller: SpawnRoller):  RER_CreaturePreferences {
+    spawn_roller.setCreatureCounter(this.creature_type, this.getChances());
+
+    return this.reset();
+  }
+
+  private function applyCoefficientToCreature(chances: int): int {
+    return (int)(chances * this.external_factors_coefficient);
+  }
+
+  private function applyCoefficientToCreatureDivide(chances: int): int {
+    return (int)(chances / this.external_factors_coefficient);
+  }
+}
+
+function makeCreaturePreferences(type: CreatureType): RER_CreaturePreferences {
+  var creature_preferences: RER_CreaturePreferences;
+
+  creature_preferences.creature_type = type;
+
+  return creature_preferences;
+}
 enum EHumanType
 {
   HT_BANDIT       = 0,
@@ -93,6 +301,47 @@ enum OutOfCombatRequest {
   OutOfCombatRequest_TROPHY_NONE     = 1
 }
 
+enum TrophyVariant {
+  TrophyVariant_PRICE_LOW = 0,
+  TrophyVariant_PRICE_MEDIUM = 1,
+  TrophyVariant_PRICE_HIGH = 2
+}
+
+enum RER_Trophy {
+  Trophy_HUMAN,
+  Trophy_ARACHAS,
+  Trophy_INSECTOID,
+  Trophy_NECROPHAGE,
+  Trophy_NEKKER,
+  Trophy_WRAITH,
+  Trophy_HARPY,
+  Trophy_SPIRIT,
+  Trophy_BEAST,
+  Trophy_WILDHUNT,
+  Trophy_LESHEN,
+  Trophy_WEREWOLF,
+  Trophy_FIEND,
+  Trophy_EKIMMARA,
+  Trophy_KATAKAN,
+  Trophy_ELEMENTAL,
+  Trophy_NIGHTWRAITH,
+  Trophy_NOONWRAITH,
+  Trophy_CZART,
+  Trophy_CYCLOP,
+  Trophy_TROLL,
+  Trophy_GRAVE_HAG,
+  Trophy_FOGLING,
+  Trophy_GARKAIN,
+  Trophy_VAMPIRE,
+  Trophy_GIANT,
+  Trophy_SHARLEY,
+  Trophy_WIGHT,
+  Trophy_GRIFFIN,
+  Trophy_COCKATRICE,
+  Trophy_BASILISK,
+  Trophy_WYVERN,
+  Trophy_FORKTAIL
+}
 // Sometimes solo creatures can be accompanied by smaller creatures,
 // this is what i call a group composition. Imagine a leshen and a few wolves
 // or a giant fighting humans.
@@ -108,7 +357,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
   }
   else {
     LogChannel('modRandomEncounters', "spawning - NOT HUNT");
-    createRandomCreatureComposition(random_encounters_class, CreatureNONE);
+    createRandomCreatureAmbush(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
@@ -347,7 +596,7 @@ abstract class CompositionSpawner {
         ((CActor)this.created_entities[i])
           .GetInventory()
           .AddAnItem(
-            master.resources.getCreatureTrophy(this.creature_type),
+            master.resources.getCreatureTrophy(this.creature_type, master.settings.trophy_price),
             1
           );
       }
@@ -464,6 +713,7 @@ statemachine class CRandomEncounters extends CEntity {
   var settings: RE_Settings;
   var resources: RE_Resources;
   var spawn_roller: SpawnRoller;
+  var events_manager: RER_EventsManager;
 
   var ticks_before_spawn: int;
 
@@ -489,6 +739,7 @@ statemachine class CRandomEncounters extends CEntity {
       settings = new RE_Settings in this;
       resources = new RE_Resources in this;
       spawn_roller = new SpawnRoller in this;
+      events_manager = new RER_EventsManager in this;
 
       this.spawn_roller.fill_arrays();
 
@@ -517,6 +768,9 @@ statemachine class CRandomEncounters extends CEntity {
 
     this.settings.loadXMLSettings();
     this.resources.load_resources();
+
+    this.events_manager.init(this);
+    this.events_manager.start();
 
     AddTimer('onceReady', 3.0, false);
     this.GotoState('Waiting');
@@ -847,41 +1101,41 @@ class RE_Resources {
     return entity_template;
   }
 
-  public function getCreatureTrophy(creature_type: CreatureType): name {
+  public function getCreatureTrophy(creature_type: CreatureType, trophy_price: TrophyVariant): name {
     switch (creature_type) {
       case CreatureHuman:
-        return 'modrer_human_trophy';
+        return getTrophyName(Trophy_HUMAN, trophy_price);
         break;
       case CreatureARACHAS:
-        return 'modrer_arachas_trophy';
+        return getTrophyName(Trophy_ARACHAS, trophy_price);
         break;
       case CreatureKIKIMORE:
       case CreatureENDREGA:
       case CreatureECHINOPS:
       case CreatureSPIDER:
       case CreatureCENTIPEDE:
-        return 'modrer_insectoid_trophy';
+        return getTrophyName(Trophy_INSECTOID, trophy_price);
         break;
       case CreatureGHOUL:
       case CreatureALGHOUL:
       case CreatureDROWNER:
       case CreatureROTFIEND:
       case CreatureDROWNERDLC:
-        return 'modrer_necrophage_trophy';
+        return getTrophyName(Trophy_NECROPHAGE, trophy_price);
         break;
       
       case CreatureNEKKER:
-        return 'modrer_nekker_trophy';
+        return getTrophyName(Trophy_NEKKER, trophy_price);
 
       case CreatureWRAITH:
-        return 'modrer_wraith_trophy';
+        return getTrophyName(Trophy_WRAITH, trophy_price);
         break;
       case CreatureHARPY:
-        return 'modrer_harpy_trophy';
+        return getTrophyName(Trophy_HARPY, trophy_price);
         break;
       case CreatureBARGHEST:
       case CreatureSKELETON:
-        return 'modrer_spirit_trophy';
+        return getTrophyName(Trophy_SPIRIT, trophy_price);
         break;
       case CreatureWOLF:
       case CreatureBOAR:
@@ -889,87 +1143,85 @@ class RE_Resources {
       case CreaturePANTHER:
       case CreatureSKELWOLF:
       case CreatureSKELBEAR:
-        return 'modrer_beast_trophy';
+        return getTrophyName(Trophy_BEAST, trophy_price);
         break;
       case CreatureWILDHUNT:
-        return 'modrer_wildhunt_trophy';
+        return getTrophyName(Trophy_WILDHUNT, trophy_price);
         break;
       case CreatureLESHEN:
-        return 'modrer_leshen_trophy';
+        return getTrophyName(Trophy_LESHEN, trophy_price);
         break;
       case CreatureWEREWOLF:
-        return 'modrer_werewolf_trophy';
+        return getTrophyName(Trophy_WEREWOLF, trophy_price);
         break;
       case CreatureFIEND:
-        return 'modrer_fiend_trophy';
+        return getTrophyName(Trophy_FIEND, trophy_price);
         break;
       case CreatureEKIMMARA:
-        return 'modrer_ekimmara_trophy';
+        return getTrophyName(Trophy_EKIMMARA, trophy_price);
         break;
       case CreatureKATAKAN:
-        return 'modrer_katakan_trophy';
+        return getTrophyName(Trophy_KATAKAN, trophy_price);
         break;
       case CreatureGOLEM:
       case CreatureELEMENTAL:
-        return 'modrer_elemental_trophy';
+        return getTrophyName(Trophy_ELEMENTAL, trophy_price);
         break;
       case CreatureNIGHTWRAITH:
-        return 'modrer_nightwraith_trophy';
+        return getTrophyName(Trophy_NIGHTWRAITH, trophy_price);
         break;
       case CreatureNOONWRAITH:
-        return 'modrer_noonwraith_trophy';
+        return getTrophyName(Trophy_NOONWRAITH, trophy_price);
         break;
       case CreatureCHORT:
-        return 'modrer_czart_trophy';
+        return getTrophyName(Trophy_CZART, trophy_price);
         break;
       case CreatureCYCLOPS:
-        return 'modrer_cyclop_trophy';
+        return getTrophyName(Trophy_CYCLOP, trophy_price);
         break;
+      case CreatureSKELTROLL:
       case CreatureTROLL:
-        return 'modrer_troll_trophy';
+        return getTrophyName(Trophy_TROLL, trophy_price);
         break;
       case CreatureHAG:
-        return 'modrer_grave_hag_trophy';
+        return getTrophyName(Trophy_GRAVE_HAG, trophy_price);
         break;
       case CreatureFOGLET:
-        return 'modrer_fogling_trophy';
+        return getTrophyName(Trophy_FOGLING, trophy_price);
         break;
 
       case CreatureFLEDER:
       case CreatureGARKAIN:
-        return 'modrer_garkain_trophy';
+        return getTrophyName(Trophy_GARKAIN, trophy_price);
         break;
       case CreatureBRUXA:
       case CreatureDETLAFF:
-        return 'modrer_vampire_trophy';
+        return getTrophyName(Trophy_VAMPIRE, trophy_price);
         break;
 
       case CreatureGIANT:
-        return 'modrer_giant_trophy';
+        return getTrophyName(Trophy_GIANT, trophy_price);
         break;
       case CreatureSHARLEY:
-        return 'modrer_sharley_trophy';
+        return getTrophyName(Trophy_SHARLEY, trophy_price);
         break;
       case CreatureWIGHT:
-        return 'modrer_wight_trophy';
+        return getTrophyName(Trophy_WIGHT, trophy_price);
         break;
       case CreatureGRYPHON:
-        return 'modrer_griffin_trophy';
+        return getTrophyName(Trophy_GRIFFIN, trophy_price);
         break;
       case CreatureCOCKATRICE:
-        return 'modrer_cockatrice_trophy';
+        return getTrophyName(Trophy_COCKATRICE, trophy_price);
         break;
       case CreatureBASILISK:
-        return 'modrer_basilisk_trophy';
+        return getTrophyName(Trophy_BASILISK, trophy_price);
         break;
       case CreatureWYVERN:
-        return 'modrer_wyvern_trophy';
+        return getTrophyName(Trophy_WYVERN, trophy_price);
         break;
       case CreatureFORKTAIL:
-        return 'modrer_forktail_trophy';
-        break;
-      case CreatureSKELTROLL:
-        return 'modrer_troll_trophy';
+        return getTrophyName(Trophy_FORKTAIL, trophy_price);
         break;
     }
   }
@@ -1031,6 +1283,12 @@ class RE_Settings {
   public var max_level_allowed: int;
   public var min_level_allowed: int;
 
+  public var trophy_price: TrophyVariant;
+
+  public var event_system_interval: float;
+
+  public var event_system_chances_scale: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -1061,6 +1319,7 @@ class RE_Settings {
     this.loadAdvancedLevelsSettings(inGameConfigWrapper);
     this.loadTrophyPickupAnimationSettings(inGameConfigWrapper);
     this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
+    this.loadAdvancedEventSystemSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -1098,9 +1357,13 @@ class RE_Settings {
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesAmbush');
-    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesHunt');
-    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERtrophiesContract');
+    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesAmbush');
+    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesHunt');
+    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesContract');
+
+    this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesPrices'));
+
+    LogChannel('modRandomEncounters', "RERadvancedTrophies RERtrophiesPrices - " + this.trophy_price);
   }
 
   private function loadTrophyPickupAnimationSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -1144,6 +1407,8 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedLevels', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedTrophies', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedEvents', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -1165,6 +1430,11 @@ class RE_Settings {
         this.trophies_enabled_by_encounter.PushBack(false);
       }
     }
+  }
+
+  private function loadAdvancedEventSystemSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.event_system_interval = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemInterval'));
+    this.event_system_chances_scale = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemChancesScale'));
   }
 
   private function loadAdvancedDistancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
@@ -1477,6 +1747,8 @@ class SpawnRoller {
     var total: int;
     var roll: int;
     var i: int;
+
+    total = 0;
 
     for (i = 0; i < CreatureMAX; i += 1) {
       total += this.creatures_counters[i];
@@ -3716,46 +3988,6 @@ class CModRExtra {
     return entities.Size() > 0;
   }
 
-  private function isPlayerNearSafeRoadsign(): bool {
-    var entities: array<CGameplayEntity>;
-    var i: int;
-
-    FindGameplayEntitiesInRange(
-      entities,
-      thePlayer,
-      50, // range, we'll have to check if 50 is too big/small
-      1, // max results
-      , // tag: optional value
-      FLAG_ExcludePlayer,
-      , // optional value
-      'W3FastTravelEntity'
-    );
-
-    for (i = 0; i < entities.Size(); i += 1) {
-      if (this.isRoadsignSafe(entities[i])) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  private function isRoadsignSafe(roadsign: CGameplayEntity): bool {
-    // TODO: maybe get the map pin corresponding to the roadsign
-    // then check its `.type`
-    // theGame.GetCommonMapManager().GetMappins()
-    // with 
-    // if (fastTravelEntity && fastTravelEntity.entityName == pin.Tag)
-
-    // switch (roadsign.entityName) {
-    //   case 'TODO':
-    //     return true;
-    //     break;
-    // }
-
-    return false;
-  }
-
   private function isNearGuards(): bool {
     var entities: array<CGameplayEntity>;
     var i: int;
@@ -3799,8 +4031,6 @@ class CModRExtra {
       // HACK: it can be a great way to see if a settlement is nearby
       // by looking for a noticeboard. Though some settlements don't have
       // any noticeboard.
-      // TODO: get the nearest signpost and read its tag then check
-      // if it is a known settlement.
       return this.isNearNoticeboard()
           || this.isNearGuards();
     }
@@ -3882,6 +4112,7 @@ class CModRExtra {
   // 
   // but filling such a struct for every creature
   // will result in longer but clearer code.
+  // Maybe make a builder?
   public latent function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller, out resources: RE_Resources): CreatureType {
     var is_in_forest: bool;
     var is_near_water: bool;
@@ -4669,7 +4900,7 @@ enum CreatureComposition {
   CreatureComposition_AmbushWitcher = 1
 }
 
-latent function createRandomCreatureComposition(out master: CRandomEncounters, creature_type: CreatureType) {
+latent function createRandomCreatureAmbush(out master: CRandomEncounters, creature_type: CreatureType) {
   var creature_composition: CreatureComposition;
 
   creature_composition = CreatureComposition_AmbushWitcher;
@@ -6687,6 +6918,419 @@ latent function getTracksTemplate(actor : CActor): CEntityTemplate {
   }
 }
 
+// It could have been simpler if a way to concatenate two `name` existed.
+// Sadly it doesn't and i have to create this function and an enum value
+// for each trophy. I'm sad.
+function getTrophyName(trophy: RER_Trophy, trophy_price: TrophyVariant): name {
+  if (trophy == Trophy_ARACHAS) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_arachas_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_arachas_trophy_medium';
+    }
+    else {
+      return 'modrer_arachas_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_INSECTOID) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_insectoid_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_insectoid_trophy_medium';
+    }
+    else {
+      return 'modrer_insectoid_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_NECROPHAGE) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_necrophage_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_necrophage_trophy_medium';
+    }
+    else {
+      return 'modrer_necrophage_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_NEKKER) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_nekker_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_nekker_trophy_medium';
+    }
+    else {
+      return 'modrer_nekker_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_WRAITH) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_wraith_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_wraith_trophy_medium';
+    }
+    else {
+      return 'modrer_wraith_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_HARPY) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_harpy_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_harpy_trophy_medium';
+    }
+    else {
+      return 'modrer_harpy_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_SPIRIT) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_spirit_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_spirit_trophy_medium';
+    }
+    else {
+      return 'modrer_spirit_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_BEAST) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_beast_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_beast_trophy_medium';
+    }
+    else {
+      return 'modrer_beast_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_WILDHUNT) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_wildhunt_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_wildhunt_trophy_medium';
+    }
+    else {
+      return 'modrer_wildhunt_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_LESHEN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_leshen_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_leshen_trophy_medium';
+    }
+    else {
+      return 'modrer_leshen_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_WEREWOLF) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_werewolf_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_werewolf_trophy_medium';
+    }
+    else {
+      return 'modrer_werewolf_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_FIEND) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_fiend_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_fiend_trophy_medium';
+    }
+    else {
+      return 'modrer_fiend_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_EKIMMARA) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_ekimmara_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_ekimmara_trophy_medium';
+    }
+    else {
+      return 'modrer_ekimmara_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_KATAKAN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_katakan_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_katakan_trophy_medium';
+    }
+    else {
+      return 'modrer_katakan_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_ELEMENTAL) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_elemental_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_elemental_trophy_medium';
+    }
+    else {
+      return 'modrer_elemental_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_NIGHTWRAITH) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_nightwraith_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_nightwraith_trophy_medium';
+    }
+    else {
+      return 'modrer_nightwraith_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_NOONWRAITH) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_noonwraith_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_noonwraith_trophy_medium';
+    }
+    else {
+      return 'modrer_noonwraith_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_CZART) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_czart_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_czart_trophy_medium';
+    }
+    else {
+      return 'modrer_czart_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_CYCLOP) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_cyclop_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_cyclop_trophy_medium';
+    }
+    else {
+      return 'modrer_cyclop_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_TROLL) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_troll_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_troll_trophy_medium';
+    }
+    else {
+      return 'modrer_troll_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_GRAVE_HAG) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_grave_hag_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_grave_hag_trophy_medium';
+    }
+    else {
+      return 'modrer_grave_hag_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_FOGLING) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_fogling_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_fogling_trophy_medium';
+    }
+    else {
+      return 'modrer_fogling_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_GARKAIN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_garkain_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_garkain_trophy_medium';
+    }
+    else {
+      return 'modrer_garkain_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_VAMPIRE) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_vampire_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_vampire_trophy_medium';
+    }
+    else {
+      return 'modrer_vampire_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_GIANT) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_giant_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_giant_trophy_medium';
+    }
+    else {
+      return 'modrer_giant_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_SHARLEY) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_sharley_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_sharley_trophy_medium';
+    }
+    else {
+      return 'modrer_sharley_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_WIGHT) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_wight_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_wight_trophy_medium';
+    }
+    else {
+      return 'modrer_wight_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_GRIFFIN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_griffin_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_griffin_trophy_medium';
+    }
+    else {
+      return 'modrer_griffin_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_COCKATRICE) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_cockatrice_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_cockatrice_trophy_medium';
+    }
+    else {
+      return 'modrer_cockatrice_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_BASILISK) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_basilisk_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_basilisk_trophy_medium';
+    }
+    else {
+      return 'modrer_basilisk_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_WYVERN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_wyvern_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_wyvern_trophy_medium';
+    }
+    else {
+      return 'modrer_wyvern_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_FORKTAIL) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_forktail_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_forktail_trophy_medium';
+    }
+    else {
+      return 'modrer_forktail_trophy_low';
+    }
+  }
+  
+  if (trophy == Trophy_TROLL) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_troll_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_troll_trophy_medium';
+    }
+    else {
+      return 'modrer_troll_trophy_low';
+    }
+  }
+
+  // if (trophy == Trophy_HUMAN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_human_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_human_trophy_medium';
+    }
+    else {
+      return 'modrer_human_trophy_low';
+    }
+  // }
+}
+
 function lootTrophiesInRadius(): bool {
   var entities : array<CGameplayEntity>;
   var items_guids: array<SItemUniqueId>;
@@ -6790,10 +7434,17 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 }
 
 state Spawning in CRandomEncounters {
+  private var is_spawn_forced: bool;
+
   event OnEnterState(previous_state_name: name) {
     parent.RemoveTimer('randomEncounterTick');
 
     super.OnEnterState(previous_state_name);
+
+    // Set is_spawn_forced if the previous state was SpawningForced
+    this.is_spawn_forced = previous_state_name == 'SpawningForced';
+
+
     LogChannel('modRandomEncounters', "Entering state SPAWNING");
 
     triggerCreaturesSpawn();
@@ -6806,7 +7457,7 @@ state Spawning in CRandomEncounters {
 
     picked_encounter_type = this.getRandomEncounterType();
     
-    if (this.shouldAbortCreatureSpawn()) {
+    if (!this.is_spawn_forced && this.shouldAbortCreatureSpawn()) {
       parent.GotoState('SpawningCancelled');
 
       return;
@@ -6881,6 +7532,15 @@ state SpawningCancelled in CRandomEncounters {
   }
 }
 
+state SpawningForced in CRandomEncounters {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('ModRandomEncounters', "entering state SPAWNING-FORCED");
+
+    parent.GotoState('Spawning');
+  }
+}
+
 state Waiting in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -6915,5 +7575,654 @@ state Waiting in CRandomEncounters {
     }
 
     return RandRange(parent.settings.customDayMin, parent.settings.customDayMax);
+  }
+}
+
+abstract class RER_EventsListener {
+  public var active: bool;
+
+  public latent function onReady(manager: RER_EventsManager) {
+    this.active = true;
+  }
+
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+    // Do your thing and return if a spawn was triggered or not
+
+    return was_spawn_already_triggered;
+  }
+}
+
+statemachine class RER_EventsManager extends CEntity {
+
+  // #region spawn_controls
+  // private var spawn_controls: array<SpawningControl>;
+  // private var cached_spawn_control: SpawningControl;
+
+  // // add a new spawning control into the list and returns its index
+  // public function addSpawningControl(spawn_control: SpawningControl): int {
+  //   this.spawn_controls.PushBack(spawn_control);
+
+  //   return this.spawn_controls.Size() - 1;
+  // }
+
+  // private function updateCachedSpawnControl() {
+  //   var i: int;
+  //   var j: int;
+  //   var current_spawn_control: SpawningControl;
+
+  //   for (i = 0; i < this.spawn_controls.Size(); i += 1) {
+  //     current_spawn_control = this.spawn_controls[i];
+
+  //     if (current_spawn_control.effect_on_lower_controls == Overwrite) {
+  //       for (j = 0; j < current_spawn_control.creatures_chances.Size(); j += 1) {
+  //         this.cached_spawn_control.creatures_chances[j] = current_spawn_control.creatures_chances[j];
+  //       }
+  //     }
+
+  //     else if (current_spawn_control.effect_on_lower_controls == Add) {
+  //       for (j = 0; j < current_spawn_control.creatures_chances.Size(); j += 1) {
+  //         this.cached_spawn_control.creatures_chances[j] += current_spawn_control.creatures_chances[j];
+  //       }
+  //     }
+
+  //     else if (current_spawn_control.effect_on_lower_controls == Multiply) {
+  //       for (j = 0; j < current_spawn_control.creatures_chances.Size(); j += 1) {
+  //         this.cached_spawn_control.creatures_chances[j] *= current_spawn_control.creatures_chances[j];
+  //       }
+  //     }
+
+  //     else if (current_spawn_control.effect_on_lower_controls == Sub) {
+  //       for (j = 0; j < current_spawn_control.creatures_chances.Size(); j += 1) {
+  //         this.cached_spawn_control.creatures_chances[j] -= current_spawn_control.creatures_chances[j];
+  //       }
+  //     }
+  //   }
+  // }
+
+  // public function changeSpawnControlActiveState(control_name: string, enabled: bool) {
+  //   var i: int;
+  //   var current_spawn_control: SpawningControl;
+
+  //   for (i = 0; i < this.spawn_controls.Size(); i += 1) {
+  //     current_spawn_control = this.spawn_controls[i];
+
+  //     if (current_spawn_control.control_name != control_name) {
+  //       continue;
+  //     }
+
+  //     current_spawn_control.is_active = enabled;
+  //   }
+  // }
+
+  // public function updateSpawnControlData(control_name: string, effect: SpawningControl_Effect, chances: array<int>) {
+  //   var i: int;
+  //   var current_spawn_control: SpawningControl;
+
+  //   for (i = 0; i < this.spawn_controls.Size(); i += 1) {
+  //     current_spawn_control = this.spawn_controls[i];
+
+  //     if (current_spawn_control.control_name != control_name) {
+  //       continue;
+  //     }
+
+  //     current_spawn_control.effect_on_lower_controls = effect;
+  //     current_spawn_control.creatures_chances = chances;
+  //   }
+  // }
+  //#endregion spawn_controls
+
+  //#region listeners
+  public var listeners: array<RER_EventsListener>;
+  
+  public function addListener(listener: RER_EventsListener) {
+    this.listeners.PushBack(listener);
+  }
+  //#endregion listeners
+
+  public function init(master: CRandomEncounters) {
+    this.master = master;
+
+    this.addListener(new RER_ListenerFightNoise in this);
+    this.addListener(new RER_ListenerBloodNecrophages in this);
+    this.addListener(new RER_ListenerFillCreaturesGroup in this);
+    this.addListener(new RER_ListenerBodiesNecrophages in this);
+
+    // var default_spawn_control: SpawningControl;
+
+    // default_spawn_control = new SpawningControl;
+    // default_spawn_control.is_active = true;
+    // default_spawn_control.name = "__default__";
+
+    // TODO: make it work for day & night.
+    // a new property for the night maybe?
+    // default_spawn_control.creatures_chances = settings.creatures_chances_day;
+
+    // this.addSpawningControl(default_spawn_control);
+  }
+
+  public var delay: float;
+  public var delta: float;
+  public var master: CRandomEncounters;
+
+  public function start() {
+    LogChannel('modRandomEncounters', "RER_EventsManager - start()");
+
+    this.delay = this.master.settings.event_system_interval; // TODO: use a slider in the menu
+    this.delta = 1 / this.delay;
+
+    // only start the system if the delay is above 0
+    if (this.delay > 0) {
+      this.GotoState('Starting');
+    }
+  }
+}
+
+enum SpawningControl_Effect {
+  Add = 0,
+  Multiply = 1,
+  Overwrite = 2,
+  Sub = 3
+}
+
+struct SpawningControl {
+  // so we can identify the SpawningControls
+  // and eventually remove them by name
+  var id: string;
+  var is_active: bool;
+  var effect_on_lower_controls: SpawningControl_Effect;
+
+  // Like the SpawnRoller the current system uses.
+  // we would fill the values the way we want.
+  // the first SpawningControl would be filled with
+  // the settings values coming from the mod-menu.
+  var creatures_chances: array<int>;
+}
+// When the player is hurt (not full life) necrophages ambush can appear around him
+class RER_ListenerBloodNecrophages extends RER_EventsListener {
+  var time_before_other_spawn: float;
+  default time_before_other_spawn = 0;
+
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+    var type: CreatureType;
+    if (was_spawn_already_triggered) {
+      return false;
+    }
+
+    if (this.time_before_other_spawn > 0) {
+      time_before_other_spawn -= delta;
+
+      return false;
+    }
+
+    if (thePlayer.GetHealthPercents() < 1 && RandRangeF(100) < 0.5 * delta * master.settings.event_system_chances_scale) {
+      LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered");
+      type = this.getRandomNecrophageType(master);
+      LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered type = " + type);
+      createRandomCreatureAmbush(master, type);
+
+      // so that we don't spawn an ambush too frequently
+      this.time_before_other_spawn += 60.0f;
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private latent function getRandomNecrophageType(master: CRandomEncounters): CreatureType {
+    var spawn_roller: SpawnRoller;
+    var creatures_preferences: RER_CreaturePreferences;
+    var i: int;
+    var can_spawn_creature: bool;
+    var manager : CWitcherJournalManager;
+
+    spawn_roller = new SpawnRoller in this;
+    spawn_roller.fill_arrays();
+
+    creatures_preferences = new RER_CreaturePreferences in this;
+    creatures_preferences
+      .setIsNight(theGame.envMgr.IsNight())
+      .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
+      .setIsNearWater(master.rExtra.IsPlayerNearWater())
+      .setIsInForest(master.rExtra.IsPlayerInForest())
+      .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
+      .setChancesDay(master.settings.creatures_chances_day)
+      .setChancesNight(master.settings.creatures_chances_night);
+
+    creatures_preferences
+      .reset()
+      
+      .setCreatureType(CreatureGHOUL)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureALGHOUL)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureDROWNER)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureDROWNERDLC)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureROTFIEND)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureWEREWOLF)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureEKIMMARA)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureKATAKAN)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureHAG)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureFOGLET)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureBRUXA)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureFLEDER)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureGARKAIN)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureDETLAFF)
+      .fillSpawnRoller(spawn_roller);
+
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
+    // when a creature is set to NO in the city spawn menu, 
+    // we remove it from the spawning pool.
+    if (master.rExtra.isPlayerInSettlement()) {
+      LogChannel('modRandomEncounters', "player in settlement, removing city spawns");
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        if (!master.settings.creatures_city_spawns[i]) {
+          spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
+    }
+
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (master.settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.resources.creatures_resources[i], manager);
+        
+        if (!can_spawn_creature) {
+          spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
+    }
+
+    return spawn_roller.rollCreatures();
+  }
+}
+// When remains are near the player, necrophages can spawn
+class RER_ListenerBodiesNecrophages extends RER_EventsListener {
+  var time_before_other_spawn: float;
+  default time_before_other_spawn = 0;
+
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+    var type: CreatureType;
+    LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - starting");
+
+    if (was_spawn_already_triggered) {
+      return false;
+    }
+
+    if (this.time_before_other_spawn > 0) {
+      time_before_other_spawn -= delta;
+
+      return false;
+    }
+
+    if (this.areThereRemainsNearby() && RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
+      LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - spawn triggered");
+      type = this.getRandomNecrophageType(master);
+      LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - spawn triggered type = " + type);
+      createRandomCreatureAmbush(master, type);
+
+      // so that we don't spawn an ambush too frequently
+      this.time_before_other_spawn += 60.0f;
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private function areThereRemainsNearby(): bool {
+    var entities : array<CGameplayEntity>;
+    var i: int;
+
+    FindGameplayEntitiesInRange( entities, thePlayer, 25, 30, , FLAG_ExcludePlayer,, 'W3ActorRemains' );
+
+    return entities.Size() > 0;
+  }
+
+  private latent function getRandomNecrophageType(master: CRandomEncounters): CreatureType {
+    var spawn_roller: SpawnRoller;
+    var creatures_preferences: RER_CreaturePreferences;
+    var i: int;
+    var can_spawn_creature: bool;
+    var manager : CWitcherJournalManager;
+
+    spawn_roller = new SpawnRoller in this;
+    spawn_roller.fill_arrays();
+
+    creatures_preferences = new RER_CreaturePreferences in this;
+    creatures_preferences
+      .setIsNight(theGame.envMgr.IsNight())
+      .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
+      .setIsNearWater(master.rExtra.IsPlayerNearWater())
+      .setIsInForest(master.rExtra.IsPlayerInForest())
+      .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
+      .setChancesDay(master.settings.creatures_chances_day)
+      .setChancesNight(master.settings.creatures_chances_night);
+
+    creatures_preferences
+      .reset()
+      
+      .setCreatureType(CreatureGHOUL)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureALGHOUL)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureDROWNER)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureDROWNERDLC)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureROTFIEND)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureWEREWOLF)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureEKIMMARA)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureKATAKAN)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureHAG)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureFOGLET)
+      .addOnlyBiome(BiomeSwamp)
+      .addOnlyBiome(BiomeWater)
+      .addLikedBiome(BiomeSwamp)
+      .addLikedBiome(BiomeWater)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureBRUXA)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureFLEDER)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureGARKAIN)
+      .fillSpawnRoller(spawn_roller)
+
+      .setCreatureType(CreatureDETLAFF)
+      .fillSpawnRoller(spawn_roller);
+
+    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
+    // when a creature is set to NO in the city spawn menu, 
+    // we remove it from the spawning pool.
+    if (master.rExtra.isPlayerInSettlement()) {
+      LogChannel('modRandomEncounters', "player in settlement, removing city spawns");
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        if (!master.settings.creatures_city_spawns[i]) {
+          spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
+    }
+
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (master.settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.resources.creatures_resources[i], manager);
+        
+        if (!can_spawn_creature) {
+          spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
+    }
+
+    return spawn_roller.rollCreatures();
+  }
+}
+// When the player is in a combat, there is a small chance a new encounter appears
+// around him.
+class RER_ListenerFightNoise extends RER_EventsListener {
+  private var already_spawned_this_combat: bool;
+
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+    var is_in_combat: bool;
+
+    if (was_spawn_already_triggered || already_spawned_this_combat) {
+      return false;
+    }
+
+    is_in_combat = thePlayer.IsInCombat();
+
+    if (is_in_combat && RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
+      LogChannel('modRandomEncounters', "RER_ListenerFightNoise - spawning creatures");
+      
+      // we disable it for the fight so it doesn't spawn non-stop
+      this.already_spawned_this_combat = true;
+
+      // create a random ambush with no creature type chosen, let RER pick one
+      // randomly.
+      createRandomCreatureAmbush(master, CreatureNONE);
+
+      return true;
+    }
+
+    // this line will execute when the player is out of combat only
+    // and will reset the listener to the active state.
+    if (!is_in_combat) {
+      this.already_spawned_this_combat = false;
+    }
+
+    return false;
+  }
+}
+
+// Randomly add more creatures to groups of creatures in the world.
+class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
+  var time_before_other_spawn: float;
+  default time_before_other_spawn = 0;
+
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+    var has_duplicated_creature: bool;
+    
+    if (was_spawn_already_triggered) {
+      LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - spawn already triggered");
+
+      return false;
+    }
+
+    if (this.time_before_other_spawn > 0) {
+      LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - delay between spawns");
+
+      time_before_other_spawn -= delta;
+
+      return false;
+    }
+
+    if (RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
+      LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
+      
+      has_duplicated_creature = duplicateRandomNearbyEntity();
+      if (has_duplicated_creature) {
+        // so that we don't spawn an ambush too frequently
+        this.time_before_other_spawn += 60.0f;
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private latent function duplicateRandomNearbyEntity(): bool {
+    var entities : array<CGameplayEntity>;
+    var picked_npc_list: array<CNewNPC>;
+    var picked_npc_index: int;
+    var picked_npc: CNewNPC;
+    var duplicated_npc: CNewNPC;
+    var boss_tag: name;
+    var i: int;
+    var entity_template: CEntityTemplate;
+
+    FindGameplayEntitiesInRange( entities, thePlayer, 200, 30, , FLAG_ExcludePlayer,, 'CNewNPC' );
+
+    // to avoid duplicating bosses
+    boss_tag = thePlayer.GetBossTag();
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      if (((CNewNPC)entities[i]) && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
+        picked_npc_list.PushBack((CNewNPC)entities[i]);
+      }
+    }
+
+    if (picked_npc_list.Size() == 0) {
+      return false;
+    }
+
+
+
+    picked_npc_index = RandRange(picked_npc_list.Size());
+    picked_npc = picked_npc_list[picked_npc_index];
+
+    LogChannel('modRandomEncounters', "getName = " + StrAfterFirst(picked_npc.ToString(), "::"));
+
+    entity_template = (CEntityTemplate)LoadResourceAsync(StrAfterFirst(picked_npc.ToString(), "::"), true);
+
+    theGame.CreateEntity(
+      entity_template,
+      picked_npc.GetWorldPosition(),
+      picked_npc.GetWorldRotation()
+    );
+
+    // duplicated_npc = (CNewNPC)(picked_npc.Duplicate());
+
+    return true;
+  }
+}
+state ListeningForEvents in RER_EventsManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents");
+
+    this.ListeningForEvents_main();
+  }
+
+  entry function ListeningForEvents_main() {
+    var i: int;
+    var listener: RER_EventsListener;
+    var was_spawn_already_triggered: bool;
+    var spawn_asked: bool;
+
+    was_spawn_already_triggered = false;
+
+    LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening started");
+
+    for (i = 0; i < parent.listeners.Size(); i += 1) {
+      listener = parent.listeners[i];
+
+      if (!listener.active) {
+        continue;
+      }
+
+      was_spawn_already_triggered = listener
+        .onInterval(was_spawn_already_triggered, parent.master, parent.delta) || was_spawn_already_triggered;
+    }
+
+    LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening finished");
+    
+    parent.GotoState('Waiting');
+  }
+}
+
+state Starting in RER_EventsManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "RER_EventsManager - State Starting");
+
+    this.Starting_main();
+  }
+
+  entry function Starting_main() {
+    var i: int;
+    var listener: RER_EventsListener;
+
+    for (i = 0; i < parent.listeners.Size(); i += 1) {
+      listener = parent.listeners[i];
+
+      listener.onReady(parent);
+    }
+    
+    parent.GotoState('Waiting');
+  }
+}
+
+state Waiting in RER_EventsManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "RER_EventsManager - State Waiting");
+
+    this.Waiting_main();
+  }
+
+  entry function Waiting_main() {
+    LogChannel('modRandomEncounters', "RER_EventsManager - Waiting_main()");
+    
+    Sleep(parent.delay);
+
+    parent.GotoState('ListeningForEvents');
   }
 }

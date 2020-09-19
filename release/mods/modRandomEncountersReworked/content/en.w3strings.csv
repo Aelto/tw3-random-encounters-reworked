@@ -128,19 +128,30 @@
 2115018126|        |rer_trophy_necrophage|Necrophage trophy
 2115018127|        |rer_trophy_vampire|Vampire trophy
 2115018128|        |rer_trophy_human|Human trophy
-2115018129|        |option_rer_min_spawn_distance|Minimum spawn distance (in meters)
-2115018130|        |option_rer_spawn_diameter|Spawn diameter (in meters)
-2115018131|        |option_rer_kill_threshold_distance|Automatic kill threshold (in meters)
-2115018132|        |preset_Mods_rer_name_rer_advanced_settings|Advanced settings
-2115018133|        |panel_rer_advanced_settings|Advanced settings
-2115018134|        |option_rer_trophies_ambush|Allow trophies in ambush
-2115018135|        |option_rer_trophies_hunt|Allow trophies in hunt
-2115018136|        |option_rer_trophies_contract|Allow trophies in monster contract
-2115018137|        |option_rer_trophy_pickup_animation|Allow trophy pickup animation
-2115018138|        |option_rer_only_known_bestiary_creatures|Only known bestiary creatures
-2115018139|        |preset_Mods_rer_name_rer_advanced_settings_distances|Distances
-2115018140|        |panel_distances|Distances
-2115018141|        |preset_Mods_rer_name_rer_advanced_settings_levels|Levels
-2115018142|        |panel_levels|Levels
-2115018143|        |option_rer_min_level_range|Lowest level allowed (relative to Geralt's)
-2115018144|        |option_rer_max_level_range|Highest level allow (relative to Geralt's)
+2115018129|        |rer_trophy_troll|Troll trophy
+2115018130|        |option_rer_min_spawn_distance|Minimum spawn distance (in meters)
+2115018131|        |option_rer_spawn_diameter|Spawn diameter (in meters)
+2115018132|        |option_rer_kill_threshold_distance|Automatic kill threshold (in meters)
+2115018133|        |preset_Mods_rer_name_rer_advanced_settings|Advanced settings
+2115018134|        |panel_rer_advanced_settings|Advanced settings
+2115018135|        |option_rer_trophies_ambush|Allow trophies in ambush
+2115018136|        |option_rer_trophies_hunt|Allow trophies in hunt
+2115018137|        |option_rer_trophies_contract|Allow trophies in monster contract
+2115018138|        |option_rer_trophy_pickup_animation|Allow trophy pickup animation
+2115018139|        |option_rer_only_known_bestiary_creatures|Only known bestiary creatures
+2115018140|        |preset_Mods_rer_name_rer_advanced_settings_distances|Distances
+2115018141|        |panel_distances|Distances
+2115018142|        |preset_Mods_rer_name_rer_advanced_settings_levels|Levels
+2115018143|        |panel_levels|Levels
+2115018144|        |option_rer_min_level_range|Lowest level allowed (relative to Geralt's)
+2115018145|        |option_rer_max_level_range|Highest level allowed (relative to Geralt's)
+2115018146|        |preset_Mods_rer_name_rer_advanced_settings_trophies|Trophies
+2115018147|        |panel_trophies|Trophies
+2115018148|        |option_rer_trophy_prices|Trophy prices
+2115018149|        |preset_value_rer_trophy_prices_low|Low (100%)
+2115018150|        |preset_value_rer_trophy_prices_medium|Medium (200%)
+2115018151|        |preset_value_rer_trophy_prices_high|High (300%)
+2115018152|        |preset_Mods_rer_name_rer_advanced_settings_events|Events system
+2115018153|        |panel_events|Events system
+2115018154|        |option_rer_event_system_interval|Event system interval in seconds (0 = disabled)
+2115018155|        |option_rer_event_system_chances_scale|Chances scale, higher means more events (100 = 100%)
