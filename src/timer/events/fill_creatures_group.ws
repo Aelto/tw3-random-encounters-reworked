@@ -21,7 +21,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       return false;
     }
 
-    if (RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
+    if (RandRangeF(100) < 3 * delta * master.settings.event_system_chances_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
       has_duplicated_creature = duplicateRandomNearbyEntity();
