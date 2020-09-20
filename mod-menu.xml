@@ -1833,12 +1833,12 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="eventSystemInterval"		value="0.50"	/>
-                <Entry varId="eventSystemChancesScale"	value="1"	/>
+                <Entry varId="eventSystemChancesScale"	value="0.1"	/>
             </Preset>
         </PresetsArray>
         <VisibleVars>			
             <Var id="eventSystemInterval" displayName="rer_event_system_interval" displayType="SLIDER;0;20;200"/>
-            <Var id="eventSystemChancesScale" displayName="rer_event_system_chances_scale" displayType="SLIDER;0;100;200"/>
+            <Var id="eventSystemChancesScale" displayName="rer_event_system_chances_scale" displayType="SLIDER;0;100;10000"/>
         </VisibleVars>
     </Group>
 
