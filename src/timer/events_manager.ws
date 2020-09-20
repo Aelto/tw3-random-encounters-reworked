@@ -6,8 +6,12 @@ statemachine class RER_EventsManager extends CEntity {
   
   public function addListener(listener: RER_EventsListener) {
     this.listeners.PushBack(listener);
+
+    listener.onReady(this.master);
   }
   //#endregion listeners
+
+  public var master: CRandomEncounters;
 
   public function init(master: CRandomEncounters) {
     this.master = master;
@@ -21,7 +25,7 @@ statemachine class RER_EventsManager extends CEntity {
 
   public var delay: float;
   public var delta: float;
-  public var master: CRandomEncounters;
+  
 
   public function start() {
     LogChannel('modRandomEncounters', "RER_EventsManager - start()");

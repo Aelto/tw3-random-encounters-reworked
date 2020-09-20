@@ -14,7 +14,9 @@ state Starting in RER_EventsManager {
     for (i = 0; i < parent.listeners.Size(); i += 1) {
       listener = parent.listeners[i];
 
-      listener.onReady(parent);
+      if (!listener.isActive) {
+        listener.onReady(parent);
+      }
     }
     
     parent.GotoState('Waiting');
