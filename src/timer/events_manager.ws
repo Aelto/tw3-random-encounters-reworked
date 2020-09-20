@@ -16,6 +16,7 @@ statemachine class RER_EventsManager extends CEntity {
     this.addListener(new RER_ListenerBloodNecrophages in this);
     this.addListener(new RER_ListenerFillCreaturesGroup in this);
     this.addListener(new RER_ListenerBodiesNecrophages in this);
+    this.addListener(new RER_ListenerEntersSwamp in this);
   }
 
   public var delay: float;
