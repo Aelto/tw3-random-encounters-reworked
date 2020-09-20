@@ -193,36 +193,19 @@ statemachine class CRandomEncounters extends CEntity {
   }
 }
 
-// exec function rer_start_encounter(optional creature: CreatureType) {
-//   var rer_entity : CRandomEncounters;
-//   var entities : array<CEntity>;
+function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
+  var entities : array<CEntity>;
 
-//   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
+  theGame.GetEntitiesByTag('RandomEncounterTag', entities);
 		
-//   if (entities.Size() == 0) {
-//     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+  if (entities.Size() == 0) {
+    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
     
-//     return;
-//   }
+    return false;
+  }
 
-//   rer_entity = (CRandomEncounters)entities[0];
+  rer_entity = (CRandomEncounters)entities[0];
 
-//   createRandomCreatureComposition(rer_entity, creature);
-// }
+  return true;
+}
 
-// exec function rer_start_hunt(optional creature: CreatureType) {
-//   var rer_entity : CRandomEncounters;
-//   var entities : array<CEntity>;
-
-//   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
-		
-//   if (entities.Size() == 0) {
-//     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
-    
-//     return;
-//   }
-
-//   rer_entity = (CRandomEncounters)entities[0];
-
-//   createRandomCreatureHunt(rer_entity, creature);
-// }
