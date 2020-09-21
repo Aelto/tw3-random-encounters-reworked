@@ -141,7 +141,7 @@ section h2 {
   margin-left: 4em;
 }
 
-#install .info {
+.info {
   display: inline-block;
   background: rgba(80, 80, 80, .3);
   font-size: 1.1em;
