@@ -24,7 +24,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     if (RandRangeF(100) < 3 * delta * master.settings.event_system_chances_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
-      has_duplicated_creature = duplicateRandomNearbyEntity();
+      has_duplicated_creature = duplicateRandomNearbyEntity(master);
       if (has_duplicated_creature) {
         // so that we don't spawn an ambush too frequently
         this.time_before_other_spawn += 60.0f;
@@ -36,7 +36,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     return false;
   }
 
-  private latent function duplicateRandomNearbyEntity(): bool {
+  private latent function duplicateRandomNearbyEntity(master: CRandomEncounters): bool {
     var entities : array<CGameplayEntity>;
     var picked_npc_list: array<CNewNPC>;
     var picked_npc_index: int;
@@ -45,6 +45,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     var boss_tag: name;
     var i: int;
     var entity_template: CEntityTemplate;
+    var created_entity: CEntity;
 
     FindGameplayEntitiesInRange( entities, thePlayer, 200, 30, , FLAG_ExcludePlayer,, 'CNewNPC' );
 
@@ -52,7 +53,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     boss_tag = thePlayer.GetBossTag();
 
     for (i = 0; i < entities.Size(); i += 1) {
-      if (((CNewNPC)entities[i]) && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy && ((CNewNPC)entities[i]).IsMonster() && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
+      if (((CNewNPC)entities[i]) && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy && ((CNewNPC)entities[i]).IsMonster() && !((CNewNPC)entities[i]).IfCanSeePlayer() && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
         picked_npc_list.PushBack((CNewNPC)entities[i]);
       }
     }
@@ -70,10 +71,14 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
     entity_template = (CEntityTemplate)LoadResourceAsync(StrAfterFirst(picked_npc.ToString(), "::"), true);
 
-    theGame.CreateEntity(
+    created_entity = theGame.CreateEntity(
       entity_template,
       picked_npc.GetWorldPosition(),
       picked_npc.GetWorldRotation()
+    );
+
+    ((CNewNPC)created_entity).SetLevel(
+      getRandomLevelBasedOnSettings(master.settings)
     );
 
     // duplicated_npc = (CNewNPC)(picked_npc.Duplicate());
