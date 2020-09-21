@@ -20,6 +20,10 @@ state ListeningForEvents in RER_EventsManager {
     for (i = 0; i < parent.listeners.Size(); i += 1) {
       listener = parent.listeners[i];
 
+      if (!listener.is_ready) {
+        listener.onReady(parent);
+      }
+
       if (!listener.active) {
         continue;
       }

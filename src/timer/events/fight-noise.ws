@@ -14,7 +14,7 @@ class RER_ListenerFightNoise extends RER_EventsListener {
     is_in_combat = thePlayer.IsInCombat();
 
     if (is_in_combat && RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
-      LogChannel('modRandomEncounters', "RER_ListenerFightNoise - spawning creatures");
+      LogChannel('modRandomEncounters', "RER_ListenerFightNoise - triggered");
       
       // we disable it for the fight so it doesn't spawn non-stop
       this.already_spawned_this_combat = true;

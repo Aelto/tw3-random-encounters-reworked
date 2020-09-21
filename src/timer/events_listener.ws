@@ -1,6 +1,9 @@
 
 abstract class RER_EventsListener {
   public var active: bool;
+  
+  public var is_ready: bool;
+  default is_ready = false;
 
   public latent function onReady(manager: RER_EventsManager) {
     this.active = true;

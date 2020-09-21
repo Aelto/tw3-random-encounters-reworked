@@ -6,8 +6,6 @@ statemachine class RER_EventsManager extends CEntity {
   
   public function addListener(listener: RER_EventsListener) {
     this.listeners.PushBack(listener);
-
-    listener.onReady(this.master);
   }
   //#endregion listeners
 
