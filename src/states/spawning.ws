@@ -23,7 +23,7 @@ state Spawning in CRandomEncounters {
 
     picked_encounter_type = this.getRandomEncounterType();
     
-    if (!this.is_spawn_forced && this.shouldAbortCreatureSpawn()) {
+    if (!parent.settings.is_enabled || !this.is_spawn_forced && this.shouldAbortCreatureSpawn()) {
       parent.GotoState('SpawningCancelled');
 
       return;

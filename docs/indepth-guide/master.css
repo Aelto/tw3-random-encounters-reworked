@@ -54,3 +54,10 @@ h2 {
 section {
   border-top: solid 8px white;
 }
+
+*:target {
+  border-left: solid 6px black;
+  box-shadow: -12px 0px 6px -12px rgba(20, 20, 20, 0.9);
+  margin-left: -40px;
+  padding-left: 40px;
+}

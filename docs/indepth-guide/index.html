@@ -23,11 +23,23 @@
       </li>
 
       <li>
-        <a href="#">2.</a> then how to actually install Random Encounters Reworked.
+        <a href="#part-2">2.</a> then how to actually install Random Encounters Reworked.
       </li>
 
       <li>
-        <a href="#">3.</a> update the mod bootstrap registry and why we need to do this 
+        <a href="#part-3">3.</a> update the mod bootstrap registry and why we need to do this 
+      </li>
+    </ul>
+
+    <hr />
+    <ul>
+      <li>
+        <a href="#part-4">4.</a> <span>OPTIONAL:</span> you can also install keybinds if you want to trigger events by using your keyboard
+        <ul>
+          <li><a href="#part-4-1">4.1.</a> trigger an encounter</li>
+          <li><a href="#part-4-2">4.2.</a> reload the settings</li>
+          <li><a href="#part-4-3">4.3.</a> toggle RER</li>
+        </ul>
       </li>
     </ul>
   </section>
@@ -172,6 +184,79 @@
       <h3>How to update the registry</h3>
       <div>
         Go into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by double clicking it. Please always take a glance at a <span>.bat</span> file before running, by doing a right-click and edit, i know you may not be a programmer but it's a good habit and this one has comments explaining it. You never know 👍
+      </div>
+    </div>
+  </section>
+
+  <section id="part-4">
+    <h2>Adding the keyboard keybinds</h2>
+    <blockquote class="info">
+      What each keybind does and how to add them to your game
+    </blockquote>
+
+    <div id="part-4-1">
+      <h3>Keybind - Trigger an encounter</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          When you press the key an encounter will be created by RER after a 5 seconds delay.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=RandomEncounter)</span></li>
+            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-4-2">
+      <h3>Keybind - Reload the settings</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          When you change the settings you usually have to load a save for them to be applied. This keybind solves this by forcing a settings refresh without the need to load a save.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRefreshSettings)</span></li>
+            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-4-3">
+      <h3>Keybind - Toggle Random Encounters Reworked</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          Sometimes you want to stop RER from doing its job, you can go into the mod menu and set the <span>Enabled</span> toggle to OFF. This keybind can be used to toggle it without going to the mod menu
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRER_enabledToggle)</span></li>
+            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>

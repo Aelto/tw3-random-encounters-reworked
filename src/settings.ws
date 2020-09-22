@@ -1,6 +1,7 @@
 
 class RE_Settings {
 
+  public var is_enabled: bool;
   
   public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
   public var all_monster_hunt_chance: int;
@@ -63,6 +64,7 @@ class RE_Settings {
       this.resetRERSettings(inGameConfigWrapper);
     }
 
+    this.loadModEnabledSettings(inGameConfigWrapper);
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadMonsterContractsChances(inGameConfigWrapper);
     this.loadMonsterAmbushChances(inGameConfigWrapper);
@@ -156,6 +158,10 @@ class RE_Settings {
 
   private function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
     return !inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERmodInitialized');
+  }
+
+  private function loadModEnabledSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.is_enabled = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERmodEnabled');
   }
 
   private function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -445,5 +451,21 @@ class RE_Settings {
     }
 
     return false;
+  }
+
+  public function toggleEnabledSettings() {
+    var inGameConfigWrapper: CInGameConfigWrapper;
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    inGameConfigWrapper.SetVarValue(
+      'RandomEncountersMENU',
+      'RERmodEnabled',
+      !this.is_enabled
+    );
+
+    theGame.SaveUserSettings();
+
+    this.loadModEnabledSettings(inGameConfigWrapper);
   }
 }

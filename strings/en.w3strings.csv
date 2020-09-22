@@ -155,3 +155,5 @@
 2115018153|        |panel_events|Events system
 2115018154|        |option_rer_event_system_interval|Event system interval in seconds (0 = disabled)
 2115018155|        |option_rer_event_system_chances_scale|Chances scale, higher means more events (100 = 100%)
+2115018156|        |option_rer_mod_enabled|Enabled
+2115018157|        |option_rer_disabled|RandomEncounters Reworked disabled

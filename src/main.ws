@@ -39,6 +39,7 @@ statemachine class CRandomEncounters extends CEntity {
 
       theInput.RegisterListener(this, 'OnRefreshSettings', 'OnRefreshSettings');
       theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
+      theInput.RegisterListener(this, 'OnRER_enabledToggle', 'OnRER_enabledToggle');
 
       super.OnSpawned(spawn_data);
 
@@ -68,6 +69,23 @@ statemachine class CRandomEncounters extends CEntity {
   
     if (this.ticks_before_spawn > 5) {
       this.ticks_before_spawn = 5;
+    }
+  }
+
+  event OnRER_enabledToggle(action: SInputAction) {
+    if (IsPressed(action)) {
+      LogChannel('modRandomEncounters', "RER enabled state toggle");
+
+      this.settings.toggleEnabledSettings();
+
+      if (!this.settings.hide_next_notifications) {
+        if (this.settings.is_enabled) {
+          displayRandomEncounterEnabledNotification();
+        }
+        else {
+          displayRandomEncounterDisabledNotification();
+        }
+      }
     }
   }
 
