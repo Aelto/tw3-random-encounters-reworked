@@ -33,32 +33,33 @@
   </section>
 
   <section id="part-1">
+    <h2>Installing the dependencies</h2>
     <blockquote class="info">
       How to install the dependencies and why Random Encounters Reworked needs them, and in which cases you could skip this step.
     </blockquote>
 
-    <p id="part-1-1">
-      <h2>Dependency - modBootstrap</h2>
+    <div id="part-1-1">
+      <h3>Dependency - modBootstrap</h3>
 
-      <p>
-        <h3>What is its role?</h3>
+      <div>
+        <h4>What is its role?</h4>
         <div>
           Mod boostrap is what allows Random Encounters Reworked to start automatically as soon as you enter a game.
-          Because RER is like a DLC which adds content to the game without changing anything it needs a way to start itself, modBootstrap solves this.
-          It create a common way for modders to inject some of their come to an invisible quest that is started on launch.
+          Because RER is like a DLC which adds content to the game without changing anything, it needs a way to start itself. The modBootstrap solves this.
+          It creates a common way for modders to inject some of their come to an invisible quest that is started on launch.
         </div>
-      </p>
+      </div>
 
-      <p>
-        <h3>When should you skip this mod?</h3>
+      <div>
+        <h4>When should you skip this mod?</h4>
         <div>
           Do not install it if you have already installed it. To check if you've installed it already go into <span>The Witcher 3/mods/</span> and look for a folder named <span>modBootstrap</span>.
           If you find one then skip this step.
         </div>
-      </p>
+      </div>
 
-      <p>
-        <h3>How to install it?</h3>
+      <div>
+        <h4>How to install it?</h4>
         <div>
           <ol>
             <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/2109/?tab=files">modBootstrap</a>'s mod page</li>
@@ -73,30 +74,30 @@
             <li>Drop the content of the archives you downloaded directly into <span>The Witcher 3/</span> so that you merge the archive <span>mods</span> directory with your <span>mods</span> directory</li>
           </ol>
         </div>
-      </p>
-    </p>
+      </div>
+    </div>
 
-    <p id="part-1-2">
-      <h2>Dependency - Shared Imports</h2>
+    <div id="part-1-2">
+      <h3>Dependency - Shared Imports</h3>
 
-      <p>
-        <h3>What is its role</h3>
+      <div>
+        <h4>What is its role</h4>
         <div>
           It's a simple mod that imports tons of helper functions (things to interact with the game) so people don't have to.
           Because if two mods import the same function the game won't start and will give you an error, hence the name "Shared" imports.
         </div>
-      </p>
+      </div>
 
-      <p>
-        <h3>When should you skip it?</h3>
+      <div>
+        <h4>When should you skip it?</h4>
         <div>
           If you've installed it already or if you have Witcher 3 Enhanced Edition. To check if you've installed it already go into <span>The Witcher 3/mods/</span> and look for a folder named <span>modSharedImports</span>
           If you find one skip this dependency.
         </div>
-      </p>
+      </div>
 
-      <p>
-        <h3>How to install it?</h3>
+      <div>
+        <h4>How to install it?</h4>
         <div>
           <ol>
             <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/2110/?tab=files">Shared Imports</a>' mod page</li>
@@ -104,30 +105,30 @@
             <li>Drop the content of the archive you downloaded directly into <span>The Witcher 3/</span> so that you merge the archive <span>mods</span> directory with your <span>mods</span> directory</li>
           </ol>
         </div>
-      </p>
-    </p>
+      </div>
+    </div>
 
-    <p id="part-1-3">
-      <h2>Dependency - CommunityPatch - Base</h2>
+    <div id="part-1-3">
+      <h3>Dependency - CommunityPatch - Base</h3>
 
-      <p>
-        <h3>What is its role</h3>
+      <div>
+        <h4>What is its role</h4>
         <div>
           Not all versions have the same code and somes helper functions were added to later versions. But if RER uses one of these functions while you're not on the latest version you won't be able to use my mod.
           This mod creates a "base" (clever name eh?) for mod makers so everyone can use their mods.
         </div>
-      </p>
+      </div>
 
-      <p>
-        <h3>When should you skip it?</h3>
+      <div>
+        <h4>When should you skip it?</h4>
         <div>
           If you've installed it already or if you have Unification Patch. To check if you've installed CP-Base already go into <span>The Witcher 3/mods/</span> and look for a folder named <span>mod0000___CompilationTrigger</span>
           If you find one skip this dependency.
         </div>
-      </p>
+      </div>
 
-      <p>
-        <h3>How to install it?</h3>
+      <div>
+        <h4>How to install it?</h4>
         <div>
           <ol>
             <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/3652?tab=files">CP - Base</a>'s mod page</li>
@@ -136,11 +137,12 @@
             <li>Replace every file when prompted</li>
           </ol>
         </div>
-      </p>
-    </p>
+      </div>
+    </div>
   </section>
 
   <section id="part-2">
+    <h2>Installing Random Encounters Reworked</h2>
     <blockquote class="info">
       How to actually install Random Encounters Reworked.
     </blockquote>
@@ -153,24 +155,25 @@
   </section>
 
   <section id="part-3">
+    <h2>Updating the bootstrap registry</h2>
     <blockquote class="info">
-      How to actually install Random Encounters Reworked.
+      Setting up the registry so Random Encounters Reworked get started automatically
     </blockquote>
 
-    <p>
-      <h2>Why do we need this?</h2>
+    <div>
+      <h3>Why do we need this?</h3>
       <div>
-        As i said in <a href="part-1-1">part 1.1</a> the bootstrap mod allows RER to start every time you enter the game. But you have to tell him where to look for RER, this is what you do with the registry.
+        As i said in <a href="#part-1-1">part 1.1</a> the bootstrap mod allows RER to start every time you enter the game. But you have to tell him where to look for RER, this is what you do with the registry.
         It may seem complicated but it's actually the simplest solution.
       </div>
-    </p>
+    </div>
 
-    <p>
-      <h2>How to update the registry</h2>
+    <div>
+      <h3>How to update the registry</h3>
       <div>
         Go into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by double clicking it. Please always take a glance at a <span>.bat</span> file before running, by doing a right-click and edit, i know you may not be a programmer but it's a good habit and this one has comments explaining it. You never know 👍
       </div>
-    </p>
+    </div>
   </section>
 </body>
 </html>

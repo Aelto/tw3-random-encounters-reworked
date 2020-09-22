@@ -2,8 +2,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: black;
-  color: white;
+  /* background: black;
+  color: white; */
 
 }
 
@@ -18,14 +18,16 @@ html {
 }
 
 span {
-  background: rgba(255, 255, 255, 1);
+  /* background: rgba(255, 255, 255, 1); */
+  /* color: black; */
+  background: black;
+  color: white;
   padding: .2em .2em;
-  color: black;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 a {
-  color: white;
+  /* color: white; */
 }
 
 blockquote {
@@ -38,4 +40,17 @@ blockquote {
 
 section {
   padding: 2em 0;
+}
+
+section:not(#part-3) > div + div {
+  margin-top: 2em;
+  padding-top: 1em;
+}
+
+h2 {
+  text-decoration: underline;
+}
+
+section {
+  border-top: solid 8px white;
 }
