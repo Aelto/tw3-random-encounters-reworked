@@ -24,6 +24,7 @@ span {
   color: white;
   padding: .2em .2em;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  white-space: nowrap;
 }
 
 a {
