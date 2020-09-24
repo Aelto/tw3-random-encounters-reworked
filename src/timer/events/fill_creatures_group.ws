@@ -4,6 +4,17 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
 
+  var trigger_chance: float;
+
+  public latent function loadSettings() {
+    var inGameConfigWrapper: CInGameConfigWrapper;
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    this.trigger_chance = inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroup');
+  }
+
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
     var has_duplicated_creature: bool;
     
@@ -21,7 +32,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       return false;
     }
 
-    if (RandRangeF(100) < 3 * delta * master.settings.event_system_chances_scale) {
+    if (RandRangeF(100) < this.trigger_chance * delta) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
       has_duplicated_creature = duplicateRandomNearbyEntity(master);

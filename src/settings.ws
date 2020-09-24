@@ -52,8 +52,6 @@ class RE_Settings {
 
   public var event_system_interval: float;
 
-  public var event_system_chances_scale: float;
-
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -201,7 +199,6 @@ class RE_Settings {
 
   private function loadAdvancedEventSystemSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
     this.event_system_interval = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemInterval'));
-    this.event_system_chances_scale = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemChancesScale'));
   }
 
   private function loadAdvancedDistancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {

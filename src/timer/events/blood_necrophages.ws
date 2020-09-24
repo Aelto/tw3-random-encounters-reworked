@@ -4,6 +4,17 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
 
+  var trigger_chance: float;
+
+  public latent function loadSettings() {
+    var inGameConfigWrapper: CInGameConfigWrapper;
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    this.trigger_chance = inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventBloodNecrophages');
+  }
+
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
     var type: CreatureType;
     if (was_spawn_already_triggered) {
@@ -16,7 +27,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       return false;
     }
 
-    if (thePlayer.GetHealthPercents() < 1 && RandRangeF(100) < 0.5 * delta * master.settings.event_system_chances_scale) {
+    if (thePlayer.GetHealthPercents() < 1 && RandRangeF(100) < this.trigger_chance * delta) {
       LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered");
       type = this.getRandomNecrophageType(master);
       LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered type = " + type);

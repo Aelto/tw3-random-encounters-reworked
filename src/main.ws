@@ -59,7 +59,12 @@ statemachine class CRandomEncounters extends CEntity {
     LogChannel('modRandomEncounters', "settings refreshed");
     
     if (IsPressed(action)) {
-      this.settings.loadXMLSettingsAndShowNotification();
+      this.settings
+        .loadXMLSettingsAndShowNotification();
+      
+      this.events_manager
+        .loadEventsSettings();
+
       this.GotoState('Waiting');
     }
   }

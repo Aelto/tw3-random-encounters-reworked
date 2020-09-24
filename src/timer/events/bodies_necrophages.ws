@@ -4,6 +4,17 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
 
+  var trigger_chance: float;
+
+  public latent function loadSettings() {
+    var inGameConfigWrapper: CInGameConfigWrapper;
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    this.trigger_chance = inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventBodiesNecrophages');
+  }
+
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
     var type: CreatureType;
     LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - starting");
@@ -18,7 +29,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       return false;
     }
 
-    if (this.areThereRemainsNearby() && RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
+    if (this.areThereRemainsNearby() && RandRangeF(100) < this.trigger_chance * delta) {
       LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - spawn triggered");
       type = this.getRandomNecrophageType(master);
       LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - spawn triggered type = " + type);

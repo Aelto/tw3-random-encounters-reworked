@@ -7,6 +7,8 @@ abstract class RER_EventsListener {
 
   public latent function onReady(manager: RER_EventsManager) {
     this.active = true;
+
+    this.loadSettings();
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
@@ -14,4 +16,6 @@ abstract class RER_EventsListener {
 
     return was_spawn_already_triggered;
   }
+
+  public latent function loadSettings() {}
 }

@@ -154,6 +154,10 @@
 2115018152|        |preset_Mods_rer_name_rer_advanced_settings_events|Events system
 2115018153|        |panel_events|Events system
 2115018154|        |option_rer_event_system_interval|Event system interval in seconds (0 = disabled)
-2115018155|        |option_rer_event_system_chances_scale|Chances scale, higher means more events (100 = 100%)
-2115018156|        |option_rer_mod_enabled|Enabled
-2115018157|        |option_rer_disabled|RandomEncounters Reworked disabled
+2115018155|        |option_rer_mod_enabled|Enabled
+2115018156|        |option_rer_disabled|RandomEncounters Reworked disabled
+2115018157|        |option_rer_event_bloodnecrophages_chance|Event % chance - blood attracts necrophages
+2115018158|        |option_rer_event_bodiesnecrophages_chance|Event % chance - remains attracts necrophages
+2115018159|        |option_rer_event_entersswamp_chance|Event % chance - enters swamp ambush
+2115018160|        |option_rer_event_fightnoise_chance|Event % chance - fight noise ambush
+2115018161|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group

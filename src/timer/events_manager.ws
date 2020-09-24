@@ -21,10 +21,17 @@ statemachine class RER_EventsManager extends CEntity {
     this.addListener(new RER_ListenerEntersSwamp in this);
   }
 
+  public function loadEventsSettings() {
+    var i: int;
+
+    for (i = 0; i < this.listeners.Size(); i += 1) {
+      this.listeners[i].loadSettings();
+    }
+  }
+
   public var delay: float;
   public var delta: float;
   
-
   public function start() {
     LogChannel('modRandomEncounters', "RER_EventsManager - start()");
 

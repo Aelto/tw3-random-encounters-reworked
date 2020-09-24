@@ -4,6 +4,17 @@
 class RER_ListenerFightNoise extends RER_EventsListener {
   private var already_spawned_this_combat: bool;
 
+  var trigger_chance: float;
+
+  public latent function loadSettings() {
+    var inGameConfigWrapper: CInGameConfigWrapper;
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    this.trigger_chance = inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventFightNoise');
+  }
+
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
     var is_in_combat: bool;
 
@@ -13,7 +24,7 @@ class RER_ListenerFightNoise extends RER_EventsListener {
 
     is_in_combat = thePlayer.IsInCombat();
 
-    if (is_in_combat && RandRangeF(100) < 1 * delta * master.settings.event_system_chances_scale) {
+    if (is_in_combat && RandRangeF(100) < this.trigger_chance * delta) {
       LogChannel('modRandomEncounters', "RER_ListenerFightNoise - triggered");
       
       // we disable it for the fight so it doesn't spawn non-stop
