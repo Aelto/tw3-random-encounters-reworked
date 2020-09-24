@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="../master.css"> -->
+  <link rel="stylesheet" href="../indepth-guide/master.css">
+  <title>In-depth install guide</title>
+</head>
+<body>
+
+  <h1>Random Encounters Reworked explained</h1>
+
+  <section class="summary">
+    <ul>
+      <li>
+        <a href="#part-1">1.</a> First i explain what is <span>Encounter System</span>, what it does and doesn't do, and what to expect from it.
+        <!-- <ul>
+          <li><a href="#part-1-1">1.1.</a> modBootstrap</li>
+          <li><a href="#part-1-2">1.2.</a> SharedImports</li>
+          <li><a href="#part-1-3">1.3.</a> CommunityPatch - Base</li>
+        </ul> -->
+      </li>
+
+      <li>
+        <a href="#part-2">2.</a> Then i explain what is the <span>Event System</span>, what it does and doesn't do, and what to expect from it.
+      </li>
+
+      <li>
+        <a href="#part-3">3.</a> Here i show you the <span>Trophy System</span> and why it was created, and as always what to expect from this system.
+      </li>
+
+      <li>
+        <a href="#part-4">4.</a> Here i explain what are <span>External Factors</span> and why it was created.
+      </li>
+
+      <li>
+        <a href="#part-5">5.</a> I also explain how the <span>Creatures ratios</span> work because they're not simple percentages
+      </li>
+    </ul>
+
+    <hr />
+    <ul>
+      <li>
+        <a href="#part-4">4.</a> <span>BONUS:</span> Finally i'm sharing with you the settings i use, i also show you how can you tweak the mod to
+        fill the world however you want
+        <ul>
+          <li><a href="#part-4-1">4.1.</a> My settings</li>
+          <li><a href="#part-4-2">4.2.</a> Going further with the settings</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section id="part-1">
+    <h2>The Encounter System</h2>
+    <blockquote class="info">
+      What is the Encounter System and what to expect from it.
+    </blockquote>
+
+    <div id="part-1-1">
+      <h3>Encounter - Ambush</h3>
+
+      <div>
+        <h4>What is an ambush?</h4>
+        <div>
+          A monster ambush is when RER chooses a random creatures based on <a href="#part-4">external factors</a> and force
+          the monsters to target the player no matter the distance at which they were spawned.
+          Geralt is then ambushed by creatures who were created in his back so he could not see them come.
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to ambushes?</h4>
+        <div>
+          <ul>
+            <li>
+              You can set at which interval an ambush appears, it is a random value picked between two delays you set in the
+              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two ambushes and also the
+              maximum delay.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-1-2">
+      <h3>Encounter - Hunt</h3>
+
+      <div>
+        <h4>What is a hunt?</h4>
+        <div>
+          A monster hunt is when RER chooses a random creatures based on <a href="#part-4">external factors</a> and force
+          the monsters to follow an invisible bait. The creatures won't target Geralt unless he gets too close, they will
+          stop following the bait for good and start attacking Geralt.
+          The creatures from monster hunts leave foot tracks on the ground. There are many types of tracks, a human will leave
+          boot prints while a spirit will create a fake fog around him.
+          It is up to you to follow the tracks and kill the creatures
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to hunts?</h4>
+        <div>
+          <ul>
+            <li>
+              You can set at which interval a hunt appears, it is a random value picked between two delays you set in the
+              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two hunts and also the
+              maximum delay.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="part-2">
+    <h2>The Encounter System</h2>
+    <blockquote class="info">
+      What is the Encounter System and what to expect from it.
+    </blockquote>
+
+    <div>
+      The Event System is different from the Encounter System because this time it is a set of actions that are triggered
+      when you, the player, do something specific. For example there are events when you're hurt or when you enter an area.
+      There are also events who do not need any player's action but instead will dynamically change the world around him, such
+      as adding creatures to group of monsters
+    </div>
+
+    <div id="part-2-1">
+      <h3>Event - Ambush</h3>
+
+      <div>
+        <h4>What is an ambush?</h4>
+        <div>
+          A monster ambush is when RER chooses a random creatures based on <a href="#part-4">external factors</a> and force
+          the monsters to target the player no matter the distance at which they were spawned.
+          Geralt is then ambushed by creatures who were created in his back so he could not see them come.
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to ambushes?</h4>
+        <div>
+          <ul>
+            <li>
+              You can set at which interval an ambush appears, it is a random value picked between two delays you set in the
+              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two ambushes and also the
+              maximum delay.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-1-2">
+      <h3>Encounter - Hunt</h3>
+
+      <div>
+        <h4>What is a hunt?</h4>
+        <div>
+          A monster hunt is when RER chooses a random creatures based on <a href="#part-4">external factors</a> and force
+          the monsters to follow an invisible bait. The creatures won't target Geralt unless he gets too close, they will
+          stop following the bait for good and start attacking Geralt.
+          The creatures from monster hunts leave foot tracks on the ground. There are many types of tracks, a human will leave
+          boot prints while a spirit will create a fake fog around him.
+          It is up to you to follow the tracks and kill the creatures
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to hunts?</h4>
+        <div>
+          <ul>
+            <li>
+              You can set at which interval a hunt appears, it is a random value picked between two delays you set in the
+              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two hunts and also the
+              maximum delay.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="part-3">
+    <h2>Updating the bootstrap registry</h2>
+    <blockquote class="info">
+      Setting up the registry so Random Encounters Reworked get started automatically
+    </blockquote>
+
+    <div>
+      <h3>Why do we need this?</h3>
+      <div>
+        As i said in <a href="#part-1-1">part 1.1</a> the bootstrap mod allows RER to start every time you enter the game. But you have to tell him where to look for RER, this is what you do with the registry.
+        It may seem complicated but it's actually the simplest solution.
+      </div>
+    </div>
+
+    <div>
+      <h3>How to update the registry</h3>
+      <div>
+        Go into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by double clicking it. Please always take a glance at a <span>.bat</span> file before running, by doing a right-click and edit, i know you may not be a programmer but it's a good habit and this one has comments explaining it. You never know 👍
+      </div>
+    </div>
+  </section>
+
+  <section id="part-4">
+    <h2>Adding the keyboard keybinds</h2>
+    <blockquote class="info">
+      What each keybind does and how to add them to your game
+    </blockquote>
+
+    <div id="part-4-1">
+      <h3>Keybind - Trigger an encounter</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          When you press the key an encounter will be created by RER after a 5 seconds delay.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=RandomEncounter)</span></li>
+            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-4-2">
+      <h3>Keybind - Reload the settings</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          When you change the settings you usually have to load a save for them to be applied. This keybind solves this by forcing a settings refresh without the need to load a save.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRefreshSettings)</span></li>
+            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-4-3">
+      <h3>Keybind - Toggle Random Encounters Reworked</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          Sometimes you want to stop RER from doing its job, you can go into the mod menu and set the <span>Enabled</span> toggle to OFF. This keybind can be used to toggle it without going to the mod menu
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRER_enabledToggle)</span></li>
+            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
