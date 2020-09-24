@@ -53,7 +53,12 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     boss_tag = thePlayer.GetBossTag();
 
     for (i = 0; i < entities.Size(); i += 1) {
-      if (((CNewNPC)entities[i]) && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy && ((CNewNPC)entities[i]).IsMonster() && !((CNewNPC)entities[i]).IfCanSeePlayer() && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
+      if (((CNewNPC)entities[i])
+      && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy
+      && ((CNewNPC)entities[i]).IsMonster()
+      && ((CNewNPC)entities[i]).GetHealthPercents() >= 1
+      && !((CNewNPC)entities[i]).IfCanSeePlayer()
+      && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
         picked_npc_list.PushBack((CNewNPC)entities[i]);
       }
     }
