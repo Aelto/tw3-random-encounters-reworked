@@ -8,8 +8,10 @@ state Starting in RER_EventsManager {
   }
 
   entry function Starting_main() {
-    var i: int;
+    var inGameConfigWrapper: CInGameConfigWrapper;
     var listener: RER_EventsListener;
+    var i: int;
+
 
     for (i = 0; i < parent.listeners.Size(); i += 1) {
       listener = parent.listeners[i];
@@ -17,7 +19,16 @@ state Starting in RER_EventsManager {
       if (!listener.is_ready) {
         listener.onReady(parent);
       }
+
+      listener.loadSettings();
     }
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    parent.internal_cooldown = StringToFloat(
+      inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventSystemICD')
+    );
     
     parent.GotoState('Waiting');
   }

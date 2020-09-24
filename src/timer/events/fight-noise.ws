@@ -3,6 +3,9 @@
 // around him.
 class RER_ListenerFightNoise extends RER_EventsListener {
   private var already_spawned_this_combat: bool;
+  
+  var time_before_other_spawn: float;
+  default time_before_other_spawn = 0;
 
   var trigger_chance: float;
 
@@ -11,36 +14,46 @@ class RER_ListenerFightNoise extends RER_EventsListener {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    this.trigger_chance = inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventFightNoise');
+    this.trigger_chance = StringToFloat(
+      inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventFightNoise')
+    );
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
     var is_in_combat: bool;
 
-    if (was_spawn_already_triggered || already_spawned_this_combat) {
+    is_in_combat = thePlayer.IsInCombat();
+
+    // to avoid triggering more than one event per fight
+    if (is_in_combat && (was_spawn_already_triggered || this.already_spawned_this_combat)) {
+      this.already_spawned_this_combat = true;
+
       return false;
     }
 
-    is_in_combat = thePlayer.IsInCombat();
+    // to avoid triggering this event too frequently
+    if (this.time_before_other_spawn > 0) {
+      time_before_other_spawn -= delta;
+
+      return false;
+    }
+
+    this.already_spawned_this_combat = false;
 
     if (is_in_combat && RandRangeF(100) < this.trigger_chance * delta) {
       LogChannel('modRandomEncounters', "RER_ListenerFightNoise - triggered");
       
       // we disable it for the fight so it doesn't spawn non-stop
-      this.already_spawned_this_combat = true;
+      this.already_spawned_this_combat = is_in_combat;
+
+      this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
       // create a random ambush with no creature type chosen, let RER pick one
       // randomly.
       createRandomCreatureAmbush(master, CreatureNONE);
 
       return true;
-    }
-
-    // this line will execute when the player is out of combat only
-    // and will reset the listener to the active state.
-    if (!is_in_combat) {
-      this.already_spawned_this_combat = false;
     }
 
     return false;

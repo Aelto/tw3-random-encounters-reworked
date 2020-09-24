@@ -161,3 +161,4 @@
 2115018159|        |option_rer_event_entersswamp_chance|Event % chance - enters swamp ambush
 2115018160|        |option_rer_event_fightnoise_chance|Event % chance - fight noise ambush
 2115018161|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
+2115018162|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again

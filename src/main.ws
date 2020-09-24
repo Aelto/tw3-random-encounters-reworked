@@ -63,7 +63,7 @@ statemachine class CRandomEncounters extends CEntity {
         .loadXMLSettingsAndShowNotification();
       
       this.events_manager
-        .loadEventsSettings();
+        .start();
 
       this.GotoState('Waiting');
     }
