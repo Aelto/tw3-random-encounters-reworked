@@ -123,9 +123,9 @@
   </section>
 
   <section id="part-2">
-    <h2>The Encounter System</h2>
+    <h2>The Event System</h2>
     <blockquote class="info">
-      What is the Encounter System and what to expect from it.
+      What is the Event System and what to expect from it.
     </blockquote>
 
     <div>
@@ -136,14 +136,13 @@
     </div>
 
     <div id="part-2-1">
-      <h3>Event - Ambush</h3>
+      <h3>Event - Blood necrophages</h3>
 
       <div>
-        <h4>What is an ambush?</h4>
+        <h4>What does it do?</h4>
         <div>
-          A monster ambush is when RER chooses a random creatures based on <a href="#part-4">external factors</a> and force
-          the monsters to target the player no matter the distance at which they were spawned.
-          Geralt is then ambushed by creatures who were created in his back so he could not see them come.
+          When Geralt is bleeding there is a chance the blood will attract necrophages and create a monster ambush
+          with necrophages only. The lower the health the higher the chances.
         </div>
       </div>
 
@@ -152,9 +151,8 @@
         <div>
           <ul>
             <li>
-              You can set at which interval an ambush appears, it is a random value picked between two delays you set in the
-              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two ambushes and also the
-              maximum delay.
+              You can change the chances for this event to trigger in the events advanced menu with the slider <span>Blood Necrophages</span>.
+              The value correspond to when you're at the lowest health possible.
             </li>
             <li>
               The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
@@ -165,33 +163,103 @@
       </div>
     </div>
 
-    <div id="part-1-2">
-      <h3>Encounter - Hunt</h3>
+    <div id="part-2-2">
+      <h3>Encounter - Bodies necrophages</h3>
 
       <div>
-        <h4>What is a hunt?</h4>
+        <h4>What does it do?</h4>
         <div>
-          A monster hunt is when RER chooses a random creatures based on <a href="#part-4">external factors</a> and force
-          the monsters to follow an invisible bait. The creatures won't target Geralt unless he gets too close, they will
-          stop following the bait for good and start attacking Geralt.
-          The creatures from monster hunts leave foot tracks on the ground. There are many types of tracks, a human will leave
-          boot prints while a spirit will create a fake fog around him.
-          It is up to you to follow the tracks and kill the creatures
+          Every remains around you that you leave untouched can attract nearby necrophages and create an ambush.
+          Make sure to clean these and drop the unwanted items in clean lootbags.
         </div>
       </div>
 
       <div>
-        <h4>The settings linked to hunts?</h4>
+        <h4>The settings linked to ambushes?</h4>
         <div>
           <ul>
             <li>
-              You can set at which interval a hunt appears, it is a random value picked between two delays you set in the
-              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two hunts and also the
-              maximum delay.
+              You can change the chances for this event to trigger in the events advanced menu with the slider <span>Bodies Necrophages</span>.
             </li>
             <li>
               The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
               you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-2-3">
+      <h3>Encounter - Enters swamp</h3>
+
+      <div>
+        <h4>What does it do?</h4>
+        <div>
+          Every time Geralt enters a swamp there is a chance the creatures living there will ambush him.
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to ambushes?</h4>
+        <div>
+          <ul>
+            <li>
+              You can change the chances for this event to trigger in the events advanced menu with the slider <span>Enters swamp</span>.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-2-4">
+      <h3>Encounter - Fight noise</h3>
+
+      <div>
+        <h4>What does it do?</h4>
+        <div>
+          A fight cannot go without noise, and the noises could attract curious nearby creatures.
+          Every time Geralt fights there is a chance the noise will attract any type of creatures who will ambush him.
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to ambushes?</h4>
+        <div>
+          <ul>
+            <li>
+              You can change the chances for this event to trigger in the events advanced menu with the slider <span>Fight noise</span>.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-2-5">
+      <h3>Encounter - Fill group of creatures</h3>
+
+      <div>
+        <h4>What does it do?</h4>
+        <div>
+          This one is different than the others, it searches for creatures around Geralt and if they're not in combat it will
+          randomly add a few creatures to the group based on their type.
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to this event?</h4>
+        <div>
+          <ul>
+            <li>
+              You can change the chances for this event to trigger in the events advanced menu with the slider <span>Fill group creatuers</span>.
             </li>
           </ul>
         </div>
@@ -200,96 +268,95 @@
   </section>
 
   <section id="part-3">
-    <h2>Updating the bootstrap registry</h2>
+    <h2>The Trophy system</h2>
     <blockquote class="info">
-      Setting up the registry so Random Encounters Reworked get started automatically
+      What is the Trophy System and what to expect from it.
     </blockquote>
 
-    <div>
-      <h3>Why do we need this?</h3>
+    <div id="part-1-1">
+      <h3>What is the trophy system?</h3>
+
       <div>
-        As i said in <a href="#part-1-1">part 1.1</a> the bootstrap mod allows RER to start every time you enter the game. But you have to tell him where to look for RER, this is what you do with the registry.
-        It may seem complicated but it's actually the simplest solution.
+        The trophy system isn't something complicated actually, RER comes with 24 new trophies it will add to every creatures
+        it spawns so Geralt can loot them and get a few crowns by selling them. The trophies do not give any advantage and are
+        supposed to be equipped, they even stack up to 24 in the inventory and weight less than a regular trophy.
       </div>
     </div>
 
     <div>
-      <h3>How to update the registry</h3>
+      <h4>The settings linked to trophies?</h4>
       <div>
-        Go into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by double clicking it. Please always take a glance at a <span>.bat</span> file before running, by doing a right-click and edit, i know you may not be a programmer but it's a good habit and this one has comments explaining it. You never know 👍
+        <ul>
+          <li>
+            You can set the chances for the creatures to drop a trophies in the <span>Trophy</span> menu.
+            Setting one to <span>100</span> means it will always drop a trophy while a <span>0</span> means it will never drop one.
+          </li>
+          <li>
+            You can also choose to play a cutscene where Geralt collects the trophy with his hunting knife whenever you end a fight
+            and there are trophies nearby. The option is in the <span>Advanced Trophy</span> menu.
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section id="part-4">
-    <h2>Adding the keyboard keybinds</h2>
+    <h2>The External Factors system</h2>
     <blockquote class="info">
-      What each keybind does and how to add them to your game
+      What is an external factor and what to expect from it.
     </blockquote>
 
     <div id="part-4-1">
-      <h3>Keybind - Trigger an encounter</h3>
+      <h3>What is the external factors system?</h3>
 
       <div>
-        <h4>What is its role?</h4>
-        <div>
-          When you press the key an encounter will be created by RER after a 5 seconds delay.
-        </div>
-      </div>
-
-      <div>
-        <h4>How to add it?</h4>
-        <div>
-          <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=RandomEncounter)</span></li>
-            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
-          </ol>
-        </div>
+        The creatures in the Witcher world all have preferences as to where they live. You don't expect to see a drowner
+        in the middle of a forest and we all know leshens prefer forests.
+        <br>
+        Everytime RER has to pick a random creature it will retrieve the chances you set in the <span>Creatures ratio</span> menu
+        and then change them according to the region Geralt is in. Here are some of the factors in the system:
+        <ul>
+          <li>a creature can dislike the region, which means its chances will be decreased</li>
+          <li>a creature can like the region, which means its chances will be increased</li>
+          <li>a creature cannot live in the region, which means its chances will be reduced to 0 no matter what</li>
+          <li>a creature can only live in the region, which means its chance will be increased. It stacks with "like region"</li>
+        </ul>
+        So everytime RER decides to increase of decrease a value it uses the <span>External factors coefficient</span> you set in
+        the <span>Main menu</span>
       </div>
     </div>
+  </section>
 
-    <div id="part-4-2">
-      <h3>Keybind - Reload the settings</h3>
+  <section id="part-4">
+    <h2>The Creatures ratios</h2>
+    <blockquote class="info">
+      What is a creature ratio and what to expect from it.
+    </blockquote>
 
-      <div>
-        <h4>What is its role?</h4>
-        <div>
-          When you change the settings you usually have to load a save for them to be applied. This keybind solves this by forcing a settings refresh without the need to load a save.
-        </div>
-      </div>
-
-      <div>
-        <h4>How to add it?</h4>
-        <div>
-          <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRefreshSettings)</span></li>
-            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <div id="part-4-3">
-      <h3>Keybind - Toggle Random Encounters Reworked</h3>
+    <div id="part-4-1">
+      <h3>What is a creature ratio?</h3>
 
       <div>
-        <h4>What is its role?</h4>
-        <div>
-          Sometimes you want to stop RER from doing its job, you can go into the mod menu and set the <span>Enabled</span> toggle to OFF. This keybind can be used to toggle it without going to the mod menu
-        </div>
-      </div>
-
-      <div>
-        <h4>How to add it?</h4>
-        <div>
-          <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRER_enabledToggle)</span></li>
-            <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
-          </ol>
-        </div>
+        Creatures ratios are not exactly percent chances of spawning. You may have seen RER handles at least thirty creatures
+        and each creature has its ratio. So if you set them all to <span>100</span> it doesn't mean they all have 100% of spawning.
+        The mod actually does the sum of the ratios from the creatures pool and then calculates the percentage from it.
+        <br>
+        Here is a example, imagine we set all the creatures to 0 to disable them except the following ones:
+        <ul>
+          <li>Wolves: we set it at 25</li>
+          <li>Bears: we set it at 50</li>
+          <li>Humans: we set it at 100</li>
+        </ul>
+        Their chances will be calculated like this
+        <ul>
+          <li>the sum of all the ratios makes <span>25 + 50 + 100 = 175</span></li>
+          <li>so the wolves ratio is <span>25 / 175 = 0.14</span>, so ~14% it is</li>
+          <li>for the bears: <span>50 / 175 = 0.28</span> ~28% for the bears</li>
+          <li>and the humans: <span>100 / 175 = 0.57</span>, ~57% for the humans</li>
+        </ul>
+        But now if you increased the wolves ratio or added a new creature to the pool, everyone else's % would decrease.
+        So if you have the Bestiary feature enabled, every time you discover a new species the previously known creatures
+        will see their chances of spawning decreased because a new one was added to the pool.
       </div>
     </div>
   </section>
