@@ -1849,7 +1849,7 @@
         </PresetsArray>
         <VisibleVars>			
             <Var id="eventSystemInterval" displayName="rer_event_system_interval" displayType="SLIDER;0;20;200"/>
-            <Var id="eventSystemICD" displayName="rer_event_system_internal_cooldown" displayType="SLIDER;0;100;1000"/>
+            <Var id="eventSystemICD" displayName="rer_event_system_internal_cooldown" displayType="SLIDER;0;300;3000"/>
 
             <Var id="eventBloodNecrophages" displayName="rer_event_bloodnecrophages_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventBodiesNecrophages" displayName="rer_event_bodiesnecrophages_chance" displayType="SLIDER;0;100;10000"/>
