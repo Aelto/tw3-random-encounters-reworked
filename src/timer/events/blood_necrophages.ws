@@ -6,35 +6,50 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
 
   var trigger_chance: float;
 
+  private var already_spawned_this_combat: bool;
+
+
   public latent function loadSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    this.trigger_chance = inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventBloodNecrophages');
+    this.trigger_chance = StringToFloat(
+      inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventBloodNecrophages')
+    );
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
     var type: CreatureType;
-    if (was_spawn_already_triggered) {
+    var is_in_combat: bool;
+
+    is_in_combat = thePlayer.IsInCombat();
+
+    // to avoid triggering more than one event per fight
+    if (is_in_combat && (was_spawn_already_triggered || this.already_spawned_this_combat)) {
+      this.already_spawned_this_combat = true;
+
       return false;
     }
 
+    // to avoid triggering this event too frequently
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
 
       return false;
     }
+    
+    this.already_spawned_this_combat = false;
 
     if (thePlayer.GetHealthPercents() < 1 && RandRangeF(100) < this.trigger_chance * delta) {
-      LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered");
       type = this.getRandomNecrophageType(master);
-      LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered type = " + type);
       createRandomCreatureAmbush(master, type);
 
       // so that we don't spawn an ambush too frequently
-      this.time_before_other_spawn += 60.0f;
+      this.time_before_other_spawn += master.events_manager.internal_cooldown;
+      
+      LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - spawn triggered type = " + type);
 
       return true;
     }

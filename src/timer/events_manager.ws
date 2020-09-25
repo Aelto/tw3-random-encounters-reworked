@@ -21,13 +21,7 @@ statemachine class RER_EventsManager extends CEntity {
     this.addListener(new RER_ListenerEntersSwamp in this);
   }
 
-  public function loadEventsSettings() {
-    var i: int;
-
-    for (i = 0; i < this.listeners.Size(); i += 1) {
-      this.listeners[i].loadSettings();
-    }
-  }
+  public var internal_cooldown: float;
 
   public var delay: float;
   public var delta: float;
@@ -35,7 +29,7 @@ statemachine class RER_EventsManager extends CEntity {
   public function start() {
     LogChannel('modRandomEncounters', "RER_EventsManager - start()");
 
-    this.delay = this.master.settings.event_system_interval; // TODO: use a slider in the menu
+    this.delay = this.master.settings.event_system_interval;
     this.delta = 1 / this.delay;
 
     // only start the system if the delay is above 0

@@ -11,8 +11,10 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    this.trigger_chance = inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroup');
+    this.trigger_chance = StringToFloat(
+      inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroup')
+    );
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
@@ -37,10 +39,13 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       
       has_duplicated_creature = duplicateRandomNearbyEntity(master);
       if (has_duplicated_creature) {
-        // so that we don't spawn an ambush too frequently
-        this.time_before_other_spawn += 60.0f;
+        this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
-        return true;
+        // NOTE: this event SHOULD return true but doesn't because it doesn't affect
+        // the other events. Other events use the "true" to know if another event
+        // spawned a creature. But as this one only add creatures that are out of
+        // combat it should not infer with the other event.
+        return false; 
       }
     }
 
@@ -68,7 +73,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy
       && ((CNewNPC)entities[i]).IsMonster()
       && ((CNewNPC)entities[i]).GetHealthPercents() >= 1
-      && !((CNewNPC)entities[i]).IfCanSeePlayer()
+      && !((CNewNPC)entities[i]).IsInCombat()
       && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
         picked_npc_list.PushBack((CNewNPC)entities[i]);
       }

@@ -11,8 +11,10 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    this.trigger_chance = inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventEntersSwamp');
+    this.trigger_chance = StringToFloat(
+      inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventEntersSwamp')
+    );
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
