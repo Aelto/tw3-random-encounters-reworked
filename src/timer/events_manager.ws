@@ -30,7 +30,7 @@ statemachine class RER_EventsManager extends CEntity {
     LogChannel('modRandomEncounters', "RER_EventsManager - start()");
 
     this.delay = this.master.settings.event_system_interval;
-    this.delta = 1 / this.delay;
+    this.delta = this.delay / this.internal_cooldown;
 
     // only start the system if the delay is above 0
     if (this.delay > 0) {
