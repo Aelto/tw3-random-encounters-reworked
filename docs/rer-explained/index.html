@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="../master.css"> -->
+  <link rel="stylesheet" href="master.css">
   <link rel="stylesheet" href="../indepth-guide/master.css">
   <title>In-depth install guide</title>
 </head>
@@ -14,12 +14,7 @@
   <section class="summary">
     <ul>
       <li>
-        <a href="#part-1">1.</a> First i explain what is <span>Encounter System</span>, what it does and doesn't do, and what to expect from it.
-        <!-- <ul>
-          <li><a href="#part-1-1">1.1.</a> modBootstrap</li>
-          <li><a href="#part-1-2">1.2.</a> SharedImports</li>
-          <li><a href="#part-1-3">1.3.</a> CommunityPatch - Base</li>
-        </ul> -->
+        <a href="#part-1">1.</a> First i explain what is the <span>Encounter System</span>, what it does and doesn't do, and what to expect from it.
       </li>
 
       <li>
@@ -357,6 +352,77 @@
         But now if you increased the wolves ratio or added a new creature to the pool, everyone else's % would decrease.
         So if you have the Bestiary feature enabled, every time you discover a new species the previously known creatures
         will see their chances of spawning decreased because a new one was added to the pool.
+      </div>
+    </div>
+  </section>
+
+  <section id="part-6">
+    <h2>Random Encounters Reworked settings</h2>
+    <blockquote class="info">
+      What settings i use and how you can tweak them too
+    </blockquote>
+
+    <div id="part-6-1">
+      <h3>Sharing my settings</h3>
+
+      <div>
+        <p>
+          Almost all the features the mod offers is linked to an option in the mod settings. So if there is something you don't like,
+          you can always disable the feature completely or tweak the settings to your liking.
+
+        </p>
+        <p>
+          This is what i did, i felt the ambushes didn't suit my Ghost Mode playthrough where i must prepare for a fight. I couldn't
+          drink my potions nor oil my swords and most of the ambushes resulted in a death for Geralt. I either had to lower the overall RER
+          difficulty or decrease the amount of ambushes. I prefer monsters who are roaming the world that i can track if i want to or ignore them
+        </p>
+        <p>
+          For this reason i changed the <span>Encounter types</span> to the following:
+          <ul>
+            <li>Monster ambush frequency to <span>5</span></li>
+            <li>Monster hunt frequency to <span>100</span></li>
+          </ul>          
+        </p>
+        <p>
+          But having only monsters hunts means we get almost no fight unless we track the creatures, i still wanted some fights from time to time.
+          So i decreased the <span>Creatures frequencies</span> to low values:
+          <ul>
+            <li>Minimum delay during the day at <span>60</span></li>
+            <li>Maximum delay during the day at <span>150</span></li>
+            <li>Minimum delay during the night at <span>50</span></li>
+            <li>Maximum delay during the night at <span>120</span></li>
+          </ul>
+          With this my world is filled with lots of creatures and often i cross the path of a wild group of creatures which results in a fight.
+          But atleast this time i had the time to prepare.
+        </p>
+        <p>
+          The default distance at which the creatures spawn were made for the ambushes in mind. So i decided to increase them a bit to prevent the
+          newly spawned creatures to meet Geralt just a few seconds after they entered the world. I then increased the <span>Advanced / Distances</span> settings:
+          <ul>
+            <li>Minimum spawn distance (in meters) at <span>40</span></li>
+            <li>Spawn diameter (in meters) at <span>120</span></li>
+            <li>Automatic kill threshold at <span>800</span></li>
+          </ul>
+        </p>
+        <p>Everything else i use the default values</p>
+      </div>
+    </div>
+
+    <div id="part-6-2">
+      <h3>Going further with the settings</h3>
+
+      <div>
+        I hope the settings i shared gave you some ideas, 
+        <p>
+          You could completely remove the monster hunts and ambushes and only use the events system, for example. It's true the mod uses both of them concurrently but
+          it doesn't mean you have to use both, the event system with increased % chances can be enough to get a world filled with monsters.
+          <br>
+          Especially with the <span>Fill group of creatures</span> event (which i love, huge thanks to <a href="https://www.nexusmods.com/users/209845">Mimicry</a> for the amazing idea).
+        </p>
+        <p>
+          You could also remove the monster hunts and greatly inrease the distances at which the ambushes spawn, you then set the Fill group of creatures event at 80%
+          and you will get ambushes by a completely random amount of creatures.
+        </p>
       </div>
     </div>
   </section>
