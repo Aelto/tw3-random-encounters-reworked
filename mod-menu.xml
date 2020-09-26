@@ -1839,11 +1839,11 @@
                 <Entry varId="eventSystemInterval"		value="0.50"	/>
                 <Entry varId="eventSystemICD"       	value="60"	/>
 
-                <Entry varId="eventBloodNecrophages"	value="0.5"	/>
-                <Entry varId="eventBodiesNecrophages"	value="1"	/>
+                <Entry varId="eventBloodNecrophages"	value="15"	/>
+                <Entry varId="eventBodiesNecrophages"	value="20"	/>
                 <Entry varId="eventEntersSwamp"	        value="10"	/>
-                <Entry varId="eventFightNoise"	        value="0.5"	/>
-                <Entry varId="eventFillCreaturesGroup"	value="2"	/>
+                <Entry varId="eventFightNoise"	        value="10"	/>
+                <Entry varId="eventFillCreaturesGroup"	value="50"	/>
 
             </Preset>
         </PresetsArray>
