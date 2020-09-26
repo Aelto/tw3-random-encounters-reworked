@@ -29,6 +29,10 @@ state Starting in RER_EventsManager {
       inGameConfigWrapper
       .GetVarValue('RERadvancedEvents', 'eventSystemICD')
     );
+
+    parent.delta = parent.delay / parent.internal_cooldown;
+
+    LogChannel('modRandomEncounters', "RER_EventsManager - delta = " + parent.delta + ", delay =" + parent.delay);
     
     parent.GotoState('Waiting');
   }
