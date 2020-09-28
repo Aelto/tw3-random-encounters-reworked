@@ -19,6 +19,8 @@ class RE_Settings {
   // and the `bool` for the value.
   public var creatures_city_spawns: array<bool>;
 
+  public var allow_big_city_spawns: bool;
+
   // controls whether or not geralt will comment
   // when an encounter appears
   public var geralt_comments_enabled: bool;
@@ -335,6 +337,10 @@ class RE_Settings {
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.allow_big_city_spawns = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'allowSpawnInBigCities');
+
+    LogChannel('modRandomEncounters', "allow big city spawns = " + this.allow_big_city_spawns);
+
     this.creatures_city_spawns[CreatureHARPY]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Harpies');
     this.creatures_city_spawns[CreatureENDREGA]    = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Endrega');
     this.creatures_city_spawns[CreatureGHOUL]      = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'Ghouls');

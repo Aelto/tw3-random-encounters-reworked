@@ -51,6 +51,10 @@ state Spawning in CRandomEncounters {
 
     return is_meditating 
         || current_zone == REZ_NOSPAWN
+        
+        || current_zone == REZ_CITY
+        && !parent.settings.allow_big_city_spawns
+
         || thePlayer.IsInInterior()
         || thePlayer.IsInCombat()
         || thePlayer.IsUsingBoat()

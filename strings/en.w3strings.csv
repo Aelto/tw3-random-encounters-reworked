@@ -83,15 +83,15 @@
 2115018081|        |option_rer_enabled|RandomEncounters Reworked enabled
 2115018082|        |option_rer_hide_notifications|Hide RER notifications
 2115018083|        |option_rer_enable_encounters_loot|Enable encounters loot
-2115018084|        |preset_Mods_rer_name_rer_city_spawns|City spawns
-2115018085|        |preset_value_rer_no_city_spawns|No city spawns
+2115018084|        |preset_Mods_rer_name_rer_city_spawns|Settlement spawns
+2115018085|        |preset_value_rer_no_city_spawns|Allow none
 2115018086|        |preset_value_rer_all_city_spawns|Allow all
 2115018087|        |preset_value_rer_no_large_creatures|No large creatures
 2115018088|        |preset_value_rer_no_small_creatures|No small creatures
 2115018089|        |option_rer_external_factors_coefficient|External factors coefficient
 2115018090|        |option_rer_monster_contract_ratio|Monster contract frequency
 2115018091|        |option_rer_monster_ambush_ratio|Monster ambush frequency
-2115018092|        |panel_rer_city_spawns|City spawns
+2115018092|        |panel_rer_city_spawns|Settlement spawns
 2115018093|        |preset_Mods_rer_name_rer_encounter_type|Encounter types
 2115018094|        |option_rer_mod_initialized|RER initialized
 2115018095|        |preset_Mods_rer_name_rer_monster_trophies|Monster trophies
@@ -163,3 +163,4 @@
 2115018161|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
 2115018162|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
 2115018163|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
+2115018164|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)

@@ -148,16 +148,8 @@ class CModRExtra {
 
   public function isPlayerInSettlement(): bool {
     var current_area : EAreaName;
-    var is_in_rer_cities: bool;
 
     current_area = theGame.GetCommonMapManager().GetCurrentArea();
-
-    is_in_rer_cities = this
-      .getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY;
-
-    if (is_in_rer_cities) {
-      return true;
-    }
 
     // the .isInSettlement() method doesn't work when is skellige
     // it always returns true.
