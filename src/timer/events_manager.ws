@@ -24,7 +24,13 @@ statemachine class RER_EventsManager extends CEntity {
   public var internal_cooldown: float;
 
   public var delay: float;
-  public var delta: float;
+
+  // this exists because i don't want the the event % chances to trigger
+  // to scale on the interval. Because it means if a player wants his events
+  // to trigger less often he has to either increase the interval or reduce 
+  // the % chances one by one. And the interval should NOT be increased unless
+  // for performance reasons. 
+  public var chance_scale: float;
   
   public function start() {
     LogChannel('modRandomEncounters', "RER_EventsManager - start()");

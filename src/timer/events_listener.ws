@@ -11,7 +11,7 @@ abstract class RER_EventsListener {
     this.loadSettings();
   }
 
-  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     // Do your thing and return if a spawn was triggered or not
 
     return was_spawn_already_triggered;

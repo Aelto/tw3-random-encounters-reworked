@@ -6,6 +6,8 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
   var trigger_chance: float;
 
+  var can_duplicate_creatures_in_combat: bool;
+
   public latent function loadSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -15,9 +17,12 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       inGameConfigWrapper
       .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroup')
     );
+
+    this.can_duplicate_creatures_in_combat = inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroupAllowCombat');
   }
 
-  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var has_duplicated_creature: bool;
     
     if (was_spawn_already_triggered) {
@@ -34,7 +39,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       return false;
     }
 
-    if (RandRangeF(100) < this.trigger_chance * delta) {
+    if (RandRangeF(100) < this.trigger_chance * chance_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
       has_duplicated_creature = duplicateRandomNearbyEntity(master);
@@ -63,7 +68,16 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     var entity_template: CEntityTemplate;
     var created_entity: CEntity;
 
-    FindGameplayEntitiesInRange( entities, thePlayer, 200, 30, , FLAG_ExcludePlayer,, 'CNewNPC' );
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      300, // radius
+      100, // max number of entities
+      , // tag
+      FLAG_Attitude_Hostile + FLAG_ExcludePlayer + FLAG_OnlyAliveActors,
+      thePlayer, // target
+      'CNewNPC'
+    );
 
     // to avoid duplicating bosses
     boss_tag = thePlayer.GetBossTag();
@@ -71,13 +85,23 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     for (i = 0; i < entities.Size(); i += 1) {
       if (((CNewNPC)entities[i])
       && ((CNewNPC)entities[i]).GetNPCType() == ENGT_Enemy
-      && ((CNewNPC)entities[i]).IsMonster()
-      && ((CNewNPC)entities[i]).GetHealthPercents() >= 1
-      && !((CNewNPC)entities[i]).IsInCombat()
+      
+      // this one removes animals like bears, wolves
+      // and also humans like bandits
+      // && ((CNewNPC)entities[i]).IsMonster()
+      
+      // if the user allows even creatures who are in combat
+      // or if the creature is not in combat
+      && (
+        this.can_duplicate_creatures_in_combat
+        || !((CNewNPC)entities[i]).IsInCombat()
+      )
       && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
         picked_npc_list.PushBack((CNewNPC)entities[i]);
       }
     }
+
+    LogChannel('modRandomEncouters', "found " + picked_npc_list.Size() + " creatures to duplicate");
 
     if (picked_npc_list.Size() == 0) {
       return false;

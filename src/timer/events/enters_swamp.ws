@@ -17,7 +17,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
     );
   }
 
-  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var is_in_swamp_now: bool;
 
     if (was_spawn_already_triggered) {
@@ -28,7 +28,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
 
     // the player is now in a swamp and was not in one last run
     // it means he just entered it this run.
-    if (is_in_swamp_now && !was_in_swamp_last_run && RandRangeF(100) < this.trigger_chance * delta) {
+    if (is_in_swamp_now && !was_in_swamp_last_run && RandRangeF(100) < this.trigger_chance * chance_scale) {
       type = this.getRandomSwampCreatureType(master);
 
       LogChannel('modRandomEncounters', "RER_ListenerEntersSwamp - swamp ambush triggered, " + type);

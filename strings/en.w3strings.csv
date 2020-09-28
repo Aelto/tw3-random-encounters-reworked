@@ -11,7 +11,7 @@
 2115018009|        |panel_Mods|Mods
 2115018010|        |panel_rer_name|Random Encounters Reworked
 2115018011|        |panel_rer_main_settings|Main settings
-2115018012|        |option_rer_city_spawn|Enable city spawns
+2115018012|        |option_rer_city_spawn|Enable settlement spawns
 2115018013|        |preset_value_rer_select_yes|Yes
 2115018014|        |preset_value_rer_select_no|No
 2115018015|        |option_rer_difficulty|Encounters difficulty (affects mostly enemy count)
@@ -162,3 +162,4 @@
 2115018160|        |option_rer_event_fightnoise_chance|Event % chance - fight noise ambush
 2115018161|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
 2115018162|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
+2115018163|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat

@@ -20,7 +20,7 @@ class RER_ListenerFightNoise extends RER_EventsListener {
     );
   }
 
-  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var is_in_combat: bool;
 
     is_in_combat = thePlayer.IsInCombat();
@@ -41,7 +41,7 @@ class RER_ListenerFightNoise extends RER_EventsListener {
 
     this.already_spawned_this_combat = false;
 
-    if (is_in_combat && RandRangeF(100) < this.trigger_chance * delta) {
+    if (is_in_combat && RandRangeF(100) < this.trigger_chance * chance_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerFightNoise - triggered");
       
       // we disable it for the fight so it doesn't spawn non-stop

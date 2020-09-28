@@ -33,7 +33,7 @@ state ListeningForEvents in RER_EventsManager {
       }
 
       was_spawn_already_triggered = listener
-        .onInterval(was_spawn_already_triggered, parent.master, parent.delta) || was_spawn_already_triggered;
+        .onInterval(was_spawn_already_triggered, parent.master, parent.delay, parent.chance_scale) || was_spawn_already_triggered;
     }
 
     LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening finished");

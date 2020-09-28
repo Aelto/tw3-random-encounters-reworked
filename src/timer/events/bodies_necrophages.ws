@@ -19,7 +19,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
     );
   }
 
-  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var type: CreatureType;
 
     var is_in_combat: bool;
@@ -42,7 +42,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
     
     this.already_spawned_this_combat = false;
 
-    if (this.areThereRemainsNearby() && RandRangeF(100) < this.trigger_chance * delta) {
+    if (this.areThereRemainsNearby() && RandRangeF(100) < this.trigger_chance * chance_scale) {
       type = this.getRandomNecrophageType(master);
       createRandomCreatureAmbush(master, type);
 

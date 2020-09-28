@@ -20,7 +20,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     );
   }
 
-  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float): bool {
+  public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var type: CreatureType;
     var is_in_combat: bool;
     var health_missing_perc: float;
@@ -47,7 +47,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     // the lower the health the higher the chances.
     health_missing_perc = 1 - thePlayer.GetHealthPercents();
 
-    if (RandRangeF(100) < this.trigger_chance * delta * health_missing_perc) {
+    if (RandRangeF(100) < this.trigger_chance * chance_scale * health_missing_perc) {
       type = this.getRandomNecrophageType(master);
       createRandomCreatureAmbush(master, type);
 

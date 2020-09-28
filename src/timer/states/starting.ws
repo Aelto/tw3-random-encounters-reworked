@@ -30,9 +30,9 @@ state Starting in RER_EventsManager {
       .GetVarValue('RERadvancedEvents', 'eventSystemICD')
     );
 
-    parent.delta = parent.delay / parent.internal_cooldown;
+    parent.chance_scale = parent.delay / parent.internal_cooldown;
 
-    LogChannel('modRandomEncounters', "RER_EventsManager - delta = " + parent.delta + ", delay =" + parent.delay);
+    LogChannel('modRandomEncounters', "RER_EventsManager - chance_scale = " + parent.chance_scale + ", delay =" + parent.delay);
     
     parent.GotoState('Waiting');
   }
