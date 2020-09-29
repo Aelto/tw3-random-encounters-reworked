@@ -85,9 +85,7 @@ class RE_Resources {
     this.creatures_resources[CreatureFORKTAIL] = re_forktail();
     this.creatures_resources[CreatureWYVERN] = re_wyvern();
     this.creatures_resources[CreatureCOCKATRICE] = re_cockatrice();
-    //cockatricef = re_cockatricef();
     this.creatures_resources[CreatureBASILISK] = re_basilisk();
-    //basiliskf = re_basiliskf();
     this.creatures_resources[CreatureFIEND] = re_fiend();
     this.creatures_resources[CreatureCHORT] = re_chort();
     this.creatures_resources[CreatureENDREGA] = re_endrega();
@@ -124,6 +122,12 @@ class RE_Resources {
     this.creatures_resources[CreatureSKELTROLL] = re_skeltroll();
     this.creatures_resources[CreatureSKELBEAR] = re_skelbear();
     this.creatures_resources[CreatureSKELWOLF] = re_skelwolf();
+
+    this.creatures_resources[CreatureDRACOLIZARD] = re_dracolizard();
+    this.creatures_resources[CreatureBERSERKER] = re_berserker();
+    this.creatures_resources[CreatureGARGOYLE] = re_gargoyle();
+    this.creatures_resources[CreatureSIREN] = re_siren();
+    
 
     // whh = re_whh();
     this.creatures_resources[CreatureWILDHUNT] = re_wildhunt();

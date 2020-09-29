@@ -506,10 +506,10 @@
                 <Entry varId="Wolves"				value="25"	/>
                 <Entry varId="Wraiths"				value="25"	/>
                 <Entry varId="Bears"				value="25"	/>
-                <Entry varId="Berserkers"			value="25"	/>
                 <Entry varId="Harpies"				value="25"	/>
                 <Entry varId="Sirens"				value="25"	/>
                 <Entry varId="Endrega"				value="25"	/>
+                <Entry varId="Berserkers"			value="20"	/>
                 <Entry varId="Alghouls"				value="20"	/>
                 <Entry varId="Arachas"				value="20"	/>
                 <Entry varId="Kikimore"				value="20"	/>
@@ -1791,7 +1791,7 @@
 
             <Var id="Sirens" displayName="rer_sirens" displayType="SLIDER;0;100;100" />
 
-            <Var id="Berserker" displayName="rer_berserkers" displayType="SLIDER;0;100;100" />
+            <Var id="Berserkers" displayName="rer_berserkers" displayType="SLIDER;0;100;100" />
 
             <Var id="Leshens" displayName="rer_leshen" displayType="SLIDER;0;100;100" />
             

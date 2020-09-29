@@ -363,7 +363,7 @@ function getTrophyName(trophy: RER_Trophy, trophy_price: TrophyVariant): name {
     }
   }
 
-  if (trophy == Trophy_WYVERN) {
+  if (trophy == Trophy_DRACOLIZARD) {
     if (trophy_price == TrophyVariant_PRICE_HIGH) {
       return 'modrer_dracolizard_trophy_high';
     }

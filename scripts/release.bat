@@ -1,3 +1,8 @@
+:: update the /release directory with:
+:: - the mod menu in /release/bin
+:: - the mod DLC in /release/dlc
+:: - the mod content in /release/mod
+
 call variables.cmd
 call bundle.bat
 call encode-csv-strings.bat
