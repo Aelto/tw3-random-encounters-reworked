@@ -362,6 +362,18 @@ function getTrophyName(trophy: RER_Trophy, trophy_price: TrophyVariant): name {
       return 'modrer_basilisk_trophy_low';
     }
   }
+
+  if (trophy == Trophy_WYVERN) {
+    if (trophy_price == TrophyVariant_PRICE_HIGH) {
+      return 'modrer_dracolizard_trophy_high';
+    }
+    else if (trophy_price == TrophyVariant_PRICE_MEDIUM) {
+      return 'modrer_dracolizard_trophy_medium';
+    }
+    else {
+      return 'modrer_dracolizard_trophy_low';
+    }
+  }
   
   if (trophy == Trophy_WYVERN) {
     if (trophy_price == TrophyVariant_PRICE_HIGH) {

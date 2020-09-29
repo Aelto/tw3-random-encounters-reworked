@@ -215,30 +215,6 @@ class CModRExtra {
     return spawn_roller.rollHumansVariants();
   }
 
-  // TODO: create a better way to declare all this
-  // I imagine a struct like this:
-  //
-  // struct CreatureSpawnFactor {
-  //   var creature: CreatureType;
-  //
-  //   // if set only spawn in the region, and is affected
-  //   // by the external coefficient if it is.
-  //   var region: string; 
-  //
-  //   var only_forest: bool;
-  //   var only_water: bool;
-  //   var only_swamp: bool;
-  //
-  //   var like_forect: bool;
-  //   var like_water: bool;
-  //   var like_swamp: bool;
-  //   
-  //   var no_prolog: bool;
-  // }
-  // 
-  // but filling such a struct for every creature
-  // will result in longer but clearer code.
-  // Maybe make a builder?
   public latent function getRandomCreatureByCurrentArea(out settings: RE_Settings, out spawn_roller: SpawnRoller, out resources: RE_Resources): CreatureType {
     var is_in_forest: bool;
     var is_near_water: bool;
@@ -275,6 +251,7 @@ class CModRExtra {
     if (current_area != "skellige") {
       spawn_roller.setCreatureCounter(CreatureSKELWOLF, 0);
       spawn_roller.setCreatureCounter(CreatureSKELBEAR, 0);
+      spawn_roller.setCreatureCounter(CreatureBERSERKER, 0);
       spawn_roller.setCreatureCounter(CreatureSKELTROLL, 0);
     }
     else {
@@ -293,6 +270,12 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureSKELTROLL,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
+        CreatureBERSERKER,
         settings
       );
     }
@@ -380,6 +363,12 @@ class CModRExtra {
         settings
       );
 
+      this.applyCoefficientToCreatureDivide(
+        spawn_roller,
+        CreatureDRACOLIZARD,
+        settings
+      );
+
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureBASILISK,
@@ -423,6 +412,12 @@ class CModRExtra {
 
       this.applyCoefficientToCreature(
         spawn_roller,
+        CreatureSIREN,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
         CreatureDROWNER,
         settings
       );
@@ -440,6 +435,12 @@ class CModRExtra {
       this.applyCoefficientToCreature(
         spawn_roller,
         CreatureHARPY,
+        settings
+      );
+
+      this.applyCoefficientToCreatureDivide(
+        spawn_roller,
+        CreatureSIREN,
         settings
       );
 
@@ -503,6 +504,12 @@ class CModRExtra {
 
       this.applyCoefficientToCreature(
         spawn_roller,
+        CreatureDRACOLIZARD,
+        settings
+      );
+
+      this.applyCoefficientToCreature(
+        spawn_roller,
         CreatureFORKTAIL,
         settings
       );
@@ -545,7 +552,7 @@ class CModRExtra {
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
     // when a creature is set to NO in the city spawn menu, 
     // we remove it from the spawning pool.
-    if (this.isPlayerInSettlement()) {
+    if (this.isPlayerInSettlement() || this.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY) {
       LogChannel('modRandomEncounters', "player in settlement, removing city spawns");
 
       for (i = 0; i < CreatureMAX; i += 1) {

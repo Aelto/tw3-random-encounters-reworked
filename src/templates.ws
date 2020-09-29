@@ -283,15 +283,26 @@ function re_wyvern() : EnemyTemplateList {
       "gameplay\journal\bestiary\bestiarywyvern.journal"
     )
   );
-  
-  if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
-    enemy_template_list.templates.PushBack(
-      makeEnemyTemplate(
-        "dlc\bob\data\characters\npc_entities\monsters\oszluzg_young.w2ent",,,
-        "dlc\bob\journal\bestiary\dracolizard.journal" // TODO: confirm journal
-      )
-    );
-  }
+
+  enemy_template_list.difficulty_factor.minimum_count_easy = 1;
+  enemy_template_list.difficulty_factor.maximum_count_easy = 1;
+  enemy_template_list.difficulty_factor.minimum_count_medium = 1;
+  enemy_template_list.difficulty_factor.maximum_count_medium = 1;
+  enemy_template_list.difficulty_factor.minimum_count_hard = 1;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 1;
+
+  return enemy_template_list;
+}
+
+function re_dracolizard() : EnemyTemplateList {
+  var enemy_template_list: EnemyTemplateList;
+
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\oszluzg_young.w2ent",,,
+      "dlc\bob\journal\bestiary\dracolizard.journal"
+    )
+  );
 
   enemy_template_list.difficulty_factor.minimum_count_easy = 1;
   enemy_template_list.difficulty_factor.maximum_count_easy = 1;
@@ -663,6 +674,7 @@ function re_cyclop() : EnemyTemplateList {
       "gameplay\journal\bestiary\cyclops.journal"
     )
   );
+
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
       "characters\npc_entities\monsters\ice_giant.w2ent",,,
@@ -865,6 +877,26 @@ function re_bear() : EnemyTemplateList {
   return enemy_template_list;
 }
 
+function re_berserker() : EnemyTemplateList {
+  var enemy_template_list: EnemyTemplateList;
+
+  enemy_template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\bear_berserker_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bear.journal"
+    )
+  );
+
+  enemy_template_list.difficulty_factor.minimum_count_easy = 1;
+  enemy_template_list.difficulty_factor.maximum_count_easy = 1;
+  enemy_template_list.difficulty_factor.minimum_count_medium = 1;
+  enemy_template_list.difficulty_factor.maximum_count_medium = 1;
+  enemy_template_list.difficulty_factor.minimum_count_hard = 1;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 2;
+
+  return enemy_template_list;
+}
+
 function re_skelbear() : EnemyTemplateList {
   var enemy_template_list: EnemyTemplateList;
 
@@ -906,6 +938,20 @@ function re_golem() : EnemyTemplateList {
       "gameplay\journal\bestiary\bestiarygolem.journal"
     )
   );          // weird yellowish golem
+
+  enemy_template_list.difficulty_factor.minimum_count_easy = 1;
+  enemy_template_list.difficulty_factor.maximum_count_easy = 1;
+  enemy_template_list.difficulty_factor.minimum_count_medium = 1;
+  enemy_template_list.difficulty_factor.maximum_count_medium = 1;
+  enemy_template_list.difficulty_factor.minimum_count_hard = 1;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 1;
+
+  return enemy_template_list;
+}
+
+function re_gargoyle() : EnemyTemplateList {
+  var enemy_template_list: EnemyTemplateList;
+
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
       "gameplay\templates\monsters\gargoyle_lvl1_lvl25.w2ent",,,
@@ -1194,25 +1240,39 @@ function re_harpy() : EnemyTemplateList {
       "characters\npc_entities\monsters\harpy_lvl1.w2ent",,,
       "gameplay\journal\bestiary\harpy.journal"
     )
-  );        // harpy
+  );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
       "characters\npc_entities\monsters\harpy_lvl2.w2ent",,,
       "gameplay\journal\bestiary\harpy.journal"
     )
-  );        // harpy
+  );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
       "characters\npc_entities\monsters\harpy_lvl2_customize.w2ent",,,
       "gameplay\journal\bestiary\harpy.journal"
     )
-  );    // harpy
+  );
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
       "characters\npc_entities\monsters\harpy_lvl3__erynia.w2ent", 1,,
       "gameplay\journal\bestiary\erynia.journal"
     )
-  );    // harpy
+  );
+
+  enemy_template_list.difficulty_factor.minimum_count_easy = 3;
+  enemy_template_list.difficulty_factor.maximum_count_easy = 4;
+  enemy_template_list.difficulty_factor.minimum_count_medium = 4;
+  enemy_template_list.difficulty_factor.maximum_count_medium = 5;
+  enemy_template_list.difficulty_factor.minimum_count_hard = 5;
+  enemy_template_list.difficulty_factor.maximum_count_hard = 7;
+  
+  return enemy_template_list;
+}
+
+function re_siren() : EnemyTemplateList {
+  var enemy_template_list: EnemyTemplateList;
+
   enemy_template_list.templates.PushBack(
     makeEnemyTemplate(
       "characters\npc_entities\monsters\siren_lvl1.w2ent", 1,,

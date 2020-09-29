@@ -203,6 +203,7 @@ class RE_Resources {
         return getTrophyName(Trophy_WRAITH, trophy_price);
         break;
       case CreatureHARPY:
+      case CreatureSIREN:
         return getTrophyName(Trophy_HARPY, trophy_price);
         break;
       case CreatureBARGHEST:
@@ -212,6 +213,7 @@ class RE_Resources {
       case CreatureWOLF:
       case CreatureBOAR:
       case CreatureBEAR:
+      case CreatureBERSERKER:
       case CreaturePANTHER:
       case CreatureSKELWOLF:
       case CreatureSKELBEAR:
@@ -237,6 +239,7 @@ class RE_Resources {
         break;
       case CreatureGOLEM:
       case CreatureELEMENTAL:
+      case CreatureGARGOYLE:
         return getTrophyName(Trophy_ELEMENTAL, trophy_price);
         break;
       case CreatureNIGHTWRAITH:
@@ -294,6 +297,9 @@ class RE_Resources {
         break;
       case CreatureFORKTAIL:
         return getTrophyName(Trophy_FORKTAIL, trophy_price);
+        break;
+      case CreatureDRACOLIZARD:
+        return getTrophyName(Trophy_DRACOLIZARD, trophy_price);
         break;
     }
   }
