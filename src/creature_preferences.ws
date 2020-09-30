@@ -7,12 +7,14 @@ enum RER_Biome {
 
 enum RER_RegionConstraint {
   RER_RegionConstraint_NONE = 0,
-  RER_RegionConstraint_ONLY_VELEN = 1,
-  RER_RegionConstraint_ONLY_SKELLIGE = 2,
-  RER_RegionConstraint_ONLY_TOUSSAINT = 3,
-  RER_RegionConstraint_NO_VELEN = 4,
-  RER_RegionConstraint_NO_SKELLIGE = 5,
-  RER_RegionConstraint_NO_TOUSSAINT = 6,
+  RER_RegionConstraint_ONLY_WHITEORCHARD = 1,
+  RER_RegionConstraint_ONLY_VELEN = 2,
+  RER_RegionConstraint_ONLY_SKELLIGE = 3,
+  RER_RegionConstraint_ONLY_TOUSSAINT = 4,
+  RER_RegionConstraint_NO_WHITEORCHARD = 5,
+  RER_RegionConstraint_NO_VELEN = 6,
+  RER_RegionConstraint_NO_SKELLIGE = 7,
+  RER_RegionConstraint_NO_TOUSSAINT = 8
 }
 
 class RER_CreaturePreferences {
@@ -147,21 +149,19 @@ class RER_CreaturePreferences {
 
     can_spawn = true;
 
-    // if (this.region_constraint == RER_RegionConstraint_NONE) {
-    //   can_spawn = true;
-    // }
-    // else {
-      if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (this.current_region == "no_mans_land" || this.current_region == "prolog_village" || this.current_region == "novigrad")
-      ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (this.current_region == "skellige" || this.current_region == "kaer_morhen")
-      ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && this.current_region == "bob"
-      ||  this.region_constraint == RER_RegionConstraint_ONLY_TOUSSAINT && this.current_region != "bob"
-      ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && this.current_region != "skellige" && this.current_region != "kaer_morhen"
-      ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && this.current_region != "no_mans_land" && this.current_region != "prolog_village" && this.current_region != "novigrad") {
-        LogChannel('modRandomEncounters', "creature removed from region constraints, at " + this.region_constraint + " and current region = " + this.current_region + " for " + this.creature_type);
 
-        can_spawn = false;
-      }
-    // }
+    if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (this.current_region == "no_mans_land" || this.current_region == "novigrad")
+    ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (this.current_region == "skellige" || this.current_region == "kaer_morhen")
+    ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && this.current_region == "bob"
+    ||  this.region_constraint == RER_RegionConstraint_NO_WHITEORCHARD && this.current_region == "prolog_village"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_TOUSSAINT && this.current_region != "bob"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && this.current_region != "prolog_village"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && this.current_region != "skellige" && this.current_region != "kaer_morhen"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && this.current_region != "no_mans_land" && this.current_region != "novigrad") {
+      LogChannel('modRandomEncounters', "creature removed from region constraints, at " + this.region_constraint + " and current region = " + this.current_region + " for " + this.creature_type);
+
+      can_spawn = false;
+    }
 
     if (!can_spawn) {
       return 0;

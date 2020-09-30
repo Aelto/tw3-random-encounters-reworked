@@ -1636,62 +1636,62 @@
     <Group id="RER_RegionConstraints" displayName="Mods.rer_name.rer_region_constraints">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="Hags"					value="4"	/>
-                <Entry varId="Fogling"				value="4"	/>
-                <Entry varId="Troll"				value="4"	/>
-                <Entry varId="SkelligeTroll"		value="2"	/>
+                <Entry varId="Hags"					value="5"	/>
+                <Entry varId="Fogling"				value="5"	/>
+                <Entry varId="Troll"				value="5"	/>
+                <Entry varId="SkelligeTroll"		value="3"	/>
                 <Entry varId="Werewolves"			value="0"	/>
-                <Entry varId="Fiends"				value="4"	/>
-                <Entry varId="Chorts"				value="4"	/>
+                <Entry varId="Fiends"				value="5"	/>
+                <Entry varId="Chorts"				value="5"	/>
                 <Entry varId="Gryphons"             value="0"  />
-                <Entry varId="Cockatrice"           value="4"  />
-                <Entry varId="Dracolizards"         value="3"  />
-                <Entry varId="Wyverns"              value="4"  />
-                <Entry varId="Forktails"            value="4"  />
-                <Entry varId="Basilisk"             value="4"  />
+                <Entry varId="Cockatrice"           value="5"  />
+                <Entry varId="Dracolizards"         value="4"  />
+                <Entry varId="Wyverns"              value="5"  />
+                <Entry varId="Forktails"            value="5"  />
+                <Entry varId="Basilisk"             value="5"  />
                 <Entry varId="NightWraiths"			value="0"	/>
-                <Entry varId="Wight"				value="3"	/>
+                <Entry varId="Wight"				value="4"	/>
                 <Entry varId="NoonWraiths"			value="0"	/>
-                <Entry varId="Katakan"              value="4"  />
-                <Entry varId="Ekimmara"             value="4"  />
-                <Entry varId="Leshens"				value="4"	/>
-                <Entry varId="Giant"				value="4"	/>
-                <Entry varId="Sharley"				value="3"	/>
-                <Entry varId="Cyclops"				value="4"	/>
-                <Entry varId="Golems"				value="4"	/>
-                <Entry varId="Gargoyles"			value="4"	/>
-                <Entry varId="Elementals"			value="4"	/>
-                <Entry varId="HigherVamp"			value="3"	/>
-                <Entry varId="Bruxa"				value="3"	/>
-                <Entry varId="Fleder"				value="3"	/>
-                <Entry varId="Garkain"				value="3"	/>
+                <Entry varId="Katakan"              value="5"  />
+                <Entry varId="Ekimmara"             value="5"  />
+                <Entry varId="Leshens"				value="5"	/>
+                <Entry varId="Giant"				value="5"	/>
+                <Entry varId="Sharley"				value="4"	/>
+                <Entry varId="Cyclops"				value="5"	/>
+                <Entry varId="Golems"				value="5"	/>
+                <Entry varId="Gargoyles"			value="5"	/>
+                <Entry varId="Elementals"			value="5"	/>
+                <Entry varId="HigherVamp"			value="4"	/>
+                <Entry varId="Bruxa"				value="4"	/>
+                <Entry varId="Fleder"				value="4"	/>
+                <Entry varId="Garkain"				value="4"	/>
 
                 <Entry varId="Humans"               value="0"  />
                 <Entry varId="Nekkers"				value="0"	/>
                 <Entry varId="Drowners"				value="0"	/>
-                <Entry varId="DrownerDLC"			value="3"	/>
+                <Entry varId="DrownerDLC"			value="4"	/>
                 <Entry varId="Ghouls"				value="0"	/>
                 <Entry varId="Rotfiends"			value="0"	/>
                 <Entry varId="Wolves"				value="0"	/>
-                <Entry varId="SkelligeWolves"		value="2"	/>
+                <Entry varId="SkelligeWolves"		value="3"	/>
                 <Entry varId="Wraiths"				value="0"	/>
                 <Entry varId="Bears"				value="0"	/>
-                <Entry varId="SkelligeBears"		value="2"	/>
-                <Entry varId="Berserkers"			value="2"	/>
+                <Entry varId="SkelligeBears"		value="3"	/>
+                <Entry varId="Berserkers"			value="3"	/>
                 <Entry varId="Harpies"				value="0"	/>
                 <Entry varId="Sirens"				value="0"	/>
-                <Entry varId="Endrega"				value="4"	/>
-                <Entry varId="Alghouls"				value="4"	/>
-                <Entry varId="Arachas"				value="4"	/>
-                <Entry varId="Kikimore"				value="4"	/>
-                <Entry varId="Echinops"				value="3"	/>
-                <Entry varId="Centipede"			value="3"	/>
-                <Entry varId="Spiders"				value="3"	/>
-                <Entry varId="Boars"				value="3"	/>
-                <Entry varId="Panther"				value="3"	/>
-                <Entry varId="Barghest"				value="3"	/>
-                <Entry varId="Skeleton"				value="3"	/>
-                <Entry varId="WildHunt"             value="4"  />
+                <Entry varId="Endrega"				value="5"	/>
+                <Entry varId="Alghouls"				value="5"	/>
+                <Entry varId="Arachas"				value="5"	/>
+                <Entry varId="Kikimore"				value="5"	/>
+                <Entry varId="Echinops"				value="4"	/>
+                <Entry varId="Centipede"			value="4"	/>
+                <Entry varId="Spiders"				value="4"	/>
+                <Entry varId="Boars"				value="4"	/>
+                <Entry varId="Panther"				value="4"	/>
+                <Entry varId="Barghest"				value="4"	/>
+                <Entry varId="Skeleton"				value="4"	/>
+                <Entry varId="WildHunt"             value="5"  />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -1700,23 +1700,29 @@
 					<Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Sirens" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Sirens" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Sirens" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Sirens" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Sirens" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Sirens" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Sirens" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Sirens" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Sirens" value="8"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -1726,23 +1732,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Berserkers" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Berserkers" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Berserkers" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Berserkers" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Berserkers" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Berserkers" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Berserkers" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Berserkers" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Berserkers" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1752,23 +1764,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Gargoyles" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Gargoyles" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Gargoyles" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Gargoyles" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Gargoyles" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Gargoyles" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Gargoyles" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Gargoyles" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Gargoyles" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1778,23 +1796,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Dracolizards" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Dracolizards" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Dracolizards" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Dracolizards" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Dracolizards" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Dracolizards" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Dracolizards" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Dracolizards" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Dracolizards" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1804,23 +1828,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Leshens" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Leshens" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Leshens" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Leshens" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Leshens" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Leshens" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Leshens" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Leshens" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Leshens" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1830,23 +1860,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Werewolves" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Werewolves" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Werewolves" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Werewolves" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Werewolves" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Werewolves" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Werewolves" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Werewolves" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Werewolves" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1856,23 +1892,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Cyclops" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Cyclops" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Cyclops" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Cyclops" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Cyclops" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Cyclops" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Cyclops" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Cyclops" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Cyclops" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1882,23 +1924,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Arachas" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Arachas" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Arachas" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Arachas" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Arachas" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Arachas" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Arachas" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Arachas" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Arachas" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1908,23 +1956,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Fiends" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Fiends" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Fiends" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Fiends" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Fiends" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Fiends" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Fiends" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Fiends" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Fiends" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1934,23 +1988,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Chorts" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Chorts" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Chorts" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Chorts" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Chorts" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Chorts" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Chorts" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Chorts" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Chorts" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1960,23 +2020,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="SkelligeBears" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="SkelligeBears" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="SkelligeBears" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="SkelligeBears" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="SkelligeBears" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="SkelligeBears" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="SkelligeBears" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="SkelligeBears" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="SkelligeBears" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -1986,23 +2052,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Bears" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Bears" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Bears" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Bears" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Bears" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Bears" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Bears" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Bears" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Bears" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2012,23 +2084,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Golems" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Golems" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Golems" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Golems" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Golems" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Golems" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Golems" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Golems" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Golems" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2038,23 +2116,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Elementals" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Elementals" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Elementals" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Elementals" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Elementals" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Elementals" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Elementals" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Elementals" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Elementals" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2064,23 +2148,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="NightWraiths" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="NightWraiths" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="NightWraiths" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="NightWraiths" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="NightWraiths" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="NightWraiths" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="NightWraiths" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="NightWraiths" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="NightWraiths" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2090,23 +2180,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="NoonWraiths" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="NoonWraiths" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="NoonWraiths" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="NoonWraiths" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="NoonWraiths" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="NoonWraiths" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="NoonWraiths" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="NoonWraiths" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="NoonWraiths" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2116,23 +2212,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Troll" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Troll" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Troll" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Troll" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Troll" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Troll" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Troll" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Troll" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Troll" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2142,23 +2244,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="SkelligeTroll" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="SkelligeTroll" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="SkelligeTroll" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="SkelligeTroll" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="SkelligeTroll" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="SkelligeTroll" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="SkelligeTroll" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="SkelligeTroll" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="SkelligeTroll" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2168,23 +2276,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Hags" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Hags" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Hags" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Hags" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Hags" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Hags" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Hags" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Hags" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Hags" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2194,23 +2308,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Harpies" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Harpies" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Harpies" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Harpies" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Harpies" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Harpies" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Harpies" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Harpies" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Harpies" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2220,23 +2340,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Fogling" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Fogling" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Fogling" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Fogling" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Fogling" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Fogling" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Fogling" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Fogling" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Fogling" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2246,23 +2372,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Endrega" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Endrega" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Endrega" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Endrega" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Endrega" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Endrega" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Endrega" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Endrega" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Endrega" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2272,23 +2404,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Ghouls" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Ghouls" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Ghouls" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Ghouls" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Ghouls" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Ghouls" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Ghouls" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Ghouls" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Ghouls" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2298,23 +2436,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Alghouls" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Alghouls" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Alghouls" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Alghouls" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Alghouls" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Alghouls" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Alghouls" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Alghouls" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Alghouls" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2324,23 +2468,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Nekkers" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Nekkers" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Nekkers" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Nekkers" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Nekkers" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Nekkers" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Nekkers" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Nekkers" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Nekkers" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2350,23 +2500,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Drowners" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Drowners" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Drowners" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Drowners" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Drowners" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Drowners" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Drowners" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Drowners" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Drowners" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2376,23 +2532,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Rotfiends" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Rotfiends" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Rotfiends" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Rotfiends" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Rotfiends" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Rotfiends" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Rotfiends" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Rotfiends" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Rotfiends" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2402,23 +2564,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Wolves" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Wolves" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wolves" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Wolves" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Wolves" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Wolves" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Wolves" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wolves" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wolves" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2428,23 +2596,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="SkelligeWolves" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="SkelligeWolves" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="SkelligeWolves" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="SkelligeWolves" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="SkelligeWolves" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="SkelligeWolves" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="SkelligeWolves" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="SkelligeWolves" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="SkelligeWolves" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2454,23 +2628,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Wraiths" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Wraiths" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wraiths" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Wraiths" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Wraiths" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Wraiths" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Wraiths" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wraiths" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wraiths" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2480,23 +2660,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Spiders" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Spiders" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Spiders" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Spiders" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Spiders" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Spiders" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Spiders" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Spiders" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Spiders" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2506,23 +2692,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Boars" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Boars" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Boars" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Boars" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Boars" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Boars" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Boars" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Boars" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Boars" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2532,23 +2724,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="HigherVamp" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="HigherVamp" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="HigherVamp" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="HigherVamp" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="HigherVamp" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="HigherVamp" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="HigherVamp" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="HigherVamp" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="HigherVamp" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2558,23 +2756,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Bruxa" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Bruxa" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Bruxa" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Bruxa" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Bruxa" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Bruxa" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Bruxa" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Bruxa" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Bruxa" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2584,23 +2788,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Fleder" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Fleder" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Fleder" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Fleder" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Fleder" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Fleder" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Fleder" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Fleder" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Fleder" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2610,23 +2820,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Garkain" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Garkain" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Garkain" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Garkain" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Garkain" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Garkain" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Garkain" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Garkain" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Garkain" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2636,23 +2852,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="DrownerDLC" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="DrownerDLC" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="DrownerDLC" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="DrownerDLC" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="DrownerDLC" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="DrownerDLC" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="DrownerDLC" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="DrownerDLC" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="DrownerDLC" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2662,23 +2884,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Giant" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Giant" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Giant" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Giant" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Giant" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Giant" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Giant" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Giant" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Giant" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2688,23 +2916,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Skeleton" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Skeleton" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Skeleton" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Skeleton" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Skeleton" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Skeleton" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Skeleton" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Skeleton" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Skeleton" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2714,23 +2948,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Barghest" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Barghest" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Barghest" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Barghest" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Barghest" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Barghest" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Barghest" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Barghest" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Barghest" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2740,23 +2980,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Echinops" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Echinops" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Echinops" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Echinops" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Echinops" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Echinops" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Echinops" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Echinops" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Echinops" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2766,23 +3012,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Centipede" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Centipede" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Centipede" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Centipede" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Centipede" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Centipede" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Centipede" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Centipede" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Centipede" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2792,23 +3044,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Kikimore" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Kikimore" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Kikimore" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Kikimore" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Kikimore" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Kikimore" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Kikimore" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Kikimore" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Kikimore" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2818,23 +3076,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Panther" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Panther" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Panther" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Panther" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Panther" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Panther" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Panther" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Panther" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Panther" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2844,23 +3108,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Sharley" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Sharley" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Sharley" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Sharley" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Sharley" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Sharley" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Sharley" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Sharley" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Sharley" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2870,23 +3140,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Wight" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Wight" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wight" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Wight" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Wight" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Wight" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Wight" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wight" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wight" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2896,23 +3172,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Humans" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Humans" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Humans" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Humans" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Humans" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Humans" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Humans" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Humans" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Humans" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2922,23 +3204,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="WildHunt" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="WildHunt" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="WildHunt" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="WildHunt" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="WildHunt" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="WildHunt" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="WildHunt" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="WildHunt" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="WildHunt" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2948,23 +3236,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Gryphons" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Gryphons" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Gryphons" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Gryphons" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Gryphons" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Gryphons" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Gryphons" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Gryphons" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Gryphons" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -2974,23 +3268,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Cockatrice" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Cockatrice" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Cockatrice" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Cockatrice" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Cockatrice" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Cockatrice" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Cockatrice" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Cockatrice" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Cockatrice" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -3000,23 +3300,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Wyverns" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Wyverns" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wyverns" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Wyverns" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Wyverns" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Wyverns" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Wyverns" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wyverns" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wyverns" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -3026,23 +3332,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Forktails" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Forktails" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Forktails" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Forktails" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Forktails" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Forktails" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Forktails" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Forktails" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Forktails" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -3052,23 +3364,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Basilisk" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Basilisk" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Basilisk" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Basilisk" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Basilisk" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Basilisk" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Basilisk" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Basilisk" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Basilisk" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -3078,23 +3396,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Katakan" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Katakan" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Katakan" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Katakan" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Katakan" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Katakan" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Katakan" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Katakan" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Katakan" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>
@@ -3104,23 +3428,29 @@
                     <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="Ekimmara" value="0"/>
 					</Option>
-					<Option id="1" displayName="rer_region_constraint_only_velen">
+					<Option id="1" displayName="rer_region_constraint_only_whiteorchard">
 						<Entry varId="Ekimmara" value="1"/>
 					</Option>
-                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+                    <Option id="2" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Ekimmara" value="2"/>
 					</Option>
-                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+                    <Option id="3" displayName="rer_region_constraint_only_skellige">
 						<Entry varId="Ekimmara" value="3"/>
 					</Option>
-                    <Option id="4" displayName="rer_region_constraint_no_velen">
+                    <Option id="4" displayName="rer_region_constraint_only_toussaint">
 						<Entry varId="Ekimmara" value="4"/>
 					</Option>
-                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+                    <Option id="5" displayName="rer_region_constraint_no_whiteorchard">
 						<Entry varId="Ekimmara" value="5"/>
 					</Option>
-                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+                    <Option id="6" displayName="rer_region_constraint_no_velen">
 						<Entry varId="Ekimmara" value="6"/>
+					</Option>
+                    <Option id="7" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Ekimmara" value="7"/>
+					</Option>
+                    <Option id="8" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Ekimmara" value="8"/>
 					</Option>
                 </OptionsArray>
             </Var>

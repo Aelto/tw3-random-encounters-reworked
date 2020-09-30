@@ -173,11 +173,13 @@
 2115018171|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
 2115018172|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)
 2115018173|        |preset_value_rer_region_constraint_none|Everywhere
-2115018174|        |preset_value_rer_region_constraint_only_velen|Only in Velen & White Orchard
+2115018174|        |preset_value_rer_region_constraint_only_velen|Only in Velen
 2115018175|        |preset_value_rer_region_constraint_only_skellige|Only in Skellige
 2115018176|        |preset_value_rer_region_constraint_only_toussaint|Only in Toussaint
-2115018177|        |preset_value_rer_region_constraint_no_velen|No Velen & White Orchard
+2115018177|        |preset_value_rer_region_constraint_no_velen|No Velen
 2115018178|        |preset_value_rer_region_constraint_no_skellige|No Skellige
 2115018179|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
 2115018180|        |preset_Mods_rer_name_rer_region_constraints|Region constraints
-2115018181|        |panel_rer_region_constraints|Region constraints
+2115018181|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
+2115018182|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
+2115018183|        |panel_rer_region_constraints|Region constraints
