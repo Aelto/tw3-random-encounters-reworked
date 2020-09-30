@@ -2,7 +2,7 @@
 class RER_BestiarySkeltroll extends RER_BestiaryEntry {
   public function init() {
     this.type = CreatureSKELTROLL;
-    this.menu_name = 'Troll';
+    this.menu_name = 'SkelligeTroll';
 
     
 

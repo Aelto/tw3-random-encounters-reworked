@@ -6,13 +6,13 @@ enum RER_Biome {
 }
 
 enum RER_RegionConstraint {
-  RER_RegionConstraint_NONE,
-  RER_RegionConstraint_ONLY_VELEN,
-  RER_RegionConstraint_ONLY_SKELLIGE,
-  RER_RegionConstraint_ONLY_TOUSSAINT,
-  RER_RegionConstraint_NO_VELEN,
-  RER_RegionConstraint_NO_SKELLIGE,
-  RER_RegionConstraint_NO_TOUSSAINT,
+  RER_RegionConstraint_NONE = 0,
+  RER_RegionConstraint_ONLY_VELEN = 1,
+  RER_RegionConstraint_ONLY_SKELLIGE = 2,
+  RER_RegionConstraint_ONLY_TOUSSAINT = 3,
+  RER_RegionConstraint_NO_VELEN = 4,
+  RER_RegionConstraint_NO_SKELLIGE = 5,
+  RER_RegionConstraint_NO_TOUSSAINT = 6,
 }
 
 class RER_CreaturePreferences {
@@ -145,23 +145,23 @@ class RER_CreaturePreferences {
     var is_in_disliked_biome: bool;
     var is_in_liked_biome: bool;
 
-    can_spawn = false;
+    can_spawn = true;
 
-    LogChannel('modRandomEncounters', "current region " + this.current_region);
-
-    if (this.region_constraint == RER_RegionConstraint_NONE) {
-      can_spawn = true;
-    }
-    else {
+    // if (this.region_constraint == RER_RegionConstraint_NONE) {
+    //   can_spawn = true;
+    // }
+    // else {
       if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (this.current_region == "no_mans_land" || this.current_region == "prolog_village" || this.current_region == "novigrad")
       ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (this.current_region == "skellige" || this.current_region == "kaer_morhen")
       ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && this.current_region == "bob"
       ||  this.region_constraint == RER_RegionConstraint_ONLY_TOUSSAINT && this.current_region != "bob"
       ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && this.current_region != "skellige" && this.current_region != "kaer_morhen"
       ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && this.current_region != "no_mans_land" && this.current_region != "prolog_village" && this.current_region != "novigrad") {
+        LogChannel('modRandomEncounters', "creature removed from region constraints, at " + this.region_constraint + " and current region = " + this.current_region + " for " + this.creature_type);
+
         can_spawn = false;
       }
-    }
+    // }
 
     if (!can_spawn) {
       return 0;
@@ -185,6 +185,8 @@ class RER_CreaturePreferences {
 
     // no allowed biome, return 0 directly.
     if (this.only_biomes.Size() > 0 && !can_spawn) {
+      LogChannel('modRandomEncounters', "creature removed from only biome, for " + this.creature_type);
+
       return 0;
     }
 
@@ -236,7 +238,7 @@ class RER_CreaturePreferences {
       spawn_chances = this.applyCoefficientToCreature(spawn_chances);
     }
 
-    LogChannel('modRandomEncounters', "chances = " + spawn_chances);
+    LogChannel('modRandomEncounters', "chances = " + spawn_chances + " for " + this.creature_type);
 
     return spawn_chances;
   }

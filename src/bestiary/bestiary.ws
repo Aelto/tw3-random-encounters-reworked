@@ -59,9 +59,6 @@ class RER_Bestiary {
 
     creature_type = master.spawn_roller.rollCreatures();
 
-    LogChannel('modRandomEncounters', "creature type = " + creature_type);
-    LogChannel('modRandomEncounters', "creature type = " + this.entries[creature_type].type);
-
     if (creature_type == CreatureNONE) {
       return new RER_BestiaryEntryNull in this;
     }

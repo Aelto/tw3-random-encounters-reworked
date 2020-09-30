@@ -2,7 +2,7 @@
 class RER_BestiarySkeleton extends RER_BestiaryEntry {
   public function init() {
     this.type = CreatureSKELETON;
-    this.menu_name = 'Skeletons';
+    this.menu_name = 'Skeleton';
 
     
 

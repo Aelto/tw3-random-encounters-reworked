@@ -2,7 +2,7 @@
 class RER_BestiaryNoonwraith extends RER_BestiaryEntry {
   public function init() {
     this.type = CreatureNOONWRAITH;
-    this.menu_name = 'Noonwraiths';
+    this.menu_name = 'NoonWraiths';
 
     
 

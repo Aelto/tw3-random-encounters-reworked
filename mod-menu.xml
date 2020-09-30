@@ -127,6 +127,7 @@
                 <Entry varId="Hags"					value="25"	/>
                 <Entry varId="Fogling"				value="25"	/>
                 <Entry varId="Troll"				value="25"	/>					
+                <Entry varId="SkelligeTroll"		value="25"	/>					
                 <Entry varId="Werewolves"			value="20"	/>
                 <Entry varId="Fiends"				value="20"	/>
                 <Entry varId="Chorts"				value="20"	/>
@@ -160,8 +161,10 @@
                 <Entry varId="Ghouls"				value="30"	/>
                 <Entry varId="Rotfiends"			value="30"	/>
                 <Entry varId="Wolves"				value="25"	/>
+                <Entry varId="SkelligeWolves"		value="25"	/>
                 <Entry varId="Wraiths"				value="25"	/>
                 <Entry varId="Bears"				value="25"	/>
+                <Entry varId="SkelligeBears"		value="25"	/>
                 <Entry varId="Berserkers"			value="20"	/>
                 <Entry varId="Harpies"				value="25"	/>
                 <Entry varId="Sirens"				value="25"	/>
@@ -186,6 +189,7 @@
                     <Entry varId="Fiends"				value="0"	/>
                     <Entry varId="Chorts"				value="0"	/>
                     <Entry varId="Bears"				value="0"	/>
+                    <Entry varId="SkelligeBears"		value="0"	/>
                     <Entry varId="Berserkers"			value="0"	/>
                     <Entry varId="Golems"				value="0"	/>
                     <Entry varId="Gargoyles"			value="0"	/>
@@ -203,10 +207,12 @@
                     <Entry varId="Drowners"				value="0"	/>
                     <Entry varId="Rotfiends"			value="0"	/>
                     <Entry varId="Wolves"				value="0"	/>
+                    <Entry varId="SkelligeWolves"		value="0"	/>
                     <Entry varId="Wraiths"				value="0"	/>
                     <Entry varId="Spiders"				value="0"	/>
                     <Entry varId="Boars"				value="0"	/>
                     <Entry varId="Troll"				value="0"	/>
+                    <Entry varId="SkelligeTroll"		value="0"	/>
 					
 					<Entry varId="HigherVamp"			value="0"	/>
 					<Entry varId="Bruxa"				value="0"	/>
@@ -243,6 +249,7 @@
                     <Entry varId="Fiends"				value="10"	/>
                     <Entry varId="Chorts"				value="10"	/>
                     <Entry varId="Bears"				value="10"	/>
+                    <Entry varId="SkelligeBears"		value="10"	/>
                     <Entry varId="Berserkers"			value="10"	/>
                     <Entry varId="Golems"				value="10"	/>
                     <Entry varId="Gargoyles"			value="10"	/>
@@ -260,10 +267,12 @@
                     <Entry varId="Drowners"				value="10"	/>
                     <Entry varId="Rotfiends"			value="10"	/>
                     <Entry varId="Wolves"				value="10"	/>
+                    <Entry varId="SkelligeWolves"		value="10"	/>
                     <Entry varId="Wraiths"				value="10"	/>
                     <Entry varId="Spiders"				value="10"	/>
                     <Entry varId="Boars"				value="10"	/>
                     <Entry varId="Troll"				value="10"	/>
+                    <Entry varId="SkelligeTroll"		value="10"	/>
 					
 					<Entry varId="HigherVamp"			value="10"	/>
 					<Entry varId="Bruxa"				value="10"	/>
@@ -296,6 +305,7 @@
                     <Entry varId="Hags"					value="0"	/>
                     <Entry varId="Fogling"				value="0"	/>
                     <Entry varId="Troll"				value="0"	/>					
+                    <Entry varId="SkelligeTroll"		value="0"	/>					
                     <Entry varId="Werewolves"			value="0"	/>
                     <Entry varId="Fiends"				value="0"	/>
                     <Entry varId="Chorts"				value="0"	/>
@@ -331,8 +341,10 @@
                     <Entry varId="Ghouls"				value="0"	/>
                     <Entry varId="Rotfiends"			value="0"	/>
                     <Entry varId="Wolves"				value="0"	/>
+                    <Entry varId="SkelligeWolves"		value="0"	/>
                     <Entry varId="Wraiths"				value="0"	/>
                     <Entry varId="Bears"				value="0"	/>
+                    <Entry varId="SkelligeBears"		value="0"	/>
                     <Entry varId="Harpies"				value="0"	/>
                     <Entry varId="Endrega"				value="0"	/>
                     <Entry varId="Alghouls"				value="0"	/>
@@ -373,6 +385,8 @@
             
             <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
             
+            <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="SLIDER;0;100;100" />
+            
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
@@ -382,6 +396,8 @@
             <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />	
 
             <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />	
+
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />	
             
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             
@@ -403,6 +419,8 @@
             
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             
+            <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
+
             <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />		
             
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />	
@@ -471,6 +489,7 @@
                 <Entry varId="Hags"					value="25"	/>
                 <Entry varId="Fogling"				value="25"	/>
                 <Entry varId="Troll"				value="25"	/>					
+                <Entry varId="SkelligeTroll"		value="25"	/>					
                 <Entry varId="Werewolves"			value="20"	/>
                 <Entry varId="Fiends"				value="20"	/>
                 <Entry varId="Chorts"				value="20"	/>
@@ -504,8 +523,10 @@
                 <Entry varId="Ghouls"				value="30"	/>
                 <Entry varId="Rotfiends"			value="30"	/>
                 <Entry varId="Wolves"				value="25"	/>
+                <Entry varId="SkelligeWolves"		value="25"	/>
                 <Entry varId="Wraiths"				value="25"	/>
                 <Entry varId="Bears"				value="25"	/>
+                <Entry varId="SkelligeBears"		value="25"	/>
                 <Entry varId="Harpies"				value="25"	/>
                 <Entry varId="Sirens"				value="25"	/>
                 <Entry varId="Endrega"				value="25"	/>
@@ -530,6 +551,7 @@
                     <Entry varId="Fiends"				value="0"	/>
                     <Entry varId="Chorts"				value="0"	/>
                     <Entry varId="Bears"				value="0"	/>
+                    <Entry varId="SkelligeBears"		value="0"	/>
                     <Entry varId="Berserkers"			value="0"	/>
                     <Entry varId="Golems"				value="0"	/>
                     <Entry varId="Gargoyles"			value="0"	/>
@@ -547,10 +569,12 @@
                     <Entry varId="Drowners"				value="0"	/>
                     <Entry varId="Rotfiends"			value="0"	/>
                     <Entry varId="Wolves"				value="0"	/>
+                    <Entry varId="SkelligeWolves"		value="0"	/>
                     <Entry varId="Wraiths"				value="0"	/>
                     <Entry varId="Spiders"				value="0"	/>
                     <Entry varId="Boars"				value="0"	/>
                     <Entry varId="Troll"				value="0"	/>
+                    <Entry varId="SkelligeTroll"		value="0"	/>
 					
 					<Entry varId="HigherVamp"			value="0"	/>
 					<Entry varId="Bruxa"				value="0"	/>
@@ -587,6 +611,7 @@
                     <Entry varId="Fiends"				value="10"	/>
                     <Entry varId="Chorts"				value="10"	/>
                     <Entry varId="Bears"				value="10"	/>
+                    <Entry varId="SkelligeBears"		value="10"	/>
                     <Entry varId="Berserkers"			value="10"	/>
                     <Entry varId="Golems"				value="10"	/>
                     <Entry varId="Gargoyles"			value="10"	/>
@@ -604,10 +629,12 @@
                     <Entry varId="Drowners"				value="10"	/>
                     <Entry varId="Rotfiends"			value="10"	/>
                     <Entry varId="Wolves"				value="10"	/>
+                    <Entry varId="SkelligeWolves"		value="10"	/>
                     <Entry varId="Wraiths"				value="10"	/>
                     <Entry varId="Spiders"				value="10"	/>
                     <Entry varId="Boars"				value="10"	/>
                     <Entry varId="Troll"				value="10"	/>
+                    <Entry varId="SkelligeTroll"		value="10"	/>
 					
 					<Entry varId="HigherVamp"			value="10"	/>
 					<Entry varId="Bruxa"				value="10"	/>
@@ -640,6 +667,7 @@
                     <Entry varId="Hags"					value="0"	/>
                     <Entry varId="Fogling"				value="0"	/>
                     <Entry varId="Troll"				value="0"	/>					
+                    <Entry varId="SkelligeTroll"		value="0"	/>					
                     <Entry varId="Werewolves"			value="0"	/>
                     <Entry varId="Fiends"				value="0"	/>
                     <Entry varId="Chorts"				value="0"	/>
@@ -675,8 +703,10 @@
                     <Entry varId="Ghouls"				value="0"	/>
                     <Entry varId="Rotfiends"			value="0"	/>
                     <Entry varId="Wolves"				value="0"	/>
+                    <Entry varId="SkelligeWolves"		value="0"	/>
                     <Entry varId="Wraiths"				value="0"	/>
                     <Entry varId="Bears"				value="0"	/>
+                    <Entry varId="SkelligeBears"		value="0"	/>
                     <Entry varId="Harpies"				value="0"	/>
                     <Entry varId="Endrega"				value="0"	/>
                     <Entry varId="Alghouls"				value="0"	/>
@@ -716,6 +746,8 @@
             <Var id="Chorts" displayName="rer_chort" displayType="SLIDER;0;100;100" />
             
             <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
+
+            <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="SLIDER;0;100;100" />
             
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             
@@ -727,6 +759,8 @@
 
             <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />	
             
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />	
+
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
@@ -747,6 +781,8 @@
             
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             
+            <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
+
             <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />		
             
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />	
@@ -815,6 +851,7 @@
                 <Entry varId="Hags"					value="0"	/>
                 <Entry varId="Fogling"				value="0"	/>
                 <Entry varId="Troll"				value="0"	/>
+                <Entry varId="SkelligeTroll"		value="0"	/>
                 <Entry varId="Werewolves"			value="0"	/>
                 <Entry varId="Fiends"				value="0"	/>
                 <Entry varId="Chorts"				value="0"	/>
@@ -848,8 +885,10 @@
                 <Entry varId="Ghouls"				value="1"	/>
                 <Entry varId="Rotfiends"			value="0"	/>
                 <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="SkelligeWolves"		value="0"	/>
                 <Entry varId="Wraiths"				value="0"	/>
                 <Entry varId="Bears"				value="0"	/>
+                <Entry varId="SkelligeBears"		value="0"	/>
                 <Entry varId="Berserkers"			value="0"	/>
                 <Entry varId="Harpies"				value="0"	/>
                 <Entry varId="Sirens"				value="0"	/>
@@ -870,6 +909,7 @@
                 <Entry varId="Hags"					value="0"	/>
                 <Entry varId="Fogling"				value="0"	/>
                 <Entry varId="Troll"				value="0"	/>					
+                <Entry varId="SkelligeTroll"		value="0"	/>					
                 <Entry varId="Werewolves"			value="0"	/>
                 <Entry varId="Fiends"				value="0"	/>
                 <Entry varId="Chorts"				value="0"	/>
@@ -903,8 +943,10 @@
                 <Entry varId="Ghouls"				value="0"	/>
                 <Entry varId="Rotfiends"			value="0"	/>
                 <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="SkelligeWolves"		value="0"	/>
                 <Entry varId="Wraiths"				value="0"	/>
                 <Entry varId="Bears"				value="0"	/>
+                <Entry varId="SkelligeBears"		value="0"	/>
                 <Entry varId="Berserkers"			value="0"	/>
                 <Entry varId="Harpies"				value="0"	/>
                 <Entry varId="Sirens"				value="0"	/>
@@ -925,6 +967,7 @@
                 <Entry varId="Hags"					value="1"	/>
                 <Entry varId="Fogling"				value="1"	/>
                 <Entry varId="Troll"				value="1"	/>					
+                <Entry varId="SkelligeTroll"		value="1"	/>					
                 <Entry varId="Werewolves"			value="1"	/>
                 <Entry varId="Fiends"				value="1"	/>
                 <Entry varId="Chorts"				value="1"	/>
@@ -958,8 +1001,10 @@
                 <Entry varId="Ghouls"				value="1"	/>
                 <Entry varId="Rotfiends"			value="1"	/>
                 <Entry varId="Wolves"				value="1"	/>
+                <Entry varId="SkelligeWolves"		value="1"	/>
                 <Entry varId="Wraiths"				value="1"	/>
                 <Entry varId="Bears"				value="1"	/>
+                <Entry varId="SkelligeBears"		value="1"	/>
                 <Entry varId="Berserkers"			value="1"	/>
                 <Entry varId="Harpies"				value="1"	/>
                 <Entry varId="Sirens"				value="1"	/>
@@ -1101,6 +1146,17 @@
 					</Option>
 				</OptionsArray>
             </Var>
+
+            <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="SkelligeBears" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="SkelligeBears" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
             
             <Var id="Golems" displayName="rer_golem" displayType="OPTIONS">
                 <OptionsArray>
@@ -1153,6 +1209,17 @@
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
 						<Entry varId="Troll" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="OPTIONS"> 	
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="SkelligeTroll" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="SkelligeTroll" value="1"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -1263,6 +1330,17 @@
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
 						<Entry varId="Wolves" value="1"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_select_no">
+						<Entry varId="SkelligeWolves" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_select_yes">
+						<Entry varId="SkelligeWolves" value="1"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -1561,6 +1639,7 @@
                 <Entry varId="Hags"					value="4"	/>
                 <Entry varId="Fogling"				value="4"	/>
                 <Entry varId="Troll"				value="4"	/>
+                <Entry varId="SkelligeTroll"		value="2"	/>
                 <Entry varId="Werewolves"			value="0"	/>
                 <Entry varId="Fiends"				value="4"	/>
                 <Entry varId="Chorts"				value="4"	/>
@@ -1594,8 +1673,10 @@
                 <Entry varId="Ghouls"				value="0"	/>
                 <Entry varId="Rotfiends"			value="0"	/>
                 <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="SkelligeWolves"		value="2"	/>
                 <Entry varId="Wraiths"				value="0"	/>
                 <Entry varId="Bears"				value="0"	/>
+                <Entry varId="SkelligeBears"		value="2"	/>
                 <Entry varId="Berserkers"			value="2"	/>
                 <Entry varId="Harpies"				value="0"	/>
                 <Entry varId="Sirens"				value="0"	/>
@@ -1721,7 +1802,7 @@
             <Var id="Leshens" displayName="rer_leshen" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vLeshens="Sirens" value="0"/>
+						<Entry varId="Leshens" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Leshens" value="1"/>
@@ -1773,7 +1854,7 @@
             <Var id="Cyclops" displayName="rer_cyclops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vCyclops="Sirens" value="0"/>
+						<Entry varId="Cyclops" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Cyclops" value="1"/>
@@ -1799,7 +1880,7 @@
             <Var id="Arachas" displayName="rer_arachas" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vArachas="Sirens" value="0"/>
+						<Entry varId="Arachas" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Arachas" value="1"/>
@@ -1825,7 +1906,7 @@
             <Var id="Fiends" displayName="rer_fiend" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vFiends="Sirens" value="0"/>
+						<Entry varId="Fiends" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Fiends" value="1"/>
@@ -1851,7 +1932,7 @@
             <Var id="Chorts" displayName="rer_chort" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vChorts="Sirens" value="0"/>
+						<Entry varId="Chorts" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Chorts" value="1"/>
@@ -1874,10 +1955,36 @@
                 </OptionsArray>
             </Var>
             
+            <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="SkelligeBears" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="SkelligeBears" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="SkelligeBears" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="SkelligeBears" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="SkelligeBears" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="SkelligeBears" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="SkelligeBears" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
             <Var id="Bears" displayName="rer_bear" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vBears="Sirens" value="0"/>
+						<Entry varId="Bears" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Bears" value="1"/>
@@ -1903,7 +2010,7 @@
             <Var id="Golems" displayName="rer_golem" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vGolems="Sirens" value="0"/>
+						<Entry varId="Golems" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Golems" value="1"/>
@@ -1979,7 +2086,8 @@
             </Var>
             
             <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS"> 	
-                <Option id="0" displayName="rer_region_constraint_none">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
 						<Entry varId="NoonWraiths" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
@@ -2000,11 +2108,13 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="NoonWraiths" value="6"/>
 					</Option>
+                </OptionsArray>
             </Var>
 
             <Var id="Troll" displayName="rer_troll" displayType="OPTIONS"> 	
-                <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vTroll="Sirens" value="0"/>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Troll" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Troll" value="1"/>
@@ -2024,12 +2134,39 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="Troll" value="6"/>
 					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="OPTIONS"> 	
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="SkelligeTroll" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="SkelligeTroll" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="SkelligeTroll" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="SkelligeTroll" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="SkelligeTroll" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="SkelligeTroll" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="SkelligeTroll" value="6"/>
+					</Option>
+                </OptionsArray>
             </Var>
             
             <Var id="Hags" displayName="rer_hag" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vHags="Sirens" value="0"/>
+						<Entry varId="Hags" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Hags" value="1"/>
@@ -2055,7 +2192,7 @@
             <Var id="Harpies" displayName="rer_harpies" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vHarpies="Sirens" value="0"/>
+						<Entry varId="Harpies" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Harpies" value="1"/>
@@ -2081,7 +2218,7 @@
             <Var id="Fogling" displayName="rer_fogling" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vFogling="Sirens" value="0"/>
+						<Entry varId="Fogling" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Fogling" value="1"/>
@@ -2107,7 +2244,7 @@
             <Var id="Endrega" displayName="rer_endrega" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vEndrega="Sirens" value="0"/>
+						<Entry varId="Endrega" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Endrega" value="1"/>
@@ -2133,7 +2270,7 @@
             <Var id="Ghouls" displayName="rer_ghoul" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vGhouls="Sirens" value="0"/>
+						<Entry varId="Ghouls" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Ghouls" value="1"/>
@@ -2159,7 +2296,7 @@
             <Var id="Alghouls" displayName="rer_alghoul" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vAlghouls="Sirens" value="0"/>
+						<Entry varId="Alghouls" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Alghouls" value="1"/>
@@ -2185,7 +2322,7 @@
             <Var id="Nekkers" displayName="rer_nekkers" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vNekkers="Sirens" value="0"/>
+						<Entry varId="Nekkers" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Nekkers" value="1"/>
@@ -2211,7 +2348,7 @@
             <Var id="Drowners" displayName="rer_drowner" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vDrowners="Sirens" value="0"/>
+						<Entry varId="Drowners" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Drowners" value="1"/>
@@ -2285,10 +2422,37 @@
 					</Option>
                 </OptionsArray>
             </Var>
+
+            <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="SkelligeWolves" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="SkelligeWolves" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="SkelligeWolves" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="SkelligeWolves" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="SkelligeWolves" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="SkelligeWolves" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="SkelligeWolves" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
             
-            <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">/	
-                <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vWraiths="Sirens" value="0"/>
+            <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Wraiths" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wraiths" value="1"/>
@@ -2308,11 +2472,13 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="Wraiths" value="6"/>
 					</Option>
+                </OptionsArray>
             </Var>
             
             <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS"> 	
-                <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vSpiders="Sirens" value="0"/>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Spiders" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Spiders" value="1"/>
@@ -2332,11 +2498,13 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="Spiders" value="6"/>
 					</Option>
+                </OptionsArray>
             </Var>
 
             <Var id="Boars" displayName="rer_boars" displayType="OPTIONS"> 	
-                <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vBoars="Sirens" value="0"/>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Boars" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Boars" value="1"/>
@@ -2356,6 +2524,7 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="Boars" value="6"/>
 					</Option>
+                </OptionsArray>
             </Var>
 			
 			<Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="OPTIONS">
@@ -2387,7 +2556,7 @@
 			<Var id="Bruxa" displayName="rer_Bruxa" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vBruxa="Sirens" value="0"/>
+						<Entry varId="Bruxa" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Bruxa" value="1"/>
@@ -2413,7 +2582,7 @@
 			<Var id="Fleder" displayName="rer_Fleder" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vFleder="Sirens" value="0"/>
+						<Entry varId="Fleder" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Fleder" value="1"/>
@@ -2439,7 +2608,7 @@
 			<Var id="Garkain" displayName="rer_Garkain" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vGarkain="Sirens" value="0"/>
+						<Entry varId="Garkain" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Garkain" value="1"/>
@@ -2491,7 +2660,7 @@
 			<Var id="Giant" displayName="rer_Giant" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vGiant="Sirens" value="0"/>
+						<Entry varId="Giant" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Giant" value="1"/>
@@ -2517,7 +2686,7 @@
 			<Var id="Skeleton" displayName="rer_Skeleton" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vSkeleton="Sirens" value="0"/>
+						<Entry varId="Skeleton" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Skeleton" value="1"/>
@@ -2540,9 +2709,10 @@
                 </OptionsArray>
             </Var>
 					
-			<Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">		
-                <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vBarghest="Sirens" value="0"/>
+			<Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Barghest" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Barghest" value="1"/>
@@ -2562,12 +2732,13 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="Barghest" value="6"/>
 					</Option>
+                </OptionsArray>
             </Var>
 			
 			<Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vEchinops="Sirens" value="0"/>
+						<Entry varId="Echinops" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Echinops" value="1"/>
@@ -2619,7 +2790,7 @@
 			<Var id="Kikimore" displayName="rer_Kikimore" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vKikimore="Sirens" value="0"/>
+						<Entry varId="Kikimore" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Kikimore" value="1"/>
@@ -2643,8 +2814,9 @@
             </Var>
 			
 			<Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">		
-                <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vPanther="Sirens" value="0"/>
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Panther" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Panther" value="1"/>
@@ -2664,12 +2836,13 @@
                     <Option id="6" displayName="rer_region_constraint_no_toussaint">
 						<Entry varId="Panther" value="6"/>
 					</Option>
+                </OptionsArray>
             </Var>
 			
 			<Var id="Sharley" displayName="rer_Sharley" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vSharley="Sirens" value="0"/>
+						<Entry varId="Sharley" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Sharley" value="1"/>
@@ -2695,7 +2868,7 @@
 			<Var id="Wight" displayName="rer_Wight" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vWight="Sirens" value="0"/>
+						<Entry varId="Wight" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wight" value="1"/>
@@ -2721,7 +2894,7 @@
             <Var id="Humans" displayName="rer_human_chance" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vHumans="Sirens" value="0"/>
+						<Entry varId="Humans" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Humans" value="1"/>
@@ -2747,7 +2920,7 @@
             <Var id="WildHunt" displayName="rer_wild_chance" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vWildHunt="Sirens" value="0"/>
+						<Entry varId="WildHunt" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="WildHunt" value="1"/>
@@ -2773,7 +2946,7 @@
             <Var id="Gryphons" displayName="rer_gryphon" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vGryphons="Sirens" value="0"/>
+						<Entry varId="Gryphons" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Gryphons" value="1"/>
@@ -2825,7 +2998,7 @@
             <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vWyverns="Sirens" value="0"/>
+						<Entry varId="Wyverns" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Wyverns" value="1"/>
@@ -2877,7 +3050,7 @@
             <Var id="Basilisk" displayName="rer_Basilisk" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vBasilisk="Sirens" value="0"/>
+						<Entry varId="Basilisk" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Basilisk" value="1"/>
@@ -2903,7 +3076,7 @@
             <Var id="Katakan" displayName="rer_Katakan" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vKatakan="Sirens" value="0"/>
+						<Entry varId="Katakan" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Katakan" value="1"/>
@@ -2929,7 +3102,7 @@
             <Var id="Ekimmara" displayName="rer_Ekimmara" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
-						<Entry vEkimmara="Sirens" value="0"/>
+						<Entry varId="Ekimmara" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_region_constraint_only_velen">
 						<Entry varId="Ekimmara" value="1"/>
@@ -2960,6 +3133,8 @@
                 <Entry varId="Hags"					value="100"	 />
                 <Entry varId="Fogling"				value="100"	 />
                 <Entry varId="Troll"				value="100"	 />					
+                <Entry varId="Troll"				value="100"	 />					
+                <Entry varId="SkelligeTroll"		value="100"	 />					
                 <Entry varId="Werewolves"			value="100"	 />
                 <Entry varId="Fiends"				value="100"	 />
                 <Entry varId="Chorts"				value="100"	 />
@@ -2993,8 +3168,10 @@
                 <Entry varId="Ghouls"				value="50"	/>
                 <Entry varId="Rotfiends"			value="50"	/>
                 <Entry varId="Wolves"				value="40"	/>
+                <Entry varId="SkelligeWolves"		value="40"	/>
                 <Entry varId="Wraiths"				value="50"	/>
                 <Entry varId="Bears"				value="40"	/>
+                <Entry varId="SkelligeBears"		value="40"	/>
                 <Entry varId="Berserkers"			value="40"	/>
                 <Entry varId="Harpies"				value="30"	/>
                 <Entry varId="Sirens"				value="30"	/>
@@ -3019,6 +3196,7 @@
                 <Entry varId="Fiends"				value="0"	/>
                 <Entry varId="Chorts"				value="0"	/>
                 <Entry varId="Bears"				value="0"	/>
+                <Entry varId="SkelligeBears"		value="0"	/>
                 <Entry varId="Berserkers"			value="0"	/>
                 <Entry varId="Golems"				value="0"	/>
                 <Entry varId="Gargoyles"			value="0"	/>
@@ -3036,10 +3214,12 @@
                 <Entry varId="Drowners"				value="0"	/>
                 <Entry varId="Rotfiends"			value="0"	/>
                 <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="SkelligeWolves"		value="0"	/>
                 <Entry varId="Wraiths"				value="0"	/>
                 <Entry varId="Spiders"				value="0"	/>
                 <Entry varId="Boars"				value="0"	/>
                 <Entry varId="Troll"				value="0"	/>
+                <Entry varId="SkelligeTroll"		value="0"	/>
                 
                 <Entry varId="HigherVamp"			value="0"	/>
                 <Entry varId="Bruxa"				value="0"	/>
@@ -3076,6 +3256,7 @@
                 <Entry varId="Fiends"				value="100"	/>
                 <Entry varId="Chorts"				value="100"	/>
                 <Entry varId="Bears"				value="100"	/>
+                <Entry varId="SkelligeBears"		value="100"	/>
                 <Entry varId="Berserkers"			value="100"	/>
                 <Entry varId="Golems"				value="100"	/>
                 <Entry varId="Gargoyles"			value="100"	/>
@@ -3093,10 +3274,12 @@
                 <Entry varId="Drowners"				value="100"	/>
                 <Entry varId="Rotfiends"			value="100"	/>
                 <Entry varId="Wolves"				value="100"	/>
+                <Entry varId="SkelligeWolves"		value="100"	/>
                 <Entry varId="Wraiths"				value="100"	/>
                 <Entry varId="Spiders"				value="100"	/>
                 <Entry varId="Boars"				value="100"	/>
                 <Entry varId="Troll"				value="100"	/>
+                <Entry varId="SkelligeTroll"		value="100"	/>
                 
                 <Entry varId="HigherVamp"			value="100"	/>
                 <Entry varId="Bruxa"				value="100"	/>
@@ -3129,6 +3312,7 @@
                 <Entry varId="Hags"					value="0"	/>
                 <Entry varId="Fogling"				value="0"	/>
                 <Entry varId="Troll"				value="0"	/>					
+                <Entry varId="SkelligeTroll"		value="0"	/>					
                 <Entry varId="Werewolves"			value="0"	/>
                 <Entry varId="Fiends"				value="0"	/>
                 <Entry varId="Chorts"				value="0"	/>
@@ -3164,8 +3348,10 @@
                 <Entry varId="Ghouls"				value="0"	/>
                 <Entry varId="Rotfiends"			value="0"	/>
                 <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="SkelligeWolves"		value="0"	/>
                 <Entry varId="Wraiths"				value="0"	/>
                 <Entry varId="Bears"				value="0"	/>
+                <Entry varId="SkelligeBears"		value="0"	/>
                 <Entry varId="Berserkers"			value="0"	/>
                 <Entry varId="Harpies"				value="0"	/>
                 <Entry varId="Sirens"				value="0"	/>
@@ -3206,6 +3392,8 @@
             
             <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
             
+            <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="SLIDER;0;100;100" />
+
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
@@ -3216,6 +3404,8 @@
 
             <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />	
             
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />	
+
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
@@ -3235,6 +3425,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
+
+            <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
             
             <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />		
             

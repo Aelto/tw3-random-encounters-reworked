@@ -2,7 +2,7 @@
 class RER_BestiarySkelbear extends RER_BestiaryEntry {
   public function init() {
     this.type = CreatureSKELBEAR;
-    this.menu_name = 'bears';
+    this.menu_name = 'SkelligeBears';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(
