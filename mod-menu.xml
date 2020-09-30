@@ -834,7 +834,7 @@
                 <Entry varId="Sharley"				value="0"	/>
                 <Entry varId="Cyclops"				value="0"	/>
                 <Entry varId="Golems"				value="0"	/>
-                <Entry varId="Gargoylers"			value="0"	/>
+                <Entry varId="Gargoyles"			value="0"	/>
                 <Entry varId="Elementals"			value="0"	/>
                 <Entry varId="HigherVamp"			value="0"	/>
                 <Entry varId="Bruxa"				value="1"	/>
@@ -984,10 +984,10 @@
             <Var id="Sirens" displayName="rer_sirens" displayType="OPTIONS">
                 <OptionsArray>
 					<Option id="0" displayName="rer_select_no">
-						<Entry varId="Leshens" value="0"/>
+						<Entry varId="Sirens" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="Leshens" value="1"/>
+						<Entry varId="Sirens" value="1"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -995,10 +995,10 @@
             <Var id="Berserkers" displayName="rer_berserkers" displayType="OPTIONS">
                 <OptionsArray>
 					<Option id="0" displayName="rer_select_no">
-						<Entry varId="Leshens" value="0"/>
+						<Entry varId="Berserkers" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="Leshens" value="1"/>
+						<Entry varId="Berserkers" value="1"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -1006,10 +1006,10 @@
             <Var id="Gargoyles" displayName="rer_gargoyles" displayType="OPTIONS">
                 <OptionsArray>
 					<Option id="0" displayName="rer_select_no">
-						<Entry varId="Leshens" value="0"/>
+						<Entry varId="Gargoyles" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="Leshens" value="1"/>
+						<Entry varId="Gargoyles" value="1"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -1017,10 +1017,10 @@
             <Var id="Dracolizards" displayName="rer_dracolizards" displayType="OPTIONS">
                 <OptionsArray>
 					<Option id="0" displayName="rer_select_no">
-						<Entry varId="Leshens" value="0"/>
+						<Entry varId="Dracolizards" value="0"/>
 					</Option>
 					<Option id="1" displayName="rer_select_yes">
-						<Entry varId="Leshens" value="1"/>
+						<Entry varId="Dracolizards" value="1"/>
 					</Option>
 				</OptionsArray>
             </Var>
@@ -1551,6 +1551,1405 @@
 						<Entry varId="Ekimmara" value="1"/>
 					</Option>
 				</OptionsArray>
+            </Var>
+        </VisibleVars>
+    </Group>
+
+    <Group id="RER_RegionConstraints" displayName="Mods.rer_name.rer_region_constraints">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="Hags"					value="4"	/>
+                <Entry varId="Fogling"				value="4"	/>
+                <Entry varId="Troll"				value="4"	/>
+                <Entry varId="Werewolves"			value="0"	/>
+                <Entry varId="Fiends"				value="4"	/>
+                <Entry varId="Chorts"				value="4"	/>
+                <Entry varId="Gryphons"             value="0"  />
+                <Entry varId="Cockatrice"           value="4"  />
+                <Entry varId="Dracolizards"         value="3"  />
+                <Entry varId="Wyverns"              value="4"  />
+                <Entry varId="Forktails"            value="4"  />
+                <Entry varId="Basilisk"             value="4"  />
+                <Entry varId="NightWraiths"			value="0"	/>
+                <Entry varId="Wight"				value="3"	/>
+                <Entry varId="NoonWraiths"			value="0"	/>
+                <Entry varId="Katakan"              value="4"  />
+                <Entry varId="Ekimmara"             value="4"  />
+                <Entry varId="Leshens"				value="4"	/>
+                <Entry varId="Giant"				value="4"	/>
+                <Entry varId="Sharley"				value="3"	/>
+                <Entry varId="Cyclops"				value="4"	/>
+                <Entry varId="Golems"				value="4"	/>
+                <Entry varId="Gargoyles"			value="4"	/>
+                <Entry varId="Elementals"			value="4"	/>
+                <Entry varId="HigherVamp"			value="3"	/>
+                <Entry varId="Bruxa"				value="3"	/>
+                <Entry varId="Fleder"				value="3"	/>
+                <Entry varId="Garkain"				value="3"	/>
+
+                <Entry varId="Humans"               value="0"  />
+                <Entry varId="Nekkers"				value="0"	/>
+                <Entry varId="Drowners"				value="0"	/>
+                <Entry varId="DrownerDLC"			value="3"	/>
+                <Entry varId="Ghouls"				value="0"	/>
+                <Entry varId="Rotfiends"			value="0"	/>
+                <Entry varId="Wolves"				value="0"	/>
+                <Entry varId="Wraiths"				value="0"	/>
+                <Entry varId="Bears"				value="0"	/>
+                <Entry varId="Berserkers"			value="2"	/>
+                <Entry varId="Harpies"				value="0"	/>
+                <Entry varId="Sirens"				value="0"	/>
+                <Entry varId="Endrega"				value="4"	/>
+                <Entry varId="Alghouls"				value="4"	/>
+                <Entry varId="Arachas"				value="4"	/>
+                <Entry varId="Kikimore"				value="4"	/>
+                <Entry varId="Echinops"				value="3"	/>
+                <Entry varId="Centipede"			value="3"	/>
+                <Entry varId="Spiders"				value="3"	/>
+                <Entry varId="Boars"				value="3"	/>
+                <Entry varId="Panther"				value="3"	/>
+                <Entry varId="Barghest"				value="3"	/>
+                <Entry varId="Skeleton"				value="3"	/>
+                <Entry varId="WildHunt"             value="4"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="rer_sirens" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Sirens" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Sirens" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Sirens" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Sirens" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Sirens" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Sirens" value="6"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+
+            <Var id="Berserkers" displayName="rer_berserkers" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Berserkers" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Berserkers" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Berserkers" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Berserkers" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Berserkers" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Berserkers" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Berserkers" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Gargoyles" displayName="rer_gargoyles" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Gargoyles" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Gargoyles" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Gargoyles" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Gargoyles" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Gargoyles" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Gargoyles" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Gargoyles" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Dracolizards" displayName="rer_dracolizards" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Dracolizards" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Dracolizards" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Dracolizards" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Dracolizards" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Dracolizards" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Dracolizards" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Dracolizards" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Leshens" displayName="rer_leshen" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vLeshens="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Leshens" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Leshens" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Leshens" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Leshens" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Leshens" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Leshens" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Werewolves" displayName="rer_werewolf" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Werewolves" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Werewolves" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Werewolves" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Werewolves" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Werewolves" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Werewolves" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Werewolves" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Cyclops" displayName="rer_cyclops" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vCyclops="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Cyclops" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Cyclops" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Cyclops" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Cyclops" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Cyclops" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Cyclops" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Arachas" displayName="rer_arachas" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vArachas="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Arachas" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Arachas" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Arachas" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Arachas" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Arachas" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Arachas" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Fiends" displayName="rer_fiend" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vFiends="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Fiends" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Fiends" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Fiends" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Fiends" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Fiends" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Fiends" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Chorts" displayName="rer_chort" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vChorts="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Chorts" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Chorts" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Chorts" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Chorts" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Chorts" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Chorts" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Bears" displayName="rer_bear" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vBears="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Bears" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Bears" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Bears" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Bears" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Bears" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Bears" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Golems" displayName="rer_golem" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vGolems="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Golems" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Golems" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Golems" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Golems" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Golems" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Golems" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Elementals" displayName="rer_elemental" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Elementals" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Elementals" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Elementals" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Elementals" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Elementals" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Elementals" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Elementals" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="NightWraiths" displayName="rer_nightwraith" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="NightWraiths" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="NightWraiths" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="NightWraiths" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="NightWraiths" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="NightWraiths" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="NightWraiths" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="NightWraiths" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS"> 	
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="NoonWraiths" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="NoonWraiths" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="NoonWraiths" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="NoonWraiths" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="NoonWraiths" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="NoonWraiths" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="NoonWraiths" value="6"/>
+					</Option>
+            </Var>
+
+            <Var id="Troll" displayName="rer_troll" displayType="OPTIONS"> 	
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vTroll="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Troll" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Troll" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Troll" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Troll" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Troll" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Troll" value="6"/>
+					</Option>
+            </Var>
+            
+            <Var id="Hags" displayName="rer_hag" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vHags="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Hags" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Hags" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Hags" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Hags" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Hags" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Hags" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Harpies" displayName="rer_harpies" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vHarpies="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Harpies" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Harpies" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Harpies" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Harpies" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Harpies" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Harpies" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Fogling" displayName="rer_fogling" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vFogling="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Fogling" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Fogling" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Fogling" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Fogling" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Fogling" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Fogling" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Endrega" displayName="rer_endrega" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vEndrega="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Endrega" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Endrega" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Endrega" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Endrega" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Endrega" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Endrega" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Ghouls" displayName="rer_ghoul" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vGhouls="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Ghouls" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Ghouls" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Ghouls" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Ghouls" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Ghouls" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Ghouls" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Alghouls" displayName="rer_alghoul" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vAlghouls="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Alghouls" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Alghouls" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Alghouls" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Alghouls" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Alghouls" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Alghouls" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Nekkers" displayName="rer_nekkers" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vNekkers="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Nekkers" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Nekkers" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Nekkers" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Nekkers" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Nekkers" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Nekkers" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Drowners" displayName="rer_drowner" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vDrowners="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Drowners" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Drowners" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Drowners" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Drowners" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Drowners" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Drowners" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Rotfiends" displayName="rer_rotfiend" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Rotfiends" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Rotfiends" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Rotfiends" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Rotfiends" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Rotfiends" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Rotfiends" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Rotfiends" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Wolves" displayName="rer_wolf" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Wolves" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Wolves" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Wolves" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Wolves" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Wolves" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wolves" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wolves" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">/	
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vWraiths="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Wraiths" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Wraiths" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Wraiths" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Wraiths" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wraiths" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wraiths" value="6"/>
+					</Option>
+            </Var>
+            
+            <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS"> 	
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vSpiders="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Spiders" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Spiders" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Spiders" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Spiders" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Spiders" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Spiders" value="6"/>
+					</Option>
+            </Var>
+
+            <Var id="Boars" displayName="rer_boars" displayType="OPTIONS"> 	
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vBoars="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Boars" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Boars" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Boars" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Boars" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Boars" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Boars" value="6"/>
+					</Option>
+            </Var>
+			
+			<Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="HigherVamp" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="HigherVamp" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="HigherVamp" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="HigherVamp" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="HigherVamp" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="HigherVamp" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="HigherVamp" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+			<Var id="Bruxa" displayName="rer_Bruxa" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vBruxa="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Bruxa" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Bruxa" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Bruxa" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Bruxa" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Bruxa" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Bruxa" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Fleder" displayName="rer_Fleder" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vFleder="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Fleder" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Fleder" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Fleder" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Fleder" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Fleder" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Fleder" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Garkain" displayName="rer_Garkain" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vGarkain="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Garkain" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Garkain" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Garkain" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Garkain" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Garkain" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Garkain" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="DrownerDLC" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="DrownerDLC" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="DrownerDLC" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="DrownerDLC" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="DrownerDLC" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="DrownerDLC" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="DrownerDLC" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Giant" displayName="rer_Giant" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vGiant="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Giant" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Giant" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Giant" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Giant" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Giant" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Giant" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Skeleton" displayName="rer_Skeleton" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vSkeleton="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Skeleton" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Skeleton" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Skeleton" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Skeleton" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Skeleton" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Skeleton" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+					
+			<Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">		
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vBarghest="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Barghest" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Barghest" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Barghest" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Barghest" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Barghest" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Barghest" value="6"/>
+					</Option>
+            </Var>
+			
+			<Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vEchinops="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Echinops" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Echinops" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Echinops" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Echinops" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Echinops" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Echinops" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Centipede" displayName="rer_Centipede" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Centipede" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Centipede" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Centipede" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Centipede" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Centipede" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Centipede" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Centipede" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+						
+			<Var id="Kikimore" displayName="rer_Kikimore" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vKikimore="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Kikimore" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Kikimore" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Kikimore" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Kikimore" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Kikimore" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Kikimore" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">		
+                <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vPanther="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Panther" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Panther" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Panther" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Panther" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Panther" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Panther" value="6"/>
+					</Option>
+            </Var>
+			
+			<Var id="Sharley" displayName="rer_Sharley" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vSharley="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Sharley" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Sharley" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Sharley" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Sharley" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Sharley" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Sharley" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+			
+			<Var id="Wight" displayName="rer_Wight" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vWight="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Wight" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Wight" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Wight" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Wight" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wight" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wight" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Humans" displayName="rer_human_chance" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vHumans="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Humans" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Humans" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Humans" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Humans" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Humans" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Humans" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="WildHunt" displayName="rer_wild_chance" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vWildHunt="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="WildHunt" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="WildHunt" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="WildHunt" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="WildHunt" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="WildHunt" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="WildHunt" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Gryphons" displayName="rer_gryphon" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vGryphons="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Gryphons" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Gryphons" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Gryphons" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Gryphons" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Gryphons" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Gryphons" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+        
+            <Var id="Cockatrice" displayName="rer_cockatrice" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Cockatrice" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Cockatrice" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Cockatrice" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Cockatrice" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Cockatrice" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Cockatrice" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Cockatrice" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+        
+            <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vWyverns="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Wyverns" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Wyverns" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Wyverns" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Wyverns" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Wyverns" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Wyverns" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+        
+            <Var id="Forktails" displayName="rer_Forktail" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry varId="Forktails" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Forktails" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Forktails" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Forktails" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Forktails" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Forktails" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Forktails" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Basilisk" displayName="rer_Basilisk" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vBasilisk="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Basilisk" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Basilisk" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Basilisk" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Basilisk" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Basilisk" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Basilisk" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+            
+            <Var id="Katakan" displayName="rer_Katakan" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vKatakan="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Katakan" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Katakan" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Katakan" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Katakan" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Katakan" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Katakan" value="6"/>
+					</Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Ekimmara" displayName="rer_Ekimmara" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_region_constraint_none">
+						<Entry vEkimmara="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="rer_region_constraint_only_velen">
+						<Entry varId="Ekimmara" value="1"/>
+					</Option>
+                    <Option id="2" displayName="rer_region_constraint_only_skellige">
+						<Entry varId="Ekimmara" value="2"/>
+					</Option>
+                    <Option id="3" displayName="rer_region_constraint_only_toussaint">
+						<Entry varId="Ekimmara" value="3"/>
+					</Option>
+                    <Option id="4" displayName="rer_region_constraint_no_velen">
+						<Entry varId="Ekimmara" value="4"/>
+					</Option>
+                    <Option id="5" displayName="rer_region_constraint_no_skellige">
+						<Entry varId="Ekimmara" value="5"/>
+					</Option>
+                    <Option id="6" displayName="rer_region_constraint_no_toussaint">
+						<Entry varId="Ekimmara" value="6"/>
+					</Option>
+                </OptionsArray>
             </Var>
         </VisibleVars>
     </Group>

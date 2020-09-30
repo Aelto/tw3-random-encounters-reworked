@@ -25,11 +25,13 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
 abstract class CompositionSpawner {
 
   // When you need to force a creature type
-  var _creature_type: CreatureType;
-  default _creature_type = CreatureNONE;
+  var _bestiary_entry: RER_BestiaryEntry;
+  var _bestiary_entry_null: bool;
+  default _bestiary_entry_null = true;
 
-  public function setCreatureType(type: CreatureType): CompositionSpawner {
-    this._creature_type = type;
+  public function setBestiaryEntry(bentry: RER_BestiaryEntry): CompositionSpawner {
+    this._bestiary_entry = bentry;
+    this._bestiary_entry_null = bentry.isNull();
 
     return this;
   }
@@ -164,7 +166,7 @@ abstract class CompositionSpawner {
   }
 
   var master: CRandomEncounters;
-  var creature_type: CreatureType;
+  var bestiary_entry: RER_BestiaryEntry;
   var creatures_templates: EnemyTemplateList;
   var number_of_creatures: int;
   var initial_position: Vector;
@@ -181,8 +183,8 @@ abstract class CompositionSpawner {
 
     this.master = master;
 
-    this.creature_type = this.getCreatureType(master);
-    this.creatures_templates = this.getCreaturesTemplates(this.creature_type);
+    this.bestiary_entry = this.getBestiaryEntry(master);
+    this.creatures_templates = this.getCreaturesTemplates(this.bestiary_entry);
     this.number_of_creatures = this.getNumberOfCreatures(this.creatures_templates);
 
     this.creatures_templates = fillEnemyTemplateList(
@@ -203,9 +205,9 @@ abstract class CompositionSpawner {
       this._group_positions_density
     );
 
-    LogChannel('modRandomEncounters', "GroupComposition span - " + creature_type);
-    LogChannel('modRandomEncounters', "GroupComposition span - number of creatures: " + number_of_creatures);
-    LogChannel('modRandomEncounters', "GroupComposition span - initial position: " + VecToString(initial_position));
+    LogChannel('modRandomEncounters', "GroupComposition spawn - " + this.bestiary_entry.type);
+    LogChannel('modRandomEncounters', "GroupComposition spawn - number of creatures: " + number_of_creatures);
+    LogChannel('modRandomEncounters', "GroupComposition spawn - initial position: " + VecToString(initial_position));
 
     success = this.beforeSpawningEntities();
     if (!success) {
@@ -242,18 +244,15 @@ abstract class CompositionSpawner {
         this.created_entities[i]
       );
 
-      // LogChannel('modRandmEncounters', "removing quest items from entity:" + i);
-      // this.removeQuestItemsFromEntity(((CActor)this.created_entities[i]));
+      LogChannel('modRandomEncounters', "creature trophy chances: " + this.bestiary_entry.trophy_chance);
 
-      LogChannel('modRandomEncounters', "creature trophy chances: " + master.settings.monster_trophies_chances[this.creature_type]);
-
-      if (this.allow_trophy && RandRange(100) < master.settings.monster_trophies_chances[this.creature_type]) {
-        LogChannel('modRandomEncounters', "adding 1 trophy " + this.creature_type);
+      if (this.allow_trophy && RandRange(100) < this.bestiary_entry.trophy_chance) {
+        LogChannel('modRandomEncounters', "adding 1 trophy " + this.bestiary_entry.type);
         
         ((CActor)this.created_entities[i])
           .GetInventory()
           .AddAnItem(
-            master.resources.getCreatureTrophy(this.creature_type, master.settings.trophy_price),
+            this.bestiary_entry.trophy_names[master.settings.trophy_price],
             1
           );
       }
@@ -292,31 +291,27 @@ abstract class CompositionSpawner {
   }
 
 
+  protected latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    var bestiary_entry: RER_BestiaryEntry;
 
-  protected latent function getCreatureType(master: CRandomEncounters): CreatureType {
-    var creature_type: CreatureType;
+    if (this._bestiary_entry_null) {
+      bestiary_entry = master
+        .bestiary
+        .getRandomEntryFromBestiary(master);
 
-    if (this._creature_type == CreatureNONE) {
-      creature_type = master.rExtra.getRandomCreatureByCurrentArea(
-        master.settings,
-        master.spawn_roller,
-        master.resources
-      );
-
-      return creature_type;
+      return bestiary_entry;
     }
 
-    return this._creature_type;
+    return this._bestiary_entry;
   }
 
-  protected function getCreaturesTemplates(creature_type: CreatureType): EnemyTemplateList {
+  protected function getCreaturesTemplates(bestiary_entry: RER_BestiaryEntry): EnemyTemplateList {
     if (this._creatures_templates_force) {
       return this._creatures_templates;
     }
 
-    return master
-      .resources
-      .getCreatureResourceByCreatureType(creature_type, master.rExtra);
+    return bestiary_entry
+      .template_list;
   }
 
   protected function getNumberOfCreatures(creatures_templates: EnemyTemplateList): int {

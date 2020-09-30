@@ -1,34 +1,39 @@
 
 latent function createRandomCreatureContract(master: CRandomEncounters, optional creature_type: CreatureType) {
+  var bestiary_entry: RER_BestiaryEntry;
+
   LogChannel('modRandomEncounters', "making create contract");
 
   if (creature_type == CreatureNONE) {
-    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
-      master.settings,
-      master.spawn_roller,
-      master.resources
-    );
+    bestiary_entry = master
+      .bestiary
+      .getRandomEntryFromBestiary(master);
+  }
+  else {
+    bestiary_entry = master
+      .bestiary
+      .entries[creature_type];
   }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (creature_type == CreatureNONE) {
+  if (bestiary_entry.isNull()) {
     LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
   
-  makeDefaultCreatureContract(master, creature_type);
+  makeDefaultCreatureContract(master, bestiary_entry);
 }
 
-latent function makeDefaultCreatureContract(master: CRandomEncounters, creature_type: CreatureType) {
+latent function makeDefaultCreatureContract(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
   var composition: CreatureContractComposition;
 
   composition = new CreatureContractComposition in master;
 
   composition.init();
-  composition.setCreatureType(creature_type)
+  composition.setBestiaryEntry(bestiary_entry)
     .spawn(master);
 }
 

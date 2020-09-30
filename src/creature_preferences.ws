@@ -5,6 +5,16 @@ enum RER_Biome {
   BiomeWater = 2
 }
 
+enum RER_RegionConstraint {
+  RER_RegionConstraint_NONE,
+  RER_RegionConstraint_ONLY_VELEN,
+  RER_RegionConstraint_ONLY_SKELLIGE,
+  RER_RegionConstraint_ONLY_TOUSSAINT,
+  RER_RegionConstraint_NO_VELEN,
+  RER_RegionConstraint_NO_SKELLIGE,
+  RER_RegionConstraint_NO_TOUSSAINT,
+}
+
 class RER_CreaturePreferences {
 
   public function reset(): RER_CreaturePreferences {
@@ -48,11 +58,35 @@ class RER_CreaturePreferences {
     return this;
   }
 
+  public var chance_day: int;
+  public var chance_night: int;
+  public function setChances(day, night: int): RER_CreaturePreferences {
+    this.chance_day = day;
+    this.chance_night = night;
+
+    return this;
+  }
+
   //#region persistent values
   // value is not reset
   public var is_night: bool;
   public function setIsNight(value: bool): RER_CreaturePreferences {
     this.is_night = value;
+
+    return this;
+  }
+
+  public var city_spawn_allowed: bool;
+  public function setCitySpawnAllowed(value: bool): RER_CreaturePreferences {
+    this.city_spawn_allowed = value;
+
+    return this;
+  }
+
+  public var region_constraint: RER_RegionConstraint;
+  default region_constraint = RER_RegionConstraint_NONE;
+  public function setRegionConstraint(constraint: RER_RegionConstraint): RER_CreaturePreferences {
+    this.region_constraint = constraint;
 
     return this;
   }
@@ -89,18 +123,16 @@ class RER_CreaturePreferences {
     return this;
   }
 
-  // value is not reset
-  public var chances_day: array<int>;
-  public function setChancesDay(value: array<int>): RER_CreaturePreferences {
-    this.chances_day = value;
+  public var current_region: string;
+  public function setCurrentRegion(region: string): RER_CreaturePreferences {
+    this.current_region = region;
 
     return this;
   }
 
-  // value is not reset
-  public var chances_night: array<int>;
-  public function setChancesNight(value: array<int>): RER_CreaturePreferences {
-    this.chances_night = value;
+  public var is_in_city: bool;
+  public function setIsInCity(city: bool): RER_CreaturePreferences {
+    this.is_in_city = city;
 
     return this;
   }
@@ -112,6 +144,28 @@ class RER_CreaturePreferences {
     var spawn_chances: int;
     var is_in_disliked_biome: bool;
     var is_in_liked_biome: bool;
+
+    can_spawn = false;
+
+    LogChannel('modRandomEncounters', "current region " + this.current_region);
+
+    if (this.region_constraint == RER_RegionConstraint_NONE) {
+      can_spawn = true;
+    }
+    else {
+      if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (this.current_region == "no_mans_land" || this.current_region == "prolog_village" || this.current_region == "novigrad")
+      ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (this.current_region == "skellige" || this.current_region == "kaer_morhen")
+      ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && this.current_region == "bob"
+      ||  this.region_constraint == RER_RegionConstraint_ONLY_TOUSSAINT && this.current_region != "bob"
+      ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && this.current_region != "skellige" && this.current_region != "kaer_morhen"
+      ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && this.current_region != "no_mans_land" && this.current_region != "prolog_village" && this.current_region != "novigrad") {
+        can_spawn = false;
+      }
+    }
+
+    if (!can_spawn) {
+      return 0;
+    }
 
     can_spawn = false;
 
@@ -135,10 +189,10 @@ class RER_CreaturePreferences {
     }
 
     if (this.is_night) {
-      spawn_chances = this.chances_night[this.creature_type];
+      spawn_chances = this.chance_night;
     }
     else {
-      spawn_chances = this.chances_day[this.creature_type];
+      spawn_chances = this.chance_day;
     }
 
     
@@ -182,6 +236,8 @@ class RER_CreaturePreferences {
       spawn_chances = this.applyCoefficientToCreature(spawn_chances);
     }
 
+    LogChannel('modRandomEncounters', "chances = " + spawn_chances);
+
     return spawn_chances;
   }
 
@@ -199,6 +255,8 @@ class RER_CreaturePreferences {
     return (int)(chances / this.external_factors_coefficient);
   }
 }
+
+
 
 function makeCreaturePreferences(type: CreatureType): RER_CreaturePreferences {
   var creature_preferences: RER_CreaturePreferences;

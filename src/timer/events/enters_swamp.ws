@@ -58,58 +58,34 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
       .setIsNearWater(master.rExtra.IsPlayerNearWater())
       .setIsInForest(master.rExtra.IsPlayerInForest())
       .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
-      .setChancesDay(master.settings.creatures_chances_day)
-      .setChancesNight(master.settings.creatures_chances_night);
+      .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
 
     creatures_preferences
-      .reset()
+      .reset();
 
-      .setCreatureType(CreatureDROWNER)
-      .addOnlyBiome(BiomeSwamp)
-      .addOnlyBiome(BiomeWater)
-      .addLikedBiome(BiomeSwamp)
-      .addLikedBiome(BiomeWater)
-      .fillSpawnRoller(spawn_roller)
-
-      .setCreatureType(CreatureDROWNERDLC)
-      .addOnlyBiome(BiomeSwamp)
-      .addOnlyBiome(BiomeWater)
-      .addLikedBiome(BiomeSwamp)
-      .addLikedBiome(BiomeWater)
-      .fillSpawnRoller(spawn_roller)
-
-      .setCreatureType(CreatureROTFIEND)
-      .fillSpawnRoller(spawn_roller)
-
-      .setCreatureType(CreatureWEREWOLF)
-      .fillSpawnRoller(spawn_roller)
-
-      .setCreatureType(CreatureHAG)
-      .addOnlyBiome(BiomeSwamp)
-      .addOnlyBiome(BiomeWater)
-      .addLikedBiome(BiomeSwamp)
-      .addLikedBiome(BiomeWater)
-      .fillSpawnRoller(spawn_roller)
-
-      .setCreatureType(CreatureFOGLET)
-      .addOnlyBiome(BiomeSwamp)
-      .addOnlyBiome(BiomeWater)
-      .addLikedBiome(BiomeSwamp)
-      .addLikedBiome(BiomeWater)
+    master.bestiary.entries[CreatureDROWNER]
+      .setCreaturePreferences(creatures_preferences)
       .fillSpawnRoller(spawn_roller);
 
-    // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/14
-    // when a creature is set to NO in the city spawn menu, 
-    // we remove it from the spawning pool.
-    if (master.rExtra.isPlayerInSettlement()) {
-      LogChannel('modRandomEncounters', "player in settlement, removing city spawns");
+    master.bestiary.entries[CreatureDROWNERDLC]
+      .setCreaturePreferences(creatures_preferences)
+      .fillSpawnRoller(spawn_roller);
 
-      for (i = 0; i < CreatureMAX; i += 1) {
-        if (!master.settings.creatures_city_spawns[i]) {
-          spawn_roller.setCreatureCounter(i, 0);
-        }
-      }
-    }
+    master.bestiary.entries[CreatureROTFIEND]
+      .setCreaturePreferences(creatures_preferences)
+      .fillSpawnRoller(spawn_roller);
+
+    master.bestiary.entries[CreatureWEREWOLF]
+      .setCreaturePreferences(creatures_preferences)
+      .fillSpawnRoller(spawn_roller);
+
+    master.bestiary.entries[CreatureHAG]
+      .setCreaturePreferences(creatures_preferences)
+      .fillSpawnRoller(spawn_roller);
+
+    master.bestiary.entries[CreatureFOGLET]
+      .setCreaturePreferences(creatures_preferences)
+      .fillSpawnRoller(spawn_roller);
 
     // when the option "Only known bestiary creatures" is ON
     // we remove every unknown creatures from the spawning pool
@@ -117,7 +93,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
       manager = theGame.GetJournalManager();
 
       for (i = 0; i < CreatureMAX; i += 1) {
-        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.resources.creatures_resources[i], manager);
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
         
         if (!can_spawn_creature) {
           spawn_roller.setCreatureCounter(i, 0);

@@ -1,30 +1,34 @@
 
 latent function createRandomCreatureHunt(master: CRandomEncounters, optional creature_type: CreatureType) {
+  var bestiary_entry: RER_BestiaryEntry;
 
   LogChannel('modRandomEncounters', "making create hunt");
 
   if (creature_type == CreatureNONE) {
-    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
-      master.settings,
-      master.spawn_roller,
-      master.resources
-    );
+    bestiary_entry = master
+      .bestiary
+      .getRandomEntryFromBestiary(master);
+  }
+  else {
+    bestiary_entry = master
+      .bestiary
+      .entries[creature_type];
   }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (creature_type == CreatureNONE) {
+  if (bestiary_entry.isNull()) {
     LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  if (creature_type == CreatureGRYPHON) {
+  if (bestiary_entry.type == CreatureGRYPHON) {
     makeGryphonCreatureHunt(master);
   }
   else {
-    makeDefaultCreatureHunt(master, creature_type);
+    makeDefaultCreatureHunt(master, bestiary_entry);
   }
 }
 
@@ -35,7 +39,9 @@ latent function makeGryphonCreatureHunt(master: CRandomEncounters) {
   composition = new CreatureHuntGryphonComposition in master;
 
   composition.init(master.settings);
-  composition.spawn(master);
+  composition
+    .setBestiaryEntry(master.bestiary.entries[CreatureGRYPHON])
+    .spawn(master);
 }
 
 class CreatureHuntGryphonComposition extends CompositionSpawner {
@@ -46,7 +52,6 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
       .setAutomaticKillThresholdDistance(settings.kill_threshold_distance * 3)
       .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_HUNT])
       .setAllowTrophyPickupScene(settings.trophy_pickup_scene)
-      .setCreatureType(CreatureGRYPHON)
       .setNumberOfCreatures(1);
   }
 
@@ -106,13 +111,13 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
 }
 
 
-latent function makeDefaultCreatureHunt(master: CRandomEncounters, creature_type: CreatureType) {
+latent function makeDefaultCreatureHunt(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
   var composition: CreatureHuntComposition;
 
   composition = new CreatureHuntComposition in master;
 
   composition.init(master.settings);
-  composition.setCreatureType(creature_type)
+  composition.setBestiaryEntry(bestiary_entry)
     .spawn(master);
 }
 

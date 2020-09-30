@@ -5,27 +5,31 @@ enum CreatureComposition {
 
 latent function createRandomCreatureAmbush(out master: CRandomEncounters, creature_type: CreatureType) {
   var creature_composition: CreatureComposition;
+  var bestiary_entry: RER_BestiaryEntry;
 
   creature_composition = CreatureComposition_AmbushWitcher;
 
   if (creature_type == CreatureNONE) {
-    creature_type = master.rExtra.getRandomCreatureByCurrentArea(
-      master.settings,
-      master.spawn_roller,
-      master.resources
-    );
+    bestiary_entry = master
+      .bestiary
+      .getRandomEntryFromBestiary(master);
+  }
+  else {
+    bestiary_entry = master
+      .bestiary
+      .entries[creature_type];
   }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
-  if (creature_type == CreatureNONE) {
+  if (bestiary_entry.isNull()) {
     LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  LogChannel('modRandomEncounters', "spawning ambush - " + creature_type);
+  LogChannel('modRandomEncounters', "spawning ambush - " + bestiary_entry.type);
 
   if (creature_type == CreatureWILDHUNT) {
     makeCreatureWildHunt(master);
@@ -33,7 +37,7 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
   else {
     switch (creature_composition) {
       case CreatureComposition_AmbushWitcher:
-        makeCreatureAmbushWitcher(creature_type, master);
+        makeCreatureAmbushWitcher(bestiary_entry, master);
         break;
     }
   }
@@ -53,7 +57,7 @@ latent function makeCreatureWildHunt(out master: CRandomEncounters) {
   composition = new WildHuntAmbushWitcherComposition in master;
 
   composition.init(master.settings);
-  composition.setCreatureType(CreatureWILDHUNT)
+  composition.setBestiaryEntry(master.bestiary.entries[CreatureWILDHUNT])
     .spawn(master);
 }
 
@@ -100,13 +104,13 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
 }
 
 
-latent function makeCreatureAmbushWitcher(creature_type: CreatureType, out master: CRandomEncounters) {
+latent function makeCreatureAmbushWitcher(bestiary_entry: RER_BestiaryEntry, out master: CRandomEncounters) {
   var composition: CreatureAmbushWitcherComposition;
 
   composition = new CreatureAmbushWitcherComposition in master;
 
   composition.init(master.settings);
-  composition.setCreatureType(creature_type)
+  composition.setBestiaryEntry(bestiary_entry)
     .spawn(master);
 }
 
