@@ -88,4 +88,3 @@ The source code can be found on my github repository : [W3_RandomEncounters_Twea
 
 - original idea by [erxv](https://www.nexusmods.com/witcher3/users/3812549) on nexusmods.
 - original code by [erxv](https://www.nexusmods.com/witcher3/users/3812549) on nexusmods. It would have been hard without it.
-- building scripts are based on this [repository](https://github.com/CikitosWitcher3Mods/Fatigue)
