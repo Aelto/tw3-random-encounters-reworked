@@ -7,7 +7,7 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
   if (creature_type == CreatureNONE) {
     bestiary_entry = master
       .bestiary
-      .getRandomEntryFromBestiary(master);
+      .getRandomEntryFromBestiary(master, EncounterType_CONTRACT);
   }
   else {
     bestiary_entry = master
@@ -41,7 +41,8 @@ class CreatureContractComposition extends CompositionSpawner {
   public function init() {
     this
       .setRandomPositionMinRadius(190)
-      .setRandomPositionMaxRadius(200);
+      .setRandomPositionMaxRadius(200)
+      .setEncounterType(EncounterType_CONTRACT);
   }
 
   protected latent function forEachEntity(entity: CEntity) {

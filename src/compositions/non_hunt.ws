@@ -12,7 +12,7 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
   if (creature_type == CreatureNONE) {
     bestiary_entry = master
       .bestiary
-      .getRandomEntryFromBestiary(master);
+      .getRandomEntryFromBestiary(master, EncounterType_DEFAULT);
   }
   else {
     bestiary_entry = master
@@ -122,6 +122,7 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
       .setRandomPositionMinRadius(settings.minimum_spawn_distance)
       .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
       .setAutomaticKillThresholdDistance(settings.kill_threshold_distance)
+      .setEncounterType(EncounterType_DEFAULT)
       .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_DEFAULT])
       .setAllowTrophyPickupScene(settings.trophy_pickup_scene);
   }

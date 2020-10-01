@@ -22,8 +22,8 @@
 2115018020|        |panel_rer_encounter_type|Encounter types
 2115018021|        |panel_rer_creature_frequency|Creatures frequencies
 2115018022|        |panel_rer_creatures_ratios|Creatures ratios
-2115018023|        |panel_rer_creatures_ratios_day|Creatures ratios - Day
-2115018024|        |panel_rer_creatures_ratios_night|Creatures ratios - Night
+2115018023|        |panel_rer_creatures_ratios_ambush_day|Creatures ratios - Ambush Day
+2115018024|        |panel_rer_creatures_ratios_ambush_night|Creatures ratios - Ambush Night
 2115018025|        |preset_value_rer_everything_off|Everything OFF
 2115018026|        |preset_value_rer_everything_on|Everything ON
 2115018027|        |option_rer_leshen|Leshen
@@ -84,8 +84,8 @@
 2115018082|        |option_rer_gargoyles|Gargoyle
 2115018083|        |preset_Mods_rer_name_rer_main_settings|Main settings
 2115018084|        |preset_Mods_rer_name_rer_creature_frequency|Creatures frequencies
-2115018085|        |preset_Mods_rer_name_rer_creatures_ratios_day|Creatures ratios - Day
-2115018086|        |preset_Mods_rer_name_rer_creatures_ratios_night|Creatures ratios - Night
+2115018085|        |preset_Mods_rer_name_rer_creatures_ratios_ambush_day|Creatures ratios - Ambush Day
+2115018086|        |preset_Mods_rer_name_rer_creatures_ratios_ambush_night|Creatures ratios - Ambush Night
 2115018087|        |option_rer_geralt_comments|Enable Geralt comments
 2115018088|        |option_rer_enabled|RandomEncounters Reworked enabled
 2115018089|        |option_rer_hide_notifications|Hide RER notifications
@@ -183,3 +183,9 @@
 2115018181|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
 2115018182|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
 2115018183|        |panel_rer_region_constraints|Region constraints
+2115018184|        |preset_Mods_rer_name_rer_creatures_ratios|Creatures ratios
+2115018185|        |panel_rer_creatures_ratio|Creatures ratios
+2115018186|        |panel_rer_creatures_ratios_hunt_day|Creatures ratios - Hunt Day
+2115018187|        |panel_rer_creatures_ratios_hunt_night|Creatures ratios - Hunt Night
+2115018188|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_day|Creatures ratios - Hunt Day
+2115018189|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_night|Creatures ratios - Hunt Night

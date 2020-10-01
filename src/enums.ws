@@ -85,7 +85,9 @@ enum CreatureType {
 
 
 enum EncounterType {
+  // default means an ambush.
   EncounterType_DEFAULT  = 0,
+  
   EncounterType_HUNT     = 1,
   EncounterType_CONTRACT = 2,
   EncounterType_MAX      = 3
@@ -101,41 +103,4 @@ enum TrophyVariant {
   TrophyVariant_PRICE_LOW = 0,
   TrophyVariant_PRICE_MEDIUM = 1,
   TrophyVariant_PRICE_HIGH = 2
-}
-
-enum RER_Trophy {
-  Trophy_HUMAN,
-  Trophy_ARACHAS,
-  Trophy_INSECTOID,
-  Trophy_NECROPHAGE,
-  Trophy_NEKKER,
-  Trophy_WRAITH,
-  Trophy_HARPY,
-  Trophy_SPIRIT,
-  Trophy_BEAST,
-  Trophy_WILDHUNT,
-  Trophy_LESHEN,
-  Trophy_WEREWOLF,
-  Trophy_FIEND,
-  Trophy_EKIMMARA,
-  Trophy_KATAKAN,
-  Trophy_ELEMENTAL,
-  Trophy_NIGHTWRAITH,
-  Trophy_NOONWRAITH,
-  Trophy_CZART,
-  Trophy_CYCLOP,
-  Trophy_TROLL,
-  Trophy_GRAVE_HAG,
-  Trophy_FOGLING,
-  Trophy_GARKAIN,
-  Trophy_VAMPIRE,
-  Trophy_GIANT,
-  Trophy_SHARLEY,
-  Trophy_WIGHT,
-  Trophy_GRIFFIN,
-  Trophy_COCKATRICE,
-  Trophy_BASILISK,
-  Trophy_WYVERN,
-  Trophy_FORKTAIL,
-  Trophy_DRACOLIZARD
 }

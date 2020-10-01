@@ -132,37 +132,14 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  private function removeQuestItemsFromEntity(actor: CActor) {
-    // the code was taken from `playerWitcher.ws` and from the function
-    // transfering the save to NG+
-    var inv : CInventoryComponent;
-		var questItems : array<name>;
-    var i: int;
+  // tell which type of encounter the composition is from
+  // especially used when retrieving a random monster from the bestiary
+  var encounter_type: EncounterType;
+  default encounter_type = EncounterType_DEFAULT;
+  public function setEncounterType(encounter_type: EncounterType): CompositionSpawner {
+    this.encounter_type = encounter_type;
 
-    inv = actor.GetInventory();
-
-    //1) some non-quest items might dynamically have 'Quest' tag added so first we remove all items that 
-    //currently have Quest tag
-    inv.RemoveItemByTag('Quest', -1);
-
-    //2) some quest items might lose 'Quest' tag during the course of the game so we need to check their 
-    //XML definitions rather than actual items in inventory
-    questItems = theGame.GetDefinitionsManager().GetItemsWithTag('Quest');
-    for(i=0; i<questItems.Size(); i+=1) {
-      inv.RemoveItemByName(questItems[i], -1);
-    }
-    
-    //3) some quest items don't have 'Quest' tag at all
-    inv.RemoveItemByName('mq1002_artifact_3', -1);
-    
-    //4) some quest items are regular items but become quest items at some point - Quests will mark them with proper tag
-    inv.RemoveItemByTag('NotTransferableToNGP', -1);
-    
-    //remove notice board notices - they are not quest items
-    inv.RemoveItemByTag('NoticeBoardNote', -1);
-
-    //remove trophies
-    inv.RemoveItemByTag('Trophy', -1);
+    return this;
   }
 
   var master: CRandomEncounters;
@@ -297,7 +274,7 @@ abstract class CompositionSpawner {
     if (this._bestiary_entry_null) {
       bestiary_entry = master
         .bestiary
-        .getRandomEntryFromBestiary(master);
+        .getRandomEntryFromBestiary(master, this.encounter_type);
 
       return bestiary_entry;
     }

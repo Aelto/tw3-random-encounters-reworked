@@ -18,7 +18,7 @@ class RER_Bestiary {
     }
   }
 
-  public latent function getRandomEntryFromBestiary(master: CRandomEncounters): RER_BestiaryEntry {
+  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType): RER_BestiaryEntry {
     var creatures_preferences: RER_CreaturePreferences;
     var creature_type: CreatureType;
     var manager : CWitcherJournalManager;
@@ -39,7 +39,7 @@ class RER_Bestiary {
 
     for (i = 0; i < CreatureMAX; i += 1) {
       this.entries[i]
-        .setCreaturePreferences(creatures_preferences)
+        .setCreaturePreferences(creatures_preferences, encounter_type)
         .fillSpawnRoller(master.spawn_roller);
     }
 

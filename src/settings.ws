@@ -166,8 +166,10 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RandomEncountersMENU', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencounterTypes', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERcreatureFrequency', 1); // medium frequency
-    inGameConfigWrapper.ApplyGroupPreset('customGroundDay', 0);
-    inGameConfigWrapper.ApplyGroupPreset('customGroundNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosAmbushDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosAmbushNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosHuntDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosHuntNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
     inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);

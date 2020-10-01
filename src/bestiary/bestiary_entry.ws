@@ -11,9 +11,9 @@ abstract class RER_BestiaryEntry {
   // the name used in the mod menus
   var menu_name: name;
 
-  var chance_day: int;
-
-  var chance_night: int;
+  // both use the enum EncounterType as index
+  var chances_day: array<int>;
+  var chances_night: array<int>;
 
   var trophy_chance: float;
 
@@ -23,24 +23,38 @@ abstract class RER_BestiaryEntry {
 
   public function init() {}
 
-  public function setCreaturePreferences(preferences: RER_CreaturePreferences): RER_CreaturePreferences {
+  public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences {
     LogChannel('modRandomEncounters', "setCreaturePreference called");
 
     return preferences
       .setCreatureType(this.type)
-      .setChances(this.chance_day, this.chance_night)
+      .setChances(this.chances_day[encounter_type], this.chances_night[encounter_type])
       .setCitySpawnAllowed(this.city_spawn)
       .setRegionConstraint(this.region_constraint);
   }
 
   public function loadSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    var i: int;
+
     this.city_spawn = inGameConfigWrapper.GetVarValue('RER_CitySpawns', this.menu_name);
     this.trophy_chance = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', this.menu_name));
-    this.chance_day = StringToInt(inGameConfigWrapper.GetVarValue('customGroundDay', this.menu_name));
-    this.chance_night = StringToInt(inGameConfigWrapper.GetVarValue('customGroundNight', this.menu_name));
     this.region_constraint = StringToInt(inGameConfigWrapper.GetVarValue('RER_RegionConstraints', this.menu_name));
 
-    LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
+    this.chances_day.Clear();
+    this.chances_night.Clear();
+
+    for (i = 0; i < EncounterType_MAX; i += 1) {
+      this.chances_day.PushBack(0);
+      this.chances_night.PushBack(0);
+    }
+
+    this.chances_day[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushDay', this.menu_name));
+    this.chance_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushNight', this.menu_name));
+    this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntDay', this.menu_name));
+    this.chance_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntNight', this.menu_name));
+
+
+    // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
   }
 
   public function isNull(): bool {
