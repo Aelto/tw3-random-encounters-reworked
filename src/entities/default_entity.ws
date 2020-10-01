@@ -301,9 +301,9 @@ class RandomEncountersReworkedEntity extends CEntity {
 
       current_position += VecConeRand(
         tracks_heading,
-        80, // 80 degrees randomness
-        1,
-        2
+        60, // 80 degrees randomness
+        2,
+        4
       );
 
       FixZAxis(current_position);
