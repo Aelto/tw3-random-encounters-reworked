@@ -2,7 +2,7 @@
 state ListeningForEvents in RER_EventsManager {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents");
+    // LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents");
 
     this.ListeningForEvents_main();
   }
@@ -15,7 +15,7 @@ state ListeningForEvents in RER_EventsManager {
 
     was_spawn_already_triggered = false;
 
-    LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening started");
+    // LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening started");
 
     if (!parent.master.settings.is_enabled) {
       parent.GotoState('Waiting');
@@ -36,7 +36,7 @@ state ListeningForEvents in RER_EventsManager {
         .onInterval(was_spawn_already_triggered, parent.master, parent.delay, parent.chance_scale) || was_spawn_already_triggered;
     }
 
-    LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening finished");
+    // LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening finished");
     
     parent.GotoState('Waiting');
   }

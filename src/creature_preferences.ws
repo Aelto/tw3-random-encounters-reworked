@@ -158,7 +158,7 @@ class RER_CreaturePreferences {
     ||  this.region_constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && this.current_region != "prolog_village"
     ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && this.current_region != "skellige" && this.current_region != "kaer_morhen"
     ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && this.current_region != "no_mans_land" && this.current_region != "novigrad") {
-      LogChannel('modRandomEncounters', "creature removed from region constraints, at " + this.region_constraint + " and current region = " + this.current_region + " for " + this.creature_type);
+      // LogChannel('modRandomEncounters', "creature removed from region constraints, at " + this.region_constraint + " and current region = " + this.current_region + " for " + this.creature_type);
 
       can_spawn = false;
     }
