@@ -72,10 +72,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     this.tracks_template = getTracksTemplate(this.this_actor);
 
-    // it's a slow function because there is a sleep inside,
-    // without the sleep the game crashes because it creates
-    // a huge amount of entities.
-    this.drawInitialFootTracks();
+    this.AddTimer('drawInitialFootTracks', 0.1, true);
 
     this.startWithoutBait();
   }
@@ -238,17 +235,15 @@ class RandomEncountersReworkedEntity extends CEntity {
 
   public function addFootTrackHere(position: Vector, rotation: EulerAngles) {
     var new_track: CEntity;
-    var position: Vector;
-    var rotation: EulerAngles;
 
     if (!this.foot_tracks_looped) {
-      new_entity = theGame.CreateEntity(
+      new_track = theGame.CreateEntity(
         this.tracks_template,
         position,
         rotation
       );
 
-      this.foot_tracks_entities.PushBack(new_entity);
+      this.foot_tracks_entities.PushBack(new_track);
 
       if (this.foot_tracks_entities.Size() == this.foot_tracks_maximum) {
         this.foot_tracks_looped = true;
@@ -263,7 +258,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.foot_tracks_index = (this.foot_tracks_index + 1) % this.foot_tracks_maximum;
   }
 
-  latent function drawInitialFootTracks() {
+  timer function drawInitialFootTracks(optional dt: float, optional id: Int32) {
     var tracks_heading: float;
     var current_position: Vector;
     var distance_from_monster: float;
@@ -277,42 +272,31 @@ class RandomEncountersReworkedEntity extends CEntity {
     // to calculate the initial position we go from the
     // monsters position and use the inverse tracks_heading to
     // cross ThePlayer's path.
-    current_position = 
-      // starting from the monster
-      this.GetWorldPosition()
-      // then we translate by the distance between the player and
-      // the monster, this multiplied by 1.3.
-      - VecConeRand(
-          -tracks_heading
-          (thePlayer.GetWorldPosition() - this.GetWorldPosition()) * 1.3,
-
-          // we give it a ten degrees randomness
-          10, 10
-        );
+    current_position = VecInterpolate(this.GetWorldPosition(), thePlayer.GetWorldPosition(), 1.3);
 
     distance_from_monster = VecDistanceSquared(
       this.GetWorldPosition(),
       current_position
     );
 
-    // we continue until we're 20 meters away from the monster
-    while (distance_from_monster > 20 * 20) {
-      tracks_heading = VecHeading(this.bloodtrail_target_position - this.bloodtrail_current_position);
+    tracks_heading = VecHeading(this.GetWorldPosition() - current_position);
 
-      current_position += VecConeRand(
-        tracks_heading,
-        60, // 80 degrees randomness
-        2,
-        4
-      );
+    current_position += VecConeRand(
+      tracks_heading,
+      60, // 80 degrees randomness
+      2,
+      4
+    );
 
-      FixZAxis(current_position);
+    FixZAxis(current_position);
 
-      // TODO: convert heading to EulerAngles
-      // instead of using the monster rotation.
-      this.addFootTrackHere(current_position, this.GetWorldRotation());
+    this.addFootTrackHere(
+      current_position,
+      VecToRotation(this.GetWorldPosition() - current_position)
+    );
 
-      Sleep(0.2f);
+    if (distance_from_monster > 20 * 20) {
+      this.RemoveTimer('drawInitialFootTracks');
     }
     
   }
