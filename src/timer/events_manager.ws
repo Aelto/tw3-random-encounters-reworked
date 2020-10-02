@@ -19,6 +19,7 @@ statemachine class RER_EventsManager extends CEntity {
     this.addListener(new RER_ListenerFillCreaturesGroup in this);
     this.addListener(new RER_ListenerBodiesNecrophages in this);
     this.addListener(new RER_ListenerEntersSwamp in this);
+    this.addListener(new RER_ListenerMeditationAmbush in this);
   }
 
   public var internal_cooldown: float;
