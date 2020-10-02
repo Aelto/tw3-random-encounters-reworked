@@ -40,8 +40,12 @@ exec function rer_start_human(optional human_type: EHumanType, optional count: i
   }
 
   exec_runner = new RER_ExecRunner in rer_entity;
-  exec_runner.init(rer_entity, CreatrueNONE);
-  exec_runner.RunHumanAmbush_main(human_type, count);
+  exec_runner.init(rer_entity, CreatureNONE);
+
+  exec_runner.human_type = human_type;
+  exec_runner.count = count;
+
+  exec_runner.GotoState('RunHumanAmbush');
 }
 
 // Why a statemachine and a whole class for exec functions
@@ -55,6 +59,8 @@ exec function rer_start_human(optional human_type: EHumanType, optional count: i
 statemachine class RER_ExecRunner extends CEntity {
   var master: CRandomEncounters;
   var creature: CreatureType;
+  var human_type: EHumanType;
+  var count: int;
 
 
   public function init(master: CRandomEncounters, creature: CreatureType) {
@@ -93,16 +99,18 @@ state RunHumanAmbush in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
     LogChannel('modRandomEncounters', "RER_ExecRunner - State RunHumanAmbush");
+
+    this.RunHumanAmbush_main(parent.human_type, parent.count);
   }
 
   entry function RunHumanAmbush_main(human_type: EHumanType, count: int) {
     var composition: CreatureAmbushWitcherComposition;
 
-    composition = new CreatureAmbushWitcherComposition in master;
+    composition = new CreatureAmbushWitcherComposition in parent.master;
 
     composition.init(parent.master.settings);
     composition.setBestiaryEntry(parent.master.bestiary.human_entries[human_type])
       .setNumberOfCreatures(count)
-      .spawn(master);
+      .spawn(parent.master);
   }
 }
