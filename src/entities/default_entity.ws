@@ -72,6 +72,15 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     this.tracks_template = getTracksTemplate(this.this_actor);
 
+    // to calculate the initial position we go from the
+    // monsters position and use the inverse tracks_heading to
+    // cross ThePlayer's path.
+    this.current_initial_track_position = VecInterpolate(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition(),
+      1.3
+    );
+
     this.AddTimer('drawInitialFootTracks', 0.1, true);
 
     this.startWithoutBait();
@@ -258,44 +267,34 @@ class RandomEncountersReworkedEntity extends CEntity {
     this.foot_tracks_index = (this.foot_tracks_index + 1) % this.foot_tracks_maximum;
   }
 
+  var tracks_heading: float;
+  var current_initial_track_position: Vector;
+
   timer function drawInitialFootTracks(optional dt: float, optional id: Int32) {
-    var tracks_heading: float;
-    var current_position: Vector;
     var distance_from_monster: float;
-
-    // heading going from this to ThePlayer,
-    // so we know where to go to reach the creatures.
-    tracks_heading = VecHeading(
-        thePlayer.GetWorldPosition() - this.GetWorldPosition()
-    );
-
-    // to calculate the initial position we go from the
-    // monsters position and use the inverse tracks_heading to
-    // cross ThePlayer's path.
-    current_position = VecInterpolate(this.GetWorldPosition(), thePlayer.GetWorldPosition(), 1.3);
 
     distance_from_monster = VecDistanceSquared(
       this.GetWorldPosition(),
-      current_position
+      current_initial_track_position
     );
 
-    tracks_heading = VecHeading(this.GetWorldPosition() - current_position);
+    tracks_heading = VecHeading(this.GetWorldPosition() - current_initial_track_position);
 
-    current_position += VecConeRand(
+    current_initial_track_position += VecConeRand(
       tracks_heading,
       60, // 80 degrees randomness
       2,
       4
     );
 
-    FixZAxis(current_position);
+    FixZAxis(current_initial_track_position);
 
     this.addFootTrackHere(
-      current_position,
-      VecToRotation(this.GetWorldPosition() - current_position)
+      current_initial_track_position,
+      VecToRotation(this.GetWorldPosition() - current_initial_track_position)
     );
 
-    if (distance_from_monster > 20 * 20) {
+    if (distance_from_monster < 20 * 20) {
       this.RemoveTimer('drawInitialFootTracks');
     }
     
