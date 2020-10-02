@@ -85,62 +85,62 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       .reset();
       
     master.bestiary.entries[CreatureGHOUL]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureGHOUL]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureALGHOUL]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureDROWNER]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureDROWNERDLC]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureROTFIEND]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureWEREWOLF]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureEKIMMARA]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureKATAKAN]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureHAG]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureFOGLET]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureBRUXA]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureFLEDER]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
     master.bestiary.entries[CreatureGARKAIN]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureDETLAFF]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     // when the option "Only known bestiary creatures" is ON

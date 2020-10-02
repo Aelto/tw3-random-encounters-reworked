@@ -34,7 +34,7 @@ class RER_BestiarySkeleton extends RER_BestiaryEntry {
 
   }
 
-  public function setCreaturePreferences(preferences: RER_CreaturePreferences): RER_CreaturePreferences {
-    return super.setCreaturePreferences(preferences);
+  public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{
+    return super.setCreaturePreferences(preferences, encounter_type);
   }
 }

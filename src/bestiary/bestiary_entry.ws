@@ -24,8 +24,6 @@ abstract class RER_BestiaryEntry {
   public function init() {}
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences {
-    LogChannel('modRandomEncounters', "setCreaturePreference called");
-
     return preferences
       .setCreatureType(this.type)
       .setChances(this.chances_day[encounter_type], this.chances_night[encounter_type])
@@ -49,9 +47,9 @@ abstract class RER_BestiaryEntry {
     }
 
     this.chances_day[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushDay', this.menu_name));
-    this.chance_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushNight', this.menu_name));
+    this.chances_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushNight', this.menu_name));
     this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntDay', this.menu_name));
-    this.chance_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntNight', this.menu_name));
+    this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntNight', this.menu_name));
 
 
     // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );

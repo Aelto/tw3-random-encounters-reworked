@@ -64,27 +64,27 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
       .reset();
 
     master.bestiary.entries[CreatureDROWNER]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureDROWNERDLC]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureROTFIEND]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureWEREWOLF]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureHAG]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureFOGLET]
-      .setCreaturePreferences(creatures_preferences)
+      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
     // when the option "Only known bestiary creatures" is ON
