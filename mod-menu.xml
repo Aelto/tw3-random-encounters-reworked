@@ -4623,6 +4623,7 @@
                 <Entry varId="eventEntersSwamp"	                    value="10"	/>
                 <Entry varId="eventFightNoise"	                    value="10"	/>
                 <Entry varId="eventFillCreaturesGroup"	            value="50"	/>
+                <Entry varId="eventMeditationAmbush"            	value="15"	/>
                 <Entry varId="eventFillCreaturesGroupAllowCombat"	value="0"	/>
             </Preset>
 
@@ -4635,6 +4636,8 @@
                 <Entry varId="eventEntersSwamp"	        value="8"	/>
                 <Entry varId="eventFightNoise"	        value="3"	/>
                 <Entry varId="eventFillCreaturesGroup"	value="50"	/>
+                <Entry varId="eventMeditationAmbush"	value="10"	/>
+
             </Preset>
 
             <Preset id="2" displayName="rer_high" >
@@ -4646,6 +4649,7 @@
                 <Entry varId="eventEntersSwamp"	        value="20"	/>
                 <Entry varId="eventFightNoise"	        value="13"	/>
                 <Entry varId="eventFillCreaturesGroup"	value="65"	/>
+                <Entry varId="eventMeditationAmbush"	value="20"	/>
             </Preset>
         </PresetsArray>
         <VisibleVars>			
@@ -4657,6 +4661,7 @@
             <Var id="eventEntersSwamp" displayName="rer_event_entersswamp_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventFightNoise" displayName="rer_event_fightnoise_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventFillCreaturesGroup" displayName="rer_event_fillcreaturesgroup_chance" displayType="SLIDER;0;100;10000"/>
+            <Var id="eventMeditationAmbush" displayName="rer_event_meditationambush_chance" displayType="SLIDER;0;100;10000"></Var>
             <Var id="eventFillCreaturesGroupAllowCombat" displayName="rer_event_fillcreaturesgroup_allow_combat" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
