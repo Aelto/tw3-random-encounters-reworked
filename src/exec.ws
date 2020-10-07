@@ -78,6 +78,7 @@ state RunCreatureAmbush in RER_ExecRunner {
   }
 
   entry function RunCreatureAmbush_main() {
+    REROL_that_was_tough();
     createRandomCreatureAmbush(parent.master, parent.creature);
   }
 }

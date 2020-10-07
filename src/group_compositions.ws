@@ -12,12 +12,21 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
       thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
     }
   }
-  else {
-    LogChannel('modRandomEncounters', "spawning - NOT HUNT");
+  else if (encounter_type == EncounterType_DEFAULT) {
+    LogChannel('modRandomEncounters', "spawning - AMBUSH");
     createRandomCreatureAmbush(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
+    }
+  }
+  else {
+    LogChannel('modRandomEncounters', "spawning - CONTRACT");
+    createRandomCreatureContract(random_encounters_class);
+
+    if (random_encounters_class.settings.geralt_comments_enabled) {
+      // TODO: find a unique voiceset for the contract
+      thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
     }
   }
 }

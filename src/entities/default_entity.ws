@@ -262,7 +262,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     }
 
     this.foot_tracks_entities[this.foot_tracks_index]
-      .TeleportWithRotation(position, RotRand(0, 360));
+      .TeleportWithRotation(position, rotation);
 
     this.foot_tracks_index = (this.foot_tracks_index + 1) % this.foot_tracks_maximum;
   }
@@ -282,7 +282,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     current_initial_track_position += VecConeRand(
       tracks_heading,
-      60, // 80 degrees randomness
+      60, // 60 degrees randomness
       2,
       4
     );

@@ -130,7 +130,7 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
   var rer_entity_template: CEntityTemplate;
 
   protected latent function beforeSpawningEntities(): bool {
-    this.rer_entity_template =( CEntityTemplate)LoadResourceAsync(
+    this.rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent",
       true
     );

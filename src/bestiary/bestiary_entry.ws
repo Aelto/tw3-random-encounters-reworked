@@ -50,6 +50,8 @@ abstract class RER_BestiaryEntry {
     this.chances_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushNight', this.menu_name));
     this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntDay', this.menu_name));
     this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntNight', this.menu_name));
+    this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosContractDay', this.menu_name));
+    this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosContractNight', this.menu_name));
 
 
     // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );

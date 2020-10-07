@@ -13,5 +13,6 @@ copy "%modPath%\mod-menu.xml" "%gamePath%\bin\config\r4game\user_config_matrix\p
 
 if "%1"=="-dlc" (
   echo "copying DLC"
+  rmdir "%gamePath%\dlc\dlc%modName%" /s /q
   xcopy "%modPath%\release\dlc" "%gamepath%\dlc" /e /s /y
 )
