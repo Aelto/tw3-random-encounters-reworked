@@ -147,8 +147,11 @@ class RER_CreaturePreferences {
     var is_in_disliked_biome: bool;
     var is_in_liked_biome: bool;
 
-    can_spawn = true;
+    if (this.is_in_city && !this.city_spawn_allowed) {
+      return 0;
+    }
 
+    can_spawn = true;
 
     if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (this.current_region == "no_mans_land" || this.current_region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (this.current_region == "skellige" || this.current_region == "kaer_morhen")
