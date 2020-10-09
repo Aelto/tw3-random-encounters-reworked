@@ -34,6 +34,10 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   var investigation_radius: int;
   default investigation_radius = 15;
 
+  var has_necrophages_with_clues: bool;
+
+  var eating_animation_slot: CAIPlayAnimationSlotAction;
+
   latent function createClues() {
     var found_initial_position: bool;
     var max_number_of_clues: int;
@@ -142,6 +146,87 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       parent.addBloodTrackHere(current_clue_position);
     }
+
+    // 4. there is a chance necrophages are feeding on the corpses
+    if (RandRange(10) < 6) {
+      this.addNecrophagesWithClues();
+    }
+  }
+
+  private latent function addNecrophagesWithClues() {
+    var number_of_necropages: int;
+    var necrophages_bestiary_entry: RER_BestiaryEntry;
+    var creatures_templates: EnemyTemplateList;
+    var group_positions: array<Vector>;
+    var current_template: CEntityTemplate;
+    var current_entity_template: SEnemyTemplate;
+    var group_positions_index: int;
+    var created_entity: CEntity;
+    var i: int;
+    var j: int;
+
+    necrophages_bestiary_entry = parent
+      .master
+      .bestiary
+      .entries[CreatureGHOUL];
+
+    this.has_necrophages_with_clues = true;
+
+    this.eating_animation_slot = new CAIPlayAnimationSlotAction in this;
+    this.eating_animation_slot.OnCreated();
+    this.eating_animation_slot.animName = 'exploration_eating_loop';
+    this.eating_animation_slot.blendInTime = 1.0f;
+    this.eating_animation_slot.blendOutTime = 1.0f;  
+    this.eating_animation_slot.slotName = 'NPC_ANIM_SLOT';
+
+    number_of_necropages = rollDifficultyFactor(
+      parent.chosen_bestiary_entry.template_list.difficulty_factor,
+      parent.master.settings.selectedDifficulty
+    );
+
+    creatures_templates = fillEnemyTemplateList(
+      necrophages_bestiary_entry.template_list,
+      number_of_necropages,
+      parent.master.settings.only_known_bestiary_creatures
+    );
+
+    group_positions = getGroupPositions(
+      parent.investigation_center_position,
+      number_of_necropages,
+      0.01
+    );
+
+    for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
+      current_entity_template = creatures_templates.templates[i];
+
+      if (current_entity_template.count > 0) {
+        current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
+
+        FixZAxis(group_positions[group_positions_index]);
+
+        for (j = 0; j < current_entity_template.count; j += 1) {
+          created_entity = theGame.CreateEntity(
+            current_template,
+            group_positions[group_positions_index],
+            thePlayer.GetWorldRotation()
+          );
+
+          ((CNewNPC)created_entity).SetLevel(
+            getRandomLevelBasedOnSettings(parent.master.settings)
+          );
+
+          parent.entities.PushBack(created_entity);
+
+          group_positions_index += 1;
+        }
+      }
+    }
+
+    if (!parent.master.settings.enable_encounters_loot) {
+      parent.removeAllLoot();
+    }
+
+    // TODO: handle settings like trophies
   }
 
   latent function waitUntilPlayerReachesFirstClue() {
@@ -149,13 +234,33 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is in the investigation radius
     do {
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position); 
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position);
+
+      if (this.has_necrophages_with_clues) {
+        if (parent.hasOneOfTheEntitiesGeraltAsTarget()) {
+          break;
+        }
+
+        this.playEatingAnimationNecrophages();
+      }
 
       Sleep(0.5);
     } while (distance_from_player > this.investigation_radius * this.investigation_radius);
 
+    if (this.has_necrophages_with_clues) {
+      REROL_necrophages_great();
+
+      this.makeNecrophagesTargetPlayer();
+
+      this.waitUntilAllEntitiesAreDead();
+      parent.entities.Clear();
+
+      Sleep(0.5);
+    }
+
     // 2. once the player is in the radius, we play sone oneliners
-    if (RandRange(10) < 2) {
+    //    cannot play if there were necrophages around the corpses.
+    if (!this.has_necrophages_with_clues && RandRange(10) < 2) {
       REROL_so_many_corpses();
 
       // a small sleep to leave some space between the oneliners
@@ -163,6 +268,40 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     REROL_died_recently();
+  }
+
+  private latent function playEatingAnimationNecrophages() {
+    var i: int;
+
+    for (i = 0; i < parent.entities.Size(); i += 1) {
+      ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
+        'q104_avallach_friendly_to_all',
+        AGP_Default
+      );
+
+      ((CNewNPC)parent.entities[i]).ForgetAllActors();
+
+      ((CActor)parent.entities[i]).ForceAIBehavior(this.eating_animation_slot, BTAP_Emergency);
+    }
+  }
+
+  private latent function makeNecrophagesTargetPlayer() {
+    var i: int;
+
+    for (i = 0; i < parent.entities.Size(); i += 1) {
+      ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
+        'monsters',
+        AGP_Default
+      );
+
+      // ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);
+    }
+  }
+
+  private latent function waitUntilAllEntitiesAreDead() {
+    while (!parent.areAllEntitiesDead()) {
+      Sleep(0.4);
+    }
   }
 
 

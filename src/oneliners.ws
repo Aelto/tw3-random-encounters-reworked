@@ -144,3 +144,19 @@ latent function REROL_cant_smell_a_thing() {
 
   Sleep(1.155367); // Approved duration
 }
+
+// Geralt: Necrophages, great.
+latent function REROL_necrophages_great() {
+  var scene: CStoryScene;
+      
+  scene = (CStoryScene)LoadResourceAsync(
+    "dlc/dlc15/data/quests/quest_files/scenes/mq1058_geralt_oneliners.w2scene",
+    true
+  );
+
+  theGame
+  .GetStorySceneSystem()
+  .PlayScene(scene, "NecropphagesComment"); // no typo from me there, the two "p"
+
+  Sleep(2); // Approved duration
+}

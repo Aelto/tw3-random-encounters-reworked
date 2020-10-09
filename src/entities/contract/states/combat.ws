@@ -12,6 +12,7 @@ state Combat in RandomEncountersReworkedContractEntity {
 
   entry function Combat_Main() {
     this.waitUntilPlayerFinishesCombat();
+    this.CluesInvestigate_goToNextState();
   }
 
   latent function waitUntilPlayerFinishesCombat() {

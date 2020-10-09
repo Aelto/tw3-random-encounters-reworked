@@ -92,7 +92,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   }
 
 
-  private function areAllEntitiesDead(): bool {
+  public function areAllEntitiesDead(): bool {
     var i: int;
 
     for (i = 0; i < this.entities.Size(); i += 1) {
