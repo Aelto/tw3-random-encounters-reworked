@@ -142,7 +142,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   var tracks_looped: bool;
   default tracks_looped = false;
   var tracks_maximum: int;
-  default tracks_maximum = 200;
+  default tracks_maximum = 600;
 
   public function addTrackHere(position: Vector, heading: EulerAngles) {
     var new_entity: CEntity;
