@@ -277,8 +277,35 @@ class CModRExtra {
     return wetTerrainQuantity > -300;
   }
 
-  public function IsPlayerInForest() : bool
-  {
+  public function IsPlayerInForest() : bool {
+		// var entity: CEntity;
+    // var forestTrigger: W3ForestTrigger;
+
+    // entity = theGame.GetEntityByTag('forest');		//PFTODO: only one? shouldn't we get all?
+		
+    // if (entity) {
+		// 	forestTrigger = (W3ForestTrigger)entity;
+    // }
+
+    // return forestTrigger.IsPlayerInForest();
+
+    // var collision_group_names: array<name>;
+    // var hit_entities: array<CEntity>;
+    // var number_of_hit_entities: int;
+    // var radius: float;
+
+    // radius = 100;
+
+    // collision_group_names.PushBack('Foliage');
+    
+    // number_of_hit_entities = theGame
+    //   .GetWorld()
+    //   .SphereOverlapTest(hit_entities, thePlayer.GetWorldPosition(), radius, collision_group_names);
+
+    // LogChannel('modRandomEncounters', "number of hit foliage = " + number_of_hit_entities + hit_entities.Size());
+
+    // return number_of_hit_entities > 5;
+
     var cg : array<name>;
     var i, j, k : int;
     var compassPos : array<Vector>;
@@ -348,11 +375,15 @@ class CModRExtra {
             skipIdx = i;
           }
           else {
-            return false;
+            continue;
+            // return false;
           }
         }
       }
     }
+
+    LogChannel('modRandomEncounters', "number of hit foliage = " + totalQuantity);
+
 
     return totalQuantity > 10;
   }
