@@ -119,10 +119,14 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     // TODO: handle settings like trophies
   }
 
+  var chance_to_add_clues_in_path: float;
+  default chance_to_add_clues_in_path = 1;
+
   latent function createCluesPath() {
     var number_of_foot_paths: int;
     var current_track_position: Vector;
     var current_track_heading: float;
+    var current_track_translation: Vector;
     var distance_to_final_point: float;
     var final_point_radius: float;
     var i: int;
@@ -141,14 +145,16 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
       final_point_radius = 6 * 6;
 
       do {
-        current_track_heading = VecHeading(this.final_point_position - current_track_position);
-
-        current_track_position += VecConeRand(
-          current_track_heading,
+        current_track_translation = VecConeRand(
+          VecHeading(this.final_point_position - current_track_position),
           60, // 60 degrees randomness
           1,
           2
         );
+
+        current_track_heading = VecHeading(current_track_translation);
+
+        current_track_position += current_track_translation;
 
         FixZAxis(current_track_position);
 
@@ -159,10 +165,43 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
           VecToRotation(this.final_point_position - current_track_position)
         );
 
+        // small chance to add a corpse near the tracks
+        if (RandRange(100) < chance_to_add_clues_in_path) {
+          this.createCorpseAndBloodHere(current_track_position);
+        }
+
         // SleepOneFrame();
       } while (distance_to_final_point > final_point_radius);
     }
-  }  
+  }
+
+  private latent function createCorpseAndBloodHere(position: Vector) {
+    var number_of_blood_spills: int;
+    var current_clue_position: Vector;
+    var i: int;
+
+    current_clue_position = position;
+
+    FixZAxis(current_clue_position);
+
+    parent.investigation_clues.PushBack(
+      theGame.CreateEntity(
+        parent.getRandomCorpseResource(),
+        current_clue_position,
+        VecToRotation(VecRingRand(1, 2))
+      )
+    );
+
+    number_of_blood_spills = RandRange(10, 5);
+
+    for (i = 0; i < number_of_blood_spills; i += 1) {
+      current_clue_position = position + VecRingRand(0, 1.5);
+
+      FixZAxis(current_clue_position);
+
+      parent.addBloodTrackHere(current_clue_position);
+    }
+  }
 
   var creatures_aggro_radius: float;
   default creatures_aggro_radius = 400; // 20 * 20

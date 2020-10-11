@@ -60,3 +60,50 @@ latent function getTracksTemplate(actor : CActor): CEntityTemplate {
       return entity_template;
   }
 }
+
+latent function getTracksTemplateByCreatureType(create_type: CreatureType): CEntityTemplate {
+  var entity_template: CEntityTemplate;
+
+  switch(create_type) {
+    case CreatureBARGHEST :
+    case CreatureWILDHUNT :
+    case CreatureNIGHTWRAITH :
+    case CreatureNOONWRAITH :
+    case CreatureWRAITH :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\generic_quests\skellige\quest_files\mh207_wraith\entities\mh207_area_fog.w2ent",
+        true
+      );
+
+      return entity_template;
+      break;
+        
+      break;
+        
+    case CreatureHUMAN :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\minor_quests\no_mans_land\quest_files\mq1051_monster_hunt_nilfgaard1\entities\mq1051_mc_scout_footprint.w2ent",
+        true
+      );
+
+      return entity_template;
+      break;
+        
+    case CreatureARACHAS :
+    case CreatureENDREGA :
+    case CreatureECHINOPS :
+    case CreatureKIKIMORE :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\generic_quests\no_mans_land\quest_files\mh102_arachas\entities\mh102_arachas_tracks.w2ent",
+        true
+      );
+
+    default :
+      entity_template = (CEntityTemplate)LoadResourceAsync(
+        "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
+        true
+      );
+
+      return entity_template;
+  }
+}

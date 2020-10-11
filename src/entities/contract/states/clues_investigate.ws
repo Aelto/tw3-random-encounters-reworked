@@ -34,7 +34,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   var investigation_radius: int;
   default investigation_radius = 15;
 
-  var has_necrophages_with_clues: bool;
+  var has_monsters_with_clues: bool;
 
   var eating_animation_slot: CAIPlayAnimationSlotAction;
 
@@ -60,9 +60,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     // 2. load all the needed resources
-    parent.track_resource = (CEntityTemplate)LoadResourceAsync(
-      "quests\generic_quests\skellige\quest_files\mh202_nekker_warrior\entities\mh202_nekker_tracks.w2ent",
-      true
+    parent.track_resource = getTracksTemplateByCreatureType(
+      parent.chosen_bestiary_entry.type
     );
 
     parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\bandit_corpses\bandit_corpses_01.w2ent", true));
@@ -118,7 +117,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         theGame.CreateEntity(
           parent.getRandomCorpseResource(),
           current_clue_position,
-          RotRand(0, 360)
+          VecToRotation(VecRingRand(1, 2))
         )
       );
     }
@@ -149,29 +148,44 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 4. there is a chance necrophages are feeding on the corpses
     if (RandRange(10) < 6) {
-      this.addNecrophagesWithClues();
+      this.addMonstersWithClues();
     }
   }
 
-  private latent function addNecrophagesWithClues() {
-    var number_of_necropages: int;
-    var necrophages_bestiary_entry: RER_BestiaryEntry;
+  private latent function addMonstersWithClues() {
+    var number_of_monsters: int;
+    var monsters_bestiary_entry: RER_BestiaryEntry;
     var creatures_templates: EnemyTemplateList;
     var group_positions: array<Vector>;
     var current_template: CEntityTemplate;
     var current_entity_template: SEnemyTemplate;
+    var current_rotation: EulerAngles;
     var group_positions_index: int;
     var created_entity: CEntity;
     var i: int;
     var j: int;
 
-    necrophages_bestiary_entry = parent
-      .master
-      .bestiary
-      .entries[CreatureGHOUL];
+    // 1. pick the type of monsters we'll add near the clues
+    //    it's either necropages or Wild hunt soldiers if
+    //    the bestiary type for this encounter is Wild Hunt
+    if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+      monsters_bestiary_entry = parent
+        .master
+        .bestiary
+        .entries[CreatureWILDHUNT];
 
-    this.has_necrophages_with_clues = true;
+      this.addWildHuntClues();
+    }
+    else {
+      monsters_bestiary_entry = parent
+        .master
+        .bestiary
+        .entries[CreatureGHOUL];
+    }
 
+    this.has_monsters_with_clues = true;
+
+    // mainly used for the necrophages
     this.eating_animation_slot = new CAIPlayAnimationSlotAction in this;
     this.eating_animation_slot.OnCreated();
     this.eating_animation_slot.animName = 'exploration_eating_loop';
@@ -179,20 +193,21 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     this.eating_animation_slot.blendOutTime = 1.0f;  
     this.eating_animation_slot.slotName = 'NPC_ANIM_SLOT';
 
-    number_of_necropages = rollDifficultyFactor(
+    // 2. we spawn the monsters
+    number_of_monsters = rollDifficultyFactor(
       parent.chosen_bestiary_entry.template_list.difficulty_factor,
       parent.master.settings.selectedDifficulty
     );
 
     creatures_templates = fillEnemyTemplateList(
-      necrophages_bestiary_entry.template_list,
-      number_of_necropages,
+      monsters_bestiary_entry.template_list,
+      number_of_monsters,
       parent.master.settings.only_known_bestiary_creatures
     );
 
     group_positions = getGroupPositions(
       parent.investigation_center_position,
-      number_of_necropages,
+      number_of_monsters,
       0.01
     );
 
@@ -205,10 +220,12 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         FixZAxis(group_positions[group_positions_index]);
 
         for (j = 0; j < current_entity_template.count; j += 1) {
+          current_rotation = VecToRotation(VecRingRand(1, 2));
+
           created_entity = theGame.CreateEntity(
             current_template,
             group_positions[group_positions_index],
-            thePlayer.GetWorldRotation()
+            current_rotation
           );
 
           ((CNewNPC)created_entity).SetLevel(
@@ -229,45 +246,103 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // TODO: handle settings like trophies
   }
 
+  private var rifts: array<CRiftEntity>;
+
+  private latent function addWildHuntClues() {
+    var portal_template: CEntityTemplate;
+    var number_of_rifts: int;
+    var rift: CRiftEntity;
+    var i: int;
+
+    number_of_rifts = RandRange(3, 1);
+
+    portal_template = parent.master.resources.getPortalResource();
+    for (i = 0; i < number_of_rifts; i += 1) {
+      rift = (CRiftEntity)theGame.CreateEntity(
+        portal_template,
+        parent.investigation_center_position + VecRingRand(0, this.investigation_radius)
+      );
+
+      rift.ActivateRift();
+
+      this.rifts.PushBack(rift);
+    }
+  }
+
   latent function waitUntilPlayerReachesFirstClue() {
     var distance_from_player: float;
+
+    var has_set_weather_snow: bool;
+    
+    has_set_weather_snow = false;
 
     // 1. first we wait until the player is in the investigation radius
     do {
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position);
 
-      if (this.has_necrophages_with_clues) {
+      if (this.has_monsters_with_clues) {
         if (parent.hasOneOfTheEntitiesGeraltAsTarget()) {
           break;
         }
 
-        this.playEatingAnimationNecrophages();
+        if (parent.chosen_bestiary_entry.type != CreatureWILDHUNT) {
+          this.playEatingAnimationNecrophages();
+        }
+
+        // if the chosen type is the wildhunt and there are wild hunt members
+        // the weather should be snowy.
+        if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT
+        && !has_set_weather_snow) {
+
+          if (distance_from_player < this.investigation_radius * this.investigation_radius * 3) {
+            RequestWeatherChangeTo('WT_Snow', 7, false);
+
+            REROL_air_strange_and_the_mist(false);
+            has_set_weather_snow = true;
+          }
+        }
       }
 
       Sleep(0.5);
-    } while (distance_from_player > this.investigation_radius * this.investigation_radius);
+    } while (distance_from_player > this.investigation_radius * this.investigation_radius * 1.5);
 
-    if (this.has_necrophages_with_clues) {
-      REROL_necrophages_great();
+    // 2. once the player is in the radius, we play sone oneliners
+    //    cannot play if there were necrophages around the corpses.
+    if (this.has_monsters_with_clues) {
+      if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+        REROL_the_wild_hunt();
+      }
+      else {
+        REROL_necrophages_great();
+      }
 
       this.makeNecrophagesTargetPlayer();
 
       this.waitUntilAllEntitiesAreDead();
+
+      RequestWeatherChangeTo('WT_Clear',30,false);
+
+      Sleep(2);
+
+      if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+        REROL_wild_hunt_killed_them();
+      }
+      else {
+        REROL_clawed_gnawed_not_necrophages();
+      }
+
       parent.entities.Clear();
 
-      Sleep(0.5);
     }
+    else {
+      if (RandRange(10) < 2) {
+        REROL_so_many_corpses();
 
-    // 2. once the player is in the radius, we play sone oneliners
-    //    cannot play if there were necrophages around the corpses.
-    if (!this.has_necrophages_with_clues && RandRange(10) < 2) {
-      REROL_so_many_corpses();
-
-      // a small sleep to leave some space between the oneliners
-      Sleep(0.5);
+        // a small sleep to leave some space between the oneliners
+        Sleep(0.5);
+      }
+      REROL_died_recently();
     }
-
-    REROL_died_recently();
   }
 
   private latent function playEatingAnimationNecrophages() {
@@ -294,7 +369,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         AGP_Default
       );
 
-      // ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);
+      ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);
     }
   }
 

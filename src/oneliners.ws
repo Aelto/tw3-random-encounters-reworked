@@ -115,16 +115,9 @@ latent function REROL_there_you_are() {
 
 // Geralt: That was tough...
 latent function REROL_that_was_tough() {
-  var scene: CStoryScene;
-      
-  scene = (CStoryScene)LoadResourceAsync(
-    "quests/part_2/quest_files/q403_battle/scenes/q403_34b_letho_after_battle.w2scene",
-    true
-  );
-
-  theGame
-  .GetStorySceneSystem()
-  .PlayScene(scene, "dialogset_1_vs_1");
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(321440, true);
 
   Sleep(1.155367); // Approved duration
 }
@@ -159,4 +152,52 @@ latent function REROL_necrophages_great() {
   .PlayScene(scene, "NecropphagesComment"); // no typo from me there, the two "p"
 
   Sleep(2); // Approved duration
+}
+
+// Geralt: The Wild Hunt.
+latent function REROL_the_wild_hunt() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(539883, true);
+
+  Sleep(1.72); // Approved duration
+}
+
+// Geralt: Go away or i'll kill you.
+latent function REROL_go_or_ill_kill_you() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(476195, true);
+
+  Sleep(2.684654); // Approved duration
+}
+
+// Geralt: Air's strange… Like dropping into a deep
+// cellar on a hot day… And the mist…
+latent function REROL_air_strange_and_the_mist(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1061986, true);
+
+  if (!do_not_wait) {
+    Sleep(6.6); // Approved duration
+  }
+}
+
+// Geralt: Clawed and gnawed. Necrophages fed here… but all the wounds they inflicted are post-mortem.
+latent function REROL_clawed_gnawed_not_necrophages() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(470573, true);
+
+  Sleep(7.430004); // Approved duration
+}
+
+// Geralt: Wild Hunt killed them.
+latent function REROL_wild_hunt_killed_them() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1047779, true);
+
+  Sleep(2.36); // Approved duration
 }
