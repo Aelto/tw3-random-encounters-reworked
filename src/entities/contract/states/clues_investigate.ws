@@ -312,7 +312,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
         REROL_the_wild_hunt();
       }
-      else {
+      else if (!parent.areAllEntitiesDead()) {
         REROL_necrophages_great();
       }
 
@@ -379,6 +379,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     while (!parent.areAllEntitiesDead()) {
       Sleep(0.4);
     }
+
+    parent.entities.Clear();
   }
 
 
