@@ -124,16 +124,9 @@ latent function REROL_that_was_tough() {
 
 // Geralt: Damn… Can't smell a thing. Must've lost the trail.
 latent function REROL_cant_smell_a_thing() {
-  var scene: CStoryScene;
-      
-  scene = (CStoryScene)LoadResourceAsync(
-    "quests/part_1/quest_files/q401_konsylium/scenes/q401_04_01_geralt_tracking_eskel.w2scene",
-    true
-  );
-
-  theGame
-  .GetStorySceneSystem()
-  .PlayScene(scene, "LostGoatScent");
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(5399670, true);
 
   Sleep(1.155367); // Approved duration
 }
