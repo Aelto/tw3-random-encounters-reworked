@@ -144,6 +144,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     var current_track_translation: Vector;
     var distance_to_final_point: float;
     var final_point_radius: float;
+    var number_of_tracks_created: int;
     var i: int;
 
     // 1. we search how many paths we should draw
@@ -179,6 +180,12 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
           current_track_position,
           VecToRotation(this.final_point_position - current_track_position)
         );
+
+        number_of_tracks_created += 1;
+
+        if (this.number_of_tracks_created >= parent.tracks_maximum) {
+          break;
+        }
 
         // small chance to add a corpse near the tracks
         if (RandRange(100) < chance_to_add_clues_in_path) {
