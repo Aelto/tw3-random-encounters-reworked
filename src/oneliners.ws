@@ -201,3 +201,12 @@ latent function REROL_wild_hunt_killed_them() {
 
   Sleep(2.36); // Approved duration
 }
+
+// Geralt: Should look around.
+latent function REROL_should_look_around() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(397220, true);
+
+  Sleep(1.390483); // Approved duration
+}

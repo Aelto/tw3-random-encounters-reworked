@@ -343,6 +343,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       }
       REROL_died_recently();
     }
+
+    REROL_should_look_around();
   }
 
   private latent function playEatingAnimationNecrophages() {
