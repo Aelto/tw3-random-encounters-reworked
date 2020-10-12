@@ -1,5 +1,7 @@
 
 state CluesFollow in RandomEncountersReworkedContractEntity {
+  var bait_entity: CEntity;
+
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
@@ -76,6 +78,19 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     }
 
     // 2. now that we found the final position we start placing monsters there.
+    bait_entity = theGame.CreateEntity(
+      (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
+      this.final_point_position,
+      thePlayer.GetWorldRotation()
+    );
+
+    ((CNewNPC)this.bait_entity).SetGameplayVisibility(false);
+    ((CNewNPC)this.bait_entity).SetVisibility(false);    
+    ((CActor)this.bait_entity).EnableCharacterCollisions(false);
+    ((CActor)this.bait_entity).EnableDynamicCollisions(false);
+    ((CActor)this.bait_entity).EnableStaticCollisions(false);
+    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
+
     creatures_templates = fillEnemyTemplateList(
       parent.chosen_bestiary_entry.template_list,
       parent.number_of_creatures,
@@ -220,6 +235,22 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
     // 2. then we play some oneliners
     REROL_there_you_are();
+  }
+
+  private function keepCreaturesOnPoint() {
+    var distance_from_point: Vector;
+    var i: int;
+
+    for (i = 0; i < parent.entities.Size(); i += 1) {
+      distance_from_point = VecDistanceSquared(
+        parent.entities[i].GetWorldPosition(),
+        this.final_point_position
+      );
+
+      if (distance_from_point > this.creatures_aggro_radius) {
+        ((CNewNPC)parent.entities[i]).NoticeActor((CActor)this.bait_entity);
+      }
+    }
   }
 
   latent function createMidFollowAmbush() {
