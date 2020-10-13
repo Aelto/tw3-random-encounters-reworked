@@ -435,6 +435,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
   latent function waitUntilPlayerReachesLastClue() {
     var distance_from_player: float;
+    var has_played_oneliner: bool;
+
+    has_played_oneliner = false;
 
     Sleep(1);
 
@@ -442,11 +445,21 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     do {
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_last_clues_position);
 
+      if (!has_played_oneliner && RandRange(100) > 0.05) {
+        REROL_ground_splattered_with_blood();
+
+        has_played_oneliner = true;
+      }
+
       Sleep(0.2);
     } while (distance_from_player > 15 * 15);
 
     // 2. once the player is near, we play some oneliners
-    REROL_wonder_clues_will_lead_me();
+    if (RandRange(10) < 5) {
+      REROL_wonder_clues_will_lead_me();
+    } else {
+      REROL_came_through_here();
+    }
   }
 
   latent function CluesInvestigate_goToNextState() {

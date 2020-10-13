@@ -24,6 +24,8 @@ state Combat in RandomEncountersReworkedContractEntity {
     // 2. there is a small chance a second encounter with the
     //    same bestiary entry will start as an ambush.
     if (!this.has_been_ambushed && RandRange(100) < 15) {
+      REROL_monsters_everywhere_feel_them_coming();
+      
       createRandomCreatureAmbush(parent.master, parent.chosen_bestiary_entry.type);
       this.has_been_ambushed = true;
 

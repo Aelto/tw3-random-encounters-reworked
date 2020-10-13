@@ -147,6 +147,8 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     var number_of_tracks_created: int;
     var i: int;
 
+    number_of_tracks_created = 0;
+
     // 1. we search how many paths we should draw
     number_of_foot_paths = Max(parent.entities.Size(), 1);
 
@@ -230,12 +232,21 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
   latent function waitUntilPlayerReachesFinalPoint() {
     var distance_from_player: float;
+    var has_played_oneliner: bool;
+
+    has_played_oneliner = false;
 
     distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.final_point_position); 
 
     // 1. first we wait until the player has reached the final point
     while (distance_from_player > this.creatures_aggro_radius && !parent.hasOneOfTheEntitiesGeraltAsTarget()) {
       SleepOneFrame();
+
+      if (!has_played_oneliner && RandRange(100) < 0.05) {
+        REROL_miles_and_miles_and_miles();
+
+        has_played_oneliner = true;
+      }
       
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.final_point_position); 
     }
