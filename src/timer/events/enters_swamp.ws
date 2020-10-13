@@ -15,6 +15,9 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
       inGameConfigWrapper
       .GetVarValue('RERadvancedEvents', 'eventEntersSwamp')
     );
+
+    // the event is only active if its chances to trigger are greater than 0
+    this.active = this.trigger_chance > 0;
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {

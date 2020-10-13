@@ -12,6 +12,9 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
       inGameConfigWrapper
       .GetVarValue('RERadvancedEvents', 'eventMeditationAmbush')
     );
+
+    // the event is only active if its chances to trigger are greater than 0
+    this.active = this.trigger_chance > 0;
   }
 
   var time_before_other_spawn: float;
