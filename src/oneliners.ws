@@ -203,3 +203,95 @@ latent function REROL_should_look_around() {
 
   Sleep(1.390483); // Approved duration
 }
+
+// Geralt: Hm… Definitely came through here.
+latent function REROL_came_through_here() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(3678209, true);
+
+  Sleep(2.915713); // Approved duration
+}
+
+// Geralt: Another victim.
+latent function REROL_another_victim() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(3680313, true);
+
+  Sleep(1.390316); // Approved duration
+}
+
+// Geralt: Miles and miles and miles…
+latent function REROL_miles_and_miles_and_miles() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(17266228, true);
+
+  Sleep(2.68); // Approved duration
+}
+
+// Geralt: I'm gonna hand your head from my sadle
+latent function REROL_hang_your_head_from_sadle() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(18424625, true);
+
+  Sleep(4); // Approved duration
+}
+function REROL_hang_your_head_from_sadle_sync() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(18424625, true);
+}
+
+// Geralt: Someone'll pay for this trophy. No doubt about it.
+latent function REROL_someone_pay_for_trophy() {
+  REROL_someone_pay_for_trophy_sync();
+
+  Sleep(3); // Approved duration
+}
+function REROL_someone_pay_for_trophy_sync() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(4351252, true);
+}
+
+// Geralt: Good size. Wonder if this piece of rot'll get me anything.
+latent function REROL_good_size_wonder_if_someone_pay() {
+  REROL_good_size_wonder_if_someone_pay_sync();
+
+  Sleep(3.648103); // Approved duration
+}
+function REROL_good_size_wonder_if_someone_pay_sync() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(3629155, true);
+}
+
+// Geralt: Ground's splattered with blood for a few feet around. A lot of it.
+latent function REROL_ground_splattered_with_blood() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(4404358, true);
+
+  Sleep(4.238883); // Approved duration
+}
+
+// Geralt: Another track.
+latent function REROL_another_track() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(3678227, true);
+
+  Sleep(3); // Approved duration
+}
+
+// Geralt: Monsters… Can feel 'em… Coming closer… They're everywhere.
+latent function REROL_monsters_everywhere_feel_them_coming() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(5269094, true);
+
+  Sleep(5.902488); // Approved duration
+}

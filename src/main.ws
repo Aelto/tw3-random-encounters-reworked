@@ -191,7 +191,16 @@ statemachine class CRandomEncounters extends CEntity {
       .GetStorySceneSystem()
       .PlayScene(scene, "Input");
       
-      PlayItemEquipSound('trophy');
+      // Play some oneliners about the trophies
+      if (RandRange(10) < 2) {
+        REROL_hang_your_head_from_sadle_sync();
+      }
+      else if (RandRange(10) < 2) {
+        REROL_someone_pay_for_trophy();
+      }
+      else if (RandRange(10) < 2) {
+        REROL_good_size_wonder_if_someone_pay_sync();
+      }
     }
   }
   //#endregion OutOfCombat action
