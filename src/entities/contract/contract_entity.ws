@@ -61,6 +61,29 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   
   //#endregion variables made in `CluesInvestigate`
 
+  //#region variables used in `CluesFollow`
+
+  // this is the position the 
+  var last_clues_follow_final_position: Vector;
+
+  //#endregion variables used in `CluesFollow`
+
+  //#region variables used in `CombatLoop`
+
+  // chances used to determine if the phase should loop, expressed in %
+  var looping_chances: float;
+  default looping_chances = 60;
+
+  // everytime it loops the looping_chances are decreased by this value
+  var looping_chances_decrease: float;
+  default looping_chances_decrease = 15;
+
+  // indicates if the combat looped.
+  // It changes a few things in the `CluesFollow` state when set to true
+  var has_combat_looped: bool;
+  default has_combat_looped = false;
+  //#endregion variables used in `CombatLoop`
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 

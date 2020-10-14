@@ -1,6 +1,5 @@
 
 state CluesFollow in RandomEncountersReworkedContractEntity {
-  var bait_entity: CEntity;
 
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -13,6 +12,13 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
   entry function CluesFollow_Main() {
     this.createFinalPoint();
     this.createCluesPath();
+
+    if (parent.has_combat_looped) {
+      REROL_another_trail();
+      Sleep(1);
+      REROL_should_look_around();
+    }
+
     this.waitUntilPlayerReachesFinalPoint();
     this.CluesInvestigate_goToNextState();
   }
@@ -58,8 +64,19 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     search_heading = VecHeading(parent.investigation_last_clues_position - parent.investigation_center_position);
 
     for (i = 0; i < max_attempt_count; i += 1) {
-      current_search_position = parent.investigation_last_clues_position
-        + VecConeRand(search_heading, 270, this.final_point_min_radius, this.final_point_max_radius);
+
+      // 1.1 if we're in a case where the combat has looped, we search around the
+      // last point found by this state: `parent.final_point_position`
+      if (parent.has_combat_looped) {
+
+        // here it's a VecRingRand instead of VecCodeRand
+        current_search_position = parent.last_clues_follow_final_position
+          + VecRingRand(this.final_point_min_radius, this.final_point_max_radius);
+      }
+      else {
+        current_search_position = parent.investigation_last_clues_position
+          + VecConeRand(search_heading, 270, this.final_point_min_radius, this.final_point_max_radius);
+      }
 
       if (getGroundPosition(current_search_position, this.final_point_personal_space)) {
         this.final_point_position = current_search_position;
@@ -78,19 +95,6 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     }
 
     // 2. now that we found the final position we start placing monsters there.
-    bait_entity = theGame.CreateEntity(
-      (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
-      this.final_point_position,
-      thePlayer.GetWorldRotation()
-    );
-
-    ((CNewNPC)this.bait_entity).SetGameplayVisibility(false);
-    ((CNewNPC)this.bait_entity).SetVisibility(false);    
-    ((CActor)this.bait_entity).EnableCharacterCollisions(false);
-    ((CActor)this.bait_entity).EnableDynamicCollisions(false);
-    ((CActor)this.bait_entity).EnableStaticCollisions(false);
-    ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
-
     creatures_templates = fillEnemyTemplateList(
       parent.chosen_bestiary_entry.template_list,
       parent.number_of_creatures,
@@ -154,10 +158,18 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
     for (i = 0; i < number_of_foot_paths; i += 1) {
       // 2.1 we find a random position around the last clues position
-      current_track_position = parent.investigation_last_clues_position + VecRingRand(
-        0,
-        2
-      );
+      if (parent.has_combat_looped) {
+        current_track_position = parent.last_clues_follow_final_position + VecRingRand(
+          0,
+          2
+        );
+      }
+      else {
+        current_track_position = parent.investigation_last_clues_position + VecRingRand(
+          0,
+          2
+        );
+      }
 
       // 2.2 we slowly move toward the final point position
       final_point_radius = 6 * 6;
@@ -185,7 +197,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
         number_of_tracks_created += 1;
 
-        if (this.number_of_tracks_created >= parent.tracks_maximum) {
+        if (number_of_tracks_created >= parent.tracks_maximum) {
           break;
         }
 
@@ -242,11 +254,13 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     while (distance_from_player > this.creatures_aggro_radius && !parent.hasOneOfTheEntitiesGeraltAsTarget()) {
       SleepOneFrame();
 
-      if (!has_played_oneliner && RandRange(100) < 0.05) {
+      if (!has_played_oneliner && RandRange(10000) < 0.00001) {
         REROL_miles_and_miles_and_miles();
 
         has_played_oneliner = true;
       }
+
+      keepCreaturesOnPoint();
       
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.final_point_position); 
     }
@@ -256,7 +270,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
   }
 
   private function keepCreaturesOnPoint() {
-    var distance_from_point: Vector;
+    var distance_from_point: float;
     var i: int;
 
     for (i = 0; i < parent.entities.Size(); i += 1) {
@@ -266,16 +280,22 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
       );
 
       if (distance_from_point > this.creatures_aggro_radius) {
-        ((CNewNPC)parent.entities[i]).NoticeActor((CActor)this.bait_entity);
+        parent.entities[i].Teleport(
+          parent.entities[i].GetWorldPosition()
+          + VecNormalize(parent.entities[i].GetWorldPosition() - this.final_point_position)
+        );
       }
     }
   }
 
-  latent function createMidFollowAmbush() {
-    
-  }
+  latent function createMidFollowAmbush() {}
 
   latent function CluesInvestigate_goToNextState() {
+    // before leaving this state we store where the final position was.
+    // It is useful if the combat loops because the next investigation will
+    // start from this position now.
+    parent.last_clues_follow_final_position = this.final_point_position;
+
     parent.GotoState('Combat');
   }
 }

@@ -12,12 +12,12 @@ state Combat in RandomEncountersReworkedContractEntity {
 
   entry function Combat_Main() {
     this.waitUntilPlayerFinishesCombat();
-    this.CluesInvestigate_goToNextState();
+    this.Combat_goToNextState();
   }
 
   latent function waitUntilPlayerFinishesCombat() {
     // 1. we wait until the player is out of combat
-    while (thePlayer.IsInCombat()) {
+    while (!parent.areAllEntitiesDead() || thePlayer.IsInCombat()) {
       Sleep(1);
     }
 
@@ -35,7 +35,7 @@ state Combat in RandomEncountersReworkedContractEntity {
     }
   }
 
-  latent function CluesInvestigate_goToNextState() {
-    parent.GotoState('Ending');
+  latent function Combat_goToNextState() {
+    parent.GotoState('CombatLoop');
   }
 }

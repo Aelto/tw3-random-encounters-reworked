@@ -389,7 +389,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var current_track_position: Vector;
     var current_track_heading: float;
     var i: int;
-
+    var number_of_tracks_created: int;
+    
     LogChannel('modRandomEncounters', "creating Last clues");
 
     // 1. we search for a random position around the site.
@@ -402,6 +403,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // from somewhere in the investigation radius to the last clues position.
     // We do this multiple times
     number_of_foot_paths = parent.number_of_creatures;
+    number_of_tracks_created = 0;
 
     for (i = 0; i < number_of_foot_paths; i += 1) {
       // 2.1 we find a random position in the investigation radius
@@ -428,6 +430,12 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
           VecToRotation(parent.investigation_last_clues_position - current_track_position)
         );
 
+        number_of_tracks_created += 1;
+
+        if (number_of_tracks_created >= parent.tracks_maximum) {
+          break;
+        }
+
         // SleepOneFrame();
       }
     }
@@ -445,7 +453,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     do {
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_last_clues_position);
 
-      if (!has_played_oneliner && RandRange(100) > 0.05) {
+      if (!has_played_oneliner && RandRange(10000) < 0.00001) {
         REROL_ground_splattered_with_blood();
 
         has_played_oneliner = true;
