@@ -208,7 +208,7 @@ latent function REROL_should_look_around() {
 latent function REROL_came_through_here() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(3678209, true);
+  thePlayer.PlayLine(382001, true);
 
   Sleep(2.915713); // Approved duration
 }
@@ -217,7 +217,7 @@ latent function REROL_came_through_here() {
 latent function REROL_another_victim() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(3680313, true);
+  thePlayer.PlayLine(1002812, true);
 
   Sleep(1.390316); // Approved duration
 }
@@ -226,7 +226,7 @@ latent function REROL_another_victim() {
 latent function REROL_miles_and_miles_and_miles() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(17266228, true);
+  thePlayer.PlayLine(1077634, true);
 
   Sleep(2.68); // Approved duration
 }
@@ -235,14 +235,14 @@ latent function REROL_miles_and_miles_and_miles() {
 latent function REROL_hang_your_head_from_sadle() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(18424625, true);
+  REROL_hang_your_head_from_sadle_sync();
 
   Sleep(4); // Approved duration
 }
 function REROL_hang_your_head_from_sadle_sync() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(18424625, true);
+  thePlayer.PlayLine(1192331, true);
 }
 
 // Geralt: Someone'll pay for this trophy. No doubt about it.
@@ -254,7 +254,7 @@ latent function REROL_someone_pay_for_trophy() {
 function REROL_someone_pay_for_trophy_sync() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(4351252, true);
+  thePlayer.PlayLine(426514, true);
 }
 
 // Geralt: Good size. Wonder if this piece of rot'll get me anything.
@@ -266,23 +266,23 @@ latent function REROL_good_size_wonder_if_someone_pay() {
 function REROL_good_size_wonder_if_someone_pay_sync() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(3629155, true);
+  thePlayer.PlayLine(376063, true);
 }
 
 // Geralt: Ground's splattered with blood for a few feet around. A lot of it.
 latent function REROL_ground_splattered_with_blood() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(4404358, true);
+  thePlayer.PlayLine(433486, true);
 
   Sleep(4.238883); // Approved duration
 }
 
-// Geralt: Another track.
-latent function REROL_another_track() {
+// Geralt: Another trail.
+latent function REROL_another_trail() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(3678227, true);
+  thePlayer.PlayLine(382013, true);
 
   Sleep(3); // Approved duration
 }
@@ -291,7 +291,7 @@ latent function REROL_another_track() {
 latent function REROL_monsters_everywhere_feel_them_coming() {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
-  thePlayer.PlayLine(5269094, true);
+  thePlayer.PlayLine(506666, true);
 
   Sleep(5.902488); // Approved duration
 }
