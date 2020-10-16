@@ -10,6 +10,11 @@
                 <Entry varId="RERonlyKnownBestiaryCreatures"        value="1"    />
                 <Entry varId="RERenemyCountMultiplier"              value="1"    />
             </Preset>
+
+            <Preset id="1" displayName="rer_hard" >
+                <Entry varId="Difficulty"                           value="3"    />
+                <Entry varId="RERenemyCountMultiplier"              value="2"    />
+            </Preset>
         </PresetsArray>
 
         <VisibleVars>
@@ -26,7 +31,7 @@
                     <Option id="2" displayName="rer_hard">
                         <Entry varId="Difficulty" value="2"/>
                     </Option>
-                    <Option id="2" displayName="rer_random">
+                    <Option id="3" displayName="rer_random">
                         <Entry varId="Difficulty" value="3"/>
                     </Option>
                 </OptionsArray>
