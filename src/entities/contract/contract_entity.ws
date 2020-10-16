@@ -27,7 +27,8 @@
 statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   var master: CRandomEncounters;
 
-  var bait_entity: CEntity;
+  public var automatic_kill_threshold_distance: float;
+  default automatic_kill_threshold_distance = 200;
 
   var entities: array<CEntity>;
 
@@ -63,8 +64,11 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   //#region variables used in `CluesFollow`
 
-  // this is the position the 
+  // this is the position where the last combat took place
   var last_clues_follow_final_position: Vector;
+
+  // this is position where the next combat will take place
+  var final_point_position: Vector;
 
   //#endregion variables used in `CluesFollow`
 
@@ -109,6 +113,8 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   public latent function startContract(master: CRandomEncounters) {
     this.master = master;
 
+    this.automatic_kill_threshold_distance = master.settings.kill_threshold_distance * 3;
+
     this.AddTimer('intervalLifeCheck', 10.0, true);
 
     this.GotoState('CluesInvestigate');
@@ -141,6 +147,8 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
 
   timer function intervalLifeCheck(optional dt : float, optional id : Int32) {
+    var distance_from_player: float;
+
     if (this.GetCurrentStateName() == 'Ending') {
       this.clean();
     }
@@ -149,6 +157,26 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     && VecDistanceSquared(this.investigation_center_position, thePlayer.GetWorldPosition())
      > this.master.settings.kill_threshold_distance * this.master.settings.kill_threshold_distance) {
        this.clean();
+    }
+
+    if (this.GetCurrentStateName() == 'CluesFollow') {
+      distance_from_player = VecDistance(
+        this.final_point_position,
+        thePlayer.GetWorldPosition()
+      );
+    }
+    else {
+      distance_from_player = VecDistance(
+        this.GetWorldPosition(),
+        thePlayer.GetWorldPosition()
+      );
+    }
+
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
+      this.clean();
+
+      return;
     }
   }
 

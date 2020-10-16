@@ -22,8 +22,6 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     this.waitUntilPlayerReachesFinalPoint();
     this.CluesInvestigate_goToNextState();
   }
-
-  var final_point_position: Vector;
   
   var final_point_max_radius: float;
   default final_point_max_radius = 200;
@@ -79,14 +77,14 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
       }
 
       if (getGroundPosition(current_search_position, this.final_point_personal_space)) {
-        this.final_point_position = current_search_position;
+        parent.final_point_position = current_search_position;
         found_final_position = true;
 
         break;
       }
     }
 
-    LogChannel('modRandomEncounters', "found final position" + found_final_position);
+    LogChannel('modRandomEncounters', "found final position = " + found_final_position);
 
     if (!found_final_position) {
       parent.GotoState('Ending');
@@ -102,7 +100,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     );
 
     group_positions = getGroupPositions(
-      final_point_position,
+      parent.final_point_position,
       parent.number_of_creatures,
       this.monsters_density
     );
@@ -176,7 +174,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
       do {
         current_track_translation = VecConeRand(
-          VecHeading(this.final_point_position - current_track_position),
+          VecHeading(parent.final_point_position - current_track_position),
           60, // 60 degrees randomness
           1,
           2
@@ -188,11 +186,11 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
         FixZAxis(current_track_position);
 
-        distance_to_final_point = VecDistanceSquared(current_track_position, this.final_point_position);
+        distance_to_final_point = VecDistanceSquared(current_track_position, parent.final_point_position);
 
         parent.addTrackHere(
           current_track_position,
-          VecToRotation(this.final_point_position - current_track_position)
+          VecToRotation(parent.final_point_position - current_track_position)
         );
 
         number_of_tracks_created += 1;
@@ -248,7 +246,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
     has_played_oneliner = false;
 
-    distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.final_point_position); 
+    distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.final_point_position); 
 
     // 1. first we wait until the player has reached the final point
     while (distance_from_player > this.creatures_aggro_radius && !parent.hasOneOfTheEntitiesGeraltAsTarget()) {
@@ -262,7 +260,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
       keepCreaturesOnPoint();
       
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.final_point_position); 
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.final_point_position); 
     }
 
     // 2. then we play some oneliners
@@ -276,13 +274,13 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     for (i = 0; i < parent.entities.Size(); i += 1) {
       distance_from_point = VecDistanceSquared(
         parent.entities[i].GetWorldPosition(),
-        this.final_point_position
+        parent.final_point_position
       );
 
       if (distance_from_point > this.creatures_aggro_radius) {
         parent.entities[i].Teleport(
           parent.entities[i].GetWorldPosition()
-          + VecNormalize(parent.entities[i].GetWorldPosition() - this.final_point_position)
+          + VecNormalize(parent.entities[i].GetWorldPosition() - parent.final_point_position)
         );
       }
     }
@@ -294,7 +292,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     // before leaving this state we store where the final position was.
     // It is useful if the combat loops because the next investigation will
     // start from this position now.
-    parent.last_clues_follow_final_position = this.final_point_position;
+    parent.last_clues_follow_final_position = parent.final_point_position;
 
     parent.GotoState('Combat');
   }
