@@ -23,7 +23,6 @@ class RandomEncountersReworkedEntity extends CEntity {
   default automatic_kill_threshold_distance = 200;
 
   private var tracks_template: CEntityTemplate;
-  private var tracks_entities: array<CEntity>;
 
   private var master: CRandomEncounters;
 
@@ -355,11 +354,11 @@ class RandomEncountersReworkedEntity extends CEntity {
       this.bait_entity.Destroy();
     }
 
-    for (i = 0; i < this.tracks_entities.Size(); i += 1) {
-      this.tracks_entities[i].Destroy();
+    for (i = 0; i < this.foot_tracks_entities.Size(); i += 1) {
+      this.foot_tracks_entities[i].Destroy();
     }
 
-    this.tracks_entities.Clear();
+    this.foot_tracks_entities.Clear();
 
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
 
