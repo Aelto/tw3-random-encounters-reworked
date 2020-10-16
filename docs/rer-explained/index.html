@@ -115,6 +115,36 @@
         </div>
       </div>
     </div>
+
+    <div id="part-1-3">
+      <h3>Encounter - Contract</h3>
+
+      <div>
+        <h4>What is a Contract?</h4>
+        <div>
+          A monster cotnract is a special encounter, a mix between regular monster contracts for the base game and dynamic events.
+          It is phase based encounter with clues you have to follow and fights you have to complete to progress through the encounter.
+        </div>
+      </div>
+
+      <div>
+        <h4>The settings linked to contracts?</h4>
+        <div>
+          <ul>
+            <li>
+              You can set at which interval a contract appears, it is a random value picked between two delays you set in the
+              <span>Encounter frequency</span> menu. There you can tell the minimum interval between two contracts and also the
+              maximum delay.
+            </li>
+            <li>
+              The creature type is picked randomly by RER based on <a href="#part-4">external factors</a> and the pool of creatures
+              you set in the <span>Creatures ratios</span> menu. The default values from this encounter prioritize large creatures because
+              the encounter was made with them in mind.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="part-2">
@@ -379,12 +409,13 @@
         <p>
           For this reason i changed the <span>Encounter types</span> to the following:
           <ul>
-            <li>Monster ambush frequency to <span>5</span></li>
+            <li>Monster ambush frequency to <span>15</span></li>
             <li>Monster hunt frequency to <span>100</span></li>
+            <li>Monster contract frequency to <span>15</span></li>
           </ul>          
         </p>
         <p>
-          But having only monsters hunts means we get almost no fight unless we track the creatures, i still wanted some fights from time to time.
+          But having mostly monsters hunts means we get almost no fight unless we track the creatures, i still wanted some fights from time to time.
           So i decreased the <span>Creatures frequencies</span> to low values:
           <ul>
             <li>Minimum delay during the day at <span>60</span></li>
@@ -394,6 +425,12 @@
           </ul>
           With this my world is filled with lots of creatures and often i cross the path of a wild group of creatures which results in a fight.
           But atleast this time i had the time to prepare.
+        </p>
+        <p>
+          The monster ambush frequency is set to <span>15</span> but i made sure to remove every monsters from this encounter.
+          This way ambushes are only made by groups of humans, who are not a big threat themselves but can still cause me trouble if the ambush
+          starts as soon as i leave a combat or i'm low health. Human also drop food when killed which is useful when doing Hardcore runs where every
+          apple is appreciated. So the ambushes present a risk but if i go through them i get rewarded with food and healing.
         </p>
         <p>
           The default distance at which the creatures spawn were made for the ambushes in mind. So i decided to increase them a bit to prevent the
