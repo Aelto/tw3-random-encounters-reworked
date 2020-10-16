@@ -104,3 +104,10 @@ enum TrophyVariant {
   TrophyVariant_PRICE_MEDIUM = 1,
   TrophyVariant_PRICE_HIGH = 2
 }
+
+enum RER_Difficulty {
+  RER_Difficulty_EASY = 0,
+  RER_Difficulty_MEDIUM = 1,
+  RER_Difficulty_HARD = 2,
+  RER_Difficulty_RANDOM = 3
+}

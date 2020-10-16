@@ -25,7 +25,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     parent.number_of_creatures = rollDifficultyFactor(
       parent.chosen_bestiary_entry.template_list.difficulty_factor,
-      parent.master.settings.selectedDifficulty
+      parent.master.settings.selectedDifficulty,
+      parent.master.settings.enemy_count_multiplier
     );
 
     LogChannel('modrandomencounters', "chosen bestiary entry" + parent.chosen_bestiary_entry.type);
@@ -196,7 +197,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // 2. we spawn the monsters
     number_of_monsters = rollDifficultyFactor(
       parent.chosen_bestiary_entry.template_list.difficulty_factor,
-      parent.master.settings.selectedDifficulty
+      parent.master.settings.selectedDifficulty,
+      parent.master.settings.enemy_count_multiplier
     );
 
     creatures_templates = fillEnemyTemplateList(

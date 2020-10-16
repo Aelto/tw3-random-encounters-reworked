@@ -72,7 +72,7 @@ function mergeEnemyTemplateLists(a, b: EnemyTemplateList): EnemyTemplateList {
   return output;
 }
 
-function getMaximumCountBasedOnDifficulty(out factor: DifficultyFactor, difficulty: int, optional added_factor: float): int {
+function getMaximumCountBasedOnDifficulty(out factor: DifficultyFactor, difficulty: RER_Difficulty, optional added_factor: float): int {
   if (added_factor == 0) {
     added_factor = 1;
   }
@@ -88,7 +88,7 @@ function getMaximumCountBasedOnDifficulty(out factor: DifficultyFactor, difficul
   return FloorF(factor.maximum_count_easy * added_factor);
 }
 
-function getMinimumCountBasedOnDifficulty(out factor: DifficultyFactor, difficulty: int, optional added_factor: float): int {
+function getMinimumCountBasedOnDifficulty(out factor: DifficultyFactor, difficulty: RER_Difficulty, optional added_factor: float): int {
   if (added_factor == 0) {
     added_factor = 1;
   }
@@ -104,9 +104,15 @@ function getMinimumCountBasedOnDifficulty(out factor: DifficultyFactor, difficul
   return FloorF(factor.minimum_count_easy * added_factor);
 }
 
-function rollDifficultyFactor(out factor: DifficultyFactor, difficulty: int, optional added_factor: float): int {
+function rollDifficultyFactor(out factor: DifficultyFactor, difficulty: RER_Difficulty, optional added_factor: float): int {
   if (added_factor == 0) {
     added_factor = 1;
+  }
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/34
+  // if the selected difficulty is RANDOM, then we randomly pick the difficulty
+  if (difficulty == RER_Difficulty_RANDOM) {
+    difficulty = RandRange(RER_Difficulty_RANDOM - 1);
   }
   
   return RandRange(

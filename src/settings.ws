@@ -8,7 +8,8 @@ class RE_Settings {
   public var all_monster_contract_chance: int;
   public var all_monster_ambush_chance: int;
   public var enableTrophies : bool;
-  public var selectedDifficulty : int;
+  public var selectedDifficulty : RER_Difficulty;
+  public var enemy_count_multiplier : int;
 
   // uses the enum `Creature` and its values for the index/key.
   // and the `int` for the value/chance.
@@ -95,6 +96,7 @@ class RE_Settings {
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
     selectedDifficulty = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'Difficulty'));
+    this.enemy_count_multiplier = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERenemyCountMultiplier'));
   }
 
   private function loadGeraltCommentsSettings(inGameConfigWrapper: CInGameConfigWrapper) {

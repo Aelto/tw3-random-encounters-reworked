@@ -25,8 +25,12 @@
                     <Option id="2" displayName="rer_hard">
                         <Entry varId="Difficulty" value="2"/>
                     </Option>
+                    <Option id="2" displayName="rer_random">
+                        <Entry varId="Difficulty" value="3"/>
+                    </Option>
                 </OptionsArray>
             </Var>
+            <Var id="RERenemyCountMultiplier" displayName="rer_enemy_count_multiplier" displayType="SLIDER;1;10;9"/>
             <Var id="geraltComments" displayName="rer_geralt_comments" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">

@@ -307,7 +307,8 @@ abstract class CompositionSpawner {
 
     return rollDifficultyFactor(
       creatures_templates.difficulty_factor,
-      master.settings.selectedDifficulty
+      master.settings.selectedDifficulty,
+      master.settings.enemy_count_multiplier
     );
   }
 
