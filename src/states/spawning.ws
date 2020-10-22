@@ -55,17 +55,7 @@ state Spawning in CRandomEncounters {
         || current_zone == REZ_CITY
         && !parent.settings.allow_big_city_spawns
 
-        || thePlayer.IsInInterior()
-        || thePlayer.IsInCombat()
-        || thePlayer.IsUsingBoat()
-        || thePlayer.IsInFistFightMiniGame()
-        || thePlayer.IsSwimming()
-        || thePlayer.IsInNonGameplayCutscene()
-        || thePlayer.IsInGameplayScene()
-        || theGame.IsDialogOrCutscenePlaying()
-        || theGame.IsCurrentlyPlayingNonGameplayScene()
-        || theGame.IsFading()
-        || theGame.IsBlackscreen()
+        || isPlayerBusy()
 
         || parent.rExtra.isPlayerInSettlement()
         && !parent.settings.doesAllowCitySpawns();

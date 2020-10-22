@@ -51,6 +51,10 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     health_missing_perc = 1 - thePlayer.GetHealthPercents();
 
     if (RandRangeF(100) < this.trigger_chance * chance_scale * health_missing_perc) {
+      if (isPlayerBusy()) {
+        return false;
+      }
+
       type = this.getRandomNecrophageType(master);
       createRandomCreatureAmbush(master, type);
 
