@@ -25,12 +25,12 @@ class RER_BestiaryGolem extends RER_BestiaryEntry {
     )
   );          // weird yellowish golem
 
-  this.template_list.difficulty_factor.minimum_count_easy = 1;
-  this.template_list.difficulty_factor.maximum_count_easy = 1;
-  this.template_list.difficulty_factor.minimum_count_medium = 1;
-  this.template_list.difficulty_factor.maximum_count_medium = 1;
-  this.template_list.difficulty_factor.minimum_count_hard = 1;
-  this.template_list.difficulty_factor.maximum_count_hard = 1;
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
 
   
 

@@ -20,12 +20,12 @@ class RER_BestiaryBasilisk extends RER_BestiaryEntry {
       );
     }
 
-    this.template_list.difficulty_factor.minimum_count_easy = 1;
-    this.template_list.difficulty_factor.maximum_count_easy = 1;
-    this.template_list.difficulty_factor.minimum_count_medium = 1;
-    this.template_list.difficulty_factor.maximum_count_medium = 1;
-    this.template_list.difficulty_factor.minimum_count_hard = 1;
-    this.template_list.difficulty_factor.maximum_count_hard = 1;
+      this.template_list.difficulty_factor.minimum_count_easy = 1;
+      this.template_list.difficulty_factor.maximum_count_easy = 1;
+      this.template_list.difficulty_factor.minimum_count_medium = 1;
+      this.template_list.difficulty_factor.maximum_count_medium = 1;
+      this.template_list.difficulty_factor.minimum_count_hard = 1;
+      this.template_list.difficulty_factor.maximum_count_hard = 1;
 
     this.trophy_names.PushBack('modrer_basilisk_trophy_low');
     this.trophy_names.PushBack('modrer_basilisk_trophy_medium');

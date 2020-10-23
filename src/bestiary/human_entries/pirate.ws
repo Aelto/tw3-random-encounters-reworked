@@ -14,12 +14,12 @@ class RER_BestiaryHumanPirate extends RER_BestiaryEntry {
   this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\nml_pirates_sword_hard.w2ent"));        
   this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\nml_pirates_sword_normal.w2ent"));
 
-  this.template_list.difficulty_factor.minimum_count_easy = 3;
-  this.template_list.difficulty_factor.maximum_count_easy = 4;
-  this.template_list.difficulty_factor.minimum_count_medium = 3;
-  this.template_list.difficulty_factor.maximum_count_medium = 5;
-  this.template_list.difficulty_factor.minimum_count_hard = 4;
-  this.template_list.difficulty_factor.maximum_count_hard = 6;
+    this.template_list.difficulty_factor.minimum_count_easy = 3;
+    this.template_list.difficulty_factor.maximum_count_easy = 4;
+    this.template_list.difficulty_factor.minimum_count_medium = 3;
+    this.template_list.difficulty_factor.maximum_count_medium = 5;
+    this.template_list.difficulty_factor.minimum_count_hard = 4;
+    this.template_list.difficulty_factor.maximum_count_hard = 6;
 
   
 

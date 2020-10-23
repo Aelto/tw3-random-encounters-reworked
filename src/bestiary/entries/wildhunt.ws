@@ -47,12 +47,12 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
       )
     );  // spikier hound
 
-    this.template_list.difficulty_factor.minimum_count_easy = 3;
-    this.template_list.difficulty_factor.maximum_count_easy = 4;
-    this.template_list.difficulty_factor.minimum_count_medium = 4;
-    this.template_list.difficulty_factor.maximum_count_medium = 6;
-    this.template_list.difficulty_factor.minimum_count_hard = 5;
-    this.template_list.difficulty_factor.maximum_count_hard = 7;
+      this.template_list.difficulty_factor.minimum_count_easy = 3;
+      this.template_list.difficulty_factor.maximum_count_easy = 4;
+      this.template_list.difficulty_factor.minimum_count_medium = 4;
+      this.template_list.difficulty_factor.maximum_count_medium = 6;
+      this.template_list.difficulty_factor.minimum_count_hard = 5;
+      this.template_list.difficulty_factor.maximum_count_hard = 7;
 
     this.trophy_names.PushBack('modrer_wildhunt_trophy_low');
     this.trophy_names.PushBack('modrer_wildhunt_trophy_medium');

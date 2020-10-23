@@ -20,12 +20,12 @@ class RER_BestiaryHumanSkel2bandit extends RER_BestiaryEntry {
   this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_bandit_bow.w2ent", 2));        
   this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_bandit_crossbow.w2ent", 1));
 
-  this.template_list.difficulty_factor.minimum_count_easy = 3;
-  this.template_list.difficulty_factor.maximum_count_easy = 4;
-  this.template_list.difficulty_factor.minimum_count_medium = 3;
-  this.template_list.difficulty_factor.maximum_count_medium = 5;
-  this.template_list.difficulty_factor.minimum_count_hard = 4;
-  this.template_list.difficulty_factor.maximum_count_hard = 6;
+    this.template_list.difficulty_factor.minimum_count_easy = 3;
+    this.template_list.difficulty_factor.maximum_count_easy = 4;
+    this.template_list.difficulty_factor.minimum_count_medium = 3;
+    this.template_list.difficulty_factor.maximum_count_medium = 5;
+    this.template_list.difficulty_factor.minimum_count_hard = 4;
+    this.template_list.difficulty_factor.maximum_count_hard = 6;
 
   
 

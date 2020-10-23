@@ -17,12 +17,12 @@ class RER_BestiaryHumanSkelbandit extends RER_BestiaryEntry {
   this.template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\characters\presets\skellige\ske_shield_axe_t2.w2ent"));        
   this.template_list.templates.PushBack(makeEnemyTemplate("gameplay\templates\characters\presets\skellige\ske_shield_sword.w2ent"));
 
-  this.template_list.difficulty_factor.minimum_count_easy = 3;
-  this.template_list.difficulty_factor.maximum_count_easy = 4;
-  this.template_list.difficulty_factor.minimum_count_medium = 3;
-  this.template_list.difficulty_factor.maximum_count_medium = 5;
-  this.template_list.difficulty_factor.minimum_count_hard = 4;
-  this.template_list.difficulty_factor.maximum_count_hard = 6;
+    this.template_list.difficulty_factor.minimum_count_easy = 3;
+    this.template_list.difficulty_factor.maximum_count_easy = 4;
+    this.template_list.difficulty_factor.minimum_count_medium = 3;
+    this.template_list.difficulty_factor.maximum_count_medium = 5;
+    this.template_list.difficulty_factor.minimum_count_hard = 4;
+    this.template_list.difficulty_factor.maximum_count_hard = 6;
 
   
 

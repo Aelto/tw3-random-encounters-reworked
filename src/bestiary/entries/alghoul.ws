@@ -37,12 +37,12 @@ class RER_BestiaryAlghoul extends RER_BestiaryEntry {
     )
   );
 
-  this.template_list.difficulty_factor.minimum_count_easy = 2;
-  this.template_list.difficulty_factor.maximum_count_easy = 2;
-  this.template_list.difficulty_factor.minimum_count_medium = 2;
-  this.template_list.difficulty_factor.maximum_count_medium = 3;
-  this.template_list.difficulty_factor.minimum_count_hard = 3;
-  this.template_list.difficulty_factor.maximum_count_hard = 4;
+    this.template_list.difficulty_factor.minimum_count_easy = 2;
+    this.template_list.difficulty_factor.maximum_count_easy = 2;
+    this.template_list.difficulty_factor.minimum_count_medium = 2;
+    this.template_list.difficulty_factor.maximum_count_medium = 3;
+    this.template_list.difficulty_factor.minimum_count_hard = 3;
+    this.template_list.difficulty_factor.maximum_count_hard = 4;
 
   
 

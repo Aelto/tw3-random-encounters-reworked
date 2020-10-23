@@ -19,12 +19,12 @@ class RER_BestiaryRotfiend extends RER_BestiaryEntry {
     )
   );
 
-  this.template_list.difficulty_factor.minimum_count_easy = 1;
-  this.template_list.difficulty_factor.maximum_count_easy = 3;
-  this.template_list.difficulty_factor.minimum_count_medium = 2;
-  this.template_list.difficulty_factor.maximum_count_medium = 4;
-  this.template_list.difficulty_factor.minimum_count_hard = 3;
-  this.template_list.difficulty_factor.maximum_count_hard = 6;
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 3;
+    this.template_list.difficulty_factor.minimum_count_medium = 2;
+    this.template_list.difficulty_factor.maximum_count_medium = 4;
+    this.template_list.difficulty_factor.minimum_count_hard = 3;
+    this.template_list.difficulty_factor.maximum_count_hard = 6;
 
   
 

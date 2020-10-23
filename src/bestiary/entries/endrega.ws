@@ -25,12 +25,12 @@ class RER_BestiaryEndrega extends RER_BestiaryEntry {
     ),
   );      // big tailless endrega
 
-  this.template_list.difficulty_factor.minimum_count_easy = 2;
-  this.template_list.difficulty_factor.maximum_count_easy = 3;
-  this.template_list.difficulty_factor.minimum_count_medium = 2;
-  this.template_list.difficulty_factor.maximum_count_medium = 4;
-  this.template_list.difficulty_factor.minimum_count_hard = 3;
-  this.template_list.difficulty_factor.maximum_count_hard = 5;
+    this.template_list.difficulty_factor.minimum_count_easy = 2;
+    this.template_list.difficulty_factor.maximum_count_easy = 3;
+    this.template_list.difficulty_factor.minimum_count_medium = 2;
+    this.template_list.difficulty_factor.maximum_count_medium = 4;
+    this.template_list.difficulty_factor.minimum_count_hard = 3;
+    this.template_list.difficulty_factor.maximum_count_hard = 5;
 
   
 
