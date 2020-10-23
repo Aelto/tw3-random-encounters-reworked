@@ -53,6 +53,13 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
       )
     );
 
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
     this.trophy_names.PushBack('modrer_werewolf_trophy_low');
     this.trophy_names.PushBack('modrer_werewolf_trophy_medium');
     this.trophy_names.PushBack('modrer_werewolf_trophy_high');
