@@ -46,6 +46,12 @@ class RER_ListenerFightNoise extends RER_EventsListener {
 
     if (is_in_combat && RandRangeF(100) < this.trigger_chance * chance_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerFightNoise - triggered");
+
+      if (shouldAbortCreatureSpawn(master.settings, master.rExtra)) {
+        LogChannel('modRandomEncounters', "RER_ListenerFightNoise - cancelled");
+
+        return false;
+      }
       
       // we disable it for the fight so it doesn't spawn non-stop
       this.already_spawned_this_combat = is_in_combat;

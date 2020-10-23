@@ -76,13 +76,14 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
     // 12 hours later it's at 180%
     // 24 hours later it's at 280%
     if (RandRangeF(100) < (this.trigger_chance * (0.8f + (float)(time_spent_meditating / 3600) / 12.0f)) * chance_scale) {
+      LogChannel('modRandomEncounters', "RER_ListenerMeditationAmbush - triggered, % increased by meditation = " + time_spent_meditating / 3600);
 
       // this check is done only when the event has triggered to avoid doing it too often
-      if (master.rExtra.isPlayerInSettlement()) {
+      if (shouldAbortCreatureSpawn(master.settings, master.rExtra)) {
+        LogChannel('modRandomEncounters', "RER_ListenerMeditationAmbush - cancelled");
+
         return false;
       }
-
-      LogChannel('modRandomEncounters', "RER_ListenerMeditationAmbush - triggered, % increased by meditation = " + time_spent_meditating / 3600);
 
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
 

@@ -23,7 +23,15 @@ state Spawning in CRandomEncounters {
 
     picked_encounter_type = this.getRandomEncounterType();
     
-    if (!parent.settings.is_enabled || !this.is_spawn_forced && this.shouldAbortCreatureSpawn()) {
+    // we start by checking if the creature spawn should be cancelled.
+    if (
+       // first if RER is disabled, any spawn should be cancelled
+       !parent.settings.is_enabled
+
+       // then, if the spawn is not forced we check if the player
+       // is in a place where a spawn in accepted.
+    || !this.is_spawn_forced
+    && shouldAbortCreatureSpawn(parent.settings, parent.rExtra)) {
       parent.GotoState('SpawningCancelled');
 
       return;
@@ -37,28 +45,6 @@ state Spawning in CRandomEncounters {
     );
 
     parent.GotoState('Waiting');
-  }
-
-  function shouldAbortCreatureSpawn(): bool {
-    var current_state: CName;
-    var is_meditating: bool;
-    var current_zone: EREZone;
-
-
-    current_state = thePlayer.GetCurrentStateName();
-    is_meditating = current_state == 'Meditation' && current_state == 'MeditationWaiting';
-    current_zone = parent.rExtra.getCustomZone(thePlayer.GetWorldPosition());
-
-    return is_meditating 
-        || current_zone == REZ_NOSPAWN
-        
-        || current_zone == REZ_CITY
-        && !parent.settings.allow_big_city_spawns
-
-        || isPlayerBusy()
-
-        || parent.rExtra.isPlayerInSettlement()
-        && !parent.settings.doesAllowCitySpawns();
   }
 
   function getRandomEncounterType(): EncounterType {
