@@ -45,13 +45,8 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     var i: int;
 
     // used in 2.
-    var creatures_templates: EnemyTemplateList;
-    var group_positions: array<Vector>;
-    var current_template: CEntityTemplate;
-    var current_entity_template: SEnemyTemplate;
-    var group_positions_index: int;
-    var created_entity: CEntity;
-    var j: int;
+    var created_entities: array<CEntity>;
+    var i: int;
 
 
     // 1. before creating the clues we search for the position of the final
@@ -93,47 +88,19 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     }
 
     // 2. now that we found the final position we start placing monsters there.
-    creatures_templates = fillEnemyTemplateList(
-      parent.chosen_bestiary_entry.template_list,
-      parent.number_of_creatures,
-      parent.master.settings.only_known_bestiary_creatures
-    );
+    created_entities = parent
+      .chosen_bestiary_entry
+      .spawn(
+        parent.master,
+        parent.final_point_position,
+        parent.number_of_creatures,
+        this.monsters_density,
+        parent.allow_trophy
+      );
 
-    group_positions = getGroupPositions(
-      parent.final_point_position,
-      parent.number_of_creatures,
-      this.monsters_density
-    );
-
-    for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
-      current_entity_template = creatures_templates.templates[i];
-
-      if (current_entity_template.count > 0) {
-        current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-
-        for (j = 0; j < current_entity_template.count; j += 1) {
-          created_entity = theGame.CreateEntity(
-            current_template,
-            group_positions[group_positions_index],
-            thePlayer.GetWorldRotation()
-          );
-
-          ((CNewNPC)created_entity).SetLevel(
-            getRandomLevelBasedOnSettings(parent.master.settings)
-          );
-
-          parent.entities.PushBack(created_entity);
-
-          group_positions_index += 1;
-        }
-      }
+    for (i = 0; i < created_entities.Size(); i += 1) {
+      parent.entities.PushBack(created_entities[i]);
     }
-
-    if (!parent.master.settings.enable_encounters_loot) {
-      parent.removeAllLoot();
-    }
-
-    // TODO: handle settings like trophies
   }
 
   var chance_to_add_clues_in_path: float;

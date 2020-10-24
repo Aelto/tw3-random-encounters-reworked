@@ -154,17 +154,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   }
 
   private latent function addMonstersWithClues() {
-    var number_of_monsters: int;
     var monsters_bestiary_entry: RER_BestiaryEntry;
-    var creatures_templates: EnemyTemplateList;
-    var group_positions: array<Vector>;
-    var current_template: CEntityTemplate;
-    var current_entity_template: SEnemyTemplate;
-    var current_rotation: EulerAngles;
-    var group_positions_index: int;
-    var created_entity: CEntity;
+    var created_entities: array<CEntity>;
     var i: int;
-    var j: int;
 
     // 1. pick the type of monsters we'll add near the clues
     //    it's either necropages or Wild hunt soldiers if
@@ -195,57 +187,16 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     this.eating_animation_slot.slotName = 'NPC_ANIM_SLOT';
 
     // 2. we spawn the monsters
-    number_of_monsters = rollDifficultyFactor(
-      parent.chosen_bestiary_entry.template_list.difficulty_factor,
-      parent.master.settings.selectedDifficulty,
-      parent.master.settings.enemy_count_multiplier
-    );
+    created_entities = monsters_bestiary_entry
+      .spawn(
+        master,
+        parent.investigation_center_position,,,
+        parent.allow_trophy
+      );
 
-    creatures_templates = fillEnemyTemplateList(
-      monsters_bestiary_entry.template_list,
-      number_of_monsters,
-      parent.master.settings.only_known_bestiary_creatures
-    );
-
-    group_positions = getGroupPositions(
-      parent.investigation_center_position,
-      number_of_monsters,
-      0.01
-    );
-
-    for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
-      current_entity_template = creatures_templates.templates[i];
-
-      if (current_entity_template.count > 0) {
-        current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-
-        FixZAxis(group_positions[group_positions_index]);
-
-        for (j = 0; j < current_entity_template.count; j += 1) {
-          current_rotation = VecToRotation(VecRingRand(1, 2));
-
-          created_entity = theGame.CreateEntity(
-            current_template,
-            group_positions[group_positions_index],
-            current_rotation
-          );
-
-          ((CNewNPC)created_entity).SetLevel(
-            getRandomLevelBasedOnSettings(parent.master.settings)
-          );
-
-          parent.entities.PushBack(created_entity);
-
-          group_positions_index += 1;
-        }
-      }
+    for (i = 0; i < created_entities.Size(); i += 1) {
+      parent.entities.PushBack(created_entities[i]);
     }
-
-    if (!parent.master.settings.enable_encounters_loot) {
-      parent.removeAllLoot();
-    }
-
-    // TODO: handle settings like trophies
   }
 
   private var rifts: array<CRiftEntity>;

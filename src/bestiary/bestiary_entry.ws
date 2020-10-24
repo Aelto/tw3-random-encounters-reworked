@@ -60,6 +60,91 @@ abstract class RER_BestiaryEntry {
   public function isNull(): bool {
     return this.type == CreatureNONE;
   }
+
+  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool) array<CEntities> {
+    var creatures_templates: EnemyTemplateList;
+    var group_positions: array<Vector>;
+    var current_template: CEntityTemplate;
+    var current_entity_template: SEnemyTemplate;
+    var current_rotation: EulerAngles;
+    var created_entity: CEntity;
+    var created_entities: array<CEntity>;
+    var group_positions_index: int;
+    var i: int;
+    var j: int;
+
+    if (count = <= 0) {
+      count = rollDifficultyFactor(
+        this.template_list.difficulty_factor,
+        master.settings.selectedDifficulty,
+        master.settings.enemy_count_multiplier
+      );
+    }
+
+    if (density <= 0) {
+      density = 0.01;
+    }
+
+    creatures_templates = fillEnemyTemplateList(
+      this.template_list,
+      count,
+      master.settings.only_known_bestiary_creatures
+    );
+
+    group_positions = getGroupPositions(
+      position,
+      count,
+      density
+    );
+
+    group_positions_index = 0;
+
+    for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
+      current_entity_template = creatures_templates.templates[i];
+
+      if (current_entity_template.count > 0) {
+        current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
+        current_rotation = VecToRotation(VecRingRand(1, 2));
+
+        FixZAxis(group_positions[group_positions_index]);
+
+        for (j = 0; j < current_entity_template.count; j += 1) {
+          created_entity = theGame.CreateEntity(
+            current_template,
+            group_positions[group_positions_index],
+            current_rotation
+          );
+
+          ((CNewNPC)created_entity).SetLevel(
+            getRandomLevelBasedOnSettings(master.settings)
+          );
+
+          if (allow_trophies && RandRange(100) < this.trophy_chance) {
+            LogChannel('modRandomEncounters', "adding 1 trophy " + this.type);
+            
+            ((CActor)created_entity)
+              .GetInventory()
+              .AddAnItem(
+                this.trophy_names[master.settings.trophy_price],
+                1
+              );
+          }
+
+          if (!master.settings.enable_encounters_loot) {
+            ((CActor)created_entity)
+              .GetInventory()
+              .EnableLoot(false);
+          }
+
+          created_entities.PushBack(created_entity);
+
+          group_positions_index += 1;
+        }
+      }
+    }
+
+    return created_entities;
+  }
 }
 
 class RER_BestiaryEntryNull extends RER_BestiaryEntry {

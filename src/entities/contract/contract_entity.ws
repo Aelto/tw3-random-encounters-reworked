@@ -30,6 +30,8 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   public var automatic_kill_threshold_distance: float;
   default automatic_kill_threshold_distance = 200;
 
+  public var allow_trophy: bool;
+
   var entities: array<CEntity>;
 
   //#region shared variables between states
@@ -114,6 +116,9 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     this.master = master;
 
     this.automatic_kill_threshold_distance = master.settings.kill_threshold_distance * 3;
+
+    this.allow_trophy = master.settings
+    .trophies_enabled_by_encounter[EncounterType_CONTRACT];
 
     this.AddTimer('intervalLifeCheck', 10.0, true);
 
@@ -269,7 +274,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
     this.blood_tracks_index = (this.blood_tracks_index + 1) % this.blood_tracks_maximum;
   }
-
 
   private function clean() {
     var i: int;
