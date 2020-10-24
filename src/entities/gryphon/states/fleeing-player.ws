@@ -268,7 +268,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     position = parent.this_actor.GetWorldPosition();
 
     FixZAxis(position);
-    parent.addBloodTrackHere(position);
+    parent.blood_maker.addTrackHere(position);
   }
 
   timer function GryphonFleeingPlayer_GiveUp(optional dt : float, optional id: Int32) {

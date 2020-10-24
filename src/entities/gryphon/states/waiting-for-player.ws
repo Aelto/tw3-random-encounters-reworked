@@ -105,8 +105,7 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     LogChannel('modRandomEncounters', "line of blood to gryphon, current position: " + VecToString(this.bloodtrail_current_position) + " target position: " + VecToString(this.bloodtrail_target_position));
 
-
-    parent.addBloodTrackHere(this.bloodtrail_current_position);
+    parent.blood_maker.addTrackHere(this.bloodtrail_current_position);
 
     if (VecDistanceSquared(this.bloodtrail_current_position, this.bloodtrail_target_position) < 5 * 5) {
       parent.RemoveTimer('WaitingForPlayer_drawLineOfBloodToGryphon');

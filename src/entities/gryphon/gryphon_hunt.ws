@@ -23,20 +23,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var pickup_animation_on_death: bool;
   default pickup_animation_on_death = false;
 
-  // an array containing entities for the blood tracks when
-  //  using the functions to add a blood track on the ground
-  // it adds one to the array, unless we reached the maximum
-  // number of tracks. At this moment we come back to 0 and
-  // start using the blood_tracks_index and set blood_tracks_looped  
-  // to true to tell we have already reached the maximum once.
-  // And now instead of creating a new track Entity we simply
-  // move the old one at blood_tracks_index.
-  var blood_tracks_entities: array<CEntity>;
-  var blood_tracks_index: int;
-  var blood_tracks_looped: bool;
-  default blood_tracks_looped = false;
-  var blood_tracks_maximum: int;
-  default blood_tracks_maximum = 200;
+  var blood_maker: RER_TrailMaker;
 
   var horse_corpse_near_geralt: CEntity;
   var horse_corpse_near_gryphon: CEntity;
@@ -81,8 +68,12 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public function startEncounter(blood_resources: array<CEntityTemplate>) {
     LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity encounter started");
 
-    this.blood_resources = blood_resources;
-    this.blood_resources_size = blood_resources.Size();
+    this.blood_maker = new RER_TrailMaker in this;
+    this.blood_maker.init(
+      1,
+      200,
+      blood_resources
+    );
 
     this.AddTimer('intervalLifecheckFunction', 1, true);
     
@@ -92,41 +83,6 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     else {
       this.GotoState('FlyingAbovePlayer');
     }
-  }
-
-  public function getRandomBloodResource(): CEntityTemplate {
-    return this.blood_resources[RandRange(this.blood_resources_size)];
-  }
-
-  public function addBloodTrackHere(position: Vector) {
-    var new_entity: CEntity;
-
-    if (!this.blood_tracks_looped) {
-      new_entity = theGame.CreateEntity(
-        this.getRandomBloodResource(),
-        position,
-        RotRand(0, 360),
-        true,
-        false,
-        false,
-        PM_DontPersist
-      );
-
-      // new_entity.UpdateInteraction("InteractiveClue");
-
-
-      this.blood_tracks_entities.PushBack(new_entity);
-
-      if (this.blood_tracks_entities.Size() == this.blood_tracks_maximum) {
-        this.blood_tracks_looped = true;
-      }
-
-      return;
-    }
-
-    this.blood_tracks_entities[this.blood_tracks_index].TeleportWithRotation(position, RotRand(0, 360));
-
-    this.blood_tracks_index = (this.blood_tracks_index + 1) % this.blood_tracks_maximum;
   }
 
   public function killNearbyEntities(center: CNode) {
