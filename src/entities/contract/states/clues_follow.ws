@@ -109,18 +109,17 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
   latent function createCluesPath() {
     var number_of_foot_paths: int;
     var current_track_position: Vector;
-    var current_track_heading: float;
-    var current_track_translation: Vector;
-    var distance_to_final_point: float;
-    var final_point_radius: float;
-    var number_of_tracks_created: int;
+    var corpse_and_blood_details_maker: RER_CorpseAndBloodTrailDetailsMaker;
     var i: int;
-
-    number_of_tracks_created = 0;
 
     // 1. we search how many paths we should draw
     number_of_foot_paths = Max(parent.entities.Size(), 1);
 
+    corpse_and_blood_details_maker = new RER_CorpseAndBloodTrailDetailsMaker in this;
+    corpse_and_blood_details_maker.corpse_maker = parent.corpse_maker;
+    corpse_and_blood_details_maker.blood_maker = parent.blood_maker;
+
+    // 2. for each foot path
     for (i = 0; i < number_of_foot_paths; i += 1) {
       // 2.1 we find a random position around the last clues position
       if (parent.has_combat_looped) {
@@ -136,71 +135,17 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
         );
       }
 
-      // 2.2 we slowly move toward the final point position
-      final_point_radius = 6 * 6;
-
-      do {
-        current_track_translation = VecConeRand(
-          VecHeading(parent.final_point_position - current_track_position),
-          60, // 60 degrees randomness
-          1,
-          2
-        );
-
-        current_track_heading = VecHeading(current_track_translation);
-
-        current_track_position += current_track_translation;
-
-        FixZAxis(current_track_position);
-
-        distance_to_final_point = VecDistanceSquared(current_track_position, parent.final_point_position);
-
-        parent.addTrackHere(
+      // 2.2 we start drawing the trail
+      parent
+        .trail_maker
+        .drawTrail(
           current_track_position,
-          VecToRotation(parent.final_point_position - current_track_position)
+          parent.final_point_position,
+          6, // the radius
+          corpse_and_blood_details_maker,
+          this.chance_to_add_clues_in_path,
+          true // uses the failsafe
         );
-
-        number_of_tracks_created += 1;
-
-        if (number_of_tracks_created >= parent.tracks_maximum) {
-          break;
-        }
-
-        // small chance to add a corpse near the tracks
-        if (RandRange(100) < chance_to_add_clues_in_path) {
-          this.createCorpseAndBloodHere(current_track_position);
-        }
-
-        // SleepOneFrame();
-      } while (distance_to_final_point > final_point_radius);
-    }
-  }
-
-  private latent function createCorpseAndBloodHere(position: Vector) {
-    var number_of_blood_spills: int;
-    var current_clue_position: Vector;
-    var i: int;
-
-    current_clue_position = position;
-
-    FixZAxis(current_clue_position);
-
-    parent.investigation_clues.PushBack(
-      theGame.CreateEntity(
-        parent.getRandomCorpseResource(),
-        current_clue_position,
-        VecToRotation(VecRingRand(1, 2))
-      )
-    );
-
-    number_of_blood_spills = RandRange(10, 5);
-
-    for (i = 0; i < number_of_blood_spills; i += 1) {
-      current_clue_position = position + VecRingRand(0, 1.5);
-
-      FixZAxis(current_clue_position);
-
-      parent.addBloodTrackHere(current_clue_position);
     }
   }
 

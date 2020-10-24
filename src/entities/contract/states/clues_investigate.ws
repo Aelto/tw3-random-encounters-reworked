@@ -43,6 +43,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var found_initial_position: bool;
     var max_number_of_clues: int;
     var current_clue_position: Vector;
+    var trail_resources: array<CEntityTemplate>;
+    var trail_ratio: int;
     var i: int;
     
     // 1. first find the place where the clues will be created
@@ -61,48 +63,54 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     // 2. load all the needed resources
-    parent.track_resource = getTracksTemplateByCreatureType(
-      parent.chosen_bestiary_entry.type
+    switch (parent.chosen_bestiary_entry.type) {
+      case CreatureBARGHEST :
+      case CreatureWILDHUNT :
+      case CreatureNIGHTWRAITH :
+      case CreatureNOONWRAITH :
+      case CreatureWRAITH :
+        // these are the type of creatures where we use fog
+        // so we increase the ratio to save performances.
+        trail_ratio = 4;
+
+      default :
+        trail_ratio = 1;
+    }
+
+    parent.trail_maker = new RER_TrailMaker in this;
+    
+    trail_resources.PushBack(
+      getTracksTemplateByCreatureType(
+        parent.chosen_bestiary_entry.type
+      )
     );
 
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\bandit_corpses\bandit_corpses_01.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\bandit_corpses\bandit_corpses_03.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\bandit_corpses\bandit_corpses_05.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\bandit_corpses\bandit_corpses_06.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_02_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_03_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_04_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_05_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_06_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_07_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\corpse_08_nml_villager.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_01_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_02_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_03_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_04_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_05_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_06_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\novigrad_citizen\corpse_07_novigrad.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_woman\corpse_01_nml_woman.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_woman\corpse_02_nml_woman.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_woman\corpse_03_nml_woman.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_woman\corpse_04_nml_woman.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_woman\corpse_05_nml_woman.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\merchant\merchant_corpses_01.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\merchant\merchant_corpses_02.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\merchant\merchant_corpses_03.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\model\nml_villager_corpse_01.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\model\nml_villager_corpse_02.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\model\nml_villager_corpse_03.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\model\nml_villager_corpse_04.w2ent", true));
-    parent.corpse_reources.PushBack((CEntityTemplate)LoadResourceAsync("environment\decorations\corpses\human_corpses\nml_villagers\model\nml_villager_corpse_05.w2ent", true));
+    parent.trail_maker.init(
+      trail_ratio
+      600,
+      trail_resources
+    );
 
-    parent.blood_resources = parent
-      .master
-      .resources
-      .getBloodSplatsResources();
+    parent.blood_maker = new RER_TrailMaker in this;
+    parent.blood_maker.init(
+      1
+      100,
+      parent
+        .master
+        .resources
+        .getBloodSplatsResources()
+    );
 
-    parent.blood_resources_size = parent.blood_resources.Size();
+    parent.corpse_maker = new RER_TrailMaker in this;
+    parent.corpse_maker.init(
+      1,
+      50,
+      parent
+        .master
+        .resources
+        .getCorpsesResources()
+    )
+
 
     // 3. we place the clues randomly
     // 3.1 first by placing the corpses
@@ -114,13 +122,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       FixZAxis(current_clue_position);
 
-      parent.investigation_clues.PushBack(
-        theGame.CreateEntity(
-          parent.getRandomCorpseResource(),
-          current_clue_position,
-          VecToRotation(VecRingRand(1, 2))
-        )
-      );
+      parent
+        .corpse_maker
+        .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
     // 3.2 then we place some random tracks
@@ -132,7 +136,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       FixZAxis(current_clue_position);
 
-      parent.addTrackHere(current_clue_position, RotRand(0, 360));
+      parent
+        .trail_maker
+        .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
     // 3.3 then we place lots of blood
@@ -144,7 +150,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       FixZAxis(current_clue_position);
 
-      parent.addBloodTrackHere(current_clue_position);
+      parent
+        .blood_maker
+        .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2))));
     }
 
     // 4. there is a chance necrophages are feeding on the corpses
@@ -340,9 +348,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   latent function createLastClues() {
     var number_of_foot_paths: int;
     var current_track_position: Vector;
-    var current_track_heading: float;
     var i: int;
-    var number_of_tracks_created: int;
     
     LogChannel('modRandomEncounters', "creating Last clues");
 
@@ -356,7 +362,6 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // from somewhere in the investigation radius to the last clues position.
     // We do this multiple times
     number_of_foot_paths = parent.number_of_creatures;
-    number_of_tracks_created = 0;
 
     for (i = 0; i < number_of_foot_paths; i += 1) {
       // 2.1 we find a random position in the investigation radius
@@ -365,32 +370,16 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         this.investigation_radius
       );
 
-      // 2.2 we slowly move toward the last clues position
-      while (VecDistanceSquared(current_track_position, parent.investigation_last_clues_position) > 6 * 6) {
-        current_track_heading = VecHeading(parent.investigation_last_clues_position - current_track_position);
-
-        current_track_position += VecConeRand(
-          current_track_heading,
-          60, // 60 degrees randomness
-          1,
-          2
-        );
-
-        FixZAxis(current_track_position);
-
-        parent.addTrackHere(
+      // 2.2 we start drawing the trail
+      parent
+        .trail_maker
+        .drawTrail(
           current_track_position,
-          VecToRotation(parent.investigation_last_clues_position - current_track_position)
-        );
-
-        number_of_tracks_created += 1;
-
-        if (number_of_tracks_created >= parent.tracks_maximum) {
-          break;
-        }
-
-        // SleepOneFrame();
-      }
+          parent.investigation_last_clues_position,
+          6, // the radius
+          ,,, // no details used
+          true // uses the failsafe
+        )
     }
   }
 

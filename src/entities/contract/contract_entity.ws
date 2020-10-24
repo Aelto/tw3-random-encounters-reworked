@@ -36,6 +36,10 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   //#region shared variables between states
 
+  public var trail_maker: RER_TrailMaker;
+  public var blood_maker: RER_TrailMaker;
+  public var corpse_maker: RER_TrailMaker;
+
   public var track_resource: CEntityTemplate;
 
   // it contains a list of corpse resources, useful when creating clues
@@ -183,96 +187,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
       return;
     }
-  }
-
-  // an array containing entities for the tracks when
-  // using the functions to add a  track on the ground
-  // it adds one to the array, unless we reached the maximum
-  // number of tracks. At this moment we come back to 0 and
-  // start using the _tracks_index and set _tracks_looped  
-  // to true to tell we have already reached the maximum once.
-  // And now instead of creating a new track Entity we simply
-  // move the old one at _tracks_index.
-  var tracks_entities: array<CEntity>;
-  var tracks_index: int;
-  var tracks_looped: bool;
-  default tracks_looped = false;
-  var tracks_maximum: int;
-  default tracks_maximum = 600;
-
-  public function addTrackHere(position: Vector, heading: EulerAngles) {
-    var new_entity: CEntity;
-
-    if (!this.tracks_looped) {
-      new_entity = theGame.CreateEntity(
-        this.track_resource,
-        position,
-        heading
-      );
-
-      this.tracks_entities.PushBack(new_entity);
-
-      if (this.tracks_entities.Size() == this.tracks_maximum) {
-        this.tracks_looped = true;
-      }
-
-      return;
-    }
-
-    this.tracks_entities[this.tracks_index]
-      .TeleportWithRotation(position, RotRand(0, 360));
-
-    this.tracks_index = (this.tracks_index + 1) % this.tracks_maximum;
-  }
-
-  public var blood_resources: array<CEntityTemplate>;
-  public var blood_resources_size: int;
-
-  // an array containing entities for the blood tracks when
-  //  using the functions to add a blood track on the ground
-  // it adds one to the array, unless we reached the maximum
-  // number of tracks. At this moment we come back to 0 and
-  // start using the blood_tracks_index and set blood_tracks_looped  
-  // to true to tell we have already reached the maximum once.
-  // And now instead of creating a new track Entity we simply
-  // move the old one at blood_tracks_index.
-  var blood_tracks_entities: array<CEntity>;
-  var blood_tracks_index: int;
-  var blood_tracks_looped: bool;
-  default blood_tracks_looped = false;
-  var blood_tracks_maximum: int;
-  default blood_tracks_maximum = 200;
-
-  public function getRandomBloodResource(): CEntityTemplate {
-    return this.blood_resources[RandRange(this.blood_resources_size)];
-  }
-
-  public function addBloodTrackHere(position: Vector) {
-    var new_entity: CEntity;
-
-    if (!this.blood_tracks_looped) {
-      new_entity = theGame.CreateEntity(
-        this.getRandomBloodResource(),
-        position,
-        RotRand(0, 360),
-        true,
-        false,
-        false,
-        PM_DontPersist
-      );
-
-      this.blood_tracks_entities.PushBack(new_entity);
-
-      if (this.blood_tracks_entities.Size() == this.blood_tracks_maximum) {
-        this.blood_tracks_looped = true;
-      }
-
-      return;
-    }
-
-    this.blood_tracks_entities[this.blood_tracks_index].TeleportWithRotation(position, RotRand(0, 360));
-
-    this.blood_tracks_index = (this.blood_tracks_index + 1) % this.blood_tracks_maximum;
   }
 
   private function clean() {
