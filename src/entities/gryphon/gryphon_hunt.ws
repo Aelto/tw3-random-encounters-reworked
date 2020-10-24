@@ -70,7 +70,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 
     this.blood_maker = new RER_TrailMaker in this;
     this.blood_maker.init(
-      1,
+      this.master.settings.foottracks_ratio,
       200,
       blood_resources
     );

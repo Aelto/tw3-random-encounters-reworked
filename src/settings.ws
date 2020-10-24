@@ -55,6 +55,8 @@ class RE_Settings {
 
   public var event_system_interval: float;
 
+  public var foottracks_ratio: int;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -84,6 +86,7 @@ class RE_Settings {
     this.loadAdvancedLevelsSettings(inGameConfigWrapper);
     this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
     this.loadAdvancedEventSystemSettings(inGameConfigWrapper);
+    this.loadAdvancedPerformancesSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -179,6 +182,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedTrophies', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERadvancedEvents', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERregionConstraints', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERadvancedPerformances', 0);
     
     inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
@@ -227,6 +231,10 @@ class RE_Settings {
 
     LogChannel('modRandomEncounters', "settings - min_level_allowed = " + this.min_level_allowed);
     LogChannel('modRandomEncounters', "settings - max_level_allowed = " + this.max_level_allowed);
+  }
+
+  private function loadAdvancedPerformancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
+    this.foottracks_ratio = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')) / 100;
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {

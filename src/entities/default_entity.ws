@@ -75,7 +75,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     this.trail_maker = new RER_TrailMaker in this;
     this.trail_maker.init(
-      1,
+      this.master.settings.foottracks_ratio,
       200,
       tracks_templates
     );

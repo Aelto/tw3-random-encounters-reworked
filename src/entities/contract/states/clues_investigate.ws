@@ -71,10 +71,10 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       case CreatureWRAITH :
         // these are the type of creatures where we use fog
         // so we increase the ratio to save performances.
-        trail_ratio = 4;
+        trail_ratio = parent.master.settings.foottracks_ratio / 4;
 
       default :
-        trail_ratio = 1;
+        trail_ratio = parent.master.settings.foottracks_ratio / 1;
     }
 
     parent.trail_maker = new RER_TrailMaker in this;
@@ -93,7 +93,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     parent.blood_maker = new RER_TrailMaker in this;
     parent.blood_maker.init(
-      1
+      parent.master.settings.foottracks_ratio
       100,
       parent
         .master
@@ -103,7 +103,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     parent.corpse_maker = new RER_TrailMaker in this;
     parent.corpse_maker.init(
-      1,
+      parent.master.settings.foottracks_ratio,
       50,
       parent
         .master

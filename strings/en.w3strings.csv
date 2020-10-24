@@ -196,3 +196,6 @@
 2115018194|        |panel_contract_night|Contract Night
 2115018195|        |preset_Mods_rer_name_rer_creatures_ratios_contract_day|Contract Day
 2115018196|        |preset_Mods_rer_name_rer_creatures_ratios_contract_night|Contract Night
+2115018197|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
+2115018198|        |panel_performances|Performance settings
+2115018199|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
