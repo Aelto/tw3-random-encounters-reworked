@@ -64,7 +64,7 @@ class RER_TrailMaker {
     this.setTrackResources(resources);
   }
 
-  public function addTrackHere(position: Vector, heading: EulerAngles) {
+  public function addTrackHere(position: Vector, optional heading: EulerAngles) {
     var new_entity: CEntity;
 
     if (!this.tracks_looped) {
