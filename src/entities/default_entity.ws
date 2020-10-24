@@ -27,6 +27,8 @@ class RandomEncountersReworkedEntity extends CEntity {
   public var pickup_animation_on_death: bool;
   default pickup_animation_on_death = false;
 
+  private var trail_maker: RER_TrailMaker;
+
   event OnSpawned( spawnData : SEntitySpawnData ){
     super.OnSpawned(spawnData);
 
@@ -81,13 +83,18 @@ class RandomEncountersReworkedEntity extends CEntity {
     // to calculate the initial position we go from the
     // monsters position and use the inverse tracks_heading to
     // cross ThePlayer's path.
-    this.current_initial_track_position = VecInterpolate(
-      this.GetWorldPosition(),
-      thePlayer.GetWorldPosition(),
-      1.3
-    );
+    this.trail_maker
+      .drawTrail(
+        VecInterpolate(
+          this.GetWorldPosition(),
+          thePlayer.GetWorldPosition(),
+          1.3
+        ),
 
-    this.AddTimer('drawInitialFootTracks', 0.1, true);
+        this.GetWorldPosition(),
+        20,,,
+        true
+      );
 
     this.startWithoutBait();
   }
@@ -234,41 +241,7 @@ class RandomEncountersReworkedEntity extends CEntity {
     }  
   }
 
-  var trail_maker: RER_TrailMaker;
 
-  
-  var tracks_heading: float;
-  var current_initial_track_position: Vector;
-
-  timer function drawInitialFootTracks(optional dt: float, optional id: Int32) {
-    var distance_from_monster: float;
-
-    distance_from_monster = VecDistanceSquared(
-      this.GetWorldPosition(),
-      current_initial_track_position
-    );
-
-    tracks_heading = VecHeading(this.GetWorldPosition() - current_initial_track_position);
-
-    current_initial_track_position += VecConeRand(
-      tracks_heading,
-      60, // 60 degrees randomness
-      2,
-      4
-    );
-
-    FixZAxis(current_initial_track_position);
-
-    this.trail_maker.addTrackHere(
-      current_initial_track_position,
-      VecToRotation(this.GetWorldPosition() - current_initial_track_position)
-    );
-
-    if (distance_from_monster < 20 * 20) {
-      this.RemoveTimer('drawInitialFootTracks');
-    }
-    
-  }
 
   // simple interval function called every ten seconds or so to check if the creature is
   // still alive. Starts the cleaning process if not, and eventually triggers some events.

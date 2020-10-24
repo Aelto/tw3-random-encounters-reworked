@@ -100,7 +100,7 @@ class RER_TrailMaker {
     optional trail_details_maker: TrailDetailsMaker,
     optional trail_details_chances: float,
 
-    optional optional use_failsafe: bool) {
+    optional use_failsafe: bool) {
 
     var current_track_position: Vector;
     var current_track_heading: float;

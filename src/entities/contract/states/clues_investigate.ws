@@ -377,7 +377,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
           current_track_position,
           parent.investigation_last_clues_position,
           6, // the radius
-          ,,, // no details used
+          ,, // no details used
           true // uses the failsafe
         )
     }
