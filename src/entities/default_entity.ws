@@ -22,8 +22,6 @@ class RandomEncountersReworkedEntity extends CEntity {
   public var automatic_kill_threshold_distance: float;
   default automatic_kill_threshold_distance = 200;
 
-  private var tracks_template: CEntityTemplate;
-
   private var master: CRandomEncounters;
 
   public var pickup_animation_on_death: bool;
@@ -59,6 +57,8 @@ class RandomEncountersReworkedEntity extends CEntity {
   // more suited for: `EncounterType_HUNT`
   // NOTE: this functions calls `startWithoutBait`
   public latent function startWithBait(bait_entity: CEntity) {
+    var tracks_templates: array<CEntityTemplate>;
+
     this.bait_entity = bait_entity;
     this.go_towards_bait = true;
 
@@ -69,7 +69,14 @@ class RandomEncountersReworkedEntity extends CEntity {
     ((CActor)this.bait_entity).EnableStaticCollisions(false);
     ((CActor)this.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
 
-    this.tracks_template = getTracksTemplate(this.this_actor);
+    tracks_templates.PushBack(getTracksTemplate(this.this_actor));
+
+    this.trail_maker = new RER_TrailMaker in this;
+    this.trail_maker.init(
+      1,
+      200,
+      tracks_templates
+    );
 
     // to calculate the initial position we go from the
     // monsters position and use the inverse tracks_heading to
@@ -223,49 +230,13 @@ class RandomEncountersReworkedEntity extends CEntity {
         this.this_newnpc.NoticeActor(thePlayer);
       }
 
-      this.addFootTrackHere(this.GetWorldPosition(), this.GetWorldRotation());
+      this.trail_maker.addTrackHere(this.GetWorldPosition(), this.GetWorldRotation());
     }  
   }
 
-  // when using the functions to add a foot track on the ground
-  // it adds one to the array, unless we reached the maximum
-  // number of tracks. At this moment we come back to 0 and
-  // start using the foot_tracks_index and set foot_tracks_looped  
-  // to true to tell we have already reached the maximum once.
-  // And now instead of creating a new track Entity we simply
-  // move the old one at foot_tracks_index.
-  var foot_tracks_entities: array<CEntity>;
-  var foot_tracks_index: int;
-  var foot_tracks_looped: bool;
-  var foot_tracks_maximum: int;
-  default foot_tracks_looped = false;
-  default foot_tracks_maximum = 200;
+  var trail_maker: RER_TrailMaker;
 
-  public function addFootTrackHere(position: Vector, rotation: EulerAngles) {
-    var new_track: CEntity;
-
-    if (!this.foot_tracks_looped) {
-      new_track = theGame.CreateEntity(
-        this.tracks_template,
-        position,
-        rotation
-      );
-
-      this.foot_tracks_entities.PushBack(new_track);
-
-      if (this.foot_tracks_entities.Size() == this.foot_tracks_maximum) {
-        this.foot_tracks_looped = true;
-      }
-
-      return;
-    }
-
-    this.foot_tracks_entities[this.foot_tracks_index]
-      .TeleportWithRotation(position, rotation);
-
-    this.foot_tracks_index = (this.foot_tracks_index + 1) % this.foot_tracks_maximum;
-  }
-
+  
   var tracks_heading: float;
   var current_initial_track_position: Vector;
 
@@ -288,7 +259,7 @@ class RandomEncountersReworkedEntity extends CEntity {
 
     FixZAxis(current_initial_track_position);
 
-    this.addFootTrackHere(
+    this.trail_maker.addTrackHere(
       current_initial_track_position,
       VecToRotation(this.GetWorldPosition() - current_initial_track_position)
     );
