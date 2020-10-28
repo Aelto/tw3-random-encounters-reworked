@@ -260,13 +260,3 @@ class RER_CreaturePreferences {
     return (int)(chances / this.external_factors_coefficient);
   }
 }
-
-
-
-function makeCreaturePreferences(type: CreatureType): RER_CreaturePreferences {
-  var creature_preferences: RER_CreaturePreferences;
-
-  creature_preferences.creature_type = type;
-
-  return creature_preferences;
-}
