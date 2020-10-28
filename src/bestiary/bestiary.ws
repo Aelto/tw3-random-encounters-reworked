@@ -70,6 +70,18 @@ class RER_Bestiary {
     return this.entries[creature_type];
   }
 
+  public function doesAllowCitySpawns(): bool {
+    var i: int;
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      if (this.entries[i].city_spawn) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public function init() {
     var empty_entry: RER_BestiaryEntry;
     var i: int;

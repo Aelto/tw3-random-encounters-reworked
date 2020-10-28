@@ -31,7 +31,7 @@ state Spawning in CRandomEncounters {
        // then, if the spawn is not forced we check if the player
        // is in a place where a spawn in accepted.
     || !this.is_spawn_forced
-    && shouldAbortCreatureSpawn(parent.settings, parent.rExtra)) {
+    && shouldAbortCreatureSpawn(parent.settings, parent.rExtra. parent.bestiary)) {
       parent.GotoState('SpawningCancelled');
 
       return;

@@ -1,5 +1,5 @@
 
-function shouldAbortCreatureSpawn(settings: RE_Settings, rExtra: CModRExtra): bool {
+function shouldAbortCreatureSpawn(settings: RE_Settings, rExtra: CModRExtra, bestiary: RER_Bestiary): bool {
   var current_state: CName;
   var is_meditating: bool;
   var current_zone: EREZone;
@@ -18,5 +18,5 @@ function shouldAbortCreatureSpawn(settings: RE_Settings, rExtra: CModRExtra): bo
       || isPlayerBusy()
 
       || rExtra.isPlayerInSettlement()
-      && !settings.doesAllowCitySpawns();
+      && !bestiary.doesAllowCitySpawns();
 }

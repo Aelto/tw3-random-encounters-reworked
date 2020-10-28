@@ -51,7 +51,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     health_missing_perc = 1 - thePlayer.GetHealthPercents();
 
     if (RandRangeF(100) < this.trigger_chance * chance_scale * health_missing_perc) {
-      if (shouldAbortCreatureSpawn(master.settings, master.rExtra)) {
+      if (shouldAbortCreatureSpawn(master.settings, master.rExtra, master.bestiary)) {
         LogChannel('modRandomEncounters', "RER_ListenerBloodNecrophages - cancelled");
 
         return false;

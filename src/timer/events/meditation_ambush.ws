@@ -79,7 +79,7 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
       LogChannel('modRandomEncounters', "RER_ListenerMeditationAmbush - triggered, % increased by meditation = " + time_spent_meditating / 3600);
 
       // this check is done only when the event has triggered to avoid doing it too often
-      if (shouldAbortCreatureSpawn(master.settings, master.rExtra)) {
+      if (shouldAbortCreatureSpawn(master.settings, master.rExtra, master.bestiary)) {
         LogChannel('modRandomEncounters', "RER_ListenerMeditationAmbush - cancelled");
 
         return false;

@@ -46,7 +46,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
     this.already_spawned_this_combat = false;
 
     if (this.areThereRemainsNearby() && RandRangeF(100) < this.trigger_chance * chance_scale) {
-      if (shouldAbortCreatureSpawn(master.settings, master.rExtra)) {
+      if (shouldAbortCreatureSpawn(master.settings, master.rExtra, master.bestiary)) {
         LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - cancelled");
 
         return false;
