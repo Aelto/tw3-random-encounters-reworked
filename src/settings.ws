@@ -234,7 +234,10 @@ class RE_Settings {
   }
 
   private function loadAdvancedPerformancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.foottracks_ratio = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')) / 100;
+    this.foottracks_ratio = 100 / Max(
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')),
+      1
+    );
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
