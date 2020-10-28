@@ -52,8 +52,8 @@ exec function rer_start_human(optional human_type: EHumanType, optional count: i
 // and console commands?
 // Most of RER functions are latent functions to keep things
 // asynchronous and not hurt the framerates.
-// The only way to call a latent function in from an entry function
-// or another latetn function. This is why this class is a statemachine.
+// The only way to call a latent function is from an entry function
+// or another latent function. This is why this class is a statemachine.
 // Entry functions are called when the statemachine enters a specific
 // state.
 statemachine class RER_ExecRunner extends CEntity {
