@@ -11,15 +11,6 @@ class RE_Settings {
   public var selectedDifficulty : RER_Difficulty;
   public var enemy_count_multiplier : int;
 
-  // uses the enum `Creature` and its values for the index/key.
-  // and the `int` for the value/chance.
-  public var creatures_chances_day: array<int>;
-  public var creatures_chances_night: array<int>;
-
-  // use the enums `Creature` & `Creature` for the indices.
-  // and the `bool` for the value.
-  public var creatures_city_spawns: array<bool>;
-
   public var allow_big_city_spawns: bool;
 
   // controls whether or not geralt will comment
@@ -35,8 +26,6 @@ class RE_Settings {
   // tells how much impact an external factor has on a creature
   // spawning chances.
   public var external_factors_coefficient: float;
-
-  public var monster_trophies_chances: array<int>;
 
   public var minimum_spawn_distance: float;
   public var spawn_diameter: float;
@@ -192,14 +181,7 @@ class RE_Settings {
   private function fillSettingsArrays() {
     var i: int;
 
-    if (this.creatures_chances_day.Size() == 0) {
-      for (i = 0; i < CreatureMAX; i += 1) {
-        this.creatures_chances_day.PushBack(0);
-        this.creatures_chances_night.PushBack(0);
-        this.creatures_city_spawns.PushBack(false);
-        this.monster_trophies_chances.PushBack(0);
-      }
-
+    if (this.trophies_enabled_by_encounter.Size() == 0) {
       for (i = 0; i < EncounterType_MAX; i += 1) {
         this.trophies_enabled_by_encounter.PushBack(false);
       }
@@ -242,18 +224,6 @@ class RE_Settings {
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.allow_big_city_spawns = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'allowSpawnInBigCities');
-  }
-
-  public function doesAllowCitySpawns(): bool {
-    var i: int;
-
-    for (i = 0; i < CreatureMAX; i += 1) {
-      if (this.creatures_city_spawns[i]) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   public function toggleEnabledSettings() {
