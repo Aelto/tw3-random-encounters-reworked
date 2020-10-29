@@ -9,27 +9,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   }
 
   entry function CluesInvestigate_Main() {
-    this.pickRandomBestiaryEntry();
     this.createClues();
     this.waitUntilPlayerReachesFirstClue();
     this.createLastClues();
     this.waitUntilPlayerReachesLastClue();
     this.CluesInvestigate_goToNextState();
-  }
-
-  latent function pickRandomBestiaryEntry() {
-    parent.chosen_bestiary_entry = parent
-      .master
-      .bestiary
-      .getRandomEntryFromBestiary(parent.master, EncounterType_CONTRACT);
-
-    parent.number_of_creatures = rollDifficultyFactor(
-      parent.chosen_bestiary_entry.template_list.difficulty_factor,
-      parent.master.settings.selectedDifficulty,
-      parent.master.settings.enemy_count_multiplier
-    );
-
-    LogChannel('modrandomencounters', "chosen bestiary entry" + parent.chosen_bestiary_entry.type);
   }
 
   var investigation_radius: int;
@@ -48,18 +32,21 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var i: int;
     
     // 1. first find the place where the clues will be created
-    found_initial_position = getRandomPositionBehindCamera(
-      parent.investigation_center_position,
-      parent.master.settings.minimum_spawn_distance
-      + parent.master.settings.spawn_diameter,
-      parent.master.settings.minimum_spawn_distance,
-      10
-    );
+    //    only if the position was not forced.
+    if (!parent.forced_investigation_center_position) {
+      found_initial_position = getRandomPositionBehindCamera(
+        parent.investigation_center_position,
+        parent.master.settings.minimum_spawn_distance
+        + parent.master.settings.spawn_diameter,
+        parent.master.settings.minimum_spawn_distance,
+        10
+      );
 
-    if (!found_initial_position) {
-      parent.GotoState('Ending');
+      if (!found_initial_position) {
+        parent.GotoState('Ending');
 
-      return;
+        return;
+      }
     }
 
     // 2. load all the needed resources

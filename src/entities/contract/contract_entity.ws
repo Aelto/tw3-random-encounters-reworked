@@ -65,6 +65,9 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   var investigation_center_position: Vector;
   var investigation_last_clues_position: Vector;
+
+  // set to true if the position was forced by external code.
+  var forced_investigation_center_position: bool;
   
   //#endregion variables made in `CluesInvestigate`
 
@@ -115,6 +118,11 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     }
   }
 
+  public function forcePosition(position: Vector) {
+    this.forced_investigation_center_position = true;
+    this.investigation_center_position = position;
+  }
+
 
   public latent function startContract(master: CRandomEncounters) {
     this.master = master;
@@ -124,9 +132,26 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     this.allow_trophy = master.settings
     .trophies_enabled_by_encounter[EncounterType_CONTRACT];
 
+    this.pickRandomBestiaryEntry();
+
     this.AddTimer('intervalLifeCheck', 10.0, true);
 
     this.GotoState('CluesInvestigate');
+  }
+
+  public function pickRandomBestiaryEntry() {
+    this.chosen_bestiary_entry = this
+      .master
+      .bestiary
+      .getRandomEntryFromBestiary(this.master, EncounterType_CONTRACT);
+
+    this.number_of_creatures = rollDifficultyFactor(
+      this.chosen_bestiary_entry.template_list.difficulty_factor,
+      this.master.settings.selectedDifficulty,
+      this.master.settings.enemy_count_multiplier
+    );
+
+    LogChannel('modrandomencounters', "chosen bestiary entry" + this.chosen_bestiary_entry.type);
   }
 
 
@@ -160,6 +185,8 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
     if (this.GetCurrentStateName() == 'Ending') {
       this.clean();
+
+      return;
     }
 
     if (this.GetCurrentStateName() == 'CluesInvestigate'

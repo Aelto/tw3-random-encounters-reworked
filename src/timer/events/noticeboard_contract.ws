@@ -2,7 +2,16 @@
 // When the player is near a noticeboard, if the noticeboard has no contracts left
 // it will start a CONTRACT encounter
 class RER_ListenerNoticeboardContract extends RER_EventsListener {
-  private var already_spawned_this_combat: bool;
+  // if this boolean is set at true, it means the event triggered when Geralt was
+  // near a noticeboard. So if it is true the event will instead wait for Geralt
+  // to leave the city instead of looking for nearby noticeboards
+  private var was_triggered: bool;
+
+  // this is the position that will be stored when the event will first be
+  // triggered. This is the position near the noticeboard.
+  // It is used to draw a cone from the noticeboard to the player's position
+  // outside the city and to spawn the contract in this cone.
+  private var position_near_noticeboard: Vector;
   
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
@@ -24,19 +33,57 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
-    // to avoid triggering this event too frequently
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
+    }
 
+    if (this.was_triggered) {
+      return this.waitForPlayerToLeaveCity();
+    }
+    else {
+      return this.lookForNearbyNoticeboards();
+    }
+  }
+
+  private latent function waitForPlayerToLeaveCity(master: CRandomEncounters, chance_scale: float): bool {
+    if (!master.rExtra.isPlayerInSettlement()) {
       return false;
     }
 
-    if (this.isThereEmptyNoticeboardNearby() && this.trigger_chance > 0) {
-      LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered");
+    if (RandRangeF(100) < this.trigger_chance * chance_scale) {
+      LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered encounter");
+
+      this.createContractEncounter();
+    }
+  }
+
+  private latent function createContractEncounter(master: CRandomEncounters) {
+    var contract_position: Vector;
+
+    contract_position = VecConeRand(
+      VecHeading(thePlayer.GetWorldPosition() - this.position_near_noticeboard),
+      5, // small angle to increase the chances the player will see the encounter
+      VecDistance(thePlayer.GetWorldPosition(), this.position_near_noticeboard),
+      VecInterpolate(thePlayer.GetWorldPosition(), this.position_near_noticeboard, 1.1)
+    );
+
+    createRandomCreatureContract(master);
+  }
+
+  private latent function lookForNearbyNoticeboards(): bool {
+    // to avoid triggering this event too frequently
+    if (this.time_before_other_spawn > 0) {
+      return false;
+    }
+
+    if (this.trigger_chance > 0 && !this.isThereEmptyNoticeboardNearby()) {
+      LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered nearby noticeboard");
 
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
-      // TODO: start a CONTRACT encounter.
+      this.position_near_noticeboard = thePlayer.GetWorldPosition();
+
+      this.was_triggered = true;
     }
 
     return false;

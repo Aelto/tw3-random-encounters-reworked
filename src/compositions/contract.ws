@@ -3,7 +3,7 @@
 // doesn't use the CompositionSpawner.
 // Because this class isn't a class of type "one instance per entity" but
 // instead a single class handling the whole encounter.
-latent function createRandomCreatureContract(master: CRandomEncounters) {
+latent function createRandomCreatureContract(master: CRandomEncounters, optional position: Vector) {
   var rer_entity_template: CEntityTemplate;
   var contract_entity: RandomEncountersReworkedContractEntity;
 
@@ -17,6 +17,10 @@ latent function createRandomCreatureContract(master: CRandomEncounters) {
     thePlayer.GetWorldPosition(),
     thePlayer.GetWorldRotation()
   );
+
+  if (position) {
+    contract_entity.forcePosition(position);
+  }
 
   contract_entity.startContract(master);
 }
