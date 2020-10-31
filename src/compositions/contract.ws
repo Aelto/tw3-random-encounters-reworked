@@ -18,7 +18,7 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
     thePlayer.GetWorldRotation()
   );
 
-  if (position) {
+  if (position.X != 0 || position.Y != 0 || position.Z != 0) {
     contract_entity.forcePosition(position);
   }
 

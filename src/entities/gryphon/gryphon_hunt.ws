@@ -149,14 +149,8 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     
     RemoveTimer('intervalDefaultFunction');
 
-    for (i = 0; i < this.blood_tracks_entities.Size(); i += 1) {
-      this.blood_tracks_entities[i].Destroy();
-    }
-
     this.horse_corpse_near_geralt.Destroy();
     this.horse_corpse_near_gryphon.Destroy();
-
-    this.blood_tracks_entities.Clear();
 
     this.GotoState('ExitEncounter');
 

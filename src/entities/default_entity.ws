@@ -298,12 +298,6 @@ class RandomEncountersReworkedEntity extends CEntity {
       this.bait_entity.Destroy();
     }
 
-    for (i = 0; i < this.foot_tracks_entities.Size(); i += 1) {
-      this.foot_tracks_entities[i].Destroy();
-    }
-
-    this.foot_tracks_entities.Clear();
-
     this.this_actor.Kill('RandomEncountersReworked_Entity', true);
 
     distance_from_player = VecDistance(

@@ -5406,7 +5406,7 @@
                 <Entry varId="RERfoottracksRatio"		value="100"	/>
             </Preset>
 
-            <Preset id="0" displayName="rer_low" >
+            <Preset id="1" displayName="rer_low" >
                 <Entry varId="RERfoottracksRatio"		value="35"	/>
             </Preset>
         </PresetsArray>

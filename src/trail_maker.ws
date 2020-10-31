@@ -44,7 +44,7 @@ class RER_TrailMaker {
   private var track_resources: array<CEntityTemplate>;
   private var track_resources_size: int;
 
-  public setTrackResources(resources: array<CEntityTemplate>) {
+  public function setTrackResources(resources: array<CEntityTemplate>) {
     this.track_resources.Clear();
     this.track_resources = resources;
     this.track_resources_size = this.track_resources.Size();
@@ -67,9 +67,17 @@ class RER_TrailMaker {
   public function addTrackHere(position: Vector, optional heading: EulerAngles) {
     var new_entity: CEntity;
 
+    if (trail_ratio_index < trail_ratio) {
+      trail_ratio_index += 1;
+
+      return;
+    }
+
+    trail_ratio_index = 1;
+
     if (!this.tracks_looped) {
       new_entity = theGame.CreateEntity(
-        this.track_resource,
+        this.getRandomTrackResource(),
         position,
         heading
       );
@@ -97,7 +105,7 @@ class RER_TrailMaker {
     destination_radius: float,
 
     /* set both trails_details parameters or none at all */
-    optional trail_details_maker: TrailDetailsMaker,
+    optional trail_details_maker: RER_TrailDetailsMaker,
     optional trail_details_chances: float,
 
     optional use_failsafe: bool) {
@@ -113,6 +121,8 @@ class RER_TrailMaker {
     number_of_tracks_created = 0;
     final_point_radius = destination_radius * destination_radius;
     current_track_position = from;
+
+    LogChannel('modRandomEncounters', "TrailMaker, drawing trail");
 
     do {
       current_track_translation = VecConeRand(
@@ -146,7 +156,22 @@ class RER_TrailMaker {
         trail_details_maker.placeDetailsHere(current_track_position);
       }
 
+      SleepOneFrame();
     } while (distance_to_final_point > final_point_radius);
+  }
+
+  public function clean() {
+    var i: int;
+    
+    for (i = 0; i < this.tracks_entities.Size(); i += 1) {
+      this.tracks_entities[i].Destroy();
+    }
+
+    this.tracks_entities.Clear();
+  }
+
+  event OnDestroyed() {
+    this.clean();
   }
 
 }
@@ -198,7 +223,7 @@ class RER_CorpseAndBloodTrailDetailsMaker extends RER_TrailDetailsMaker {
 
       FixZAxis(current_clue_position);
 
-      parent
+      this
         .blood_maker
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }

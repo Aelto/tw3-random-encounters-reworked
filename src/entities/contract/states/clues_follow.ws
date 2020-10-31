@@ -46,7 +46,6 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
     // used in 2.
     var created_entities: array<CEntity>;
-    var i: int;
 
 
     // 1. before creating the clues we search for the position of the final

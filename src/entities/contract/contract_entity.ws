@@ -139,7 +139,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     this.GotoState('CluesInvestigate');
   }
 
-  public function pickRandomBestiaryEntry() {
+  public latent function pickRandomBestiaryEntry() {
     this.chosen_bestiary_entry = this
       .master
       .bestiary

@@ -217,7 +217,7 @@ class RE_Settings {
 
   private function loadAdvancedPerformancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
     this.foottracks_ratio = 100 / Max(
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')),
+      StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')),
       1
     );
   }

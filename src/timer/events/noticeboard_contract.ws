@@ -33,16 +33,20 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
+    var has_spawned: bool;
+
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
     }
 
     if (this.was_triggered) {
-      return this.waitForPlayerToLeaveCity();
+      has_spawned = this.waitForPlayerToLeaveCity(master, chance_scale);
     }
     else {
-      return this.lookForNearbyNoticeboards();
+      has_spawned = this.lookForNearbyNoticeboards(master);
     }
+
+    return has_spawned;
   }
 
   private latent function waitForPlayerToLeaveCity(master: CRandomEncounters, chance_scale: float): bool {
@@ -53,24 +57,31 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     if (RandRangeF(100) < this.trigger_chance * chance_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered encounter");
 
-      this.createContractEncounter();
+      this.createContractEncounter(master);
+
+      return true;
     }
+
+    return false;
   }
 
   private latent function createContractEncounter(master: CRandomEncounters) {
     var contract_position: Vector;
+    var player_distance_from_noticeboard: float;
+
+    player_distance_from_noticeboard = VecDistance(thePlayer.GetWorldPosition(), this.position_near_noticeboard);
 
     contract_position = VecConeRand(
       VecHeading(thePlayer.GetWorldPosition() - this.position_near_noticeboard),
       5, // small angle to increase the chances the player will see the encounter
-      VecDistance(thePlayer.GetWorldPosition(), this.position_near_noticeboard),
-      VecInterpolate(thePlayer.GetWorldPosition(), this.position_near_noticeboard, 1.1)
+      player_distance_from_noticeboard,
+      player_distance_from_noticeboard * 1.1
     );
 
     createRandomCreatureContract(master);
   }
 
-  private latent function lookForNearbyNoticeboards(): bool {
+  private latent function lookForNearbyNoticeboards(master: CRandomEncounters): bool {
     // to avoid triggering this event too frequently
     if (this.time_before_other_spawn > 0) {
       return false;
@@ -128,7 +139,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
         }
       }
     }
+    
+    return false;
   }
-
-  return false;
 }

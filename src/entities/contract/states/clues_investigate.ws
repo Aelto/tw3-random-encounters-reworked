@@ -28,6 +28,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var max_number_of_clues: int;
     var current_clue_position: Vector;
     var trail_resources: array<CEntityTemplate>;
+    var blood_resources: array<CEntityTemplate>;
+    var corpse_resources: array<CEntityTemplate>;
     var trail_ratio: int;
     var i: int;
     
@@ -65,6 +67,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     parent.trail_maker = new RER_TrailMaker in this;
+
+    LogChannel('RER', "loading trail_maker, ratio = " + parent.master.settings.foottracks_ratio);
     
     trail_resources.PushBack(
       getTracksTemplateByCreatureType(
@@ -73,31 +77,38 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     );
 
     parent.trail_maker.init(
-      trail_ratio
+      trail_ratio,
       600,
       trail_resources
     );
 
-    parent.blood_maker = new RER_TrailMaker in this;
-    parent.blood_maker.init(
-      parent.master.settings.foottracks_ratio
-      100,
-      parent
+    LogChannel('RER', "loading blood_maker");
+
+    blood_resources = parent
         .master
         .resources
-        .getBloodSplatsResources()
+        .getBloodSplatsResources();
+    
+    parent.blood_maker = new RER_TrailMaker in this;
+    parent.blood_maker.init(
+      parent.master.settings.foottracks_ratio,
+      100,
+      blood_resources
     );
+
+    LogChannel('RER', "loading corpse_maker");
+
+    corpse_resources = parent
+        .master
+        .resources
+        .getCorpsesResources();
 
     parent.corpse_maker = new RER_TrailMaker in this;
     parent.corpse_maker.init(
       parent.master.settings.foottracks_ratio,
       50,
-      parent
-        .master
-        .resources
-        .getCorpsesResources()
-    )
-
+      corpse_resources
+    );
 
     // 3. we place the clues randomly
     // 3.1 first by placing the corpses
@@ -139,7 +150,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       parent
         .blood_maker
-        .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2))));
+        .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
     // 4. there is a chance necrophages are feeding on the corpses
@@ -184,7 +195,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // 2. we spawn the monsters
     created_entities = monsters_bestiary_entry
       .spawn(
-        master,
+        parent.master,
         parent.investigation_center_position,,,
         parent.allow_trophy
       );
@@ -366,7 +377,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
           6, // the radius
           ,, // no details used
           true // uses the failsafe
-        )
+        );
     }
   }
 

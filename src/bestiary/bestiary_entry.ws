@@ -61,7 +61,7 @@ abstract class RER_BestiaryEntry {
     return this.type == CreatureNONE;
   }
 
-  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool) array<CEntities> {
+  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool): array<CEntity> {
     var creatures_templates: EnemyTemplateList;
     var group_positions: array<Vector>;
     var current_template: CEntityTemplate;
@@ -73,7 +73,7 @@ abstract class RER_BestiaryEntry {
     var i: int;
     var j: int;
 
-    if (count = <= 0) {
+    if (count <= 0) {
       count = rollDifficultyFactor(
         this.template_list.difficulty_factor,
         master.settings.selectedDifficulty,
