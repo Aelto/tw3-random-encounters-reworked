@@ -14,3 +14,9 @@ function displayRandomEncounterDisabledNotification() {
     GetLocStringByKey("option_rer_disabled")
   );
 }
+
+function NDEBUG(message: string) {
+  theGame
+  .GetGuiManager()
+  .ShowNotification(message);
+}

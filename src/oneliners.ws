@@ -295,3 +295,68 @@ latent function REROL_monsters_everywhere_feel_them_coming() {
 
   Sleep(5.902488); // Approved duration
 }
+
+// Geralt: Should scour the local notice boards. Someone might've posted a contract for whatever lives here.
+latent function REROL_should_scour_noticeboards(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1206920, true);
+
+  if (!do_not_wait) {
+    Sleep(10); // Could not find Approved duration
+  }
+}
+
+// Geralt choice: I'll take the contract.
+latent function REROL_ill_take_the_contract() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1181938, true);
+
+  Sleep(5); // Could not find Approved duration
+}
+
+// Geralt: Pretty unusual contract…
+latent function REROL_unusual_contract() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1154439, true);
+
+  Sleep(5); // Could not find Approved duration
+}
+
+// Geralt: All right, time I got to work. Where'll I find this monster?
+latent function REROL_where_will_i_find_this_monster() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(551205, true);
+
+  Sleep(3.900127); // Approved duration
+}
+
+// Geralt: I'll tend to the monster
+latent function REROL_ill_tend_to_the_monster() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1014194, true);
+
+  Sleep(1.773995); // Approved duration
+}
+
+// Geralt: I accept the challenge
+latent function REROL_i_accept_the_challenge() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1005381, true);
+
+  Sleep(1.93088); // Approved duration
+}
+
+// Geralt: Mhm…
+latent function REROL_mhm() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1185176, true);
+
+  Sleep(2); // could not find Approved duration
+}
