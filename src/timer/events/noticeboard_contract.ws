@@ -113,7 +113,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
       contract_position = thePlayer.GetWorldPosition();
     }
 
-    createRandomCreatureContract(master, contract_position);
+    createRandomCreatureContract(master, contract_position, CreatureNONE);
 
     REROL_where_will_i_find_this_monster();
 

@@ -110,7 +110,7 @@ statemachine class CRandomEncounters extends CEntity {
     this.events_manager.start();
 
     AddTimer('onceReady', 3.0, false);
-    this.GotoState('Waiting');
+    this.GotoState('Loading');
   }
 
   timer function onceReady(optional delta: float, optional id: Int32) {

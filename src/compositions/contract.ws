@@ -3,7 +3,7 @@
 // doesn't use the CompositionSpawner.
 // Because this class isn't a class of type "one instance per entity" but
 // instead a single class handling the whole encounter.
-latent function createRandomCreatureContract(master: CRandomEncounters, optional position: Vector) {
+latent function createRandomCreatureContract(master: CRandomEncounters, optional position: Vector, optional creature_type: CreatureType) {
   var rer_entity_template: CEntityTemplate;
   var contract_entity: RandomEncountersReworkedContractEntity;
 
@@ -20,6 +20,10 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
 
   if (position.X != 0 || position.Y != 0 || position.Z != 0) {
     contract_entity.forcePosition(position);
+  }
+
+  if (creature_type != CreatureNONE) {
+    contract_entity.forceCreatureType(creature_type);
   }
 
   contract_entity.startContract(master);
