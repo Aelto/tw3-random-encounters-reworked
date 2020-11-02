@@ -12,6 +12,10 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   // It is used to draw a cone from the noticeboard to the player's position
   // outside the city and to spawn the contract in this cone.
   private var position_near_noticeboard: Vector;
+
+  // if set to true, the next time the event interval will run it will trigger
+  // the noticeboard cutscene.
+  private var force_noticeboard_event: bool;
   
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
@@ -30,6 +34,14 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     // the event is only active if its chances to trigger are greater than 0
     this.active = this.trigger_chance > 0;
+
+    theInput.RegisterListener(this, 'OnRERforceNoticeboardEvent', 'OnRERforceNoticeboardEvent');
+  }
+
+  event OnRERforceNoticeboardEvent(action: SInputAction) {
+    if (IsPressed(action)) {
+      this.force_noticeboard_event = true;
+    }
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
@@ -229,6 +241,12 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     // no noticeboad nearby, we can leave
     if (noticeboards.Size() == 0) {
       return false;
+    }
+
+    if (this.force_noticeboard_event) {
+      this.force_noticeboard_event = false;
+
+      return true;
     }
 
     for (i = 0; i < noticeboards.Size(); i += 1) {
