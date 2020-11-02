@@ -70,24 +70,13 @@ class RER_StaticCamera extends CStaticCamera {
     var current_rotation: EulerAngles;
 
     switch (scene.look_at_target_type) {
+      // TODO:
       // case RER_CameraTargetType_BONE:
       //   this.LookAtBone(scene.look_at_target_bone, scene.duration, scene.blend_time);
       //   break;
 
       case RER_CameraTargetType_STATIC:
         current_rotation = VecToRotation(scene.look_at_target_static - current_position);
-        
-        // HACK:
-        // When the camera is looking at a close position, the Pitch axis get messed up
-        // and the camera is looking at the sky.
-        //
-        // -40 here because otherwise the target will be at the bottom of the screen
-        // the anchor used by the camera is [0.5, 1.0], and i want it to be closed to
-        // [0.5, 0.5]
-        // if (VecDistanceSquared(scene.look_at_target_static, current_position) < 20) {
-        //   current_rotation.Pitch = AngleNormalize180(current_rotation.Pitch - 40);
-        // }
-
         break;
 
       case RER_CameraTargetType_NODE:
