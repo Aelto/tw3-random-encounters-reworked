@@ -51,8 +51,6 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       }
     }
 
-    RERFACT_addNoticeboardEventAt(parent.investigation_center_position, parent.chosen_bestiary_entry.type);
-
     // 2. load all the needed resources
     switch (parent.chosen_bestiary_entry.type) {
       case CreatureBARGHEST :
@@ -69,6 +67,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     parent.trail_maker = new RER_TrailMaker in this;
+
+    LogChannel('RER', "loading trail_maker, ratio = " + parent.master.settings.foottracks_ratio);
     
     trail_resources.PushBack(
       getTracksTemplateByCreatureType(

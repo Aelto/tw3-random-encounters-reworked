@@ -50,8 +50,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   }
 
   var chosen_bestiary_entry: RER_BestiaryEntry;
-
-  var forced_chosen_bestiary_entry: CreatureType;
   
   var number_of_creatures: int;
 
@@ -125,10 +123,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     this.investigation_center_position = position;
   }
 
-  public function forceCreatureType(creature_type: CreatureType) {
-    this.forced_chosen_bestiary_entry = creature_type;
-  }
-
 
   public latent function startContract(master: CRandomEncounters) {
     this.master = master;
@@ -146,18 +140,10 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   }
 
   public latent function pickRandomBestiaryEntry() {
-    if (this.forced_chosen_bestiary_entry == CreatureNONE) {
-      this.chosen_bestiary_entry = this
-        .master
-        .bestiary
-        .getRandomEntryFromBestiary(this.master, EncounterType_CONTRACT);
-    }
-    else {
-      this.chosen_bestiary_entry = this
-        .master
-        .bestiary
-        .entries[this.forced_chosen_bestiary_entry];
-    }
+    this.chosen_bestiary_entry = this
+      .master
+      .bestiary
+      .getRandomEntryFromBestiary(this.master, EncounterType_CONTRACT);
 
     this.number_of_creatures = rollDifficultyFactor(
       this.chosen_bestiary_entry.template_list.difficulty_factor,
@@ -244,8 +230,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
       ((CActor)this.entities[i])
         .Kill('RandomEncountersReworkedContractEntity', true);
     }
-
-    RERFACT_removeLatestNoticeboardEvent();
 
     // clearing any clues created during the investigation state
     for (i = 0; i < this.investigation_clues.Size(); i += 1) {
