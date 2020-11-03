@@ -165,13 +165,13 @@ class RER_StaticCamera extends CStaticCamera {
 
       // 1 we do the position & rotation blendings
       // 1.1 we do the position blending
-      current_position += (goal_position - current_position) * scene.position_blending_ratio;
+      current_position += (goal_position - current_position) * MinF(scene.position_blending_ratio * 2, 0.5);
 
       // 1.2 we do the rotation blending
       goal_rotation = thePlayer.GetWorldRotation();
-      current_rotation.Roll += AngleNormalize180(goal_rotation.Roll - current_rotation.Roll) * MinF(scene.rotation_blending_ratio * 2, 1);
-      current_rotation.Yaw += AngleNormalize180(goal_rotation.Yaw - current_rotation.Yaw) * MinF(scene.rotation_blending_ratio * 2, 1);
-      current_rotation.Pitch += AngleNormalize180(goal_rotation.Pitch - current_rotation.Pitch) * MinF(scene.rotation_blending_ratio * 2, 1);
+      current_rotation.Roll += AngleNormalize180(goal_rotation.Roll - current_rotation.Roll) * MinF(scene.rotation_blending_ratio * 1.3, 0.5);
+      current_rotation.Yaw += AngleNormalize180(goal_rotation.Yaw - current_rotation.Yaw) * MinF(scene.rotation_blending_ratio * 1.3, 0.5);
+      current_rotation.Pitch += AngleNormalize180(goal_rotation.Pitch - current_rotation.Pitch) * MinF(scene.rotation_blending_ratio * 1.3, 0.5);
 
       // 3 we finally teleport the camera
       this.TeleportWithRotation(current_position, current_rotation);
