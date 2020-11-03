@@ -22,6 +22,8 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
   var trigger_chance: float;
 
+  var last_known_position_in_city: Vector;
+
   public latent function loadSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -62,13 +64,21 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   }
 
   private latent function waitForPlayerToLeaveCity(master: CRandomEncounters, chance_scale: float): bool {
+    var meters_from_city: float;
+
     if (master.rExtra.isPlayerInSettlement()) {
       // NDEBUG("in settlement");
+
+      this.last_known_position_in_city = thePlayer.GetWorldPosition();
       
       return false;
     }
 
-    if (RandRangeF(100) < this.trigger_chance /* * chance_scale*/) {
+    meters_from_city = VecDistance(this.last_known_position_in_city, thePlayer.GetWorldPosition());
+
+    // every 100 meters walked add 1%. One percent here is huge, due to the low
+    // default value (around 1.5%)
+    if (RandRangeF(100) < this.trigger_chance + meters_from_city / 100 /* * chance_scale*/) {
       LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered encounter");
 
       this.createContractEncounter(master);
