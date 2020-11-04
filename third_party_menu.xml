@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<UserConfig>
+
+    <!-- 
+        replace all occurences of MODNAME by the name of your mod in uppercase, for example for random encounters reworked
+        "MODNAMEcreaturesRatios" becomes "RERcreaturesRatios"
+
+        and
+
+        replace all occurences of modname by the name of your mod in lowercase, for example for random encounters reworked
+        "modname_name.modname_creatures_ratios" becomes "rer_name.rer_creatures_ratios"
+
+        then
+
+        use the same strings csv as RER but you replace every occurence or "rer" by your "modname"
+        the "MODNAME" will be used in the code, in your bestiary entry
+    -->
+    
+
+    <!-- #region Creature ratios -->
+    <Group id="MODNAMEcreaturesRatios" displayName="Mods.modname_name.modname_creatures_ratios">
+    </Group>
+
+    <Group id="MODNAMEcreaturesRatiosAmbushDay" displayName="Mods.modname_name.modname_creatures_ratios.ambush_day">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"             value="10"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAMEcreaturesRatiosAmbushNight" displayName="Mods.modname_name.modname_creatures_ratios.ambush_night">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"             value="10"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAMEcreaturesRatiosHuntDay" displayName="Mods.modname_name.modname_creatures_ratios.hunt_day">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"             value="10"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAMEcreaturesRatiosHuntNight" displayName="Mods.modname_name.modname_creatures_ratios.hunt_night">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"             value="10"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAMEcreaturesRatiosContractDay" displayName="Mods.modname_name.modname_creatures_ratios.contract_day">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"					value="50"	/>
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAMEcreaturesRatiosContractNight" displayName="Mods.modname_name.modname_creatures_ratios.contract_night">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"					value="50"	/>
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+    <!-- #endregion Creature ratios -->
+
+    <Group id="MODNAME_CitySpawns" displayName="Mods.modname_name.modname_city_spawns">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="SirensSSSSSSS"					value="0"	/>
+            </Preset>
+            
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="MODNAMEtrophyPickupAnimation" displayName="modname_sirens" displayType="TOGGLE"></Var>
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAME_RegionConstraints" displayName="Mods.modname_name.modname_region_constraints">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"					value="5"	/>
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="OPTIONS">
+                <OptionsArray>
+					<Option id="0" displayName="modname_region_constraint_none">
+						<Entry varId="Sirens" value="0"/>
+					</Option>
+					<Option id="1" displayName="modname_region_constraint_only_whiteorchard">
+						<Entry varId="Sirens" value="1"/>
+					</Option>
+                    <Option id="2" displayName="modname_region_constraint_only_velen">
+						<Entry varId="Sirens" value="2"/>
+					</Option>
+                    <Option id="3" displayName="modname_region_constraint_only_skellige">
+						<Entry varId="Sirens" value="3"/>
+					</Option>
+                    <Option id="4" displayName="modname_region_constraint_only_toussaint">
+						<Entry varId="Sirens" value="4"/>
+					</Option>
+                    <Option id="5" displayName="modname_region_constraint_no_whiteorchard">
+						<Entry varId="Sirens" value="5"/>
+					</Option>
+                    <Option id="6" displayName="modname_region_constraint_no_velen">
+						<Entry varId="Sirens" value="6"/>
+					</Option>
+                    <Option id="7" displayName="modname_region_constraint_no_skellige">
+						<Entry varId="Sirens" value="7"/>
+					</Option>
+                    <Option id="8" displayName="modname_region_constraint_no_toussaint">
+						<Entry varId="Sirens" value="8"/>
+					</Option>
+				</OptionsArray>
+            </Var>
+        </VisibleVars>
+    </Group>
+
+    <Group id="MODNAME_monsterTrophies" displayName="Mods.modname_name.modname_monster_trophies">
+        <PresetsArray>
+            <Preset id="0" displayName="modname_defaults" >
+                <Entry varId="Sirens"					value="100"	 />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="Sirens" displayName="modname_sirens" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+
+
+</UserConfig>
