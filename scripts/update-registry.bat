@@ -3,6 +3,12 @@ setlocal enableextensions disabledelayedexpansion
 
 set "textFile=..\modBootstrap-registry\content\scripts\local\mods_registry.ws"
 
+if not exist %textFile% (
+  echo "Bootstrap registry not found, trying bootstrap scripthooked registry. Press Enter to continue."
+  set "textFile=..\modBootstrap\content\scripts\local\mods_registry.ws"
+  pause
+)
+
 :: we check if the file does not exist
 if not exist %textFile% echo "Registry file not found, have you fully installed modBootstrap?" && pause && exit
 
