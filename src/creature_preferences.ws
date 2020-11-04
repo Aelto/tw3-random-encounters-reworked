@@ -252,6 +252,12 @@ class RER_CreaturePreferences {
     return this.reset();
   }
 
+  public function fillSpawnRollerThirdParty(spawn_roller: SpawnRoller): RER_CreaturePreferences {
+    spawn_roller.setThirdPartyCreatureCounter(this.creature_type, this.getChances());
+
+    return this.reset();
+  }
+
   private function applyCoefficientToCreature(chances: int): int {
     return (int)(chances * this.external_factors_coefficient);
   }

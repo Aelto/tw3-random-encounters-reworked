@@ -20,7 +20,7 @@ class RER_Bestiary {
 
   public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType): RER_BestiaryEntry {
     var creatures_preferences: RER_CreaturePreferences;
-    var creature_type: CreatureType;
+    var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
     var can_spawn_creature: bool;
     var i: int;
@@ -43,6 +43,12 @@ class RER_Bestiary {
         .fillSpawnRoller(master.spawn_roller);
     }
 
+    for (i = 0; i < this.third_party_entries.Size(); i += 1) {
+      this.third_party_entries[i]
+        .setCreaturePreferences(creatures_preferences, encounter_type)
+        .fillSpawnRollerThirdParty(master.spawn_roller);
+    }
+
     // when the option "Only known bestiary creatures" is ON
     // we remove every unknown creatures from the spawning pool
     if (master.settings.only_known_bestiary_creatures) {
@@ -57,17 +63,21 @@ class RER_Bestiary {
       }
     }
 
-    creature_type = master.spawn_roller.rollCreatures();
+    spawn_roll = master.spawn_roller.rollCreatures(this.third_party_creature_counter);
 
-    if (creature_type == CreatureNONE) {
+    if (spawn_roll.roll == CreatureNONE) {
       return new RER_BestiaryEntryNull in this;
     }
 
-    if (creature_type == CreatureHUMAN) {
+    if (spawn_roll.type == SpawnRoller_RollTypeCREATURE && spawn_roll.roll == CreatureHUMAN) {
       return this.human_entries[master.rExtra.getRandomHumanTypeByCurrentArea()];
     }
 
-    return this.entries[creature_type];
+    if (spawn_roll.type == SpawnRoller_RollTypeCREATURE) {
+     return this.entries[spawn_roll.roll];
+    }
+
+    return this.third_party_entries[spawn_roll.roll];
   }
 
   public function doesAllowCitySpawns(): bool {
@@ -170,4 +180,56 @@ class RER_Bestiary {
       this.human_entries[i].init();
     }
   }
+
+
+
+
+  //#region 3rd party code
+  // everything in here is code to handle third party encounters/creatures in 
+  // the bestiary
+
+  private var third_party_creature_counter: int;
+  default third_party_creature_counter = 0;
+  
+  public function getThirdPartyCreatureId(): int {
+    var chosen_id: int;
+
+    this.third_party_creature_counter = chosen_id;
+    this.third_party_creature_counter += 1;
+
+    return chosen_id;
+  }
+
+  var third_party_entries: array<RER_BestiaryEntry>;
+
+  public function addThirdPartyCreature(third_party_id: int, bestiary_entry: RER_BestiaryEntry) {
+    if (this.hasThirdPartyCreature(third_party_id)) {
+      LogChannel('modRandomEncounters', "3rd party creature with id [" + third_party_id + "], name [" + bestiary_entry.menu_name + "] denied because id already exists");
+      
+      return;
+    }
+
+    this.third_party_entries.PushBack(bestiary_entry);
+  }
+
+  public function hasThirdPartyCreature(third_party_id: int): bool {
+    var i: int;
+
+    for (i = 0; i < this.third_party_entries.Size(); i += 1) {
+      if (this.third_party_entries[i].type == third_party_id) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  //#endregion 3rd party code
+
+
+
+
+
+
+
 }

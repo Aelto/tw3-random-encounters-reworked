@@ -77,6 +77,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     var i: int;
     var can_spawn_creature: bool;
     var manager : CWitcherJournalManager;
+    var roll: SpawnRoller_Roll;
 
     spawn_roller = new SpawnRoller in this;
     spawn_roller.fill_arrays();
@@ -166,6 +167,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       }
     }
 
-    return spawn_roller.rollCreatures();
+    roll = spawn_roller.rollCreatures();
+    return roll.roll;
   }
 }

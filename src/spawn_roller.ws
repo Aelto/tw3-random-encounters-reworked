@@ -19,6 +19,8 @@ class SpawnRoller {
   // and the value as the counter.
   private var creatures_counters: array<int>;
   private var humans_variants_counters: array<int>;
+  
+  private var third_party_creatures_counters: array<int>;
 
   public function fill_arrays() {
     var i: int;
@@ -54,11 +56,16 @@ class SpawnRoller {
     this.humans_variants_counters[type] = count;
   }
 
-  public function rollCreatures(): CreatureType {
+  public function setThirdPartyCreatureCounter(type: int, count: int) {
+    this.third_party_creatures_counters[type] = count;
+  }
+
+  public function rollCreatures(optional third_party_creatures_count: int): SpawnRoller_Roll {
     var current_position: int;
     var total: int;
     var roll: int;
     var i: int;
+    var spawn_roll: SpawnRoller_Roll;
 
     total = 0;
 
@@ -66,11 +73,18 @@ class SpawnRoller {
       total += this.creatures_counters[i];
     }
 
+    for (i = 0; i < third_party_creatures_count; i += 1) {
+      total += this.third_party_creatures_counters[i];
+    }
+
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
     // added so the user can disable all CreatureType and it would
     // cancel the spawn. Useful when the user wants no spawn during the day.
     if (total <= 0) {
-      return CreatureNONE;
+      spawn_roll.type = SpawnRoller_RollTypeCREATURE;
+      spawn_roll.roll = CreatureNONE;
+
+      return spawn_roll;
     }
 
     roll = RandRange(total);
@@ -82,14 +96,29 @@ class SpawnRoller {
       // `this.creatures_counters[i] > 0` is add so the user can
       // disable a CreatureType completely.
       if (this.creatures_counters[i] > 0 && roll <= current_position + this.creatures_counters[i]) {
-        return i;
+        spawn_roll.type = SpawnRoller_RollTypeCREATURE;
+        spawn_roll.roll = i;
+        
+        return spawn_roll;
       }
 
       current_position += this.creatures_counters[i];
     }
 
+    for (i = 0; i < third_party_creatures_count; i += 1) {
+      if (this.third_party_creatures_counters[i] > 0 && roll <= current_position + this.third_party_creatures_counters[i]) {
+        spawn_roll.type = SpawnRoller_RollTypeTHIRDPARTY;
+        spawn_roll.roll = i;
+        
+        return spawn_roll;
+      }
+    }
+
     // not supposed to get here but hey, who knows.
-    return CreatureNONE;
+    spawn_roll.type = SpawnRoller_RollTypeCREATURE;
+    spawn_roll.roll = CreatureNONE;
+
+    return spawn_roll;
   }
 
   public function rollHumansVariants(): EHumanType {
@@ -126,4 +155,14 @@ class SpawnRoller {
     return HT_NONE;
   }
 
+}
+
+enum SpawnRoller_RollType {
+  SpawnRoller_RollTypeCREATURE = 0,
+  SpawnRoller_RollTypeTHIRDPARTY = 1
+}
+
+struct SpawnRoller_Roll {
+  var type: SpawnRoller_RollType;
+  var roll: CreatureType;
 }
