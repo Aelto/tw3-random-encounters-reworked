@@ -151,14 +151,18 @@ class CModRExtra {
 
     current_area = theGame.GetCommonMapManager().GetCurrentArea();
 
+    // HACK: it can be a great way to see if a settlement is nearby
+    // by looking for a noticeboard. Though some settlements don't have
+    // any noticeboard.
+    if (this.isNearNoticeboard()) {
+      return true;
+    }
+
     // the .isInSettlement() method doesn't work when is skellige
     // it always returns true.
     if (current_area == AN_Skellige_ArdSkellig) {
-      // HACK: it can be a great way to see if a settlement is nearby
-      // by looking for a noticeboard. Though some settlements don't have
-      // any noticeboard.
-      return this.isNearNoticeboard()
-          || this.isNearGuards();
+      
+      return this.isNearGuards();
     }
     
     return thePlayer.IsInSettlement();
