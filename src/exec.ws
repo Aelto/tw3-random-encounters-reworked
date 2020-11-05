@@ -146,7 +146,7 @@ state TestCameraScenePlayer in RER_ExecRunner {
     
     // where the camera is placed
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
-    scene.position = thePlayer.GetWorldPosition() + Vector(0, 0, 3);
+    scene.position = thePlayer.GetWorldPosition() + Vector(3, 3, 3);
 
     // where the camera is looking
     scene.look_at_target_type = RER_CameraTargetType_NODE;
@@ -158,7 +158,7 @@ state TestCameraScenePlayer in RER_ExecRunner {
     scene.position_blending_ratio = 0.5;
     scene.rotation_blending_ratio = 0.5;
 
-    scene.duration = 30;
+    scene.duration = 5;
 
     camera = RER_getStaticCamera();
     
