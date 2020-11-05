@@ -5358,7 +5358,7 @@
                 <Entry varId="eventFightNoise"	                    value="10"	/>
                 <Entry varId="eventFillCreaturesGroup"	            value="50"	/>
                 <Entry varId="eventMeditationAmbush"            	value="15"	/>
-                <Entry varId="eventNoticeboardContract"	            value="0.5"	/>
+                <Entry varId="eventNoticeboardContract"	            value="50"	/>
                 <Entry varId="eventFillCreaturesGroupAllowCombat"	value="0"	/>
             </Preset>
 

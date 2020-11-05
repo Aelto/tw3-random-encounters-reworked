@@ -104,14 +104,14 @@ class CModRExtra {
     return zone; 
   }
 
-  private function isNearNoticeboard(): bool {
+  private function isNearNoticeboard(radius_check: float): bool {
     var entities: array<CGameplayEntity>;
 
      // 'W3NoticeBoard' for noticeboards, 'W3FastTravelEntity' for signpost
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
-      50, // range, we'll have to check if 50 is too big/small
+      radius_check, // range
       1, // max results
       , // tag: optional value
       FLAG_ExcludePlayer,
@@ -122,14 +122,14 @@ class CModRExtra {
     return entities.Size() > 0;
   }
 
-  private function isNearGuards(): bool {
+  private function isNearGuards(radius_check: float): bool {
     var entities: array<CGameplayEntity>;
     var i: int;
 
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
-      50, // range, we'll have to check if 50 is too big/small
+      radius_check, // range
       100, // max results
       , // tag: optional value
       FLAG_ExcludePlayer,
@@ -146,15 +146,19 @@ class CModRExtra {
     return false;
   }
 
-  public function isPlayerInSettlement(): bool {
+  public function isPlayerInSettlement(optional radius_check: float): bool {
     var current_area : EAreaName;
+
+    if (radius_check <= 0) {
+      radius_check = 50;
+    }
 
     current_area = theGame.GetCommonMapManager().GetCurrentArea();
 
     // HACK: it can be a great way to see if a settlement is nearby
     // by looking for a noticeboard. Though some settlements don't have
     // any noticeboard.
-    if (this.isNearNoticeboard()) {
+    if (this.isNearNoticeboard(radius_check)) {
       return true;
     }
 
@@ -162,7 +166,7 @@ class CModRExtra {
     // it always returns true.
     if (current_area == AN_Skellige_ArdSkellig) {
       
-      return this.isNearGuards();
+      return this.isNearGuards(radius_check);
     }
     
     return thePlayer.IsInSettlement();

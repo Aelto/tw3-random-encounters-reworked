@@ -172,7 +172,7 @@
 2115018170|        |option_rer_event_fightnoise_chance|Event % chance - fight noise ambush
 2115018171|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
 2115018172|        |option_rer_event_meditationambush_chance|Event % chance - meditation ambush
-2115018173|        |option_rer_event_noticeboardcontract_chance|Event % chance - noticeboard contract
+2115018173|        |option_rer_event_noticeboardcontract_chance|noticeboard Event - Distance
 2115018174|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
 2115018175|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
 2115018176|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)
