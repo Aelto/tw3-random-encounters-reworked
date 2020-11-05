@@ -94,6 +94,13 @@ class RER_StaticCamera extends CStaticCamera {
     var current_rotation: EulerAngles;
     var current_position: Vector;
 
+    this.deactivationDuration = 1.5;
+    this.activationDuration = 1.5;
+
+    this.TeleportWithRotation(scene.position, this.getRotation(scene, scene.position));
+    this.Run();
+    Sleep(this.activationDuration);
+
     // 1. we always start from the camera's position and its rotation
     // only if not relative, because relative position starts from (0, 0, 0)
     if (scene.position_type != RER_CameraPositionType_RELATIVE) {
@@ -104,38 +111,38 @@ class RER_StaticCamera extends CStaticCamera {
 
     // 2. then we move the camera there and start running
     this.TeleportWithRotation(current_position, current_rotation);
-    this.Run();
 
     // 3. we start looping to animate the camera toward the scene goals
     this.blendToScene(scene, current_position, current_rotation);
 
-    // 4. we start looping to blend back the camera to its original position
-    this.blendToPlayer(scene, current_position, current_rotation);
-
-    this.deactivationDuration = 2;
     this.Stop();
 
-    if (destroy_after) {
-      this.Destroy();
-    }
+    // if (destroy_after) {
+      // removed because it cancels the blending
+      // this.Destroy();
+    // }
   }
 
   private latent function blendToScene(scene: RER_CameraScene, out current_position: Vector, out current_rotation: EulerAngles) {
     var goal_rotation: EulerAngles;
-    var time: float;
+    var starting_time: float;
+    var ending_time: float;
+    var time_progress: float; // it's a %
 
-    time = theGame.GetEngineTimeAsSeconds();
-    while (theGame.GetEngineTimeAsSeconds() - time < scene.duration) {
+    starting_time = theGame.GetEngineTimeAsSeconds();
+    ending_time = starting_time + scene.duration;
+    while (theGame.GetEngineTimeAsSeconds() < ending_time) {
+      time_progress = MinF((theGame.GetEngineTimeAsSeconds() - starting_time) / scene.duration, 0.5);
 
       // 1 we do the position & rotation blendings
       // 1.1 we do the position blending
-      current_position += (scene.position - current_position) * scene.position_blending_ratio;
+      current_position += (scene.position - current_position) * scene.position_blending_ratio * time_progress;
 
       // 1.2 we do the rotation blending
       goal_rotation = this.getRotation(scene, current_position);
-      current_rotation.Roll += AngleNormalize180(goal_rotation.Roll - current_rotation.Roll) * scene.rotation_blending_ratio;
-      current_rotation.Yaw += AngleNormalize180(goal_rotation.Yaw - current_rotation.Yaw) * scene.rotation_blending_ratio;
-      current_rotation.Pitch += AngleNormalize180(goal_rotation.Pitch - current_rotation.Pitch) * scene.rotation_blending_ratio;
+      current_rotation.Roll += AngleNormalize180(goal_rotation.Roll - current_rotation.Roll) * scene.rotation_blending_ratio * time_progress;
+      current_rotation.Yaw += AngleNormalize180(goal_rotation.Yaw - current_rotation.Yaw) * scene.rotation_blending_ratio * time_progress;
+      current_rotation.Pitch += AngleNormalize180(goal_rotation.Pitch - current_rotation.Pitch) * scene.rotation_blending_ratio * time_progress;
 
       // 2 we update the goal position using the velocity
       if (scene.velocity_type == RER_CameraVelocityType_ABSOLUTE) {
@@ -149,36 +156,6 @@ class RER_StaticCamera extends CStaticCamera {
 
       // 3 we finally teleport the camera
       this.TeleportWithRotation(current_position, current_rotation);
-      
-      SleepOneFrame();
-    }
-  }
-
-  private latent function blendToPlayer(scene: RER_CameraScene, out current_position: Vector, out current_rotation: EulerAngles) {
-    var goal_rotation: EulerAngles;
-    var goal_position: Vector;
-    var time: float;
-
-    time = theGame.GetEngineTimeAsSeconds();
-    while (theGame.GetEngineTimeAsSeconds() - time < scene.duration) {
-      goal_position = thePlayer.GetWorldPosition() + Vector(0, 0, 2) + VecNormalize(thePlayer.GetHeadingVector()) * -2;
-
-      // 1 we do the position & rotation blendings
-      // 1.1 we do the position blending
-      current_position += (goal_position - current_position) * MinF(scene.position_blending_ratio * 2, 0.5);
-
-      // 1.2 we do the rotation blending
-      goal_rotation = thePlayer.GetWorldRotation();
-      current_rotation.Roll += AngleNormalize180(goal_rotation.Roll - current_rotation.Roll) * MinF(scene.rotation_blending_ratio * 1.3, 0.5);
-      current_rotation.Yaw += AngleNormalize180(goal_rotation.Yaw - current_rotation.Yaw) * MinF(scene.rotation_blending_ratio * 1.3, 0.5);
-      current_rotation.Pitch += AngleNormalize180(goal_rotation.Pitch - current_rotation.Pitch) * MinF(scene.rotation_blending_ratio * 1.3, 0.5);
-
-      // 3 we finally teleport the camera
-      this.TeleportWithRotation(current_position, current_rotation);
-
-      if (VecDistanceSquared(current_position, goal_position) < 1.5) {
-        break;
-      }
       
       SleepOneFrame();
     }
