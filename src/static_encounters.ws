@@ -82,8 +82,7 @@ class RER_StaticEncounter {
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
-    if (this.region_constraint == RER_RegionConstraint_NONE
-    ||  this.region_constraint == RER_RegionConstraint_NO_VELEN && (current_region == "no_mans_land" || current_region == "novigrad")
+    if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (current_region == "no_mans_land" || current_region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (current_region == "skellige" || current_region == "kaer_morhen")
     ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && current_region == "bob"
     ||  this.region_constraint == RER_RegionConstraint_NO_WHITEORCHARD && current_region == "prolog_village"
