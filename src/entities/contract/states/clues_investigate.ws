@@ -335,7 +335,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   }
 
   private latent function waitUntilAllEntitiesAreDead() {
-    while (!parent.areAllEntitiesDead()) {
+    while (!parent.areAllEntitiesDead() || thePlayer.IsInCombat()) {
       Sleep(0.4);
     }
 
