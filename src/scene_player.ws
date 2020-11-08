@@ -103,21 +103,15 @@ class RER_StaticCamera extends CStaticCamera {
     this.deactivationDuration = scene.deactivation_duration;
     this.activationDuration = scene.activation_duration;
 
-    if (scene.position_type == RER_CameraPositionType_RELATIVE) {
-      this.TeleportWithRotation(thePlayer.GetWorldPosition() + scene.position, this.getRotation(scene, scene.position));
-    }
-    else {
-      this.TeleportWithRotation(scene.position, this.getRotation(scene, scene.position));
-    }
-
+    this.TeleportWithRotation(scene.position, this.getRotation(scene, scene.position));
     this.Run();
     Sleep(this.activationDuration);
 
     // 1. we always start from the camera's position and its rotation
     // only if not relative, because relative position starts from (0, 0, 0)
-    // if (scene.position_type != RER_CameraPositionType_RELATIVE) {
-    current_position = theCamera.GetCameraPosition();
-    // }
+    if (scene.position_type != RER_CameraPositionType_RELATIVE) {
+      current_position = theCamera.GetCameraPosition();
+    }
 
     current_rotation = theCamera.GetCameraRotation();
 
@@ -148,12 +142,7 @@ class RER_StaticCamera extends CStaticCamera {
 
       // 1 we do the position & rotation blendings
       // 1.1 we do the position blending
-      if (scene.position_type == RER_CameraPositionType_RELATIVE) {
-        current_position += (thePlayer.GetWorldPosition() + scene.position - current_position) * scene.position_blending_ratio * time_progress;
-      }
-      else {
-        current_position += (scene.position - current_position) * scene.position_blending_ratio * time_progress;
-      }
+      current_position += (scene.position - current_position) * scene.position_blending_ratio * time_progress;
 
       // 1.2 we do the rotation blending
       goal_rotation = this.getRotation(scene, current_position);
@@ -168,7 +157,7 @@ class RER_StaticCamera extends CStaticCamera {
         scene.position += VecNormalize(RotForward(current_rotation)) * scene.velocity;
       }
       else if (scene.velocity_type == RER_CameraVelocityType_RELATIVE) {
-        scene.position += VecFromHeading(theCamera.GetCameraHeading()) * scene.velocity;
+        scene.position += VecRotByAngleXY(scene.velocity, VecHeading(RotForward(current_rotation)));
       }
 
       // 3 we finally teleport the camera
