@@ -25,6 +25,8 @@ state CombatLoop in RandomEncountersReworkedContractEntity {
     can_start = this.CombatLoop_CanStart();
     if (!can_start) {
       REROL_its_over();
+
+      return parent.GotoState('Ending');
     }
 
     // 2. we can start the loop so we decrease the chances for the next loop
