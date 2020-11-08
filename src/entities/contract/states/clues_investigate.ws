@@ -45,7 +45,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       );
 
       if (!found_initial_position) {
-        parent.GotoState('Ending');
+        parent.endContract();
 
         return;
       }

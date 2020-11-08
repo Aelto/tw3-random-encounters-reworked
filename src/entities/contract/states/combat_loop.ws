@@ -26,7 +26,7 @@ state CombatLoop in RandomEncountersReworkedContractEntity {
     if (!can_start) {
       REROL_its_over();
 
-      parent.GotoState('Ending');
+      parent.endContract();
 
       return;
     }

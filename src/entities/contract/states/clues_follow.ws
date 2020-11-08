@@ -81,7 +81,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     LogChannel('modRandomEncounters', "found final position = " + found_final_position);
 
     if (!found_final_position) {
-      parent.GotoState('Ending');
+      parent.endContract();
 
       return;
     }

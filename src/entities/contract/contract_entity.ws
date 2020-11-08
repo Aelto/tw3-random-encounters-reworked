@@ -56,13 +56,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   //#endregion shared variables between states
 
   //#region variables made in `CluesInvestigate`
-  
-  // those clues were created during the Investigate state
-  // and removing as soon as the state ends would be too soon.
-  // And leaving them in the world woulb be worse, so these
-  // entities will be cleared when the contract ends.
-  var investigation_clues: array<CEntity>;
-
   var investigation_center_position: Vector;
   var investigation_last_clues_position: Vector;
 
@@ -184,15 +177,13 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     var distance_from_player: float;
 
     if (this.GetCurrentStateName() == 'Ending') {
-      this.clean();
-
       return;
     }
 
     if (this.GetCurrentStateName() == 'CluesInvestigate'
     && VecDistanceSquared(this.investigation_center_position, thePlayer.GetWorldPosition())
      > this.master.settings.kill_threshold_distance * this.master.settings.kill_threshold_distance) {
-       this.clean();
+      this.endContract();
     }
 
     if (this.GetCurrentStateName() == 'CluesFollow') {
@@ -210,13 +201,19 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
       LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
-      this.clean();
+      this.endContract();
 
       return;
     }
   }
 
-  private function clean() {
+  public function endContract() {
+    if (this.GetCurrentStateName() != 'Ending') {
+      this.GotoState('Ending');
+    }
+  }
+
+  public latent function clean() {
     var i: int;
 
     LogChannel(
@@ -231,13 +228,9 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
         .Kill('RandomEncountersReworkedContractEntity', true);
     }
 
-    // clearing any clues created during the investigation state
-    for (i = 0; i < this.investigation_clues.Size(); i += 1) {
-      ((CActor)this.investigation_clues[i])
-        .Destroy();
-    }
-
-    this.investigation_clues.Clear();
+    trail_maker.clean();
+    blood_maker.clean();
+    corpse_maker.clean();
 
     this.Destroy();
   }

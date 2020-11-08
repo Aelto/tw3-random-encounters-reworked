@@ -9,6 +9,6 @@ state Ending in RandomEncountersReworkedContractEntity {
   }
 
   entry function Ending_main() {
-    REROL_cant_smell_a_thing();
+    parent.clean();
   }
 }
