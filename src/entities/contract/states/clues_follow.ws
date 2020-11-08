@@ -180,6 +180,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
   private function keepCreaturesOnPoint() {
     var distance_from_point: float;
+    var new_position: Vector;
     var i: int;
 
     for (i = 0; i < parent.entities.Size(); i += 1) {
@@ -189,10 +190,17 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
       );
 
       if (distance_from_point > this.creatures_aggro_radius) {
-        parent.entities[i].Teleport(
-          parent.entities[i].GetWorldPosition()
-          + VecNormalize(parent.entities[i].GetWorldPosition() - parent.final_point_position)
+        new_position = VecInterpolate(
+          parent.entities[i].GetWorldPosition(),
+          parent.final_point_position,
+          1 / this.creatures_aggro_radius
         );
+
+        FixZAxis(new_position);
+
+        parent
+          .entities[i]
+          .Teleport(new_position);
       }
     }
   }
