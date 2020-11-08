@@ -360,3 +360,13 @@ latent function REROL_mhm() {
 
   Sleep(2); // could not find Approved duration
 }
+
+// Geralt: It's over.
+latent function REROL_its_over() {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(485943, true);
+
+  Sleep(2); // could not find Approved duration
+}
+
