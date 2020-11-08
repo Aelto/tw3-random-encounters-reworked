@@ -49,11 +49,11 @@ struct RER_CameraScene {
   var position_blending_ratio: float;
   var rotation_blending_ratio: float;
 
-  var deactivation_duration: float;
-  default deactivation_duration = 1.5;
+  // var deactivation_duration: float;
+  // default deactivation_duration = 1.5;
 
-  var activation_duration: float;
-  default activation_duration = 1.5;
+  // var activation_duration: float;
+  // default activation_duration = 1.5;
 }
 
 class RER_StaticCamera extends CStaticCamera {
@@ -100,8 +100,8 @@ class RER_StaticCamera extends CStaticCamera {
     var current_rotation: EulerAngles;
     var current_position: Vector;
 
-    this.deactivationDuration = scene.deactivation_duration;
-    this.activationDuration = scene.activation_duration;
+    this.deactivationDuration = 1.5;
+    this.activationDuration = 1.5;
 
     if (scene.position_type == RER_CameraPositionType_RELATIVE) {
       this.TeleportWithRotation(thePlayer.GetWorldPosition() + scene.position, this.getRotation(scene, scene.position));
