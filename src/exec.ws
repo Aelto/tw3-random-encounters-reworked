@@ -1,4 +1,9 @@
 
+// gpc for GetPlayerCoordinates
+exec function rergpc() {
+  NDEBUG(VecToString(thePlayer.GetWorldPosition()));
+}
+
 exec function rer_start_ambush(optional creature: CreatureType) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;

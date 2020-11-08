@@ -9,7 +9,9 @@ function getGroundPosition(out input_position: Vector, optional personal_space: 
 
   personal_space = MaxF(personal_space, 1.0);
 
-  max_height_check = MaxF(max_height_check, 30.0);
+  if (max_height_check == 0) {
+    max_height_check = 30.0;
+  }
 
   // first search for ground based on navigation data.
   theGame

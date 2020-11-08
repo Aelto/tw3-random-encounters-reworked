@@ -15,8 +15,8 @@ function displayRandomEncounterDisabledNotification() {
   );
 }
 
-function NDEBUG(message: string) {
+function NDEBUG(message: string, optional duration: float) {
   theGame
   .GetGuiManager()
-  .ShowNotification(message);
+  .ShowNotification(message, duration);
 }

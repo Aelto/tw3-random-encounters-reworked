@@ -22,6 +22,7 @@ statemachine class CRandomEncounters extends CEntity {
   var spawn_roller: SpawnRoller;
   var events_manager: RER_EventsManager;
   var bestiary: RER_Bestiary;
+  var static_encounter_manager: RER_StaticEncounterManager;
 
   var ticks_before_spawn: int;
 
@@ -50,6 +51,7 @@ statemachine class CRandomEncounters extends CEntity {
       spawn_roller = new SpawnRoller in this;
       events_manager = new RER_EventsManager in this;
       bestiary = new RER_Bestiary in this;
+      static_encounter_manager = new RER_StaticEncounterManager in this;
 
       this.initiateRandomEncounters();
     }
@@ -68,7 +70,7 @@ statemachine class CRandomEncounters extends CEntity {
       this.bestiary.init();
       this.bestiary.loadSettings();
 
-      this.GotoState('Waiting');
+      this.GotoState('Loading');
     }
   }
 
@@ -110,7 +112,7 @@ statemachine class CRandomEncounters extends CEntity {
     this.events_manager.start();
 
     AddTimer('onceReady', 3.0, false);
-    this.GotoState('Waiting');
+    this.GotoState('Loading');
   }
 
   timer function onceReady(optional delta: float, optional id: Int32) {
