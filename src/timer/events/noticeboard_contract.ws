@@ -64,6 +64,10 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
       time_before_other_spawn -= delta;
     }
 
+    if (isPlayerBusy()) {
+      return false;
+    }
+
     if (this.was_triggered) {
       has_spawned = this.waitForPlayerToLeaveCity(master, chance_scale);
     }
