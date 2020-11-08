@@ -78,30 +78,17 @@ class RER_StaticEncounter {
     var i: int;
 
     // check if the player is nearby, cancel spawn.
-    FindGameplayEntitiesCloseToPoint(
-      entities,
-      this.position,
-      this.radius,
-      1,
-      , // tags
-      , // queryflags
-      (CGameplayEntity)thePlayer, // target
-    );
-
-    if (entities.Size() > 0) {
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), this.position) < this.radius * this.radius) {
       LogChannel('modRandomEncounters', "StaticEncounter player too close");
-
       return false;
     }
 
     // check if an enemy from the `bestiary_entry` is nearby, cancel spawn.
-    entities.Clear();
-
     FindGameplayEntitiesCloseToPoint(
       entities,
       this.position,
-      this.radius,
-      20,
+      this.radius + 10, // the +10 is to still catch monster on small radius in case they move
+      1 * (int)this.radius,
       , // tags
       , // queryflags
       , // target
@@ -109,7 +96,7 @@ class RER_StaticEncounter {
     );
 
     for (i = 0; i < entities.Size(); i += 1) {
-      // we found a nearby enemy that is 
+      // we found a nearby enemy that is from the same template
       if (this.isTemplateInEntry(entities[i])) {
         LogChannel('modRandomEncounters', "StaticEncounter already spawned");
 
