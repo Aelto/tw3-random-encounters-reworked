@@ -110,26 +110,37 @@ class RER_TrailMaker {
 
     optional use_failsafe: bool) {
 
+    var total_distance_to_final_point: float;
     var current_track_position: Vector;
     var current_track_heading: float;
     var current_track_translation: Vector;
     var distance_to_final_point: float;
     var final_point_radius: float;
     var number_of_tracks_created: int;
+    var distance_left: float; // it's a % going from 100% to 0%
     var i: int;
 
     number_of_tracks_created = 0;
     final_point_radius = destination_radius * destination_radius;
     current_track_position = from;
 
+    total_distance_to_final_point = VecDistanceSquared(from, to);
+    distance_to_final_point = total_distance_to_final_point;
+
     LogChannel('modRandomEncounters', "TrailMaker, drawing trail");
 
     do {
+      // 50 / 100 = 0.5
+      // it's a % going from 100% to 0% as we get closer
+      distance_left = 1 - (total_distance_to_final_point - distance_to_final_point) / total_distance_to_final_point;
+
       current_track_translation = VecConeRand(
         VecHeading(to - current_track_position),
-        60, // 60 degrees randomness
-        1,
-        2
+
+        // the closer we get to the final point, the smaller the degrees randomness is
+        40 + 50 * distance_left, 
+        0.5 + distance_left * 0.5,
+        1 + 1 * distance_left
       );
 
       current_track_heading = VecHeading(current_track_translation);
