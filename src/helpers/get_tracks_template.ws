@@ -82,7 +82,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): CEnt
         
     case CreatureHUMAN :
       entity_template = (CEntityTemplate)LoadResourceAsync(
-        "quests\minor_quests\no_mans_land\quest_files\mq1051_monster_hunt_nilfgaard1\entities\mq1051_mc_scout_footprint.w2ent",
+        "gameplay\focus_mode_clues\generic_clues_misc\generic_footprints_clue.w2ent",
+        // "quests\minor_quests\no_mans_land\quest_files\mq1051_monster_hunt_nilfgaard1\entities\mq1051_mc_scout_footprint.w2ent",
         true
       );
 
