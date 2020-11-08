@@ -48,7 +48,7 @@ exec function rer_start_human(optional human_type: EHumanType, optional count: i
   exec_runner.GotoState('RunHumanAmbush');
 }
 
-exec function rer_test_camera() {
+exec function rer_test_camera(optional scene_id: int) {
   var rer_entity: CRandomEncounters;
   var exec_runner: RER_ExecRunner;
 
@@ -60,6 +60,8 @@ exec function rer_test_camera() {
 
   exec_runner = new RER_ExecRunner in rer_entity;
   exec_runner.init(rer_entity, CreatureNONE);
+
+  exec_runner.count = scene_id;
 
   exec_runner.GotoState('TestCameraScenePlayer');
 }
@@ -137,7 +139,12 @@ state TestCameraScenePlayer in RER_ExecRunner {
     super.OnEnterState(previous_state_name);
     LogChannel('modRandomEncounters', "RER_ExecRunner - State TestCameraScenePlayer");
 
-    this.TestCameraScenePlayer_main();
+    if (parent.count == 0) {
+      this.TestCameraScenePlayer_main();
+    }
+    else {
+      this.TestCameraScenePlayer_one();
+    }
   }
 
   entry function TestCameraScenePlayer_main() {
@@ -163,5 +170,31 @@ state TestCameraScenePlayer in RER_ExecRunner {
     camera = RER_getStaticCamera();
     
     camera.playCameraScene(scene, true);
+  }
+
+  entry function TestCameraScenePlayer_one() {
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
+    
+    // where the camera is placed
+    scene.position_type = RER_CameraPositionType_ABSOLUTE;
+    // scene.position = parent.investigation_center_position + Vector(0, 0, 5);
+    scene.position = thePlayer.GetWorldPosition() + Vector(5, 0, 5);
+
+    // where the camera is looking
+    scene.look_at_target_type = RER_CameraTargetType_STATIC;
+    scene.look_at_target_static = thePlayer.GetWorldPosition();
+
+    scene.velocity_type = RER_CameraVelocityType_RELATIVE;
+    scene.velocity = Vector(0, 0.05, 0);
+
+    scene.position_blending_ratio = 0.01;
+    scene.rotation_blending_ratio = 0.01;
+
+    scene.duration = 10;
+
+    camera = RER_getStaticCamera();
+    
+    camera.playCameraScene(scene);
   }
 }
