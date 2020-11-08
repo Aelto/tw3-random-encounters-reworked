@@ -83,7 +83,7 @@ class RE_Settings {
 
     theGame
     .GetGuiManager()
-    .ShowNotification("Random Encounters XML settings loaded");
+    .ShowNotification("Random Encounters Reworked settings loaded");
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
