@@ -5419,6 +5419,7 @@
                 <Entry varId="eventMeditationAmbush"            	value="15"	/>
                 <Entry varId="eventNoticeboardContract"	            value="50"	/>
                 <Entry varId="eventFillCreaturesGroupAllowCombat"	value="0"	/>
+                <Entry varId="eventNoticeboardContractAutomaticCutscene"	value="0"	/>
             </Preset>
 
             <Preset id="1" displayName="rer_low" >
@@ -5456,6 +5457,7 @@
             <Var id="eventFillCreaturesGroup" displayName="rer_event_fillcreaturesgroup_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventMeditationAmbush" displayName="rer_event_meditationambush_chance" displayType="SLIDER;0;100;10000"></Var>
             <Var id="eventNoticeboardContract" displayName="rer_event_noticeboardcontract_chance" displayType="SLIDER;0;100;10000"></Var>
+            <Var id="eventNoticeboardContractAutomaticCutscene" displayName="rer_event_noticeboardcontract_automatic_cutscene" displayType="TOGGLE"></Var>
             <Var id="eventFillCreaturesGroupAllowCombat" displayName="rer_event_fillcreaturesgroup_allow_combat" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>

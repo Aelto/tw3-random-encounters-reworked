@@ -173,30 +173,32 @@
 2115018171|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
 2115018172|        |option_rer_event_meditationambush_chance|Event % chance - meditation ambush
 2115018173|        |option_rer_event_noticeboardcontract_chance|noticeboard Event - Distance
-2115018174|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
-2115018175|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
-2115018176|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)
-2115018177|        |preset_value_rer_region_constraint_none|Everywhere
-2115018178|        |preset_value_rer_region_constraint_only_velen|Only in Velen
-2115018179|        |preset_value_rer_region_constraint_only_skellige|Only in Skellige
-2115018180|        |preset_value_rer_region_constraint_only_toussaint|Only in Toussaint
-2115018181|        |preset_value_rer_region_constraint_no_velen|No Velen
-2115018182|        |preset_value_rer_region_constraint_no_skellige|No Skellige
-2115018183|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
-2115018184|        |preset_Mods_rer_name_rer_region_constraints|Region constraints
-2115018185|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
-2115018186|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
-2115018187|        |panel_rer_region_constraints|Region constraints
-2115018188|        |preset_Mods_rer_name_rer_creatures_ratios|Creatures ratios
-2115018189|        |panel_rer_creatures_ratio|Creatures ratios
-2115018190|        |panel_hunt_day|Hunt Day
-2115018191|        |panel_hunt_night|Hunt Night
-2115018192|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_day|Hunt Day
-2115018193|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_night|Hunt Night
-2115018194|        |panel_contract_day|Contract Day
-2115018195|        |panel_contract_night|Contract Night
-2115018196|        |preset_Mods_rer_name_rer_creatures_ratios_contract_day|Contract Day
-2115018197|        |preset_Mods_rer_name_rer_creatures_ratios_contract_night|Contract Night
-2115018198|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
-2115018199|        |panel_performances|Performance settings
-2115018200|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
+2115018174|        |option_rer_event_noticeboardcontract_automatic_cutscene|Automatic noticeboard cutscene
+2115018175|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
+2115018176|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
+2115018177|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)
+2115018178|        |preset_value_rer_region_constraint_none|Everywhere
+2115018179|        |preset_value_rer_region_constraint_only_velen|Only in Velen
+2115018180|        |preset_value_rer_region_constraint_only_skellige|Only in Skellige
+2115018181|        |preset_value_rer_region_constraint_only_toussaint|Only in Toussaint
+2115018182|        |preset_value_rer_region_constraint_no_velen|No Velen
+2115018183|        |preset_value_rer_region_constraint_no_skellige|No Skellige
+2115018184|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
+2115018185|        |preset_Mods_rer_name_rer_region_constraints|Region constraints
+2115018186|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
+2115018187|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
+2115018188|        |panel_rer_region_constraints|Region constraints
+2115018189|        |preset_Mods_rer_name_rer_creatures_ratios|Creatures ratios
+2115018190|        |panel_rer_creatures_ratio|Creatures ratios
+2115018191|        |panel_hunt_day|Hunt Day
+2115018192|        |panel_hunt_night|Hunt Night
+2115018193|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_day|Hunt Day
+2115018194|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_night|Hunt Night
+2115018195|        |panel_contract_day|Contract Day
+2115018196|        |panel_contract_night|Contract Night
+2115018197|        |preset_Mods_rer_name_rer_creatures_ratios_contract_day|Contract Day
+2115018198|        |preset_Mods_rer_name_rer_creatures_ratios_contract_night|Contract Night
+2115018199|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
+2115018200|        |panel_performances|Performance settings
+2115018201|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
+2115018202|        |preset_value_rer_all_everywhere|Everywhere all

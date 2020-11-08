@@ -27,6 +27,8 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   var minimum_distance_multiplier: float;
   var maximum_distance_multiplier: float;
 
+  var allow_automatic_cutscene: bool;
+
   var last_known_position_in_city: Vector;
 
   public latent function loadSettings() {
@@ -39,14 +41,17 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
       .GetVarValue('RERadvancedEvents', 'eventNoticeboardContract')
     );
 
+    this.allow_automatic_cutscene = inGameConfigWrapper
+      .GetVarValue('RERadvancedEvents', 'eventNoticeboardContractAutomaticCutscene');
+
     this.trigger_chance = 100 - this.menu_slider_value;
     this.settlement_radius_check = this.menu_slider_value;
     this.distance_trigger_chance_scale = 50 + this.menu_slider_value;
     this.minimum_distance_multiplier = this.menu_slider_value / 200 + 1.2;
     this.maximum_distance_multiplier = this.menu_slider_value / 100 + 1.2;
 
-    // the event is only active if its chances to trigger are greater than 0
-    this.active = this.menu_slider_value > 0;
+    // always set it to true to listen to the keybind
+    this.active = true;
 
     theInput.RegisterListener(this, 'OnRERforceNoticeboardEvent', 'OnRERforceNoticeboardEvent');
   }
@@ -95,7 +100,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     // every 100 meters walked add 1%. One percent here is huge, due to the low
     // default value (around 1.5%)
-    if (RandRangeF(100) < this.trigger_chance * chance_scale + meters_from_city / this.distance_trigger_chance_scale) {
+    if (this.force_noticeboard_event || RandRangeF(100) < this.trigger_chance * chance_scale + meters_from_city / this.distance_trigger_chance_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered encounter");
 
       this.createContractEncounter(master);
@@ -169,7 +174,12 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
       return false;
     }
 
-    if (this.active && this.isThereEmptyNoticeboardNearby()) {
+    // cancel only if the event wasn't forced
+    if (!this.allow_automatic_cutscene && !this.force_noticeboard_event) {
+      return false;
+    }
+
+    if (this.isThereEmptyNoticeboardNearby()) {
       LogChannel('modRandomEncounters', "RER_ListenerNoticeboardContract - triggered nearby noticeboard");
 
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
