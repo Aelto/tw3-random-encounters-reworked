@@ -24,6 +24,7 @@ state Loading in CRandomEncounters {
     // example_static_encounter = new RER_StaticEncounter in this;
     // example_static_encounter.bestiary_entry = parent.bestiary.entries[CreatureTROLL];
     // example_static_encounter.position = Vector(2444, 2344, 3);
+    // example_static_encounter.region_constraint = RER_RegionConstraint_ONLY_VELEN;
     // example_static_encounter.radius = 5;
 
     // parent
