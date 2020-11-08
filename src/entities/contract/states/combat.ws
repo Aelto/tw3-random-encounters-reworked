@@ -12,6 +12,11 @@ state Combat in RandomEncountersReworkedContractEntity {
 
   entry function Combat_Main() {
     this.waitUntilPlayerFinishesCombat();
+
+    parent
+      .master
+      .requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+
     this.Combat_goToNextState();
   }
 
