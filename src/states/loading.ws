@@ -19,14 +19,15 @@ state Loading in CRandomEncounters {
   }
 
   latent function registerStaticEncounters() {
-    var example_static_encounter: RER_StaticEncounter;
+    // var example_static_encounter: RER_StaticEncounter;
 
-    example_static_encounter.bestiary_entry = parent.bestiary.entries[CreatureTROLL];
-    example_static_encounter.position = Vector(2444, 2344, 3);
-    example_static_encounter.radius = 5;
+    // example_static_encounter = new RER_StaticEncounter in this;
+    // example_static_encounter.bestiary_entry = parent.bestiary.entries[CreatureTROLL];
+    // example_static_encounter.position = Vector(2444, 2344, 3);
+    // example_static_encounter.radius = 5;
 
-    parent
-      .static_encounter_manager
-      .registerStaticEncounter(parent, example_static_encounter);
+    // parent
+    //   .static_encounter_manager
+    //   .registerStaticEncounter(parent, example_static_encounter);
   }
 }
