@@ -63,8 +63,25 @@ latent function makeCreatureWildHunt(out master: CRandomEncounters) {
 
 class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition {
   var portal_template: CEntityTemplate;
+  var rifts: array<CRiftEntity>;
+
+
+  protected latent function beforeSpawningEntities(): bool {
+    var success: bool;
+
+    success = super.beforeSpawningEntities();
+    if (!success) {
+      return false;
+    }
+
+    this.portal_template = master.resources.getPortalResource();
+
+    return true;
+  }
 
   protected latent function forEachEntity(entity: CEntity) {
+    var rift: CRiftEntity;
+
     super.forEachEntity(entity);
 
     ((CNewNPC)entity)
@@ -72,34 +89,15 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
       
     ((CNewNPC)entity)
       .NoticeActor(thePlayer);
-  }
 
-  protected latent function afterSpawningEntities(): bool {
-    var success: bool;
-    var rift: CRiftEntity;
-    var rifts: array<CRiftEntity>;
-    var i: int;
+    rift = (CRiftEntity)theGame.CreateEntity(
+      this.portal_template,
+      entity.GetWorldPosition(),
+      entity.GetWorldRotation()
+    );
+    rift.ActivateRift();
 
-    LogChannel('modRandomEncounters', "after spawning entities WILDHUNT");
-
-    success = super.afterSpawningEntities();
-    if (!success) {
-      return false;
-    }
-
-    this.portal_template = master.resources.getPortalResource();
-    for (i = 0; i < this.group_positions.Size(); i += 1) {
-      rift = (CRiftEntity)theGame.CreateEntity(
-        this.portal_template,
-        this.group_positions[i],
-        thePlayer.GetWorldRotation()
-      );
-      rift.ActivateRift();
-
-      rifts.PushBack(rift);
-    }
-
-    return true;
+    rifts.PushBack(rift);
   }
 }
 

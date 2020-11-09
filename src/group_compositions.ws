@@ -67,18 +67,6 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // When you need to force the creature template
-  var _creatures_templates: EnemyTemplateList;
-  var _creatures_templates_force: bool;
-  default _creatures_templates_force = false;
-
-  public function setCreaturesTemplates(templates: EnemyTemplateList): CompositionSpawner {
-    this._creatures_templates = templates;
-    this._creatures_templates_force = true;
-
-    return this;
-  }
-
   // When using a random position
   // this will be the max radius used
   var _random_position_max_radius: float;
@@ -153,31 +141,16 @@ abstract class CompositionSpawner {
 
   var master: CRandomEncounters;
   var bestiary_entry: RER_BestiaryEntry;
-  var creatures_templates: EnemyTemplateList;
-  var number_of_creatures: int;
   var initial_position: Vector;
-  var group_positions: array<Vector>;
   var created_entities: array<CEntity>;
 
   public latent function spawn(master: CRandomEncounters) {
-    var current_entity_template: SEnemyTemplate;
-    var current_template: CEntityTemplate;
     var i: int;
-    var j: int;
-    var group_positions_index: int;
     var success: bool;
 
     this.master = master;
 
     this.bestiary_entry = this.getBestiaryEntry(master);
-    this.creatures_templates = this.getCreaturesTemplates(this.bestiary_entry);
-    this.number_of_creatures = this.getNumberOfCreatures(this.creatures_templates);
-
-    this.creatures_templates = fillEnemyTemplateList(
-      this.creatures_templates,
-      this.number_of_creatures,
-      master.settings.only_known_bestiary_creatures
-    );
 
     if (!this.getInitialPosition(this.initial_position)) {
       LogChannel('modRandomEncounters', "could not find proper spawning position");
@@ -185,63 +158,23 @@ abstract class CompositionSpawner {
       return;
     }
 
-    this.group_positions = getGroupPositions(
-      this.initial_position,
-      this.number_of_creatures,
-      this._group_positions_density
-    );
-
-    LogChannel('modRandomEncounters', "GroupComposition spawn - " + this.bestiary_entry.type);
-    LogChannel('modRandomEncounters', "GroupComposition spawn - number of creatures: " + number_of_creatures);
-    LogChannel('modRandomEncounters', "GroupComposition spawn - initial position: " + VecToString(initial_position));
-
     success = this.beforeSpawningEntities();
     if (!success) {
       return;
     }
 
-    for (i = 0; i < this.creatures_templates.templates.Size(); i += 1) {
-      current_entity_template = this.creatures_templates.templates[i];
-
-      if (current_entity_template.count > 0) {
-        current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-
-        for (j = 0; j < current_entity_template.count; j += 1) {
-          created_entities.PushBack(
-            this.createEntity(
-              current_template,
-              group_positions[group_positions_index],
-              thePlayer.GetWorldRotation()
-            )
-          );
-
-          group_positions_index += 1;
-        }
-      }
-    }
-
+    this.created_entities = this.bestiary_entry.spawn(
+      master,
+      this.initial_position,
+      this._number_of_creatures,
+      this._group_positions_density,
+      this.allow_trophy
+    );
 
     for (i = 0; i < this.created_entities.Size(); i += 1) {
-      ((CNewNPC)this.created_entities[i]).SetLevel(
-        getRandomLevelBasedOnSettings(this.master.settings)
-      );
-
       this.forEachEntity(
         this.created_entities[i]
       );
-
-      LogChannel('modRandomEncounters', "creature trophy chances: " + this.bestiary_entry.trophy_chance);
-
-      if (this.allow_trophy && RandRange(100) < this.bestiary_entry.trophy_chance) {
-        LogChannel('modRandomEncounters', "adding 1 trophy " + this.bestiary_entry.type);
-        
-        ((CActor)this.created_entities[i])
-          .GetInventory()
-          .AddAnItem(
-            this.bestiary_entry.trophy_names[master.settings.trophy_price],
-            1
-          );
-      }
     }
 
     success = this.afterSpawningEntities();
@@ -255,14 +188,6 @@ abstract class CompositionSpawner {
   // If it returns false the spawn is cancelled.
   protected latent function beforeSpawningEntities(): bool {
     return true;
-  }
-
-  protected latent function createEntity(template: CEntityTemplate, position: Vector, rotation: EulerAngles): CEntity {
-    return theGame.CreateEntity(
-      template,
-      position,
-      rotation
-    );
   }
 
   // A method to override if needed,
@@ -291,31 +216,12 @@ abstract class CompositionSpawner {
     return this._bestiary_entry;
   }
 
-  protected function getCreaturesTemplates(bestiary_entry: RER_BestiaryEntry): EnemyTemplateList {
-    if (this._creatures_templates_force) {
-      return this._creatures_templates;
-    }
-
-    return bestiary_entry
-      .template_list;
-  }
-
-  protected function getNumberOfCreatures(creatures_templates: EnemyTemplateList): int {
-    if (this._number_of_creatures != 0) {
-      return this._number_of_creatures;
-    }
-
-    return rollDifficultyFactor(
-      creatures_templates.difficulty_factor,
-      master.settings.selectedDifficulty,
-      master.settings.enemy_count_multiplier
-    );
-  }
-
   protected function getInitialPosition(out initial_position: Vector): bool {
     var attempt: bool;
 
     if (this.spawn_position_force) {
+      initial_position = this.spawn_position;
+
       return true;
     }
 
