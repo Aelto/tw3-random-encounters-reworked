@@ -102,6 +102,7 @@ class RER_StaticCamera extends CStaticCamera {
 
     this.deactivationDuration = 1.5;
     this.activationDuration = 1.5;
+    this.SetFov(theCamera.GetFov());
 
     if (scene.position_type == RER_CameraPositionType_RELATIVE) {
       this.TeleportWithRotation(thePlayer.GetWorldPosition() + scene.position, this.getRotation(scene, scene.position));
