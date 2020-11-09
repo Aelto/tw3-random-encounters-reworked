@@ -125,60 +125,17 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
       .setAllowTrophyPickupScene(settings.trophy_pickup_scene);
   }
 
-  var rer_entity_template: CEntityTemplate;
+  protected latent function afterSpawningEntities(): bool {
+    var rer_entity: RandomEncountersReworkedHuntEntity;
+    var rer_entity_template: CEntityTemplate;
 
-  protected latent function beforeSpawningEntities(): bool {
-    this.rer_entity_template = (CEntityTemplate)LoadResourceAsync(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_default_entity.w2ent",
+    rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunt_entity.w2ent",
       true
     );
 
-    return true;
-  }
-
-  var rer_entities: array<RandomEncountersReworkedEntity>;
-
-  protected latent function forEachEntity(entity: CEntity) {
-    var current_rer_entity: RandomEncountersReworkedEntity;
-
-    current_rer_entity = (RandomEncountersReworkedEntity)theGame.CreateEntity(
-      rer_entity_template,
-      initial_position,
-      thePlayer.GetWorldRotation()
-    );
-
-    current_rer_entity.attach(
-      (CActor)entity,
-      (CNewNPC)entity,
-      entity,
-      this.master
-    );
-
-    if (this.allow_trophy) {
-      // if the user allows trophy pickup scene, tell the entity
-      // to send RER a request on its death.
-      current_rer_entity.pickup_animation_on_death = this.allow_trophy_pickup_scene;
-    }
-
-    current_rer_entity.automatic_kill_threshold_distance = this
-      .automatic_kill_threshold_distance;
-
-    this.rer_entities.PushBack(current_rer_entity);
-  }
-
-  protected latent function afterSpawningEntities(): bool {
-    var i: int;
-    var current_rer_entity: RandomEncountersReworkedEntity;
-
-    for (i = 0; i < this.rer_entities.Size(); i += 1) {
-      current_rer_entity = this.rer_entities[i];
-
-      if (!master.settings.enable_encounters_loot) {
-        current_rer_entity.removeAllLoot();
-      }
-      
-      current_rer_entity.startWithoutBait();
-    }
+    rer_entity = (RandomEncountersReworkedHuntEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
+    rer_entity.startEncounter(this.master, this.created_entities, true);
 
     return true;
   }

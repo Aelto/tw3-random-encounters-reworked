@@ -134,29 +134,16 @@ class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
   }
 
   protected latent function afterSpawningEntities(): bool {
-    var i: int;
-    var current_rer_entity: RandomEncountersReworkedEntity;
-    var bait: CEntity;
+    var rer_entity: RandomEncountersReworkedHuntEntity;
+    var rer_entity_template: CEntityTemplate;
 
-    bait = theGame.CreateEntity(
-      (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true),
-      this.initial_position,
-      thePlayer.GetWorldRotation(),
-      true,
-      false,
-      false,
-      PM_DontPersist
+    rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunt_entity.w2ent",
+      true
     );
 
-    for (i = 0; i < this.rer_entities.Size(); i += 1) {
-      current_rer_entity = this.rer_entities[i];
-
-      if (!master.settings.enable_encounters_loot) {
-        current_rer_entity.removeAllLoot();
-      }
-      
-      current_rer_entity.startWithBait(bait);
-    }
+    rer_entity = (RandomEncountersReworkedHuntEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
+    rer_entity.startEncounter(this.master, this.created_entities);
 
     return true;
   }
