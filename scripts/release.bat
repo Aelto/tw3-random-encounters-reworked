@@ -20,3 +20,5 @@ XCOPY "%modpath%\%modname%\packed\" "%modpath%\release\dlc\dlc%modname%\" /e /s 
 mkdir "%modpath%\release\bin\config\r4game\user_config_matrix\pc\"
 copy "%modPath%\mod-menu.xml" "%modpath%\release\bin\config\r4game\user_config_matrix\pc\%modname%.xml" /y
 copy "%modPath%\scripts\update-registry.bat" "%modpath%\release\mods\%modname%\update-registry.bat" /y
+copy "%modPath%\scripts\update-mod.ps1" "%modpath%\release\mods\%modname%\update-mod.ps1" /y
+copy "%modPath%\scripts\update-mod.bat" "%modpath%\release\mods\%modname%\update-mod.bat" /y
