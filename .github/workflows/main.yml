@@ -8,6 +8,14 @@ on:
   release:
     types:
       - created
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      tags:
+        description: 'test scenario tags'
 #   push:
 #     tags:
 #       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
