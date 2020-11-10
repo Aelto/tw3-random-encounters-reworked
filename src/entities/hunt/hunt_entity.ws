@@ -68,4 +68,12 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
     return this.entities.Remove(entity);
   }
+
+  public function getRandomEntity(): CEntity {
+    var entity: CEntity;
+
+    entity = this.entities[RandRange(this.entities.Size())];
+
+    return entity;
+  }
 }
