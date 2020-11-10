@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: archive project
         run: |
-          zip -d release
+          zip -q -r release.zip release
           
       - name: get release
         id: get_release
