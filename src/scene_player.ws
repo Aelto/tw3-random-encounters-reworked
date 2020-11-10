@@ -100,8 +100,13 @@ class RER_StaticCamera extends CStaticCamera {
     var current_rotation: EulerAngles;
     var current_position: Vector;
 
-    this.deactivationDuration = 1.5;
-    this.activationDuration = 1.5;
+    // this option was added because immersive camera doesn't like the blending 
+    // options, and the game would crash.
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERadvancedPerformances', 'RERcameraBlendingDisabled')) {
+      this.deactivationDuration = 1.5;
+      this.activationDuration = 1.5;
+    }
+
     this.SetFov(theCamera.GetFov());
 
     if (scene.position_type == RER_CameraPositionType_RELATIVE) {
