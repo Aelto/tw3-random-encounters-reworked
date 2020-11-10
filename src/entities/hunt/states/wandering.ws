@@ -76,7 +76,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
     var new_bait_position: Vector;
     var new_bait_rotation: EulerAngles;
 
-    NDEBUG("towards player " + parent.bait_moves_towards_player);
+    // NDEBUG("towards player " + parent.bait_moves_towards_player);
 
     if (parent.bait_moves_towards_player) {
       new_bait_position = parent.bait_entity.GetWorldPosition() 
