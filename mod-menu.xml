@@ -5465,7 +5465,8 @@
     <Group id="RERadvancedPerformances" displayName="Mods.rer_name.rer_advanced_settings.performances">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERfoottracksRatio"		value="100"	/>
+                <Entry varId="RERfoottracksRatio"		        value="100"	/>
+                <Entry varId="RERcameraBlendingDisabled"		value="0"	/>
             </Preset>
 
             <Preset id="1" displayName="rer_low" >
@@ -5474,6 +5475,7 @@
         </PresetsArray>
         <VisibleVars>			
             <Var id="RERfoottracksRatio" displayName="rer_foottracks_ratio" displayType="SLIDER;1;100;99"/>
+            <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
         </VisibleVars>
     </Group>
 
