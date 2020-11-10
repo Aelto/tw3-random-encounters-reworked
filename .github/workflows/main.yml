@@ -8,6 +8,9 @@ on:
   release:
     types:
       - created
+#   push:
+#     tags:
+#       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,9 +23,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@master
+      - name: archive project
+        run: |
+          zip -d release
+      - name: upload release asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          directory: $GITHUB_WORKSPACE/release
-          filename: 'release.zip'
+          upload_url: ${{ setps.create_release.outputs.upload_url }}
+          asset_path: ./release.zip
+          asset_name: release.zip
+          asset_content_type: application/zip
+
+#       - name: Archive Release
+#         uses: montudor/action-zip@v0.1.0
+#         with:
+#           args: zip -qq -r release.zip -d release
