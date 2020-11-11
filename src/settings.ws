@@ -197,7 +197,7 @@ class RE_Settings {
     this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'spawnDiameter'));
     this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'killThresholdDistance'));
 
-    if (this.minimum_spawn_distance < 20 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
+    if (this.minimum_spawn_distance < 10 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
       inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
 
       this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'minSpawnDistance'));

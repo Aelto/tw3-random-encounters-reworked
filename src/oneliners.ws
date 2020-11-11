@@ -370,3 +370,13 @@ latent function REROL_its_over() {
   Sleep(2); // could not find Approved duration
 }
 
+// Geralt: Geralt: Mff… Smell of a rotting corpse. Blood spattered all around.
+latent function REROL_smell_of_a_rotting_corpse(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(486052, true);
+
+  if (!do_not_wait) {
+    Sleep(4.861064); // could not find Approved duration
+  }
+}

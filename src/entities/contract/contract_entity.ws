@@ -61,6 +61,9 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   // set to true if the position was forced by external code.
   var forced_investigation_center_position: bool;
+
+  // if set to true by external code, on spawn the contract will play a camera scene
+  var play_camera_scene_on_spawn: bool;
   
   //#endregion variables made in `CluesInvestigate`
 
@@ -114,6 +117,10 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   public function forcePosition(position: Vector) {
     this.forced_investigation_center_position = true;
     this.investigation_center_position = position;
+  }
+
+  public function playCameraSceneOnSpawn() {
+    this.play_camera_scene_on_spawn = true;
   }
 
 

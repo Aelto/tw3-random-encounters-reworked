@@ -22,5 +22,7 @@ latent function createRandomCreatureContract(master: CRandomEncounters, optional
     contract_entity.forcePosition(position);
   }
 
+  contract_entity.playCameraSceneOnSpawn();
+
   contract_entity.startContract(master);
 }

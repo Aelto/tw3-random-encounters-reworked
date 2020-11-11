@@ -51,6 +51,13 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       }
     }
 
+    // if set to true, will play a camera scene when the investigation position
+    // is finally determined. Meaning, now.
+    // the scene plays only if the contract is close enough from the player.
+    if (parent.play_camera_scene_on_spawn) {
+      this.playCameraSceneOnSpawn();
+    }
+
     // 2. load all the needed resources
     switch (parent.chosen_bestiary_entry.type) {
       case CreatureBARGHEST :
@@ -157,6 +164,40 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     if (RandRange(10) < 6) {
       this.addMonstersWithClues();
     }
+  }
+
+  private latent function playCameraSceneOnSpawn() {
+    var minimum_spawn_distance: float;
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
+    var look_at_position: Vector;
+
+    minimum_spawn_distance = parent.master.settings.minimum_spawn_distance * 1.5;
+
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position) > minimum_spawn_distance * minimum_spawn_distance) {
+      return;
+    }
+
+    // where the camera is placed
+    scene.position_type = RER_CameraPositionType_ABSOLUTE;
+    scene.position = theCamera.GetCameraPosition() + Vector(0.3, 0, 1);
+
+    // where the camera is looking
+    scene.look_at_target_type = RER_CameraTargetType_STATIC;
+    look_at_position = parent.investigation_center_position;
+    scene.look_at_target_static = look_at_position;
+
+    scene.velocity_type = RER_CameraVelocityType_FORWARD;
+    scene.velocity = Vector(0.001, 0.001, 0);
+
+    scene.duration = 6;
+    scene.position_blending_ratio = 0.01;
+    scene.rotation_blending_ratio = 0.01;
+
+    camera = RER_getStaticCamera();
+    
+    REROL_smell_of_a_rotting_corpse(true);
+    camera.playCameraScene(scene, true);
   }
 
   private latent function addMonstersWithClues() {
