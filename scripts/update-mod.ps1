@@ -3,6 +3,24 @@
 echo "Fetching latest release from github"
 $response = Invoke-RestMethod -Uri "https://api.github.com/repos/Aelto/W3_RandomEncounters_Tweaks/releases"
 
+# showing info about the new release
+$latestversion = $response[0].name
+write-host -nonewline "latest release: "
+write-host $latestversion -ForegroundColor green
+
+echo ""
+echo "=== CHANGELOG ==="
+
+$body = $response[0].body
+write-host $body -ForegroundColor gray -BackgroundColor black 
+
+echo "=== CHANGELOG ==="
+echo ""
+
+echo "You can still cancel by closing the window or..."
+pause
+echo ""
+
 # downloading file
 echo "Downloading latest release from github"
 Invoke-WebRequest -Uri $response[0].assets[0].browser_download_url -OutFile $response[0].assets[0].name
@@ -25,6 +43,10 @@ copy-item $fullpath "../../" -force -recurse
 remove-item $response[0].name -recurse -force
 remove-item $response[0].assets[0].name -recurse -force
 
-$installedMessage = "=== release {0} installed ===" -f $response[0].name
+$installedMessage = "=== release {0} installed ===" -f $latestversion
+
+echo ""
 write-host $installedMessage -ForegroundColor green -BackgroundColor black
+echo ""
+
 pause
