@@ -42,7 +42,7 @@ state Loading in CRandomEncounters {
       Vector(730, -500, 11),
       RER_RegionConstraint_ONLY_VELEN,
       50
-    );`
+    );
 
     // A abandonned house with skeletons and hanged people in the forest
     this.makeStaticEncounter(
