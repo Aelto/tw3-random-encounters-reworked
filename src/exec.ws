@@ -23,7 +23,7 @@ exec function rergpc() {
   }
 
   for (i = 0; i < entities.Size(); i += 1) {
-    message += " - " + StrAfterFirst(((CNewNPC)entities[i]).ToString(), "::") + "<br/>";
+    message += " - " + StrAfterFirst(entities[i].ToString(), "::") + "<br/>";
   }
 
   NDEBUG(message);
