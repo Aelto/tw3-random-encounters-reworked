@@ -1,7 +1,32 @@
 
 // gpc for GetPlayerCoordinates
 exec function rergpc() {
-  NDEBUG(VecToString(thePlayer.GetWorldPosition()));
+  var entities: array<CGameplayEntity>;
+  var message: string;
+  var i: int;
+
+  FindGameplayEntitiesInRange(
+    entities,
+    thePlayer,
+    25, // radius
+    10, // max number of entities
+    , // tag
+    FLAG_Attitude_Hostile + FLAG_ExcludePlayer + FLAG_OnlyAliveActors,
+    thePlayer, // target
+    'CNewNPC'
+  );
+
+  message += "position: " + VecToString(thePlayer.GetWorldPosition()) + "<br/>";
+  
+  if (entities.Size() > 0) {
+    message += "nearby entities:<br/>";
+  }
+
+  for (i = 0; i < entities.Size(); i += 1) {
+    message += " - " + StrAfterFirst(((CNewNPC)entities[i]).ToString(), "::") + "<br/>";
+  }
+
+  NDEBUG(message);
 }
 
 exec function rer_start_ambush(optional creature: CreatureType) {
