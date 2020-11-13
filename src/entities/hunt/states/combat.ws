@@ -17,9 +17,11 @@ state Combat in RandomEncountersReworkedHuntEntity {
     this.makeEntitiesTargetPlayer();
     this.waitUntilPlayerFinishesCombat();
 
-    parent
-      .master
-      .requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+    if (parent.entity_settings.allow_trophy_pickup_scene) {
+      parent
+        .master
+        .requestOutOfCombatAction(OutOfCombatRequest_TROPHY_CUTSCENE);
+    }
 
     this.Combat_goToNextState();
   }
@@ -75,10 +77,6 @@ state Combat in RandomEncountersReworkedHuntEntity {
     // player runs away from the monster
     Sleep(3);
 
-    // 1. we wait until the player is out of combat
-    // the && is important, because it allows the player to flee the combat
-    // and if he flees far enough and get out of combat it will go back to
-    // the wandering state.
     while (!parent.areAllEntitiesDead()) {
       this.makeEntitiesTargetPlayer();
 
