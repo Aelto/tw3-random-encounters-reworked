@@ -9,6 +9,8 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
   
   var entities: array<CEntity>;
 
+  var bestiary_entry: RER_BestiaryEntry;
+
   var entity_settings: HuntEntitySettings;
 
   var bait_entity: CEntity;
@@ -17,9 +19,10 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
   var bait_moves_towards_player: bool;
 
-  public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, optional bait_moves_towards_player: bool) {
+  public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, bestiary_entry: RER_BestiaryEntry, optional bait_moves_towards_player: bool) {
     this.master = master;
     this.entities = entities;
+    this.bestiary_entry = bestiary_entry;
     this.bait_moves_towards_player = bait_moves_towards_player;
     this.loadSettings(master);
     this.GotoState('Loading');

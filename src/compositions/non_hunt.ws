@@ -135,7 +135,7 @@ class CreatureAmbushWitcherComposition extends CompositionSpawner {
     );
 
     rer_entity = (RandomEncountersReworkedHuntEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
-    rer_entity.startEncounter(this.master, this.created_entities, true);
+    rer_entity.startEncounter(this.master, this.created_entities, this.bestiary_entry, true);
 
     return true;
   }

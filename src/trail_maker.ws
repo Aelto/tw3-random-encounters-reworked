@@ -29,7 +29,7 @@ class RER_TrailMaker {
   // to true to tell we have already reached the maximum once.
   // And now instead of creating a new track Entity we simply
   // move the old one at tracks_index.
-  private var tracks_entities: array<CEntity>;
+  private var tracks_entities: array<RER_MonsterClue>;
   private var tracks_index: int;
   private var tracks_looped: bool;
   default tracks_looped = false;
@@ -65,7 +65,8 @@ class RER_TrailMaker {
   }
 
   public function addTrackHere(position: Vector, optional heading: EulerAngles) {
-    var new_entity: CEntity;
+    var new_entity: RER_MonsterClue;
+    var track_resource: CEntityTemplate;
 
     if (trail_ratio_index < trail_ratio) {
       trail_ratio_index += 1;
@@ -76,11 +77,15 @@ class RER_TrailMaker {
     trail_ratio_index = 1;
 
     if (!this.tracks_looped) {
-      new_entity = theGame.CreateEntity(
-        this.getRandomTrackResource(),
+      track_resource = this.getRandomTrackResource();
+
+      new_entity = (RER_MonsterClue)theGame.CreateEntity(
+        track_resource,
         position,
         heading
       );
+
+      new_entity.voiceline_type = track_resource.entityClass;
 
       this.tracks_entities.PushBack(new_entity);
 

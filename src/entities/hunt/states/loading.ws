@@ -26,10 +26,7 @@ state Loading in RandomEncountersReworkedHuntEntity {
     ((CActor)parent.bait_entity).EnableStaticCollisions(false);
     ((CActor)parent.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
 
-    LogChannel('modRandomEncounters', "entities sizes " + parent.entities.Size());
-    if (parent.entities.Size() > 0) {
-      tracks_templates.PushBack(getTracksTemplate((CActor)parent.entities[0]));
-    }
+    tracks_templates.PushBack(getTracksTemplateByCreatureType(parent.bestiary_entry.type));
 
     parent.trail_maker = new RER_TrailMaker in parent;
     parent.trail_maker.init(

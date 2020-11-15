@@ -132,7 +132,7 @@ latent function REROL_cant_smell_a_thing() {
 }
 
 // Geralt: Necrophages, great.
-latent function REROL_necrophages_great() {
+latent function REROL_necrophages_great(optional do_not_wait: bool) {
   var scene: CStoryScene;
       
   scene = (CStoryScene)LoadResourceAsync(
@@ -144,16 +144,20 @@ latent function REROL_necrophages_great() {
   .GetStorySceneSystem()
   .PlayScene(scene, "NecropphagesComment"); // no typo from me there, the two "p"
 
-  Sleep(2); // Approved duration
+  if (!do_not_wait) {
+    Sleep(2); // Approved duration
+  }
 }
 
 // Geralt: The Wild Hunt.
-latent function REROL_the_wild_hunt() {
+latent function REROL_the_wild_hunt(optional do_not_wait: bool) {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
   thePlayer.PlayLine(539883, true);
 
-  Sleep(1.72); // Approved duration
+  if (!do_not_wait) {
+    Sleep(1.72); // Approved duration
+  }
 }
 
 // Geralt: Go away or i'll kill you.
@@ -370,13 +374,398 @@ latent function REROL_its_over() {
   Sleep(2); // could not find Approved duration
 }
 
-// Geralt: Geralt: Mff… Smell of a rotting corpse. Blood spattered all around.
+// Geralt: Mff… Smell of a rotting corpse. Blood spattered all around.
 latent function REROL_smell_of_a_rotting_corpse(optional do_not_wait: bool) {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
   thePlayer.PlayLine(486052, true);
 
   if (!do_not_wait) {
-    Sleep(4.861064); // could not find Approved duration
+    Sleep(4.861064); // Approved duration
+  }
+}
+
+// Geralt: Tracks - a nekker… A big one.
+latent function REROL_tracks_a_nekker(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1042065, true);
+
+  if (!do_not_wait) {
+    Sleep(3.444402); // Approved duration
+  }
+}
+
+// Geralt: Ooh. More drowners.
+latent function REROL_more_drowners(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1002915, true);
+
+  if (!do_not_wait) {
+    Sleep(2.397404); // Approved duration
+  }
+}
+
+// Geralt: Ghouls… And where there's ghouls… there's usually corpses…
+latent function REROL_ghouls_there_is_corpses(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(552454, true);
+
+  if (!do_not_wait) {
+    Sleep(4.044985); // Approved duration
+  }
+}
+
+// Geralt: A fiend.
+latent function REROL_a_fiend(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1039017, true);
+
+  if (!do_not_wait) {
+    Sleep(1.181657); // Approved duration
+  }
+}
+
+// Geralt: A werewolf…
+latent function REROL_a_werewolf(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(577129, true);
+
+  if (!do_not_wait) {
+    Sleep(1.114805); // Approved duration
+  }
+}
+
+// Geralt: Everything says leshen, a young one. Must've arrived here recently. Need to find its totem.
+latent function REROL_a_leshen_a_young_one(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(566287, true);
+
+  if (!do_not_wait) {
+    Sleep(6.950611); // Approved duration
+  }
+}
+
+// Geralt: Where's that damned katakan?
+latent function REROL_where_is_katakan(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(569579, true);
+
+  if (!do_not_wait) {
+    Sleep(1.694507); // Approved duration
+  }
+}
+
+// Geralt: Gotta be an ekimmara.
+latent function REROL_gotta_be_an_ekimmara(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1038390, true);
+
+  if (!do_not_wait) {
+    Sleep(1.589184); // Approved duration
+  }
+}
+
+// Geralt: An earth elemental. Pretty powerful, too.
+latent function REROL_an_earth_elemental(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(573116, true);
+
+  if (!do_not_wait) {
+    Sleep(2.965688); // Approved duration
+  }
+}
+
+// Geralt choice: How'd a giant wind up here?
+latent function REROL_giant_wind_up_here(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1167973, true);
+
+  if (!do_not_wait) {
+    Sleep(10); // Approved duration
+  }
+}
+
+// Geralt: So… a griffin this close to the village? Strange.
+latent function REROL_griffin_this_close_village(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1048275, true);
+
+  if (!do_not_wait) {
+    Sleep(4.37948); // Approved duration
+  }
+}
+
+// Geralt: Wyvern. Wonderful.
+latent function REROL_wyvern_wonderful(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1065583, true);
+
+  if (!do_not_wait) {
+    Sleep(2.04); // Approved duration
+  }
+}
+
+// Geralt: A cockatrice…
+latent function REROL_a_cockatrice(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(553797, true);
+
+  if (!do_not_wait) {
+    Sleep(2.04); // Approved duration
+  }
+}
+
+// Geralt: Draconid, gotta be. Maybe a basilisk? Except… these prints don't belong to any variety I know. Just a liiiitle different.
+latent function REROL_basilisk_a_little_different(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1170780, true);
+
+  if (!do_not_wait) {
+    Sleep(2.04); // Approved duration
+  }
+}
+
+// Geralt: A flyer, swooped down… Judging by the claw marks, gotta be a wyvern or a forktail.
+latent function REROL_a_flyer_forktail(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1034842, true);
+
+  if (!do_not_wait) {
+    Sleep(6.459111); // Approved duration
+  }
+}
+
+// Geralt: Impossible. My brethren hunted down every last spotted wight before I was born.
+latent function REROL_impossible_wight(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1179588, true);
+
+  if (!do_not_wait) {
+    Sleep(10); // Approved duration
+  }
+}
+
+// Geralt: Whoa-ho. Shaelmaar's close…
+latent function REROL_a_shaelmaar_is_close(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1169885, true);
+
+  if (!do_not_wait) {
+    Sleep(10); // Approved duration
+  }
+}
+
+// Geralt: Gotta be a grave hag.
+latent function REROL_gotta_be_a_grave_hag(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1022247, true);
+
+  if (!do_not_wait) {
+    Sleep(1.757565); // Approved duration
+  }
+}
+
+// Geralt: Guess I'm dealing with an old foglet… hiding behind an illusion.
+latent function REROL_dealing_with_foglet(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(550020, true);
+
+  if (!do_not_wait) {
+    Sleep(3.873405); // Approved duration
+  }
+}
+
+// Geralt: A rock troll, looks like…
+latent function REROL_a_rock_troll(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(579959, true);
+
+  if (!do_not_wait) {
+    Sleep(1.767925); // Approved duration
+  }
+}
+
+// Geralt: Bruxa. Gotta be.
+latent function REROL_bruxa_gotta_be(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1194000, true);
+
+  if (!do_not_wait) {
+    Sleep(3); // Approved duration
+  }
+}
+
+// Geralt: Venom glands, long claws, a bloodsucker… must be a garkain. A pack leader, an alpha.
+latent function REROL_a_garkain(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1176030, true);
+
+  if (!do_not_wait) {
+    Sleep(10); // Approved duration
+  }
+}
+
+// Geralt: A nightwraith…
+latent function REROL_a_nightwraith(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1019137, true);
+
+  if (!do_not_wait) {
+    Sleep(1.030744); // Approved duration
+  }
+}
+
+// Geralt: Kikimores. Dammit.
+latent function REROL_kikimores_dammit(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1164863, true);
+
+  if (!do_not_wait) {
+    Sleep(5); // Approved duration
+  }
+}
+
+// Geralt: Wonder what lured the giant centipedes.
+latent function REROL_what_lured_centipedes(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1200276, true);
+
+  if (!do_not_wait) {
+    Sleep(5); // Approved duration
+  }
+}
+
+// Geralt: Where'd the wolf prints come from?
+latent function REROL_where_did_wolf_prints_come_from(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(470770, true);
+
+  if (!do_not_wait) {
+    Sleep(1.614695); // Approved duration
+  }
+}
+
+// Geralt: Half-man, half-bear. Something like a lycanthrope.
+latent function REROL_half_man_half_bear(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(587721, true);
+
+  if (!do_not_wait) {
+    Sleep(5.995551); // Approved duration
+  }
+}
+
+// Geralt: Animal hair.
+latent function REROL_animal_hair(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1104764, true);
+
+  if (!do_not_wait) {
+    Sleep(3); // Approved duration
+  }
+}
+
+// Geralt: An arachas.
+latent function REROL_an_arachas(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(521492, true);
+
+  if (!do_not_wait) {
+    Sleep(3); // Approved duration
+  }
+}
+
+// Geralt: Harpy feather, a rectrix.
+latent function REROL_harpy_feather(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1000722, true);
+
+  if (!do_not_wait) {
+    Sleep(2.868078); // Approved duration
+  }
+}
+
+// Geralt: Siren tracks. A very big siren.
+latent function REROL_siren_tracks(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1025599, true);
+
+  if (!do_not_wait) {
+    Sleep(3.97284); // Approved duration
+  }
+}
+
+// Geralt: Interesting.
+latent function REROL_interesting(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(376165, true);
+
+  if (!do_not_wait) {
+    Sleep(3); // Approved duration
+  }
+}
+
+// Geralt: Insect excretions…
+latent function REROL_insectoid_excretion(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(376165, true);
+
+  if (!do_not_wait) {
+    Sleep(1.685808); // Approved duration
+  }
+}
+
+// Geralt: Aha. So it's a slyzard…
+latent function REROL_so_its_a_slyzard(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1204696, true);
+
+  if (!do_not_wait) {
+    Sleep(5); // Approved duration
+  }
+}
+
+// Geralt choice: Pretty well armed, those bandits…
+latent function REROL_well_armed_bandits(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1178439, true);
+
+  if (!do_not_wait) {
+    Sleep(7); // Approved duration
   }
 }

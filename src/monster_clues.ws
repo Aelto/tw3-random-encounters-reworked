@@ -1,0 +1,239 @@
+
+statemachine class RER_MonsterClue extends W3MonsterClue {
+
+  public var voiceline_type: name;
+  default voiceline_type = 'RER_MonsterClue';
+
+  event OnInteraction( actionName : string, activator : CEntity  )
+	{
+    NDEBUG("interacting");
+		if ( activator == thePlayer && thePlayer.IsActionAllowed( EIAB_InteractionAction ) )
+		{
+      super.OnInteraction(actionName, activator);
+
+      if (this.GetCurrentStateName() != 'Interacting') {
+        this.GotoState('Interacting');
+      }
+    }
+  }
+}
+
+state Interacting in RER_MonsterClue {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    LogChannel('RER', "RER_MonsterClue - State Interacting");
+    this.start();
+  }
+
+  entry function start() {
+    this.playOneliner();
+    this.playAnimation();
+
+    parent.GotoState('Waiting');
+  }
+
+  latent function playOneliner() {
+    LogChannel('RER', "voiceline_type = " + parent.voiceline_type);
+
+    switch (parent.voiceline_type) {
+      case 'RER_MonsterClueNekker':
+        REROL_tracks_a_nekker(true);
+        break;
+
+      case 'RER_MonsterClueDrowner':
+        REROL_more_drowners(true);
+        break;
+
+      case 'RER_MonsterClueGhoul':
+        REROL_ghouls_there_is_corpses(true);
+        break;
+
+      case 'RER_MonsterClueAlghoul':
+        REROL_ghouls_there_is_corpses(true);
+        break;
+
+      case 'RER_MonsterClueFiend':
+        REROL_a_fiend(true);
+        break;
+
+      case 'RER_MonsterClueChort':
+        REROL_a_fiend(true);
+        break;
+
+      case 'RER_MonsterClueWerewolf':
+        REROL_a_werewolf(true);
+        break;
+
+      case 'RER_MonsterClueLeshen':
+        REROL_a_leshen_a_young_one(true);
+        break;
+
+      case 'RER_MonsterClueKatakan':
+        REROL_where_is_katakan(true);
+        break;
+
+      case 'RER_MonsterClueEkimmara':
+        REROL_gotta_be_an_ekimmara(true);
+        break;
+
+      case 'RER_MonsterClueElemental':
+        REROL_an_earth_elemental(true);
+        break;
+
+      case 'RER_MonsterClueGolem':
+        REROL_an_earth_elemental(true);
+        break;
+
+      case 'RER_MonsterClueGiant':
+        REROL_giant_wind_up_here(true);
+        break;
+
+      case 'RER_MonsterClueCyclop':
+        REROL_giant_wind_up_here(true);
+        break;
+
+      case 'RER_MonsterClueGryphon':
+        REROL_griffin_this_close_village(true);
+        break;
+
+      case 'RER_MonsterClueWyvern':
+        REROL_wyvern_wonderful(true);
+        break;
+
+      case 'RER_MonsterClueCockatrice':
+        REROL_a_cockatrice(true);
+        break;
+
+      case 'RER_MonsterClueBasilisk':
+        REROL_a_cockatrice(true);
+        break;
+
+      case 'RER_MonsterClueForktail':
+        REROL_a_flyer_forktail(true);
+        break;
+
+      case 'RER_MonsterClueWight':
+        REROL_impossible_wight(true);
+        break;
+
+      case 'RER_MonsterClueSharley':
+        REROL_a_shaelmaar_is_close(true);
+        break;
+
+      case 'RER_MonsterClueHag':
+        REROL_gotta_be_a_grave_hag(true);
+        break;
+
+      case 'RER_MonsterClueFoglet':
+        REROL_dealing_with_foglet(true);
+        break;
+
+      case 'RER_MonsterClueTroll':
+        REROL_a_rock_troll(true);
+        break;
+
+      case 'RER_MonsterClueBruxa':
+        REROL_bruxa_gotta_be(true);
+        break;
+
+      case 'RER_MonsterClueDetlaff':
+        REROL_bruxa_gotta_be(true);
+        break;
+
+      case 'RER_MonsterClueGarkain':
+        REROL_a_garkain(true);
+        break;
+
+      case 'RER_MonsterClueFleder':
+        // no unique voiceline for the fleder
+        REROL_a_garkain(true);
+        break;
+
+      case 'RER_MonsterClueNightwraith':
+        REROL_a_nightwraith(true);
+        break;
+
+      case 'RER_MonsterClueGargoyle':
+        REROL_a_nightwraith(true);
+        break;
+
+      case 'RER_MonsterClueKikimore':
+        REROL_kikimores_dammit(true);
+        break;
+
+      case 'RER_MonsterClueCentipede':
+        REROL_what_lured_centipedes(true);
+        break;
+
+      case 'RER_MonsterClueWolf':
+        REROL_where_did_wolf_prints_come_from(true);
+        break;
+
+      case 'RER_MonsterClueBerserker':
+        REROL_half_man_half_bear(true);
+        break;
+
+      case 'RER_MonsterClueBear':
+        REROL_animal_hair(true);
+        break;
+
+      case 'RER_MonsterClueBoar':
+        REROL_animal_hair(true);
+        break;
+
+      case 'RER_MonsterCluePanther':
+        REROL_animal_hair(true);
+        break;
+
+      case 'RER_MonsterClueSpider':
+        REROL_animal_hair(true);
+        break;
+
+      case 'RER_MonsterClueWildhunt':
+        REROL_the_wild_hunt(true);
+        break;
+
+      case 'RER_MonsterClueArachas':
+        REROL_an_arachas(true);
+        break;
+
+      case 'RER_MonsterClueHarpy':
+        REROL_harpy_feather(true);
+        break;
+
+      case 'RER_MonsterClueSiren':
+        REROL_siren_tracks(true);
+        break;
+
+      case 'RER_MonsterClueRotfiend':
+        REROL_necrophages_great(true);
+        break;
+
+      case 'RER_MonsterClueEndrega':
+        REROL_insectoid_excretion(true);
+        break;
+
+      case 'RER_MonsterClueEchinops':
+        REROL_insectoid_excretion(true);
+        break;
+
+      case 'RER_MonsterClueDracolizard':
+        REROL_so_its_a_slyzard(true);
+        break;
+
+      case 'RER_MonsterClueHuman':
+        REROL_well_armed_bandits(true);
+        break;
+
+      default:
+        REROL_interesting(true);
+        break;
+    }
+  }
+
+  latent function playAnimation() {
+    parent.interactionAnim = PEA_ExamineGround;
+    parent.PlayInteractionAnimation();
+  }
+}
