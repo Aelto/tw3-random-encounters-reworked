@@ -6,7 +6,7 @@ statemachine class RER_MonsterClue extends W3MonsterClue {
 
   event OnInteraction( actionName : string, activator : CEntity  )
 	{
-    NDEBUG("interacting");
+    // NDEBUG("interacting");
 		if ( activator == thePlayer && thePlayer.IsActionAllowed( EIAB_InteractionAction ) )
 		{
       super.OnInteraction(actionName, activator);
