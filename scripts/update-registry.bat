@@ -22,3 +22,6 @@ powershell -command "(Get-Content %textFile%).replace('%comment%', '') | Set-Con
 
 :: then we insert it right after the example
 powershell -command "(Get-Content %textFile%).replace('%search%', ""%search%`n`n`t`t%comment%`n`t`t%replace%"") | Set-Content %textFile%"
+
+echo "Done."
+pause
