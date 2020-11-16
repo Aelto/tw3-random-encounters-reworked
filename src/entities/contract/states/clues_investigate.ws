@@ -27,9 +27,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var found_initial_position: bool;
     var max_number_of_clues: int;
     var current_clue_position: Vector;
-    var trail_resources: array<CEntityTemplate>;
-    var blood_resources: array<CEntityTemplate>;
-    var corpse_resources: array<CEntityTemplate>;
+    var trail_resources: array<RER_TrailMakerTrack>;
+    var blood_resources: array<RER_TrailMakerTrack>;
+    var corpse_resources: array<RER_TrailMakerTrack>;
     var trail_ratio: int;
     var i: int;
     

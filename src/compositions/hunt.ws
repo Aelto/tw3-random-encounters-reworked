@@ -56,7 +56,7 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
   }
 
   var rer_entity_template: CEntityTemplate;
-  var blood_splats_templates: array<CEntityTemplate>;
+  var blood_splats_templates: array<RER_TrailMakerTrack>;
 
   protected latent function beforeSpawningEntities(): bool {
     this.rer_entity_template = (CEntityTemplate)LoadResourceAsync(

@@ -1,4 +1,9 @@
 
+struct RER_TrailMakerTrack {
+  var template: CEntityTemplate;
+  var monster_clue_type: name;
+}
+
 // the trail maker is class used to create trails of blood or tracks on the
 // ground. It handles cases where you must draw a trail from point A to point B,
 // or simple cases where you only need one track at a specific location.
@@ -41,16 +46,16 @@ class RER_TrailMaker {
     this.tracks_maximum = maximum;
   }
 
-  private var track_resources: array<CEntityTemplate>;
+  private var track_resources: array<RER_TrailMakerTrack>;
   private var track_resources_size: int;
 
-  public function setTrackResources(resources: array<CEntityTemplate>) {
+  public function setTrackResources(resources: array<RER_TrailMakerTrack>) {
     this.track_resources.Clear();
     this.track_resources = resources;
     this.track_resources_size = this.track_resources.Size();
   }
 
-  private function getRandomTrackResource(): CEntityTemplate {
+  private function getRandomTrackResource(): RER_TrailMakerTrack {
     if (track_resources_size == 1) {
       return this.track_resources[0];
     }
@@ -58,7 +63,7 @@ class RER_TrailMaker {
     return this.track_resources[RandRange(this.track_resources_size)];
   }
 
-  public function init(ratio: int, maximum: int, resources: array<CEntityTemplate>) {
+  public function init(ratio: int, maximum: int, resources: array<RER_TrailMakerTrack>) {
     this.setTrailRatio(ratio);
     this.setTracksMaximum(maximum);
     this.setTrackResources(resources);
@@ -66,7 +71,7 @@ class RER_TrailMaker {
 
   public function addTrackHere(position: Vector, optional heading: EulerAngles) {
     var new_entity: RER_MonsterClue;
-    var track_resource: CEntityTemplate;
+    var track_resource: RER_TrailMakerTrack;
 
     if (trail_ratio_index < trail_ratio) {
       trail_ratio_index += 1;
@@ -80,12 +85,12 @@ class RER_TrailMaker {
       track_resource = this.getRandomTrackResource();
 
       new_entity = (RER_MonsterClue)theGame.CreateEntity(
-        track_resource,
+        track_resource.template,
         position,
         heading
       );
 
-      new_entity.voiceline_type = track_resource.entityClass;
+      new_entity.voiceline_type = track_resource.monster_clue_type;
 
       this.tracks_entities.PushBack(new_entity);
 

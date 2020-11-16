@@ -17,7 +17,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   default automatic_kill_threshold_distance = 600;
 
 
-  public var blood_resources: array<CEntityTemplate>;
+  public var blood_resources: array<RER_TrailMakerTrack>;
   public var blood_resources_size: int;
 
   public var pickup_animation_on_death: bool;
@@ -65,7 +65,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   }
 
   // ENTRY-POINT for the gryphon fight
-  public function startEncounter(blood_resources: array<CEntityTemplate>) {
+  public function startEncounter(blood_resources: array<RER_TrailMakerTrack>) {
     LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity encounter started");
 
     this.blood_maker = new RER_TrailMaker in this;

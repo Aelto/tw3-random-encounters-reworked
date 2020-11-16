@@ -9,7 +9,7 @@ state Loading in RandomEncountersReworkedHuntEntity {
 
   entry function Loading_main() {
     var template: CEntityTemplate;
-    var tracks_templates: array<CEntityTemplate>;
+    var tracks_templates: array<RER_TrailMakerTrack>;
 
     template = (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true);
 
