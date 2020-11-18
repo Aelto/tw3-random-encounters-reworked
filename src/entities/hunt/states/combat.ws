@@ -11,7 +11,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
   entry function Combat_Main() {
     // to know if it's an ambush
     if (parent.bait_moves_towards_player) {
-      this.playAmbushScene();
+      this.startAmbushCutscene();
     }
 
     this.makeEntitiesTargetPlayer();
@@ -26,15 +26,21 @@ state Combat in RandomEncountersReworkedHuntEntity {
     this.Combat_goToNextState();
   }
 
-  private latent function playAmbushScene() {
+  private latent function startAmbushCutscene() {
+    if (isPlayerBusy()) {
+      return;
+    }
+
+    thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
+    if( !parent.master.settings.disable_camera_scenes )
+      playAmbushCameraScene();
+  }
+
+  private latent function playAmbushCameraScene() {
     var scene: RER_CameraScene;
     var camera: RER_StaticCamera;
     var look_at_position: Vector;
 
-    if (isPlayerBusy()) {
-      return;
-    }
-    
     // where the camera is placed
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
     scene.position = theCamera.GetCameraPosition() + Vector(0, 0, 1);
@@ -53,7 +59,6 @@ state Combat in RandomEncountersReworkedHuntEntity {
 
     camera = RER_getStaticCamera();
 
-    thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
     camera.playCameraScene(scene, true);
   }
 

@@ -46,6 +46,9 @@ class RE_Settings {
 
   public var foottracks_ratio: int;
 
+  // Spontan edit
+  public var disable_camera_scenes : bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -220,6 +223,7 @@ class RE_Settings {
       StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')),
       1
     );
+    this.disable_camera_scenes = inGameConfigWrapper.GetVarValue( 'RERadvancedPerformances', 'RERcameraScenesDisabled' );
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
