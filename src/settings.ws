@@ -46,7 +46,6 @@ class RE_Settings {
 
   public var foottracks_ratio: int;
 
-  // Spontan edit
   public var disable_camera_scenes : bool;
 
   function loadXMLSettings() {

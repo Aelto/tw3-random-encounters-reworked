@@ -51,9 +51,10 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       }
     }
 
-    // if set to true, will play a camera scene when the investigation position
+    // if set to true, will play a oneliner and camera scene when the investigation position
     // is finally determined. Meaning, now.
-    // the scene plays only if the contract is close enough from the player.
+    // the cutscene plays only if the contract is close enough from the player
+    // camera scene plays if above condition is met and camera scenes are not disabled from the menu
     if (parent.play_camera_scene_on_spawn) {
       this.startOnSpawnCutscene();
     }

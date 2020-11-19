@@ -144,6 +144,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     createRandomCreatureContract(master, contract_position);
 
+    // play a oneliner and a camera scene targeting the contract position if camera scenes aren't disabled from the menu
     startContractEncounterCutscene(master, contract_position);
   }
 
@@ -195,6 +196,8 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
       this.position_near_noticeboard = thePlayer.GetWorldPosition();
 
+      // play a few consecutive oneliners and a camera scene targeting the nearest noticeboard
+      // if one exists and if camera scenes aren't disabled from the menu
       this.startNoticeboardCutscene(master);
 
       this.was_triggered = true;

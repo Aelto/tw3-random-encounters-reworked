@@ -10,6 +10,8 @@ state Combat in RandomEncountersReworkedHuntEntity {
 
   entry function Combat_Main() {
     // to know if it's an ambush
+    // if true, will play a oneliner and a camera scene
+    // the camera scene plays only if player is not busy and doesn't have camera scenes disabled from menu
     if (parent.bait_moves_towards_player) {
       this.startAmbushCutscene();
     }
