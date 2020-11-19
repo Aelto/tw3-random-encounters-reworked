@@ -5466,7 +5466,7 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERfoottracksRatio"		        value="100"	/>
-                <Entry varId="RERcameraCutscenesDisabled"		value="0"	/>
+                <Entry varId="RERcameraScenesDisabled"		    value="0"	/>
                 <Entry varId="RERcameraBlendingDisabled"		value="0"	/>
             </Preset>
 
