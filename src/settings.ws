@@ -4,9 +4,12 @@ class RE_Settings {
   public var is_enabled: bool;
   
   public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
-  public var all_monster_hunt_chance: int;
-  public var all_monster_contract_chance: int;
-  public var all_monster_ambush_chance: int;
+  public var all_monster_hunt_chance_day: int;
+  public var all_monster_contract_chance_day: int;
+  public var all_monster_ambush_chance_day: int;
+  public var all_monster_hunt_chance_night: int;
+  public var all_monster_contract_chance_night: int;
+  public var all_monster_ambush_chance_night: int;
   public var enableTrophies : bool;
   public var selectedDifficulty : RER_Difficulty;
   public var enemy_count_multiplier : int;
@@ -135,18 +138,27 @@ class RE_Settings {
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChance'));
+    this.all_monster_hunt_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChanceDay'));
+    this.all_monster_hunt_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChanceNight'));
   }
 
   private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_contract_chance = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChance')
+    this.all_monster_contract_chance_day = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChanceDay')
+    );
+
+    this.all_monster_contract_chance_night = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChanceNight')
     );
   }
 
   private function loadMonsterAmbushChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_ambush_chance = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChance')
+    this.all_monster_ambush_chance_day = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChanceDay')
+    );
+
+    this.all_monster_ambush_chance_night = StringToInt(
+      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChanceNight')
     );
   }
 

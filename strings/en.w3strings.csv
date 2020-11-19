@@ -20,7 +20,7 @@
 2115018018|        |preset_value_rer_hard|Hard
 2115018019|        |preset_value_rer_random|Random
 2115018020|        |option_rer_enemy_count_multiplier|Enemy count multiplier
-2115018021|        |option_rer_monster_hunt_ratio|Monster hunt frequency
+2115018021|        |option_rer_monster_hunt_ratio_day|Monster hunt frequency - Day
 2115018022|        |panel_rer_encounter_type|Encounter types
 2115018023|        |panel_rer_creature_frequency|Creatures frequencies
 2115018024|        |panel_rer_creatures_ratios|Creatures ratios
@@ -98,8 +98,8 @@
 2115018096|        |preset_value_rer_no_large_creatures|No large creatures
 2115018097|        |preset_value_rer_no_small_creatures|No small creatures
 2115018098|        |option_rer_external_factors_coefficient|External factors coefficient
-2115018099|        |option_rer_monster_contract_ratio|Monster contract frequency
-2115018100|        |option_rer_monster_ambush_ratio|Monster ambush frequency
+2115018099|        |option_rer_monster_contract_ratio_day|Monster contract frequency - Day
+2115018100|        |option_rer_monster_ambush_ratio_day|Monster ambush frequency - Day
 2115018101|        |panel_rer_city_spawns|Settlement spawns
 2115018102|        |preset_Mods_rer_name_rer_encounter_type|Encounter types
 2115018103|        |option_rer_mod_initialized|RER initialized
@@ -205,3 +205,6 @@
 2115018203|        |option_rer_camera_blending_disabled|Disable camera blending
 2115018204|        |option_dlc_rer|Random Encounters Reworked
 2115018205|        |option_rer_camera_scenes_disabled|Disable camera scenes
+2115018100|        |option_rer_monster_ambush_ratio_night|Monster ambush frequency - Night
+2115018100|        |option_rer_monster_hunt_ratio_night|Monster hunt frequency - Night
+2115018100|        |option_rer_monster_contract_ratio_night|Monster contract frequency - Night
