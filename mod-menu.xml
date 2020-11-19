@@ -5466,6 +5466,7 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERfoottracksRatio"		        value="100"	/>
+                <Entry varId="RERcameraScenesDisabled"		    value="0"	/>
                 <Entry varId="RERcameraBlendingDisabled"		value="0"	/>
             </Preset>
 
@@ -5475,6 +5476,7 @@
         </PresetsArray>
         <VisibleVars>			
             <Var id="RERfoottracksRatio" displayName="rer_foottracks_ratio" displayType="SLIDER;1;100;99"/>
+            <Var id="RERcameraScenesDisabled" displayName="rer_camera_scenes_disabled" displayType="TOGGLE"/>
             <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
         </VisibleVars>
     </Group>

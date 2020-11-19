@@ -51,11 +51,12 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       }
     }
 
-    // if set to true, will play a camera scene when the investigation position
+    // if set to true, will play a oneliner and camera scene when the investigation position
     // is finally determined. Meaning, now.
-    // the scene plays only if the contract is close enough from the player.
+    // the cutscene plays only if the contract is close enough from the player
+    // camera scene plays if above condition is met and camera scenes are not disabled from the menu
     if (parent.play_camera_scene_on_spawn) {
-      this.playCameraSceneOnSpawn();
+      this.startOnSpawnCutscene();
     }
 
     // 2. load all the needed resources
@@ -166,17 +167,28 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
   }
 
-  private latent function playCameraSceneOnSpawn() {
+  private latent function startOnSpawnCutscene() {
     var minimum_spawn_distance: float;
-    var scene: RER_CameraScene;
-    var camera: RER_StaticCamera;
-    var look_at_position: Vector;
 
     minimum_spawn_distance = parent.master.settings.minimum_spawn_distance * 1.5;
 
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position) > minimum_spawn_distance * minimum_spawn_distance) {
       return;
     }
+
+    if( !parent.master.settings.disable_camera_scenes ) {
+      REROL_smell_of_a_rotting_corpse(true);
+      playCameraSceneOnSpawn();
+    }
+    else {
+      REROL_smell_of_a_rotting_corpse(false);
+    }
+  }
+
+  private latent function playCameraSceneOnSpawn() {
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
+    var look_at_position: Vector;
 
     // where the camera is placed
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
@@ -196,7 +208,6 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     camera = RER_getStaticCamera();
     
-    REROL_smell_of_a_rotting_corpse(true);
     camera.playCameraScene(scene, true);
   }
 

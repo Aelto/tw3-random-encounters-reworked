@@ -120,9 +120,6 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     var position_attempts: int;
     var found_position: bool;
 
-    var scene: RER_CameraScene;
-    var camera: RER_StaticCamera;
-
     player_distance_from_noticeboard = VecDistance(thePlayer.GetWorldPosition(), this.position_near_noticeboard);
 
     for (position_attempts = 0; position_attempts < 10; position_attempts += 1) {
@@ -147,7 +144,20 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     createRandomCreatureContract(master, contract_position);
 
+    // play a oneliner and a camera scene targeting the contract position if camera scenes aren't disabled from the menu
+    startContractEncounterCutscene(master, contract_position);
+  }
+
+  private latent function startContractEncounterCutscene(master: CRandomEncounters, contract_position: Vector) {
     REROL_where_will_i_find_this_monster();
+
+    if( !master.settings.disable_camera_scenes )
+      playContractEncounterCameraScene(contract_position);
+  }
+
+  private latent function playContractEncounterCameraScene(contract_position: Vector) {
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
 
     // where the camera is placed
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
@@ -186,7 +196,9 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
       this.position_near_noticeboard = thePlayer.GetWorldPosition();
 
-      this.startNoticeboardCutscene();
+      // play a few consecutive oneliners and a camera scene targeting the nearest noticeboard
+      // if one exists and if camera scenes aren't disabled from the menu
+      this.startNoticeboardCutscene(master);
 
       this.was_triggered = true;
     }
@@ -194,7 +206,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     return false;
   }
 
-  private latent function startNoticeboardCutscene() {
+  private latent function startNoticeboardCutscene(master: CRandomEncounters) {
     var scene: RER_CameraScene;
     var camera: RER_StaticCamera;
     var noticeboards: array<CGameplayEntity>;
@@ -209,6 +221,38 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     noticeboard = noticeboards[0];
     
+    if( !master.settings.disable_camera_scenes ) {
+      REROL_should_scour_noticeboards(true);
+      playNoticeboardCameraScene(noticeboard);
+    }
+    else {
+      REROL_should_scour_noticeboards(false);
+    }
+
+    if (RandRange(10) < 2) {
+      REROL_unusual_contract();
+    }
+
+    Sleep(0.4);
+    REROL_mhm();
+    Sleep(0.1);
+
+    if (RandRange(10) < 5) {
+      REROL_ill_tend_to_the_monster();
+    }
+    else {
+      REROL_i_accept_the_challenge();
+    }
+    // else {
+    //   REROL_ill_take_the_contract();
+    // }
+  }
+
+  private latent function playNoticeboardCameraScene( noticeboard: CGameplayEntity ) {
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
+    var look_at_position: Vector;
+
     // where the camera is placed
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
     scene.position = theCamera.GetCameraPosition() + Vector(0.3, 0, 1);
@@ -228,26 +272,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     camera = RER_getStaticCamera();
     
-    REROL_should_scour_noticeboards(true);
     camera.playCameraScene(scene, true);
-
-    if (RandRange(10) < 2) {
-      REROL_unusual_contract();
-    }
-
-    Sleep(0.4);
-    REROL_mhm();
-    Sleep(0.1);
-
-    if (RandRange(10) < 5) {
-      REROL_ill_tend_to_the_monster();
-    }
-    else {
-      REROL_i_accept_the_challenge();
-    }
-    // else {
-    //   REROL_ill_take_the_contract();
-    // }
   }
 
   private function getNearbyNoticeboards(): array<CGameplayEntity> {
