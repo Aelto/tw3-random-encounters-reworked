@@ -55,7 +55,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
     scene.velocity_type = RER_CameraVelocityType_FORWARD;
     scene.velocity = Vector(0.001, 0.001, 0);
 
-    scene.duration = 0.5;
+    scene.duration = 0.2;
     scene.position_blending_ratio = 0.01;
     scene.rotation_blending_ratio = 0.01;
 
