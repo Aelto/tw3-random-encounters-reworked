@@ -205,6 +205,6 @@
 2115018203|        |option_rer_camera_blending_disabled|Disable camera blending
 2115018204|        |option_dlc_rer|Random Encounters Reworked
 2115018205|        |option_rer_camera_scenes_disabled|Disable camera scenes
-2115018100|        |option_rer_monster_ambush_ratio_night|Monster ambush frequency - Night
-2115018100|        |option_rer_monster_hunt_ratio_night|Monster hunt frequency - Night
-2115018100|        |option_rer_monster_contract_ratio_night|Monster contract frequency - Night
+2115018206|        |option_rer_monster_ambush_ratio_night|Monster ambush frequency - Night
+2115018207|        |option_rer_monster_hunt_ratio_night|Monster hunt frequency - Night
+2115018208|        |option_rer_monster_contract_ratio_night|Monster contract frequency - Night
