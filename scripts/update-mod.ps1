@@ -1,4 +1,11 @@
 
+# showing a link to RER
+echo ""
+write-host -ForegroundColor yellow "If you enjoy the mod, the script and everything that goes with RER. Please consider endorsing my mod"
+echo ""
+write-host -ForegroundColor yellow "                      https://www.nexusmods.com/witcher3/mods/5018"
+echo ""
+
 # fetching the release assets from the github api
 echo "Fetching latest release from github"
 $response = Invoke-RestMethod -Uri "https://api.github.com/repos/Aelto/W3_RandomEncounters_Tweaks/releases"
