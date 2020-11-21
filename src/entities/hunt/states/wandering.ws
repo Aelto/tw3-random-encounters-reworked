@@ -50,7 +50,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         }
 
         if (distance_from_player < 15
-        || ((CActor)current_entity).GetTarget() == thePlayer && distance_from_player < 20) {
+        || distance_from_player < 20 && ((CActor)current_entity).HasAttitudeTowards(thePlayer)) {
           // leave the function, it will automatically enter in the Combat state
           // and the creatures will attack the player.
           return;

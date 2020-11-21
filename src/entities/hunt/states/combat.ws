@@ -73,8 +73,9 @@ state Combat in RandomEncountersReworkedHuntEntity {
         AGP_Default
       );
 
-      if (((CActor)parent.entities[i]).GetTarget() != thePlayer) {
+      if (((CActor)parent.entities[i]).GetTarget() != thePlayer && !((CActor)parent.entities[i]).HasAttitudeTowards(thePlayer)) {
         ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);
+        ((CActor)parent.entities[i]).SetAttitude(thePlayer, AIA_Hostile);
       }
     }
   }
