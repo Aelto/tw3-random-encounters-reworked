@@ -171,7 +171,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     var i: int;
 
     for (i = 0; i < this.entities.Size(); i += 1) {
-      if (((CActor)this.entities[i]).HasAttitudeTowards(thePlayer)) {
+      if (((CActor)this.entities[i]).HasAttitudeTowards(thePlayer) || ((CNewNPC)this.entities[i]).GetTarget == thePlayer) {
         return true;
       }
     }
