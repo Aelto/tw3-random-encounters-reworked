@@ -9,8 +9,12 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
     case CreatureWRAITH :
       track.template = (CEntityTemplate)LoadResourceAsync(
         "quests\generic_quests\skellige\quest_files\mh207_wraith\entities\mh207_area_fog.w2ent",
+        // "fx\quest\sq108\sq108_fog.w2ent", // insane GPU cost.
         true
       );
+
+      // only 1 out of 10 clouds of mist are created.
+      track.trail_ratio_multiplier = 5;
 
       return track;
       break;

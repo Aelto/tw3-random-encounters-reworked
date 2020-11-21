@@ -2,6 +2,14 @@
 struct RER_TrailMakerTrack {
   var template: CEntityTemplate;
   var monster_clue_type: name;
+
+  // some track templates need a higher trail ratio
+  // so when you add a track with a multiplier greater than 1
+  // the TrailMaker trail ratio will increased to accomodate.
+  // the TrailMaker uses the highest trail_ratio_multiplier among
+  // its track lists.
+  var trail_ratio_multiplier: float;
+  default trail_ratio_multiplier = 1;
 }
 
 // the trail maker is class used to create trails of blood or tracks on the
@@ -22,8 +30,24 @@ class RER_TrailMaker {
   default trail_ratio_index = 1;
 
   public function setTrailRatio(ratio: int) {
-    this.trail_ratio = ratio;
+    this.trail_ratio = RoundF(ratio * this.getHighestTrailRatioMultiplier());
     this.trail_ratio_index = 1;
+  }
+
+  // loops through the tracks and find the highest trail ratio multiplier
+  private function getHighestTrailRatioMultiplier(): float {
+    var i: int;
+    var highest_multiplier: float;
+
+    highest_multiplier = 0;
+
+    for (i = 0; i < this.track_resources.Size(); i += 1) {
+      if (this.track_resources[i].trail_ratio_multiplier > highest_multiplier) {
+        highest_multiplier = this.track_resources[i].trail_ratio_multiplier;
+      }
+    }
+
+    return highest_multiplier;
   }
 
   // an array containing entities for the tracks when
@@ -69,9 +93,17 @@ class RER_TrailMaker {
     this.setTrackResources(resources);
   }
 
+  private var last_track_position: Vector;
+
   public function addTrackHere(position: Vector, optional heading: EulerAngles) {
     var new_entity: RER_MonsterClue;
     var track_resource: RER_TrailMakerTrack;
+
+    if (VecDistanceSquared(position, this.last_track_position) < PowF(0.5 * this.trail_ratio, 2)) {
+      return;
+    }
+
+    this.last_track_position = position;
 
     if (trail_ratio_index < trail_ratio) {
       trail_ratio_index += 1;
