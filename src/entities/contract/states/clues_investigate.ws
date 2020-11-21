@@ -51,14 +51,6 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       }
     }
 
-    // if set to true, will play a oneliner and camera scene when the investigation position
-    // is finally determined. Meaning, now.
-    // the cutscene plays only if the contract is close enough from the player
-    // camera scene plays if above condition is met and camera scenes are not disabled from the menu
-    if (parent.play_camera_scene_on_spawn) {
-      this.startOnSpawnCutscene();
-    }
-
     // 2. load all the needed resources
     switch (parent.chosen_bestiary_entry.type) {
       case CreatureBARGHEST :
@@ -161,10 +153,20 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
+    // if set to true, will play a oneliner and camera scene when the investigation position
+    // is finally determined. Meaning, now.
+    // the cutscene plays only if the contract is close enough from the player
+    // camera scene plays if above condition is met and camera scenes are not disabled from the menu
+    if (parent.play_camera_scene_on_spawn) {
+      this.startOnSpawnCutscene();
+    }
+
     // 4. there is a chance necrophages are feeding on the corpses
     if (RandRange(10) < 6) {
       this.addMonstersWithClues();
     }
+
+
   }
 
   private latent function startOnSpawnCutscene() {
