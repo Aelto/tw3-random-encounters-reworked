@@ -169,7 +169,7 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
         has_played_oneliner = true;
       }
 
-      keepCreaturesOnPoint();
+      this.keepCreaturesOnPoint();
       
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.final_point_position); 
     }
@@ -197,6 +197,10 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
         );
 
         FixZAxis(new_position);
+
+        if (new_position.Z < parent.entities[i].GetWorldPosition().Z) {
+          new_position.Z = parent.entities[i].GetWorldPosition().Z;
+        }
 
         parent
           .entities[i]
