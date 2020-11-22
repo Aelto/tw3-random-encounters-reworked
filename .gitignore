@@ -1,3 +1,6 @@
 game-scripts
 backup
 release
+**/node_modules
+scripts/**/tokens.js
+scripts/create-gh-release/tokens.js
