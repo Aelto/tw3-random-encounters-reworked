@@ -204,7 +204,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     scene.velocity_type = RER_CameraVelocityType_FORWARD;
     scene.velocity = Vector(0.001, 0.001, 0);
 
-    scene.duration = 6;
+    scene.duration = 2;
     scene.position_blending_ratio = 0.01;
     scene.rotation_blending_ratio = 0.01;
 
