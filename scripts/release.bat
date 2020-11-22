@@ -22,3 +22,9 @@ copy "%modPath%\mod-menu.xml" "%modpath%\release\bin\config\r4game\user_config_m
 copy "%modPath%\scripts\update-registry.bat" "%modpath%\release\mods\%modname%\update-registry.bat" /y
 copy "%modPath%\scripts\update-mod.ps1" "%modpath%\release\mods\%modname%\update-mod.ps1" /y
 copy "%modPath%\scripts\update-mod.bat" "%modpath%\release\mods\%modname%\update-mod.bat" /y
+
+if "%1"=="-github" (
+  echo "creating github release"
+  
+  node create-gh-release
+)
