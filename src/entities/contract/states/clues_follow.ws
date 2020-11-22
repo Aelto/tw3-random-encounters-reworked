@@ -180,26 +180,28 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
   private function keepCreaturesOnPoint() {
     var distance_from_point: float;
+    var old_position: Vector;
     var new_position: Vector;
     var i: int;
 
     for (i = 0; i < parent.entities.Size(); i += 1) {
+      old_position = parent.entities[i].GetWorldPosition();
       distance_from_point = VecDistanceSquared(
-        parent.entities[i].GetWorldPosition(),
+        old_position,
         parent.final_point_position
       );
 
       if (distance_from_point > this.creatures_aggro_radius) {
         new_position = VecInterpolate(
-          parent.entities[i].GetWorldPosition(),
+          old_position,
           parent.final_point_position,
           1 / this.creatures_aggro_radius
         );
 
         FixZAxis(new_position);
 
-        if (new_position.Z < parent.entities[i].GetWorldPosition().Z) {
-          new_position.Z = parent.entities[i].GetWorldPosition().Z;
+        if (new_position.Z < old_position.Z) {
+          new_position.Z = old_position.Z;
         }
 
         parent
