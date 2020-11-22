@@ -35,8 +35,10 @@ state Combat in RandomEncountersReworkedHuntEntity {
     }
 
     thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
-    if( !parent.master.settings.disable_camera_scenes )
+    if(!parent.master.settings.disable_camera_scenes
+    && parent.master.settings.enable_action_camera_scenes) {
       playAmbushCameraScene();
+    }
   }
 
   private latent function playAmbushCameraScene() {
@@ -78,10 +80,10 @@ state Combat in RandomEncountersReworkedHuntEntity {
     var i: int;
 
     for (i = 0; i < parent.entities.Size(); i += 1) {
-      ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
-        'monsters',
-        AGP_Default
-      );
+      // ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
+      //   'monsters',
+      //   AGP_Default
+      // );
 
       if (((CActor)parent.entities[i]).GetTarget() != thePlayer && !((CActor)parent.entities[i]).HasAttitudeTowards(thePlayer)) {
         ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);

@@ -178,12 +178,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       return;
     }
 
-    if( !parent.master.settings.disable_camera_scenes ) {
-      REROL_smell_of_a_rotting_corpse(true);
+    REROL_smell_of_a_rotting_corpse(true);
+
+    if (!parent.master.settings.disable_camera_scenes
+    && parent.master.settings.enable_action_camera_scenes) {
       playCameraSceneOnSpawn();
-    }
-    else {
-      REROL_smell_of_a_rotting_corpse(false);
     }
   }
 

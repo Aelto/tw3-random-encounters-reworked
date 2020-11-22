@@ -211,8 +211,6 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     }
   }
 
-  latent function createMidFollowAmbush() {}
-
   latent function CluesInvestigate_goToNextState() {
     // before leaving this state we store where the final position was.
     // It is useful if the combat loops because the next investigation will

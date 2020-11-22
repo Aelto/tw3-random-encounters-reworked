@@ -51,6 +51,9 @@ class RE_Settings {
 
   public var disable_camera_scenes : bool;
 
+  // scenes that play when ambushed, or when a contract start nearby, etc...
+  public var enable_action_camera_scenes : bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -61,6 +64,7 @@ class RE_Settings {
       this.resetRERSettings(inGameConfigWrapper);
     }
 
+    this.loadMainMenuSettings(inGameConfigWrapper);
     this.loadModEnabledSettings(inGameConfigWrapper);
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadMonsterContractsChances(inGameConfigWrapper);
@@ -89,6 +93,10 @@ class RE_Settings {
     theGame
     .GetGuiManager()
     .ShowNotification("Random Encounters Reworked settings loaded");
+  }
+
+  private function loadMainMenuSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.enable_action_camera_scenes = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableActionCameraScenes');
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {

@@ -9,6 +9,7 @@
                 <Entry varId="externalFactorsImpact"                value="2"    />
                 <Entry varId="RERonlyKnownBestiaryCreatures"        value="1"    />
                 <Entry varId="RERenemyCountMultiplier"              value="1"    />
+                <Entry varId="enableActionCameraScenes"             value="1"    />
             </Preset>
 
             <Preset id="1" displayName="rer_hard" >
@@ -37,42 +38,16 @@
                 </OptionsArray>
             </Var>
             <Var id="RERenemyCountMultiplier" displayName="rer_enemy_count_multiplier" displayType="SLIDER;1;10;9"/>
-            <Var id="geraltComments" displayName="rer_geralt_comments" displayType="OPTIONS">
-                <OptionsArray>
-                    <Option id="0" displayName="rer_select_no">
-                        <Entry varId="geraltComments" value="0"/>
-                    </Option>
-                    <Option id="1" displayName="rer_select_yes">
-                        <Entry varId="geraltComments" value="1"/>
-                    </Option>
-                </OptionsArray>
-            </Var>
+            <Var id="geraltComments" displayName="rer_geralt_comments" displayType="TOGGLE"></Var>
             <Var id="externalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
-            <Var id="enableEncountersLoot" displayName="rer_enable_encounters_loot" displayType="OPTIONS">
-                <OptionsArray>
-                    <Option id="0" displayName="rer_select_no">
-                        <Entry varId="enableEncountersLoot" value="0"/>
-                    </Option>
-                    <Option id="1" displayName="rer_select_yes">
-                        <Entry varId="enableEncountersLoot" value="1"/>
-                    </Option>
-                </OptionsArray>
-            </Var>
+            <Var id="enableEncountersLoot" displayName="rer_enable_encounters_loot" displayType="TOGGLE"></Var>
 
+            <Var id="enableActionCameraScenes" displayName="rer_enable_action_camera_scenes" displayType="TOGGLE"></Var>
             
             <Var id="RERonlyKnownBestiaryCreatures" displayName="rer_only_known_bestiary_creatures" displayType="TOGGLE"></Var>
 
-            <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="OPTIONS">
-                <OptionsArray>
-                    <Option id="0" displayName="rer_select_no">
-                        <Entry varId="hideNextNotifications" value="0"/>
-                    </Option>
-                    <Option id="1" displayName="rer_select_yes">
-                        <Entry varId="hideNextNotifications" value="1"/>
-                    </Option>
-                </OptionsArray>
-            </Var>
+            <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="TOGGLE"></Var>
 
             <Var id="RERmodInitialized" displayName="rer_mod_initialized" displayType="TOGGLE"></Var>
         </VisibleVars>
