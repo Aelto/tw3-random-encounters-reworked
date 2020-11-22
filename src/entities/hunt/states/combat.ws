@@ -16,6 +16,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
       this.startAmbushCutscene();
     }
 
+    this.resetEntitiesAttitudes();
     this.makeEntitiesTargetPlayer();
     this.waitUntilPlayerFinishesCombat();
 
@@ -62,6 +63,15 @@ state Combat in RandomEncountersReworkedHuntEntity {
     camera = RER_getStaticCamera();
 
     camera.playCameraScene(scene, true);
+  }
+
+  private latent function resetEntitiesAttitudes() {
+    var i: int;
+
+    for (i = 0; i < parent.entities.Size(); i += 1) {
+      ((CActor)parent.entities[i])
+        .ResetTemporaryAttitudeGroup(AGP_Default);
+    }
   }
 
   private latent function makeEntitiesTargetPlayer() {
