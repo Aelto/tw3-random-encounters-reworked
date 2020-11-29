@@ -178,7 +178,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       return;
     }
 
-    REROL_smell_of_a_rotting_corpse(true);
+    if (parent.master.settings.geralt_comments_enabled) {
+      REROL_smell_of_a_rotting_corpse(true);
+    }
 
     if (!parent.master.settings.disable_camera_scenes
     && parent.master.settings.enable_action_camera_scenes) {

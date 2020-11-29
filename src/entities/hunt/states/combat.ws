@@ -34,7 +34,10 @@ state Combat in RandomEncountersReworkedHuntEntity {
       return;
     }
 
-    thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
+    if (parent.master.settings.geralt_comments_enabled) {
+      thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
+    }
+
     if(!parent.master.settings.disable_camera_scenes
     && parent.master.settings.enable_action_camera_scenes) {
       playAmbushCameraScene();
