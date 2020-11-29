@@ -159,8 +159,6 @@ latent function bestiaryCanSpawnEnemyTemplate(enemy_template: SEnemyTemplate, ma
   var resource : CJournalResource;
 	var entryBase : CJournalBase;
 
-  LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry);
-
   if (enemy_template.bestiary_entry == "") {
     LogChannel('modRandomEncounters', "bestiary entry has no value, returning true");
 
@@ -176,6 +174,9 @@ latent function bestiaryCanSpawnEnemyTemplate(enemy_template: SEnemyTemplate, ma
 
     if (entryBase) {
       if (manager.GetEntryHasAdvancedInfo(entryBase)) {
+        LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry + " TRUE");
+
+
         return true;
       }
     }
@@ -186,6 +187,8 @@ latent function bestiaryCanSpawnEnemyTemplate(enemy_template: SEnemyTemplate, ma
   else {
     LogChannel('modRandomEncounters', "unknown bestiary resource: " + enemy_template.bestiary_entry);
   }
+
+  LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry + " FALSE");
 
   return false;
 }

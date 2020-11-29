@@ -85,6 +85,8 @@ abstract class RER_BestiaryEntry {
       density = 0.01;
     }
 
+    LogChannel('RER', "BestiaryEntry, spawn() count = " + count);
+
     creatures_templates = fillEnemyTemplateList(
       this.template_list,
       count,

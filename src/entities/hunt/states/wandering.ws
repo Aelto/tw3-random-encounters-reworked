@@ -24,6 +24,8 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
     do {
       if (parent.areAllEntitiesDead()) {
+        LogChannel('modRandomEncounters', "HuntEntity - wandering state, all entities dead");
+
         parent.GotoState('Ending');
 
         break;

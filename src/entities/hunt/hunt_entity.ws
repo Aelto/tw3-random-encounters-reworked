@@ -57,6 +57,8 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
   public function areAllEntitiesDead(): bool {
     var i: int;
 
+    LogChannel('RER', "HuntEntity - areAllEntitiesDead, entity size = " + this.entities.Size());
+
     for (i = 0; i < this.entities.Size(); i += 1) {
       if (((CActor)this.entities[i]).IsAlive()) {
         return false;

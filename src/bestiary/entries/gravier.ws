@@ -11,7 +11,7 @@ class RER_BestiaryGravier extends RER_BestiaryEntry {
       "dlc\bob\data\characters\npc_entities\monsters\gravier.w2ent",,,
       "dlc\bob\journal\bestiary\parszywiec.journal"
     )
-  ); // fancy drowner
+  );
 
     this.template_list.difficulty_factor.minimum_count_easy = 1;
     this.template_list.difficulty_factor.maximum_count_easy = 3;
