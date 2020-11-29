@@ -9,7 +9,7 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
   this.template_list.templates.PushBack(
     makeEnemyTemplate(
       "characters\npc_entities\monsters\vampire_ekima_lvl1.w2ent",,,
-      "gameplay\journal\bestiary\bestiarymonsterhuntmh104.journal"
+      "gameplay\journal\bestiary\bestiaryekkima.journal"
     )
   );    // white vampire
 

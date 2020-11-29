@@ -6,14 +6,14 @@ class RER_BestiaryFiend extends RER_BestiaryEntry {
 
     this.template_list.templates.PushBack(makeEnemyTemplate(
       "characters\npc_entities\monsters\bies_lvl1.w2ent",,,
-      "gameplay\journal\bestiary\fiends.journal" // TODO: confirm journal
+      "gameplay\journal\bestiary\fiend2.journal" // TODO: confirm journal
       )
-    );  // fiends        
+    );     
     this.template_list.templates.PushBack(makeEnemyTemplate(
       "characters\npc_entities\monsters\bies_lvl2.w2ent",,,
-      "gameplay\journal\bestiary\fiends.journal" // TODO: confirm journal
+      "gameplay\journal\bestiary\fiend2.journal" // TODO: confirm journal
       )
-    );  // red fiend
+    );
 
       this.template_list.difficulty_factor.minimum_count_easy = 1;
       this.template_list.difficulty_factor.maximum_count_easy = 1;

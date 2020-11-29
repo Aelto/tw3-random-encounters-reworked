@@ -29,6 +29,21 @@ exec function rergpc() {
   NDEBUG(message);
 }
 
+exec function rerbestiarycanspawn(creature: CreatureType) {
+  var rer_entity : CRandomEncounters;
+  var exec_runner: RER_ExecRunner;
+
+  if (!getRandomEncounters(rer_entity)) {
+    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+    
+    return;
+  }
+
+  exec_runner = new RER_ExecRunner in rer_entity;
+  exec_runner.init(rer_entity, creature);
+  exec_runner.GotoState('RunBestiaryCanSpawn');
+}
+
 exec function rer_start_ambush(optional creature: CreatureType) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;
@@ -225,5 +240,28 @@ state TestCameraScenePlayer in RER_ExecRunner {
     camera = RER_getStaticCamera();
     
     camera.playCameraScene(scene);
+  }
+}
+
+state RunBestiaryCanSpawn in RER_ExecRunner {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunBestiaryCanSpawn");
+
+    this.RunBestiaryCanSpawn_main(parent.human_type, parent.count);
+  }
+
+  entry function RunBestiaryCanSpawn_main(human_type: EHumanType, count: int) {
+    var manager : CWitcherJournalManager;
+    var can_spawn_creature: bool;
+    
+    manager = theGame.GetJournalManager();
+  
+    can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(
+      parent.master.bestiary.entries[parent.creature].template_list,
+      manager
+    );
+
+    NDEBUG("Can spawn creature [" + parent.creature + "] = " + can_spawn_creature);
   }
 }
