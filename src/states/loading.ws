@@ -52,6 +52,22 @@ state Loading in CRandomEncounters {
       5
     );
 
+    // a mountain near the swamp
+    this.makeStaticEncounter(
+      CreatureFORKTAIL,
+      Vector(1310, -373, 22),
+      RER_RegionConstraint_ONLY_VELEN,
+      50
+    );
+
+    // a flat surface in the mountain near the swamp
+    this.makeStaticEncounter(
+      CreatureWYVERN,
+      Vector(1329, -326, 43),
+      RER_RegionConstraint_ONLY_VELEN,
+      5
+    );
+
     // var example_static_encounter: RER_StaticEncounter;
 
     // example_static_encounter = new RER_StaticEncounter in this;
