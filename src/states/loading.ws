@@ -68,6 +68,30 @@ state Loading in CRandomEncounters {
       5
     );
 
+    // abandonned human camp
+    this.makeStaticEncounter(
+      CreatureBEAR,
+      Vector(990, -189, 15),
+      RER_RegionConstraint_ONLY_VELEN,
+      5
+    );
+
+    // a ruined castle near a swamp
+    this.makeStaticEncounter(
+      CreatureENDREGA,
+      Vector(1060, 1057, 7),
+      RER_RegionConstraint_ONLY_VELEN,
+      5
+    );
+
+    // mountains with lots of harpies
+    this.makeStaticEncounter(
+      CreatureHARPY,
+      Vector(-200, 795, 31),
+      RER_RegionConstraint_ONLY_VELEN,
+      25
+    );
+
     // var example_static_encounter: RER_StaticEncounter;
 
     // example_static_encounter = new RER_StaticEncounter in this;
