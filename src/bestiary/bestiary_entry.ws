@@ -34,9 +34,9 @@ abstract class RER_BestiaryEntry {
   public function loadSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     var i: int;
 
-    this.city_spawn = inGameConfigWrapper.GetVarValue('RER_CitySpawns', this.menu_name);
-    this.trophy_chance = StringToInt(inGameConfigWrapper.GetVarValue('RER_monsterTrophies', this.menu_name));
-    this.region_constraint = StringToInt(inGameConfigWrapper.GetVarValue('RER_RegionConstraints', this.menu_name));
+    this.city_spawn = inGameConfigWrapper.GetVarValue('RERencountersSettlement', this.menu_name);
+    this.trophy_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterTrophies', this.menu_name));
+    this.region_constraint = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersConstraints', this.menu_name));
 
     this.chances_day.Clear();
     this.chances_night.Clear();
@@ -46,12 +46,12 @@ abstract class RER_BestiaryEntry {
       this.chances_night.PushBack(0);
     }
 
-    this.chances_day[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushDay', this.menu_name));
-    this.chances_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosAmbushNight', this.menu_name));
-    this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntDay', this.menu_name));
-    this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosHuntNight', this.menu_name));
-    this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosContractDay', this.menu_name));
-    this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERcreaturesRatiosContractNight', this.menu_name));
+    this.chances_day[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersRatiosAmbushDay', this.menu_name));
+    this.chances_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersRatiosAmbushNight', this.menu_name));
+    this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersRatiosHuntDay', this.menu_name));
+    this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersRatiosHuntNight', this.menu_name));
+    this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersRatiosContractDay', this.menu_name));
+    this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersRatiosContractNight', this.menu_name));
 
 
     // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );

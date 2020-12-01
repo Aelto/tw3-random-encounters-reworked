@@ -102,7 +102,7 @@ class RER_StaticCamera extends CStaticCamera {
 
     // this option was added because immersive camera doesn't like the blending 
     // options, and the game would crash.
-    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERadvancedPerformances', 'RERcameraBlendingDisabled')) {
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraBlendingDisabled')) {
       this.deactivationDuration = 1.5;
       this.activationDuration = 1.5;
     }

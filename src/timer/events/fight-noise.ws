@@ -16,7 +16,7 @@ class RER_ListenerFightNoise extends RER_EventsListener {
 
     this.trigger_chance = StringToFloat(
       inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventFightNoise')
+      .GetVarValue('RERevents', 'eventFightNoise')
     );
 
     // the event is only active if its chances to trigger are greater than 0

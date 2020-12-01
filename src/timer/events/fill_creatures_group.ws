@@ -15,11 +15,11 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
     this.trigger_chance = StringToFloat(
       inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroup')
+      .GetVarValue('RERevents', 'eventFillCreaturesGroup')
     );
 
     this.can_duplicate_creatures_in_combat = inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventFillCreaturesGroupAllowCombat');
+      .GetVarValue('RERevents', 'eventFillCreaturesGroupAllowCombat');
 
     // the event is only active if its chances to trigger are greater than 0
     this.active = this.trigger_chance > 0;

@@ -38,11 +38,11 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
 
     this.menu_slider_value = StringToFloat(
       inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventNoticeboardContract')
+      .GetVarValue('RERevents', 'eventNoticeboardContract')
     );
 
     this.allow_automatic_cutscene = inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventNoticeboardContractAutomaticCutscene');
+      .GetVarValue('RERevents', 'eventNoticeboardContractAutomaticCutscene');
 
     this.trigger_chance = 100 - this.menu_slider_value;
     this.settlement_radius_check = this.menu_slider_value;

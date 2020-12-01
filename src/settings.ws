@@ -96,106 +96,102 @@ class RE_Settings {
   }
 
   private function loadMainMenuSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.enable_action_camera_scenes = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableActionCameraScenes');
+    this.enable_action_camera_scenes = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'enableActionCameraScenes');
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    selectedDifficulty = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'Difficulty'));
-    this.enemy_count_multiplier = StringToInt(inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERenemyCountMultiplier'));
+    selectedDifficulty = StringToInt(inGameConfigWrapper.GetVarValue('RERmain', 'Difficulty'));
+    this.enemy_count_multiplier = StringToInt(inGameConfigWrapper.GetVarValue('RERmain', 'RERenemyCountMultiplier'));
   }
 
   private function loadGeraltCommentsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.geralt_comments_enabled = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'geraltComments');
+    this.geralt_comments_enabled = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'geraltComments');
   }
 
   private function loadHideNextNotificationsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.hide_next_notifications = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'hideNextNotifications');
+    this.hide_next_notifications = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'hideNextNotifications');
   }
 
   private function loadEnableEncountersLootSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.enable_encounters_loot = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'enableEncountersLoot');
+    this.enable_encounters_loot = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'enableEncountersLoot');
   }
 
   private function loadExternalFactorsCoefficientSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.external_factors_coefficient = StringToFloat(
-      inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'externalFactorsImpact')
+      inGameConfigWrapper.GetVarValue('RERmain', 'externalFactorsImpact')
     );
   }
 
   private function loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.only_known_bestiary_creatures = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERonlyKnownBestiaryCreatures');
+    this.only_known_bestiary_creatures = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERonlyKnownBestiaryCreatures');
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesAmbush');
-    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesHunt');
-    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesContract');
-    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophyPickupAnimation');
+    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesAmbush');
+    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesHunt');
+    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesContract');
+    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrophyPickupAnimation');
 
 
-    this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedTrophies', 'RERtrophiesPrices'));
-
-    LogChannel('modRandomEncounters', "RERadvancedTrophies RERtrophiesPrices - " + this.trophy_price);
+    this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesPrices'));
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
-    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customdFrequencyHigh'));
-    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customdFrequencyLow'));
-    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customnFrequencyHigh'));
-    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureFrequency', 'customnFrequencyLow'));  
+    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyHigh'));
+    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow'));
+    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
+    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));  
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChanceDay'));
-    this.all_monster_hunt_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterHuntChanceNight'));
+    this.all_monster_hunt_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersAmbushDay', 'allMonsterHuntChanceDay'));
+    this.all_monster_hunt_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersAmbushNight', 'allMonsterHuntChanceNight'));
   }
 
   private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {
     this.all_monster_contract_chance_day = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChanceDay')
+      inGameConfigWrapper.GetVarValue('RERencountersContractDay', 'allMonsterContractChanceDay')
     );
 
     this.all_monster_contract_chance_night = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterContractChanceNight')
+      inGameConfigWrapper.GetVarValue('RERencountersContractNight', 'allMonsterContractChanceNight')
     );
   }
 
   private function loadMonsterAmbushChances(inGameConfigWrapper: CInGameConfigWrapper) {
     this.all_monster_ambush_chance_day = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChanceDay')
+      inGameConfigWrapper.GetVarValue('RERencountersHuntDay', 'allMonsterAmbushChanceDay')
     );
 
     this.all_monster_ambush_chance_night = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencounterTypes', 'allMonsterAmbushChanceNight')
+      inGameConfigWrapper.GetVarValue('RERencountersHuntNight', 'allMonsterAmbushChanceNight')
     );
   }
 
   private function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
-    return !inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERmodInitialized');
+    return !inGameConfigWrapper.GetVarValue('RERmain', 'RERmodInitialized');
   }
 
   private function loadModEnabledSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.is_enabled = inGameConfigWrapper.GetVarValue('RandomEncountersMENU', 'RERmodEnabled');
+    this.is_enabled = inGameConfigWrapper.GetVarValue('RERencountersContractDay', 'RERmodEnabled');
   }
 
   private function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    inGameConfigWrapper.ApplyGroupPreset('RandomEncountersMENU', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERencounterTypes', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERcreatureFrequency', 1); // medium frequency
-    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosAmbushDay', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosAmbushNight', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosHuntDay', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERcreaturesRatiosHuntNight', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RER_CitySpawns', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RER_monsterTrophies', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERadvancedLevels', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERadvancedTrophies', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERadvancedEvents', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERregionConstraints', 0);
-    inGameConfigWrapper.ApplyGroupPreset('RERadvancedPerformances', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERmain', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencounters', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersGeneral', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersConstraints', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersSettlement', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersAmbushDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersAmbushNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersHuntDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersHuntNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersContractDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersContractNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERevents', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERoptionalFeatures', 0);
     
-    inGameConfigWrapper.SetVarValue('RandomEncountersMENU', 'RERmodInitialized', 1);
+    inGameConfigWrapper.SetVarValue('RERmain', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
   }
   
@@ -211,42 +207,39 @@ class RE_Settings {
   }
 
   private function loadAdvancedEventSystemSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.event_system_interval = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedEvents', 'eventSystemInterval'));
+    this.event_system_interval = StringToFloat(inGameConfigWrapper.GetVarValue('RERevents', 'eventSystemInterval'));
   }
 
   private function loadAdvancedDistancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'minSpawnDistance'));
-    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'spawnDiameter'));
-    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'killThresholdDistance'));
+    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'minSpawnDistance'));
+    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'spawnDiameter'));
+    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
 
     if (this.minimum_spawn_distance < 10 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
       inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
 
-      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'minSpawnDistance'));
-      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'spawnDiameter'));
-      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedDistances', 'killThresholdDistance'));
+      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'minSpawnDistance'));
+      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'spawnDiameter'));
+      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
       theGame.SaveUserSettings();
     }
   }
 
   private function loadAdvancedLevelsSettings(out inGameConfigWrapper: CInGameConfigWrapper) {
-    this.min_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedLevels', 'RERminLevelRange'));
-    this.max_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedLevels', 'RERmaxLevelRange'));
-
-    LogChannel('modRandomEncounters', "settings - min_level_allowed = " + this.min_level_allowed);
-    LogChannel('modRandomEncounters', "settings - max_level_allowed = " + this.max_level_allowed);
+    this.min_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERminLevelRange'));
+    this.max_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERmaxLevelRange'));
   }
 
   private function loadAdvancedPerformancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
     this.foottracks_ratio = 100 / Max(
-      StringToInt(inGameConfigWrapper.GetVarValue('RERadvancedPerformances', 'RERfoottracksRatio')),
+      StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERfoottracksRatio')),
       1
     );
-    this.disable_camera_scenes = inGameConfigWrapper.GetVarValue( 'RERadvancedPerformances', 'RERcameraScenesDisabled' );
+    this.disable_camera_scenes = inGameConfigWrapper.GetVarValue( 'RERoptionalFeatures', 'RERcameraScenesDisabled' );
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.allow_big_city_spawns = inGameConfigWrapper.GetVarValue('RER_CitySpawns', 'allowSpawnInBigCities');
+    this.allow_big_city_spawns = inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'allowSpawnInBigCities');
   }
 
   public function toggleEnabledSettings() {
@@ -255,7 +248,7 @@ class RE_Settings {
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
     inGameConfigWrapper.SetVarValue(
-      'RandomEncountersMENU',
+      'RERmain',
       'RERmodEnabled',
       !this.is_enabled
     );

@@ -15,7 +15,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
 
     this.trigger_chance = StringToFloat(
       inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventBodiesNecrophages')
+      .GetVarValue('RERevents', 'eventBodiesNecrophages')
     );
     
     // the event is only active if its chances to trigger are greater than 0

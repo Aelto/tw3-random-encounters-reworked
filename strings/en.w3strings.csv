@@ -1,10 +1,10 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
 2115018001|        |preset_value_rer_defaults|Defaults
-2115018002|        |option_rer_custom_frequency_low_day|Minimum delay during the day (in seconds)
-2115018003|        |option_rer_custom_frequency_high_day|Maximum delay during the day (in seconds)
-2115018004|        |option_rer_custom_frequency_low_night|Minimum delay during the night (in seconds)
-2115018005|        |option_rer_custom_frequency_hight_night|Maximum delay during the night (in seconds)
+2115018002|        |option_rer_custom_frequency_low_day|<font color="#ffd33d">         Day:</font> minimum delay (in seconds)
+2115018003|        |option_rer_custom_frequency_high_day|<font color="#ffd33d">               :</font> maximum delay (in seconds)
+2115018004|        |option_rer_custom_frequency_low_night|<font color="#b392f0">      Night:</font> minimum delay (in seconds)
+2115018005|        |option_rer_custom_frequency_hight_night|<font color="#b392f0">               :</font> maximum delay (in seconds)
 2115018006|        |preset_value_rer_low|Low
 2115018007|        |preset_value_rer_medium|Medium
 2115018008|        |preset_value_rer_high|High
@@ -20,12 +20,12 @@
 2115018018|        |preset_value_rer_hard|Hard
 2115018019|        |preset_value_rer_random|Random
 2115018020|        |option_rer_enemy_count_multiplier|Enemy count multiplier
-2115018021|        |option_rer_monster_hunt_ratio_day|Monster hunt frequency - Day
+2115018021|        |option_rer_monster_hunt_ratio_day|<font color="#ffd33d">Frequency</font>
 2115018022|        |panel_rer_encounter_type|Encounter types
 2115018023|        |panel_rer_creature_frequency|Creatures frequencies
 2115018024|        |panel_rer_creatures_ratios|Creatures ratios
-2115018025|        |panel_ambush_day|Ambush Day
-2115018026|        |panel_ambush_night|Ambush Night
+2115018025|        |panel_ambush_day_settings|Ambush Day
+2115018026|        |panel_ambush_night_settings|Ambush Night
 2115018027|        |preset_value_rer_everything_off|Everything OFF
 2115018028|        |preset_value_rer_everything_on|Everything ON
 2115018029|        |option_rer_leshen|Leshen
@@ -86,10 +86,10 @@
 2115018084|        |option_rer_gargoyles|Gargoyle
 2115018085|        |preset_Mods_rer_name_rer_main_settings|Main settings
 2115018086|        |preset_Mods_rer_name_rer_creature_frequency|Creatures frequencies
-2115018087|        |preset_Mods_rer_name_rer_creatures_ratios_ambush_day|Ambush Day
-2115018088|        |preset_Mods_rer_name_rer_creatures_ratios_ambush_night|Ambush Night
+2115018087|        |preset_Mods_rer_name_rer_encounters_settings_ambush_day_settings|Ambush Day
+2115018088|        |preset_Mods_rer_name_rer_encounters_settings_ambush_night_settings|Ambush Night
 2115018089|        |option_rer_geralt_comments|Enable Geralt comments
-2115018090|        |option_rer_enabled|Random Encounters Reworked enabled
+2115018090|        |option_rer_enabled|<font color="#28a745">MOD ENABLED</font>
 2115018091|        |option_rer_hide_notifications|Hide RER notifications
 2115018092|        |option_rer_enable_encounters_loot|Enable encounters loot
 2115018093|        |preset_Mods_rer_name_rer_city_spawns|Settlement spawns
@@ -98,11 +98,11 @@
 2115018096|        |preset_value_rer_no_large_creatures|No large creatures
 2115018097|        |preset_value_rer_no_small_creatures|No small creatures
 2115018098|        |option_rer_external_factors_coefficient|External factors coefficient
-2115018099|        |option_rer_monster_contract_ratio_day|Monster contract frequency - Day
-2115018100|        |option_rer_monster_ambush_ratio_day|Monster ambush frequency - Day
-2115018101|        |panel_rer_city_spawns|Settlement spawns
+2115018099|        |option_rer_monster_contract_ratio_day|<font color="#ffd33d">Frequency</font>
+2115018100|        |option_rer_monster_ambush_ratio_day|<font color="#ffd33d">Frequency</font>
+2115018101|        |panel_rer_settlement_settings|Settlement spawns
 2115018102|        |preset_Mods_rer_name_rer_encounter_type|Encounter types
-2115018103|        |option_rer_mod_initialized|RER initialized
+2115018103|        |option_rer_mod_initialized|MOD INITIALIZED <font color="#d73a49">(CAUTION)</font>
 2115018104|        |preset_Mods_rer_name_rer_monster_trophies|Monster trophies
 2115018105|        |panel_rer_monster_trophies|Monster trophies
 2115018106|        |rer_trophy_werewolf|Werewolf trophy
@@ -139,32 +139,32 @@
 2115018137|        |rer_trophy_human|Human trophy
 2115018138|        |rer_trophy_troll|Troll trophy
 2115018139|        |rer_trophy_dracolizard|Dracolizard trophy
-2115018140|        |option_rer_min_spawn_distance|Minimum spawn distance (in meters)
-2115018141|        |option_rer_spawn_diameter|Spawn diameter (in meters)
-2115018142|        |option_rer_kill_threshold_distance|Automatic kill threshold (in meters)
+2115018140|        |option_rer_min_spawn_distance|<font color="#ffffff">Distance:</font> minimum spawn distance (in meters)
+2115018141|        |option_rer_spawn_diameter|<font color="#ffffff">               :</font> spawn diameter (in meters)
+2115018142|        |option_rer_kill_threshold_distance|<font color="#ffffff">               :</font> automatic kill threshold (in meters)
 2115018143|        |preset_Mods_rer_name_rer_advanced_settings|Advanced settings
 2115018144|        |panel_rer_advanced_settings|Advanced settings
-2115018145|        |option_rer_trophies_ambush|Allow trophies in ambush
-2115018146|        |option_rer_trophies_hunt|Allow trophies in hunt
-2115018147|        |option_rer_trophies_contract|Allow trophies in monster contract
+2115018145|        |option_rer_trophies_ambush|<font color="#ffd33d">From ambushes</font> 
+2115018146|        |option_rer_trophies_hunt|<font color="#ffd33d">From hunts</font>
+2115018147|        |option_rer_trophies_contract|<font color="#ffd33d">From contracts</font>
 2115018148|        |option_rer_trophy_pickup_animation|Allow trophy pickup animation
 2115018149|        |option_rer_only_known_bestiary_creatures|Only known bestiary creatures
 2115018150|        |preset_Mods_rer_name_rer_advanced_settings_distances|Distances
 2115018151|        |panel_distances|Distances
 2115018152|        |preset_Mods_rer_name_rer_advanced_settings_levels|Levels
 2115018153|        |panel_levels|Levels
-2115018154|        |option_rer_min_level_range|Lowest level allowed (relative to Geralt's)
-2115018155|        |option_rer_max_level_range|Highest level allowed (relative to Geralt's)
-2115018156|        |preset_Mods_rer_name_rer_advanced_settings_trophies|Trophies
-2115018157|        |panel_trophies|Trophies
-2115018158|        |option_rer_trophy_prices|Trophy prices
+2115018154|        |option_rer_min_level_range|<font color="#28a745">    Levels:</font> lowest allowed (relative to Geralt)
+2115018155|        |option_rer_max_level_range|<font color="#28a745">               :</font> highest allowed (relative to Geralt)
+2115018156|        |preset_Mods_rer_name_rer_trophies_settings|Trophy system
+2115018157|        |panel_rer_trophies_settings|Trophy system
+2115018158|        |option_rer_trophy_prices|<font color="#ffd33d">Prices</font> 
 2115018159|        |preset_value_rer_trophy_prices_low|Low (100%)
 2115018160|        |preset_value_rer_trophy_prices_medium|Medium (200%)
 2115018161|        |preset_value_rer_trophy_prices_high|High (300%)
-2115018162|        |preset_Mods_rer_name_rer_advanced_settings_events|Events system
-2115018163|        |panel_events|Events system
+2115018162|        |preset_Mods_rer_name_rer_events_settings|Event system
+2115018163|        |panel_rer_events_settings|Event system
 2115018164|        |option_rer_event_system_interval|Event system interval in seconds (0 = disabled)
-2115018165|        |option_rer_mod_enabled|Enabled
+2115018165|        |option_rer_mod_enabled|<font color="#28a745">MOD ENABLED</font>
 2115018166|        |option_rer_disabled|RandomEncounters Reworked disabled
 2115018167|        |option_rer_event_bloodnecrophages_chance|Event % chance - blood attracts necrophages
 2115018168|        |option_rer_event_bodiesnecrophages_chance|Event % chance - remains attracts necrophages
@@ -184,20 +184,20 @@
 2115018182|        |preset_value_rer_region_constraint_no_velen|No Velen
 2115018183|        |preset_value_rer_region_constraint_no_skellige|No Skellige
 2115018184|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
-2115018185|        |preset_Mods_rer_name_rer_region_constraints|Region constraints
+2115018185|        |preset_Mods_rer_name_rer_encounters_settings_rer_region_constraints_settings|Region constraints
 2115018186|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
 2115018187|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
-2115018188|        |panel_rer_region_constraints|Region constraints
-2115018189|        |preset_Mods_rer_name_rer_creatures_ratios|Creatures ratios
+2115018188|        |panel_rer_region_constraints_settings|Region constraints
+2115018189|        |preset_Mods_rer_name_rer_encounters_settings|Creatures_settings ratios
 2115018190|        |panel_rer_creatures_ratio|Creatures ratios
-2115018191|        |panel_hunt_day|Hunt Day
-2115018192|        |panel_hunt_night|Hunt Night
-2115018193|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_day|Hunt Day
-2115018194|        |preset_Mods_rer_name_rer_creatures_ratios_hunt_night|Hunt Night
-2115018195|        |panel_contract_day|Contract Day
-2115018196|        |panel_contract_night|Contract Night
-2115018197|        |preset_Mods_rer_name_rer_creatures_ratios_contract_day|Contract Day
-2115018198|        |preset_Mods_rer_name_rer_creatures_ratios_contract_night|Contract Night
+2115018191|        |panel_hunt_day_settings|Hunt Day
+2115018192|        |panel_hunt_night_settings|Hunt Night
+2115018193|        |preset_Mods_rer_name_rer_encounters_settings_hunt_day_settings|Hunt Day
+2115018194|        |preset_Mods_rer_name_rer_encounters_settings_hunt_night_settings|Hunt Night
+2115018195|        |panel_contract_day_settings|Contract Day
+2115018196|        |panel_contract_night_settings|Contract Night
+2115018197|        |preset_Mods_rer_name_rer_encounters_settings_contract_day_settings|Contract Day
+2115018198|        |preset_Mods_rer_name_rer_encounters_settings_contract_night_settings|Contract Night
 2115018199|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
 2115018200|        |panel_performances|Performance settings
 2115018201|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
@@ -205,7 +205,15 @@
 2115018203|        |option_rer_camera_blending_disabled|Disable camera blending
 2115018204|        |option_dlc_rer|Random Encounters Reworked
 2115018205|        |option_rer_camera_scenes_disabled|Disable camera scenes
-2115018206|        |option_rer_monster_ambush_ratio_night|Monster ambush frequency - Night
-2115018207|        |option_rer_monster_hunt_ratio_night|Monster hunt frequency - Night
-2115018208|        |option_rer_monster_contract_ratio_night|Monster contract frequency - Night
+2115018206|        |option_rer_monster_ambush_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018207|        |option_rer_monster_hunt_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018208|        |option_rer_monster_contract_ratio_night|<font color="#ffd33d">Frequency</font>
 2115018209|        |option_rer_enable_action_camera_scenes|Enable action camera scenes
+2115018210|        |preset_Mods_rer_name_rer_encounters_settings|Encounter system
+2115018211|        |preset_Mods_rer_name_rer_encounters_settings_rer_general_settings|General
+2115018212|        |preset_Mods_rer_name_rer_encounters_settings_rer_constraints_settings|Region constraints
+2115018213|        |preset_Mods_rer_name_rer_encounters_settings_rer_settlement_settings|Settlement spawns
+2115018214|        |panel_rer_general_settings|General
+2115018215|        |panel_rer_optional_features_settings|Optional features
+2115018216|        |panel_rer_encounters_settings|Encounter system
+2115018217|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features

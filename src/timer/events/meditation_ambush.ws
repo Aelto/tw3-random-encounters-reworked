@@ -10,7 +10,7 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
 
     this.trigger_chance = StringToFloat(
       inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventMeditationAmbush')
+      .GetVarValue('RERevents', 'eventMeditationAmbush')
     );
 
     // the event is only active if its chances to trigger are greater than 0

@@ -27,7 +27,7 @@ state Starting in RER_EventsManager {
 
     parent.internal_cooldown = StringToFloat(
       inGameConfigWrapper
-      .GetVarValue('RERadvancedEvents', 'eventSystemICD')
+      .GetVarValue('RERevents', 'eventSystemICD')
     );
 
     parent.chance_scale = parent.delay / parent.internal_cooldown;
