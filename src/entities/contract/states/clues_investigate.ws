@@ -126,7 +126,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     // 3.2 then we place some random tracks
-    max_number_of_clues = RandRange(120, 60);
+    max_number_of_clues = RandRange(60, 30);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
       current_clue_position = parent.investigation_center_position 
@@ -140,7 +140,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     // 3.3 then we place lots of blood
-    max_number_of_clues = RandRange(100, 200);
+    max_number_of_clues = RandRange(100, 50);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
       current_clue_position = parent.investigation_center_position 
