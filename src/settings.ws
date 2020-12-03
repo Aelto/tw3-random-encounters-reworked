@@ -144,8 +144,8 @@ class RE_Settings {
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersAmbushDay', 'allMonsterHuntChanceDay'));
-    this.all_monster_hunt_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersAmbushNight', 'allMonsterHuntChanceNight'));
+    this.all_monster_hunt_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntDay', 'allMonsterHuntChanceDay'));
+    this.all_monster_hunt_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntNight', 'allMonsterHuntChanceNight'));
   }
 
   private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -160,11 +160,11 @@ class RE_Settings {
 
   private function loadMonsterAmbushChances(inGameConfigWrapper: CInGameConfigWrapper) {
     this.all_monster_ambush_chance_day = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencountersHuntDay', 'allMonsterAmbushChanceDay')
+      inGameConfigWrapper.GetVarValue('RERencountersAmbushDay', 'allMonsterAmbushChanceDay')
     );
 
     this.all_monster_ambush_chance_night = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencountersHuntNight', 'allMonsterAmbushChanceNight')
+      inGameConfigWrapper.GetVarValue('RERencountersAmbushNight', 'allMonsterAmbushChanceNight')
     );
   }
 
@@ -173,7 +173,7 @@ class RE_Settings {
   }
 
   private function loadModEnabledSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.is_enabled = inGameConfigWrapper.GetVarValue('RERencountersContractDay', 'RERmodEnabled');
+    this.is_enabled = inGameConfigWrapper.GetVarValue('RERmain', 'RERmodEnabled');
   }
 
   private function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
