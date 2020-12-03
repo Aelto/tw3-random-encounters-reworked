@@ -51,7 +51,7 @@ async function main() {
   
   const zip_file_path = `${new_version_name}.zip`;
   const zip = new AdmZip();
-  zip.addLocalFolder(`${__dirname}/../../release`);
+  zip.addLocalFolder(`${__dirname}/../../release`, new_version_name);
   zip.writeZip(zip_file_path);
 
   const octokit = new Octokit({

@@ -34,12 +34,12 @@ Invoke-WebRequest -Uri $response[0].assets[0].browser_download_url -OutFile $res
 
 #extracting the archive
 echo "Extracting zip archive"
-Expand-Archive -Force -LiteralPath $response[0].assets[0].name -DestinationPath $response[0].name
+Expand-Archive -Force -LiteralPath $response[0].assets[0].name -DestinationPath ./RER_NEW_RELEASE
 
 # installing release
-$releaseFolder = (Get-ChildItem -Path $response[0].name | Select-Object -First 1).Name
-$releaseFolderChild = (Get-ChildItem -Path $releaseFolder -Force -Recurse | Select-Object -First 1)
-$fullpath = "{0}/*" -f $releaseFolderChild
+$releaseFolder = "./RER_NEW_RELEASE"
+$releaseFolderChild = (Get-ChildItem -Path $releaseFolder -Force -Recurse | Select-Object -First 1).Name
+$fullpath = "{0}/{1}/*" -f $releaseFolder, $releaseFolderChild
 
 $installMessage = "Installing release {0}" -f $response[0].name
 
@@ -47,7 +47,7 @@ echo $installMessage
 copy-item $fullpath "../../" -force -recurse
 
 # cleanup
-remove-item $response[0].name -recurse -force
+remove-item $releaseFolder -recurse -force
 remove-item $response[0].assets[0].name -recurse -force
 
 $installedMessage = "=== release {0} installed ===" -f $latestversion
