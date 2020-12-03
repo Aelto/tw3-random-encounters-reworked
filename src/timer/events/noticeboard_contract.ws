@@ -125,7 +125,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     for (position_attempts = 0; position_attempts < 10; position_attempts += 1) {
       contract_position = this.position_near_noticeboard + VecConeRand(
         VecHeading(thePlayer.GetWorldPosition() - this.position_near_noticeboard),
-        15, // small angle to increase the chances the player will see the encounter
+        25, // small angle to increase the chances the player will see the encounter
         player_distance_from_noticeboard * this.minimum_distance_multiplier,
         player_distance_from_noticeboard * this.maximum_distance_multiplier
       );
