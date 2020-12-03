@@ -92,6 +92,22 @@ state Loading in CRandomEncounters {
       25
     );
 
+    // castle with vanilla wyvern
+    this.makeStaticEncounter(
+      CreatureWYVERN,
+      Vector(-286, 920, 14),
+      RER_RegionConstraint_ONLY_VELEN,
+      25
+    );
+
+    // castle basilisk from ciri scene
+    this.makeStaticEncounter(
+      CreatureBASILISK,
+      Vector(-240, 565, 11),
+      RER_RegionConstraint_ONLY_VELEN,
+      50
+    );
+
     // var example_static_encounter: RER_StaticEncounter;
 
     // example_static_encounter = new RER_StaticEncounter in this;
