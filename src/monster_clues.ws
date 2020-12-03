@@ -155,7 +155,7 @@ state Interacting in RER_MonsterClue {
         break;
 
       case 'RER_MonsterClueGargoyle':
-        REROL_a_nightwraith(true);
+        REROL_an_earth_elemental(true);
         break;
 
       case 'RER_MonsterClueKikimore':
