@@ -108,6 +108,70 @@ state Loading in CRandomEncounters {
       50
     );
 
+    // burning pyre full of human corpses
+    this.makeStaticEncounter(
+      CreatureROTFIEND,
+      Vector(530, 956, 1),
+      RER_RegionConstraint_ONLY_VELEN,
+      10
+    );
+
+    // burning pyre full of human corpses
+    this.makeStaticEncounter(
+      CreatureHAG,
+      Vector(530, 956, 1),
+      RER_RegionConstraint_ONLY_VELEN,
+      10
+    );
+
+    // forest full of endregas
+    this.makeStaticEncounter(
+      CreatureENDREGA,
+      Vector(567, 1246, 9),
+      RER_RegionConstraint_ONLY_VELEN,
+      15
+    );
+
+    // forest full of endregas
+    this.makeStaticEncounter(
+      CreatureGRYPHON,
+      Vector(604, 1200, 12),
+      RER_RegionConstraint_ONLY_VELEN,
+      5
+    );
+
+    // a beach in novigrad
+    this.makeStaticEncounter(
+      CreatureDROWNER,
+      Vector(375, 1963, 1),
+      RER_RegionConstraint_ONLY_VELEN,
+      5
+    );
+
+    // rotfiend nest
+    this.makeStaticEncounter(
+      CreatureROTFIEND,
+      Vector(350, 980, 1.5),
+      RER_RegionConstraint_ONLY_VELEN,
+      10
+    );
+
+    // rotfiend nest
+    this.makeStaticEncounter(
+      CreatureHAG,
+      Vector(350, 980, 1.5),
+      RER_RegionConstraint_ONLY_VELEN,
+      20
+    );
+
+    // abandoned village near the swamp with blood everywhere
+    this.makeStaticEncounter(
+      CreatureWEREWOLF,
+      Vector(638, -644, 2.5),
+      RER_RegionConstraint_ONLY_VELEN,
+      20
+    );
+
     // var example_static_encounter: RER_StaticEncounter;
 
     // example_static_encounter = new RER_StaticEncounter in this;
