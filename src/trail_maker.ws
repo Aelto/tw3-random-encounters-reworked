@@ -99,7 +99,7 @@ class RER_TrailMaker {
     var new_entity: RER_MonsterClue;
     var track_resource: RER_TrailMakerTrack;
 
-    if (VecDistanceSquared(position, this.last_track_position) < PowF(0.5 * this.trail_ratio, 2)) {
+    if (VecDistanceSquared2D(position, this.last_track_position) < PowF(0.5 * this.trail_ratio, 2)) {
       return;
     }
 
@@ -166,7 +166,7 @@ class RER_TrailMaker {
     final_point_radius = destination_radius * destination_radius;
     current_track_position = from;
 
-    total_distance_to_final_point = VecDistanceSquared(from, to);
+    total_distance_to_final_point = VecDistanceSquared2D(from, to);
     distance_to_final_point = total_distance_to_final_point;
 
     LogChannel('modRandomEncounters', "TrailMaker, drawing trail");
@@ -191,7 +191,7 @@ class RER_TrailMaker {
 
       FixZAxis(current_track_position);
 
-      distance_to_final_point = VecDistanceSquared(current_track_position, to);
+      distance_to_final_point = VecDistanceSquared2D(current_track_position, to);
 
       this.addTrackHere(
         current_track_position,
