@@ -157,6 +157,8 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
 
     has_played_oneliner = false;
 
+    parent.AddTimer('randomEncounterTick', 1.0, true);
+
     distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.final_point_position); 
 
     // 1. first we wait until the player has reached the final point
@@ -216,6 +218,8 @@ state CluesFollow in RandomEncountersReworkedContractEntity {
     // It is useful if the combat loops because the next investigation will
     // start from this position now.
     parent.last_clues_follow_final_position = parent.final_point_position;
+
+    parent.RemoveTimer('randomEncounterTick');
 
     parent.GotoState('Combat');
   }
