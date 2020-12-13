@@ -34,6 +34,32 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   var entities: array<CEntity>;
 
+  // This variable stores the last important position from the previous phase
+  // It's useful when chaining many phases and when the next phase needs to know
+  // where the previous phase ended
+  var previous_phase_checkpoint: Vector;
+
+  // everytime the entity goes into the PhasePick state, it stores the previous
+  // phase that was played. It's useful when a state needs to know how many times
+  // it's been played already, or if it needs to know if another state was played
+  var played_phases: array<name>;
+
+  // get the number of times the supplied phase was played
+  public function playedPhaseCount(phase: name) {
+    var i: int;
+    var count: int;
+
+    count = 0;
+
+    for (i = 0; i < this.played_phases.Size(); i += 1) {
+      if (phase == this.played_phases[i]) {
+        count += 1;
+      }
+    }
+
+    return count;
+  }
+
   //#region shared variables between states
 
   public var trail_maker: RER_TrailMaker;
@@ -42,13 +68,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   public var track_resource: CEntityTemplate;
 
-  // it contains a list of corpse resources, useful when creating clues
-  var corpse_reources: array<CEntityTemplate>;
-
-  public function getRandomCorpseResource(): CEntityTemplate {
-    return this.corpse_reources[RandRange(this.corpse_reources.Size())];
-  }
-
   var chosen_bestiary_entry: RER_BestiaryEntry;
   
   var number_of_creatures: int;
@@ -56,9 +75,6 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   //#endregion shared variables between states
 
   //#region variables made in `CluesInvestigate`
-  var investigation_center_position: Vector;
-  var investigation_last_clues_position: Vector;
-
   // set to true if the position was forced by external code.
   var forced_investigation_center_position: bool;
 
@@ -124,7 +140,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   }
 
 
-  public latent function startContract(master: CRandomEncounters) {
+  public latent function startContract(master: CRandomEncounters, variant: name) {
     this.master = master;
 
     this.automatic_kill_threshold_distance = master.settings.kill_threshold_distance * 3;
@@ -136,7 +152,8 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
     this.AddTimer('intervalLifeCheck', 10.0, true);
 
-    this.GotoState('CluesInvestigate');
+    this.played_variant = variant;
+    this.GotoState('Loading');
   }
 
   public latent function pickRandomBestiaryEntry() {

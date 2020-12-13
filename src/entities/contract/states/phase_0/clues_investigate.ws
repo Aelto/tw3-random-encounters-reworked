@@ -13,9 +13,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     this.waitUntilPlayerReachesFirstClue();
     this.createLastClues();
     this.waitUntilPlayerReachesLastClue();
-    this.CluesInvestigate_goToNextState();
+    
+    this.CluesInvestigate_GotoNextState();
   }
 
+  var investigation_center_position: Vector;
   var investigation_radius: int;
   default investigation_radius = 15;
 
@@ -27,10 +29,6 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var found_initial_position: bool;
     var max_number_of_clues: int;
     var current_clue_position: Vector;
-    var trail_resources: array<RER_TrailMakerTrack>;
-    var blood_resources: array<RER_TrailMakerTrack>;
-    var corpse_resources: array<RER_TrailMakerTrack>;
-    var trail_ratio: int;
     var i: int;
     
     // 1. first find the place where the clues will be created
@@ -52,63 +50,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     // 2. load all the needed resources
-    switch (parent.chosen_bestiary_entry.type) {
-      case CreatureBARGHEST :
-      case CreatureWILDHUNT :
-      case CreatureNIGHTWRAITH :
-      case CreatureNOONWRAITH :
-      case CreatureWRAITH :
-        // these are the type of creatures where we use fog
-        // so we increase the ratio to save performances.
-        trail_ratio = parent.master.settings.foottracks_ratio * 4;
-
-      default :
-        trail_ratio = parent.master.settings.foottracks_ratio * 1;
-    }
-
-    parent.trail_maker = new RER_TrailMaker in this;
-
-    LogChannel('RER', "loading trail_maker, ratio = " + parent.master.settings.foottracks_ratio);
     
-    trail_resources.PushBack(
-      getTracksTemplateByCreatureType(
-        parent.chosen_bestiary_entry.type
-      )
-    );
-
-    parent.trail_maker.init(
-      trail_ratio,
-      600,
-      trail_resources
-    );
-
-    LogChannel('RER', "loading blood_maker");
-
-    blood_resources = parent
-        .master
-        .resources
-        .getBloodSplatsResources();
-    
-    parent.blood_maker = new RER_TrailMaker in this;
-    parent.blood_maker.init(
-      parent.master.settings.foottracks_ratio,
-      100,
-      blood_resources
-    );
-
-    LogChannel('RER', "loading corpse_maker");
-
-    corpse_resources = parent
-        .master
-        .resources
-        .getCorpsesResources();
-
-    parent.corpse_maker = new RER_TrailMaker in this;
-    parent.corpse_maker.init(
-      parent.master.settings.foottracks_ratio,
-      50,
-      corpse_resources
-    );
 
     // 3. we place the clues randomly
     // 3.1 first by placing the corpses
@@ -165,8 +107,6 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     if (RandRange(10) < 6) {
       this.addMonstersWithClues();
     }
-
-
   }
 
   private latent function startOnSpawnCutscene() {
@@ -397,6 +337,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     parent.entities.Clear();
   }
 
+  var investigation_last_clues_position: Vector;
 
   latent function createLastClues() {
     var number_of_foot_paths: int;
@@ -406,7 +347,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     LogChannel('modRandomEncounters', "creating Last clues");
 
     // 1. we search for a random position around the site.
-    parent.investigation_last_clues_position = parent.investigation_center_position + VecRingRand(
+    this.investigation_last_clues_position = this.investigation_center_position + VecRingRand(
       this.investigation_radius * 2,
       this.investigation_radius * 1.6
     );
@@ -418,7 +359,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     for (i = 0; i < number_of_foot_paths; i += 1) {
       // 2.1 we find a random position in the investigation radius
-      current_track_position = parent.investigation_center_position + VecRingRand(
+      current_track_position = this.investigation_center_position + VecRingRand(
         0,
         this.investigation_radius
       );
@@ -428,7 +369,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .trail_maker
         .drawTrail(
           current_track_position,
-          parent.investigation_last_clues_position,
+          this.investigation_last_clues_position,
           6, // the radius
           ,, // no details used
           true // uses the failsafe
@@ -465,7 +406,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
   }
 
-  latent function CluesInvestigate_goToNextState() {
-    parent.GotoState('CluesFollow');
+  latent function CluesInvestigate_GotoNextState() {
+    parent.previous_phase_checkpoint = this.investigation_last_clues_position;
+    
+    parent.GotoState('PhasePick');
   }
 }
