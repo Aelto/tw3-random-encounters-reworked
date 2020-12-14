@@ -73,7 +73,7 @@ abstract class RER_BestiaryEntry {
     var i: int;
     var j: int;
 
-    if (count <= 0) {
+    if (count == 0) {
       count = rollDifficultyFactor(
         this.template_list.difficulty_factor,
         master.settings.selectedDifficulty,

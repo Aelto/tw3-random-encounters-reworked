@@ -1,4 +1,11 @@
 
+struct ContractEntitySettings {
+  var kill_threshold_distance: float;
+  var allow_trophies: bool;
+  var allow_trophy_pickup_scene: bool;
+  var enable_loot: bool;
+}
+
 // This "Entity" is different from the others (gryphon/default) because
 // it is not the entity itself but more of a manager who controls multiple
 // entities.
@@ -27,14 +34,21 @@
 statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   var master: CRandomEncounters;
 
-  public var automatic_kill_threshold_distance: float;
-  default automatic_kill_threshold_distance = 200;
-
-  public var allow_trophy: bool;
-
   var entities: array<CEntity>;
 
-  // This variable stores the last important position from the previous phase
+  var bestiary_entry: RER_BestiaryEntry;
+  
+  var number_of_creatures: int;
+
+  var entity_settings: ContractEntitySettings;
+
+  var trail_maker: RER_TrailMaker;
+
+  var blood_maker: RER_TrailMaker;
+
+  var corpse_maker: RER_TrailMaker;
+
+  // this variable stores the last important position from the previous phase
   // It's useful when chaining many phases and when the next phase needs to know
   // where the previous phase ended
   var previous_phase_checkpoint: Vector;
@@ -44,197 +58,29 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   // it's been played already, or if it needs to know if another state was played
   var played_phases: array<name>;
 
-  // get the number of times the supplied phase was played
-  public function playedPhaseCount(phase: name) {
-    var i: int;
-    var count: int;
-
-    count = 0;
-
-    for (i = 0; i < this.played_phases.Size(); i += 1) {
-      if (phase == this.played_phases[i]) {
-        count += 1;
-      }
-    }
-
-    return count;
-  }
-
-  //#region shared variables between states
-
-  public var trail_maker: RER_TrailMaker;
-  public var blood_maker: RER_TrailMaker;
-  public var corpse_maker: RER_TrailMaker;
-
-  public var track_resource: CEntityTemplate;
-
-  var chosen_bestiary_entry: RER_BestiaryEntry;
-  
-  var number_of_creatures: int;
-
-  //#endregion shared variables between states
-
-  //#region variables made in `CluesInvestigate`
-  // set to true if the position was forced by external code.
-  var forced_investigation_center_position: bool;
-
-  // if set to true by external code, on spawn the contract will play a camera scene
-  var play_camera_scene_on_spawn: bool;
-  
-  //#endregion variables made in `CluesInvestigate`
-
-  //#region variables used in `CluesFollow`
-
-  // this is the position where the last combat took place
-  var last_clues_follow_final_position: Vector;
-
-  // this is position where the next combat will take place
-  var final_point_position: Vector;
-
-  //#endregion variables used in `CluesFollow`
-
-  //#region variables used in `CombatLoop`
-
-  // chances used to determine if the phase should loop, expressed in %
-  var looping_chances: float;
-  default looping_chances = 60;
-
-  // everytime it loops the looping_chances are decreased by this value
-  var looping_chances_decrease: float;
-  default looping_chances_decrease = 15;
-
-  // indicates if the combat looped.
-  // It changes a few things in the `CluesFollow` state when set to true
-  var has_combat_looped: bool;
-  default has_combat_looped = false;
-  //#endregion variables used in `CombatLoop`
-
-  event OnSpawned( spawnData : SEntitySpawnData ){
-    super.OnSpawned(spawnData);
-
-    LogChannel(
-      'modRandomEncounters',
-      "RandomEncountersReworkedContractEntity spawned"
-    );
-  }
-
-
-  public function removeAllLoot() {
-    var inventory: CInventoryComponent;
-    var i: int;
-
-    for (i = 0; i < this.entities.Size(); i += 1) {
-      inventory = ((CActor)this.entities[i]).GetInventory();
-
-      inventory.EnableLoot(false);
-    }
-  }
-
-  public function forcePosition(position: Vector) {
-    this.forced_investigation_center_position = true;
-    this.investigation_center_position = position;
-  }
-
-  public function playCameraSceneOnSpawn() {
-    this.play_camera_scene_on_spawn = true;
-  }
-
-
-  public latent function startContract(master: CRandomEncounters, variant: name) {
+  public latent function startEncounter(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
-
-    this.automatic_kill_threshold_distance = master.settings.kill_threshold_distance * 3;
-
-    this.allow_trophy = master.settings
-    .trophies_enabled_by_encounter[EncounterType_CONTRACT];
-
-    this.pickRandomBestiaryEntry();
-
-    this.AddTimer('intervalLifeCheck', 10.0, true);
-
-    this.played_variant = variant;
-    this.GotoState('Loading');
-  }
-
-  public latent function pickRandomBestiaryEntry() {
-    this.chosen_bestiary_entry = this
-      .master
-      .bestiary
-      .getRandomEntryFromBestiary(this.master, EncounterType_CONTRACT);
-
+    this.bestiary_entry = bestiary_entry;
     this.number_of_creatures = rollDifficultyFactor(
-      this.chosen_bestiary_entry.template_list.difficulty_factor,
+      this.bestiary_entry.template_list.difficulty_factor,
       this.master.settings.selectedDifficulty,
       this.master.settings.enemy_count_multiplier
     );
+    this.loadSettings(master);
 
-    LogChannel('modrandomencounters', "chosen bestiary entry" + this.chosen_bestiary_entry.type);
+    this.AddTimer('intervalLifeCheck', 10.0, true);
+    this.GotoState('Loading');
   }
 
-
-  public function areAllEntitiesDead(): bool {
-    var i: int;
-
-    for (i = 0; i < this.entities.Size(); i += 1) {
-      if (((CActor)this.entities[i]).IsAlive()) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  public function hasOneOfTheEntitiesGeraltAsTarget(): bool {
-    var i: int;
-
-    for (i = 0; i < this.entities.Size(); i += 1) {
-      if (((CActor)this.entities[i]).HasAttitudeTowards(thePlayer) || ((CNewNPC)this.entities[i]).GetTarget() == thePlayer) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-
-  timer function intervalLifeCheck(optional dt : float, optional id : Int32) {
-    var distance_from_player: float;
-
-    if (this.GetCurrentStateName() == 'Ending') {
-      return;
-    }
-
-    if (this.GetCurrentStateName() == 'CluesInvestigate'
-    && VecDistanceSquared(this.investigation_center_position, thePlayer.GetWorldPosition())
-     > this.master.settings.kill_threshold_distance * this.master.settings.kill_threshold_distance) {
-      this.endContract();
-    }
-
-    if (this.GetCurrentStateName() == 'CluesFollow') {
-      distance_from_player = VecDistance(
-        this.final_point_position,
-        thePlayer.GetWorldPosition()
-      );
-    }
-    else {
-      distance_from_player = VecDistance(
-        this.GetWorldPosition(),
-        thePlayer.GetWorldPosition()
-      );
-    }
-
-    if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
-      this.endContract();
-
-      return;
-    }
-  }
-
-  public function endContract() {
-    if (this.GetCurrentStateName() != 'Ending') {
-      this.GotoState('Ending');
-    }
+  private function loadSettings(master: CRandomEncounters) {
+    this.entity_settings.kill_threshold_distance = master.settings.kill_threshold_distance;
+    this.entity_settings.allow_trophy_pickup_scene = master.settings.trophy_pickup_scene;
+    this.entity_settings.allow_trophies = master
+      .settings
+      .trophies_enabled_by_encounter[EncounterType_CONTRACT];
+    this.entity_settings.enable_loot = master
+      .settings
+      .enable_encounters_loot
   }
 
   public latent function clean() {
@@ -257,6 +103,125 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     corpse_maker.clean();
 
     this.Destroy();
+  }
+
+  timer function intervalLifeCheck(optional dt : float, optional id : Int32) {
+    var distance_from_player: float;
+
+    if (this.GetCurrentStateName() == 'Ending') {
+      return;
+    }
+
+    distance_from_player = VecDistance(
+      this.GetWorldPosition(),
+      thePlayer.GetWorldPosition()
+    );
+
+    if (distance_from_player > this.automatic_kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
+      this.endContract();
+
+      return;
+    }
+  }
+
+  ///////////////////////////////////////////////////
+  // below are helper functions used in the states //
+  ///////////////////////////////////////////////////
+
+  //
+  // get the number of times the supplied phase was played
+  public function playedPhaseCount(phase: name) {
+    var i: int;
+    var count: int;
+
+    count = 0;
+
+    for (i = 0; i < this.played_phases.Size(); i += 1) {
+      if (phase == this.played_phases[i]) {
+        count += 1;
+      }
+    }
+
+    return count;
+  }
+
+  //
+  // get the name of the previous phase (excluding the 'phase_pick' phase)
+  public function getPreviousPhase(): name {
+    var count: int;
+    var phase: name;
+
+    count = this.played_phases.Size();
+
+    if (count == 0) {
+      return '';
+    }
+
+    phase = this.played_phases[count - 1];
+
+    // this function excludes the PhasePick phase, so if the previous phase was
+    // PhasePick we try to go one phase lower.
+    if (phase == 'PhasePick') {
+      count -= 1;
+
+      if (count == 0) {
+        return '';
+      }
+
+      phase = this.played_phases[count - 1];
+    }
+
+    return phase;
+  }
+
+  //
+  // removes the loot of all current entities
+  public function removeAllLoot() {
+    var inventory: CInventoryComponent;
+    var i: int;
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      inventory = ((CActor)this.entities[i]).GetInventory();
+
+      inventory.EnableLoot(false);
+    }
+  }
+
+  //
+  // returns if all current entities are dead
+  public function areAllEntitiesDead(): bool {
+    var i: int;
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      if (((CActor)this.entities[i]).IsAlive()) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  //
+  // returns if one of the current entities has geralt as a target
+  public function hasOneOfTheEntitiesGeraltAsTarget(): bool {
+    var i: int;
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      if (((CActor)this.entities[i]).HasAttitudeTowards(thePlayer) || ((CNewNPC)this.entities[i]).GetTarget() == thePlayer) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  //
+  // ends the encounter by going into the Ending state
+  public function endContract() {
+    if (this.GetCurrentStateName() != 'Ending') {
+      this.GotoState('Ending');
+    }
   }
 
   event OnDestroyed() {

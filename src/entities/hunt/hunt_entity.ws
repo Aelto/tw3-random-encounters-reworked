@@ -83,11 +83,4 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
     return entity;
   }
-
-  // It's a timer that is called during the `clues_follow` state. The goal
-  // is to increase the amount of ambushes and hunts while the player is following
-  // the clues to the final point.
-  timer function randomEncounterTick(optional delta: float, optional id: Int32) {
-    this.master.ticks_before_spawn -= 1;
-  }
 }

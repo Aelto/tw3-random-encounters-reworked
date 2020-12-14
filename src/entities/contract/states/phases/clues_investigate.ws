@@ -1,4 +1,7 @@
 
+// This phase places clues on the ground and sometimes creatures at the previous
+// checkpoint. It waits for the player to enter the radius and then enters in
+// combat or in PhasePicker if there is no creature.
 state CluesInvestigate in RandomEncountersReworkedContractEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -26,38 +29,18 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   var eating_animation_slot: CAIPlayAnimationSlotAction;
 
   latent function createClues() {
-    var found_initial_position: bool;
     var max_number_of_clues: int;
     var current_clue_position: Vector;
     var i: int;
-    
-    // 1. first find the place where the clues will be created
-    //    only if the position was not forced.
-    if (!parent.forced_investigation_center_position) {
-      found_initial_position = getRandomPositionBehindCamera(
-        parent.investigation_center_position,
-        parent.master.settings.minimum_spawn_distance
-        + parent.master.settings.spawn_diameter,
-        parent.master.settings.minimum_spawn_distance,
-        10
-      );
 
-      if (!found_initial_position) {
-        parent.endContract();
+    this.investigation_center_position = parent.previous_phase_checkpoint;
 
-        return;
-      }
-    }
-
-    // 2. load all the needed resources
-    
-
-    // 3. we place the clues randomly
-    // 3.1 first by placing the corpses
+    // 1. we place the clues randomly
+    // 1.1 first by placing the corpses
     max_number_of_clues = RandRange(20, 10);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
-      current_clue_position = parent.investigation_center_position 
+      current_clue_position = this.investigation_center_position 
         + VecRingRand(0, this.investigation_radius);
 
       FixZAxis(current_clue_position);
@@ -67,11 +50,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // 3.2 then we place some random tracks
+    // 1.2 then we place some random tracks
     max_number_of_clues = RandRange(60, 30);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
-      current_clue_position = parent.investigation_center_position 
+      current_clue_position = this.investigation_center_position 
         + VecRingRand(0, this.investigation_radius);
 
       FixZAxis(current_clue_position);
@@ -81,11 +64,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // 3.3 then we place lots of blood
+    // 1.3 then we place lots of blood
     max_number_of_clues = RandRange(100, 50);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
-      current_clue_position = parent.investigation_center_position 
+      current_clue_position = this.investigation_center_position 
         + VecRingRand(0, this.investigation_radius);
 
       FixZAxis(current_clue_position);
@@ -95,15 +78,17 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // if set to true, will play a oneliner and camera scene when the investigation position
-    // is finally determined. Meaning, now.
-    // the cutscene plays only if the contract is close enough from the player
-    // camera scene plays if above condition is met and camera scenes are not disabled from the menu
+    // 2. we play a camera scene after we created all the clues.
+    //    if set to true, will play a oneliner and camera scene when the
+    //    investigation position is finally determined. Meaning, now.
+    //    the cutscene plays only if the contract is close enough from the player
+    //    camera scene plays if above condition is met and camera scenes are
+    //    not disabled from the menu
     if (parent.play_camera_scene_on_spawn) {
       this.startOnSpawnCutscene();
     }
 
-    // 4. there is a chance necrophages are feeding on the corpses
+    // 3. there is a chance necrophages are feeding on the corpses
     if (RandRange(10) < 6) {
       this.addMonstersWithClues();
     }
@@ -114,7 +99,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     minimum_spawn_distance = parent.master.settings.minimum_spawn_distance * 1.5;
 
-    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position) > minimum_spawn_distance * minimum_spawn_distance) {
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_center_position) > minimum_spawn_distance * minimum_spawn_distance) {
       return;
     }
 
@@ -139,7 +124,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // where the camera is looking
     scene.look_at_target_type = RER_CameraTargetType_STATIC;
-    look_at_position = parent.investigation_center_position;
+    look_at_position = this.investigation_center_position;
     scene.look_at_target_static = look_at_position;
 
     scene.velocity_type = RER_CameraVelocityType_FORWARD;
@@ -191,7 +176,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     created_entities = monsters_bestiary_entry
       .spawn(
         parent.master,
-        parent.investigation_center_position,,,
+        this.investigation_center_position,,,
         parent.allow_trophy
       );
 
@@ -214,7 +199,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     for (i = 0; i < number_of_rifts; i += 1) {
       rift = (CRiftEntity)theGame.CreateEntity(
         portal_template,
-        parent.investigation_center_position + VecRingRand(0, this.investigation_radius)
+        this.investigation_center_position + VecRingRand(0, this.investigation_radius)
       );
 
       rift.ActivateRift();
@@ -232,7 +217,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is in the investigation radius
     do {
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position);
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_center_position);
 
       if (this.has_monsters_with_clues) {
         if (parent.hasOneOfTheEntitiesGeraltAsTarget()) {

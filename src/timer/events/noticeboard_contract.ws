@@ -151,8 +151,9 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   private latent function startContractEncounterCutscene(master: CRandomEncounters, contract_position: Vector) {
     REROL_where_will_i_find_this_monster();
 
-    if( !master.settings.disable_camera_scenes )
+    if(!master.settings.disable_camera_scenes) {
       playContractEncounterCameraScene(contract_position);
+    }
   }
 
   private latent function playContractEncounterCameraScene(contract_position: Vector) {

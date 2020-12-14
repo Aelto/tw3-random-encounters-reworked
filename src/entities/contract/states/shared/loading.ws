@@ -10,6 +10,7 @@ state Loading in RandomEncountersReworkedContractEntity {
 
   entry function Loading_main() {
     this.Loading_loadTrailMakers();
+    this.Loading_loadBasicVariables();    
 
     parent.GotoState(PhasePick);
   }
@@ -77,5 +78,10 @@ state Loading in RandomEncountersReworkedContractEntity {
       50,
       corpse_resources
     );
+  }
+
+  function Loading_loadBasicVariables() {
+    parent.previous_phase_checkpoint = parent.GetWorldPosition();
+    parent.
   }
 }
