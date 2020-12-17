@@ -70,6 +70,21 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
     return true;
   }
 
+  function areAllEntitiesFarFromPlayer(): bool {
+    var player_position: Vector;
+    var i: int;
+
+    player_position = thePlayer.GetWorldPosition();
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      if (VecDistanceSquared(this.entities[i].GetWorldPosition(), player_position) < 20 * 20) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   public function killEntity(entity: CEntity): bool {
     ((CActor)entity).Kill('RandomEncountersReworked_Entity', true);
 

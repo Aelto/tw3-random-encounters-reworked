@@ -100,7 +100,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
     // player runs away from the monster
     Sleep(3);
 
-    while (!parent.areAllEntitiesDead()) {
+    while (!parent.areAllEntitiesDead() && !areAllEntitiesFarFromPlayer) {
       this.makeEntitiesTargetPlayer();
 
       Sleep(1);
