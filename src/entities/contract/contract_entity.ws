@@ -217,6 +217,24 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   }
 
   //
+  // returns true if none of the contract entities is nearby
+  // can also be used to know if at least one creature is nearby
+  function areAllEntitiesFarFromPlayer(): bool {
+    var player_position: Vector;
+    var i: int;
+
+    player_position = thePlayer.GetWorldPosition();
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      if (VecDistanceSquared(this.entities[i].GetWorldPosition(), player_position) < 30 * 30) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  //
   // ends the encounter by going into the Ending state
   public function endContract() {
     if (this.GetCurrentStateName() != 'Ending') {
