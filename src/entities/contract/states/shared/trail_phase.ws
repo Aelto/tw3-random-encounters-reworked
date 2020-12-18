@@ -103,17 +103,19 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     radius *= radius;
     distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), position);
 
-    while (distance_from_player > this.creatures_aggro_radius && !parent.hasOneOfTheEntitiesGeraltAsTarget()) {
+    while (distance_from_player > radius && !parent.hasOneOfTheEntitiesGeraltAsTarget()) {
       SleepOneFrame();
 
-      this.waitForPlayerToReachPoint_action();
+      if (this.waitForPlayerToReachPoint_action()) {
+        break;
+      };
 
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.final_point_position); 
     }
   }
 
   // override the function if necessary
-  latent function waitForPlayerToReachPoint_action() {}
+  latent function waitForPlayerToReachPoint_action(): bool { return false; }
 
   // Checks if one of the creatures is outside the given point and its radius
   // and teleports it back into the circle  ifthe creature is indeed outside.

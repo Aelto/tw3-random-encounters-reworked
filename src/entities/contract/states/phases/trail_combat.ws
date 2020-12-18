@@ -10,30 +10,48 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
     this.TrailCombat_main();
   }
 
-  entry function TrailCombat_main() {
-    var destination: Vector;
+  var destination: Vector;
 
-    if (!this.getNewTrailDestination(destination)) {
+  entry function TrailCombat_main() {
+    if (!this.getNewTrailDestination(this.destination)) {
       LogChannel('modRandomEncounters', "Contract - State TrailCombat, could not find trail destination");
       parent.endContract();
+
+      return;
     }
 
-    this.drawTrailsToWithCorpseDetailsMaker(parent.number_of_creatures);
+    this.drawTrailsToWithCorpseDetailsMaker(
+      this.destination,
+      parent.number_of_creatures
+    );
 
-    // TODO: spawn random monsters
+    this.spawnRandomMonster();
 
-    this.keepCreaturesOnPoint(destination, 20);
+    this.waitForPlayerToReachPoint(this.destination, 15);
+
+    REROL_there_you_are();
+
+    parent.previous_phase_checkpoint = this.destination;
+
+    parent.GotoState('Combat');
   }
 
-  var has_played_oneliner: bool;
-  latent function waitForPlayerToReachPoint_action() {
-    if (!has_played_oneliner && RandRange(10000) < 0.00001) {
-      REROL_miles_and_miles_and_miles();
+  latent function spawnRandomMonster() {
+    var bestiary_entry: RER_BestiaryEntry;
 
-      has_played_oneliner = true;
-    }
+    bestiary_entry = parent
+      .master
+      .bestiary
+      .getRandomEntryFromBestiary();
 
+    bestiary_entry.spawn(this.destination);
+  }
+
+  latent function waitForPlayerToReachPoint_action(): bool {
     this.keepCreaturesOnPoint();
+
+    // tell it to stop waiting if one creature targets Geralt
+    return parent.hasOneOfTheEntitiesGeraltAsTarget();
   }
 
 }
