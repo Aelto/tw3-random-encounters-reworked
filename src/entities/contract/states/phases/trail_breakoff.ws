@@ -16,7 +16,29 @@ state TrailBreakoff in RandomEncountersReworkedContractEntity {
     this.TrailBreakoff_main();
   }
 
-  entry function TrailBreakoff_main() {
+  var destination: Vector;
 
+  entry function TrailBreakoff_main() {
+    if (!this.getNewTrailDestination(this.destination)) {
+      LogChannel('modRandomEncounters', "Contract - State TrailBreakoff, could not find trail destination");
+      parent.endContract();
+
+      return;
+    }
+
+    // TODO: add oneliner
+
+    this.drawTrailsToWithCorpseDetailsMaker(
+      this.destination,
+      parent.number_of_creatures
+    );
+
+    this.waitForPlayerToReachPoint(this.destination, 10);
+
+    // TODO: add oneliner
+
+    parent.previous_phase_checkpoint = this.destination;
+
+    parent.GotoState('PhasePick');
   }
 }
