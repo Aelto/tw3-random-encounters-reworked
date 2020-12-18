@@ -12,6 +12,29 @@ state Combat in RandomEncountersReworkedContractEntity {
   }
 
   entry function Combat_main() {
+    this.makeEntitiesTargetPlayer();
+    this.waitUntilPlayerFinishesCombat();
 
+    parent.GotoState('PhasePick');
+  }
+
+  function makeEntitiesTargetPlayer() {
+    var i: int;
+
+    for (i = 0; i < parent.entities.Size(); i += 1) {
+      ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
+        'monsters',
+        AGP_Default
+      );
+
+      ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);
+    }
+  }
+
+  latent function waitUntilPlayerFinishesCombat() {
+    // 1. we wait until the player is out of combat
+    while (!parent.areAllEntitiesFarFromPlayer() || thePlayer.IsInCombat()) {
+      Sleep(1);
+    }
   }
 }
