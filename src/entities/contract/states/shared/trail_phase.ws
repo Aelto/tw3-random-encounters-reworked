@@ -70,34 +70,35 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     var max_radius: float;
     var i: int;
 
+    if (distance_multiplier == 0) {
+      distance_multiplier = 1;
+    }
+
     max_attempt_count = 10;
     search_heading = VecHeading(parent.previous_phase_checkpoint - thePlayer.GetWorldPosition());
     min_radius = 100 * distance_multiplier;
     max_radius = 200 * distance_multiplier;
 
-    if (distance_multiplier == 0) {
-      distance_multiplier = 1;
-    }
-
     for (i = 0; i < max_attempt_count; i += 1) {
       current_search_destination = parent.previous_phase_checkpoint
           + VecConeRand(search_heading, 270, min_radius, max_radius);
 
-      if (getGroundPosition(current_search_position, 5)) {
-        destination = current_search_position;
-        found_destination = true;
+      found_destination = getGroundPosition(current_search_destination, 5);
+      if (found_destination) {
+        destination = current_search_destination;
 
-        break;
+        return true;
       }
     }
 
-    return found_destination
+    return false;
   }
 
   // waits for the player to reach the supplied position. It's a latent function
   // that will sleep until the player reaches the point. Be careful.
   latent function waitForPlayerToReachPoint(position: Vector, radius: float) {
     var distance_from_player: float;
+    var should_cancel: bool;
 
     // squared radius to save performances by using VecDistanceSquared
     radius *= radius;
@@ -106,11 +107,12 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     while (distance_from_player > radius && !parent.hasOneOfTheEntitiesGeraltAsTarget()) {
       SleepOneFrame();
 
-      if (this.waitForPlayerToReachPoint_action()) {
+      should_cancel = this.waitForPlayerToReachPoint_action();
+      if (should_cancel) {
         break;
       };
 
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.final_point_position); 
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), position);
     }
   }
 
@@ -139,7 +141,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
         new_position = VecInterpolate(
           old_position,
           position,
-          1 / this.TrailPhase_keep_creatures_radius
+          1 / radius
         );
 
         FixZAxis(new_position);

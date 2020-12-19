@@ -12,7 +12,7 @@ state Loading in RandomEncountersReworkedContractEntity {
     this.Loading_loadTrailMakers();
     this.Loading_loadBasicVariables();    
 
-    parent.GotoState(PhasePick);
+    parent.GotoState('PhasePick');
   }
 
   latent function Loading_loadTrailMakers() {
@@ -21,7 +21,7 @@ state Loading in RandomEncountersReworkedContractEntity {
     var corpse_resources: array<RER_TrailMakerTrack>;
     var trail_ratio: int;
 
-    switch (parent.chosen_bestiary_entry.type) {
+    switch (parent.bestiary_entry.type) {
       case CreatureBARGHEST :
       case CreatureWILDHUNT :
       case CreatureNIGHTWRAITH :
@@ -41,7 +41,7 @@ state Loading in RandomEncountersReworkedContractEntity {
     
     trail_resources.PushBack(
       getTracksTemplateByCreatureType(
-        parent.chosen_bestiary_entry.type
+        parent.bestiary_entry.type
       )
     );
 
@@ -82,6 +82,5 @@ state Loading in RandomEncountersReworkedContractEntity {
 
   function Loading_loadBasicVariables() {
     parent.previous_phase_checkpoint = parent.GetWorldPosition();
-    parent.
   }
 }

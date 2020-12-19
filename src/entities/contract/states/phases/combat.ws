@@ -34,6 +34,7 @@ state Combat in RandomEncountersReworkedContractEntity {
   latent function waitUntilPlayerFinishesCombat() {
     // 1. we wait until the player is out of combat
     while (!parent.areAllEntitiesFarFromPlayer() || thePlayer.IsInCombat()) {
+      parent.removeDeadEntities();
       Sleep(1);
     }
   }

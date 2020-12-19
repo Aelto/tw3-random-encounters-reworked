@@ -11,6 +11,19 @@ state Ambush in RandomEncountersReworkedContractEntity {
   }
 
   entry function Ambush_main() {
+    this.spawnRandomMonster();
 
+    parent.GotoState('Combat');
+  }
+
+  latent function spawnRandomMonster() {
+    var bestiary_entry: RER_BestiaryEntry;
+
+    bestiary_entry = parent
+      .master
+      .bestiary
+      .getRandomEntryFromBestiary(parent.master, EncounterType_CONTRACT);
+
+    parent.entities = bestiary_entry.spawn(parent.master, parent.previous_phase_checkpoint);
   }
 }

@@ -142,7 +142,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
       contract_position = thePlayer.GetWorldPosition();
     }
 
-    createRandomCreatureContract(master, contract_position);
+    createRandomCreatureContract(master, new RER_BestiaryEntryNull in this, contract_position);
 
     // play a oneliner and a camera scene targeting the contract position if camera scenes aren't disabled from the menu
     startContractEncounterCutscene(master, contract_position);

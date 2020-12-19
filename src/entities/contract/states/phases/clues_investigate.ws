@@ -84,7 +84,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     //    the cutscene plays only if the contract is close enough from the player
     //    camera scene plays if above condition is met and camera scenes are
     //    not disabled from the menu
-    if (parent.play_camera_scene_on_spawn) {
+    // TODO:
+    if (false) {
       this.startOnSpawnCutscene();
     }
 
@@ -147,7 +148,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // 1. pick the type of monsters we'll add near the clues
     //    it's either necropages or Wild hunt soldiers if
     //    the bestiary type for this encounter is Wild Hunt
-    if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+    if (parent.bestiary_entry.type == CreatureWILDHUNT) {
       monsters_bestiary_entry = parent
         .master
         .bestiary
@@ -176,8 +177,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     created_entities = monsters_bestiary_entry
       .spawn(
         parent.master,
-        this.investigation_center_position,,,
-        parent.allow_trophy
+        parent.previous_phase_checkpoint,,,
+        parent.entity_settings.allow_trophies
       );
 
     for (i = 0; i < created_entities.Size(); i += 1) {
@@ -224,13 +225,13 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
           break;
         }
 
-        if (parent.chosen_bestiary_entry.type != CreatureWILDHUNT) {
+        if (parent.bestiary_entry.type != CreatureWILDHUNT) {
           this.playEatingAnimationNecrophages();
         }
 
         // if the chosen type is the wildhunt and there are wild hunt members
         // the weather should be snowy.
-        if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT
+        if (parent.bestiary_entry.type == CreatureWILDHUNT
         && !has_set_weather_snow) {
 
           if (distance_from_player < this.investigation_radius * this.investigation_radius * 3) {
@@ -248,7 +249,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // 2. once the player is in the radius, we play sone oneliners
     //    cannot play if there were necrophages around the corpses.
     if (this.has_monsters_with_clues) {
-      if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+      if (parent.bestiary_entry.type == CreatureWILDHUNT) {
         REROL_the_wild_hunt();
       }
       else if (!parent.areAllEntitiesDead()) {
@@ -263,7 +264,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       Sleep(2);
 
-      if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+      if (parent.bestiary_entry.type == CreatureWILDHUNT) {
         REROL_wild_hunt_killed_them();
       }
       else {
@@ -372,7 +373,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is near the last investigation clues
     do {
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_last_clues_position);
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_last_clues_position);
 
       if (!has_played_oneliner && RandRange(10000) < 0.00001) {
         REROL_ground_splattered_with_blood();

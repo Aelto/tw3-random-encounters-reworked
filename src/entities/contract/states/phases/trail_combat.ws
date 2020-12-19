@@ -13,7 +13,7 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
   var destination: Vector;
 
   entry function TrailCombat_main() {
-    if (!this.getNewTrailDestination(this.destination)) {
+    if (!this.getNewTrailDestination(this.destination, 0.5)) {
       LogChannel('modRandomEncounters', "Contract - State TrailCombat, could not find trail destination");
       parent.endContract();
 
@@ -24,6 +24,8 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
       this.destination,
       parent.number_of_creatures
     );
+
+    this.play_oneliner_begin();
 
     this.spawnRandomMonster();
 
@@ -36,19 +38,29 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
     parent.GotoState('Combat');
   }
 
+  latent function play_oneliner_begin() {
+    var previous_phase: name;
+
+    previous_phase = parent.getPreviousPhase('Ambush');
+
+    if (previous_phase == 'TrailBreakoff') {
+      REROL_trail_goes_on();
+    }
+  }
+
   latent function spawnRandomMonster() {
     var bestiary_entry: RER_BestiaryEntry;
 
     bestiary_entry = parent
       .master
       .bestiary
-      .getRandomEntryFromBestiary();
+      .getRandomEntryFromBestiary(parent.master, EncounterType_CONTRACT);
 
-    bestiary_entry.spawn(this.destination);
+    parent.entities = bestiary_entry.spawn(parent.master, this.destination);
   }
 
   latent function waitForPlayerToReachPoint_action(): bool {
-    this.keepCreaturesOnPoint();
+    this.keepCreaturesOnPoint(this.destination, 20);
 
     // tell it to stop waiting if one creature targets Geralt
     return parent.hasOneOfTheEntitiesGeraltAsTarget();

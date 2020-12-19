@@ -58,6 +58,13 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   // it's been played already, or if it needs to know if another state was played
   var played_phases: array<name>;
 
+  // this variables stores the longevity of the encounter. Once the float value
+  // reaches 0, it means the encounter cannot create any more phases and it should
+  // stop after the current phase. It is a float an not a int because some phases
+  // will cost more than some others. And some may have a 0.5 cost while other could
+  // go up to 2 or 3.
+  var longevity: float;
+
   public latent function startEncounter(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
     this.bestiary_entry = bestiary_entry;
@@ -67,6 +74,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
       this.master.settings.enemy_count_multiplier
     );
     this.loadSettings(master);
+    this.previous_phase_checkpoint = thePlayer.GetWorldPosition();
 
     this.AddTimer('intervalLifeCheck', 10.0, true);
     this.GotoState('Loading');
@@ -75,12 +83,18 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   private function loadSettings(master: CRandomEncounters) {
     this.entity_settings.kill_threshold_distance = master.settings.kill_threshold_distance;
     this.entity_settings.allow_trophy_pickup_scene = master.settings.trophy_pickup_scene;
+    
     this.entity_settings.allow_trophies = master
       .settings
       .trophies_enabled_by_encounter[EncounterType_CONTRACT];
+    
     this.entity_settings.enable_loot = master
       .settings
-      .enable_encounters_loot
+      .enable_encounters_loot;
+
+    this.longevity = master
+      .settings
+      .monster_contract_longevity;
   }
 
   public latent function clean() {
@@ -113,12 +127,12 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     }
 
     distance_from_player = VecDistance(
-      this.GetWorldPosition(),
+      this.previous_phase_checkpoint,
       thePlayer.GetWorldPosition()
     );
 
-    if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
+    if (distance_from_player > this.entity_settings.kill_threshold_distance) {
+      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.entity_settings.kill_threshold_distance);
       this.endContract();
 
       return;
@@ -131,7 +145,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   //
   // get the number of times the supplied phase was played
-  public function playedPhaseCount(phase: name) {
+  public function playedPhaseCount(phase: name): int {
     var i: int;
     var count: int;
 
@@ -148,7 +162,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   //
   // get the name of the previous phase (excluding the 'phase_pick' phase)
-  public function getPreviousPhase(): name {
+  public function getPreviousPhase(optional ignore_phase: name): name {
     var count: int;
     var phase: name;
 
@@ -162,7 +176,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
     // this function excludes the PhasePick phase, so if the previous phase was
     // PhasePick we try to go one phase lower.
-    if (phase == 'PhasePick') {
+    if (phase == 'PhasePick' || phase == ignore_phase) {
       count -= 1;
 
       if (count == 0) {
@@ -200,6 +214,24 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     }
 
     return true;
+  }
+
+  //
+  // remove the dead entities from the list of entities
+  public function removeDeadEntities() {
+     var i: int;
+     var max: int;
+
+     max = this.entities.Size();
+
+     for (i = 0; i < max; i += 1) {
+       if (!((CActor)this.entities[i]).IsAlive()) {
+         this.entities.Remove(this.entities[i]);
+
+         max -= 1;
+         i -= 1;
+       }
+     }
   }
 
   //

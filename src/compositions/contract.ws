@@ -4,9 +4,9 @@
 // Because this class isn't a class of type "one instance per entity" but
 // instead a single class handling the whole encounter.
 latent function createRandomCreatureContract(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry, optional position: Vector) {
-  var composition: CreatureAmbushWitcherComposition;
+  var composition: CreatureContractComposition;
 
-  composition = new CreatureAmbushWitcherComposition in master;
+  composition = new CreatureContractComposition in master;
 
   composition.init(master.settings);
 
@@ -43,7 +43,7 @@ class CreatureContractComposition extends CompositionSpawner {
   }
 
   protected latent function afterSpawningEntities(): bool {
-    var rer_entity: RandomEncountersReworkedHuntEntity;
+    var rer_entity: RandomEncountersReworkedContractEntity;
     var rer_entity_template: CEntityTemplate;
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(

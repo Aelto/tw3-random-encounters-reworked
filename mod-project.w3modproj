@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <W3Mod xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <LastOpenedFiles />
+  <LastOpenedFiles>
+    <string>D:\dev\github\W3_RandomEncounters_Tweaks\modRandomEncountersReworked\files\DLC\Cooked\dlcmodRandomEncountersReworked\data\quest\quest_files\scenes\mq2052_05_inspecting_plan.w2scene</string>
+    <string>D:\dev\github\W3_RandomEncounters_Tweaks\modRandomEncountersReworked\files\DLC\Bundle\dlc\modRandomEncountersReworked\quests\part_1\quest_files\q103_daughter\scenes\q103_07d_while_examining_rooms.w2scene</string>
+    <string>D:\dev\github\W3_RandomEncounters_Tweaks\modRandomEncountersReworked\files\DLC\Bundle\dlc\modRandomEncountersReworked\quests\part_1\quest_files\q103_daughter\scenes\q103_15l_geralt_examins_dead_horses.w2scene</string>
+    <string>D:\dev\github\W3_RandomEncounters_Tweaks\modRandomEncountersReworked\files\DLC\Bundle\dlc\modRandomEncountersReworked\quests\part_1\quest_files\q104_mine\scenes\q104_07e_searching_workshop.w2scene</string>
+  </LastOpenedFiles>
   <Name>modRandomEncountersReworked</Name>
-  <Version>0.62</Version>
 </W3Mod>

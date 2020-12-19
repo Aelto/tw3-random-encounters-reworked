@@ -70,7 +70,25 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
     return true;
   }
 
-  function areAllEntitiesFarFromPlayer(): bool {
+  //
+  // remove the dead entities from the list of entities
+  public function removeDeadEntities() {
+     var i: int;
+     var max: int;
+
+     max = this.entities.Size();
+
+     for (i = 0; i < max; i += 1) {
+       if (!((CActor)this.entities[i]).IsAlive()) {
+         this.entities.Remove(this.entities[i]);
+
+         max -= 1;
+         i -= 1;
+       }
+     }
+  }
+
+  public function areAllEntitiesFarFromPlayer(): bool {
     var player_position: Vector;
     var i: int;
 
