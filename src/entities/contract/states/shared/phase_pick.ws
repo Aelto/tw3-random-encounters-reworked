@@ -48,6 +48,9 @@ state PhasePick in RandomEncountersReworkedContractEntity {
 
       case 'Ambush':
       case 'Combat':
+        // we do this to avoid aving too many trails in the same place
+        parent.trail_maker.hidePreviousTracks();
+
         registered_phases.PushBack(RER_PhasePickRegisteredPhase(
           'TrailChoice',
           10,

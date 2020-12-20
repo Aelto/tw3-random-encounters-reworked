@@ -221,6 +221,19 @@ class RER_TrailMaker {
     } while (distance_to_final_point > final_point_radius);
   }
 
+  public function hidePreviousTracks() {
+    var i: int;
+    var max: int;
+    var where: Vector;
+
+    max = this.tracks_entities.Size();
+    where = thePlayer.GetWorldPosition() + VecRingRand(1000, 2000);
+
+    for (i = 0; i < max; i += 1) {
+      this.tracks_entities[i].Teleport(where);
+    }
+  }
+
   public function clean() {
     var i: int;
     
