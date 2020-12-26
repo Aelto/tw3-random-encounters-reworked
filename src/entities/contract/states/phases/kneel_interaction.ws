@@ -13,12 +13,12 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
   entry function KneelInteraction_main() {
     parent.previous_phase_checkpoint = thePlayer.GetWorldPosition();
 
-    this.createTracks();
-    this.playAnimation();
+    this.KneelInteraction_createTracks();
+    this.KneelInteraction_playAnimation();
     parent.GotoState('PhasePick');
   }
 
-  latent function createTracks() {
+  latent function KneelInteraction_createTracks() {
     var max_number_of_clues: int;
     var current_clue_position: Vector;
     var i: int;
@@ -27,7 +27,7 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
 
     for (i = 0; i < max_number_of_clues; i += 1) {
       current_clue_position = parent.previous_phase_checkpoint 
-        + VecRingRand(0, 10);
+        + VecRingRand(0, 5);
 
       FixZAxis(current_clue_position);
 
@@ -35,13 +35,22 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
         .trail_maker
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
+
+    // and we had a clue right on Geralt for the animation
+    current_clue_position = parent.previous_phase_checkpoint + VecRingRand(0, 1);
+
+    parent.trail_maker.addTrackHere(
+      current_clue_position,
+      thePlayer.GetWorldRotation()
+    );
   }
 
-  latent function playAnimation() {
+  latent function KneelInteraction_playAnimation() {
     var monster_clue: RER_MonsterClue;
 
+    Sleep(1);
+    
     monster_clue = parent.trail_maker.getLastPlacedTrack();
-
     monster_clue.GotoState('Interacting');
 
     Sleep(7);
