@@ -9,6 +9,9 @@ state Ending in RandomEncountersReworkedContractEntity {
   }
 
   entry function Ending_main() {
+    Sleep(1);
+    REROL_its_over();
+
     parent.clean();
   }
 }
