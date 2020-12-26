@@ -12,7 +12,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     var i: int;
 
     trails_count = Min(trails_count, 1);
-    radius = 6;
+    radius = 3;
     use_failsafe = true;
 
     for (i = 0; i < trails_count; i += 1) {
@@ -37,7 +37,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     var i: int;
 
     trails_count = Min(trails_count, 1);
-    radius = 6;
+    radius = 3;
     use_failsafe = true;
     details_chance = 1;
 
