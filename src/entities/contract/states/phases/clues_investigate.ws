@@ -403,7 +403,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   }
 
   latent function CluesInvestigate_GotoNextState() {
-    parent.previous_phase_checkpoint = this.investigation_last_clues_position;
+    parent.previous_phase_checkpoint = parent.trail_maker.getLastPlacedTrack().GetWorldPosition();
     
     parent.GotoState('PhasePick');
   }
