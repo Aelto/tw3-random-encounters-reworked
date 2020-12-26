@@ -48,11 +48,44 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
   latent function KneelInteraction_playAnimation() {
     var monster_clue: RER_MonsterClue;
 
+    REROL_mhm();
     Sleep(1);
     
     monster_clue = parent.trail_maker.getLastPlacedTrack();
     monster_clue.GotoState('Interacting');
 
-    Sleep(7);
+    if (!parent.master.settings.disable_camera_scenes) {
+      this.playCameraScene();
+      Sleep(3);
+    }
+    else {
+      Sleep(7);
+    }
+  }
+
+  private latent function playCameraScene() {
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
+    var look_at_position: Vector;
+
+    // where the camera is placed
+    scene.position_type = RER_CameraPositionType_ABSOLUTE;
+    scene.position = theCamera.GetCameraPosition() + Vector(2, 2, 1);
+
+    // where the camera is looking
+    scene.look_at_target_type = RER_CameraTargetType_STATIC;
+    look_at_position = thePlayer.GetWorldPosition();
+    scene.look_at_target_static = look_at_position;
+
+    scene.velocity_type = RER_CameraVelocityType_FORWARD;
+    scene.velocity = Vector(0.001, 0.001, 0);
+
+    scene.duration = 2;
+    scene.position_blending_ratio = 0.01;
+    scene.rotation_blending_ratio = 0.01;
+
+    camera = RER_getStaticCamera();
+    
+    camera.playCameraScene(scene, true);
   }
 }

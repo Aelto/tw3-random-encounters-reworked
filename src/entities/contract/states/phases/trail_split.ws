@@ -3,7 +3,6 @@
 // one or the other, he cannot follow one and go back later.
 state TrailSplit in RandomEncountersReworkedContractEntity extends TrailChoice {
   event OnEnterState(previous_state_name: name) {
-    super.OnEnterState(previous_state_name);
 
     LogChannel('modRandomEncounters', "Contract - State TrailSplit");
 
@@ -23,6 +22,6 @@ state TrailSplit in RandomEncountersReworkedContractEntity extends TrailChoice {
 
     this.updateCheckpoint(picked_destination);
 
-    parent.GotoState('PhasePicked');
+    parent.GotoState('PhasePick');
   }
 }
