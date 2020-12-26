@@ -49,7 +49,9 @@ state PhasePick in RandomEncountersReworkedContractEntity {
     switch (previous_phase) {
       case 'Loading':
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('CluesInvestigate', 10, 1));
-        registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 10, 1));
+        if (!thePlayer.IsUsingHorse()) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 10, 1));
+        }
         break;
 
       case 'CluesInvestigate':
