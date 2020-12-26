@@ -37,7 +37,7 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
 
     REROL_there_you_are();
 
-    parent.previous_phase_checkpoint = this.destination;
+    parent.previous_phase_checkpoint = parent.trail_maker.getLastPlacedTrack().GetWorldPosition();
 
     parent.GotoState('Combat');
   }

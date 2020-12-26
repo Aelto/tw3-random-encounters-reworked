@@ -37,7 +37,7 @@ state TrailBreakoff in RandomEncountersReworkedContractEntity extends TrailPhase
 
     this.play_oneliner_end();
 
-    parent.previous_phase_checkpoint = this.destination;
+    parent.previous_phase_checkpoint = parent.trail_maker.getLastPlacedTrack().GetWorldPosition();
 
     parent.GotoState('PhasePick');
   }
