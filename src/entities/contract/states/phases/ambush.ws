@@ -18,12 +18,17 @@ state Ambush in RandomEncountersReworkedContractEntity {
 
   latent function spawnRandomMonster() {
     var bestiary_entry: RER_BestiaryEntry;
+    var spawning_position: Vector;
+
+    if (!getRandomPositionBehindCamera(spawning_position, 10, 15)) {
+      spawning_position = parent.previous_phase_checkpoint;
+    }
 
     bestiary_entry = parent
       .master
       .bestiary
       .getRandomEntryFromBestiary(parent.master, EncounterType_CONTRACT);
 
-    parent.entities = bestiary_entry.spawn(parent.master, parent.previous_phase_checkpoint);
+    parent.entities = bestiary_entry.spawn(parent.master, spawning_position);
   }
 }
