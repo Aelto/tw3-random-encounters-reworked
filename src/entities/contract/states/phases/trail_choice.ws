@@ -82,8 +82,13 @@ state TrailChoice in RandomEncountersReworkedContractEntity extends TrailPhase {
     if (previous_phase == 'TrailBreakoff') {
       REROL_trail_goes_on();
     }
+    else {
+      REROL_should_look_around();
+    }
 
-    REROL_wonder_they_split();
+    Sleep(2);
+
+    REROL_wonder_they_split(true);
   }
 
   latent function updateCheckpoint(picked_destination: int) {
