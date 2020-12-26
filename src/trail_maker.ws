@@ -139,6 +139,14 @@ class RER_TrailMaker {
     this.tracks_index = (this.tracks_index + 1) % this.tracks_maximum;
   }
 
+  public function getLastPlacedTrack(): RER_MonsterClue {
+    if (this.tracks_looped) {
+      return this.tracks_entities[this.tracks_index];
+    }
+    
+    return this.tracks_entities[this.tracks_entities.Size() - 1];
+  }
+
   // `use_failsage` stops the trail if it drew more than `this.tracks_maximum`
   // tracks. It can be useful if the trail is too long, to avoid a crash
   public latent function drawTrail(
@@ -211,6 +219,19 @@ class RER_TrailMaker {
 
       SleepOneFrame();
     } while (distance_to_final_point > final_point_radius);
+  }
+
+  public function hidePreviousTracks() {
+    var i: int;
+    var max: int;
+    var where: Vector;
+
+    max = this.tracks_entities.Size();
+    where = thePlayer.GetWorldPosition() + VecRingRand(1000, 2000);
+
+    for (i = 0; i < max; i += 1) {
+      this.tracks_entities[i].Teleport(where);
+    }
   }
 
   public function clean() {

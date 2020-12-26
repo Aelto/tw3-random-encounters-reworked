@@ -142,7 +142,7 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
       contract_position = thePlayer.GetWorldPosition();
     }
 
-    createRandomCreatureContract(master, contract_position);
+    createRandomCreatureContract(master, new RER_BestiaryEntryNull in this, contract_position);
 
     // play a oneliner and a camera scene targeting the contract position if camera scenes aren't disabled from the menu
     startContractEncounterCutscene(master, contract_position);
@@ -151,8 +151,9 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
   private latent function startContractEncounterCutscene(master: CRandomEncounters, contract_position: Vector) {
     REROL_where_will_i_find_this_monster();
 
-    if( !master.settings.disable_camera_scenes )
+    if(!master.settings.disable_camera_scenes) {
       playContractEncounterCameraScene(contract_position);
+    }
   }
 
   private latent function playContractEncounterCameraScene(contract_position: Vector) {

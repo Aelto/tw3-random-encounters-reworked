@@ -10,6 +10,7 @@ class RE_Settings {
   public var all_monster_hunt_chance_night: int;
   public var all_monster_contract_chance_night: int;
   public var all_monster_ambush_chance_night: int;
+  public var monster_contract_longevity: float;
   public var enableTrophies : bool;
   public var selectedDifficulty : RER_Difficulty;
   public var enemy_count_multiplier : int;
@@ -69,6 +70,7 @@ class RE_Settings {
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadMonsterContractsChances(inGameConfigWrapper);
     this.loadMonsterAmbushChances(inGameConfigWrapper);
+    this.loadMonsterContractsLongevity(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
 
     this.loadDifficultySettings(inGameConfigWrapper);
@@ -165,6 +167,12 @@ class RE_Settings {
 
     this.all_monster_ambush_chance_night = StringToInt(
       inGameConfigWrapper.GetVarValue('RERencountersAmbushNight', 'allMonsterAmbushChanceNight')
+    );
+  }
+
+  private function loadMonsterContractsLongevity(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.monster_contract_longevity = StringToFloat(
+      inGameConfigWrapper.GetVarValue('RERencountersContractDay', 'RERMonsterContractLongevity')
     );
   }
 

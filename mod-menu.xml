@@ -3972,6 +3972,8 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="allMonsterContractChanceDay" value="10" />
+                <Entry varId="RERMonsterContractLongevity" value="10" />
+
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
@@ -4213,6 +4215,7 @@
         </PresetsArray>
         <VisibleVars>
             <Var id="allMonsterContractChanceDay" displayName="rer_monster_contract_ratio_day" displayType="SLIDER;0;100;100"/>
+            <Var id="RERMonsterContractLongevity" displayName="rer_monster_contract_longevity" displayType="SLIDER;0;100;200"/>
 
             <Var id="Sirens" displayName="rer_sirens" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyles" displayType="SLIDER;0;100;100" />

@@ -1,4 +1,7 @@
 
+// This phase places clues on the ground and sometimes creatures at the previous
+// checkpoint. It waits for the player to enter the radius and then enters in
+// combat or in PhasePicker if there is no creature.
 state CluesInvestigate in RandomEncountersReworkedContractEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -13,9 +16,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     this.waitUntilPlayerReachesFirstClue();
     this.createLastClues();
     this.waitUntilPlayerReachesLastClue();
-    this.CluesInvestigate_goToNextState();
+    
+    this.CluesInvestigate_GotoNextState();
   }
 
+  var investigation_center_position: Vector;
   var investigation_radius: int;
   default investigation_radius = 15;
 
@@ -24,98 +29,18 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   var eating_animation_slot: CAIPlayAnimationSlotAction;
 
   latent function createClues() {
-    var found_initial_position: bool;
     var max_number_of_clues: int;
     var current_clue_position: Vector;
-    var trail_resources: array<RER_TrailMakerTrack>;
-    var blood_resources: array<RER_TrailMakerTrack>;
-    var corpse_resources: array<RER_TrailMakerTrack>;
-    var trail_ratio: int;
     var i: int;
-    
-    // 1. first find the place where the clues will be created
-    //    only if the position was not forced.
-    if (!parent.forced_investigation_center_position) {
-      found_initial_position = getRandomPositionBehindCamera(
-        parent.investigation_center_position,
-        parent.master.settings.minimum_spawn_distance
-        + parent.master.settings.spawn_diameter,
-        parent.master.settings.minimum_spawn_distance,
-        10
-      );
 
-      if (!found_initial_position) {
-        parent.endContract();
+    this.investigation_center_position = parent.previous_phase_checkpoint;
 
-        return;
-      }
-    }
-
-    // 2. load all the needed resources
-    switch (parent.chosen_bestiary_entry.type) {
-      case CreatureBARGHEST :
-      case CreatureWILDHUNT :
-      case CreatureNIGHTWRAITH :
-      case CreatureNOONWRAITH :
-      case CreatureWRAITH :
-        // these are the type of creatures where we use fog
-        // so we increase the ratio to save performances.
-        trail_ratio = parent.master.settings.foottracks_ratio * 4;
-
-      default :
-        trail_ratio = parent.master.settings.foottracks_ratio * 1;
-    }
-
-    parent.trail_maker = new RER_TrailMaker in this;
-
-    LogChannel('RER', "loading trail_maker, ratio = " + parent.master.settings.foottracks_ratio);
-    
-    trail_resources.PushBack(
-      getTracksTemplateByCreatureType(
-        parent.chosen_bestiary_entry.type
-      )
-    );
-
-    parent.trail_maker.init(
-      trail_ratio,
-      600,
-      trail_resources
-    );
-
-    LogChannel('RER', "loading blood_maker");
-
-    blood_resources = parent
-        .master
-        .resources
-        .getBloodSplatsResources();
-    
-    parent.blood_maker = new RER_TrailMaker in this;
-    parent.blood_maker.init(
-      parent.master.settings.foottracks_ratio,
-      100,
-      blood_resources
-    );
-
-    LogChannel('RER', "loading corpse_maker");
-
-    corpse_resources = parent
-        .master
-        .resources
-        .getCorpsesResources();
-
-    parent.corpse_maker = new RER_TrailMaker in this;
-    parent.corpse_maker.init(
-      parent.master.settings.foottracks_ratio,
-      50,
-      corpse_resources
-    );
-
-    // 3. we place the clues randomly
-    // 3.1 first by placing the corpses
+    // 1. we place the clues randomly
+    // 1.1 first by placing the corpses
     max_number_of_clues = RandRange(20, 10);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
-      current_clue_position = parent.investigation_center_position 
+      current_clue_position = this.investigation_center_position 
         + VecRingRand(0, this.investigation_radius);
 
       FixZAxis(current_clue_position);
@@ -125,11 +50,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // 3.2 then we place some random tracks
+    // 1.2 then we place some random tracks
     max_number_of_clues = RandRange(60, 30);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
-      current_clue_position = parent.investigation_center_position 
+      current_clue_position = this.investigation_center_position 
         + VecRingRand(0, this.investigation_radius);
 
       FixZAxis(current_clue_position);
@@ -139,11 +64,11 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // 3.3 then we place lots of blood
+    // 1.3 then we place lots of blood
     max_number_of_clues = RandRange(100, 50);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
-      current_clue_position = parent.investigation_center_position 
+      current_clue_position = this.investigation_center_position 
         + VecRingRand(0, this.investigation_radius);
 
       FixZAxis(current_clue_position);
@@ -153,20 +78,21 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // if set to true, will play a oneliner and camera scene when the investigation position
-    // is finally determined. Meaning, now.
-    // the cutscene plays only if the contract is close enough from the player
-    // camera scene plays if above condition is met and camera scenes are not disabled from the menu
-    if (parent.play_camera_scene_on_spawn) {
+    // 2. we play a camera scene after we created all the clues.
+    //    if set to true, will play a oneliner and camera scene when the
+    //    investigation position is finally determined. Meaning, now.
+    //    the cutscene plays only if the contract is close enough from the player
+    //    camera scene plays if above condition is met and camera scenes are
+    //    not disabled from the menu
+    // TODO:
+    if (false) {
       this.startOnSpawnCutscene();
     }
 
-    // 4. there is a chance necrophages are feeding on the corpses
+    // 3. there is a chance necrophages are feeding on the corpses
     if (RandRange(10) < 6) {
       this.addMonstersWithClues();
     }
-
-
   }
 
   private latent function startOnSpawnCutscene() {
@@ -174,7 +100,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     minimum_spawn_distance = parent.master.settings.minimum_spawn_distance * 1.5;
 
-    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position) > minimum_spawn_distance * minimum_spawn_distance) {
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_center_position) > minimum_spawn_distance * minimum_spawn_distance) {
       return;
     }
 
@@ -199,7 +125,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // where the camera is looking
     scene.look_at_target_type = RER_CameraTargetType_STATIC;
-    look_at_position = parent.investigation_center_position;
+    look_at_position = this.investigation_center_position;
     scene.look_at_target_static = look_at_position;
 
     scene.velocity_type = RER_CameraVelocityType_FORWARD;
@@ -222,7 +148,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // 1. pick the type of monsters we'll add near the clues
     //    it's either necropages or Wild hunt soldiers if
     //    the bestiary type for this encounter is Wild Hunt
-    if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+    if (parent.bestiary_entry.type == CreatureWILDHUNT) {
       monsters_bestiary_entry = parent
         .master
         .bestiary
@@ -251,8 +177,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     created_entities = monsters_bestiary_entry
       .spawn(
         parent.master,
-        parent.investigation_center_position,,,
-        parent.allow_trophy
+        parent.previous_phase_checkpoint,,,
+        parent.entity_settings.allow_trophies
       );
 
     for (i = 0; i < created_entities.Size(); i += 1) {
@@ -274,7 +200,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     for (i = 0; i < number_of_rifts; i += 1) {
       rift = (CRiftEntity)theGame.CreateEntity(
         portal_template,
-        parent.investigation_center_position + VecRingRand(0, this.investigation_radius)
+        this.investigation_center_position + VecRingRand(0, this.investigation_radius)
       );
 
       rift.ActivateRift();
@@ -292,20 +218,20 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is in the investigation radius
     do {
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_center_position);
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_center_position);
 
       if (this.has_monsters_with_clues) {
         if (parent.hasOneOfTheEntitiesGeraltAsTarget()) {
           break;
         }
 
-        if (parent.chosen_bestiary_entry.type != CreatureWILDHUNT) {
+        if (parent.bestiary_entry.type != CreatureWILDHUNT) {
           this.playEatingAnimationNecrophages();
         }
 
         // if the chosen type is the wildhunt and there are wild hunt members
         // the weather should be snowy.
-        if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT
+        if (parent.bestiary_entry.type == CreatureWILDHUNT
         && !has_set_weather_snow) {
 
           if (distance_from_player < this.investigation_radius * this.investigation_radius * 3) {
@@ -323,7 +249,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     // 2. once the player is in the radius, we play sone oneliners
     //    cannot play if there were necrophages around the corpses.
     if (this.has_monsters_with_clues) {
-      if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+      if (parent.bestiary_entry.type == CreatureWILDHUNT) {
         REROL_the_wild_hunt();
       }
       else if (!parent.areAllEntitiesDead()) {
@@ -338,7 +264,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       Sleep(2);
 
-      if (parent.chosen_bestiary_entry.type == CreatureWILDHUNT) {
+      if (parent.bestiary_entry.type == CreatureWILDHUNT) {
         REROL_wild_hunt_killed_them();
       }
       else {
@@ -397,6 +323,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     parent.entities.Clear();
   }
 
+  var investigation_last_clues_position: Vector;
 
   latent function createLastClues() {
     var number_of_foot_paths: int;
@@ -406,7 +333,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     LogChannel('modRandomEncounters', "creating Last clues");
 
     // 1. we search for a random position around the site.
-    parent.investigation_last_clues_position = parent.investigation_center_position + VecRingRand(
+    this.investigation_last_clues_position = this.investigation_center_position + VecRingRand(
       this.investigation_radius * 2,
       this.investigation_radius * 1.6
     );
@@ -418,7 +345,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     for (i = 0; i < number_of_foot_paths; i += 1) {
       // 2.1 we find a random position in the investigation radius
-      current_track_position = parent.investigation_center_position + VecRingRand(
+      current_track_position = this.investigation_center_position + VecRingRand(
         0,
         this.investigation_radius
       );
@@ -428,7 +355,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .trail_maker
         .drawTrail(
           current_track_position,
-          parent.investigation_last_clues_position,
+          this.investigation_last_clues_position,
           6, // the radius
           ,, // no details used
           true // uses the failsafe
@@ -446,7 +373,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is near the last investigation clues
     do {
-      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), parent.investigation_last_clues_position);
+      distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_last_clues_position);
 
       if (!has_played_oneliner && RandRange(10000) < 0.00001) {
         REROL_ground_splattered_with_blood();
@@ -465,7 +392,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
   }
 
-  latent function CluesInvestigate_goToNextState() {
-    parent.GotoState('CluesFollow');
+  latent function CluesInvestigate_GotoNextState() {
+    parent.previous_phase_checkpoint = this.investigation_last_clues_position;
+    
+    parent.GotoState('PhasePick');
   }
 }

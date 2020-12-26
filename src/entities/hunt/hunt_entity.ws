@@ -70,6 +70,39 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
     return true;
   }
 
+  //
+  // remove the dead entities from the list of entities
+  public function removeDeadEntities() {
+     var i: int;
+     var max: int;
+
+     max = this.entities.Size();
+
+     for (i = 0; i < max; i += 1) {
+       if (!((CActor)this.entities[i]).IsAlive()) {
+         this.entities.Remove(this.entities[i]);
+
+         max -= 1;
+         i -= 1;
+       }
+     }
+  }
+
+  public function areAllEntitiesFarFromPlayer(): bool {
+    var player_position: Vector;
+    var i: int;
+
+    player_position = thePlayer.GetWorldPosition();
+
+    for (i = 0; i < this.entities.Size(); i += 1) {
+      if (VecDistanceSquared(this.entities[i].GetWorldPosition(), player_position) < 20 * 20) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   public function killEntity(entity: CEntity): bool {
     ((CActor)entity).Kill('RandomEncountersReworked_Entity', true);
 
@@ -82,12 +115,5 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
     entity = this.entities[RandRange(this.entities.Size())];
 
     return entity;
-  }
-
-  // It's a timer that is called during the `clues_follow` state. The goal
-  // is to increase the amount of ambushes and hunts while the player is following
-  // the clues to the final point.
-  timer function randomEncounterTick(optional delta: float, optional id: Int32) {
-    this.master.ticks_before_spawn -= 1;
   }
 }

@@ -22,7 +22,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
   }
   else {
     LogChannel('modRandomEncounters', "spawning - CONTRACT");
-    createRandomCreatureContract(random_encounters_class);
+    createRandomCreatureContract(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);
 
     if (random_encounters_class.settings.geralt_comments_enabled) {
       // TODO: find a unique voiceset for the contract

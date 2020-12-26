@@ -769,3 +769,48 @@ latent function REROL_well_armed_bandits(optional do_not_wait: bool) {
     Sleep(7); // Approved duration
   }
 }
+
+// Geralt: Trail ends here.
+latent function REROL_trail_ends_here(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1091477, true);
+
+  if (!do_not_wait) {
+    Sleep(4); // Approved duration
+  }
+}
+
+// Geralt: Damn, trail breaks off. Could find something else, though.
+latent function REROL_trail_breaks_off(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(525769, true);
+
+  if (!do_not_wait) {
+    Sleep(5.24); // Approved duration
+  }
+}
+
+
+// Geralt: Hmm, trail goes on. Good thing it doesn't end here.
+latent function REROL_trail_goes_on(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(393988, true);
+
+  if (!do_not_wait) {
+    Sleep(4.365868); // Approved duration
+  }
+}
+
+// Geralt choice: Wonder why they split up.
+latent function REROL_wonder_they_split(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(568165, true);
+
+  if (!do_not_wait) {
+    Sleep(3); // Approved duration
+  }
+}
