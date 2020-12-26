@@ -13,6 +13,10 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
   var destination: Vector;
 
   entry function TrailCombat_main() {
+    this.TrailCombat_start();
+  }
+
+  latent function TrailCombat_start() {
     if (!this.getNewTrailDestination(this.destination, 0.5)) {
       LogChannel('modRandomEncounters', "Contract - State TrailCombat, could not find trail destination");
       parent.endContract();
