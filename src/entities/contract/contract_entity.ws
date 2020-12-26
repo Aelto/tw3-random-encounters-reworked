@@ -48,6 +48,10 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   var corpse_maker: RER_TrailMaker;
 
+  // this boolean is mainly used in the starting phases, to know if a camera scene
+  // should be played or not, or if a series of oneliners should run.
+  var started_from_noticeboard: bool;
+
   // this variable stores the last important position from the previous phase
   // It's useful when chaining many phases and when the next phase needs to know
   // where the previous phase ended
@@ -169,7 +173,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     count = this.played_phases.Size();
 
     if (count == 0) {
-      return '';
+      return 'Loading';
     }
 
     phase = this.played_phases[count - 1];
@@ -264,6 +268,37 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     }
 
     return true;
+  }
+
+  //
+  // play a camera scene that will show the supplied position. Mainly used in the
+  // starting phases if the contract was started from a noticeboard, to show
+  // the player where the contract is.
+  public latent function playContractEncounterCameraScene(position: Vector) {
+    var scene: RER_CameraScene;
+    var camera: RER_StaticCamera;
+
+    if(this.master.settings.disable_camera_scenes) {
+      return;
+    }
+
+    // where the camera is placed
+    scene.position_type = RER_CameraPositionType_ABSOLUTE;
+    scene.position = theCamera.GetCameraPosition() + Vector(0.3, 0, 1);
+
+    // where the camera is looking
+    scene.look_at_target_type = RER_CameraTargetType_STATIC;
+    scene.look_at_target_static = position;
+
+    // scene.velocity_type = RER_CameraVelocityType_FORWARD;
+    // scene.velocity = Vector(0.005, 0.005, 0.02);
+
+    scene.duration = 3;
+    scene.position_blending_ratio = 0.01;
+    scene.rotation_blending_ratio = 0.01;
+
+    camera = RER_getStaticCamera();
+    camera.playCameraScene(scene, true);
   }
 
   //
