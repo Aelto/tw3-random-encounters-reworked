@@ -13,11 +13,21 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
   entry function CluesInvestigate_Main() {
     this.createClues();
+    this.playStatingOnelinerAndCameraScene();
     this.waitUntilPlayerReachesFirstClue();
     this.createLastClues();
     this.waitUntilPlayerReachesLastClue();
     
     this.CluesInvestigate_GotoNextState();
+  }
+
+  latent function playStatingOnelinerAndCameraScene() {
+    if (!parent.started_from_noticeboard) {
+      return;
+    }
+
+    REROL_where_will_i_find_this_monster();
+    parent.playContractEncounterCameraScene(this.investigation_center_position);
   }
 
   var investigation_center_position: Vector;
@@ -85,7 +95,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     //    camera scene plays if above condition is met and camera scenes are
     //    not disabled from the menu
     // TODO:
-    if (false) {
+    if (!parent.started_from_noticeboard) {
       this.startOnSpawnCutscene();
     }
 
@@ -393,7 +403,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   }
 
   latent function CluesInvestigate_GotoNextState() {
-    parent.previous_phase_checkpoint = this.investigation_last_clues_position;
+    parent.previous_phase_checkpoint = parent.trail_maker.getLastPlacedTrack().GetWorldPosition();
     
     parent.GotoState('PhasePick');
   }

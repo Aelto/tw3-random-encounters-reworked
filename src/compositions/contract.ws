@@ -10,8 +10,13 @@ latent function createRandomCreatureContract(master: CRandomEncounters, bestiary
 
   composition.init(master.settings);
 
+  // Kind of a hack, if there is a forced position it means the contract was
+  // started from a noticeboard. Because it's the only place where the position
+  // is forced.
   if (position.X != 0 || position.Y != 0 || position.Z != 0) {
     composition.setSpawnPosition(position);
+
+    composition.started_from_noticeboard = true;
   }  
 
   composition.setBestiaryEntry(bestiary_entry)
@@ -19,6 +24,9 @@ latent function createRandomCreatureContract(master: CRandomEncounters, bestiary
 }
 
 class CreatureContractComposition extends CompositionSpawner {
+  public var started_from_noticeboard: bool;
+  default started_from_noticeboard = false;
+
   public function init(settings: RE_Settings) {
     LogChannel('modRandomEncounters', "CreatureContractComposition");
 
@@ -52,6 +60,7 @@ class CreatureContractComposition extends CompositionSpawner {
     );
 
     rer_entity = (RandomEncountersReworkedContractEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
+    rer_entity.started_from_noticeboard = this.started_from_noticeboard;
     rer_entity.startEncounter(this.master, this.bestiary_entry);
 
     return true;

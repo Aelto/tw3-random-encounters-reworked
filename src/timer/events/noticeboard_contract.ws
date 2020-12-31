@@ -138,45 +138,10 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     }
 
     if (!found_position) {
-      // NDEBUG("no position found");
       contract_position = thePlayer.GetWorldPosition();
     }
 
     createRandomCreatureContract(master, new RER_BestiaryEntryNull in this, contract_position);
-
-    // play a oneliner and a camera scene targeting the contract position if camera scenes aren't disabled from the menu
-    startContractEncounterCutscene(master, contract_position);
-  }
-
-  private latent function startContractEncounterCutscene(master: CRandomEncounters, contract_position: Vector) {
-    REROL_where_will_i_find_this_monster();
-
-    if(!master.settings.disable_camera_scenes) {
-      playContractEncounterCameraScene(contract_position);
-    }
-  }
-
-  private latent function playContractEncounterCameraScene(contract_position: Vector) {
-    var scene: RER_CameraScene;
-    var camera: RER_StaticCamera;
-
-    // where the camera is placed
-    scene.position_type = RER_CameraPositionType_ABSOLUTE;
-    scene.position = theCamera.GetCameraPosition() + Vector(0.3, 0, 1);
-
-    // where the camera is looking
-    scene.look_at_target_type = RER_CameraTargetType_STATIC;
-    scene.look_at_target_static = contract_position;
-
-    // scene.velocity_type = RER_CameraVelocityType_FORWARD;
-    // scene.velocity = Vector(0.005, 0.005, 0.02);
-
-    scene.duration = 3;
-    scene.position_blending_ratio = 0.01;
-    scene.rotation_blending_ratio = 0.01;
-
-    camera = RER_getStaticCamera();
-    camera.playCameraScene(scene, true);
   }
 
   private latent function lookForNearbyNoticeboards(master: CRandomEncounters): bool {
