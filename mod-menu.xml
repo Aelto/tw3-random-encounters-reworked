@@ -4594,7 +4594,7 @@
                 <Entry varId="eventMeditationAmbush"                value="15"    />
                 <Entry varId="eventNoticeboardContract"                value="50"    />
                 <Entry varId="eventFillCreaturesGroupAllowCombat"    value="0"    />
-                <Entry varId="eventNoticeboardContractAutomaticCutscene"    value="0"    />
+                <Entry varId="eventNoticeboardContractAutomaticCutscene"    value="1"    />
             </Preset>
 
             <Preset id="1" displayName="rer_low" >
