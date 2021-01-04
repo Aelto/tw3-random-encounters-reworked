@@ -9,6 +9,7 @@ function isPlayerBusy(): bool {
       || thePlayer.IsSwimming()
       || thePlayer.IsInNonGameplayCutscene()
       || thePlayer.IsInGameplayScene()
+      || thePlayer.IsCiri()
       || theGame.IsDialogOrCutscenePlaying()
       || theGame.IsCurrentlyPlayingNonGameplayScene()
       || theGame.IsFading()
