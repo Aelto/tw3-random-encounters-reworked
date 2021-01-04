@@ -14,7 +14,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       );
 
-      track.monster_clue_type = 'RER_MonsterClueHuman';
+      track.monster_clue_type = 'RER_MonsterClueNightwraith';
 
       // only 1 out of 10 clouds of mist are created.
       // track.trail_ratio_multiplier = 5;
