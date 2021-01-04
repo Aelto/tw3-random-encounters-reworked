@@ -15,6 +15,11 @@ abstract class RER_BestiaryEntry {
   var chances_day: array<int>;
   var chances_night: array<int>;
 
+  // the custom multiplier the user set for this specific creature type. By default
+  // it's set at 1.
+  var creature_type_multiplier: float;
+  default creature_type_multiplier = 1;
+
   var trophy_chance: float;
 
   var region_constraint: RER_RegionConstraint;
@@ -52,7 +57,7 @@ abstract class RER_BestiaryEntry {
     this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntNight', this.menu_name));
     this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractDay', this.menu_name));
     this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractNight', this.menu_name));
-
+    this.creature_type_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', this.menu_name));
 
     // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
   }
@@ -77,7 +82,7 @@ abstract class RER_BestiaryEntry {
       count = rollDifficultyFactor(
         this.template_list.difficulty_factor,
         master.settings.selectedDifficulty,
-        master.settings.enemy_count_multiplier
+        master.settings.enemy_count_multiplier * this.creature_type_multiplier
       );
     }
 

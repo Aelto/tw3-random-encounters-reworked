@@ -172,6 +172,62 @@ state Loading in CRandomEncounters {
       20
     );
 
+    // White Orchard: ghouls in the cemetery
+    this.makeStaticEncounter(
+      CreatureGHOUL,
+      Vector(-24, 284, 1.5),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      20
+    );
+
+    // White Orchard: Devil by the well
+    this.makeStaticEncounter(
+      CreatureHUMAN,
+      Vector(22, -264, 13),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      10
+    );
+
+    // White Orchard: Devil by the well, lake nearby
+    this.makeStaticEncounter(
+      CreatureDROWNER,
+      Vector(117, -208, -0.7),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      10
+    );
+
+    // White Orchard: An autel, somewhere in the forest
+    this.makeStaticEncounter(
+      CreatureBEAR,
+      Vector(88, -136, 4.25),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      5
+    );
+
+    // White Orchard: Place where you kill the griffin
+    this.makeStaticEncounter(
+      CreatureHUMAN,
+      Vector(65, 230, 12.6),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      10
+    );
+
+    // White Orchard: Wall with a gate, near the map limit
+    this.makeStaticEncounter(
+      CreatureHUMAN,
+      Vector(400, 208, 15),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      10
+    );
+
+    // White Orchard: Battle field, with lots of corpses
+    this.makeStaticEncounter(
+      CreatureGHOUL,
+      Vector(552, 186, 20),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      10
+    );
+
     // var example_static_encounter: RER_StaticEncounter;
 
     // example_static_encounter = new RER_StaticEncounter in this;

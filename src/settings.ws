@@ -103,7 +103,7 @@ class RE_Settings {
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
     selectedDifficulty = StringToInt(inGameConfigWrapper.GetVarValue('RERmain', 'Difficulty'));
-    this.enemy_count_multiplier = StringToInt(inGameConfigWrapper.GetVarValue('RERmain', 'RERenemyCountMultiplier'));
+    this.enemy_count_multiplier = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', 'RERenemyCountMultiplier'));
   }
 
   private function loadGeraltCommentsSettings(inGameConfigWrapper: CInGameConfigWrapper) {

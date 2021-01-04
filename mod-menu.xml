@@ -6,7 +6,6 @@
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
-                <Entry varId="RERenemyCountMultiplier" value="1" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
                 <Entry varId="RERmodInitialized" value="1" />
             </Preset>
@@ -30,8 +29,6 @@
                     </Option>
                 </OptionsArray>
             </Var>
-
-            <Var id="RERenemyCountMultiplier" displayName="rer_enemy_count_multiplier" displayType="SLIDER;1;10;9"/>
 
             <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
@@ -4520,6 +4517,129 @@
         </PresetsArray>
         <VisibleVars>
             <Var id="allMonsterContractChanceNight" displayName="rer_monster_contract_ratio_night" displayType="SLIDER;0;100;100"/>
+
+            <Var id="Sirens" displayName="rer_sirens" displayType="SLIDER;0;100;100" />
+            <Var id="Gargoyles" displayName="rer_gargoyles" displayType="SLIDER;0;100;100" />
+            <Var id="Berserkers" displayName="rer_berserkers" displayType="SLIDER;0;100;100" />
+            <Var id="Dracolizards" displayName="rer_dracolizards" displayType="SLIDER;0;100;100" />
+            <Var id="Leshens" displayName="rer_leshen" displayType="SLIDER;0;100;100" />
+            <Var id="Werewolves" displayName="rer_werewolf" displayType="SLIDER;0;100;100" />
+            <Var id="Cyclops" displayName="rer_cyclops" displayType="SLIDER;0;100;100" />
+            <Var id="Arachas" displayName="rer_arachas" displayType="SLIDER;0;100;100" />
+            <Var id="Fiends" displayName="rer_fiend" displayType="SLIDER;0;100;100" />
+            <Var id="Chorts" displayName="rer_chort" displayType="SLIDER;0;100;100" />
+            <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="SLIDER;0;100;100" />
+            <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
+            <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
+            <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
+            <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
+            <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
+            <Var id="Endrega" displayName="rer_endrega" displayType="SLIDER;0;100;100" />
+            <Var id="Ghouls" displayName="rer_ghoul" displayType="SLIDER;0;100;100" />
+            <Var id="Alghouls" displayName="rer_alghoul" displayType="SLIDER;0;100;100" />
+            <Var id="Nekkers" displayName="rer_nekkers" displayType="SLIDER;0;100;100" />
+            <Var id="Drowners" displayName="rer_drowner" displayType="SLIDER;0;100;100" />
+            <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
+            <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
+            <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleder" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkain" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
+            <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
+            <Var id="WildHunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
+            <Var id="Cockatrice" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisk" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakan" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmara" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
+    <Group id="RERcreatureTypeMultiplier" displayName="Mods.rer_name.rer_encounters_settings.creature_type_multiplier">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="RERenemyCountMultiplier"  value="1"    />
+                <Entry varId="Hags"                    value="1"    />
+                <Entry varId="Fogling"                value="1"    />
+                <Entry varId="Troll"                value="1"    />                    
+                <Entry varId="SkelligeTroll"        value="1"    />                    
+                <Entry varId="Werewolves"            value="1"    />
+                <Entry varId="Fiends"                value="1"    />
+                <Entry varId="Chorts"                value="1"    />
+                <Entry varId="Gryphons"             value="1"  />
+                <Entry varId="Cockatrice"           value="1"  />
+                <Entry varId="Wyverns"              value="1"  />
+                <Entry varId="Forktails"            value="1"  />
+                <Entry varId="Basilisk"             value="1"  />
+                <Entry varId="NightWraiths"            value="1"    />
+                <Entry varId="Wight"                value="1"    />
+                <Entry varId="NoonWraiths"            value="1"    />
+                <Entry varId="Katakan"              value="1"  />
+                <Entry varId="Ekimmara"             value="1"  />
+                <Entry varId="Dracolizards"         value="1"  />
+                <Entry varId="Leshens"                value="1"    />
+                <Entry varId="Giant"                value="1"    />
+                <Entry varId="Sharley"                value="1"    />
+                <Entry varId="Cyclops"                value="1"    />
+                <Entry varId="Golems"                value="1"    />
+                <Entry varId="Gargoyles"                value="1"    />
+                <Entry varId="Elementals"            value="1"    />
+                <Entry varId="Bruxa"                value="1"    />
+                <Entry varId="Fleder"                value="1"    />
+                <Entry varId="Garkain"                value="1"    />
+                <Entry varId="HigherVamp"            value="1"    />
+
+                <Entry varId="Humans"               value="1"  />
+                <Entry varId="Nekkers"                value="1"    />
+                <Entry varId="Drowners"                value="1"    />
+                <Entry varId="DrownerDLC"            value="1"    />
+                <Entry varId="Ghouls"                value="1"    />
+                <Entry varId="Rotfiends"            value="1"    />
+                <Entry varId="Wolves"                value="1"    />
+                <Entry varId="SkelligeWolves"        value="1"    />
+                <Entry varId="Wraiths"                value="1"    />
+                <Entry varId="Bears"                value="1"    />
+                <Entry varId="SkelligeBears"        value="1"    />
+                <Entry varId="Berserkers"            value="1"    />
+                <Entry varId="Harpies"                value="1"    />
+                <Entry varId="Sirens"                value="1"    />
+                <Entry varId="Endrega"                value="1"    />
+                <Entry varId="Alghouls"                value="1"    />
+                <Entry varId="Arachas"                value="1"    />
+                <Entry varId="Kikimore"                value="1"    />
+                <Entry varId="Echinops"                value="1"    />
+                <Entry varId="Centipede"            value="1"    />
+                <Entry varId="Spiders"                value="1"    />
+                <Entry varId="Boars"                value="1"    />
+                <Entry varId="Panther"                value="1"    />
+                <Entry varId="Barghest"                value="1"    />
+                <Entry varId="Skeleton"                value="1"    />
+                <Entry varId="WildHunt"             value="1"  />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="RERenemyCountMultiplier" displayName="rer_enemy_count_multiplier" displayType="SLIDER;1;10;9"/>
 
             <Var id="Sirens" displayName="rer_sirens" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyles" displayType="SLIDER;0;100;100" />
