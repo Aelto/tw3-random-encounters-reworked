@@ -64,11 +64,13 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         );
 
         if (distance_from_bait < 5 * 5) {
-          this.teleportBaitEntity();
+          if (isPlayerBusy()) {
+            teleportBaitEntityOnMonsters();
+          }
+          else {
+            this.teleportBaitEntity();
+          }
         }
-
-        // ((CNewNPC)parent.entities[i]).ForgetAllActors();
-
 
         if (!((CActor)current_entity).IsMoving()) {
           ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
@@ -82,16 +84,6 @@ state Wandering in RandomEncountersReworkedHuntEntity {
             .NoticeActor((CActor)parent.bait_entity);
         }
 
-        // ((CActor)current_entity)
-        //   .GetMovingAgentComponent()
-        //   .SetGameplayRelativeMoveSpeed(1);
-
-        // current_heading = VecHeading(parent.bait_entity.GetWorldPosition() - current_entity.GetWorldPosition());
-
-        // ((CActor)current_entity)
-        //   .GetMovingAgentComponent()
-        //   .SetGameplayMoveDirection(current_heading);
-
         parent.trail_maker.addTrackHere(
           current_entity.GetWorldPosition(),
           current_entity.GetWorldRotation()
@@ -100,7 +92,12 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
       // to keep the bait near the player at all time
       if (parent.bait_moves_towards_player) {
-        this.teleportBaitEntity();
+        if (isPlayerBusy()) {
+          teleportBaitEntityOnMonsters();
+        }
+        else {
+          this.teleportBaitEntity();
+        }
       }
 
       Sleep(0.5);
@@ -122,6 +119,22 @@ state Wandering in RandomEncountersReworkedHuntEntity {
       new_bait_rotation = parent.bait_entity.GetWorldRotation();
       new_bait_rotation.Yaw += RandRange(-20,20);
     }
+    
+    parent.bait_entity.TeleportWithRotation(
+      new_bait_position,
+      new_bait_rotation
+    );
+  }
+
+  // This function always teleports the bait on the monsters
+  // often used to pause the hunt during cutscenes or when the player is busy.
+  latent function teleportBaitEntityOnMonsters() {
+    var new_bait_position: Vector;
+    var new_bait_rotation: EulerAngles;
+    var random_entity: CEntity;
+
+    new_bait_position = parent.getRandomEntity().GetWorldPosition();
+    new_bait_rotation = parent.bait_entity.GetWorldRotation();
     
     parent.bait_entity.TeleportWithRotation(
       new_bait_position,
