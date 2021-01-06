@@ -118,7 +118,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
       new_bait_rotation = parent.bait_entity.GetWorldRotation();
     }
     else {
-      new_bait_position = parent.getRandomEntity().GetWorldPosition() + VecConeRand(parent.GetHeading(), 90, 10, 20);
+      new_bait_position = parent.getRandomEntity().GetWorldPosition() + VecConeRand(parent.bait_entity.GetHeading(), 90, 10, 20);
       new_bait_rotation = parent.bait_entity.GetWorldRotation();
       new_bait_rotation.Yaw += RandRange(-20,20);
     }
