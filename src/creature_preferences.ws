@@ -241,7 +241,7 @@ class RER_CreaturePreferences {
       spawn_chances = this.applyCoefficientToCreature(spawn_chances);
     }
 
-    LogChannel('modRandomEncounters', "chances = " + spawn_chances + " for " + this.creature_type);
+    // LogChannel('modRandomEncounters', "chances = " + spawn_chances + " for " + this.creature_type);
 
     return spawn_chances;
   }
