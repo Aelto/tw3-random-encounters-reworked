@@ -22,6 +22,8 @@ abstract class RER_BestiaryEntry {
 
   var trophy_chance: float;
 
+  var crowns_percentage: float;
+
   var region_constraint: RER_RegionConstraint;
 
   var city_spawn: bool;
@@ -58,6 +60,7 @@ abstract class RER_BestiaryEntry {
     this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractDay', this.menu_name));
     this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractNight', this.menu_name));
     this.creature_type_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', this.menu_name));
+    this.crowns_percentage = StringToFloat(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', this.menu_name)) / 100.0f;
 
     // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
   }
@@ -66,7 +69,7 @@ abstract class RER_BestiaryEntry {
     return this.type == CreatureNONE;
   }
 
-  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool): array<CEntity> {
+  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool, optional encounter_type: EncounterType): array<CEntity> {
     var creatures_templates: EnemyTemplateList;
     var group_positions: array<Vector>;
     var current_template: CEntityTemplate;
@@ -136,6 +139,17 @@ abstract class RER_BestiaryEntry {
                 1
               );
           }
+
+          // add crowns to the entity, based on the settings
+          ((CActor)created_entity)
+          .GetInventory()
+          .AddMoney(
+            (int)(
+              master.settings.crowns_amounts_by_encounter[encounter_type]
+              * this.crowns_percentage
+              * RandRangeF(1.2, 0.8) // a random value between 80% and 120%
+            )
+          );
 
           if (!master.settings.enable_encounters_loot) {
             ((CActor)created_entity)

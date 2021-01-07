@@ -168,7 +168,8 @@ abstract class CompositionSpawner {
       this.initial_position,
       this._number_of_creatures,
       this._group_positions_density,
-      this.allow_trophy
+      this.allow_trophy,
+      this.encounter_type
     );
 
     for (i = 0; i < this.created_entities.Size(); i += 1) {

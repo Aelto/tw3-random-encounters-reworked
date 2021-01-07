@@ -37,6 +37,9 @@ class RE_Settings {
 
   public var trophies_enabled_by_encounter: array<bool>;
 
+  // uses the enum EncounterType as the index
+  public var crowns_amounts_by_encounter: array<int>;
+
   public var trophy_pickup_scene: bool;
 
   public var only_known_bestiary_creatures: bool;
@@ -78,6 +81,7 @@ class RE_Settings {
 
     this.fillSettingsArrays();
     this.loadTrophiesSettings(inGameConfigWrapper);
+    this.loadCrownsSettings(inGameConfigWrapper);
     this.loadGeraltCommentsSettings(inGameConfigWrapper);
     this.loadHideNextNotificationsSettings(inGameConfigWrapper);
     this.loadEnableEncountersLootSettings(inGameConfigWrapper);
@@ -136,6 +140,12 @@ class RE_Settings {
 
 
     this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesPrices'));
+  }
+
+  private function loadCrownsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.crowns_amounts_by_encounter[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsAmbush'));
+    this.crowns_amounts_by_encounter[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsHunt'));
+    this.crowns_amounts_by_encounter[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsContract'));
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -210,6 +220,12 @@ class RE_Settings {
     if (this.trophies_enabled_by_encounter.Size() == 0) {
       for (i = 0; i < EncounterType_MAX; i += 1) {
         this.trophies_enabled_by_encounter.PushBack(false);
+      }
+    }
+
+    if (this.crowns_amounts_by_encounter.Size() == 0) {
+      for (i = 0; i < EncounterType_MAX; i += 1) {
+        this.crowns_amounts_by_encounter.PushBack(0);
       }
     }
   }
