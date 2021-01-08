@@ -78,7 +78,7 @@ latent function REROL_wonder_clues_will_lead_me(optional do_not_wait: bool) {
   .GetStorySceneSystem()
   .PlayScene(scene, "All_clues_in");
 
-  if (do_not_wait) {
+  if (!do_not_wait) {
     Sleep(3.8); // Approved duration
   }
 }
@@ -112,7 +112,7 @@ latent function REROL_there_you_are(optional do_not_wait: bool) {
   .GetStorySceneSystem()
   .PlayScene(scene, "spot_goat_in");
 
-  if (do_not_wait) {
+  if (!do_not_wait) {
     Sleep(1.32); // Approved duration
   }
 }
@@ -220,7 +220,7 @@ latent function REROL_came_through_here(optional do_not_wait: bool) {
   // converted to integer.
   thePlayer.PlayLine(382001, true);
 
-  if (do_not_wait) {
+  if (!do_not_wait) {
     Sleep(2.915713); // Approved duration
   }
 }
