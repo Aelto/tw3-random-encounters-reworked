@@ -44,7 +44,13 @@ exec function rerbestiarycanspawn(creature: CreatureType) {
   exec_runner.GotoState('RunBestiaryCanSpawn');
 }
 
+exec function rera(optional creature: CreatureType) {
+  _rer_start_ambush(creature);
+}
 exec function rer_start_ambush(optional creature: CreatureType) {
+  _rer_start_ambush(creature);
+}
+function _rer_start_ambush(optional creature: CreatureType) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;
 
@@ -59,7 +65,13 @@ exec function rer_start_ambush(optional creature: CreatureType) {
   exec_runner.GotoState('RunCreatureAmbush');
 }
 
+exec function rerh(optional creature: CreatureType) {
+  _rer_start_hunt(creature);
+}
 exec function rer_start_hunt(optional creature: CreatureType) {
+  _rer_start_hunt(creature);
+}
+function _rer_start_hunt(optional creature: CreatureType) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;
 
@@ -74,7 +86,14 @@ exec function rer_start_hunt(optional creature: CreatureType) {
   exec_runner.GotoState('RunCreatureHunt');
 }
 
+
+exec function rerhu(optional human_type: EHumanType, optional count: int) {
+  _rer_start_human(human_type, count);
+}
 exec function rer_start_human(optional human_type: EHumanType, optional count: int) {
+  _rer_start_human(human_type, count);
+}
+function _rer_start_human(optional human_type: EHumanType, optional count: int) {
   var rer_entity: CRandomEncounters;
   var exec_runner: RER_ExecRunner;
 
