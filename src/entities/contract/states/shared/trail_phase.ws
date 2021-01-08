@@ -24,7 +24,8 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
         radius,
         ,
         ,
-        use_failsafe
+        use_failsafe,
+        parent.master.settings.use_pathfinding_for_trails
       );
     }
   }
@@ -54,7 +55,8 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
         radius,
         corpse_and_blood_details_maker,
         details_chance,
-        use_failsafe
+        use_failsafe,
+        parent.master.settings.use_pathfinding_for_trails
       );
     }
   }

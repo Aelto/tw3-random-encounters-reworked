@@ -48,7 +48,8 @@ state Loading in RandomEncountersReworkedHuntEntity {
 
         parent.GetWorldPosition(),
         20,,,
-        true
+        true,
+        parent.master.settings.use_pathfinding_for_trails
       );
 
 

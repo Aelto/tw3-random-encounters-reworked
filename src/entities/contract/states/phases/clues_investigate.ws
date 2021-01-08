@@ -368,7 +368,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
           this.investigation_last_clues_position,
           6, // the radius
           ,, // no details used
-          true // uses the failsafe
+          true, // uses the failsafe
+          parent.master.settings.use_pathfinding_for_trails
         );
     }
   }

@@ -53,6 +53,8 @@ class RE_Settings {
 
   public var foottracks_ratio: int;
 
+  public var use_pathfinding_for_trails: bool;
+
   public var disable_camera_scenes : bool;
 
   // scenes that play when ambushed, or when a contract start nearby, etc...
@@ -260,6 +262,7 @@ class RE_Settings {
       1
     );
     this.disable_camera_scenes = inGameConfigWrapper.GetVarValue( 'RERoptionalFeatures', 'RERcameraScenesDisabled' );
+    this.use_pathfinding_for_trails = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrailsUsePathFinding');
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {

@@ -5234,6 +5234,7 @@
                 <Entry varId="RERcameraScenesDisabled" value="0" />
                 <Entry varId="RERcameraBlendingDisabled" value="0" />
                 <Entry varId="RERtrophyPickupAnimation" value="1" />
+                <Entry varId="RERtrailsUsePathFinding" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5252,6 +5253,8 @@
             <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
 
             <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
+            
+            <Var id="RERtrailsUsePathFinding" displayName="rer_trails_use_pathfinding" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
 

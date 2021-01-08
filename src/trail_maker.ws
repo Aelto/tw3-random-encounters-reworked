@@ -158,16 +158,17 @@ class RER_TrailMaker {
     optional trail_details_maker: RER_TrailDetailsMaker,
     optional trail_details_chances: float,
 
-    optional use_failsafe: bool) {
+    optional use_failsafe: bool,
+    optional use_pathfinding: bool) {
 
     var total_distance_to_final_point: float;
     var current_track_position: Vector;
-    var current_track_heading: float;
     var current_track_translation: Vector;
     var distance_to_final_point: float;
     var final_point_radius: float;
     var number_of_tracks_created: int;
     var distance_left: float; // it's a % going from 100% to 0%
+    var volume_path_manager: CVolumePathManager;
     var i: int;
 
     number_of_tracks_created = 0;
@@ -176,6 +177,10 @@ class RER_TrailMaker {
 
     total_distance_to_final_point = VecDistanceSquared2D(from, to);
     distance_to_final_point = total_distance_to_final_point;
+
+    if (use_pathfinding) {
+      volume_path_manager = theGame.GetVolumePathManager();
+    }
 
     LogChannel('modRandomEncounters', "TrailMaker, drawing trail");
 
@@ -189,23 +194,36 @@ class RER_TrailMaker {
 
         // the closer we get to the final point, the smaller the degrees randomness is
         40 + 50 * distance_left, 
+
+        // the closer we get to the final point, the smaller the distance between
+        // tracks is.
         0.5 + distance_left * 0.5,
         1 + 1 * distance_left
       );
 
-      current_track_heading = VecHeading(current_track_translation);
+      if (use_pathfinding && volume_path_manager.IsPathfindingNeeded(current_track_position, to)) {
+        current_track_position = volume_path_manager.GetPointAlongPath(
+          current_track_position,
+          current_track_position + current_track_translation,
+          2
+          // 1 + 1 * distance_left
+        );
 
-      current_track_position += current_track_translation;
+        LogChannel('RER', " P - tracks position = " + VecToString(current_track_position) + " destination = " + VecToString(to));
+      }
+      else {
+        current_track_position += current_track_translation;
+      }
+
 
       FixZAxis(current_track_position);
-
-      distance_to_final_point = VecDistanceSquared2D(current_track_position, to);
 
       this.addTrackHere(
         current_track_position,
         VecToRotation(to - current_track_position)
       );
 
+      distance_to_final_point = VecDistanceSquared2D(current_track_position, to);
       number_of_tracks_created += 1;
 
       if (use_failsafe && number_of_tracks_created >= this.tracks_maximum) {
