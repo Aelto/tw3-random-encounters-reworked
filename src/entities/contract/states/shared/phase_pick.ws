@@ -26,6 +26,8 @@ state PhasePick in RandomEncountersReworkedContractEntity {
     var registered_phases: array<RER_PhasePickRegisteredPhase>;
     var picked_phase: RER_PhasePickRegisteredPhase;
 
+    delayIncomingEncounters();
+
     previous_phase = parent.getPreviousPhase();
     n1_phase = parent.getPreviousPhase(previous_phase);
 
@@ -133,6 +135,19 @@ state PhasePick in RandomEncountersReworkedContractEntity {
       NDEBUG("RER encountered an error, contract ending");
       LogChannel('modRandomEncounters', "Contract - State PhasePick: could not find the next phase");
       parent.endContract();
+    }
+  }
+
+  // During my tests i could not finish a single contracts not because of the
+  // difficulty of the contract, but because there were hunts and ambushes
+  // that interrupted the gameplay and made everything harder.
+  // This function was created so that whenever a phase is finished and the contract
+  // goes in this state, if an encounter is supposed to be created in the new few
+  // minutes, it will be delayed.
+  function delayIncomingEncounters() {
+    //                                     5 minutes
+    if (parent.master.ticks_before_spawn < 60 * 5) {
+      parent.master.GotoState('SpawningDelayed');
     }
   }
 
