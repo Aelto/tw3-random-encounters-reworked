@@ -174,21 +174,21 @@ latent function bestiaryCanSpawnEnemyTemplate(enemy_template: SEnemyTemplate, ma
 
     if (entryBase) {
       if (manager.GetEntryHasAdvancedInfo(entryBase)) {
-        LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry + " TRUE");
+        // LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry + " TRUE");
 
 
         return true;
       }
     }
     else {
-      LogChannel('modRandomEncounters', "unknown bestiary entryBase for entry " + enemy_template.bestiary_entry);
+      // LogChannel('modRandomEncounters', "unknown bestiary entryBase for entry " + enemy_template.bestiary_entry);
     }
   }
   else {
-    LogChannel('modRandomEncounters', "unknown bestiary resource: " + enemy_template.bestiary_entry);
+    // LogChannel('modRandomEncounters', "unknown bestiary resource: " + enemy_template.bestiary_entry);
   }
 
-  LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry + " FALSE");
+  // LogChannel('modRandomEncounters', "bestiary can spawn enemy: " + enemy_template.bestiary_entry + " FALSE");
 
   return false;
 }

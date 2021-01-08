@@ -209,7 +209,7 @@ class RER_TrailMaker {
           // 1 + 1 * distance_left
         );
 
-        LogChannel('RER', " P - tracks position = " + VecToString(current_track_position) + " destination = " + VecToString(to));
+        // LogChannel('RER', " P - tracks position = " + VecToString(current_track_position) + " destination = " + VecToString(to));
       }
       else {
         current_track_position += current_track_translation;
