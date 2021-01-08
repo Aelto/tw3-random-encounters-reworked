@@ -49,7 +49,7 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
     var monster_clue: RER_MonsterClue;
 
     REROL_mhm();
-    Sleep(1);
+    Sleep(0.5);
     
     monster_clue = parent.trail_maker.getLastPlacedTrack();
     monster_clue.GotoState('Interacting');

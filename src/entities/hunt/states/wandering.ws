@@ -31,10 +31,6 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         break;
       }
 
-      // i'm doing it in reverse because why not?
-      // i thought to myself, isn't it better to start from the higher end
-      // and go lower.
-      // Is it unnecessary micro optimization? Totally!
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];
 

@@ -66,7 +66,7 @@ latent function REROL_so_many_corpses() {
 }
 
 // Geralt: Hm… Wonder where these clues'll lead me…
-latent function REROL_wonder_clues_will_lead_me() {
+latent function REROL_wonder_clues_will_lead_me(optional do_not_wait: bool) {
   var scene: CStoryScene;
       
   scene = (CStoryScene)LoadResourceAsync(
@@ -78,7 +78,9 @@ latent function REROL_wonder_clues_will_lead_me() {
   .GetStorySceneSystem()
   .PlayScene(scene, "All_clues_in");
 
-  Sleep(3.8); // Approved duration
+  if (do_not_wait) {
+    Sleep(3.8); // Approved duration
+  }
 }
 
 // Geralt: What a shitty way to die
@@ -98,7 +100,7 @@ latent function REROL_shitty_way_to_die() {
 }
 
 // Geralt: There you are...
-latent function REROL_there_you_are() {
+latent function REROL_there_you_are(optional do_not_wait: bool) {
   var scene: CStoryScene;
       
   scene = (CStoryScene)LoadResourceAsync(
@@ -110,7 +112,9 @@ latent function REROL_there_you_are() {
   .GetStorySceneSystem()
   .PlayScene(scene, "spot_goat_in");
 
-  Sleep(1.32); // Approved duration
+  if (do_not_wait) {
+    Sleep(1.32); // Approved duration
+  }
 }
 
 // Geralt: That was tough...
@@ -200,21 +204,25 @@ latent function REROL_wild_hunt_killed_them() {
 }
 
 // Geralt: Should look around.
-latent function REROL_should_look_around() {
+latent function REROL_should_look_around(optional do_not_wait: bool) {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
   thePlayer.PlayLine(397220, true);
 
-  Sleep(1.390483); // Approved duration
+  if (!do_not_wait) {
+    Sleep(1.390483); // Approved duration
+  }
 }
 
 // Geralt: Hm… Definitely came through here.
-latent function REROL_came_through_here() {
+latent function REROL_came_through_here(optional do_not_wait: bool) {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
   thePlayer.PlayLine(382001, true);
 
-  Sleep(2.915713); // Approved duration
+  if (do_not_wait) {
+    Sleep(2.915713); // Approved duration
+  }
 }
 
 // Geralt: Another victim.

@@ -294,7 +294,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       REROL_died_recently();
     }
 
-    REROL_should_look_around();
+    REROL_should_look_around(true);
   }
 
   private latent function playEatingAnimationNecrophages() {
@@ -397,9 +397,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 2. once the player is near, we play some oneliners
     if (RandRange(10) < 5) {
-      REROL_wonder_clues_will_lead_me();
+      REROL_wonder_clues_will_lead_me(true);
     } else {
-      REROL_came_through_here();
+      REROL_came_through_here(true);
     }
   }
 

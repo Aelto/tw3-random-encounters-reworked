@@ -16,7 +16,7 @@ state TrailSplit in RandomEncountersReworkedContractEntity extends TrailChoice {
 
     this.createTrails();
 
-    REROL_wonder_they_split();
+    REROL_wonder_they_split(true);
 
     picked_destination = this.waitForPlayerToReachOnePoint();
 

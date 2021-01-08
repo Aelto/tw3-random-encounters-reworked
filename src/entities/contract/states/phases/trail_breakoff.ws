@@ -48,7 +48,7 @@ state TrailBreakoff in RandomEncountersReworkedContractEntity extends TrailPhase
     previous_phase = parent.getPreviousPhase('Ambush');
 
     if (previous_phase == 'TrailBreakoff') {
-      REROL_trail_goes_on();
+      REROL_trail_goes_on(true);
     }
   }
 
