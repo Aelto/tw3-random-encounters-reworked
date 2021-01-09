@@ -26,7 +26,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
   }
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
-    var has_duplicated_creature: bool;
+    var random_entity_to_duplicate: CNewNPC;
     
     if (was_spawn_already_triggered) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - spawn already triggered");
@@ -42,34 +42,35 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       return false;
     }
 
-    if (RandRangeF(100) < this.trigger_chance * chance_scale) {
+    if (!this.getRandomNearbyEntity(random_entity_to_duplicate)) {
+      return false;
+    }
+
+    // here i divide the chance by the creature height / 2 so that larger creatures
+    // have a smaller chance to be duplicated
+    if (RandRangeF(100) / (getCreatureHeight(random_entity_to_duplicate) * 0.5) < this.trigger_chance * chance_scale) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
-      has_duplicated_creature = duplicateRandomNearbyEntity(master);
-      if (has_duplicated_creature) {
-        this.time_before_other_spawn += master.events_manager.internal_cooldown;
+      this.duplicateEntity(master, random_entity_to_duplicate);
+      this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
-        // NOTE: this event SHOULD return true but doesn't because it doesn't affect
-        // the other events. Other events use the "true" to know if another event
-        // spawned a creature. But as this one only add creatures that are out of
-        // combat it should not infer with the other event.
-        return false; 
-      }
+      // NOTE: this event SHOULD return true but doesn't because it doesn't affect
+      // the other events. Other events use the "true" to know if another event
+      // spawned a creature. But as this one only add creatures that are out of
+      // combat it should not infer with the other event.
+      return false;
     }
 
     return false;
   }
 
-  private latent function duplicateRandomNearbyEntity(master: CRandomEncounters): bool {
+  private function getRandomNearbyEntity(out entity: CNewNPC): bool {
     var entities : array<CGameplayEntity>;
     var picked_npc_list: array<CNewNPC>;
     var picked_npc_index: int;
-    var picked_npc: CNewNPC;
-    var duplicated_npc: CNewNPC;
-    var boss_tag: name;
     var i: int;
-    var entity_template: CEntityTemplate;
-    var created_entity: CEntity;
+    var picked_npc: CNewNPC;
+    var boss_tag: name;
 
     FindGameplayEntitiesInRange(
       entities,
@@ -104,33 +105,35 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       }
     }
 
-    LogChannel('modRandomEncouters', "found " + picked_npc_list.Size() + " creatures to duplicate");
-
     if (picked_npc_list.Size() == 0) {
       return false;
     }
 
-
-
     picked_npc_index = RandRange(picked_npc_list.Size());
-    picked_npc = picked_npc_list[picked_npc_index];
+    entity = picked_npc_list[picked_npc_index];
 
-    LogChannel('modRandomEncounters', "getName = " + StrAfterFirst(picked_npc.ToString(), "::"));
+    return true;
+  }
 
-    entity_template = (CEntityTemplate)LoadResourceAsync(StrAfterFirst(picked_npc.ToString(), "::"), true);
+  private latent function duplicateEntity(master: CRandomEncounters, entity: CNewNPC) {
+    var entity_template: CEntityTemplate;
+    var created_entity: CEntity;
+
+    LogChannel('modRandomEncounters', "duplicating = " + StrAfterFirst(entity.ToString(), "::"));
+
+    entity_template = (CEntityTemplate)LoadResourceAsync(
+      StrAfterFirst(entity.ToString(), "::"),
+      true
+    );
 
     created_entity = theGame.CreateEntity(
       entity_template,
-      picked_npc.GetWorldPosition(),
-      picked_npc.GetWorldRotation()
+      entity.GetWorldPosition(),
+      entity.GetWorldRotation()
     );
 
     ((CNewNPC)created_entity).SetLevel(
       getRandomLevelBasedOnSettings(master.settings)
     );
-
-    // duplicated_npc = (CNewNPC)(picked_npc.Duplicate());
-
-    return true;
   }
 }
