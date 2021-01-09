@@ -27,6 +27,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var random_entity_to_duplicate: CNewNPC;
+    var creature_height: float;
     
     if (was_spawn_already_triggered) {
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - spawn already triggered");
@@ -48,7 +49,23 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
     // here i divide the chance by the creature height / 2 so that larger creatures
     // have a smaller chance to be duplicated
-    if (RandRangeF(100) / (getCreatureHeight(random_entity_to_duplicate) * 0.5) < this.trigger_chance * chance_scale) {
+    if (RandRangeF(100) / ( * 0.5) < this.trigger_chance * chance_scale) {
+      // it's done inside the if and only after a successful roll to avoid retrieving
+      // the creature's height every interval. It's an attempt at optimizing it.
+      //
+      // small creatures will have a higher chance to pass, while larger creatures
+      // will have a lower chance. The height is divided by two because some creatures
+      // are 4 meters tall like fiends and dividing their chances by 4 would be
+      // too much. So instead we divide their chance by 4meters / 2.
+      // because the height is almost divided by two, lots of creatures will
+      // automatically pass the test. For example, werewolves are 1.8 meters tall
+      // so the 0.6 is an attempt at avoiding this.
+      creature_height = getCreatureHeight(random_entity_to_duplicate) * 0.6;
+      
+      if (creature_height > 1 && RandRangeF(creature_height) < 1) {
+        return false;
+      }
+
       LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
       this.duplicateEntity(master, random_entity_to_duplicate);
