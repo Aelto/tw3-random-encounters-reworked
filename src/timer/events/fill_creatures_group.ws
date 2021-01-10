@@ -47,9 +47,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       return false;
     }
 
-    // here i divide the chance by the creature height / 2 so that larger creatures
-    // have a smaller chance to be duplicated
-    if (RandRangeF(100) / ( * 0.5) < this.trigger_chance * chance_scale) {
+    if (RandRangeF(100) < this.trigger_chance * chance_scale) {
       // it's done inside the if and only after a successful roll to avoid retrieving
       // the creature's height every interval. It's an attempt at optimizing it.
       //
