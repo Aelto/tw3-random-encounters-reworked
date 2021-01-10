@@ -72,6 +72,10 @@ class RER_StaticEncounter {
 
   var region_constraint: RER_RegionConstraint;
 
+  // used to fetch the spawning chance from the menu.
+  var type: RER_StaticEncounterType;
+  default type = StaticEncounterType_SMALL;
+
   var radius: float;
   default radius = 0.01;
 
@@ -90,6 +94,10 @@ class RER_StaticEncounter {
     ||  this.region_constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && current_region != "prolog_village"
     ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && current_region != "skellige" && current_region != "kaer_morhen"
     ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && current_region != "no_mans_land" && current_region != "novigrad") {
+      return false;
+    }
+
+    if (!this.rollSpawningChance()) {
       return false;
     }
 
@@ -156,4 +164,44 @@ class RER_StaticEncounter {
     return this.position;
   }
 
+  //
+  // return `true` if the roll succeeded, and false if it didn't.
+  private function rollSpawningChance(): bool {
+    var spawn_chance: float;
+
+    spawn_chance = this.getSpawnChance();
+
+    if (RandRangeF(100) < spawn_chance) {
+      return true;
+    }
+
+    return false;
+  }
+
+  //
+  // fetch the spawning chance from the mod menu based on the static encounter type
+  private function getSpawnChance(): float {
+    var config_wrapper: CInGameConfigWrapper;
+
+    config_wrapper = theGame.GetInGameConfigWrapper();
+
+    if (this.type == StaticEncounterType_LARGE) {
+      return StringToFloat(
+        config_wrapper
+        .GetVarValue('RERencountersGeneral', 'RERstaticEncounterLargeSpawnChance')
+      );
+    }
+    else {
+      return StringToFloat(
+        config_wrapper
+        .GetVarValue('RERencountersGeneral', 'RERstaticEncounterSmallSpawnChance')
+      );
+    }
+  }
+
+}
+
+enum RER_StaticEncounterType {
+  StaticEncounterType_SMALL = 0,
+  StaticEncounterType_LARGE = 1,
 }

@@ -1,10 +1,10 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
 2115018001|        |preset_value_rer_defaults|Defaults
-2115018002|        |option_rer_custom_frequency_low_day|<font color="#ffd33d">         Day:</font> minimum delay (in seconds)
-2115018003|        |option_rer_custom_frequency_high_day|<font color="#ffd33d">               :</font> maximum delay (in seconds)
-2115018004|        |option_rer_custom_frequency_low_night|<font color="#b392f0">      Night:</font> minimum delay (in seconds)
-2115018005|        |option_rer_custom_frequency_hight_night|<font color="#b392f0">               :</font> maximum delay (in seconds)
+2115018002|        |option_rer_custom_frequency_low_day|<font color="#ffd33d">                       Day:</font> minimum delay (in seconds)
+2115018003|        |option_rer_custom_frequency_high_day|<font color="#ffd33d">                             :</font> maximum delay (in seconds)
+2115018004|        |option_rer_custom_frequency_low_night|<font color="#b392f0">                    Night:</font> minimum delay (in seconds)
+2115018005|        |option_rer_custom_frequency_hight_night|<font color="#b392f0">                             :</font> maximum delay (in seconds)
 2115018006|        |preset_value_rer_low|Low
 2115018007|        |preset_value_rer_medium|Medium
 2115018008|        |preset_value_rer_high|High
@@ -139,9 +139,9 @@
 2115018137|        |rer_trophy_human|Human trophy
 2115018138|        |rer_trophy_troll|Troll trophy
 2115018139|        |rer_trophy_dracolizard|Dracolizard trophy
-2115018140|        |option_rer_min_spawn_distance|<font color="#ffffff">Distance:</font> minimum spawn distance (in meters)
-2115018141|        |option_rer_spawn_diameter|<font color="#ffffff">               :</font> spawn diameter (in meters)
-2115018142|        |option_rer_kill_threshold_distance|<font color="#ffffff">               :</font> automatic kill threshold (in meters)
+2115018140|        |option_rer_min_spawn_distance|<font color="#ffffff">              Distance:</font> minimum spawn distance (in meters)
+2115018141|        |option_rer_spawn_diameter|<font color="#ffffff">                             :</font> spawn diameter (in meters)
+2115018142|        |option_rer_kill_threshold_distance|<font color="#ffffff">                             :</font> automatic kill threshold (in meters)
 2115018143|        |preset_Mods_rer_name_rer_advanced_settings|Advanced settings
 2115018144|        |panel_rer_advanced_settings|Advanced settings
 2115018145|        |option_rer_trophies_ambush|<font color="#ffd33d">From ambushes</font>
@@ -153,8 +153,8 @@
 2115018151|        |panel_distances|Distances
 2115018152|        |preset_Mods_rer_name_rer_advanced_settings_levels|Levels
 2115018153|        |panel_levels|Levels
-2115018154|        |option_rer_min_level_range|<font color="#28a745">    Levels:</font> lowest allowed (relative to Geralt)
-2115018155|        |option_rer_max_level_range|<font color="#28a745">               :</font> highest allowed (relative to Geralt)
+2115018154|        |option_rer_min_level_range|<font color="#28a745">                  Levels:</font> lowest allowed (relative to Geralt)
+2115018155|        |option_rer_max_level_range|<font color="#28a745">                             :</font> highest allowed (relative to Geralt)
 2115018156|        |preset_Mods_rer_name_rer_rewards_settings_rer_trophies_settings|Trophies
 2115018157|        |panel_rer_trophies_settings|Trophies
 2115018158|        |option_rer_trophy_prices|<font color="#ffd33d">Prices</font> 
@@ -222,9 +222,11 @@
 2115018220|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
 2115018221|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>
 2115018222|        |option_rer_crowns_hunt|<font color="#ffd33d">From hunts</font>
-2115018223|        |option_rer_crowns_contract|<font color="#ffd33d">From contracts</font> 
+2115018223|        |option_rer_crowns_contract|<font color="#ffd33d">From contracts</font>
 2115018225|        |preset_Mods_rer_name_rer_rewards_settings|Reward system
 2115018226|        |panel_rer_rewards_settings|Reward system
 2115018227|        |preset_Mods_rer_name_rer_rewards_settings_rer_crowns_settings|Crowns
 2115018228|        |panel_rer_crowns_settings|Crowns
 2115018229|        |option_rer_trails_use_pathfinding|Use path finding for trails
+2115018230|        |option_rer_static_encounter_small_spawn_chance|<font color="#ec6cb9">Static encounters:</font> small - spawning chance (%)
+2115018231|        |option_rer_static_encounter_large_spawn_chance|<font color="#ec6cb9">                             :</font> large - spawning chance (%)
