@@ -25,7 +25,8 @@ state Loading in CRandomEncounters {
       CreatureDROWNER,
       Vector(360, -375, 0),
       RER_RegionConstraint_ONLY_VELEN,
-      50
+      50,
+      StaticEncounterType_SMALL
     );
 
     // A burnt house near the water
@@ -33,7 +34,8 @@ state Loading in CRandomEncounters {
       CreatureHUMAN,
       Vector(620, -477, 0.9),
       RER_RegionConstraint_ONLY_VELEN,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // A forest near water
@@ -41,7 +43,8 @@ state Loading in CRandomEncounters {
       CreatureENDREGA,
       Vector(730, -500, 11),
       RER_RegionConstraint_ONLY_VELEN,
-      50
+      50,
+      StaticEncounterType_SMALL
     );
 
     // A abandonned house with skeletons and hanged people in the forest
@@ -49,7 +52,8 @@ state Loading in CRandomEncounters {
       CreatureHUMAN,
       Vector(1060, -305, 6),
       RER_RegionConstraint_ONLY_VELEN,
-      5
+      5,
+      StaticEncounterType_SMALL
     );
 
     // a mountain near the swamp
@@ -57,7 +61,8 @@ state Loading in CRandomEncounters {
       CreatureFORKTAIL,
       Vector(1310, -373, 22),
       RER_RegionConstraint_ONLY_VELEN,
-      50
+      50,
+      StaticEncounterType_LARGE
     );
 
     // a flat surface in the mountain near the swamp
@@ -65,7 +70,8 @@ state Loading in CRandomEncounters {
       CreatureWYVERN,
       Vector(1329, -326, 43),
       RER_RegionConstraint_ONLY_VELEN,
-      5
+      5,
+      StaticEncounterType_LARGE
     );
 
     // abandonned human camp
@@ -73,7 +79,8 @@ state Loading in CRandomEncounters {
       CreatureBEAR,
       Vector(990, -189, 15),
       RER_RegionConstraint_ONLY_VELEN,
-      5
+      5,
+      StaticEncounterType_SMALL
     );
 
     // a ruined castle near a swamp
@@ -81,7 +88,8 @@ state Loading in CRandomEncounters {
       CreatureENDREGA,
       Vector(1060, 1057, 7),
       RER_RegionConstraint_ONLY_VELEN,
-      5
+      5,
+      StaticEncounterType_SMALL
     );
 
     // mountains with lots of harpies
@@ -89,7 +97,8 @@ state Loading in CRandomEncounters {
       CreatureHARPY,
       Vector(-200, 795, 31),
       RER_RegionConstraint_ONLY_VELEN,
-      25
+      25,
+      StaticEncounterType_SMALL
     );
 
     // castle with vanilla wyvern
@@ -97,7 +106,8 @@ state Loading in CRandomEncounters {
       CreatureWYVERN,
       Vector(-286, 920, 14),
       RER_RegionConstraint_ONLY_VELEN,
-      25
+      25,
+      StaticEncounterType_LARGE
     );
 
     // castle basilisk from ciri scene
@@ -105,7 +115,8 @@ state Loading in CRandomEncounters {
       CreatureBASILISK,
       Vector(-240, 565, 11),
       RER_RegionConstraint_ONLY_VELEN,
-      50
+      50,
+      StaticEncounterType_LARGE
     );
 
     // burning pyre full of human corpses
@@ -113,7 +124,8 @@ state Loading in CRandomEncounters {
       CreatureROTFIEND,
       Vector(530, 956, 1),
       RER_RegionConstraint_ONLY_VELEN,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // burning pyre full of human corpses
@@ -121,7 +133,8 @@ state Loading in CRandomEncounters {
       CreatureHAG,
       Vector(530, 956, 1),
       RER_RegionConstraint_ONLY_VELEN,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // forest full of endregas
@@ -129,7 +142,8 @@ state Loading in CRandomEncounters {
       CreatureENDREGA,
       Vector(567, 1246, 9),
       RER_RegionConstraint_ONLY_VELEN,
-      15
+      15,
+      StaticEncounterType_SMALL
     );
 
     // forest full of endregas
@@ -137,7 +151,8 @@ state Loading in CRandomEncounters {
       CreatureGRYPHON,
       Vector(604, 1200, 12),
       RER_RegionConstraint_ONLY_VELEN,
-      5
+      5,
+      StaticEncounterType_LARGE
     );
 
     // a beach in novigrad
@@ -145,7 +160,8 @@ state Loading in CRandomEncounters {
       CreatureDROWNER,
       Vector(375, 1963, 1),
       RER_RegionConstraint_ONLY_VELEN,
-      5
+      5,
+      StaticEncounterType_SMALL
     );
 
     // rotfiend nest
@@ -153,7 +169,8 @@ state Loading in CRandomEncounters {
       CreatureROTFIEND,
       Vector(350, 980, 1.5),
       RER_RegionConstraint_ONLY_VELEN,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // rotfiend nest
@@ -161,7 +178,8 @@ state Loading in CRandomEncounters {
       CreatureHAG,
       Vector(350, 980, 1.5),
       RER_RegionConstraint_ONLY_VELEN,
-      20
+      20,
+      StaticEncounterType_SMALL
     );
 
     // abandoned village near the swamp with blood everywhere
@@ -169,7 +187,8 @@ state Loading in CRandomEncounters {
       CreatureWEREWOLF,
       Vector(638, -644, 2.5),
       RER_RegionConstraint_ONLY_VELEN,
-      20
+      20,
+      StaticEncounterType_LARGE
     );
 
     // White Orchard: ghouls in the cemetery
@@ -177,7 +196,8 @@ state Loading in CRandomEncounters {
       CreatureGHOUL,
       Vector(-24, 284, 1.5),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      20
+      20,
+      StaticEncounterType_SMALL
     );
 
     // White Orchard: Devil by the well
@@ -185,7 +205,8 @@ state Loading in CRandomEncounters {
       CreatureHUMAN,
       Vector(22, -264, 13),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // White Orchard: Devil by the well, lake nearby
@@ -193,7 +214,8 @@ state Loading in CRandomEncounters {
       CreatureDROWNER,
       Vector(117, -208, -0.7),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // White Orchard: An autel, somewhere in the forest
@@ -201,7 +223,8 @@ state Loading in CRandomEncounters {
       CreatureBEAR,
       Vector(88, -136, 4.25),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      5
+      5,
+      StaticEncounterType_SMALL
     );
 
     // White Orchard: Place where you kill the griffin
@@ -209,7 +232,8 @@ state Loading in CRandomEncounters {
       CreatureHUMAN,
       Vector(65, 230, 12.6),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // White Orchard: Wall with a gate, near the map limit
@@ -217,7 +241,8 @@ state Loading in CRandomEncounters {
       CreatureHUMAN,
       Vector(400, 208, 15),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // White Orchard: Battle field, with lots of corpses
@@ -225,7 +250,8 @@ state Loading in CRandomEncounters {
       CreatureGHOUL,
       Vector(552, 186, 20),
       RER_RegionConstraint_ONLY_WHITEORCHARD,
-      10
+      10,
+      StaticEncounterType_SMALL
     );
 
     // var example_static_encounter: RER_StaticEncounter;
@@ -241,7 +267,7 @@ state Loading in CRandomEncounters {
     //   .registerStaticEncounter(parent, example_static_encounter);
   }
 
-  private latent function makeStaticEncounter(type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float) {
+  private latent function makeStaticEncounter(type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, type: RER_StaticEncounterType) {
     var new_static_encounter: RER_StaticEncounter;
 
     new_static_encounter = new RER_StaticEncounter in parent;
@@ -249,6 +275,7 @@ state Loading in CRandomEncounters {
     new_static_encounter.position = position;
     new_static_encounter.region_constraint = constraint;
     new_static_encounter.radius = radius;
+    new_static_encounter.type = RER_StaticEncounterType;
 
     parent
       .static_encounter_manager
