@@ -267,7 +267,7 @@ state Loading in CRandomEncounters {
     //   .registerStaticEncounter(parent, example_static_encounter);
   }
 
-  private latent function makeStaticEncounter(type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, type: RER_StaticEncounterType) {
+  private latent function makeStaticEncounter(type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType) {
     var new_static_encounter: RER_StaticEncounter;
 
     new_static_encounter = new RER_StaticEncounter in parent;
@@ -275,7 +275,7 @@ state Loading in CRandomEncounters {
     new_static_encounter.position = position;
     new_static_encounter.region_constraint = constraint;
     new_static_encounter.radius = radius;
-    new_static_encounter.type = RER_StaticEncounterType;
+    new_static_encounter.type = encounter_type;
 
     parent
       .static_encounter_manager
