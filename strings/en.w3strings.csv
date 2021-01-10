@@ -230,3 +230,4 @@
 2115018229|        |option_rer_trails_use_pathfinding|Use path finding for trails
 2115018230|        |option_rer_static_encounter_small_spawn_chance|<font color="#ec6cb9">Static encounters:</font> small - spawning chance (%)
 2115018231|        |option_rer_static_encounter_large_spawn_chance|<font color="#ec6cb9">                             :</font> large - spawning chance (%)
+2115018232|        |option_rer_camera_immersive_camera_compatibility|No camera scene on horse (ImmersiveCamera compatibility)

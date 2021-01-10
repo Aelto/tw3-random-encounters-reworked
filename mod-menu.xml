@@ -5258,6 +5258,8 @@
             
             <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
 
+            <Var id="RERcameraScenesDisabledOnHorse" displayName="rer_camera_immersive_camera_compatibility" displayType="TOGGLE"/>
+
             <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
             
             <Var id="RERtrailsUsePathFinding" displayName="rer_trails_use_pathfinding" displayType="TOGGLE"></Var>
