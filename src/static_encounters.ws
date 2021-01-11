@@ -43,7 +43,6 @@ class RER_StaticEncounterManager {
 
   private latent function trySpawnStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter): bool {
 
-    LogChannel('modRandomEncounters', "can spawn?" + encounter.canSpawn());
     if (!encounter.canSpawn()) {
       LogChannel('modRandomEncounters', "can spawn: NO");
       return false;
@@ -85,6 +84,10 @@ class RER_StaticEncounter {
     var i: int;
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+    if (thePlayer.IsCiri()) {
+      return false;
+    }
 
     if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (current_region == "no_mans_land" || current_region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (current_region == "skellige" || current_region == "kaer_morhen")
