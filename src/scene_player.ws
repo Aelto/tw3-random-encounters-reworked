@@ -100,11 +100,16 @@ class RER_StaticCamera extends CStaticCamera {
     var current_rotation: EulerAngles;
     var current_position: Vector;
 
+    // immersive camera crashes if there is camera blending when on horse
+    // or in combat.
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraScenesDisabledOnHorse')
+    &&  thePlayer.IsUsingHorse() || thePlayer.IsInCombat()) {
+      return;
+    }
+
     // this option was added because immersive camera doesn't like the blending 
     // options, and the game would crash.
-    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraBlendingDisabled')
-    ||  (thePlayer.IsUsingHorse() || thePlayer.IsInCombat())
-    && !theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraScenesDisabledOnHorse')) {
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraBlendingDisabled')) {
       this.deactivationDuration = 1.5;
       this.activationDuration = 1.5;
     }
