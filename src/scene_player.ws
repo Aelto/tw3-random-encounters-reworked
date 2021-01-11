@@ -104,7 +104,7 @@ class RER_StaticCamera extends CStaticCamera {
     // options, and the game would crash.
     if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraBlendingDisabled')
     ||  (thePlayer.IsUsingHorse() || thePlayer.IsInCombat())
-    && theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraScenesDisabledOnHorse')) {
+    && !theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraScenesDisabledOnHorse')) {
       this.deactivationDuration = 1.5;
       this.activationDuration = 1.5;
     }
