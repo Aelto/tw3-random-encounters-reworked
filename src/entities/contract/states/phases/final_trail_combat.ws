@@ -17,6 +17,10 @@ state FinalTrailCombat in RandomEncountersReworkedContractEntity extends TrailCo
 
     bestiary_entry = parent.bestiary_entry;
 
-    parent.entities = bestiary_entry.spawn(parent.master, this.destination);
+    parent.entities = bestiary_entry.spawn(
+      parent.master,
+      this.destination,
+      parent.entity_settings.allow_trophies
+    );
   }
 }

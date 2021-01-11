@@ -60,7 +60,11 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
       .bestiary
       .getRandomEntryFromBestiary(parent.master, EncounterType_CONTRACT);
 
-    parent.entities = bestiary_entry.spawn(parent.master, this.destination);
+    parent.entities = bestiary_entry.spawn(
+      parent.master,
+      this.destination,
+      parent.entity_settings.allow_trophies
+    );
   }
 
   latent function waitForPlayerToReachPoint_action(): bool {
