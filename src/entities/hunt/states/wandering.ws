@@ -20,6 +20,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
     var distance_from_bait: float;
     var current_entity: CEntity;
     var current_heading: float;
+    var is_player_busy: bool;
     var i: int;
 
     do {
@@ -33,6 +34,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];
+        is_player_busy = isPlayerBusy();
 
         distance_from_player = VecDistance(
           current_entity.GetWorldPosition(),
@@ -60,7 +62,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         );
 
         if (distance_from_bait < 5 * 5) {
-          if (isPlayerBusy()) {
+          if (is_player_busy) {
             teleportBaitEntityOnMonsters();
           }
           else {
@@ -68,7 +70,13 @@ state Wandering in RandomEncountersReworkedHuntEntity {
           }
         }
 
-        if (!((CActor)current_entity).IsMoving()) {
+        if (is_player_busy) {
+          ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
+            'q104_avallach_friendly_to_all',
+            AGP_Default
+          );
+        }
+        else if (!((CActor)current_entity).IsMoving()) {
           ((CActor)parent.entities[i]).SetTemporaryAttitudeGroup(
             'monsters',
             AGP_Default
