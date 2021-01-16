@@ -2,7 +2,7 @@
 class RE_Settings {
 
   public var is_enabled: bool;
-  
+
   public var customDayMax, customDayMin, customNightMax, customNightMin  : int;
   public var all_monster_hunt_chance_day: int;
   public var all_monster_contract_chance_day: int;
@@ -41,6 +41,7 @@ class RE_Settings {
   public var crowns_amounts_by_encounter: array<int>;
 
   public var trophy_pickup_scene: bool;
+  public var trophy_pickup_scene_chance: int;
 
   public var only_known_bestiary_creatures: bool;
 
@@ -138,8 +139,8 @@ class RE_Settings {
     this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesAmbush');
     this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesHunt');
     this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesContract');
-    this.trophy_pickup_scene = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrophyPickupAnimation');
-
+    this.trophy_pickup_scene_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrophyPickupAnimation'));
+    this.trophy_pickup_scene = this.trophy_pickup_scene_chance > 0;
 
     this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesPrices'));
   }
@@ -154,7 +155,7 @@ class RE_Settings {
     customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyHigh'));
     customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow'));
     customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
-    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));  
+    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -210,11 +211,11 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERencountersContractNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERevents', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERoptionalFeatures', 0);
-    
+
     inGameConfigWrapper.SetVarValue('RERmain', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
   }
-  
+
 
   private function fillSettingsArrays() {
     var i: int;

@@ -59,11 +59,11 @@ statemachine class CRandomEncounters extends CEntity {
 
   event OnRefreshSettings(action: SInputAction) {
     LogChannel('modRandomEncounters', "settings refreshed");
-    
+
     if (IsPressed(action)) {
       this.settings
         .loadXMLSettingsAndShowNotification();
-      
+
       this.events_manager
         .start();
 
@@ -76,7 +76,7 @@ statemachine class CRandomEncounters extends CEntity {
 
   event OnSpawnMonster(action: SInputAction) {
     LogChannel('modRandomEncounters', "on spawn event");
-  
+
     if (this.ticks_before_spawn > 5) {
       this.ticks_before_spawn = 5;
     }
@@ -101,10 +101,10 @@ statemachine class CRandomEncounters extends CEntity {
 
   private function initiateRandomEncounters() {
     this.spawn_roller.fill_arrays();
-    
+
     this.bestiary.init();
     this.bestiary.loadSettings();
-    
+
     this.settings.loadXMLSettings();
     this.resources.load_resources();
 
@@ -163,15 +163,22 @@ statemachine class CRandomEncounters extends CEntity {
     for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
       switch (this.out_of_combat_requests[i]) {
         case OutOfCombatRequest_TROPHY_CUTSCENE:
-          // three times because some lootbags can take time to appear
-          this.AddTimer('lootTrophiesAndPlayCutscene', 1.5, false);
-          this.AddTimer('lootTrophiesAndPlayCutscene', 2.25, false);
-          this.AddTimer('lootTrophiesAndPlayCutscene', 3, false);
+          if(this.shouldPlayTrophyCutScene())
+          {
+            // three times because some lootbags can take time to appear
+            this.AddTimer('lootTrophiesAndPlayCutscene', 1.5, false);
+            this.AddTimer('lootTrophiesAndPlayCutscene', 2.25, false);
+            this.AddTimer('lootTrophiesAndPlayCutscene', 3, false);
+          }
         break;
       }
     }
 
     this.out_of_combat_requests.Clear();
+  }
+
+  private function shouldPlayTrophyCutScene() : bool {
+    return RandRange(100) <= this.settings.trophy_pickup_scene_chance;
   }
 
   timer function lootTrophiesAndPlayCutscene(optional delta: float, optional id: Int32) {
@@ -183,7 +190,7 @@ statemachine class CRandomEncounters extends CEntity {
 
     if (will_play_cutscene) {
       LogChannel('modRandomEncounters', "playing out of combat cutscene");
-      
+
       scene = (CStoryScene)LoadResource(
         "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
         true
@@ -192,7 +199,7 @@ statemachine class CRandomEncounters extends CEntity {
       theGame
       .GetStorySceneSystem()
       .PlayScene(scene, "Input");
-      
+
       // Play some oneliners about the trophies
       if (RandRange(10) < 2) {
         REROL_hang_your_head_from_sadle_sync();
@@ -227,7 +234,7 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   event OnDeath( damageAction : W3DamageAction ) {
-    
+
     LogChannel('modRandomEncounters', "On death called on RER main class");
 
     // super.OnDeath( damageAction );
@@ -238,10 +245,10 @@ function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
   var entities : array<CEntity>;
 
   theGame.GetEntitiesByTag('RandomEncounterTag', entities);
-		
+
   if (entities.Size() == 0) {
     LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
-    
+
     return false;
   }
 
@@ -249,4 +256,3 @@ function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
 
   return true;
 }
-
