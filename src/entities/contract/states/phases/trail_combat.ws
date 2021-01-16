@@ -63,6 +63,7 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
     parent.entities = bestiary_entry.spawn(
       parent.master,
       this.destination,
+      ,,
       parent.entity_settings.allow_trophies
     );
   }

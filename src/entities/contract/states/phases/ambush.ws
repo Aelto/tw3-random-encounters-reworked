@@ -32,6 +32,7 @@ state Ambush in RandomEncountersReworkedContractEntity {
     parent.entities = bestiary_entry.spawn(
       parent.master,
       spawning_position,
+      ,,
       parent.entity_settings.allow_trophies
     );
   }
