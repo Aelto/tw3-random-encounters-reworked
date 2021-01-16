@@ -147,7 +147,7 @@
 2115018145|        |option_rer_trophies_ambush|<font color="#ffd33d">From ambushes</font>
 2115018146|        |option_rer_trophies_hunt|<font color="#ffd33d">From hunts</font>
 2115018147|        |option_rer_trophies_contract|<font color="#ffd33d">From contracts</font>
-2115018148|        |option_rer_trophy_pickup_animation|Allow trophy pickup animation
+2115018148|        |option_rer_trophy_pickup_animation|Trophy pickup animation chance
 2115018149|        |option_rer_only_known_bestiary_creatures|Only known bestiary creatures
 2115018150|        |preset_Mods_rer_name_rer_advanced_settings_distances|Distances
 2115018151|        |panel_distances|Distances
@@ -157,7 +157,7 @@
 2115018155|        |option_rer_max_level_range|<font color="#28a745">                             :</font> highest allowed (relative to Geralt)
 2115018156|        |preset_Mods_rer_name_rer_rewards_settings_rer_trophies_settings|Trophies
 2115018157|        |panel_rer_trophies_settings|Trophies
-2115018158|        |option_rer_trophy_prices|<font color="#ffd33d">Prices</font> 
+2115018158|        |option_rer_trophy_prices|<font color="#ffd33d">Prices</font>
 2115018159|        |preset_value_rer_trophy_prices_low|Low (100%)
 2115018160|        |preset_value_rer_trophy_prices_medium|Medium (200%)
 2115018161|        |preset_value_rer_trophy_prices_high|High (300%)

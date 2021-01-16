@@ -58,14 +58,14 @@
 
                 <Entry varId="RERstaticEncounterSmallSpawnChance" value="80" />
                 <Entry varId="RERstaticEncounterLargeSpawnChance" value="60" />
-                
+
                 <Entry varId="RERfoottracksRatio" value="30" />
 
             </Preset>
         </PresetsArray>
         <VisibleVars>
             <Var id="customdFrequencyLow" displayName="rer_custom_frequency_low_day" displayType="SLIDER;0;6000;6000" />
-            <Var id="customdFrequencyHigh" displayName="rer_custom_frequency_high_day" displayType="SLIDER;0;6000;6000" />    
+            <Var id="customdFrequencyHigh" displayName="rer_custom_frequency_high_day" displayType="SLIDER;0;6000;6000" />
             <Var id="customnFrequencyLow" displayName="rer_custom_frequency_low_night" displayType="SLIDER;0;6000;6000" />
             <Var id="customnFrequencyHigh" displayName="rer_custom_frequency_hight_night" displayType="SLIDER;0;6000;6000" />
 
@@ -363,7 +363,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Werewolves" displayName="rer_werewolf" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -395,7 +395,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Cyclops" displayName="rer_cyclops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -427,7 +427,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Arachas" displayName="rer_arachas" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -459,7 +459,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Fiends" displayName="rer_fiend" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -491,7 +491,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Chorts" displayName="rer_chort" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -523,7 +523,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="SkelligeBears" displayName="rer_skelligebear" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -587,7 +587,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Golems" displayName="rer_golem" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -619,7 +619,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Elementals" displayName="rer_elemental" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -651,7 +651,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -683,8 +683,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS">     
+
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="NoonWraiths" value="0"/>
@@ -716,7 +716,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Troll" displayName="rer_troll" displayType="OPTIONS">     
+            <Var id="Troll" displayName="rer_troll" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Troll" value="0"/>
@@ -748,7 +748,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="OPTIONS">     
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="SkelligeTroll" value="0"/>
@@ -779,7 +779,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Hags" displayName="rer_hag" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -811,7 +811,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Harpies" displayName="rer_harpies" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -843,7 +843,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Fogling" displayName="rer_fogling" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -875,7 +875,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Endrega" displayName="rer_endrega" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -907,7 +907,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Ghouls" displayName="rer_ghoul" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -939,7 +939,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Alghouls" displayName="rer_alghoul" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -971,7 +971,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Nekkers" displayName="rer_nekkers" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1003,7 +1003,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Drowners" displayName="rer_drowner" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1035,7 +1035,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1067,7 +1067,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Wolves" displayName="rer_wolf" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1131,7 +1131,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1163,8 +1163,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS">     
+
+            <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Spiders" value="0"/>
@@ -1196,7 +1196,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Boars" displayName="rer_boars" displayType="OPTIONS">     
+            <Var id="Boars" displayName="rer_boars" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Boars" value="0"/>
@@ -1227,7 +1227,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1291,7 +1291,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Fleder" displayName="rer_Fleder" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1323,7 +1323,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Garkain" displayName="rer_Garkain" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1355,7 +1355,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1387,7 +1387,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Giant" displayName="rer_Giant" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1419,7 +1419,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1451,7 +1451,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-                    
+
             <Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1483,7 +1483,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1515,7 +1515,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Centipede" displayName="rer_Centipede" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1547,7 +1547,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-                        
+
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1579,8 +1579,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">        
+
+            <Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Panther" value="0"/>
@@ -1611,7 +1611,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Sharley" displayName="rer_Sharley" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1643,7 +1643,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Wight" displayName="rer_Wight" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1707,7 +1707,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="WildHunt" displayName="rer_wild_chance" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1771,7 +1771,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-        
+
             <Var id="Cockatrice" displayName="rer_cockatrice" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1803,7 +1803,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-        
+
             <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1835,7 +1835,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-        
+
             <Var id="Forktails" displayName="rer_Forktail" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -1899,7 +1899,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Katakan" displayName="rer_Katakan" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
@@ -2030,8 +2030,8 @@
             <Preset id="1" displayName="rer_no_city_spawns" >
                 <Entry varId="Hags"                    value="0"    />
                 <Entry varId="Fogling"                value="0"    />
-                <Entry varId="Troll"                value="0"    />                    
-                <Entry varId="SkelligeTroll"        value="0"    />                    
+                <Entry varId="Troll"                value="0"    />
+                <Entry varId="SkelligeTroll"        value="0"    />
                 <Entry varId="Werewolves"            value="0"    />
                 <Entry varId="Fiends"                value="0"    />
                 <Entry varId="Chorts"                value="0"    />
@@ -2088,8 +2088,8 @@
             <Preset id="2" displayName="rer_all_city_spawns" >
                 <Entry varId="Hags"                    value="1"    />
                 <Entry varId="Fogling"                value="1"    />
-                <Entry varId="Troll"                value="1"    />                    
-                <Entry varId="SkelligeTroll"        value="1"    />                    
+                <Entry varId="Troll"                value="1"    />
+                <Entry varId="SkelligeTroll"        value="1"    />
                 <Entry varId="Werewolves"            value="1"    />
                 <Entry varId="Fiends"                value="1"    />
                 <Entry varId="Chorts"                value="1"    />
@@ -2143,7 +2143,7 @@
                 <Entry varId="Skeleton"                value="1"    />
                 <Entry varId="WildHunt"             value="1"  />
             </Preset>
-            
+
         </PresetsArray>
         <VisibleVars>
             <Var id="allowSpawnInBigCities" displayName="rer_big_city_spawns" displayType="TOGGLE"></Var>
@@ -2202,7 +2202,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Werewolves" displayName="rer_werewolf" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2213,7 +2213,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Cyclops" displayName="rer_cyclops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2224,7 +2224,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Arachas" displayName="rer_arachas" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2235,7 +2235,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Fiends" displayName="rer_fiend" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2246,7 +2246,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Chorts" displayName="rer_chort" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2257,7 +2257,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Bears" displayName="rer_bear" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2279,7 +2279,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Golems" displayName="rer_golem" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2290,7 +2290,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Elementals" displayName="rer_elemental" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2301,7 +2301,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2312,8 +2312,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS">     
+
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="NoonWraiths" value="0"/>
@@ -2324,7 +2324,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Troll" displayName="rer_troll" displayType="OPTIONS">     
+            <Var id="Troll" displayName="rer_troll" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Troll" value="0"/>
@@ -2335,7 +2335,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="OPTIONS">     
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="SkelligeTroll" value="0"/>
@@ -2345,7 +2345,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Hags" displayName="rer_hag" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2356,7 +2356,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Harpies" displayName="rer_harpies" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2367,7 +2367,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Fogling" displayName="rer_fogling" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2378,7 +2378,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Endrega" displayName="rer_endrega" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2389,7 +2389,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Ghouls" displayName="rer_ghoul" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2400,7 +2400,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Alghouls" displayName="rer_alghoul" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2411,7 +2411,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Nekkers" displayName="rer_nekkers" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2422,7 +2422,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Drowners" displayName="rer_drowner" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2433,7 +2433,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2444,7 +2444,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Wolves" displayName="rer_wolf" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2466,8 +2466,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">/    
+
+            <Var id="Wraiths" displayName="rer_wraith" displayType="OPTIONS">/
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Wraiths" value="0"/>
@@ -2477,8 +2477,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS">     
+
+            <Var id="Spiders" displayName="rer_spider" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Spiders" value="0"/>
@@ -2489,7 +2489,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Boars" displayName="rer_boars" displayType="OPTIONS">     
+            <Var id="Boars" displayName="rer_boars" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Boars" value="0"/>
@@ -2499,7 +2499,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2521,7 +2521,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Fleder" displayName="rer_Fleder" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2532,7 +2532,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Garkain" displayName="rer_Garkain" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2543,7 +2543,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2554,7 +2554,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Giant" displayName="rer_Giant" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2565,7 +2565,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2576,8 +2576,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-                    
-            <Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">        
+
+            <Var id="Barghest" displayName="rer_Barghest" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Barghest" value="0"/>
@@ -2587,7 +2587,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2598,7 +2598,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Centipede" displayName="rer_Centipede" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2609,7 +2609,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-                        
+
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2620,8 +2620,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
-            <Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">        
+
+            <Var id="Panther" displayName="rer_Panther" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Panther" value="0"/>
@@ -2631,7 +2631,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Sharley" displayName="rer_Sharley" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2642,7 +2642,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Wight" displayName="rer_Wight" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2664,7 +2664,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="WildHunt" displayName="rer_wild_chance" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2686,7 +2686,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-        
+
             <Var id="Cockatrice" displayName="rer_cockatrice" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2697,7 +2697,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-        
+
             <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2708,7 +2708,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-        
+
             <Var id="Forktails" displayName="rer_Forktail" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2730,7 +2730,7 @@
                     </Option>
                 </OptionsArray>
             </Var>
-            
+
             <Var id="Katakan" displayName="rer_Katakan" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
@@ -2762,8 +2762,8 @@
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
-                <Entry varId="Troll"                value="25"    />                    
-                <Entry varId="SkelligeTroll"        value="25"    />                    
+                <Entry varId="Troll"                value="25"    />
+                <Entry varId="SkelligeTroll"        value="25"    />
                 <Entry varId="Werewolves"            value="20"    />
                 <Entry varId="Fiends"                value="20"    />
                 <Entry varId="Chorts"                value="20"    />
@@ -2849,7 +2849,7 @@
                     <Entry varId="Boars"                value="0"    />
                     <Entry varId="Troll"                value="0"    />
                     <Entry varId="SkelligeTroll"        value="0"    />
-                    
+
                     <Entry varId="HigherVamp"            value="0"    />
                     <Entry varId="Bruxa"                value="0"    />
                     <Entry varId="Fleder"                value="0"    />
@@ -2864,7 +2864,7 @@
                     <Entry varId="Sharley"                value="0"    />
                     <Entry varId="Wight"                value="0"    />
                     <Entry varId="Giant"                value="0"    />
-                    
+
                     <!-- added values -->
                     <Entry varId="Humans"               value="0"  />
                     <Entry varId="WildHunt"             value="0"  />
@@ -2909,7 +2909,7 @@
                     <Entry varId="Boars"                value="10"    />
                     <Entry varId="Troll"                value="10"    />
                     <Entry varId="SkelligeTroll"        value="10"    />
-                    
+
                     <Entry varId="HigherVamp"            value="10"    />
                     <Entry varId="Bruxa"                value="10"    />
                     <Entry varId="Fleder"                value="10"    />
@@ -2940,8 +2940,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                     <Entry varId="Hags"                    value="0"    />
                     <Entry varId="Fogling"                value="0"    />
-                    <Entry varId="Troll"                value="0"    />                    
-                    <Entry varId="SkelligeTroll"        value="0"    />                    
+                    <Entry varId="Troll"                value="0"    />
+                    <Entry varId="SkelligeTroll"        value="0"    />
                     <Entry varId="Werewolves"            value="0"    />
                     <Entry varId="Fiends"                value="0"    />
                     <Entry varId="Chorts"                value="0"    />
@@ -3016,9 +3016,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -3030,8 +3030,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -3040,11 +3040,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -3058,7 +3058,7 @@
             <Var id="Ekimmara" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
-    
+
     <Group id="RERencountersAmbushNight" displayName="Mods.rer_name.rer_encounters_settings.ambush_night_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
@@ -3066,8 +3066,8 @@
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
-                <Entry varId="Troll"                value="25"    />                    
-                <Entry varId="SkelligeTroll"        value="25"    />                    
+                <Entry varId="Troll"                value="25"    />
+                <Entry varId="SkelligeTroll"        value="25"    />
                 <Entry varId="Werewolves"            value="20"    />
                 <Entry varId="Fiends"                value="20"    />
                 <Entry varId="Chorts"                value="20"    />
@@ -3153,7 +3153,7 @@
                     <Entry varId="Boars"                value="0"    />
                     <Entry varId="Troll"                value="0"    />
                     <Entry varId="SkelligeTroll"        value="0"    />
-                    
+
                     <Entry varId="HigherVamp"            value="0"    />
                     <Entry varId="Bruxa"                value="0"    />
                     <Entry varId="Fleder"                value="0"    />
@@ -3168,7 +3168,7 @@
                     <Entry varId="Sharley"                value="0"    />
                     <Entry varId="Wight"                value="0"    />
                     <Entry varId="Giant"                value="0"    />
-                    
+
                     <!-- added values -->
                     <Entry varId="Humans"               value="0"  />
                     <Entry varId="WildHunt"             value="0"  />
@@ -3213,7 +3213,7 @@
                     <Entry varId="Boars"                value="10"    />
                     <Entry varId="Troll"                value="10"    />
                     <Entry varId="SkelligeTroll"        value="10"    />
-                    
+
                     <Entry varId="HigherVamp"            value="10"    />
                     <Entry varId="Bruxa"                value="10"    />
                     <Entry varId="Fleder"                value="10"    />
@@ -3244,8 +3244,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                     <Entry varId="Hags"                    value="0"    />
                     <Entry varId="Fogling"                value="0"    />
-                    <Entry varId="Troll"                value="0"    />                    
-                    <Entry varId="SkelligeTroll"        value="0"    />                    
+                    <Entry varId="Troll"                value="0"    />
+                    <Entry varId="SkelligeTroll"        value="0"    />
                     <Entry varId="Werewolves"            value="0"    />
                     <Entry varId="Fiends"                value="0"    />
                     <Entry varId="Chorts"                value="0"    />
@@ -3320,9 +3320,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -3334,8 +3334,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -3344,11 +3344,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -3370,8 +3370,8 @@
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
-                <Entry varId="Troll"                value="25"    />                    
-                <Entry varId="SkelligeTroll"        value="25"    />                    
+                <Entry varId="Troll"                value="25"    />
+                <Entry varId="SkelligeTroll"        value="25"    />
                 <Entry varId="Werewolves"            value="20"    />
                 <Entry varId="Fiends"                value="20"    />
                 <Entry varId="Chorts"                value="20"    />
@@ -3457,7 +3457,7 @@
                     <Entry varId="Boars"                value="0"    />
                     <Entry varId="Troll"                value="0"    />
                     <Entry varId="SkelligeTroll"        value="0"    />
-                    
+
                     <Entry varId="HigherVamp"            value="0"    />
                     <Entry varId="Bruxa"                value="0"    />
                     <Entry varId="Fleder"                value="0"    />
@@ -3472,7 +3472,7 @@
                     <Entry varId="Sharley"                value="0"    />
                     <Entry varId="Wight"                value="0"    />
                     <Entry varId="Giant"                value="0"    />
-                    
+
                     <!-- added values -->
                     <Entry varId="Humans"               value="0"  />
                     <Entry varId="WildHunt"             value="0"  />
@@ -3517,7 +3517,7 @@
                     <Entry varId="Boars"                value="10"    />
                     <Entry varId="Troll"                value="10"    />
                     <Entry varId="SkelligeTroll"        value="10"    />
-                    
+
                     <Entry varId="HigherVamp"            value="10"    />
                     <Entry varId="Bruxa"                value="10"    />
                     <Entry varId="Fleder"                value="10"    />
@@ -3548,8 +3548,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                     <Entry varId="Hags"                    value="0"    />
                     <Entry varId="Fogling"                value="0"    />
-                    <Entry varId="Troll"                value="0"    />                    
-                    <Entry varId="SkelligeTroll"        value="0"    />                    
+                    <Entry varId="Troll"                value="0"    />
+                    <Entry varId="SkelligeTroll"        value="0"    />
                     <Entry varId="Werewolves"            value="0"    />
                     <Entry varId="Fiends"                value="0"    />
                     <Entry varId="Chorts"                value="0"    />
@@ -3624,9 +3624,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -3638,8 +3638,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -3648,11 +3648,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -3674,8 +3674,8 @@
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
-                <Entry varId="Troll"                value="25"    />                    
-                <Entry varId="SkelligeTroll"        value="25"    />                    
+                <Entry varId="Troll"                value="25"    />
+                <Entry varId="SkelligeTroll"        value="25"    />
                 <Entry varId="Werewolves"            value="20"    />
                 <Entry varId="Fiends"                value="20"    />
                 <Entry varId="Chorts"                value="20"    />
@@ -3761,7 +3761,7 @@
                     <Entry varId="Boars"                value="0"    />
                     <Entry varId="Troll"                value="0"    />
                     <Entry varId="SkelligeTroll"        value="0"    />
-                    
+
                     <Entry varId="HigherVamp"            value="0"    />
                     <Entry varId="Bruxa"                value="0"    />
                     <Entry varId="Fleder"                value="0"    />
@@ -3776,7 +3776,7 @@
                     <Entry varId="Sharley"                value="0"    />
                     <Entry varId="Wight"                value="0"    />
                     <Entry varId="Giant"                value="0"    />
-                    
+
                     <!-- added values -->
                     <Entry varId="Humans"               value="0"  />
                     <Entry varId="WildHunt"             value="0"  />
@@ -3821,7 +3821,7 @@
                     <Entry varId="Boars"                value="10"    />
                     <Entry varId="Troll"                value="10"    />
                     <Entry varId="SkelligeTroll"        value="10"    />
-                    
+
                     <Entry varId="HigherVamp"            value="10"    />
                     <Entry varId="Bruxa"                value="10"    />
                     <Entry varId="Fleder"                value="10"    />
@@ -3852,8 +3852,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                     <Entry varId="Hags"                    value="0"    />
                     <Entry varId="Fogling"                value="0"    />
-                    <Entry varId="Troll"                value="0"    />                    
-                    <Entry varId="SkelligeTroll"        value="0"    />                    
+                    <Entry varId="Troll"                value="0"    />
+                    <Entry varId="SkelligeTroll"        value="0"    />
                     <Entry varId="Werewolves"            value="0"    />
                     <Entry varId="Fiends"                value="0"    />
                     <Entry varId="Chorts"                value="0"    />
@@ -3928,9 +3928,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -3942,8 +3942,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -3952,11 +3952,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -3980,8 +3980,8 @@
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
-                <Entry varId="Troll"                value="25"    />                    
-                <Entry varId="SkelligeTroll"        value="25"    />                    
+                <Entry varId="Troll"                value="25"    />
+                <Entry varId="SkelligeTroll"        value="25"    />
                 <Entry varId="Werewolves"            value="20"    />
                 <Entry varId="Fiends"                value="20"    />
                 <Entry varId="Chorts"                value="20"    />
@@ -4067,7 +4067,7 @@
                     <Entry varId="Boars"                value="0"    />
                     <Entry varId="Troll"                value="0"    />
                     <Entry varId="SkelligeTroll"        value="0"    />
-                    
+
                     <Entry varId="HigherVamp"            value="0"    />
                     <Entry varId="Bruxa"                value="0"    />
                     <Entry varId="Fleder"                value="0"    />
@@ -4082,7 +4082,7 @@
                     <Entry varId="Sharley"                value="0"    />
                     <Entry varId="Wight"                value="0"    />
                     <Entry varId="Giant"                value="0"    />
-                    
+
                     <!-- added values -->
                     <Entry varId="Humans"               value="0"  />
                     <Entry varId="WildHunt"             value="0"  />
@@ -4127,7 +4127,7 @@
                     <Entry varId="Boars"                value="10"    />
                     <Entry varId="Troll"                value="10"    />
                     <Entry varId="SkelligeTroll"        value="10"    />
-                    
+
                     <Entry varId="HigherVamp"            value="10"    />
                     <Entry varId="Bruxa"                value="10"    />
                     <Entry varId="Fleder"                value="10"    />
@@ -4158,8 +4158,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                     <Entry varId="Hags"                    value="0"    />
                     <Entry varId="Fogling"                value="0"    />
-                    <Entry varId="Troll"                value="0"    />                    
-                    <Entry varId="SkelligeTroll"        value="0"    />                    
+                    <Entry varId="Troll"                value="0"    />
+                    <Entry varId="SkelligeTroll"        value="0"    />
                     <Entry varId="Werewolves"            value="0"    />
                     <Entry varId="Fiends"                value="0"    />
                     <Entry varId="Chorts"                value="0"    />
@@ -4235,9 +4235,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -4249,8 +4249,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -4259,11 +4259,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -4285,8 +4285,8 @@
 
                 <Entry varId="Hags"                    value="25"    />
                 <Entry varId="Fogling"                value="25"    />
-                <Entry varId="Troll"                value="25"    />                    
-                <Entry varId="SkelligeTroll"        value="25"    />                    
+                <Entry varId="Troll"                value="25"    />
+                <Entry varId="SkelligeTroll"        value="25"    />
                 <Entry varId="Werewolves"            value="20"    />
                 <Entry varId="Fiends"                value="20"    />
                 <Entry varId="Chorts"                value="20"    />
@@ -4372,7 +4372,7 @@
                     <Entry varId="Boars"                value="0"    />
                     <Entry varId="Troll"                value="0"    />
                     <Entry varId="SkelligeTroll"        value="0"    />
-                    
+
                     <Entry varId="HigherVamp"            value="0"    />
                     <Entry varId="Bruxa"                value="0"    />
                     <Entry varId="Fleder"                value="0"    />
@@ -4387,7 +4387,7 @@
                     <Entry varId="Sharley"                value="0"    />
                     <Entry varId="Wight"                value="0"    />
                     <Entry varId="Giant"                value="0"    />
-                    
+
                     <!-- added values -->
                     <Entry varId="Humans"               value="0"  />
                     <Entry varId="WildHunt"             value="0"  />
@@ -4432,7 +4432,7 @@
                     <Entry varId="Boars"                value="10"    />
                     <Entry varId="Troll"                value="10"    />
                     <Entry varId="SkelligeTroll"        value="10"    />
-                    
+
                     <Entry varId="HigherVamp"            value="10"    />
                     <Entry varId="Bruxa"                value="10"    />
                     <Entry varId="Fleder"                value="10"    />
@@ -4463,8 +4463,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                     <Entry varId="Hags"                    value="0"    />
                     <Entry varId="Fogling"                value="0"    />
-                    <Entry varId="Troll"                value="0"    />                    
-                    <Entry varId="SkelligeTroll"        value="0"    />                    
+                    <Entry varId="Troll"                value="0"    />
+                    <Entry varId="SkelligeTroll"        value="0"    />
                     <Entry varId="Werewolves"            value="0"    />
                     <Entry varId="Fiends"                value="0"    />
                     <Entry varId="Chorts"                value="0"    />
@@ -4539,9 +4539,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -4553,8 +4553,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -4563,11 +4563,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -4588,8 +4588,8 @@
                 <Entry varId="RERenemyCountMultiplier"  value="1"    />
                 <Entry varId="Hags"                    value="1"    />
                 <Entry varId="Fogling"                value="1"    />
-                <Entry varId="Troll"                value="1"    />                    
-                <Entry varId="SkelligeTroll"        value="1"    />                    
+                <Entry varId="Troll"                value="1"    />
+                <Entry varId="SkelligeTroll"        value="1"    />
                 <Entry varId="Werewolves"            value="1"    />
                 <Entry varId="Fiends"                value="1"    />
                 <Entry varId="Chorts"                value="1"    />
@@ -4662,9 +4662,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -4676,8 +4676,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -4686,11 +4686,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -4747,7 +4747,7 @@
                 <Entry varId="eventMeditationAmbush"    value="20"    />
             </Preset>
         </PresetsArray>
-        <VisibleVars>            
+        <VisibleVars>
             <Var id="eventSystemInterval" displayName="rer_event_system_interval" displayType="SLIDER;0;20;200"/>
             <Var id="eventSystemICD" displayName="rer_event_system_internal_cooldown" displayType="SLIDER;1;300;2990"/>
 
@@ -4843,7 +4843,7 @@
                 <Entry varId="RERcrownsContract" value="150" />
             </Preset>
         </PresetsArray>
-        <VisibleVars>            
+        <VisibleVars>
             <Var id="RERcrownsAmbush" displayName="rer_crowns_ambush" displayType="SLIDER;0;1000;1000" />
             <Var id="RERcrownsHunt" displayName="rer_crowns_hunt" displayType="SLIDER;0;1000;1000" />
             <Var id="RERcrownsContract" displayName="rer_crowns_contract" displayType="SLIDER;0;1000;1000" />
@@ -4863,9 +4863,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;200" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;200" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;200" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;200" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;200" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;200" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;200" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;200" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;200" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;200" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;200" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;200" />
@@ -4877,8 +4877,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;200" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;200" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;200" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;200" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;200" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;200" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;200" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;200" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;200" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;200" />
@@ -4887,11 +4887,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;200" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;200" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;200" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;200" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;200" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;200" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;200" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;200" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;200" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;200" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;200" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;200" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;200" />
@@ -4916,9 +4916,9 @@
 
                 <Entry varId="Hags"                    value="100"     />
                 <Entry varId="Fogling"                value="100"     />
-                <Entry varId="Troll"                value="100"     />                    
-                <Entry varId="Troll"                value="100"     />                    
-                <Entry varId="SkelligeTroll"        value="100"     />                    
+                <Entry varId="Troll"                value="100"     />
+                <Entry varId="Troll"                value="100"     />
+                <Entry varId="SkelligeTroll"        value="100"     />
                 <Entry varId="Werewolves"            value="100"     />
                 <Entry varId="Fiends"                value="100"     />
                 <Entry varId="Chorts"                value="100"     />
@@ -5004,7 +5004,7 @@
                 <Entry varId="Boars"                value="0"    />
                 <Entry varId="Troll"                value="0"    />
                 <Entry varId="SkelligeTroll"        value="0"    />
-                
+
                 <Entry varId="HigherVamp"            value="0"    />
                 <Entry varId="Bruxa"                value="0"    />
                 <Entry varId="Fleder"                value="0"    />
@@ -5019,7 +5019,7 @@
                 <Entry varId="Sharley"                value="0"    />
                 <Entry varId="Wight"                value="0"    />
                 <Entry varId="Giant"                value="0"    />
-                
+
                 <!-- added values -->
                 <Entry varId="Humans"               value="0"  />
                 <Entry varId="WildHunt"             value="0"  />
@@ -5064,7 +5064,7 @@
                 <Entry varId="Boars"                value="100"    />
                 <Entry varId="Troll"                value="100"    />
                 <Entry varId="SkelligeTroll"        value="100"    />
-                
+
                 <Entry varId="HigherVamp"            value="100"    />
                 <Entry varId="Bruxa"                value="100"    />
                 <Entry varId="Fleder"                value="100"    />
@@ -5093,8 +5093,8 @@
             <Preset id="3" displayName="rer_no_large_creatures" >
                 <Entry varId="Hags"                    value="0"    />
                 <Entry varId="Fogling"                value="0"    />
-                <Entry varId="Troll"                value="0"    />                    
-                <Entry varId="SkelligeTroll"        value="0"    />                    
+                <Entry varId="Troll"                value="0"    />
+                <Entry varId="SkelligeTroll"        value="0"    />
                 <Entry varId="Werewolves"            value="0"    />
                 <Entry varId="Fiends"                value="0"    />
                 <Entry varId="Chorts"                value="0"    />
@@ -5185,9 +5185,9 @@
             <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
             <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
             <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />    
-            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />    
-            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />    
+            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
+            <Var id="Troll" displayName="rer_troll" displayType="SLIDER;0;100;100" />
+            <Var id="SkelligeTroll" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
             <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
             <Var id="Harpies" displayName="rer_harpies" displayType="SLIDER;0;100;100" />
             <Var id="Fogling" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
@@ -5199,8 +5199,8 @@
             <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
             <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
             <Var id="SkelligeWolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />        
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />    
+            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
+            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="HigherVamp" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
             <Var id="Bruxa" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
@@ -5209,11 +5209,11 @@
             <Var id="DrownerDLC" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
             <Var id="Giant" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
             <Var id="Skeleton" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />                            
+            <Var id="Barghest" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
             <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
             <Var id="Centipede" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
             <Var id="Kikimore" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />                                
+            <Var id="Panther" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
             <Var id="Sharley" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
             <Var id="Wight" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
             <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
@@ -5239,7 +5239,7 @@
                 <Entry varId="hideNextNotifications" value="1" />
                 <Entry varId="RERcameraScenesDisabled" value="0" />
                 <Entry varId="RERcameraBlendingDisabled" value="0" />
-                <Entry varId="RERtrophyPickupAnimation" value="1" />
+                <Entry varId="RERtrophyPickupAnimation" value="30" />
                 <Entry varId="RERtrailsUsePathFinding" value="1" />
             </Preset>
         </PresetsArray>
@@ -5255,13 +5255,13 @@
             <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="TOGGLE"></Var>
 
             <Var id="RERcameraScenesDisabled" displayName="rer_camera_scenes_disabled" displayType="TOGGLE"/>
-            
+
             <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
 
             <Var id="RERcameraScenesDisabledOnHorse" displayName="rer_camera_immersive_camera_compatibility" displayType="TOGGLE"/>
 
-            <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="TOGGLE"></Var>
-            
+            <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="SLIDER;0;100;100"></Var>
+
             <Var id="RERtrailsUsePathFinding" displayName="rer_trails_use_pathfinding" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
