@@ -10,7 +10,12 @@ state Ending in RandomEncountersReworkedContractEntity {
 
   entry function Ending_main() {
     Sleep(1);
-    REROL_its_over();
+
+    // play the oneliner only if two phases were played. There is always one phase
+    // that is played as it's the starting phase, so we check for two.
+    if (parent.played_phases.Size() > 1) {
+      REROL_its_over();
+    }
 
     parent.clean();
   }
