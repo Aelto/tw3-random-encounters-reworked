@@ -23,6 +23,7 @@ statemachine class CRandomEncounters extends CEntity {
   var events_manager: RER_EventsManager;
   var bestiary: RER_Bestiary;
   var static_encounter_manager: RER_StaticEncounterManager;
+  var storages: RER_StorageCollection;
 
   var ticks_before_spawn: int;
 
@@ -100,6 +101,8 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   private function initiateRandomEncounters() {
+    var has_saved: bool;
+
     this.spawn_roller.fill_arrays();
 
     this.bestiary.init();
@@ -110,6 +113,16 @@ statemachine class CRandomEncounters extends CEntity {
 
     this.events_manager.init(this);
     this.events_manager.start();
+
+    this.storages = RER_loadStorageCollection();
+
+    this.storages.ecosystem.counter += 1;
+
+    has_saved = RER_saveStorageCollection(this.storages);
+
+    LogChannel('RER', "has saved = " + has_saved);
+
+    NDEBUG(this.storages.ecosystem.counter);
 
     AddTimer('onceReady', 3.0, false);
     this.GotoState('Loading');

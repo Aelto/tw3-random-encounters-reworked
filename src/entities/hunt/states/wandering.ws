@@ -34,7 +34,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];
-        is_player_busy = isPlayerBusy();
+        is_player_busy = isPlayerInScene();
 
         distance_from_player = VecDistance(
           current_entity.GetWorldPosition(),
