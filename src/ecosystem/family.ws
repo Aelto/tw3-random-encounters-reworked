@@ -21,7 +21,7 @@ struct EcosystemArea {
   // the power of CreatureImpact.
   // by default it will be 0, and whenever a creature is killed it will be decreased
   // by 1 and each time a new one appear it will be increased by 1.
-  var impacts_power_by_creature_type: array<int>;
+  var impacts_power_by_creature_type: array<float>;
 }
 
 class EcosystemCreatureImpactBuilder {
@@ -3509,5 +3509,5 @@ function getEcosystemImpactList(): array<EcosystemCreatureImpact> {
       .build()
   );
 
-  return web;
+  return impacts;
 }

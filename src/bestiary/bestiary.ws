@@ -63,7 +63,10 @@ class RER_Bestiary {
       }
     }
 
-    spawn_roll = master.spawn_roller.rollCreatures(this.third_party_creature_counter);
+    spawn_roll = master.spawn_roller.rollCreatures(
+      master,
+      this.third_party_creature_counter
+    );
 
     if (spawn_roll.roll == CreatureNONE) {
       return new RER_BestiaryEntryNull in this;
@@ -181,7 +184,21 @@ class RER_Bestiary {
     }
   }
 
+  public function getCreatureTypeFromEntity(entity: CEntity): CreatureType {
+    var type: CreatureType;
+    var hashed_name: int;
+    var i: int;
 
+    hashed_name = rer_hash_string(entity.GetReadableName());
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      if (this.entries.isCreatureHashedNameFromEntry(hashed_name)) {
+        return i;
+      }
+    }
+
+    return CreatureNONE;
+  }
 
 
   //#region 3rd party code

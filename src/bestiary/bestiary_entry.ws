@@ -4,6 +4,10 @@ abstract class RER_BestiaryEntry {
 
   var template_list: EnemyTemplateList;
 
+  // stores a hash of the templates the bestiary entry has for a faster lookup.
+  // Used by the function `isCreatureHashedNameFromEntry()`
+  var template_hashes: array<int>;
+
   // names for this entity trophies
   // uses the enum TrophyVariant as index
   var trophy_names: array<name>;
@@ -61,6 +65,12 @@ abstract class RER_BestiaryEntry {
     this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractNight', this.menu_name));
     this.creature_type_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', this.menu_name));
     this.crowns_percentage = StringToFloat(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', this.menu_name)) / 100.0f;
+
+    for (i = 0; i < this.template_list.templates.Size(); i += 1) {
+      this.template_hashes.PushBack(
+        rer_hash_string(this.template_list.templates[i])
+      );
+    }
 
     // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
   }
@@ -165,6 +175,20 @@ abstract class RER_BestiaryEntry {
     }
 
     return created_entities;
+  }
+
+  // checks if the hashed creature name is from this bestiary entry. To get a hashed
+  // creature name, use CEntity::GetReadableName() and then use rer_hash_string()
+  public function isCreatureHashedNameFromEntry(hashed_name: int): bool {
+    var i: int;
+
+    for (i = 0; i < this.template_hashes.Size(); i += 1) {
+      if (this.template_hashes[i] == hashed_name) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 
