@@ -48,7 +48,9 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     // as small as possible.
     new_checkup = this.getCreatureTypesAroundPlayer(master);
 
+    LogChannel('RER', "last checkup:");
     this.debugShowCheckup(this.last_checkup);
+    LogChannel('RER', "new checkup:");
     this.debugShowCheckup(new_checkup);
 
     // we get here the create that were here before but are no longer here and
@@ -58,6 +60,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
       new_checkup
     );
 
+    LogChannel('RER', "diff checkup:");
     this.debugShowCheckup(checkup_difference);
 
     this.notifyEcosystemManager(master, checkup_difference);
@@ -94,7 +97,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
         continue;
       }
 
-      if (!((CActor)entities[i]).HasAttitudeTowards(thePlayer)) {
+      if (((CNewNPC)entities[i]).GetTarget() != thePlayer) {
         continue;
       }
 
@@ -120,22 +123,22 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     var was_found: bool;
     var output: array<CreatureType>;
 
-    for (i = 0; i < after.Size(); i += 1) {
+    for (i = 0; i < before.Size(); i += 1) {
       was_found = false;
 
-      for (j = 0; j < before.Size(); j += 1) {
+      for (j = 0; j < after.Size(); j += 1) {
         if (after[i] == before[j]) {
           // so that it doesn't match for other creatures. It's easier to set it
           // to CreatureNONE than to remove it, it is more efficient. And we know
           // that there are supposedly no CreatureNONE in after so we're good.
-          before[j] = CreatureNONE;
+          after[j] = CreatureNONE;
 
           was_found = true;
         }
       }
 
       if (!was_found) {
-        output.PushBack(after[i]);
+        output.PushBack(before[i]);
       }
     }
 

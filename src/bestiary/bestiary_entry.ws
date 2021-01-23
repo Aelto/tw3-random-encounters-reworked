@@ -6,7 +6,7 @@ abstract class RER_BestiaryEntry {
 
   // stores a hash of the templates the bestiary entry has for a faster lookup.
   // Used by the function `isCreatureHashedNameFromEntry()`
-  var template_hashes: array<int>;
+  var template_hashes: array<string>;
 
   // names for this entity trophies
   // uses the enum TrophyVariant as index
@@ -70,7 +70,7 @@ abstract class RER_BestiaryEntry {
 
     for (i = 0; i < this.template_list.templates.Size(); i += 1) {
       this.template_hashes.PushBack(
-        rer_hash_string(this.template_list.templates[i].template)
+        this.template_list.templates[i].template
       );
     }
 
@@ -181,7 +181,7 @@ abstract class RER_BestiaryEntry {
 
   // checks if the hashed creature name is from this bestiary entry. To get a hashed
   // creature name, use CEntity::GetReadableName() and then use rer_hash_string()
-  public function isCreatureHashedNameFromEntry(hashed_name: int): bool {
+  public function isCreatureHashedNameFromEntry(hashed_name: string): bool {
     var i: int;
 
     for (i = 0; i < this.template_hashes.Size(); i += 1) {

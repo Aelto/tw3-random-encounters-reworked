@@ -116,7 +116,13 @@ statemachine class CRandomEncounters extends CEntity {
     this.events_manager.init(this);
     this.events_manager.start();
 
+    this.ecosystem_manager.init(this);
+
     this.storages = RER_loadStorageCollection();
+    
+    LogChannel('RER', "ecosystem areas storage count = " + this.storages
+      .ecosystem
+      .ecosystem_areas.Size());
 
     AddTimer('onceReady', 3.0, false);
     this.GotoState('Loading');

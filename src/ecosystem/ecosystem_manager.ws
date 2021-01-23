@@ -10,11 +10,18 @@ class RER_EcosystemManager {
 
   // returns the EcosystemAreas the player is currently in.
   // EcosystemAreas can overlap and so it returns an array
-  public function getCurrentEcosystemAreas(): array<EcosystemArea> {
+  //
+  // NOTE: it returns the indices of the EcosystemAreas because they're structs
+  // and returning a struct makes a copy of it and not a reference. Which means
+  // if you edit the returned struct the original isn't and you'd need to find it
+  // with its index so it's better to just return an index.
+  public function getCurrentEcosystemAreas(): array<int> {
     var player_position: Vector;
     var current_area: EcosystemArea;
-    var output: array<EcosystemArea>;
+    var output: array<int>;
     var i: int;
+
+    LogChannel('RER', "getCurrentEcosystemAreas, current areas count: " + this.master.storages.ecosystem.ecosystem_areas.Size());
 
     player_position = thePlayer.GetWorldPosition();
     for (i = 0; i < this.master.storages.ecosystem.ecosystem_areas.Size(); i += 1) {
@@ -22,15 +29,18 @@ class RER_EcosystemManager {
 
       // check if the player in is the radius
       if (VecDistanceSquared(player_position, current_area.position) < current_area.radius * current_area.radius) {
-        output.PushBack(current_area);
+        output.PushBack(i);
       }
     }
+
+    LogChannel('RER', "getCurrentEcosystemAreas, found " + output.Size() + " areas");
 
     return output;
   }
 
-  public function getCreatureModifiersForEcosystemAreas(areas: array<EcosystemArea>): array<float> {
+  public function getCreatureModifiersForEcosystemAreas(areas: array<int>): array<float> {
     var output: array<float>;
+    var current_index: int;
     var current_area: EcosystemArea;
     var current_power: float;
     var current_impact: EcosystemCreatureImpact;
@@ -43,9 +53,10 @@ class RER_EcosystemManager {
 
     // now for each area
     for (i = 0; i < areas.Size(); i += 1) {
-      current_area = areas[i];
+      current_index = areas[i];
+      current_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
 
-      for (j = 0; j < current_area.impacts_power_by_creature_type.Size(); j += 1) {
+      for (j = 0; j < CreatureMAX; j += 1) {
         current_power = current_area.impacts_power_by_creature_type[j];
 
         // when power is at 0 we can skip it as it won't change anything
@@ -53,13 +64,15 @@ class RER_EcosystemManager {
           continue;
         }
 
+        LogChannel('RER', "current area, creature power = " + current_power);
+
         // note that here, J is also an int that can be used as a CreatureType
         current_impact = this.master.bestiary.entries[j].ecosystem_impact;
 
         // now we loop through each influence and add them to the output
         // the influence is multiplied by the power of the current CreatureType
         for (k = 0; k < current_impact.influences.Size(); k += 1) {
-          output[j] += current_power * current_impact.influences[k];
+          output[k] += current_power * current_impact.influences[k];
         }
       }
     }
@@ -80,6 +93,9 @@ class RER_EcosystemManager {
     }
 
     for (i = 0; i < counters.Size(); i += 1) {
+      LogChannel('RER', "udpateCountersWithCreatureModifiers, before = " + counters[i]);
+      LogChannel('RER', "udpateCountersWithCreatureModifiers, creature = " + (CreatureType)i + " modifier = " + modifiers[i]);
+
       // here, it's an added value `+=` and not a `=` so if the modifiers is at
       // 0 it won't change the value rather than setting it at 0.
       // See modifiers as an % increase/decrease.
@@ -89,6 +105,8 @@ class RER_EcosystemManager {
       // so the user can control how much the ecosystem feature affects the
       // spawn rates.
       counters[i] += (int)((float)counters[i] * modifiers[i]);
+
+      LogChannel('RER', "udpateCountersWithCreatureModifiers, after = " + counters[i]);
     }
   }
 
@@ -108,8 +126,9 @@ class RER_EcosystemManager {
   //
   // NOTE: the function saves the ecosystem storage after the operation.
   public function updatePowerForCreatureInCurrentEcosystemAreas(creature: CreatureType, power_change: float) {
-    var ecosystem_areas: array<EcosystemArea>;
+    var ecosystem_areas: array<int>;
     var current_ecosystem_area: EcosystemArea;
+    var current_index: int;
     var distance_from_center: float;
     var player_position: Vector;
     var i: int;
@@ -120,16 +139,24 @@ class RER_EcosystemManager {
     ecosystem_areas = this.getCurrentEcosystemAreas();
 
     if (ecosystem_areas.Size() == 0) {
+      LogChannel('RER', "no ecosystem area found, creating one");
       current_ecosystem_area = getNewEcosystemArea(
         player_position,
         50 // default ecosystem area radius is 50 meters
       );
 
-      ecosystem_areas.PushBack(current_ecosystem_area);
+      this.master
+        .storages
+        .ecosystem
+        .ecosystem_areas
+        .PushBack(current_ecosystem_area);
+
+      ecosystem_areas.PushBack(0);
     }
 
     for (i = 0; i < ecosystem_areas.Size(); i += 1) {
-      current_ecosystem_area = ecosystem_areas[i];
+      current_index = ecosystem_areas[i];
+      current_ecosystem_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
       
       // at the moment it's just the raw squared distance
       distance_from_center = VecDistanceSquared(
@@ -140,7 +167,17 @@ class RER_EcosystemManager {
       // now it's a percentage value going from 0 to 1
       distance_from_center = distance_from_center / (current_ecosystem_area.radius * current_ecosystem_area.radius);
 
-      current_ecosystem_area.impacts_power_by_creature_type[creature] += power_change * distance_from_center;
+      // minimum power change is 20%,
+      distance_from_center = MinF(distance_from_center, 0.2);
+
+      LogChannel('RER', "ecosystem power change for " + creature + " distance from center = " + distance_from_center);
+      LogChannel('RER', "ecosystem power change for " + creature + " = " + power_change * (1 - distance_from_center));
+
+      this.master
+        .storages
+        .ecosystem
+        .ecosystem_areas[current_index]
+        .impacts_power_by_creature_type[creature] += power_change * (1 - distance_from_center);
     }
 
     // we now save the storage to store the power change.
@@ -158,6 +195,9 @@ class RER_EcosystemManager {
     for (i = 0; i < CreatureMAX; i += 1) {
       area.impacts_power_by_creature_type.PushBack(0);
     }
+
+    area.position = position;
+    area.radius = radius;
 
     return area;
   }

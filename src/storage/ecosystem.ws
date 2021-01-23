@@ -18,6 +18,8 @@ function RER_loadEcosystemStorage(): RER_EcosystemStorage {
   // the first time we load, there is no data so we have to create something from
   // scratch.
   if (!IsNameValid(storage.id) && !IsNameValid(storage.containerId)) {
+    LogChannel('RER', "RER_loadEcosystemStorage - instanciating new EcosystemStorage");
+
     storage = new RER_EcosystemStorage in thePlayer;
   }
 
