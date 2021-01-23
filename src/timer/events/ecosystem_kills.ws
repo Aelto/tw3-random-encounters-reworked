@@ -35,7 +35,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
 
     // now it means the player is in combat and there is no ICD so do we a checkup
     if (is_player_in_combat) {
-      this.last_checkup = this.getCreatureTypesAroundPlayer();
+      this.last_checkup = this.getCreatureTypesAroundPlayer(master);
 
       // do not checkup more than once every 5 seconds.
       this.time_before_next_checkup += 5;
@@ -53,7 +53,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     // severely impact performances so i still want to keep the checkup radius
     // as small as possible.
     else {
-      new_checkup = this.getCreatureTypesAroundPlayer();
+      new_checkup = this.getCreatureTypesAroundPlayer(master);
 
       // we get here the create that were here before but are no longer here and
       // alive now.
@@ -65,11 +65,13 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
       this.notifyEcosystemManager(master, checkup_difference);
     }
 
+    this.was_player_in_combat = is_player_in_combat;
+
     
     return false;
   }
 
-  private latent function getCreatureTypesAroundPlayer(): array<CreatureType> {
+  private latent function getCreatureTypesAroundPlayer(master: CRandomEncounters): array<CreatureType> {
     var entities: array<CGameplayEntity>;
     var output: array<CreatureType>;
     var current_type: CreatureType;
@@ -128,6 +130,8 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
         output.PushBack(after[i]);
       }
     }
+
+    return output;
   }
 
   private function notifyEcosystemManager(master: CRandomEncounters, difference: array<CreatureType>) {

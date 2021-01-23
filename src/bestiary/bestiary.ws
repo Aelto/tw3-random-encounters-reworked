@@ -64,7 +64,7 @@ class RER_Bestiary {
     }
 
     spawn_roll = master.spawn_roller.rollCreatures(
-      master,
+      master.ecosystem_manager,
       this.third_party_creature_counter
     );
 
@@ -192,7 +192,7 @@ class RER_Bestiary {
     hashed_name = rer_hash_string(entity.GetReadableName());
 
     for (i = 0; i < CreatureMAX; i += 1) {
-      if (this.entries.isCreatureHashedNameFromEntry(hashed_name)) {
+      if (this.entries[i].isCreatureHashedNameFromEntry(hashed_name)) {
         return i;
       }
     }

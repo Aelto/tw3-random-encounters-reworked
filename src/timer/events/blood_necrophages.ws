@@ -167,7 +167,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       }
     }
 
-    roll = spawn_roller.rollCreatures();
+    roll = spawn_roller.rollCreatures(master.ecosystem_manager);
     return roll.roll;
   }
 }

@@ -4,12 +4,8 @@
 class RER_EcosystemManager {
   var master: CRandomEncounters;
 
-  var impact_list: array<EcosystemCreatureImpact>;
-
   public function init(master: CRandomEncounters) {
     this.master = master;
-
-    this.impact_list = getEcosystemImpactList();
   }
 
   // returns the EcosystemAreas the player is currently in.
@@ -21,7 +17,7 @@ class RER_EcosystemManager {
     var i: int;
 
     player_position = thePlayer.GetWorldPosition();
-    for (i = 0; i < this.master.storages.ecosystem.ecosystem_areas; i += 1) {
+    for (i = 0; i < this.master.storages.ecosystem.ecosystem_areas.Size(); i += 1) {
       current_area = this.master.storages.ecosystem.ecosystem_areas[i];
 
       // check if the player in is the radius
@@ -36,7 +32,7 @@ class RER_EcosystemManager {
   public function getCreatureModifiersForEcosystemAreas(areas: array<EcosystemArea>): array<float> {
     var output: array<float>;
     var current_area: EcosystemArea;
-    var current_power: int;
+    var current_power: float;
     var current_impact: EcosystemCreatureImpact;
     var i, j, k: int;
 
@@ -58,7 +54,7 @@ class RER_EcosystemManager {
         }
 
         // note that here, J is also an int that can be used as a CreatureType
-        current_impact = this.impact_list[j];
+        current_impact = this.master.bestiary.entries[j].ecosystem_impact;
 
         // now we loop through each influence and add them to the output
         // the influence is multiplied by the power of the current CreatureType
@@ -92,7 +88,7 @@ class RER_EcosystemManager {
       // the values. It would result in `counters[i] * modifiers[i] * menu_modifier`
       // so the user can control how much the ecosystem feature affects the
       // spawn rates.
-      counters[i] += counters[i] * modifiers[i];
+      counters[i] += (int)((float)counters[i] * modifiers[i]);
     }
   }
 
@@ -118,6 +114,8 @@ class RER_EcosystemManager {
     var player_position: Vector;
     var i: int;
 
+    LogChannel('RER', "power change for " + creature + " = " + power_change);
+
     player_position = thePlayer.GetWorldPosition();
     ecosystem_areas = this.getCurrentEcosystemAreas();
 
@@ -140,7 +138,7 @@ class RER_EcosystemManager {
       );
 
       // now it's a percentage value going from 0 to 1
-      distance_from_center = distance_from_center / (current_ecosystem_area.radius * current_ecosystem_area);
+      distance_from_center = distance_from_center / (current_ecosystem_area.radius * current_ecosystem_area.radius);
 
       current_ecosystem_area.impacts_power_by_creature_type[creature] += power_change * distance_from_center;
     }
@@ -153,7 +151,7 @@ class RER_EcosystemManager {
   }
 
   // returns a new empty ecosystem area with all default values initiliased
-  public function getNewEcosystemArea(position: Vector, radius: Vector): EcosystemArea {
+  public function getNewEcosystemArea(position: Vector, radius: float): EcosystemArea {
     var area: EcosystemArea;
     var i: int;
 

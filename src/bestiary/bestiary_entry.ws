@@ -15,6 +15,8 @@ abstract class RER_BestiaryEntry {
   // the name used in the mod menus
   var menu_name: name;
 
+  var ecosystem_impact: EcosystemCreatureImpact;
+
   // both use the enum EncounterType as index
   var chances_day: array<int>;
   var chances_night: array<int>;
@@ -68,7 +70,7 @@ abstract class RER_BestiaryEntry {
 
     for (i = 0; i < this.template_list.templates.Size(); i += 1) {
       this.template_hashes.PushBack(
-        rer_hash_string(this.template_list.templates[i])
+        rer_hash_string(this.template_list.templates[i].template)
       );
     }
 
