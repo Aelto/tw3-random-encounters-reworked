@@ -1,6 +1,8 @@
 
 class RER_BestiaryHumanBandit extends RER_BestiaryEntry {
   public function init() {
+    var influences: RER_ConstantInfluences;
+
     this.type = CreatureHUMAN;
     this.menu_name = 'Humans';
 

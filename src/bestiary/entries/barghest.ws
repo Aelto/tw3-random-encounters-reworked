@@ -1,6 +1,8 @@
 
 class RER_BestiaryBarghest extends RER_BestiaryEntry {
   public function init() {
+    var influences: RER_ConstantInfluences;
+
     this.type = CreatureBARGHEST;
     this.menu_name = 'Barghest';
 
@@ -27,63 +29,63 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_spirit_trophy_high');
 
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
-      .influence(1) //CreatureHUMAN
-      .influence(1) //CreatureARACHAS
-      .influence(1) //CreatureENDREGA
-      .influence(1) //CreatureGHOUL
-      .influence(1) //CreatureALGHOUL
-      .influence(1) //CreatureNEKKER
-      .influence(1) //CreatureDROWNER
-      .influence(1) //CreatureROTFIEND
-      .influence(1) //CreatureWOLF
-      .influence(1) //CreatureWRAITH
-      .influence(1) //CreatureHARPY
-      .influence(1) //CreatureSPIDER
-      .influence(1) //CreatureCENTIPEDE
-      .influence(1) //CreatureDROWNERDLC
-      .influence(1) //CreatureBOAR
-      .influence(1) //CreatureBEAR
-      .influence(1) //CreaturePANTHER
-      .influence(1) //CreatureSKELETON
-      .influence(1) //CreatureECHINOPS
-      .influence(1) //CreatureKIKIMORE
-      .influence(1) //CreatureBARGHEST
-      .influence(1) //CreatureSKELWOLF
-      .influence(1) //CreatureSKELBEAR
-      .influence(1) //CreatureWILDHUNT
-      .influence(1) //CreatureBERSERKER
-      .influence(1) //CreatureSIREN
+      .influence(influences.kills_them) //CreatureHUMAN
+      .influence(influences.low_bad_influence) //CreatureARACHAS
+      .influence(influences.low_bad_influence) //CreatureENDREGA
+      .influence(influences.low_bad_influence) //CreatureGHOUL
+      .influence(influences.low_bad_influence) //CreatureALGHOUL
+      .influence(influences.low_bad_influence) //CreatureNEKKER
+      .influence(influences.low_bad_influence) //CreatureDROWNER
+      .influence(influences.low_bad_influence) //CreatureROTFIEND
+      .influence(influences.low_bad_influence) //CreatureWOLF
+      .influence(influences.friend_with) //CreatureWRAITH
+      .influence(influences.low_bad_influence) //CreatureHARPY
+      .influence(influences.low_indirect_influence) //CreatureSPIDER
+      .influence(influences.low_bad_influence) //CreatureCENTIPEDE
+      .influence(influences.low_bad_influence) //CreatureDROWNERDLC
+      .influence(influences.low_bad_influence) //CreatureBOAR
+      .influence(influences.low_bad_influence) //CreatureBEAR
+      .influence(influences.low_bad_influence) //CreaturePANTHER
+      .influence(influences.friend_with) //CreatureSKELETON
+      .influence(influences.low_bad_influence) //CreatureECHINOPS
+      .influence(influences.low_bad_influence) //CreatureKIKIMORE
+      .influence(influences.self_influence) //CreatureBARGHEST
+      .influence(influences.low_bad_influence) //CreatureSKELWOLF
+      .influence(influences.low_bad_influence) //CreatureSKELBEAR
+      .influence(influences.kills_them) //CreatureWILDHUNT
+      .influence(influences.low_bad_influence) //CreatureBERSERKER
+      .influence(influences.low_bad_influence) //CreatureSIREN
 
       // large creatures below
-      .influence(1) //CreatureDRACOLIZARD
-      .influence(1) //CreatureGARGOYLE
-      .influence(1) //CreatureLESHEN
-      .influence(1) //CreatureWEREWOLF
-      .influence(1) //CreatureFIEND
-      .influence(1) //CreatureEKIMMARA
-      .influence(1) //CreatureKATAKAN
-      .influence(1) //CreatureGOLEM
-      .influence(1) //CreatureELEMENTAL
-      .influence(1) //CreatureNIGHTWRAITH
-      .influence(1) //CreatureNOONWRAITH
-      .influence(1) //CreatureCHORT
-      .influence(1) //CreatureCYCLOP
-      .influence(1) //CreatureTROLL
-      .influence(1) //CreatureHAG
-      .influence(1) //CreatureFOGLET
-      .influence(1) //CreatureBRUXA
-      .influence(1) //CreatureFLEDER
-      .influence(1) //CreatureGARKAIN
-      .influence(1) //CreatureDETLAFF
-      .influence(1) //CreatureGIANT
-      .influence(1) //CreatureSHARLEY
-      .influence(1) //CreatureWIGHT
-      .influence(1) //CreatureGRYPHON
-      .influence(1) //CreatureCOCKATRICE
-      .influence(1) //CreatureBASILISK
-      .influence(1) //CreatureWYVERN
-      .influence(1) //CreatureFORKTAIL
-      .influence(1) //CreatureSKELTROLL
+      .influence(influences.no_influence) //CreatureDRACOLIZARD
+      .influence(influences.friend_with) //CreatureGARGOYLE
+      .influence(influences.low_indirect_influence) //CreatureLESHEN
+      .influence(influences.kills_them) //CreatureWEREWOLF
+      .influence(influences.no_influence) //CreatureFIEND
+      .influence(influences.kills_them) //CreatureEKIMMARA
+      .influence(influences.kills_them) //CreatureKATAKAN
+      .influence(influences.friend_with) //CreatureGOLEM
+      .influence(influences.friend_with) //CreatureELEMENTAL
+      .influence(influences.friend_with) //CreatureNIGHTWRAITH
+      .influence(influences.friend_with) //CreatureNOONWRAITH
+      .influence(influences.no_influence) //CreatureCHORT
+      .influence(influences.no_influence) //CreatureCYCLOP
+      .influence(influences.high_bad_influence) //CreatureTROLL
+      .influence(influences.high_bad_influence) //CreatureHAG
+      .influence(influences.high_bad_influence) //CreatureFOGLET
+      .influence(influences.friend_with) //CreatureBRUXA
+      .influence(influences.high_bad_influence) //CreatureFLEDER
+      .influence(influences.high_bad_influence) //CreatureGARKAIN
+      .influence(influences.friend_with) //CreatureDETLAFF
+      .influence(influences.high_bad_influence) //CreatureGIANT
+      .influence(influences.high_bad_influence) //CreatureSHARLEY
+      .influence(influences.friend_with) //CreatureWIGHT
+      .influence(influences.no_influence) //CreatureGRYPHON
+      .influence(influences.no_influence) //CreatureCOCKATRICE
+      .influence(influences.no_influence) //CreatureBASILISK
+      .influence(influences.no_influence) //CreatureWYVERN
+      .influence(influences.no_influence) //CreatureFORKTAIL
+      .influence(influences.high_bad_influence) //CreatureSKELTROLL
       .build();
   }
 
