@@ -161,7 +161,14 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     for (i = 0; i < CreatureMAX; i += 1) {
       if (power_changes[i] != 0) {
         master.ecosystem_manager
-          .updatePowerForCreatureInCurrentEcosystemAreas(i, power_changes[i]);
+          // at this point the power_changes[i] is simply the enemy count
+          // but we don't want the power change to be this strong. We then divide
+          // it by a fixed value.
+          .updatePowerForCreatureInCurrentEcosystemAreas(
+            i,
+            (power_changes[i] * -1) / 5,
+            thePlayer.GetWorldPosition()
+          );
       }
     }
   }

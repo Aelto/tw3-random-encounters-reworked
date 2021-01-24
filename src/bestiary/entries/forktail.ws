@@ -2,6 +2,7 @@
 class RER_BestiaryForktail extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureFORKTAIL;
     this.menu_name = 'Forktails';

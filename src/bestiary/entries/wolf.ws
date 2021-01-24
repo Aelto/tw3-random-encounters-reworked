@@ -2,6 +2,7 @@
 class RER_BestiaryWolf extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureWOLF;
     this.menu_name = 'Wolves';
@@ -43,7 +44,7 @@ class RER_BestiaryWolf extends RER_BestiaryEntry {
       .influence(influences.high_indirect_influence) //CreatureNEKKER
       .influence(influences.low_bad_influence) //CreatureDROWNER
       .influence(influences.low_bad_influence) //CreatureROTFIEND
-      .influence(influences.friend_with) //CreatureWOLF
+      .influence(influences.self_influence) //CreatureWOLF
       .influence(influences.no_influence) //CreatureWRAITH
       .influence(influences.no_influence) //CreatureHARPY
       .influence(influences.low_indirect_influence) //CreatureSPIDER

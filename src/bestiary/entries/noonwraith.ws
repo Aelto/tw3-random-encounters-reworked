@@ -2,6 +2,7 @@
 class RER_BestiaryNoonwraith extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureNOONWRAITH;
     this.menu_name = 'NoonWraiths';

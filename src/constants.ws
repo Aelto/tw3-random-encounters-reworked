@@ -47,6 +47,6 @@ struct RER_ConstantInfluences {
   default high_bad_influence = -1;
 
   var self_influence: float;
-  default self_influence = 1;
+  default self_influence = 3;
 
 }

@@ -2,6 +2,7 @@
 class RER_BestiaryAlghoul extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureALGHOUL;
     this.menu_name = 'Alghouls';

@@ -2,6 +2,7 @@
 class RER_BestiarySpider extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureSPIDER;
     this.menu_name = 'Spiders';

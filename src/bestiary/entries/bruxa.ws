@@ -2,6 +2,7 @@
 class RER_BestiaryBruxa extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureBRUXA;
     this.menu_name = 'Bruxa';

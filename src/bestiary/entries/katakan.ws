@@ -2,6 +2,7 @@
 class RER_BestiaryKatakan extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureKATAKAN;
     this.menu_name = 'Katakan';

@@ -2,6 +2,7 @@
 class RER_BestiarySharley extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureSHARLEY;
     this.menu_name = 'Sharley';

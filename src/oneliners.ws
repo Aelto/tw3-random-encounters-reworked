@@ -365,12 +365,14 @@ latent function REROL_i_accept_the_challenge() {
 }
 
 // Geralt: Mhm…
-latent function REROL_mhm() {
+latent function REROL_mhm(optional do_not_wait: bool) {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
   // converted to integer.
   thePlayer.PlayLine(1185176, true);
 
-  Sleep(2); // could not find Approved duration
+  if (!do_not_wait) {
+    Sleep(2); // could not find Approved duration
+  }
 }
 
 // Geralt: It's over.
@@ -820,5 +822,38 @@ latent function REROL_wonder_they_split(optional do_not_wait: bool) {
 
   if (!do_not_wait) {
     Sleep(3); // Approved duration
+  }
+}
+
+// Geralt: Nothing.
+latent function REROL_nothing(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1153912, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // Approved duration
+  }
+}
+
+// Geralt: Nothing here.
+latent function REROL_nothing_here(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1093719, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // Approved duration
+  }
+}
+
+// Geralt: Hmm... Nothing interesting.
+latent function REROL_nothing_interesting(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1130083, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // Approved duration
   }
 }

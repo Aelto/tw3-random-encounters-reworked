@@ -3,9 +3,13 @@
 // about the ecosystem feature.
 class RER_EcosystemManager {
   var master: CRandomEncounters;
+  var ecosystem_analyser: RER_EcosystemAnalyzer;
 
   public function init(master: CRandomEncounters) {
     this.master = master;
+    
+    this.ecosystem_analyser = new RER_EcosystemAnalyzer in this;
+    this.ecosystem_analyser.init(this);
   }
 
   // returns the EcosystemAreas the player is currently in.
@@ -64,7 +68,7 @@ class RER_EcosystemManager {
           continue;
         }
 
-        LogChannel('RER', "current area, creature power = " + current_power);
+        LogChannel('RER', "current area, creature power = " + (CreatureType)j + " - " + current_power);
 
         // note that here, J is also an int that can be used as a CreatureType
         current_impact = this.master.bestiary.entries[j].ecosystem_impact;
@@ -125,24 +129,22 @@ class RER_EcosystemManager {
   // value by calculating the % distance from the center of the area to its extremity.
   //
   // NOTE: the function saves the ecosystem storage after the operation.
-  public function updatePowerForCreatureInCurrentEcosystemAreas(creature: CreatureType, power_change: float) {
+  public function updatePowerForCreatureInCurrentEcosystemAreas(creature: CreatureType, power_change: float, position: Vector) {
     var ecosystem_areas: array<int>;
     var current_ecosystem_area: EcosystemArea;
     var current_index: int;
     var distance_from_center: float;
-    var player_position: Vector;
     var i: int;
 
     LogChannel('RER', "power change for " + creature + " = " + power_change);
-
-    player_position = thePlayer.GetWorldPosition();
     ecosystem_areas = this.getCurrentEcosystemAreas();
 
     if (ecosystem_areas.Size() == 0) {
       LogChannel('RER', "no ecosystem area found, creating one");
       current_ecosystem_area = getNewEcosystemArea(
-        player_position,
-        50 // default ecosystem area radius is 50 meters
+        position,
+        // this is the default radius, it uses the distance settings
+        this.master.settings.minimum_spawn_distance + this.master.settings.spawn_diameter
       );
 
       this.master
@@ -161,7 +163,7 @@ class RER_EcosystemManager {
       // at the moment it's just the raw squared distance
       distance_from_center = VecDistanceSquared(
         current_ecosystem_area.position,
-        player_position
+        position
       );
 
       // now it's a percentage value going from 0 to 1

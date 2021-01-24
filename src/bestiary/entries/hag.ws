@@ -2,6 +2,7 @@
 class RER_BestiaryHag extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureHAG;
     this.menu_name = 'Hags';

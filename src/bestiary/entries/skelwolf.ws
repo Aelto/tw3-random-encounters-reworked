@@ -2,6 +2,7 @@
 class RER_BestiarySkelwolf extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureSKELWOLF;
     this.menu_name = 'SkelligeWolves';

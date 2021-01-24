@@ -2,6 +2,7 @@
 class RER_BestiaryLeshen extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureLESHEN;
     this.menu_name = 'Leshens';

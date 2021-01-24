@@ -2,6 +2,7 @@
 class RER_BestiaryEchinops extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureECHINOPS;
     this.menu_name = 'Echinops';

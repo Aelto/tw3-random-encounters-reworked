@@ -2,6 +2,7 @@
 class RER_BestiaryGhoul extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureGHOUL;
     this.menu_name = 'Ghouls';
@@ -39,6 +40,8 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_necrophage_trophy_low');
     this.trophy_names.PushBack('modrer_necrophage_trophy_medium');
     this.trophy_names.PushBack('modrer_necrophage_trophy_high');
+
+    LogChannel('RER', "constant influence, " + influences.kills_them);
 
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN

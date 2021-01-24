@@ -2,6 +2,7 @@
 class RER_BestiaryHarpy extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureHARPY;
     this.menu_name = 'Harpies';

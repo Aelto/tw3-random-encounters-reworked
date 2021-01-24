@@ -2,6 +2,7 @@
 class RER_BestiaryBoar extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureBOAR;
     this.menu_name = 'Boars';

@@ -176,6 +176,20 @@ abstract class RER_BestiaryEntry {
       }
     }
 
+    // notify the ecosystem manager some creatures were added. Every time we spawn
+    // some it should slightly increase their power.
+    master
+      .ecosystem_manager
+      .updatePowerForCreatureInCurrentEcosystemAreas(
+        this.type,
+        // currently leaving this as is. But it may be a good idea to divide this
+        // power gain by the power the surrounding areas currently have to avoid
+        // an infinitely growing community.
+        created_entities.Size(),
+        position
+      );
+
+
     return created_entities;
   }
 

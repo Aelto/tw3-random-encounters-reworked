@@ -2,6 +2,7 @@
 class RER_BestiaryGravier extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureDROWNERDLC;
     this.menu_name = 'DrownerDLC';

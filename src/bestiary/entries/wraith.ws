@@ -2,6 +2,7 @@
 class RER_BestiaryWraith extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureWRAITH;
     this.menu_name = 'Wraiths';

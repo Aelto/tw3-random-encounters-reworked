@@ -2,6 +2,7 @@
 class RER_BestiaryWight extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureWIGHT;
     this.menu_name = 'Wight';

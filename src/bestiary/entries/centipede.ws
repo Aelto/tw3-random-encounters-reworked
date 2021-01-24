@@ -2,6 +2,7 @@
 class RER_BestiaryCentipede extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
 
     this.type = CreatureCENTIPEDE;
     this.menu_name = 'Centipede';
