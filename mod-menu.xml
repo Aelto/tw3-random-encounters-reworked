@@ -5216,6 +5216,21 @@
         </VisibleVars>
     </Group>
 
+    <Group id="RERecosystem" displayName="Mods.rer_name.rer_ecosystem_settings">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="ecosystemCommunityPowerEffect" value="5" />
+                <Entry varId="ecosystemCommunityNaturalDeathSpeed" value="5" />
+                <Entry varId="ecosystemCommunityPowerSpread" value="5" />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="ecosystemCommunityPowerEffect" displayName="rer_ecosystem_community_power_effect" displayType="SLIDER;0;100;1000"/>
+            <Var id="ecosystemCommunityPowerSpread" displayName="rer_ecosystem_community_power_spread" displayType="SLIDER;0;100;10000"/>
+            <Var id="ecosystemCommunityNaturalDeathSpeed" displayName="rer_ecosystem_community_natural_death_speed" displayType="SLIDER;0;100;10000"/>
+        </VisibleVars>
+    </Group>
+
     <Group id="RERoptionalFeatures" displayName="Mods.rer_name.rer_optional_features_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
