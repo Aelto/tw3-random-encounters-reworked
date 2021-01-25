@@ -139,7 +139,7 @@ state Analysing in RER_EcosystemAnalyzer {
       return;
     }
 
-    message = "The surrounding area is mostly filled with ";
+    message = "This area and its vicinity is teeming with ";
 
     if (sorted_creatures_ascending.Size() > 0) {
       picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
@@ -166,7 +166,7 @@ state Analysing in RER_EcosystemAnalyzer {
       picked_creature = sorted_creatures_ascending[0];
 
       if (picked_creature.percentage < 0) {
-        message += ", which means you're less likely to come across " + getCreatureNameFromCreatureType(
+        message += ", which makes the possibility of encountering " + getCreatureNameFromCreatureType(
           parent.ecosystem_manager.master.bestiary,
           picked_creature.type
         );
@@ -179,9 +179,16 @@ state Analysing in RER_EcosystemAnalyzer {
           picked_creature.type
         );
       }
+
+      message += " unlikely.";
     }
 
     message += ".";
+
+    if (sorted_creatures_ascending.Size() > 0) {
+      picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
+      message += "<br /><br />" + this.getEcosystemAdvice(picked_creature.type);
+    }
 
     // first the positive percentages
     // for (i = 0; i < creatures.Size(); i += 1) {
@@ -242,6 +249,102 @@ state Analysing in RER_EcosystemAnalyzer {
     }
 
     return output;
+  }
+
+  function getEcosystemAdvice(main_creature_type: CreatureType): string {
+    var advice: string;
+    var creatures: array<CreatureType>;
+    var i: int;
+
+    advice = "A large community of " + getCreatureNameFromCreatureType(
+      parent.ecosystem_manager.master.bestiary,
+      main_creature_type
+    ) + " lives here due to the abundance of ";
+
+    // first we list the creatures who helped the community form in the area
+    creatures = parent.ecosystem_manager.getCommunityReasonsToExist(main_creature_type);
+    for (i = 0; i < creatures.Size(); i += 1) {
+      // we stop after three creatures
+      if (i == 3) {
+        advice += " and such creatures";
+        break;
+      }
+
+      // we add a quote for the second and third creature
+      if (i > 0) {
+        advice += ", ";
+      }
+
+      advice += getCreatureNameFromCreatureType(
+        parent.ecosystem_manager.master.bestiary,
+        creatures[i]
+      );
+    }
+
+    // now we explain what we can find because of the wolves
+    advice += ". Because of this other creatures like ";
+    creatures = parent.ecosystem_manager.getCommunityGoodInfluences(main_creature_type);
+    for (i = 0; i < creatures.Size(); i += 1) {
+      // we stop after three creatures
+      if (i == 3) {
+        break;
+      }
+
+      // if it's the last creature in the list we add "and"
+      if (i == creatures.Size() - 1 || i == 2) {
+        advice += " and ";
+      }
+      // we add a quote for the second and third creature
+      else if (i > 0) {
+        advice += ", ";
+      }
+
+      advice += getCreatureNameFromCreatureType(
+        parent.ecosystem_manager.master.bestiary,
+        creatures[i]
+      );
+    }
+    
+    advice += " may live in the area.";
+
+    // now we explain what would happen if the player killed wolves
+    creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
+
+    if (creatures.Size() > 0) {
+      // a small linebreak
+      advice += "<br />";
+
+      advice += getCreatureNameFromCreatureType(
+        parent.ecosystem_manager.master.bestiary,
+        main_creature_type
+      ) + " also prevent ";
+
+      creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
+      for (i = 0; i < creatures.Size(); i += 1) {
+        // we stop after three creatures
+        if (i == 3) {
+          break;
+        }
+
+        // if it's the last creature in the list we add "and"
+        if (i == creatures.Size() - 1 || i == 2) {
+          advice += " and ";
+        }
+        // we add a quote for the second and third creature
+        else if (i > 0) {
+          advice += ", ";
+        }
+
+        advice += getCreatureNameFromCreatureType(
+          parent.ecosystem_manager.master.bestiary,
+          creatures[i]
+        );
+      }
+
+      advice += " from living here.";
+    }
+
+    return advice;
   }
 }
 
