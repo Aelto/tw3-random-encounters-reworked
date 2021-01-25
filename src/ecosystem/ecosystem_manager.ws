@@ -4,12 +4,16 @@
 class RER_EcosystemManager {
   var master: CRandomEncounters;
   var ecosystem_analyser: RER_EcosystemAnalyzer;
+  var ecosystem_modifier: RER_EcosystemModifier;
 
   public function init(master: CRandomEncounters) {
     this.master = master;
     
     this.ecosystem_analyser = new RER_EcosystemAnalyzer in this;
     this.ecosystem_analyser.init(this);
+
+    this.ecosystem_modifier = new RER_EcosystemModifier in this;
+    this.ecosystem_modifier.init(this);
   }
 
   // returns the EcosystemAreas the player is currently in.
@@ -103,12 +107,7 @@ class RER_EcosystemManager {
       // here, it's an added value `+=` and not a `=` so if the modifiers is at
       // 0 it won't change the value rather than setting it at 0.
       // See modifiers as an % increase/decrease.
-      //
-      // TODO: ecosystem, add a menu option to control how much the modifier change
-      // the values. It would result in `counters[i] * modifiers[i] * menu_modifier`
-      // so the user can control how much the ecosystem feature affects the
-      // spawn rates.
-      counters[i] += (int)((float)counters[i] * modifiers[i]);
+      counters[i] += (int)((float)counters[i] * modifiers[i] * this.master.settings.ecosystem_community_power_effect);
 
       LogChannel('RER', "udpateCountersWithCreatureModifiers, after = " + counters[i]);
     }
@@ -182,6 +181,9 @@ class RER_EcosystemManager {
         .impacts_power_by_creature_type[creature] += power_change * (1 - distance_from_center);
     }
 
+    this.ecosystem_modifier
+        .executePowerSpreadAndNaturalDeath(ecosystem_areas);
+
     // we now save the storage to store the power change.
     this.master
       .storages
@@ -202,6 +204,178 @@ class RER_EcosystemManager {
     area.radius = radius;
 
     return area;
+  }
+
+  // returns which other creatures influenced the surrounding ecosystem and helped
+  // the community with the supplied type form.
+  // 
+  public function getCommunityReasonsToExist(creature_type: CreatureType): array<CreatureType> {
+    var current_bestiary_entry: RER_BestiaryEntry;
+    var influences: RER_ConstantInfluences;
+    var output: array<CreatureType>;
+    var i: int;
+
+    influences = RER_ConstantInfluences();
+
+    // we search for all creature who are either friend_with, low_indirect_influence
+    // or high_indirect_influence towards wolves.
+    // we do it in three steps to create a sorted array
+    for (i = 0; i < CreatureMAX; i += 1) {
+      current_bestiary_entry = this.master.bestiary.entries[i];
+
+      if (current_bestiary_entry.ecosystem_impact.influences[creature_type] == influences.friend_with) {
+        output.PushBack(i);
+      }
+    }
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      current_bestiary_entry = this.master.bestiary.entries[i];
+
+      if (current_bestiary_entry.ecosystem_impact.influences[creature_type] == influences.high_indirect_influence) {
+        output.PushBack(i);
+      }
+    }
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      current_bestiary_entry = this.master.bestiary.entries[i];
+
+      if (current_bestiary_entry.ecosystem_impact.influences[creature_type] == influences.low_indirect_influence) {
+        output.PushBack(i);
+      }
+    }
+
+    return output;
+  }
+
+  // returns which other creatures influenced the surrounding ecosystem and stopped
+  // the community with the supplied type from forming.
+  // 
+  public function getCommunityReasonsToNotExist(creature_type: CreatureType): array<CreatureType> {
+    var current_bestiary_entry: RER_BestiaryEntry;
+    var influences: RER_ConstantInfluences;
+    var output: array<CreatureType>;
+    var i: int;
+
+    influences = RER_ConstantInfluences();
+
+    // we search for all creature who are either kills_them, low_bad_influence
+    // or high_bad_influence towards wolves.
+    // we do it in three steps to create a sorted array
+    for (i = 0; i < CreatureMAX; i += 1) {
+      current_bestiary_entry = this.master.bestiary.entries[i];
+
+      if (current_bestiary_entry.ecosystem_impact.influences[creature_type] == influences.friend_with) {
+        output.PushBack(i);
+      }
+    }
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      current_bestiary_entry = this.master.bestiary.entries[i];
+
+      if (current_bestiary_entry.ecosystem_impact.influences[creature_type] == influences.high_indirect_influence) {
+        output.PushBack(i);
+      }
+    }
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      current_bestiary_entry = this.master.bestiary.entries[i];
+
+      if (current_bestiary_entry.ecosystem_impact.influences[creature_type] == influences.low_indirect_influence) {
+        output.PushBack(i);
+      }
+    }
+
+    return output;
+  }
+
+  // returns communities who are influenced in a good way by the supplied creature type
+  public function getCommunityGoodInfluences(creature_type: CreatureType): array<CreatureType> {
+    var influences: RER_ConstantInfluences;
+    var output: array<CreatureType>;
+    var current_influence: float;
+    var current_type: int;
+
+    influences = RER_ConstantInfluences();
+
+    // we search for all creatures whose wolves are either
+    // friend_with, low_indirect_influence or high_indirect_influence towards them.
+    // we do it in three steps to create a sorted array
+    for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
+      current_influence = this.master.bestiary.entries[creature_type]
+        .ecosystem_impact
+        .influences[current_type];
+
+      if (current_influence == influences.friend_with) {
+        output.PushBack(current_type);
+      }
+    }
+
+    for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
+      current_influence = this.master.bestiary.entries[creature_type]
+        .ecosystem_impact
+        .influences[current_type];
+
+      if (current_influence == influences.high_indirect_influence) {
+        output.PushBack(current_type);
+      }
+    }
+
+    for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
+      current_influence = this.master.bestiary.entries[creature_type]
+        .ecosystem_impact
+        .influences[current_type];
+
+      if (current_influence == influences.low_indirect_influence) {
+        output.PushBack(current_type);
+      }
+    }
+
+    return output;
+  }
+
+  // returns communities who are influenced in a bad way by the supplied creature type
+  public function getCommunityBadInfluences(creature_type: CreatureType): array<CreatureType> {
+    var influences: RER_ConstantInfluences;
+    var output: array<CreatureType>;
+    var current_influence: float;
+    var current_type: int;
+
+    influences = RER_ConstantInfluences();
+
+    // we search for all creatures whose wolves are either
+    // kills_them, low_bad_influence or high_bad_influence towards them.
+    // we do it in three steps to create a sorted array
+    for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
+      current_influence = this.master.bestiary.entries[creature_type]
+        .ecosystem_impact
+        .influences[current_type];
+
+      if (current_influence == influences.kills_them) {
+        output.PushBack(current_type);
+      }
+    }
+
+    for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
+      current_influence = this.master.bestiary.entries[creature_type]
+        .ecosystem_impact
+        .influences[current_type];
+
+      if (current_influence == influences.high_bad_influence) {
+        output.PushBack(current_type);
+      }
+    }
+
+    for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
+      current_influence = this.master.bestiary.entries[creature_type]
+        .ecosystem_impact
+        .influences[current_type];
+
+      if (current_influence == influences.low_bad_influence) {
+        output.PushBack(current_type);
+      }
+    }
+
+    return output;
   }
 
 }

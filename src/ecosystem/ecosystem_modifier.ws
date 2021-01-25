@@ -1,0 +1,117 @@
+
+statemachine RER_EcosystemModifier {
+  var ecosystem_manager: RER_EcosystemManager;
+
+  var current_ecosystem_areas: array<int>;
+
+  public function init(manager: RER_EcosystemManager) {
+    this.ecosystem_manager = manager;
+
+    this.GotoState('Waiting');
+  }
+
+  public function executePowerSpreadAndNaturalDeath(areas: array<int>) {
+    if (this.GetCurrentStateName() == 'PowerSpreadAndNaturalDeath') {
+      return;
+    }
+
+    this.current_ecosystem_areas = areas;
+    this.GotoState('PowerSpreadAndNaturalDeath');
+  }
+}
+
+state Waiting in RER_EcosystemModifier {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('RER', "RER_EcosystemModifier - state WAITING");
+  }
+}
+
+// This state decreases the power of all communities by a small amount.
+// this process is essential to the ecosystem or huge communities will form.
+// by default it will remove something like 0.5% of the community's current power
+// which means that 
+state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('RER', "RER_EcosystemModifier - state PowerSpreadAndNaturalDeath");
+
+    this.powerSpreadAndNaturalDeathMain();
+  }
+
+  entry function powerSpreadAndNaturalDeathMain() {
+    this.powerSpread();
+    this.naturalDeath();
+    
+    parent.GotoState('Waiting');
+  }
+
+  // a power change should change the community radius by a bit.
+  latent function powerSpread() {
+    var spread_settings: float;
+    var default_radius: float;
+    var current_power: float;
+    var current_index: int;
+    var type: CreatureType;
+    var i: int;
+
+    default_radius = parent.master.settings.minimum_spawn_distance
+      + parent.master.settings.minimum_spawn_distance.spawn_diameter;
+
+    spread_settings = parent.master.settings.ecosystem_community_power_spread;
+
+    for (i = 0; i < parent.current_ecosystem_areas.Size(); i += 1) {
+      current_index = parent.current_ecosystem_areas[i];
+
+      for (type = 0; type < CreatureMAX; type += 1) {
+        current_power += parent.ecosystem_manager
+          .master
+          .storages
+          .ecosystem
+          .ecosystem_areas[current_index]
+          .impacts_power_by_creature_type[type];
+      }
+
+      if (current_power > 0) {
+        parent.ecosystem_manager
+          .master
+          .storages
+          .ecosystem
+          .ecosystem_areas[current_index]
+          .radius = default_radius + current_power * spread_settings;
+      }
+      // when the power is negative it still affects the spread but by half the
+      // default amount.
+      else {
+        parent.ecosystem_manager
+          .master
+          .storages
+          .ecosystem
+          .ecosystem_areas[current_index]
+          .radius = default_radius + AbsF(current_power) * spread_settings * 0.5;
+      }
+    }
+  }
+
+  latent function naturalDeath() {
+    var death_settings: float;
+    var current_index: int;
+    var type: CreatureType;
+    var i: int;
+
+    death_settings = parent.master.settings.ecosystem_community_natural_death_speed;
+
+    for (i = 0; i < parent.current_ecosystem_areas.Size(); i += 1) {
+      current_index = parent.current_ecosystem_areas[i];
+
+      for (type = 0; type < CreatureMAX; type += 1) {
+        parent.ecosystem_manager
+          .master
+          .storages
+          .ecosystem
+          .ecosystem_areas[current_index]
+          .impacts_power_by_creature_type[type] *= 1 - death_settings;
+      }
+    }
+  }
+}

@@ -61,6 +61,12 @@ class RE_Settings {
   // scenes that play when ambushed, or when a contract start nearby, etc...
   public var enable_action_camera_scenes : bool;
 
+  public var ecosystem_community_power_effect: float;
+
+  public var ecosystem_community_power_spread: float;
+
+  public var ecosystem_community_natural_death_speed: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -94,6 +100,7 @@ class RE_Settings {
     this.loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper);
     this.loadAdvancedEventSystemSettings(inGameConfigWrapper);
     this.loadAdvancedPerformancesSettings(inGameConfigWrapper);
+    this.loadEcosystemSettings(inGameConfigWrapper);
   }
 
   function loadXMLSettingsAndShowNotification() {
@@ -264,6 +271,12 @@ class RE_Settings {
     );
     this.disable_camera_scenes = inGameConfigWrapper.GetVarValue( 'RERoptionalFeatures', 'RERcameraScenesDisabled' );
     this.use_pathfinding_for_trails = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrailsUsePathFinding');
+  }
+
+  private function loadEcosystemSettings(out inGameConfigWrapper: CInGameConfigWrapper) {
+    this.ecosystem_community_power_effect = StringToFloat(inGameConfigWrapper.GetVarValue('RERecosystem', 'ecosystemCommunityPowerEffect'));
+    this.ecosystem_community_power_spread = StringToFloat(inGameConfigWrapper.GetVarValue('RERecosystem', 'ecosystemCommunityPowerSpread')) / 100;
+    this.ecosystem_community_natural_death_speed = StringToFloat(inGameConfigWrapper.GetVarValue('RERecosystem', 'ecosystemCommunityNaturalDeathSpeed')) / 100;
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
