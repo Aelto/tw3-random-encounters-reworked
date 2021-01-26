@@ -26,7 +26,7 @@ class RER_RandomDialogBuilder {
   var sections: array<RandomDialogSection>;
   var current_section: RandomDialogSection;
 
-  function then(pause_after: float): RER_RandomDialogBuilder {
+  function then(optional pause_after: float): RER_RandomDialogBuilder {
     this.current_section.pause_after = pause_after;
     this.sections.PushBack(this.current_section);
     this.current_section = new RandomDialogSection in this;
@@ -85,10 +85,10 @@ class RER_RandomDialogBuilder {
     if (this.sections[index].dialogs[k].wait_until_end) {
       Sleep(this.sections[index].dialogs[k].dialog_duration);
     }
-  }
 
-  if (this.sections[index].pause_after > 0) {
-    Sleep(this.sections[index].pause_after);
+    if (this.sections[index].pause_after > 0) {
+      Sleep(this.sections[index].pause_after);
+    }
   }
 }
 
