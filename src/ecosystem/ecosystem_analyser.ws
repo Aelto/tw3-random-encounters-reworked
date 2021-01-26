@@ -32,12 +32,12 @@ state Analysing in RER_EcosystemAnalyzer {
   entry function startAnalysing() {
     (new RER_RandomDialogBuilder in parent)
      .start()
-     .either(new REROL_must_know_area_well_data in parent, true, 1)
-     .either(new REROL_ill_check_area_data in parent, true, 1)
-     .either(new REROL_see_if_i_can_learn_what_out_there_data in parent, true, 1)
-     .then(0.5)
-     .dialog(new REROL_mhm_data in parent, false)
+     .either(new REROL_ill_check_area_data in parent, false, 1)
+     .either(new REROL_see_if_i_can_learn_what_out_there_data in parent, false, 1)
+     .either(new REROL_mhm_data in parent, false, 1)
      .play();
+
+    Sleep(0.5);
 
     this.playAnimation();
 
