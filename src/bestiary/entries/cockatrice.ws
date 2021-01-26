@@ -5,7 +5,7 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCOCKATRICE;
-    this.menu_name = 'Cockatrice';
+    this.menu_name = 'Cockatrices';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

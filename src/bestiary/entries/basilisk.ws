@@ -5,7 +5,7 @@ class RER_BestiaryBasilisk extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBASILISK;
-    this.menu_name = 'Basilisk';
+    this.menu_name = 'Basilisks';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

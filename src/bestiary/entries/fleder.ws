@@ -5,7 +5,7 @@ class RER_BestiaryFleder extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureFLEDER;
-    this.menu_name = 'Fleder';
+    this.menu_name = 'Fleders';
 
     
 

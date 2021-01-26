@@ -5,7 +5,7 @@ class RER_BestiaryTroll extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureTROLL;
-    this.menu_name = 'Troll';
+    this.menu_name = 'Trolls';
 
     
 

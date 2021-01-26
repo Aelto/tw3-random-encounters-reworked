@@ -4,5 +4,5 @@ function getCreatureNameFromCreatureType(bestiary: RER_Bestiary, type: CreatureT
     return "Unknown";
   }
 
-  return bestiary.entries[type].menu_name;
+  return StrReplace(bestiary.entries[type].menu_name, "_", " ");
 }

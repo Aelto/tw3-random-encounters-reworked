@@ -5,7 +5,7 @@ class RER_BestiaryKikimore extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureKIKIMORE;
-    this.menu_name = 'Kikimore';
+    this.menu_name = 'Kikimores';
 
     
 

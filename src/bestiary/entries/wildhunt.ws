@@ -5,7 +5,7 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWILDHUNT;
-    this.menu_name = 'WildHunt';
+    this.menu_name = 'Wild_Hunt';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

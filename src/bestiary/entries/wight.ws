@@ -5,7 +5,7 @@ class RER_BestiaryWight extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWIGHT;
-    this.menu_name = 'Wight';
+    this.menu_name = 'Wights';
 
     
 

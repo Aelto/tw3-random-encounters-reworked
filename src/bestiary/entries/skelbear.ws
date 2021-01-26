@@ -5,7 +5,7 @@ class RER_BestiarySkelbear extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureSKELBEAR;
-    this.menu_name = 'SkelligeBears';
+    this.menu_name = 'Skellige_Bears';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

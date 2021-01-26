@@ -5,7 +5,7 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureFOGLET;
-    this.menu_name = 'Fogling';
+    this.menu_name = 'Foglets';
 
     
 

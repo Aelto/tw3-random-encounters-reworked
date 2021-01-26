@@ -5,7 +5,7 @@ class RER_BestiaryPanther extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreaturePANTHER;
-    this.menu_name = 'Panther';
+    this.menu_name = 'Panthers';
 
     
 

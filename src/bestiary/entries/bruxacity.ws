@@ -5,7 +5,7 @@ class RER_BestiaryBruxacity extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBRUXA;
-    this.menu_name = 'Bruxacity';
+    this.menu_name = 'Bruxaecity';
 
     
 
