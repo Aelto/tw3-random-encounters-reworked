@@ -32,16 +32,20 @@
       <li>
         <a href="#part-5">5.</a> I also explain how the <span>Creatures ratios</span> work because they're not simple percentages
       </li>
+
+      <li>
+        <a href="#part-6">6.</a> After that, i explain what's the <span>Ecosystem <i>system</i></span> and how it affects creatures ratios and other systems
+      </li>
     </ul>
 
     <hr />
     <ul>
       <li>
-        <a href="#part-6">6.</a> <span>BONUS:</span> Finally i'm sharing with you the settings i use, i also show you how can you tweak the mod to
+        <a href="#part-7">7.</a> <span>BONUS:</span> Finally i'm sharing with you the settings i use, i also show you how can you tweak the mod to
         fill the world however you want
         <ul>
-          <li><a href="#part-6-1">6.1.</a> My settings</li>
-          <li><a href="#part-6-2">6.2.</a> Going further with the settings</li>
+          <li><a href="#part-7-1">7.1.</a> My settings</li>
+          <li><a href="#part-6-2">7.2.</a> Going further with the settings</li>
         </ul>
       </li>
     </ul>
@@ -50,7 +54,7 @@
 
     <ul>
       <li>
-        <a href="#part-7">7.</a> The mod has lots of <span>optional features</span> you can toggle whenever you want. 
+        <a href="#part-8">8.</a> The mod has lots of <span>optional features</span> you can toggle whenever you want. 
       </li>
     </ul>
   </section>
@@ -422,12 +426,90 @@
   </section>
 
   <section id="part-6">
+    <h2>The ecosystem system</h2>
+    <blockquote class="info">
+      What is a the ecosystem feature and what to expect from it
+    </blockquote>
+
+    <div id="part-6-1">
+      <h3>What is the ecosystem feature</h3>
+
+      <div>
+        the ecosystem feature tries to simulate a full living ecosystem with the Witcher 3 creatures with a custom food chain.
+        So every time you will kill something, it will have an effect on the creatures that live here and indirectly the creatures
+        that do not live here. And with these change the mod will update the values found in the settings (that you set yourself)
+        to match the current ecosystem. For example an area with Wolves may increase the number griffins and basilisks but also reduce
+        the amount of boars which will indirectly affect the amount of humans you will find too, and humans also affect the number of necrophages
+        and so on... 
+      </div>
+
+      <div>
+        The feature comes with 3 important sliders. But first let me explain a few keywords i use that may confuse you:
+        <ul>
+          <li>A <span>community</span> is the set of creatures who live in the current ecosystem.</li>
+          <li>The community <span>power</span> is a unit that represents how strong a specific species in the given community.
+            The power can either be a positive value or a negative value.
+          </li>
+        </ul>
+
+        <ul>
+          <li><span>Community power effect</span>: the slider changes how much the community power affects the values you set in your settings.
+            Setting it at <span>0</span> will completely disable the ecosystem feature and setting it a high value will prioritize creatures
+            with the higher powest in the surrounding communities when picking a random creature to spawn.
+          </li>
+          <li><span>Community power spread</span>: the more combined power a community has the more area it covers. Both negative and positive
+            power values increase the area, but positive value has more effect on the area spread. If you set this slider to 0 it will disable
+            this feature, and if you set it to a higher value it will increase by how much the power increases a community spread.
+            <i>note: two communities can overlap and affect each-other and slowly merge their power values over time.</i>
+          </li>
+          <li><span>Community natural death speed</span>: This slider is super important. What you set here could completely change how the
+            communities in your ecosystem will grow and die. Let me explain quickly how the system works under the hood and why i made it that way:
+            everytime a creature spawns in an area, if searches for communities that already live here (and creates one if there is none) and increase
+            this species power in these communities. This helps species gain a place in existing communities and makes already big communities grow even more.
+            <br />
+            But now you may see why a natural death is important. If you let a community grow by itself, species with huge power will slowly but steadily get more and more
+            power. Of course the food chain should help stabilise things, but i'd be magician if i managed to make a sustainable foodchain for the
+            game. So i put in place this little things that remove <span>x</span>% of each species in the communities a creature spawn in. Which means that
+            species with high power will decrease by a big amount when small species won't change as much as it is a percentage. And this slider controls
+            this percentage, if you set it to <span>100</span> it will reset all communities everytime a creature spawns which doesn't make any sense 😁. And if you set
+            it to <span>0</span> then you will encounter the issue i talke about. If you think your communities are not homogeneous and you would prefer
+            a more vanilla like experience but still with a few communities here and there than i'd suggest to increase this slider to maybe <span>10</span>%.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        Creatures ratios are not exactly percent chances of spawning. You may have seen RER handles at least thirty creatures
+        and each creature has its ratio. So if you set them all to <span>100</span> it doesn't mean they all have 100% of spawning.
+        The mod actually does the sum of the ratios from the creatures pool and then calculates the percentage from it.
+        <br>
+        Here is a example, imagine we set all the creatures to 0 to disable them except the following ones:
+        <ul>
+          <li>Wolves: we set it at 25</li>
+          <li>Bears: we set it at 50</li>
+          <li>Humans: we set it at 100</li>
+        </ul>
+        Their chances will be calculated like this
+        <ul>
+          <li>the sum of all the ratios makes <span>25 + 50 + 100 = 175</span></li>
+          <li>so the wolves ratio is <span>25 / 175 = 0.14</span>, so ~14% it is</li>
+          <li>for the bears: <span>50 / 175 = 0.28</span> ~28% for the bears</li>
+          <li>and the humans: <span>100 / 175 = 0.57</span>, ~57% for the humans</li>
+        </ul>
+        But now if you increased the wolves ratio or added a new creature to the pool, everyone else's % would decrease.
+        So if you have the Bestiary feature enabled, every time you discover a new species the previously known creatures
+        will see their chances of spawning decreased because a new one was added to the pool.
+      </div>
+    </div>
+  </section>
+
+  <section id="part-7">
     <h2>Random Encounters Reworked settings</h2>
     <blockquote class="info">
       What settings i use and how you can tweak them too
     </blockquote>
 
-    <div id="part-6-1">
+    <div id="part-7-1">
       <h3>Sharing my settings</h3>
 
       <div>
@@ -480,7 +562,7 @@
       </div>
     </div>
 
-    <div id="part-6-2">
+    <div id="part-7-2">
       <h3>Going further with the settings</h3>
 
       <div>
@@ -499,13 +581,13 @@
     </div>
   </section>
 
-  <section id="part-7">
+  <section id="part-8">
     <h2>optional features and settings</h2>
     <blockquote class="info">
       Section about the optional features and what each toggle does
     </blockquote>
 
-    <div id="part-7-1">
+    <div id="part-8-1">
 
       <ul>
         <li><span>Encounters loot</span>: when set to OFF creatures spawned by RER won't drop any loot when killed</li>
@@ -524,5 +606,6 @@
       </ul>
     </div>
   </section>
+  
 </body>
 </html>
