@@ -50,3 +50,17 @@ struct RER_ConstantInfluences {
   default self_influence = 3;
 
 }
+
+struct RER_ConstantCreatureTypes {
+  var small_creature_begin: CreatureType;
+  default small_creature_begin = CreatureHUMAN;
+
+  var small_creature_max: CreatureType;
+  default small_creature_max = CreatureDRACOLIZARD;
+
+  var large_creature_begin: CreatureType;
+  default large_creature_begin = CreatureDRACOLIZARD;
+
+  var large_creature_max: CreatureType;
+  default large_creature_max = CreatureMAX;
+}
