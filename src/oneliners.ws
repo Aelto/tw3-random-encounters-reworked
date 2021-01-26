@@ -371,8 +371,12 @@ latent function REROL_mhm(optional do_not_wait: bool) {
   thePlayer.PlayLine(1185176, true);
 
   if (!do_not_wait) {
-    Sleep(2); // could not find Approved duration
+    Sleep(1.5); // could not find Approved duration
   }
+}
+class REROL_mhm_data extends RER_DialogData {
+  default dialog_id = 1185176;
+  default dialog_duration = 1.5;
 }
 
 // Geralt: It's over.
@@ -856,4 +860,109 @@ latent function REROL_nothing_interesting(optional do_not_wait: bool) {
   if (!do_not_wait) {
     Sleep(1.5); // Approved duration
   }
+}
+
+// Geralt: Must know the area well…
+latent function REROL_must_know_area_well(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(487162, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // TODO: Approved duration
+  }
+}
+class REROL_must_know_area_well_data extends RER_DialogData {
+  default dialog_id = 487162;
+  default dialog_duration = 1.5;
+}
+
+// Geralt: I'll check the area.
+latent function REROL_ill_check_area(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(588352, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // TODO: Approved duration
+  }
+}
+class REROL_ill_check_area_data extends RER_DialogData {
+  default dialog_id = 588352;
+  default dialog_duration = 1.5;
+}
+
+// Geralt: Not likely to learn anything more here.
+latent function REROL_not_likely_learn_anything_from_here(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1202374, true);
+
+  if (!do_not_wait) {
+    Sleep(2); // TODO: Approved duration
+  }
+}
+class REROL_not_likely_learn_anything_from_here_data extends RER_DialogData {
+  default dialog_id = 1202374;
+  default dialog_duration = 2;
+}
+
+// Geralt: See if I can learn what's out there.
+latent function REROL_see_if_i_can_learn_what_out_there(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1041656, true);
+
+  if (!do_not_wait) {
+    Sleep(2); // TODO: Approved duration
+  }
+}
+class REROL_see_if_i_can_learn_what_out_there_data extends RER_DialogData {
+  default dialog_id = 1041656;
+  default dialog_duration = 2;
+}
+
+// Geralt: That's about all I've learned.
+latent function REROL_about_all_ive_learned(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(389189, true);
+
+  if (!do_not_wait) {
+    Sleep(2); // TODO: Approved duration
+  }
+}
+class REROL_about_all_ive_learned_data extends RER_DialogData {
+  default dialog_id = 389189;
+  default dialog_duration = 2;
+}
+
+// Geralt: Not likely to learn anymore here.
+latent function REROL_not_likely_learn_anymore(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(1071533, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // TODO: Approved duration
+  }
+}
+class REROL_not_likely_learn_anymore_data extends RER_DialogData {
+  default dialog_id = 1071533;
+  default dialog_duration = 1.5;
+}
+
+// Geralt: Watch and learn.
+latent function REROL_watch_and_learn(optional do_not_wait: bool) {
+  // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
+  // converted to integer.
+  thePlayer.PlayLine(380546, true);
+
+  if (!do_not_wait) {
+    Sleep(1.5); // TODO: Approved duration
+  }
+}
+class REROL_watch_and_learn_data extends RER_DialogData {
+  default dialog_id = 380546;
+  default dialog_duration = 1.5;
 }

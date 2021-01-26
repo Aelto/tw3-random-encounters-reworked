@@ -1,5 +1,5 @@
 
-statemachine RER_EcosystemModifier {
+statemachine class RER_EcosystemModifier {
   var ecosystem_manager: RER_EcosystemManager;
 
   var current_ecosystem_areas: array<int>;
@@ -52,13 +52,13 @@ state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
     var default_radius: float;
     var current_power: float;
     var current_index: int;
-    var type: CreatureType;
+    var type: int;
     var i: int;
 
-    default_radius = parent.master.settings.minimum_spawn_distance
-      + parent.master.settings.minimum_spawn_distance.spawn_diameter;
+    default_radius = parent.ecosystem_manager.master.settings.minimum_spawn_distance
+      + parent.ecosystem_manager.master.settings.spawn_diameter;
 
-    spread_settings = parent.master.settings.ecosystem_community_power_spread;
+    spread_settings = parent.ecosystem_manager.master.settings.ecosystem_community_power_spread;
 
     for (i = 0; i < parent.current_ecosystem_areas.Size(); i += 1) {
       current_index = parent.current_ecosystem_areas[i];
@@ -96,10 +96,10 @@ state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
   latent function naturalDeath() {
     var death_settings: float;
     var current_index: int;
-    var type: CreatureType;
+    var type: int;
     var i: int;
 
-    death_settings = parent.master.settings.ecosystem_community_natural_death_speed;
+    death_settings = parent.ecosystem_manager.master.settings.ecosystem_community_natural_death_speed;
 
     for (i = 0; i < parent.current_ecosystem_areas.Size(); i += 1) {
       current_index = parent.current_ecosystem_areas[i];
