@@ -113,9 +113,9 @@ state Analysing in RER_EcosystemAnalyzer {
         LogChannel('RER', "getSurroundingCreaturesPercentages - percent for " + (CreatureType)i + " - " + percent);
 
         // only creatures whose percentage is above 5
-        if (percent > 0.05 || percent < -0.05) {
+        // if (percent > 0.05 || percent < -0.05) {
           output.PushBack(newSurroundingCreaturePercentage(i,percent));
-        }
+        // }
       }
     }
 
