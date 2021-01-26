@@ -23,3 +23,8 @@
 - Geralt: Blood… still fresh. He's close
 - Geralt choice: Wonder why they split up.
 - Geralt choice: Let's go back
+
+# ecosystem
+
+- creatures should migrate to surrounding areas when killed
+- an event to slowly grow ecosystem areas

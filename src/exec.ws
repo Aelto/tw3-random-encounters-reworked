@@ -29,6 +29,21 @@ exec function rergpc() {
   NDEBUG(message);
 }
 
+exec function rertestbook() {
+  var popup_data: BookPopupFeedback;
+  var id: SItemUniqueId;
+
+
+  popup_data = new BookPopupFeedback in thePlayer;
+  popup_data.SetMessageTitle( "Surrounding ecosystem" );
+  popup_data.SetMessageText( "The area is 65% filled with bears, 10% wolves, 2% leshens and other creatures." );
+  popup_data.curInventory = thePlayer.GetInventory();
+  popup_data.PauseGame = true;
+  popup_data.bookItemId = id;
+			
+  theGame.RequestMenu('PopupMenu', popup_data);
+}
+
 exec function rerbestiarycanspawn(creature: CreatureType) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;

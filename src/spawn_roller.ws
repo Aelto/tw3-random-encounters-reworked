@@ -60,7 +60,7 @@ class SpawnRoller {
     this.third_party_creatures_counters[type] = count;
   }
 
-  public function rollCreatures(optional third_party_creatures_count: int): SpawnRoller_Roll {
+  public function rollCreatures(ecosystem_manager: RER_EcosystemManager, optional third_party_creatures_count: int): SpawnRoller_Roll {
     var current_position: int;
     var total: int;
     var roll: int;
@@ -75,6 +75,21 @@ class SpawnRoller {
 
     for (i = 0; i < third_party_creatures_count; i += 1) {
       total += this.third_party_creatures_counters[i];
+    }
+
+    // ecosystem feature:
+    // here, we gather the data about the surrounding ecoysystems and
+    // we update the counters based on this data.
+    //
+    // TODO: ecosystem, make it toggable by the user in case the user doesn't
+    // want the ecosystem feature in his game.
+    if (true) {
+      ecosystem_manager.udpateCountersWithCreatureModifiers(
+        this.creatures_counters,
+        ecosystem_manager.getCreatureModifiersForEcosystemAreas(
+          ecosystem_manager.getCurrentEcosystemAreas()
+        )
+      );
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:

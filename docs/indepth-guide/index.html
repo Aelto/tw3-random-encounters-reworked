@@ -39,7 +39,8 @@
           <li><a href="#part-4-1">4.1.</a> trigger an encounter</li>
           <li><a href="#part-4-2">4.2.</a> reload the settings</li>
           <li><a href="#part-4-3">4.3.</a> toggle RER</li>
-          <li><a href="#part-4-3">4.3.</a> force noticeboard event</li>
+          <li><a href="#part-4-4">4.4.</a> force noticeboard event</li>
+          <li><a href="#part-4-5">4.5.</a> analyse the surrounding ecosystem</li>
         </ul>
       </li>
     </ul>
@@ -280,6 +281,30 @@
             <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
             <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_0=(Action=OnRERforceNoticeboardEvent)</span></li>
             <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the <span>0</span> of your keyboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div id="part-4-5">
+      <h3>Keybind - Analyse surrounding ecosystem</h3>
+
+      <div>
+        <h4>What is its role?</h4>
+        <div>
+          Geralt can analyse the surrounding ecosystem to get information about the creatures that live here and also offers
+          advice on how to change the ecosystem.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to add it?</h4>
+        <div>
+          <ol>
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with <span>IK_C=(Action=EcosystemAnalyse,State=Duration,IdleTime=0.4)</span></li>
+            <li>You can replace the <span>C</span> in <span>IK_C</span> by the key you want, here it means the <span>C</span> of your keyboard</li>
+            <li>Note that you need to press the key for a 0.4s for it to trigger.</li>
           </ol>
         </div>
       </div>

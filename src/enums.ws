@@ -57,7 +57,7 @@ enum CreatureType {
   CreatureNIGHTWRAITH  = 35,
   CreatureNOONWRAITH   = 36,
   CreatureCHORT        = 37,
-  CreatureCYCLOP      = 38,
+  CreatureCYCLOP       = 38,
   CreatureTROLL        = 39,
   CreatureHAG          = 40,
   CreatureFOGLET       = 41,

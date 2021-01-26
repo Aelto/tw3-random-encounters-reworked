@@ -23,6 +23,8 @@ statemachine class CRandomEncounters extends CEntity {
   var events_manager: RER_EventsManager;
   var bestiary: RER_Bestiary;
   var static_encounter_manager: RER_StaticEncounterManager;
+  var ecosystem_manager: RER_EcosystemManager;
+  var storages: RER_StorageCollection;
 
   var ticks_before_spawn: int;
 
@@ -52,6 +54,7 @@ statemachine class CRandomEncounters extends CEntity {
       events_manager = new RER_EventsManager in this;
       bestiary = new RER_Bestiary in this;
       static_encounter_manager = new RER_StaticEncounterManager in this;
+      ecosystem_manager = new RER_EcosystemManager in this;
 
       this.initiateRandomEncounters();
     }
@@ -100,6 +103,8 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   private function initiateRandomEncounters() {
+    var has_saved: bool;
+
     this.spawn_roller.fill_arrays();
 
     this.bestiary.init();
@@ -110,6 +115,14 @@ statemachine class CRandomEncounters extends CEntity {
 
     this.events_manager.init(this);
     this.events_manager.start();
+
+    this.ecosystem_manager.init(this);
+
+    this.storages = RER_loadStorageCollection();
+    
+    LogChannel('RER', "ecosystem areas storage count = " + this.storages
+      .ecosystem
+      .ecosystem_areas.Size());
 
     AddTimer('onceReady', 3.0, false);
     this.GotoState('Loading');

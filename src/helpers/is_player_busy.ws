@@ -5,13 +5,17 @@ function isPlayerBusy(): bool {
   return thePlayer.IsInInterior()
       || thePlayer.IsInCombat()
       || thePlayer.IsUsingBoat()
-      || thePlayer.IsInFistFightMiniGame()
       || thePlayer.IsSwimming()
-      || thePlayer.IsInNonGameplayCutscene()
+      || isPlayerInScene();
+}
+
+function isPlayerInScene(): bool {
+  return thePlayer.IsInNonGameplayCutscene()
       || thePlayer.IsInGameplayScene()
       || thePlayer.IsCiri()
       || theGame.IsDialogOrCutscenePlaying()
       || theGame.IsCurrentlyPlayingNonGameplayScene()
       || theGame.IsFading()
-      || theGame.IsBlackscreen();
+      || theGame.IsBlackscreen()
+      || thePlayer.IsInFistFightMiniGame();
 }

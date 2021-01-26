@@ -1,8 +1,11 @@
 
 class RER_BestiaryBarghest extends RER_BestiaryEntry {
   public function init() {
+    var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
+
     this.type = CreatureBARGHEST;
-    this.menu_name = 'Barghest';
+    this.menu_name = 'Barghests';
 
     
 
@@ -26,6 +29,65 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_spirit_trophy_medium');
     this.trophy_names.PushBack('modrer_spirit_trophy_high');
 
+    this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+      .influence(influences.kills_them) //CreatureHUMAN
+      .influence(influences.low_bad_influence) //CreatureARACHAS
+      .influence(influences.low_bad_influence) //CreatureENDREGA
+      .influence(influences.low_bad_influence) //CreatureGHOUL
+      .influence(influences.low_bad_influence) //CreatureALGHOUL
+      .influence(influences.low_bad_influence) //CreatureNEKKER
+      .influence(influences.low_bad_influence) //CreatureDROWNER
+      .influence(influences.low_bad_influence) //CreatureROTFIEND
+      .influence(influences.low_bad_influence) //CreatureWOLF
+      .influence(influences.friend_with) //CreatureWRAITH
+      .influence(influences.low_bad_influence) //CreatureHARPY
+      .influence(influences.low_indirect_influence) //CreatureSPIDER
+      .influence(influences.low_bad_influence) //CreatureCENTIPEDE
+      .influence(influences.low_bad_influence) //CreatureDROWNERDLC
+      .influence(influences.low_bad_influence) //CreatureBOAR
+      .influence(influences.low_bad_influence) //CreatureBEAR
+      .influence(influences.low_bad_influence) //CreaturePANTHER
+      .influence(influences.friend_with) //CreatureSKELETON
+      .influence(influences.low_bad_influence) //CreatureECHINOPS
+      .influence(influences.low_bad_influence) //CreatureKIKIMORE
+      .influence(influences.self_influence) //CreatureBARGHEST
+      .influence(influences.low_bad_influence) //CreatureSKELWOLF
+      .influence(influences.low_bad_influence) //CreatureSKELBEAR
+      .influence(influences.kills_them) //CreatureWILDHUNT
+      .influence(influences.low_bad_influence) //CreatureBERSERKER
+      .influence(influences.low_bad_influence) //CreatureSIREN
+
+      // large creatures below
+      .influence(influences.no_influence) //CreatureDRACOLIZARD
+      .influence(influences.friend_with) //CreatureGARGOYLE
+      .influence(influences.low_indirect_influence) //CreatureLESHEN
+      .influence(influences.kills_them) //CreatureWEREWOLF
+      .influence(influences.no_influence) //CreatureFIEND
+      .influence(influences.kills_them) //CreatureEKIMMARA
+      .influence(influences.kills_them) //CreatureKATAKAN
+      .influence(influences.friend_with) //CreatureGOLEM
+      .influence(influences.friend_with) //CreatureELEMENTAL
+      .influence(influences.friend_with) //CreatureNIGHTWRAITH
+      .influence(influences.friend_with) //CreatureNOONWRAITH
+      .influence(influences.no_influence) //CreatureCHORT
+      .influence(influences.no_influence) //CreatureCYCLOP
+      .influence(influences.high_bad_influence) //CreatureTROLL
+      .influence(influences.high_bad_influence) //CreatureHAG
+      .influence(influences.high_bad_influence) //CreatureFOGLET
+      .influence(influences.friend_with) //CreatureBRUXA
+      .influence(influences.high_bad_influence) //CreatureFLEDER
+      .influence(influences.high_bad_influence) //CreatureGARKAIN
+      .influence(influences.friend_with) //CreatureDETLAFF
+      .influence(influences.high_bad_influence) //CreatureGIANT
+      .influence(influences.high_bad_influence) //CreatureSHARLEY
+      .influence(influences.friend_with) //CreatureWIGHT
+      .influence(influences.no_influence) //CreatureGRYPHON
+      .influence(influences.no_influence) //CreatureCOCKATRICE
+      .influence(influences.no_influence) //CreatureBASILISK
+      .influence(influences.no_influence) //CreatureWYVERN
+      .influence(influences.no_influence) //CreatureFORKTAIL
+      .influence(influences.high_bad_influence) //CreatureSKELTROLL
+      .build();
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

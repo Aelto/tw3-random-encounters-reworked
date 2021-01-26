@@ -1,6 +1,9 @@
 
 class RER_BestiaryNekker extends RER_BestiaryEntry {
   public function init() {
+    var influences: RER_ConstantInfluences;
+    influences = RER_ConstantInfluences();
+
     this.type = CreatureNEKKER;
     this.menu_name = 'Nekkers';
 
@@ -57,6 +60,65 @@ class RER_BestiaryNekker extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_nekker_trophy_medium');
     this.trophy_names.PushBack('modrer_nekker_trophy_high');
 
+    this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+      .influence(influences.kills_them) //CreatureHUMAN
+      .influence(influences.no_influence) //CreatureARACHAS
+      .influence(influences.no_influence) //CreatureENDREGA
+      .influence(influences.kills_them) //CreatureGHOUL
+      .influence(influences.kills_them) //CreatureALGHOUL
+      .influence(influences.self_influence) //CreatureNEKKER
+      .influence(influences.kills_them) //CreatureDROWNER
+      .influence(influences.kills_them) //CreatureROTFIEND
+      .influence(influences.kills_them) //CreatureWOLF
+      .influence(influences.no_influence) //CreatureWRAITH
+      .influence(influences.no_influence) //CreatureHARPY
+      .influence(influences.no_influence) //CreatureSPIDER
+      .influence(influences.kills_them) //CreatureCENTIPEDE
+      .influence(influences.kills_them) //CreatureDROWNERDLC
+      .influence(influences.kills_them) //CreatureBOAR
+      .influence(influences.kills_them) //CreatureBEAR
+      .influence(influences.kills_them) //CreaturePANTHER
+      .influence(influences.no_influence) //CreatureSKELETON
+      .influence(influences.no_influence) //CreatureECHINOPS
+      .influence(influences.no_influence) //CreatureKIKIMORE
+      .influence(influences.kills_them) //CreatureBARGHEST
+      .influence(influences.kills_them) //CreatureSKELWOLF
+      .influence(influences.kills_them) //CreatureSKELBEAR
+      .influence(influences.kills_them) //CreatureWILDHUNT
+      .influence(influences.kills_them) //CreatureBERSERKER
+      .influence(influences.kills_them) //CreatureSIREN
+
+      // large creatures below
+      .influence(influences.no_influence) //CreatureDRACOLIZARD
+      .influence(influences.no_influence) //CreatureGARGOYLE
+      .influence(influences.no_influence) //CreatureLESHEN
+      .influence(influences.no_influence) //CreatureWEREWOLF
+      .influence(influences.no_influence) //CreatureFIEND
+      .influence(influences.no_influence) //CreatureEKIMMARA
+      .influence(influences.no_influence) //CreatureKATAKAN
+      .influence(influences.no_influence) //CreatureGOLEM
+      .influence(influences.high_indirect_influence) //CreatureELEMENTAL
+      .influence(influences.no_influence) //CreatureNIGHTWRAITH
+      .influence(influences.no_influence) //CreatureNOONWRAITH
+      .influence(influences.no_influence) //CreatureCHORT
+      .influence(influences.no_influence) //CreatureCYCLOP
+      .influence(influences.high_indirect_influence) //CreatureTROLL
+      .influence(influences.no_influence) //CreatureHAG
+      .influence(influences.no_influence) //CreatureFOGLET
+      .influence(influences.no_influence) //CreatureBRUXA
+      .influence(influences.no_influence) //CreatureFLEDER
+      .influence(influences.no_influence) //CreatureGARKAIN
+      .influence(influences.no_influence) //CreatureDETLAFF
+      .influence(influences.no_influence) //CreatureGIANT
+      .influence(influences.no_influence) //CreatureSHARLEY
+      .influence(influences.no_influence) //CreatureWIGHT
+      .influence(influences.no_influence) //CreatureGRYPHON
+      .influence(influences.no_influence) //CreatureCOCKATRICE
+      .influence(influences.no_influence) //CreatureBASILISK
+      .influence(influences.no_influence) //CreatureWYVERN
+      .influence(influences.no_influence) //CreatureFORKTAIL
+      .influence(influences.high_indirect_influence) //CreatureSKELTROLL
+      .build();
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{
