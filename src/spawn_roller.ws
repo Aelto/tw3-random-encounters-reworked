@@ -49,7 +49,7 @@ class SpawnRoller {
   }
 
   public function setCreatureCounter(type: CreatureType, count: int) {
-    this.creatures_counters[type] = count;
+    this.creatures_counters[type] = Max(count, 0);
   }
 
   public function setHumanVariantCounter(type: EHumanType, count: int) {
