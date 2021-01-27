@@ -146,7 +146,7 @@ state Analysing in RER_EcosystemAnalyzer {
       return;
     }
 
-    message = "This area and its vicinity is teeming with ";
+    message = "This area and its vicinity are now teeming with ";
 
     if (sorted_creatures_ascending.Size() > 0) {
       picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
@@ -173,7 +173,7 @@ state Analysing in RER_EcosystemAnalyzer {
       picked_creature = sorted_creatures_ascending[0];
 
       if (picked_creature.percentage < 0) {
-        message += ", which makes the possibility of encountering " + getCreatureNameFromCreatureType(
+        message += ". The possibility of encountering " + getCreatureNameFromCreatureType(
           parent.ecosystem_manager.master.bestiary,
           picked_creature.type
         );
@@ -187,10 +187,8 @@ state Analysing in RER_EcosystemAnalyzer {
         );
       }
 
-      message += " unlikely.";
+      message += " is now less likely.";
     }
-
-    message += ".";
 
     if (sorted_creatures_ascending.Size() > 0) {
       picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
@@ -273,12 +271,16 @@ state Analysing in RER_EcosystemAnalyzer {
     for (i = 0; i < creatures.Size(); i += 1) {
       // we stop after three creatures
       if (i == 3) {
-        advice += " and such creatures";
+        advice += ".";
         break;
       }
 
+      // if it's the last creature in the list we add "and"
+      if (i == creatures.Size() - 1 || i == 2) {
+        advice += ", and ";
+      }
       // we add a quote for the second and third creature
-      if (i > 0) {
+      else if (i > 0) {
         advice += ", ";
       }
 
@@ -289,7 +291,7 @@ state Analysing in RER_EcosystemAnalyzer {
     }
 
     // now we explain what we can find because of the wolves
-    advice += ". Because of this other creatures like ";
+    advice += " As a result, other creatures such as ";
     creatures = parent.ecosystem_manager.getCommunityGoodInfluences(main_creature_type);
     for (i = 0; i < creatures.Size(); i += 1) {
       // we stop after three creatures
@@ -299,7 +301,7 @@ state Analysing in RER_EcosystemAnalyzer {
 
       // if it's the last creature in the list we add "and"
       if (i == creatures.Size() - 1 || i == 2) {
-        advice += " and ";
+        advice += ", and ";
       }
       // we add a quote for the second and third creature
       else if (i > 0) {
@@ -312,7 +314,7 @@ state Analysing in RER_EcosystemAnalyzer {
       );
     }
     
-    advice += " may live in the area.";
+    advice += " may roam the area.";
 
     // now we explain what would happen if the player killed wolves
     creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
@@ -321,10 +323,10 @@ state Analysing in RER_EcosystemAnalyzer {
       // a small linebreak
       advice += "<br />";
 
-      advice += getCreatureNameFromCreatureType(
+      advice += "In addition, " + getCreatureNameFromCreatureType(
         parent.ecosystem_manager.master.bestiary,
         main_creature_type
-      ) + " also prevent ";
+      ) + " prevent ";
 
       creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
       for (i = 0; i < creatures.Size(); i += 1) {
@@ -335,6 +337,10 @@ state Analysing in RER_EcosystemAnalyzer {
 
         // if it's the last creature in the list we add "and"
         if (i == creatures.Size() - 1 || i == 2) {
+          if (creatures.Size() > 2) {
+            advice += ",";
+          }
+
           advice += " and ";
         }
         // we add a quote for the second and third creature
@@ -348,7 +354,7 @@ state Analysing in RER_EcosystemAnalyzer {
         );
       }
 
-      advice += " from living here.";
+      advice += " from residing here.";
     }
 
     return advice;
