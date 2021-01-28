@@ -70,7 +70,7 @@ class RER_BestiaryFiend extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
       .influence(influences.no_influence) //CreatureNOONWRAITH
       .influence(influences.kills_them) //CreatureCHORT
-      .influence(influences.no_influence) //CreatureCYCLOP
+      .influence(influences.low_bad_influence) //CreatureCYCLOP
       .influence(influences.no_influence) //CreatureTROLL
       .influence(influences.kills_them) //CreatureHAG
       .influence(influences.kills_them) //CreatureFOGLET
@@ -78,7 +78,7 @@ class RER_BestiaryFiend extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFLEDER
       .influence(influences.no_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
-      .influence(influences.no_influence) //CreatureGIANT
+      .influence(influences.low_bad_influence) //CreatureGIANT
       .influence(influences.no_influence) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
       .influence(influences.low_bad_influence) //CreatureGRYPHON

@@ -60,7 +60,7 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureWOLF
       .influence(influences.no_influence) //CreatureWRAITH
       .influence(influences.no_influence) //CreatureHARPY
-      .influence(influences.no_influence) //CreatureSPIDER
+      .influence(influences.kills_them) //CreatureSPIDER
       .influence(influences.no_influence) //CreatureCENTIPEDE
       .influence(influences.no_influence) //CreatureDROWNERDLC
       .influence(influences.no_influence) //CreatureBOAR

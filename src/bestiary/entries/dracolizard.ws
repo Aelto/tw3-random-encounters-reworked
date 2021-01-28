@@ -59,19 +59,19 @@ class RER_BestiaryDracolizard extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureLESHEN
       .influence(influences.no_influence) //CreatureWEREWOLF
       .influence(influences.no_influence) //CreatureFIEND
-      .influence(influences.no_influence) //CreatureEKIMMARA
-      .influence(influences.no_influence) //CreatureKATAKAN
+      .influence(influences.kills_them) //CreatureEKIMMARA
+      .influence(influences.kills_them) //CreatureKATAKAN
       .influence(influences.no_influence) //CreatureGOLEM
       .influence(influences.no_influence) //CreatureELEMENTAL
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
       .influence(influences.no_influence) //CreatureNOONWRAITH
-      .influence(influences.no_influence) //CreatureCHORT
-      .influence(influences.no_influence) //CreatureCYCLOP
+      .influence(influences.low_bad_influence) //CreatureCHORT
+      .influence(influences.low_bad_influence) //CreatureCYCLOP
       .influence(influences.no_influence) //CreatureTROLL
-      .influence(influences.no_influence) //CreatureHAG
-      .influence(influences.no_influence) //CreatureFOGLET
-      .influence(influences.no_influence) //CreatureBRUXA
-      .influence(influences.no_influence) //CreatureFLEDER
+      .influence(influences.kills_them) //CreatureHAG
+      .influence(influences.kills_them) //CreatureFOGLET
+      .influence(influences.kills_them) //CreatureBRUXA
+      .influence(influences.kills_them) //CreatureFLEDER
       .influence(influences.no_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
       .influence(influences.no_influence) //CreatureGIANT

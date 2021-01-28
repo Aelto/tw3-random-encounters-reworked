@@ -52,21 +52,21 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureNEKKER
       .influence(influences.friend_with) //CreatureDROWNER
       .influence(influences.friend_with) //CreatureROTFIEND
-      .influence(influences.no_influence) //CreatureWOLF
+      .influence(influences.low_bad_influence) //CreatureWOLF
       .influence(influences.no_influence) //CreatureWRAITH
       .influence(influences.no_influence) //CreatureHARPY
       .influence(influences.no_influence) //CreatureSPIDER
       .influence(influences.no_influence) //CreatureCENTIPEDE
       .influence(influences.no_influence) //CreatureDROWNERDLC
-      .influence(influences.no_influence) //CreatureBOAR
-      .influence(influences.no_influence) //CreatureBEAR
+      .influence(influences.low_bad_influence) //CreatureBOAR
+      .influence(influences.low_bad_influence) //CreatureBEAR
       .influence(influences.no_influence) //CreaturePANTHER
-      .influence(influences.no_influence) //CreatureSKELETON
+      .influence(influences.low_indirect_influence) //CreatureSKELETON
       .influence(influences.no_influence) //CreatureECHINOPS
       .influence(influences.no_influence) //CreatureKIKIMORE
       .influence(influences.no_influence) //CreatureBARGHEST
-      .influence(influences.no_influence) //CreatureSKELWOLF
-      .influence(influences.no_influence) //CreatureSKELBEAR
+      .influence(influences.low_bad_influence) //CreatureSKELWOLF
+      .influence(influences.low_bad_influence) //CreatureSKELBEAR
       .influence(influences.no_influence) //CreatureWILDHUNT
       .influence(influences.no_influence) //CreatureBERSERKER
       .influence(influences.friend_with) //CreatureSIREN
@@ -75,10 +75,10 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN
-      .influence(influences.no_influence) //CreatureWEREWOLF
+      .influence(influences.low_indirect_influence) //CreatureWEREWOLF
       .influence(influences.no_influence) //CreatureFIEND
-      .influence(influences.no_influence) //CreatureEKIMMARA
-      .influence(influences.no_influence) //CreatureKATAKAN
+      .influence(influences.low_indirect_influence) //CreatureEKIMMARA
+      .influence(influences.low_indirect_influence) //CreatureKATAKAN
       .influence(influences.no_influence) //CreatureGOLEM
       .influence(influences.no_influence) //CreatureELEMENTAL
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
@@ -89,8 +89,8 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureHAG
       .influence(influences.friend_with) //CreatureFOGLET
       .influence(influences.no_influence) //CreatureBRUXA
-      .influence(influences.no_influence) //CreatureFLEDER
-      .influence(influences.no_influence) //CreatureGARKAIN
+      .influence(influences.low_indirect_influence) //CreatureFLEDER
+      .influence(influences.low_indirect_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
       .influence(influences.no_influence) //CreatureGIANT
       .influence(influences.no_influence) //CreatureSHARLEY

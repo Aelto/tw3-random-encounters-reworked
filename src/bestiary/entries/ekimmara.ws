@@ -33,11 +33,11 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
-      .influence(influences.no_influence) //CreatureGHOUL
-      .influence(influences.no_influence) //CreatureALGHOUL
+      .influence(influences.high_bad_influence) //CreatureGHOUL
+      .influence(influences.high_bad_influence) //CreatureALGHOUL
       .influence(influences.no_influence) //CreatureNEKKER
-      .influence(influences.no_influence) //CreatureDROWNER
-      .influence(influences.no_influence) //CreatureROTFIEND
+      .influence(influences.high_bad_influence) //CreatureDROWNER
+      .influence(influences.high_bad_influence) //CreatureROTFIEND
       .influence(influences.no_influence) //CreatureWOLF
       .influence(influences.friend_with) //CreatureWRAITH
       .influence(influences.no_influence) //CreatureHARPY
@@ -61,7 +61,7 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN
-      .influence(influences.no_influence) //CreatureWEREWOLF
+      .influence(influences.high_bad_influence) //CreatureWEREWOLF
       .influence(influences.no_influence) //CreatureFIEND
       .influence(influences.self_influence) //CreatureEKIMMARA
       .influence(influences.friend_with) //CreatureKATAKAN
@@ -72,8 +72,8 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureCHORT
       .influence(influences.no_influence) //CreatureCYCLOP
       .influence(influences.no_influence) //CreatureTROLL
-      .influence(influences.no_influence) //CreatureHAG
-      .influence(influences.no_influence) //CreatureFOGLET
+      .influence(influences.low_bad_influence) //CreatureHAG
+      .influence(influences.low_bad_influence) //CreatureFOGLET
       .influence(influences.friend_with) //CreatureBRUXA
       .influence(influences.friend_with) //CreatureFLEDER
       .influence(influences.friend_with) //CreatureGARKAIN

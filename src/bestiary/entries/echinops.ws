@@ -80,31 +80,31 @@ class RER_BestiaryEchinops extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.high_indirect_influence) //CreatureLESHEN
       .influence(influences.no_influence) //CreatureWEREWOLF
-      .influence(influences.no_influence) //CreatureFIEND
+      .influence(influences.low_indirect_influence) //CreatureFIEND
       .influence(influences.no_influence) //CreatureEKIMMARA
       .influence(influences.no_influence) //CreatureKATAKAN
       .influence(influences.friend_with) //CreatureGOLEM
       .influence(influences.friend_with) //CreatureELEMENTAL
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
       .influence(influences.no_influence) //CreatureNOONWRAITH
-      .influence(influences.no_influence) //CreatureCHORT
+      .influence(influences.low_indirect_influence) //CreatureCHORT
       .influence(influences.no_influence) //CreatureCYCLOP
-      .influence(influences.no_influence) //CreatureTROLL
+      .influence(influences.low_indirect_influence) //CreatureTROLL
       .influence(influences.no_influence) //CreatureHAG
       .influence(influences.no_influence) //CreatureFOGLET
-      .influence(influences.no_influence) //CreatureBRUXA
+      .influence(influences.low_bad_influence) //CreatureBRUXA
       .influence(influences.no_influence) //CreatureFLEDER
       .influence(influences.no_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
       .influence(influences.no_influence) //CreatureGIANT
-      .influence(influences.no_influence) //CreatureSHARLEY
+      .influence(influences.low_indirect_influence) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
       .influence(influences.no_influence) //CreatureGRYPHON
       .influence(influences.no_influence) //CreatureCOCKATRICE
       .influence(influences.no_influence) //CreatureBASILISK
       .influence(influences.no_influence) //CreatureWYVERN
       .influence(influences.no_influence) //CreatureFORKTAIL
-      .influence(influences.no_influence) //CreatureSKELTROLL
+      .influence(influences.low_indirect_influence) //CreatureSKELTROLL
       .build();
   }
 

@@ -69,9 +69,9 @@ class RER_BestiaryAlghoul extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureSPIDER
       .influence(influences.no_influence) //CreatureCENTIPEDE
       .influence(influences.friend_with) //CreatureDROWNERDLC
-      .influence(influences.no_influence) //CreatureBOAR
-      .influence(influences.no_influence) //CreatureBEAR
-      .influence(influences.no_influence) //CreaturePANTHER
+      .influence(influences.low_bad_influence) //CreatureBOAR
+      .influence(influences.low_bad_influence) //CreatureBEAR
+      .influence(influences.low_bad_influence) //CreaturePANTHER
       .influence(influences.high_indirect_influence) //CreatureSKELETON
       .influence(influences.no_influence) //CreatureECHINOPS
       .influence(influences.no_influence) //CreatureKIKIMORE

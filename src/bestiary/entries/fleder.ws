@@ -38,11 +38,11 @@ class RER_BestiaryFleder extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
-      .influence(influences.no_influence) //CreatureGHOUL
-      .influence(influences.no_influence) //CreatureALGHOUL
+      .influence(influences.low_bad_influence) //CreatureGHOUL
+      .influence(influences.low_bad_influence) //CreatureALGHOUL
       .influence(influences.no_influence) //CreatureNEKKER
-      .influence(influences.no_influence) //CreatureDROWNER
-      .influence(influences.no_influence) //CreatureROTFIEND
+      .influence(influences.low_bad_influence) //CreatureDROWNER
+      .influence(influences.low_bad_influence) //CreatureROTFIEND
       .influence(influences.no_influence) //CreatureWOLF
       .influence(influences.friend_with) //CreatureWRAITH
       .influence(influences.no_influence) //CreatureHARPY
@@ -66,7 +66,7 @@ class RER_BestiaryFleder extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN
-      .influence(influences.no_influence) //CreatureWEREWOLF
+      .influence(influences.low_bad_influence) //CreatureWEREWOLF
       .influence(influences.no_influence) //CreatureFIEND
       .influence(influences.friend_with) //CreatureEKIMMARA
       .influence(influences.friend_with) //CreatureKATAKAN
@@ -86,7 +86,7 @@ class RER_BestiaryFleder extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureGIANT
       .influence(influences.no_influence) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
-      .influence(influences.no_influence) //CreatureGRYPHON
+      .influence(influences.kills_them) //CreatureGRYPHON
       .influence(influences.no_influence) //CreatureCOCKATRICE
       .influence(influences.no_influence) //CreatureBASILISK
       .influence(influences.no_influence) //CreatureWYVERN

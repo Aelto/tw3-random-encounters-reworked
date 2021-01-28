@@ -65,14 +65,14 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN
       .influence(influences.kills_them) //CreatureWEREWOLF
-      .influence(influences.no_influence) //CreatureFIEND
+      .influence(influences.low_bad_influence) //CreatureFIEND
       .influence(influences.no_influence) //CreatureEKIMMARA
       .influence(influences.no_influence) //CreatureKATAKAN
-      .influence(influences.no_influence) //CreatureGOLEM
-      .influence(influences.no_influence) //CreatureELEMENTAL
+      .influence(influences.friend_with) //CreatureGOLEM
+      .influence(influences.friend_with) //CreatureELEMENTAL
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
       .influence(influences.no_influence) //CreatureNOONWRAITH
-      .influence(influences.no_influence) //CreatureCHORT
+      .influence(influences.low_bad_influence) //CreatureCHORT
       .influence(influences.self_influence) //CreatureCYCLOP
       .influence(influences.no_influence) //CreatureTROLL
       .influence(influences.no_influence) //CreatureHAG
@@ -82,10 +82,10 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
       .influence(influences.no_influence) //CreatureGIANT
-      .influence(influences.no_influence) //CreatureSHARLEY
+      .influence(influences.kills_them) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
-      .influence(influences.no_influence) //CreatureGRYPHON
-      .influence(influences.no_influence) //CreatureCOCKATRICE
+      .influence(influences.kills_them) //CreatureGRYPHON
+      .influence(influences.kills_them) //CreatureCOCKATRICE
       .influence(influences.no_influence) //CreatureBASILISK
       .influence(influences.no_influence) //CreatureWYVERN
       .influence(influences.no_influence) //CreatureFORKTAIL

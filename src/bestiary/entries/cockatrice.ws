@@ -66,7 +66,7 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
       .influence(influences.no_influence) //CreatureNOONWRAITH
       .influence(influences.no_influence) //CreatureCHORT
-      .influence(influences.no_influence) //CreatureCYCLOP
+      .influence(influences.high_indirect_influence) //CreatureCYCLOP
       .influence(influences.no_influence) //CreatureTROLL
       .influence(influences.no_influence) //CreatureHAG
       .influence(influences.no_influence) //CreatureFOGLET
@@ -74,8 +74,8 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFLEDER
       .influence(influences.no_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
-      .influence(influences.no_influence) //CreatureGIANT
-      .influence(influences.no_influence) //CreatureSHARLEY
+      .influence(influences.high_indirect_influence) //CreatureGIANT
+      .influence(influences.high_bad_influence) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
       .influence(influences.low_bad_influence) //CreatureGRYPHON
       .influence(influences.self_influence) //CreatureCOCKATRICE

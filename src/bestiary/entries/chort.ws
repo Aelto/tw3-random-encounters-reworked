@@ -61,8 +61,8 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureFIEND
       .influence(influences.no_influence) //CreatureEKIMMARA
       .influence(influences.no_influence) //CreatureKATAKAN
-      .influence(influences.no_influence) //CreatureGOLEM
-      .influence(influences.no_influence) //CreatureELEMENTAL
+      .influence(influences.low_bad_influence) //CreatureGOLEM
+      .influence(influences.low_bad_influence) //CreatureELEMENTAL
       .influence(influences.no_influence) //CreatureNIGHTWRAITH
       .influence(influences.no_influence) //CreatureNOONWRAITH
       .influence(influences.self_influence) //CreatureCHORT
@@ -74,8 +74,8 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFLEDER
       .influence(influences.no_influence) //CreatureGARKAIN
       .influence(influences.no_influence) //CreatureDETLAFF
-      .influence(influences.no_influence) //CreatureGIANT
-      .influence(influences.no_influence) //CreatureSHARLEY
+      .influence(influences.high_bad_influence) //CreatureGIANT
+      .influence(influences.high_bad_influence) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
       .influence(influences.low_bad_influence) //CreatureGRYPHON
       .influence(influences.low_bad_influence) //CreatureCOCKATRICE
