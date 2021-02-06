@@ -126,11 +126,11 @@ abstract class RER_BestiaryEntry {
 
       if (current_entity_template.count > 0) {
         current_template = (CEntityTemplate)LoadResourceAsync(current_entity_template.template, true);
-        current_rotation = VecToRotation(VecRingRand(1, 2));
 
         FixZAxis(group_positions[group_positions_index]);
 
         for (j = 0; j < current_entity_template.count; j += 1) {
+          current_rotation = VecToRotation(VecRingRand(1, 2));
           created_entity = theGame.CreateEntity(
             current_template,
             group_positions[group_positions_index],
