@@ -254,6 +254,25 @@ state Loading in CRandomEncounters {
       StaticEncounterType_SMALL
     );
 
+    // White Orchard: Endregas near a tree behind the mill
+    this.makeStaticEncounter(
+      CreatureKIKIMORE,
+      Vector(138, 348, 14),
+      RER_RegionConstraint_ONLY_WHITEORCHARD,
+      20,
+      StaticEncounterType_LARGE
+    );
+
+    // White Orchard: Endregas near a tree behind the mill
+    this.makeStaticEncounter(
+      CreatureNIGHTWRAITH,
+      Vector(378, 173, 22),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      15,
+      StaticEncounterType_LARGE
+    );
+
+
     // var example_static_encounter: RER_StaticEncounter;
 
     // example_static_encounter = new RER_StaticEncounter in this;
@@ -265,6 +284,52 @@ state Loading in CRandomEncounters {
     // parent
     //   .static_encounter_manager
     //   .registerStaticEncounter(parent, example_static_encounter);
+
+    // this.test();
+  }
+
+  private latent function test() {
+    var template: CEntityTemplate;
+    var template_path: string;
+    var current_heading: float;
+    var distance_to_point: float;
+    var destination_point: Vector;
+    var entity: CEntity;
+
+    template_path = "living_world\enemy_templates\nml_deserters_axe_normal.w2ent";
+    template = (CEntityTemplate)LoadResourceAsync(template_path, true);
+
+    entity = theGame.CreateEntity(
+      template,
+      thePlayer.GetWorldPosition(),
+      thePlayer.GetWorldRotation()
+    );
+
+    ((CActor)entity).SetTemporaryAttitudeGroup(
+      'q104_avallach_friendly_to_all',
+      AGP_Default
+    );
+
+    while (true) {
+      destination_point = thePlayer.GetWorldPosition();
+      distance_to_point = VecDistance(destination_point, entity.GetWorldPosition());
+
+      ((CActor)entity)
+        .GetMovingAgentComponent()
+        .SetGameplayRelativeMoveSpeed(MaxF(distance_to_point - 1, 0)); // 1 is for Walking, 2 jogging, 4 sprinting.
+
+      // current_heading = thePlayer.GetHeading();
+
+      // Or you can tell it to go towards Geralt.
+      // Or any value you want.
+      current_heading = VecHeading(thePlayer.GetWorldPosition() - entity.GetWorldPosition());
+
+      ((CActor)entity)
+        .GetMovingAgentComponent()
+        .SetGameplayMoveDirection(current_heading);
+
+      SleepOneFrame();
+    }
   }
 
   private latent function makeStaticEncounter(type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType) {
