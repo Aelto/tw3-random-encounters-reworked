@@ -233,6 +233,6 @@
 2115018232|        |option_rer_camera_immersive_camera_compatibility|No camera scene on horse (ImmersiveCamera compatibility)
 2115018233|        |panel_rer_ecosystem_settings|Ecosystem system
 2115018234|        |preset_Mods_rer_name_rer_ecosystem_settings|Ecosystem system
-2115018235|        |option_rer_ecosystem_community_power_effect|Community power effect
+2115018235|        |option_rer_ecosystem_community_power_effect|Community diversity (higher = less, lower = more)
 2115018236|        |option_rer_ecosystem_community_natural_death_speed|Community natural death speed
 2115018237|        |option_rer_ecosystem_community_power_spread|community power spread
