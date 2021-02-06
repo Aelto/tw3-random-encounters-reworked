@@ -32,6 +32,12 @@ state Combat in RandomEncountersReworkedContractEntity {
   }
 
   latent function waitUntilPlayerFinishesCombat() {
+    // sometimes the game takes time to set the player in combat, in this case
+    // we wait a few seconds and then start looping.
+    if (!thePlayer.IsInCombat()) {
+      Sleep(2);
+    }
+
     // 1. we wait until the player is out of combat
     while (!parent.areAllEntitiesFarFromPlayer() || thePlayer.IsInCombat()) {
       parent.removeDeadEntities();
