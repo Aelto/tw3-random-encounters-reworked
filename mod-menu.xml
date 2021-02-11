@@ -4008,7 +4008,7 @@
                 <Entry varId="Garkains"                value="5"    />
                 <Entry varId="Higher_Vampires"            value="1"    />
 
-                <Entry varId="Humans"               value="100"  />
+                <Entry varId="Humans"               value="30"  />
                 <Entry varId="Nekkers"                value="30"    />
                 <Entry varId="Drowners"                value="30"    />
                 <Entry varId="Graviers"            value="30"    />
@@ -4313,7 +4313,7 @@
                 <Entry varId="Garkains"                value="5"    />
                 <Entry varId="Higher_Vampires"            value="1"    />
 
-                <Entry varId="Humans"               value="100"  />
+                <Entry varId="Humans"               value="30"  />
                 <Entry varId="Nekkers"                value="30"    />
                 <Entry varId="Drowners"                value="30"    />
                 <Entry varId="Graviers"            value="30"    />
