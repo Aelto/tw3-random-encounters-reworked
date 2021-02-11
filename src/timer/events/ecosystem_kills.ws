@@ -26,7 +26,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
       return false;
     }
 
-    LogChannel('RER', "ecosystem kill run");
+    // LogChannel('RER', "ecosystem kill run");
 
     is_player_in_combat = thePlayer.IsInCombat();
 
