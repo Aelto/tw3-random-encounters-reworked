@@ -48,7 +48,7 @@ state TrailChoice in RandomEncountersReworkedContractEntity extends TrailPhase {
     // kind of a hack, because `getNewTrailDestination` uses `parent.previous_phase_checkpoint`
     // as the origin. And we want to be able to choose where it starts
     parent.previous_phase_checkpoint = checkpoint_save + VecRingRand(0, trail_origin_radius);
-    if (!this.getNewTrailDestination(this.destination_one, 0.1)) {
+    if (!this.getNewTrailDestination(this.destination_one, 0.25)) {
       LogChannel('modRandomEncounters', "Contract - State TrailBreakoff, could not find trail destination one");
       parent.endContract();
 
@@ -56,7 +56,7 @@ state TrailChoice in RandomEncountersReworkedContractEntity extends TrailPhase {
     }
 
     parent.previous_phase_checkpoint = checkpoint_save + VecRingRand(0, trail_origin_radius);
-    if (!this.getNewTrailDestination(this.destination_two, 0.1)) {
+    if (!this.getNewTrailDestination(this.destination_two, 0.25)) {
       LogChannel('modRandomEncounters', "Contract - State TrailBreakoff, could not find trail destination two");
       parent.endContract();
 
