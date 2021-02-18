@@ -64,7 +64,8 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
       parent.master,
       this.destination,
       ,,
-      parent.entity_settings.allow_trophies
+      parent.entity_settings.allow_trophies,
+      EncounterType_CONTRACT
     );
   }
 

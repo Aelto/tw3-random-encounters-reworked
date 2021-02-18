@@ -188,7 +188,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       .spawn(
         parent.master,
         parent.previous_phase_checkpoint,,,
-        parent.entity_settings.allow_trophies
+        parent.entity_settings.allow_trophies,
+        EncounterType_CONTRACT
       );
 
     for (i = 0; i < created_entities.Size(); i += 1) {
