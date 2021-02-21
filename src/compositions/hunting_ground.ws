@@ -21,16 +21,16 @@ class CreatureHuntingGroundComposition extends CompositionSpawner {
   }
 
   protected latent function afterSpawningEntities(): bool {
-    var rer_entity: RandomEncountersReworkedContractEntity;
+    var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
     var rer_entity_template: CEntityTemplate;
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_contract_entity.w2ent",
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
       true
     );
 
-    rer_entity = (RandomEncountersReworkedContractEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
-    rer_entity.startEncounter(this.master, this.bestiary_entry);
+    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
+    rer_entity.startEncounter(this.master, this.created_entities, this.bestiary_entry);
 
     return true;
   }

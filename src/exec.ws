@@ -102,6 +102,28 @@ function _rer_start_hunt(optional creature: CreatureType) {
 }
 
 
+exec function rerhg(optional creature: CreatureType) {
+  _rer_start_huntingground(creature);
+}
+exec function rer_start_huntingground(optional creature: CreatureType) {
+  _rer_start_huntingground(creature);
+}
+function _rer_start_huntingground(optional creature: CreatureType) {
+  var rer_entity : CRandomEncounters;
+  var exec_runner: RER_ExecRunner;
+
+  if (!getRandomEncounters(rer_entity)) {
+    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
+    
+    return;
+  }
+
+  exec_runner = new RER_ExecRunner in rer_entity;
+  exec_runner.init(rer_entity, creature);
+  exec_runner.GotoState('RunCreatureHuntingGround');
+}
+
+
 exec function rerhu(optional human_type: EHumanType, optional count: int) {
   _rer_start_human(human_type, count);
 }
@@ -176,6 +198,25 @@ state RunCreatureAmbush in RER_ExecRunner {
 
   entry function RunCreatureAmbush_main() {
     createRandomCreatureAmbush(parent.master, parent.creature);
+  }
+}
+
+state RunCreatureHuntingGround in RER_ExecRunner {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunCreatureHuntingGround");
+
+    this.RunCreatureHuntingGround_main();
+  }
+
+  entry function RunCreatureHuntingGround_main() {
+    if (parent.creature == CreatureNONE) {
+      createRandomCreatureHuntingGround(parent.master, new RER_BestiaryEntryNull in parent.master);
+    }
+    else {
+      createRandomCreatureHuntingGround(parent.master, parent.master.bestiary.entries[parent.creature]);
+    }
+    
   }
 }
 

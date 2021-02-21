@@ -1,5 +1,5 @@
 
-struct HuntEntitySettings {
+struct HuntingGroundEntitySettings {
   var kill_threshold_distance: float;
   var allow_trophy_pickup_scene: bool;
 }
@@ -11,7 +11,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
 
   var bestiary_entry: RER_BestiaryEntry;
 
-  var entity_settings: HuntEntitySettings;
+  var entity_settings: HuntingGroundEntitySettings;
 
   var bait_entity: CEntity;
 
@@ -20,6 +20,9 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.entities = entities;
     this.bestiary_entry = bestiary_entry;
     this.loadSettings(master);
+
+    LogChannel('RER', "starting RandomEncountersReworkedHuntingGroundEntity with " + entities.Size() + " " + bestiary_entry.type);
+
     this.GotoState('Loading');
   }
 

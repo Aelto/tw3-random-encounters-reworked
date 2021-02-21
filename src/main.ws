@@ -124,25 +124,8 @@ statemachine class CRandomEncounters extends CEntity {
       .ecosystem
       .ecosystem_areas.Size());
 
-    this.takeControlsOfEntities();
-
     AddTimer('onceReady', 3.0, false);
     this.GotoState('Loading');
-  }
-
-  // the mod loses control of the previously spawned entities when the player
-  // reloads. So when the mod is initialized it loops through all the RER entities
-  // (thanks to a tag) and then finds groups of creatures and links them to a
-  // HuntEntity manager that will control them again.
-  private function takeControlsOfEntities() {
-    var ents: array<CEntity>;
-    var i: int;
-
-    LogChannel('RER', "takeControlsOfEntities()");
-
-    theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', ents);
-
-    LogChannel('modRandomEncounters', "found " + ents.Size() + " RER entities");
   }
 
   timer function onceReady(optional delta: float, optional id: Int32) {

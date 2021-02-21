@@ -1,9 +1,9 @@
 
-state Combat in RandomEncountersReworkedHuntEntity {
+state Combat in RandomEncountersReworkedHuntingGroundEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "Hunt - State Combat");
+    LogChannel('modRandomEncounters', "RandomEncountersReworkedHuntingGroundEntity - State Combat");
 
     this.Combat_Main();
   }

@@ -108,7 +108,7 @@ abstract class RER_BestiaryEntry {
       density = 0.01;
     }
 
-    LogChannel('RER', "BestiaryEntry, spawn() count = " + count);
+    LogChannel('RER', "BestiaryEntry, spawn() count = " + count + " " + this.type);
 
     creatures_templates = fillEnemyTemplateList(
       this.template_list,
@@ -197,6 +197,8 @@ abstract class RER_BestiaryEntry {
         created_entities.Size(),
         position
       );
+
+    LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
 
     return created_entities;

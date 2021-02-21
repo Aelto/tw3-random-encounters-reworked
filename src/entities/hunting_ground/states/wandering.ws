@@ -74,7 +74,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
         }
       }
 
-      Sleep(0.5);
+      Sleep(3);
     } while (true);
   }
 

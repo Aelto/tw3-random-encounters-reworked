@@ -13,6 +13,12 @@ state Loading in CRandomEncounters {
     // give time for other mods to register their static encounters
     Sleep(10);
 
+    // it's super important the mod takes control of the creatures BEFORE spawning
+    // the static encounters, or else RER will considered creatures from static encounters
+    // like HuntingGround encounters and because of the death threshold distance
+    // it will kill them instantly. We don't want them to be killed.
+    this.takeControlOfEntities();
+
     parent.static_encounter_manager.spawnStaticEncounters(parent);
 
     parent.GotoState('Waiting');
@@ -288,48 +294,76 @@ state Loading in CRandomEncounters {
     // this.test();
   }
 
-  private latent function test() {
-    var template: CEntityTemplate;
-    var template_path: string;
-    var current_heading: float;
-    var distance_to_point: float;
-    var destination_point: Vector;
+  // the mod loses control of the previously spawned entities when the player
+  // reloads. So when the mod is initialized it loops through all the RER entities
+  // (thanks to a tag) and then finds groups of creatures and links them to a
+  // HuntEntity manager that will control them again.
+  private latent function takeControlOfEntities() {
+    var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var rer_entity_template: CEntityTemplate;
+    var surrounding_entities: array<CGameplayEntity>;
+    var entity_group: array<CEntity>;
+    var entities: array<CEntity>;
     var entity: CEntity;
+    var i, k: int;
 
-    template_path = "living_world\enemy_templates\nml_deserters_axe_normal.w2ent";
-    template = (CEntityTemplate)LoadResourceAsync(template_path, true);
+    LogChannel('RER', "takeControlOfEntities()");
 
-    entity = theGame.CreateEntity(
-      template,
-      thePlayer.GetWorldPosition(),
-      thePlayer.GetWorldRotation()
+    theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', entities);
+
+    rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
+      true
     );
 
-    ((CActor)entity).SetTemporaryAttitudeGroup(
-      'q104_avallach_friendly_to_all',
-      AGP_Default
-    );
+    for (i = 0; i < entities.Size(); i += 1) {
+      entity = entities[i];
+      
+      // RER has already taken control of this creature so we ignore it.
+      if (entity.HasTag('RER_controlled')) {
+        continue;
+      }
 
-    while (true) {
-      destination_point = thePlayer.GetWorldPosition();
-      distance_to_point = VecDistance(destination_point, entity.GetWorldPosition());
+      surrounding_entities.Clear();
 
-      ((CActor)entity)
-        .GetMovingAgentComponent()
-        .SetGameplayRelativeMoveSpeed(MaxF(distance_to_point - 1, 0)); // 1 is for Walking, 2 jogging, 4 sprinting.
+      FindGameplayEntitiesInRange(
+        surrounding_entities,
+        entity,
+        20, // radius
+        20, // max number of entities
+        'RandomEncountersReworked_Entity', // tag
+        FLAG_ExcludePlayer,
+        thePlayer, // target
+        'CNewNPC'
+      );
 
-      // current_heading = thePlayer.GetHeading();
+      entity_group.Clear();
 
-      // Or you can tell it to go towards Geralt.
-      // Or any value you want.
-      current_heading = VecHeading(thePlayer.GetWorldPosition() - entity.GetWorldPosition());
+      // the goal here is to create a list of entities in the surrounding areas
+      // that RER will take control of.
+      for (k = 0; k < surrounding_entities.Size(); k += 1) {
+        // RER has already taken control of this creature so we ignore it.
+        if (entity.HasTag('RER_controlled')) {
+          continue;
+        }
 
-      ((CActor)entity)
-        .GetMovingAgentComponent()
-        .SetGameplayMoveDirection(current_heading);
+        entity_group.PushBack(surrounding_entities[k]);
 
-      SleepOneFrame();
+        surrounding_entities[k].AddTag('RER_controlled');
+      }
+
+      if (entity_group.Size() > 0) {
+        rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(rer_entity_template, entity.GetWorldPosition(), entity.GetWorldRotation());
+        rer_entity.startEncounter(parent, entity_group, parent.bestiary.entries[parent.bestiary.getCreatureTypeFromEntity(entity)]);
+        LogChannel('modRandomEncounters', "created a HuntingGround with " + entity_group.Size() + " RER entities");
+      }
     }
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      entities[i].RemoveTag('RER_controlled');
+    }
+
+    LogChannel('modRandomEncounters', "found " + entities.Size() + " RER entities");
   }
 
   private latent function makeStaticEncounter(type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType) {
