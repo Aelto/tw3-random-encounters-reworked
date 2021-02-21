@@ -218,6 +218,8 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERencountersContractNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERevents', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERoptionalFeatures', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERmonsterCrowns', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERmonsterTrophies', 0);
 
     inGameConfigWrapper.SetVarValue('RERmain', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
