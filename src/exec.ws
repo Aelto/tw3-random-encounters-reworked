@@ -231,17 +231,18 @@ state TestCameraScenePlayer in RER_ExecRunner {
     
     // where the camera is placed
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
-    scene.position = thePlayer.GetWorldPosition() + Vector(3, 3, 3);
+    scene.position = theCamera.GetCameraPosition() + Vector(0.3, 0, 1);
 
     // where the camera is looking
     scene.look_at_target_type = RER_CameraTargetType_NODE;
     scene.look_at_target_node = thePlayer;
 
-    // scene.velocity = Vector(0, 0.01, 0);
-    // scene.velocity_type = RER_CameraVelocityType_RELATIVE;
+    scene.velocity_type = RER_CameraVelocityType_FORWARD;
+    scene.velocity = Vector(0.001, 0.001, 0);
 
-    scene.position_blending_ratio = 0.5;
-    scene.rotation_blending_ratio = 0.5;
+    scene.duration = 6;
+    scene.position_blending_ratio = 0.01;
+    scene.rotation_blending_ratio = 0.01;
 
     scene.duration = 5;
 

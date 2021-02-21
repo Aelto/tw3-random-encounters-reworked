@@ -65,6 +65,8 @@ abstract class RER_BestiaryEntry {
     this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntNight', this.menu_name));
     this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractDay', this.menu_name));
     this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractNight', this.menu_name));
+    this.chances_day[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundDay', this.menu_name));
+    this.chances_night[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundNight', this.menu_name));
     this.creature_type_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', this.menu_name));
     this.crowns_percentage = StringToFloat(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', this.menu_name)) / 100.0f;
 
@@ -90,6 +92,7 @@ abstract class RER_BestiaryEntry {
     var created_entity: CEntity;
     var created_entities: array<CEntity>;
     var group_positions_index: int;
+    var tags_array: array<name>;
     var i: int;
     var j: int;
 
@@ -121,6 +124,8 @@ abstract class RER_BestiaryEntry {
 
     group_positions_index = 0;
 
+    tags_array.PushBack('RandomEncountersReworked_Entity');
+
     for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
       current_entity_template = creatures_templates.templates[i];
 
@@ -134,8 +139,12 @@ abstract class RER_BestiaryEntry {
           created_entity = theGame.CreateEntity(
             current_template,
             group_positions[group_positions_index],
-            current_rotation
+            current_rotation,,,,
+            PM_Persist,
+            tags_array
           );
+
+          created_entity.AddTag('RandomEncountersReworked_Creature');
 
           ((CNewNPC)created_entity).SetLevel(
             getRandomLevelBasedOnSettings(master.settings)

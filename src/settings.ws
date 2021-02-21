@@ -10,6 +10,8 @@ class RE_Settings {
   public var all_monster_hunt_chance_night: int;
   public var all_monster_contract_chance_night: int;
   public var all_monster_ambush_chance_night: int;
+  public var all_monster_hunting_ground_chance_day: int;
+  public var all_monster_hunting_ground_chance_night: int;
   public var monster_contract_longevity: float;
   public var enableTrophies : bool;
   public var selectedDifficulty : RER_Difficulty;
@@ -146,6 +148,7 @@ class RE_Settings {
     this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesAmbush');
     this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesHunt');
     this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesContract');
+    this.trophies_enabled_by_encounter[EncounterType_HUNTINGGROUND] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesHuntingGround');
     this.trophy_pickup_scene_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrophyPickupAnimation'));
     this.trophy_pickup_scene = this.trophy_pickup_scene_chance > 0;
 
@@ -156,6 +159,7 @@ class RE_Settings {
     this.crowns_amounts_by_encounter[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsAmbush'));
     this.crowns_amounts_by_encounter[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsHunt'));
     this.crowns_amounts_by_encounter[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsContract'));
+    this.crowns_amounts_by_encounter[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsHuntingGround'));
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -163,6 +167,11 @@ class RE_Settings {
     customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow'));
     customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
     customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));
+  }
+
+  private function loadMonsterHuntingGroundChances(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.all_monster_hunting_ground_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundDay', 'allMonsterHuntingGroundChanceDay'));
+    this.all_monster_hunting_ground_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundNight', 'allMonsterHuntingGroundChanceNight'));
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {

@@ -86,8 +86,8 @@
 2115018084|        |option_rer_gargoyles|Gargoyle
 2115018085|        |preset_Mods_rer_name_rer_main_settings|Main settings
 2115018086|        |preset_Mods_rer_name_rer_creature_frequency|Creatures frequencies
-2115018087|        |preset_Mods_rer_name_rer_encounters_settings_ambush_day_settings|Ambush Day
-2115018088|        |preset_Mods_rer_name_rer_encounters_settings_ambush_night_settings|Ambush Night
+2115018087|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_ambush_day_settings|Ambush Day
+2115018088|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_ambush_night_settings|Ambush Night
 2115018089|        |option_rer_geralt_comments|Enable Geralt comments
 2115018090|        |option_rer_enabled|<font color="#28a745">MOD ENABLED</font>
 2115018091|        |option_rer_hide_notifications|Hide RER notifications
@@ -184,7 +184,7 @@
 2115018182|        |preset_value_rer_region_constraint_no_velen|No Velen
 2115018183|        |preset_value_rer_region_constraint_no_skellige|No Skellige
 2115018184|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
-2115018185|        |preset_Mods_rer_name_rer_encounters_settings_rer_region_constraints_settings|Region constraints
+2115018185|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_region_constraints_settings|Region constraints
 2115018186|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
 2115018187|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
 2115018188|        |panel_rer_region_constraints_settings|Region constraints
@@ -192,12 +192,12 @@
 2115018190|        |panel_rer_creatures_ratio|Creatures ratios
 2115018191|        |panel_hunt_day_settings|Hunt Day
 2115018192|        |panel_hunt_night_settings|Hunt Night
-2115018193|        |preset_Mods_rer_name_rer_encounters_settings_hunt_day_settings|Hunt Day
-2115018194|        |preset_Mods_rer_name_rer_encounters_settings_hunt_night_settings|Hunt Night
+2115018193|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_day_settings|Hunt Day
+2115018194|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_night_settings|Hunt Night
 2115018195|        |panel_contract_day_settings|Contract Day
 2115018196|        |panel_contract_night_settings|Contract Night
-2115018197|        |preset_Mods_rer_name_rer_encounters_settings_contract_day_settings|Contract Day
-2115018198|        |preset_Mods_rer_name_rer_encounters_settings_contract_night_settings|Contract Night
+2115018197|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_day_settings|Contract Day
+2115018198|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_night_settings|Contract Night
 2115018199|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
 2115018200|        |panel_performances|Performance settings
 2115018201|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
@@ -210,16 +210,16 @@
 2115018208|        |option_rer_monster_contract_ratio_night|<font color="#ffd33d">Frequency</font>
 2115018209|        |option_rer_enable_action_camera_scenes|Enable action camera scenes
 2115018210|        |preset_Mods_rer_name_rer_encounters_settings|Encounter system
-2115018211|        |preset_Mods_rer_name_rer_encounters_settings_rer_general_settings|General
-2115018212|        |preset_Mods_rer_name_rer_encounters_settings_rer_constraints_settings|Region constraints
-2115018213|        |preset_Mods_rer_name_rer_encounters_settings_rer_settlement_settings|Settlement spawns
+2115018211|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_general_settings|General
+2115018212|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_constraints_settings|Region constraints
+2115018213|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_settlement_settings|Settlement spawns
 2115018214|        |panel_rer_general_settings|General
 2115018215|        |panel_rer_optional_features_settings|Optional features
 2115018216|        |panel_rer_encounters_settings|Encounter system
 2115018217|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features
 2115018218|        |option_rer_monster_contract_longevity|<font color="#ffd33d">Longevity</font>
 2115018219|        |panel_creature_type_multiplier|Creature type multiplier
-2115018220|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
+2115018220|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_creature_type_multiplier|Creature type multiplier
 2115018221|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>
 2115018222|        |option_rer_crowns_hunt|<font color="#ffd33d">From hunts</font>
 2115018223|        |option_rer_crowns_contract|<font color="#ffd33d">From contracts</font>
@@ -236,3 +236,13 @@
 2115018235|        |option_rer_ecosystem_community_power_effect|Community diversity (higher = less, lower = more)
 2115018236|        |option_rer_ecosystem_community_natural_death_speed|Community natural death speed
 2115018237|        |option_rer_ecosystem_community_power_spread|community power spread
+2115018238|        |option_rer_crowns_hunting_ground|<font color="#ffd33d">From hunting grounds</font>
+2115018239|        |panel_hunting_ground_day_settings|Hunting ground Day
+2115018240|        |panel_hunting_ground_night_settings|Hunting ground Night
+2115018241|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_day_settings|Hunting Ground Day
+2115018242|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_night_settings|Hunting Ground Night
+2115018243|        |option_rer_monster_hunting_ground_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018244|        |option_rer_monster_hunting_ground_ratio_day|<font color="#ffd33d">Frequency</font>
+2115018245|        |preset_Mods_rer_name_ratios_and_frequencies|Ratios & Frequencies
+2115018246|        |panel_ratios_and_frequencies|Ratios & Frequencies
+2115018247|        |option_rer_trophies_hunting_ground|<font color="#ffd33d">From hunting grounds</font>

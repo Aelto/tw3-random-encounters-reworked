@@ -51,6 +51,7 @@ state Spawning in CRandomEncounters {
     var monster_ambush_chance: int;
     var monster_hunt_chance: int;
     var monster_contract_chance: int;
+    var monster_hunting_ground_chance: int;
 
     var max_roll: int;
     var roll: int;
@@ -59,15 +60,18 @@ state Spawning in CRandomEncounters {
       monster_ambush_chance = parent.settings.all_monster_ambush_chance_night;
       monster_hunt_chance = parent.settings.all_monster_hunt_chance_night;
       monster_contract_chance = parent.settings.all_monster_contract_chance_night;
+      monster_hunting_ground_chance = parent.settings.all_monster_hunting_ground_chance_night;
     } else {
       monster_ambush_chance = parent.settings.all_monster_ambush_chance_day;
       monster_hunt_chance = parent.settings.all_monster_hunt_chance_day;
       monster_contract_chance = parent.settings.all_monster_contract_chance_day;
+      monster_hunting_ground_chance = parent.settings.all_monster_hunting_ground_chance_day;
     }
 
     max_roll = monster_hunt_chance
              + monster_contract_chance
-             + monster_ambush_chance;
+             + monster_ambush_chance
+             + monster_hunting_ground_chance;
 
     roll = RandRange(max_roll);
     if (roll < monster_hunt_chance) {
@@ -77,6 +81,11 @@ state Spawning in CRandomEncounters {
     roll -= monster_hunt_chance;
     if (roll < monster_contract_chance) {
       return EncounterType_CONTRACT;
+    }
+
+    roll -= monster_contract_chance;
+    if (roll < monster_hunting_ground_chance) {
+      return EncounterType_HUNTINGGROUND;
     }
 
     return EncounterType_DEFAULT;

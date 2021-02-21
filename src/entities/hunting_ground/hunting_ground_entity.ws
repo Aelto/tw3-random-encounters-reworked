@@ -4,7 +4,7 @@ struct HuntEntitySettings {
   var allow_trophy_pickup_scene: bool;
 }
 
-statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
+statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
   var master: CRandomEncounters;
   
   var entities: array<CEntity>;
@@ -15,15 +15,10 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
   var bait_entity: CEntity;
 
-  var trail_maker: RER_TrailMaker;
-
-  var bait_moves_towards_player: bool;
-
-  public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, bestiary_entry: RER_BestiaryEntry, optional bait_moves_towards_player: bool) {
+  public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
     this.entities = entities;
     this.bestiary_entry = bestiary_entry;
-    this.bait_moves_towards_player = bait_moves_towards_player;
     this.loadSettings(master);
     this.GotoState('Loading');
   }
@@ -38,14 +33,12 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
     LogChannel(
       'modRandomEncounters',
-      "RandomEncountersReworkedHuntEntity destroyed"
+      "RandomEncountersReworkedHuntingGroundEntity destroyed"
     );
 
     for (i = 0; i < this.entities.Size(); i += 1) {
       this.killEntity(this.entities[i]);
     }
-
-    trail_maker.clean();
 
     this.Destroy();
   }
@@ -56,8 +49,6 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
   public function areAllEntitiesDead(): bool {
     var i: int;
-
-    // LogChannel('RER', "HuntEntity - areAllEntitiesDead, entity size = " + this.entities.Size());
 
     for (i = 0; i < this.entities.Size(); i += 1) {
       if (((CActor)this.entities[i]).IsAlive()) {

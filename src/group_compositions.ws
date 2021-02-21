@@ -20,6 +20,13 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
     }
   }
+  else if (encounter_type == EncounterType_HUNTINGGROUND) {
+    LogChannel('modRandomEncounters', "spawning - HUNTINGGROUND");
+    createRandomCreatureAmbush(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);
+    
+    // no voiceline for this encounter type as it's supposed to be a passive
+    // encounter you don't notice.
+  }
   else {
     LogChannel('modRandomEncounters', "spawning - CONTRACT");
     createRandomCreatureContract(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);

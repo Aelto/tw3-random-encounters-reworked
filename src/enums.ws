@@ -90,7 +90,8 @@ enum EncounterType {
   
   EncounterType_HUNT     = 1,
   EncounterType_CONTRACT = 2,
-  EncounterType_MAX      = 3
+  EncounterType_HUNTINGGROUND = 3,
+  EncounterType_MAX      = 4
 }
 
 
