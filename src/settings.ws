@@ -221,6 +221,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERmonsterCrowns', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERmonsterTrophies', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERecosystem', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcreatureTypeMultiplier', 0);
 
     inGameConfigWrapper.SetVarValue('RERmain', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
