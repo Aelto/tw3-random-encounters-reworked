@@ -88,19 +88,21 @@ class RER_TrailMaker {
   }
 
   public function init(ratio: int, maximum: int, resources: array<RER_TrailMakerTrack>) {
-    this.setTrailRatio(ratio);
-    this.setTracksMaximum(maximum);
     this.setTrackResources(resources);
+    this.setTracksMaximum(maximum);
+    this.setTrailRatio(ratio);
   }
 
   private var last_track_position: Vector;
 
-  public function addTrackHere(position: Vector, optional heading: EulerAngles) {
+  // the boolean value that is returned by the function indicates if a track was
+  // placed or if it was skipped due to the ratio setting.
+  public function addTrackHere(position: Vector, optional heading: EulerAngles): bool {
     var new_entity: RER_MonsterClue;
     var track_resource: RER_TrailMakerTrack;
 
     if (VecDistanceSquared2D(position, this.last_track_position) < PowF(0.5 * this.trail_ratio, 2)) {
-      return;
+      return false;
     }
 
     this.last_track_position = position;
@@ -108,7 +110,7 @@ class RER_TrailMaker {
     if (trail_ratio_index < trail_ratio) {
       trail_ratio_index += 1;
 
-      return;
+      return false;
     }
 
     trail_ratio_index = 1;
@@ -130,13 +132,15 @@ class RER_TrailMaker {
         this.tracks_looped = true;
       }
 
-      return;
+      return true;
     }
 
     this.tracks_entities[this.tracks_index]
       .TeleportWithRotation(position, RotRand(0, 360));
 
     this.tracks_index = (this.tracks_index + 1) % this.tracks_maximum;
+
+    return true;
   }
 
   public function getLastPlacedTrack(): RER_MonsterClue {
@@ -182,7 +186,7 @@ class RER_TrailMaker {
       volume_path_manager = theGame.GetVolumePathManager();
     }
 
-    LogChannel('modRandomEncounters', "TrailMaker, drawing trail");
+    LogChannel('modRandomEncounters', "TrailMaker, drawing trail, with ratio = " + this.trail_ratio);
 
     do {
       // 50 / 100 = 0.5
@@ -218,17 +222,18 @@ class RER_TrailMaker {
 
       FixZAxis(current_track_position);
 
-      this.addTrackHere(
+      if (this.addTrackHere(
         current_track_position,
         VecToRotation(to - current_track_position)
-      );
+      )) {
+        number_of_tracks_created += 1;
+
+        if (use_failsafe && number_of_tracks_created >= this.tracks_maximum) {
+          break;
+        }
+      }
 
       distance_to_final_point = VecDistanceSquared2D(current_track_position, to);
-      number_of_tracks_created += 1;
-
-      if (use_failsafe && number_of_tracks_created >= this.tracks_maximum) {
-        break;
-      }
 
       // small chance to add a corpse near the tracks
       if (trail_details_chances > 0 && RandRange(100) < trail_details_chances) {
