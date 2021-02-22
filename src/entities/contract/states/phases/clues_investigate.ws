@@ -400,9 +400,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 2. once the player is near, we play some oneliners
     if (RandRange(10) < 5) {
-      REROL_wonder_clues_will_lead_me(true);
+      REROL_wonder_clues_will_lead_me();
     } else {
-      REROL_came_through_here(true);
+      REROL_came_through_here();
     }
   }
 
