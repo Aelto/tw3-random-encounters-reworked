@@ -20,3 +20,7 @@ function NDEBUG(message: string, optional duration: float) {
   .GetGuiManager()
   .ShowNotification(message, duration);
 }
+
+function NLOG(message: string) {
+  LogChannel('RER', message);
+}
