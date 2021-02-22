@@ -14,7 +14,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   entry function CluesInvestigate_Main() {
     this.createClues();
     this.playStatingOnelinerAndCameraScene();
+    RER_toggleInfoPinAtPosition(this.investigation_center_position);
     this.waitUntilPlayerReachesFirstClue();
+    RER_toggleInfoPinAtPosition(this.investigation_center_position);
     this.createLastClues();
     this.waitUntilPlayerReachesLastClue();
     
