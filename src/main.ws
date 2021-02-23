@@ -224,6 +224,8 @@ statemachine class CRandomEncounters extends CEntity {
         REROL_good_size_wonder_if_someone_pay_sync();
       }
     }
+
+    RER_tutorialTryShowTrophy();
   }
   //#endregion OutOfCombat action
 

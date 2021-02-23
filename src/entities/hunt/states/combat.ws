@@ -13,6 +13,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
     // if true, will play a oneliner and a camera scene
     // the camera scene plays only if player is not busy and doesn't have camera scenes disabled from menu
     if (parent.bait_moves_towards_player) {
+      RER_tutorialTryShowAmbushed();
       this.startAmbushCutscene();
     }
 

@@ -125,8 +125,6 @@ state Analysing in RER_EcosystemAnalyzer {
   latent function openBookPopup(creatures: array<RER_SurroundingCreaturePercentage>) {
     var sorted_creatures_ascending: array<RER_SurroundingCreaturePercentage>;
     var picked_creature: RER_SurroundingCreaturePercentage;
-    var popup_data: BookPopupFeedback;
-    var id: SItemUniqueId;
     var message: string;
     var i: int;
 
@@ -209,14 +207,7 @@ state Analysing in RER_EcosystemAnalyzer {
     //   }
     // }
 
-    popup_data = new BookPopupFeedback in thePlayer;
-    popup_data.SetMessageTitle( "Surrounding ecosystem" );
-    popup_data.SetMessageText( message );
-    popup_data.curInventory = thePlayer.GetInventory();
-    popup_data.PauseGame = true;
-    popup_data.bookItemId = id;
-        
-    theGame.RequestMenu('PopupMenu', popup_data);
+    RER_openPopup("Surrounding ecosystem", message);
   }
 
   function sortCreaturePercentagesAscending(percentages: array<RER_SurroundingCreaturePercentage>): array<RER_SurroundingCreaturePercentage> {

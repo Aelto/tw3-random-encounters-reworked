@@ -27,6 +27,7 @@ state Interacting in RER_MonsterClue {
   }
 
   entry function start() {
+    RER_tutorialTryShowClue();
     this.playOneliner();
     this.playAnimation();
 

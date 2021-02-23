@@ -60,8 +60,12 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
       new_checkup
     );
 
-    LogChannel('RER', "diff checkup:");
-    this.debugShowCheckup(checkup_difference);
+    // LogChannel('RER', "diff checkup:");
+    // this.debugShowCheckup(checkup_difference);
+
+    if (checkup_difference.Size() > 0) {
+      RER_tutorialTryShowEcosystem();
+    }
 
     this.notifyEcosystemManager(master, checkup_difference);
 

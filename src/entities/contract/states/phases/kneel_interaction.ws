@@ -15,6 +15,7 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
 
     this.KneelInteraction_createTracks();
     this.KneelInteraction_playAnimation();
+    RER_tutorialTryShowContract();
     parent.GotoState('PhasePick');
   }
 

@@ -186,6 +186,8 @@ class RER_ListenerNoticeboardContract extends RER_EventsListener {
     }
 
     noticeboard = noticeboards[0];
+
+    RER_tutorialTryShowNoticeboard();
     
     if( !master.settings.disable_camera_scenes ) {
       REROL_should_scour_noticeboards(true);
