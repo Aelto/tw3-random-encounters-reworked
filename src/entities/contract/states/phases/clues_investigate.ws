@@ -14,9 +14,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
   entry function CluesInvestigate_Main() {
     this.createClues();
     this.playStatingOnelinerAndCameraScene();
-    RER_toggleInfoPinAtPosition(this.investigation_center_position);
     this.waitUntilPlayerReachesFirstClue();
-    RER_toggleInfoPinAtPosition(this.investigation_center_position);
     this.createLastClues();
     this.waitUntilPlayerReachesLastClue();
     
@@ -224,12 +222,19 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
   latent function waitUntilPlayerReachesFirstClue() {
     var distance_from_player: float;
-
     var has_set_weather_snow: bool;
+    var can_show_markers: bool;
+    
+    can_show_markers = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERmarkersContractFirstPhase');
     
     has_set_weather_snow = false;
 
     // 1. first we wait until the player is in the investigation radius
+    if (can_show_markers) {
+      RER_toggleInfoPinAtPosition(this.investigation_center_position);
+    }
+
     do {
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), this.investigation_center_position);
 
@@ -258,6 +263,10 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
       Sleep(0.5);
     } while (distance_from_player > this.investigation_radius * this.investigation_radius * 1.5);
+
+    if (can_show_markers) {
+      RER_toggleInfoPinAtPosition(this.investigation_center_position);
+    }
 
     // 2. once the player is in the radius, we play sone oneliners
     //    cannot play if there were necrophages around the corpses.

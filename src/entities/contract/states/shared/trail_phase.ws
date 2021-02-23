@@ -100,7 +100,15 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
   // that will sleep until the player reaches the point. Be careful.
   latent function waitForPlayerToReachPoint(position: Vector, radius: float) {
     var distance_from_player: float;
+    var can_show_markers: bool;
     var should_cancel: bool;
+
+    can_show_markers = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERmarkersContractIntermediaryPhase');
+
+    if (can_show_markers) {
+      RER_toggleInfoPinAtPosition(position);
+    }
 
     // squared radius to save performances by using VecDistanceSquared
     radius *= radius;
@@ -115,6 +123,10 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
       };
 
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), position);
+    }
+
+    if (can_show_markers) {
+      RER_toggleInfoPinAtPosition(position);
     }
   }
 

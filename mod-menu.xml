@@ -5860,6 +5860,10 @@
                 <Entry varId="RERcameraBlendingDisabled" value="0" />
                 <Entry varId="RERtrophyPickupAnimation" value="30" />
                 <Entry varId="RERtrailsUsePathFinding" value="1" />
+                <Entry varId="RERmarkersContractFirstPhase" value="1" />
+                <Entry varId="RERmarkersContractIntermediaryPhase" value="1" />
+                <Entry varId="RERmarkersBountyHunting" value="1" />
+                <Entry varId="RERmarkersChallengeMode" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5882,6 +5886,15 @@
             <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="SLIDER;0;100;100"></Var>
 
             <Var id="RERtrailsUsePathFinding" displayName="rer_trails_use_pathfinding" displayType="TOGGLE"></Var>
+
+            <Var id="RERmarkersContractFirstPhase" displayName="rer_markers_contract_first_phase" displayType="TOGGLE"></Var>
+
+            <Var id="RERmarkersContractIntermediaryPhase" displayName="rer_markers_contract_intermediary_phase" displayType="TOGGLE"></Var>
+
+            <Var id="RERmarkersBountyHunting" displayName="rer_markers_bounty_hunting" displayType="TOGGLE"></Var>
+            
+            <Var id="RERmarkersChallengeMode" displayName="rer_markers_challenge_mode" displayType="TOGGLE"></Var>
+
         </VisibleVars>
     </Group>
 
