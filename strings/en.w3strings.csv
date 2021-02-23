@@ -210,16 +210,16 @@
 2115018208|        |option_rer_monster_contract_ratio_night|<font color="#ffd33d">Frequency</font>
 2115018209|        |option_rer_enable_action_camera_scenes|Enable action camera scenes
 2115018210|        |preset_Mods_rer_name_rer_encounters_settings|Encounter system
-2115018211|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_general_settings|General
-2115018212|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_constraints_settings|Region constraints
-2115018213|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_settlement_settings|Settlement spawns
+2115018211|        |preset_Mods_rer_name_rer_encounters_settings_rer_general_settings|General
+2115018212|        |preset_Mods_rer_name_rer_encounters_settings_rer_constraints_settings|Region constraints
+2115018213|        |preset_Mods_rer_name_rer_encounters_settings_rer_settlement_settings|Settlement spawns
 2115018214|        |panel_rer_general_settings|General
 2115018215|        |panel_rer_optional_features_settings|Optional features
 2115018216|        |panel_rer_encounters_settings|Encounter system
 2115018217|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features
 2115018218|        |option_rer_monster_contract_longevity|<font color="#ffd33d">Longevity</font>
 2115018219|        |panel_creature_type_multiplier|Creature type multiplier
-2115018220|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_creature_type_multiplier|Creature type multiplier
+2115018220|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
 2115018221|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>
 2115018222|        |option_rer_crowns_hunt|<font color="#ffd33d">From hunts</font>
 2115018223|        |option_rer_crowns_contract|<font color="#ffd33d">From contracts</font>
@@ -246,3 +246,7 @@
 2115018245|        |preset_Mods_rer_name_ratios_and_frequencies|Ratios & Frequencies
 2115018246|        |panel_ratios_and_frequencies|Ratios & Frequencies
 2115018247|        |option_rer_trophies_hunting_ground|<font color="#ffd33d">From hunting grounds</font>
+2115018248|        |option_rer_markers_contract_first_phase|Markers - contract first phase
+2115018249|        |option_rer_markers_contract_intermediary_phase|Markers - contract intermediary phase
+2115018250|        |option_rer_markers_bounty_hunting|Markers - bounty hunting
+2115018251|        |option_rer_markers_challenge_mode|Markers - challenge mode
