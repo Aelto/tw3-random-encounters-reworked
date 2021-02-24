@@ -4,7 +4,7 @@ function RER_openPopup(title: string, message: string) {
   var id: SItemUniqueId;
 
   popup_data = new BookPopupFeedback in thePlayer;
-  popup_data.SetMessageTitle( "Surrounding ecosystem" );
+  popup_data.SetMessageTitle( title );
   popup_data.SetMessageText( message );
   popup_data.curInventory = thePlayer.GetInventory();
   popup_data.PauseGame = true;

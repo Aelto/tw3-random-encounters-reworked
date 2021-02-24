@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowEcosystem(): bool {
-  if (theGame.GetInGameConfigWrapper()
+  if (!theGame.GetInGameConfigWrapper()
       .GetVarValue('RERtutorials', 'RERtutorialEcosystem')) {
     return false;
   }
@@ -8,7 +8,7 @@ function RER_tutorialTryShowEcosystem(): bool {
   RER_openPopup(
     "RER Tutorial - The ecosystem",
     "You recently killed a creature and indirectly changed the " + RER_yellowFont(" surrounding ecosystem. ") +
-    "The mod Random Encounters simulates a food chain that will permanently change " +
+    "The mod Random Encounters Reworked simulates a food chain that will permanently change " +
     "the creatures you see (only creatures from the mod). Because you killed " +
     "living creatures or bandits, the surrounding ecosystem changed a little and " +
     "if you continue new species will come and some other will even migrate to new " +

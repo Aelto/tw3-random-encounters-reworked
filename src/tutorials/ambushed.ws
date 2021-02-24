@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowAmbushed(): bool {
-  if (theGame.GetInGameConfigWrapper()
+  if (!theGame.GetInGameConfigWrapper()
       .GetVarValue('RERtutorials', 'RERtutorialAmbushed')) {
     return false;
   }
@@ -14,7 +14,7 @@ function RER_tutorialTryShowAmbushed(): bool {
     "<br />" +
     "If you don't like being ambushed, you can change the amount of ambushes " +
     "created by the mod and also control exactly what kind of creature you will " +
-    "see from them in the " + RER_yellowFont("Encounter System") + "menu and the " +
+    "see from them in the " + RER_yellowFont("Encounter System") + " menu and the " +
     "sub-menus for ambushes. " +
     "<br />" +
     "<br />" +

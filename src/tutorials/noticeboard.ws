@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowNoticeboard(): bool {
-  if (theGame.GetInGameConfigWrapper()
+  if (!theGame.GetInGameConfigWrapper()
       .GetVarValue('RERtutorials', 'RERtutorialMonsterContract')) {
     return false;
   }
