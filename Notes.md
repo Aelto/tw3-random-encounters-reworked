@@ -28,17 +28,17 @@
 
 Bounties are started by a static NPC in every major city. When you talk to the NPC you get a haggle window where the sum you'll pick is actually a seed for the bounty that will appear. The bounty is composed of `x` creatures where `x` is a random value based on the seed. The creatures are all spawned on the map and a marker is added so the player can go hunt them. There is a limit of 10 markers on the map but a bounty can have more than 10 creatures to hunt and the bounty manager will show the new markers as the player progresses through the bounties.
 
-The seed can range from 0 to +infinity. And for every hundreds (1000) the bounty will gain 1 difficulty point, and 0 is a way to tell the game to generate a random seed for you. So difficulty points start from 0 and increase without no limit for every 1K in the seed.
+The seed can range from 0 to +infinity. And for every hundreds (100) the bounty will gain 1 difficulty point, and 0 is a way to tell the game to generate a random seed for you. So difficulty points start from 0 and increase without no limit for every 1K in the seed.
 
 > the numbers here may change until release.
 > You have to play at least 200 bounties to access to the level 100
 
 Difficulty points have the following effects to the bounties and their creatures:
 - each point increases crowns dropped by creatures from bounties by 3%
-- each point increases the amount of creatures in the groups by 1% (at level 100 you have 100% more creatures)
-- each point increases the amount of creatures groups by 1% (at level 100 you have two times more markers)
-- each point increases the size of creatures by 0.15% (at level 100 creatures are 15% bigger)
-- each point increases the level difference between you and the creatures by 1%. At level 100 and if you have a range of `-3;+3` for the creature levels the range will be converted into `-3;+6`
+- each point increases the amount of creatures in the groups by 1% (at difficulty 100 you have 100% more creatures)
+- each point increases the amount of creatures groups by 1% (at difficulty 100 you have two times more markers)
+- each point increases the size of creatures by 0.15% (at difficulty 100 creatures are 15% bigger)
+- each point increases the level difference between you and the creatures by 1%. At difficulty 100 and if you have a range of `-3;+3` for the creature levels the range will be converted into `-3;+6`
 
 Bounties can be started with the NPC by simply standing next to him and waiting for the dialogue to finish. The dialogue should not take more than 30 or 60 seconds to finish and once it is finished the player has one minute to leave the area or else a new dialogue will start again and it will start another bounty. If the player leaves while the dialogue is playing, nothing will happen and the NPC will stop talking.
 
