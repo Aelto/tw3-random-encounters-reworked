@@ -32,6 +32,7 @@ The seed can range from 0 to +infinity. And for every hundreds (1000) the bounty
 
 > the numbers here may change until release.
 > You have to play at least 200 bounties to access to the level 100
+
 Difficulty points have the following effects to the bounties and their creatures:
 - each point increases crowns dropped by creatures from bounties by 3%
 - each point increases the amount of creatures in the groups by 1% (at level 100 you have 100% more creatures)
