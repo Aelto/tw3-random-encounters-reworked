@@ -11,19 +11,19 @@ class RER_BestiarySiren extends RER_BestiaryEntry {
 
   this.template_list.templates.PushBack(
     makeEnemyTemplate(
-      "characters\npc_entities\monsters\siren_lvl1.w2ent", 1,,
+      "characters\npc_entities\monsters\siren_lvl1.w2ent",,,
       "gameplay\journal\bestiary\siren.journal"
     )
   );
   this.template_list.templates.PushBack(
     makeEnemyTemplate(
-      "characters\npc_entities\monsters\siren_lvl2__lamia.w2ent", 1,,
+      "characters\npc_entities\monsters\siren_lvl2__lamia.w2ent",,,
       "gameplay\journal\bestiary\siren.journal"
     )
   );
   this.template_list.templates.PushBack(
     makeEnemyTemplate(
-      "characters\npc_entities\monsters\siren_lvl3.w2ent", 1,,
+      "characters\npc_entities\monsters\siren_lvl3.w2ent",,,
       "gameplay\journal\bestiary\siren.journal"
     )
   );

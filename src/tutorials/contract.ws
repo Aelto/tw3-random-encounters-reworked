@@ -7,7 +7,7 @@ function RER_tutorialTryShowContract(): bool {
 
   RER_openPopup(
     "RER Tutorial - Monster contract",
-    "A " + RER_yellowFont("Monster Contract") + "from the mod Random Encounters Reworked " +
+    "A " + RER_yellowFont("Monster Contract") + " from the mod Random Encounters Reworked " +
     "has just started. You may have noticed a camera scene was played and perhaps Geralt talking " +
     ", from now on and if you want to progress through the monster contract you will have to " +
     "follow the trails, the map markers the mod placed or where the camera scene guided you. " +

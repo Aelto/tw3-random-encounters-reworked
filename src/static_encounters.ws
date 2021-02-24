@@ -56,6 +56,8 @@ class RER_StaticEncounterManager {
       , // count
       , // density
       true, // allow_trophies
+      , // encounter type
+      false // do not persist
     );
 
     return true;

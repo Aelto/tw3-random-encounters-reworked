@@ -83,7 +83,7 @@ abstract class RER_BestiaryEntry {
     return this.type == CreatureNONE;
   }
 
-  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool, optional encounter_type: EncounterType): array<CEntity> {
+  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool, optional encounter_type: EncounterType, optional do_no_persist: bool): array<CEntity> {
     var creatures_templates: EnemyTemplateList;
     var group_positions: array<Vector>;
     var current_template: CEntityTemplate;
@@ -93,8 +93,16 @@ abstract class RER_BestiaryEntry {
     var created_entities: array<CEntity>;
     var group_positions_index: int;
     var tags_array: array<name>;
+    var persistance: EPersistanceMode;
     var i: int;
     var j: int;
+
+    if (do_no_persist) {
+      persistance = PM_DontPersist;
+    }
+    else {
+      persistance = PM_Persist;
+    }
 
     if (count == 0) {
       count = rollDifficultyFactor(
@@ -140,7 +148,7 @@ abstract class RER_BestiaryEntry {
             current_template,
             group_positions[group_positions_index],
             current_rotation,,,,
-            PM_Persist,
+            persistance,
             tags_array
           );
 

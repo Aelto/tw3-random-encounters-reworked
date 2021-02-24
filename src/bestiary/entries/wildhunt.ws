@@ -9,7 +9,7 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(
-        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_axe.w2ent", 2,,
+        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_axe.w2ent",,,
         "gameplay\journal\bestiary\whminion.journal"
       )
     );
@@ -39,7 +39,7 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
     );
     this.template_list.templates.PushBack(
       makeEnemyTemplate(
-        "characters\npc_entities\monsters\wildhunt_minion_lvl1.w2ent", 2,,
+        "characters\npc_entities\monsters\wildhunt_minion_lvl1.w2ent",,,
         "gameplay\journal\bestiary\whminion.journal"
       )
     );  // hound of the wild hunt   
