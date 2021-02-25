@@ -9,7 +9,7 @@ function RER_tutorialTryShowClue(): bool {
     "RER Tutorial - Clue examined",
     "You just " + RER_yellowFont("examined") + " a track from the mod Random Encounters Reworked. " +
     "When you examine a track Geralt will tell what monster it is from, and if you " +
-    "the trail you will eventually the creature who left them. " +
+    "follow the trail you will eventually find the creature that left them. " +
     "<br /> " +
     "Almost all creatures from the mod leave tracks on the ground. But be aware that " +
     "because RER uses voicelines from the game the creature you'll see may not " +

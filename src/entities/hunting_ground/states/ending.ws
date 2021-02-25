@@ -9,6 +9,11 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
   }
 
   entry function Ending_main() {
+    if (parent.is_bounty) {
+      parent.bounty_manager.notifyHuntingGroundKilled(parent.bounty_group_index);
+      RER_toggleSkullPinAtPosition(parent.GetWorldPosition());
+    }
+
     parent.clean();
   }
 }

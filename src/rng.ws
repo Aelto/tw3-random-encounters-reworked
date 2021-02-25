@@ -30,4 +30,8 @@ class RandomNumberGenerator {
 
     return number;
   }
+
+  public function nextRange(max: float, min: float): float {
+    return this.next() * (max - min) + min;
+  }
 }

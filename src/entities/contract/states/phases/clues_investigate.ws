@@ -190,7 +190,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         parent.master,
         parent.previous_phase_checkpoint,,,
         parent.entity_settings.allow_trophies,
-        EncounterType_CONTRACT
+        EncounterType_CONTRACT,
+        false // because they're put in a passive state it is safer to make them
+        // as not persistent
       );
 
     for (i = 0; i < created_entities.Size(); i += 1) {

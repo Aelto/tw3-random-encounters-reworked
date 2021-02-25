@@ -29,6 +29,34 @@ exec function rergpc() {
   NDEBUG(message);
 }
 
+// gpc for GetPlayerCoordinates
+exec function rerkillall() {
+  var entities: array<CEntity>;
+  var i: int;
+
+  theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', entities);
+
+  for (i = 0; i < entities.Size(); i += 1) {
+    ((CNewNPC)entities[i]).Kill('Debug');
+  }
+}
+
+exec function rerchallenge(optional seed: int) {
+  var rer_entity : CRandomEncounters;
+  var exec_runner: RER_ExecRunner;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  exec_runner = new RER_ExecRunner in rer_entity;
+  exec_runner.init(rer_entity, CreatureNONE);
+  exec_runner.seed = seed;
+  exec_runner.GotoState('RunChallengeMode');
+}
+
 exec function rertestbook() {
   var popup_data: BookPopupFeedback;
   var id: SItemUniqueId;
@@ -180,6 +208,7 @@ statemachine class RER_ExecRunner extends CEntity {
   var creature: CreatureType;
   var human_type: EHumanType;
   var count: int;
+  var seed: int;
 
 
   public function init(master: CRandomEncounters, creature: CreatureType) {
@@ -339,5 +368,23 @@ state RunBestiaryCanSpawn in RER_ExecRunner {
     );
 
     NDEBUG("Can spawn creature [" + parent.creature + "] = " + can_spawn_creature);
+  }
+}
+
+state RunChallengeMode in RER_ExecRunner {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunChallengeMode");
+
+    this.RunChallengeMode_main();
+    parent.GotoState('Waiting');
+  }
+
+  entry function RunChallengeMode_main() {
+    parent.master
+      .bounty_manager
+      .startBounty(parent.master.bounty_manager.getNewBounty(parent.seed));
+
+    NDEBUG("A bounty was created with the seed " + RER_yellowFont(parent.seed));
   }
 }

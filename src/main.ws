@@ -25,6 +25,7 @@ statemachine class CRandomEncounters extends CEntity {
   var static_encounter_manager: RER_StaticEncounterManager;
   var ecosystem_manager: RER_EcosystemManager;
   var storages: RER_StorageCollection;
+  var bounty_manager: RER_BountyManager;
 
   var ticks_before_spawn: int;
 
@@ -55,6 +56,7 @@ statemachine class CRandomEncounters extends CEntity {
       bestiary = new RER_Bestiary in this;
       static_encounter_manager = new RER_StaticEncounterManager in this;
       ecosystem_manager = new RER_EcosystemManager in this;
+      bounty_manager = new RER_BountyManager in this;
 
       this.initiateRandomEncounters();
     }
@@ -117,6 +119,7 @@ statemachine class CRandomEncounters extends CEntity {
     this.events_manager.start();
 
     this.ecosystem_manager.init(this);
+    this.bounty_manager.init(this);
 
     this.storages = RER_loadStorageCollection();
     

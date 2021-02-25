@@ -121,6 +121,24 @@ function rollDifficultyFactor(out factor: DifficultyFactor, difficulty: RER_Diff
   );
 }
 
+function rollDifficultyFactorWithRng(out factor: DifficultyFactor, difficulty: RER_Difficulty, optional added_factor: float, rng: RandomNumberGenerator): int {
+  if (added_factor == 0) {
+    added_factor = 1;
+  }
+
+  // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/34
+  // if the selected difficulty is RANDOM, then we randomly pick the difficulty
+  if (difficulty == RER_Difficulty_RANDOM) {
+    difficulty = RandRange(RER_Difficulty_RANDOM - 1);
+  }
+  
+  return (int)(rng.nextRange(
+    getMinimumCountBasedOnDifficulty(factor, difficulty, added_factor),
+    // +1 because RandRange is [min;max[
+    getMaximumCountBasedOnDifficulty(factor, difficulty, added_factor) + 1
+  ));
+}
+
 // return true if atleast of the bestiary entries is known.
 // if all entries are unknown then return false
 latent function bestiaryCanSpawnEnemyTemplateList(template_list: EnemyTemplateList, manager: CWitcherJournalManager): bool {

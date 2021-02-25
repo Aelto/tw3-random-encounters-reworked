@@ -83,7 +83,16 @@ abstract class RER_BestiaryEntry {
     return this.type == CreatureNONE;
   }
 
-  public latent function spawn(master: CRandomEncounters, position: Vector, optional count: int, optional density: float, optional allow_trophies: bool, optional encounter_type: EncounterType, optional do_no_persist: bool): array<CEntity> {
+  public latent function spawn(
+    master: CRandomEncounters,
+    position: Vector,
+    optional count: int,
+    optional density: float,
+    optional allow_trophies: bool,
+    optional encounter_type: EncounterType,
+    optional do_no_persist: bool
+  ): array<CEntity> {
+    
     var creatures_templates: EnemyTemplateList;
     var group_positions: array<Vector>;
     var current_template: CEntityTemplate;
@@ -151,8 +160,6 @@ abstract class RER_BestiaryEntry {
             persistance,
             tags_array
           );
-
-          created_entity.AddTag('RandomEncountersReworked_Creature');
 
           ((CNewNPC)created_entity).SetLevel(
             getRandomLevelBasedOnSettings(master.settings)

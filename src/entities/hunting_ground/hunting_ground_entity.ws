@@ -31,6 +31,21 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.entity_settings.allow_trophy_pickup_scene = master.settings.trophy_pickup_scene;
   }
 
+  public var bounty_manager: RER_BountyManager;
+  public var is_bounty: bool;
+  public var bounty_group_index: int;
+
+  // Once activated as a bounty mode it will place a marker on the group and will
+  public function activateBountyMode(bounty_manager: RER_BountyManager, group_index: int) {
+    this.bounty_manager = bounty_manager;
+    this.is_bounty = true;
+    this.bounty_group_index = group_index;
+
+    RER_toggleSkullPinAtPosition(this.GetWorldPosition());
+
+    NLOG("activateBountyMode - " + group_index);
+  }
+
   public latent function clean() {
     var i: int;
 

@@ -309,7 +309,18 @@ state Loading in CRandomEncounters {
 
     LogChannel('RER', "takeControlOfEntities()");
 
+
     theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', entities);
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      entity = entities[i];
+
+      entity.RemoveTag('RER_controlled');
+    }
+
+    // this function adds the `RER_controlled` tag to the creatures who have the
+    // `RER_BountyEntity` tag. Hence the if case below that checks for the tag.
+    parent.bounty_manager.retrieveBountyGroups();
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
