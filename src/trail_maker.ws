@@ -130,15 +130,20 @@ class RER_TrailMaker {
 
       if (this.tracks_entities.Size() == this.tracks_maximum) {
         this.tracks_looped = true;
+
+        // because the recycling process starts first by doing `tracks_index + 1`
+        // it is by default set at -1 so the first track it starts recycling is
+        // the track at index 0.
+        this.tracks_index = -1;
       }
 
       return true;
     }
 
-    this.tracks_entities[this.tracks_index]
-      .TeleportWithRotation(position, RotRand(0, 360));
-
     this.tracks_index = (this.tracks_index + 1) % this.tracks_maximum;
+
+    this.tracks_entities[this.tracks_index]
+      .TeleportWithRotation(position, heading);
 
     return true;
   }
