@@ -41,7 +41,8 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
           thePlayer.GetWorldPosition()
         );
 
-        if (distance_from_player > parent.entity_settings.kill_threshold_distance) {
+        // when in bounty mode, creatures are not subject to the kill threshold distance
+        if (!parent.is_bounty && distance_from_player > parent.entity_settings.kill_threshold_distance) {
           LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + parent.entity_settings.kill_threshold_distance);
 
           parent.killEntity(current_entity);
