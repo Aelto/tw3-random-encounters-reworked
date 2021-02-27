@@ -1,5 +1,5 @@
 
-function RER_toggleSkullPinAtPosition(position: Vector) {
+function RER_toggleSkullPinAtPosition(position: Vector): bool {
   var manager  : CCommonMapManager;
   var id_to_add, id_to_remove: int;
 
@@ -14,9 +14,12 @@ function RER_toggleSkullPinAtPosition(position: Vector) {
     id_to_add, // out variable, doesn't matter
     id_to_remove // out variable, doesn't matter
   );
+
+  // returns true if it was added, false if it was removed
+  return id_to_add > 0;
 }
 
-function RER_toggleInfoPinAtPosition(position: Vector) {
+function RER_toggleInfoPinAtPosition(position: Vector): bool {
   var manager  : CCommonMapManager;
   var id_to_add, id_to_remove: int;
 
@@ -31,4 +34,7 @@ function RER_toggleInfoPinAtPosition(position: Vector) {
     id_to_add, // out variable, doesn't matter
     id_to_remove // out variable, doesn't matter
   );
+
+  // returns true if it was added, false if it was removed
+  return id_to_add > 0;
 }
