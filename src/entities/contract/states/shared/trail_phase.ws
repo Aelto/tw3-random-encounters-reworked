@@ -107,7 +107,9 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
       .GetVarValue('RERoptionalFeatures', 'RERmarkersContractIntermediaryPhase');
 
     if (can_show_markers) {
-      RER_toggleInfoPinAtPosition(position);
+      if (!RER_toggleInfoPinAtPosition(position)) {
+        RER_toggleInfoPinAtPosition(position);
+      }
     }
 
     // squared radius to save performances by using VecDistanceSquared
@@ -126,7 +128,9 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     }
 
     if (can_show_markers) {
-      RER_toggleInfoPinAtPosition(position);
+      if (RER_toggleInfoPinAtPosition(position)) {
+        RER_toggleInfoPinAtPosition(position);
+      }
     }
   }
 
