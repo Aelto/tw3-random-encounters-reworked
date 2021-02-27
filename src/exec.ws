@@ -37,7 +37,7 @@ exec function rerkillall() {
   theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', entities);
 
   for (i = 0; i < entities.Size(); i += 1) {
-    ((CNewNPC)entities[i]).Kill('Debug');
+    ((CNewNPC)entities[i]).Destroy();
   }
 }
 
