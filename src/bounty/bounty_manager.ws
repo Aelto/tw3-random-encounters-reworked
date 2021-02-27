@@ -2,12 +2,14 @@
 
 class RER_BountyManager {
   var master: CRandomEncounters;
+  var bounty_master_manager: RER_BountyMasterManager;
 
   // the list of hunting grounds for the current bounty.
   var currently_managed_groups: array<RandomEncountersReworkedHuntingGroundEntity>;
 
   public function init(master: CRandomEncounters) {
     this.master = master;
+    this.bounty_master_manager = new RER_BountyMasterManager in this;
   }
 
   public latent function retrieveBountyGroups() {
@@ -29,7 +31,7 @@ class RER_BountyManager {
       }
 
       // it was already killed so we skip it too
-      if (!bounty.random_data.groups[i].was_killed) {
+      if (bounty.random_data.groups[i].was_killed) {
         continue;
       }
 
@@ -48,7 +50,7 @@ class RER_BountyManager {
 
   // returns the steps at which the seed gains difficulty points
   public function getSeedDifficultyStep(): int {
-    return 100;
+    return 1000;
   }
 
   public function getDifficultyForSeed(seed: int): int {
@@ -57,7 +59,7 @@ class RER_BountyManager {
 
   // returns how much the seed cap is increased by bounty level
   public function getSeedBountyLevelStep(): int {
-    return 50;
+    return 500;
   }
 
   public function getMaximumSeed(): int {
@@ -191,6 +193,8 @@ class RER_BountyManager {
 
     // if the player has killed enough groups then we consider the bounty finished
     if (!this.hasAnyGroupToKillYet(this.master.storages.bounty.current_bounty)) {
+      NLOG("progress - no more groups to kill in the bounty, bounty is finished");
+
       // we increase the bounty level for the player
       this.increaseBountyLevel();
 
@@ -212,6 +216,7 @@ class RER_BountyManager {
 
     // there is still a group to spawn
     if (this.getRandomGroupToSpawn(this.master.storages.bounty.current_bounty, random_group, random_group_index)) {
+      NLOG("progress - still one group to spawn, spawning it " + random_group_index);
       new_managed_group = this.spawnBountyGroup(random_group, random_group_index);
 
       this.currently_managed_groups.PushBack(new_managed_group);
@@ -363,20 +368,108 @@ class RER_BountyManager {
     var min: float;
     var max: float;
     var output: Vector;
+    var area: EAreaName;
+    var area_string: string;
 
+    area = theGame.GetCommonMapManager().GetCurrentArea();
     // TODO: use real values
+    // the min & max values are random values at the moment
 
-    // first the X coordinates
-    min = -300;
-    max = 300;
+    switch (area) {
+      case AN_Prologue_Village:
+      case AN_Prologue_Village_Winter:
+      case AN_Spiral:
+      case AN_CombatTestLevel:
+      case AN_Wyzima:
+      case AN_Island_of_Myst:
+        // first the X coordinates
+        min = -300;
+        max = 300;
 
-    output.X = min + (max - min) * percent_x;
+        output.X = min + (max - min) * percent_x;
 
-    // then the Y coordinates
-    min = -300;
-    max = 300;
+        // then the Y coordinates
+        min = -300;
+        max = 300;
 
-    output.Y = min + (max - min) * percent_y;
+        output.Y = min + (max - min) * percent_y;
+        break;
+
+      case AN_Skellige_ArdSkellig:
+        // first the X coordinates
+        min = -4000;
+        max = 4000;
+
+        output.X = min + (max - min) * percent_x;
+
+        // then the Y coordinates
+        min = -4000;
+        max = 4000;
+
+        output.Y = min + (max - min) * percent_y;
+        break;
+
+      case AN_Kaer_Morhen:
+        // first the X coordinates
+        min = -4000;
+        max = 4000;
+
+        output.X = min + (max - min) * percent_x;
+
+        // then the Y coordinates
+        min = -4000;
+        max = 4000;
+
+        output.Y = min + (max - min) * percent_y;
+        break;
+
+      case AN_NMLandNovigrad:
+      case AN_Velen:
+        // first the X coordinates
+        min = -4000;
+        max = 4000;
+
+        output.X = min + (max - min) * percent_x;
+
+        // then the Y coordinates
+        min = -4000;
+        max = 4000;
+
+        output.Y = min + (max - min) * percent_y;
+        break;
+
+      default:
+        area_string = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+        if (area_string == "bob") {
+          // first the X coordinates
+          min = -4000;
+          max = 4000;
+
+          output.X = min + (max - min) * percent_x;
+
+          // then the Y coordinates
+          min = -4000;
+          max = 4000;
+
+          output.Y = min + (max - min) * percent_y;
+        }
+        else {
+          // first the X coordinates
+          min = -300;
+          max = 300;
+
+          output.X = min + (max - min) * percent_x;
+
+          // then the Y coordinates
+          min = -300;
+          max = 300;
+
+          output.Y = min + (max - min) * percent_y;
+        }
+
+        break;
+    }
 
     return output;
   }
@@ -388,7 +481,8 @@ class RER_BountyManager {
     var max: int;
 
     min = 3;
-    max = 5 * (int)(this.getDifficultyForSeed(seed) * 0.01) + min;
+    // for every 20 levels bounties have a chance to get 1 more group
+    max = 2 + (int)(this.getDifficultyForSeed(seed) * 0.05) + min;
 
     NLOG("getNumberOfGroupsForSeed(" + seed + ") - " + RandNoiseF(seed, max, min) + " " + max);
 

@@ -20,7 +20,7 @@ function RER_tutorialTryShowBounty(): bool {
     "with the same seed will result in the exact same encounter. But don't worry, there " +
     "an almost infinite number of seeds. " +
     "if you're indecisive about the seed, picking a seed of 0 will make a completely random bounty " +
-    "for you."
+    "for you." +
     "<br />" +
     "Higher seeds result in more difficult bounties. And as you complete bounties you unlock " + 
     "more seeds and thus more difficult bounties. " +

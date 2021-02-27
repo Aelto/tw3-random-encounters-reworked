@@ -25,6 +25,7 @@ class RER_DialogDataExample extends RER_DialogData {
 class RER_RandomDialogBuilder {
   var sections: array<RandomDialogSection>;
   var current_section: RandomDialogSection;
+  var talking_actor: CActor;
 
   function then(optional pause_after: float): RER_RandomDialogBuilder {
     this.current_section.pause_after = pause_after;
@@ -41,7 +42,7 @@ class RER_RandomDialogBuilder {
   }
 
   function dialog(data: RER_DialogData, wait: bool): RER_RandomDialogBuilder {
-    return this.either(data, wait, 1);
+    return this.either(data, wait, 1).then();
   }
 
   function either(data: RER_DialogData, wait: bool, chance: float): RER_RandomDialogBuilder {
@@ -53,8 +54,15 @@ class RER_RandomDialogBuilder {
     return this;
   }
 
-  latent function play() {
+  latent function play(optional actor: CActor) {
     var i: int;
+
+    if (actor) {
+      this.talking_actor = actor;
+    }
+    else {
+      this.talking_actor = thePlayer;
+    }
 
     this.then();
 
@@ -80,10 +88,10 @@ class RER_RandomDialogBuilder {
     }
 
     // from here we know the picked section is at index K so we play it
-    thePlayer.PlayLine(this.sections[index].dialogs[k].dialog_id, true);
+    this.talking_actor.PlayLine(this.sections[index].dialogs[k].dialog_id, true);
 
     if (this.sections[index].dialogs[k].wait_until_end) {
-      Sleep(this.sections[index].dialogs[k].dialog_duration);
+      this.talking_actor.WaitForEndOfSpeach();
     }
 
     if (this.sections[index].pause_after > 0) {

@@ -966,3 +966,326 @@ class REROL_watch_and_learn_data extends RER_DialogData {
   default dialog_id = 380546;
   default dialog_duration = 1.5;
 }
+
+class REROL_your_problem_is_my_problem extends RER_DialogData {
+  default dialog_id = 1176632;
+}
+
+// Geralt choice: Get rid of these bandits, worse ones'll come in to replace 'em.
+class REROL_no_point_fighting_bandits extends RER_DialogData {
+  default dialog_id = 1176605;
+}
+
+// Geralt choice: Get rid of these bandits, worse ones'll come in to replace 'em.
+class REROL_get_rid_of_bandits extends RER_DialogData {
+  default dialog_id = 1176605;
+}
+
+// Geralt: Eh, fine, your choice. So show me where the monster attacked you.
+class REROL_fine_show_me_where_monsters extends RER_DialogData {
+  default dialog_id = 1097265;
+}
+
+// Geralt: Think these boys could've handled some monsters?
+class REROL_boys_could_handle_monsters extends RER_DialogData {
+  default dialog_id = 474279;
+}
+
+// Geralt: What's the surprise? Some new monster I need to kill?
+class REROL_what_surprise_new_monster_to_kill extends RER_DialogData {
+  default dialog_id = 1201113;
+}
+
+// Geralt: Got a different plan.
+class REROL_got_a_different_plan extends RER_DialogData {
+  default dialog_id = 1176628;
+}
+
+// Geralt: Fine. I'll see what I can do.
+class REROL_fine_ill_see_what_i_can_do extends RER_DialogData {
+  default dialog_id = 1205174;
+}
+
+// Geralt: So, plan to go out and meet the bandits when they arrive? Fight them?
+class REROL_so_plan_to_go_out_and_meet_bandits extends RER_DialogData {
+  default dialog_id = 1176438;
+}
+
+// Geralt: How'd he die? Where'd they find the body?
+class REROL_how_did_he_die_where_find_body extends RER_DialogData {
+  default dialog_id = 1168533;
+}
+
+// Geralt: I see the wounds, might be able to tell what kind of monster killed them.
+class REROL_i_see_the_wounds extends RER_DialogData {
+  default dialog_id = 570951;
+}
+
+// Geralt: Won't give me any trouble with the reward, will you?
+class REROL_wont_give_me_any_trouble extends RER_DialogData {
+  default dialog_id = 570958;
+}
+
+// Geralt: Any witnesses to these attacks? Anyone see the beast?
+class REROL_any_witnesses extends RER_DialogData {
+  default dialog_id = 570953;
+}
+
+// Geralt: Not sure you actually get what it is I do. I'm a professional monster slayer.
+class REROL_im_a_monster_slayer extends RER_DialogData {
+  default dialog_id = 1154437;
+}
+
+// Geralt: All right. We can start.
+class REROL_alright_we_can_start extends RER_DialogData {
+  default dialog_id = 1151460;
+}
+
+class REROL_give_me_a_minute extends RER_DialogData {
+  default dialog_id = 1196680;
+}
+
+class REROL_not_the_first_time extends RER_DialogData {
+  default dialog_id = 1196682;
+}
+
+// Geralt: What the hell happened?
+class REROL_what_the_hell_happened extends RER_DialogData {
+  default dialog_id = 1184103;
+}
+
+// Geralt: Don't care. Down to business - you learn anything?
+class REROL_dont_care extends RER_DialogData {
+  default dialog_id = 1199256;
+}
+
+// Geralt choice: Need a bit longer.
+class REROL_need_a_bit_longer extends RER_DialogData {
+  default dialog_id = 1199249;
+}
+
+// Geralt: Not sure it's a monster, and I don't take sides in the war.
+class REROL_not_sure_monster_no_side_war extends RER_DialogData {
+  default dialog_id = 1020985;
+}
+
+// Geralt: Whoa, this is work for a witcher, not for your guardsmen.
+class REROL_this_is_work_for_witcher extends RER_DialogData {
+  default dialog_id = 1170859;
+}
+
+// Geralt: Go ahead, send them to their death. Certain death.
+class REROL_send_them_certain_death extends RER_DialogData {
+  default dialog_id = 1170863;
+}
+
+// Geralt: Less moaning, more details. What happened? And how can I help? And remember, I don't work for free - witchers' code and all.
+class REROL_less_moaning extends RER_DialogData {
+  default dialog_id = 1030584;
+}
+
+//#region Damien's voicelines
+
+// Damien: Greetings, witcher.
+class REROL_damien_greetings_witcher extends RER_DialogData {
+  default dialog_id = 1150342;
+}
+
+// Damien: Witcher… I was certain you'd departed.
+class REROL_damien_i_was_certain_you_departed extends RER_DialogData {
+  default dialog_id = 1187718;
+}
+
+class REROL_damien_you_killed_it_alone extends RER_DialogData {
+  default dialog_id = 1180711;
+}
+
+// Damien: He had died of wounds inflicted with claws, not a weapon. Blows of great force."
+class REROL_damien_he_died_claws extends RER_DialogData {
+  default dialog_id = 1168537;
+}
+
+// Damien: Do you believe me an amateur? Not hands, but claws killed Ramon du Lac. The wound was deep, clean.
+class REROL_damien_do_you_believe_me_an_amateur extends RER_DialogData {
+  default dialog_id = 1168653;
+}
+
+// Damien: I thank you, witcher. For alerting me. And I appreciate your attentiveness.
+class REROL_damien_i_thank_you_witcher extends RER_DialogData {
+  default dialog_id = 1177101;
+}
+
+// Damien: You are certain of this?
+class REROL_damien_you_certain_of_this extends RER_DialogData {
+  default dialog_id = 1171453;
+}
+
+class REROL_damien_how extends RER_DialogData {
+  default dialog_id = 1176634;
+}
+
+// Damien: Hm. And what would that be?
+class REROL_damien_and_what_would_that_be extends RER_DialogData {
+  default dialog_id = 1176630;
+}
+
+class REROL_damien_sworn_loyalty_to_her_grace extends RER_DialogData {
+  default dialog_id = 1180730;
+}
+
+class REROL_damien_wait extends RER_DialogData {
+  default dialog_id = 1180770;
+}
+
+class REROL_damien_i_told_you_what_i_saw extends RER_DialogData {
+  default dialog_id = 1151551;
+}
+
+class REROL_damien_thank_you_i_hope_youre_worth_the_coin extends RER_DialogData {
+  default dialog_id = 1176622;
+}
+
+class REROL_damien_do_not_tarry_time_is_not_our_friend extends RER_DialogData {
+  default dialog_id = 1196684;
+}
+
+// Damien: Your plan puts you at great risk… but I sense you will handle it well. Let us go.
+class REROL_damien_i_sense_you_will_handle_it extends RER_DialogData {
+  default dialog_id = 1200318;
+}
+
+// Damien: Hmm… I should double the patrols. Just in case.
+class REROL_damien_i_should_double_patrols extends RER_DialogData {
+  default dialog_id = 1201534;
+}
+
+// Damien: Good luck. I hope you get the bastard.
+class REROL_damien_good_luck extends RER_DialogData {
+  default dialog_id = 1201510;
+}
+
+// Damien: Bandits attacked us, not a small force, either. One of my boys has a broken arm, another, a shattered knee… lamed for life.
+class REROL_damien_bandits_attack_us extends RER_DialogData {
+  default dialog_id = 1199381;
+}
+
+// Damien: I will start at the beginning…
+class REROL_damien_will_start_at_the_beginning extends RER_DialogData {
+  default dialog_id = 1199258;
+}
+
+// Damien: Must you always…? Now…
+class REROL_damien_must_you_always extends RER_DialogData {
+  default dialog_id = 1199254;
+}
+
+// Damien: If that's how you wish to treat it…
+class REROL_damien_if_thats_how_you_treat_it extends RER_DialogData {
+  default dialog_id = 1185779;
+}
+
+// Damien: At any rate, I see the effort you put forth. And I appreciate it.
+class REROL_damien_i_see_the_effort_you_put extends RER_DialogData {
+  default dialog_id = 1185793;
+}
+
+// Damien: Witcher, a moment… I was wrong about you.
+class REROL_damien_i_was_wrong_about_you extends RER_DialogData {
+  default dialog_id = 1185755;
+}
+
+// Damien: That was the plan, but…
+class REROL_damien_that_was_the_plan_but extends RER_DialogData {
+  default dialog_id = 1185732;
+}
+
+// Damien: Who sent you?
+class REROL_damien_who_sent_you extends RER_DialogData {
+  default dialog_id = 1185804;
+}
+
+// Damien: Go on, man. Spit it out.
+class REROL_damien_spit_it_out extends RER_DialogData {
+  default dialog_id = 1163944;
+}
+
+// Damien: For once, I agree with you. We will do as you say. Let me know when you are ready.
+class REROL_damien_i_agree_with_you extends RER_DialogData {
+  default dialog_id = 1171963;
+}
+
+// Damien: Where to, witcher? We've a mission to complete.
+class REROL_damien_where_to_mission_to_complete extends RER_DialogData {
+  default dialog_id = 1193705;
+}
+
+// Damien: Make haste. We await only you.
+class REROL_damien_we_await_only_you extends RER_DialogData {
+  default dialog_id = 1162270;
+}
+
+// Damien: Why do you wait?! Save them!
+class REROL_damien_why_do_you_wait_save_them extends RER_DialogData {
+  default dialog_id = 1207814;
+}
+
+// Damien: Onward, witcher!
+class REROL_damien_onward_witcher extends RER_DialogData {
+  default dialog_id = 1207812;
+}
+
+// Damien: I was not mistaken. You arrived and trouble followed soon after.
+class REROL_damien_you_arrive_trouble_followed extends RER_DialogData {
+  default dialog_id = 1170802;
+}
+
+// Damien: Then what can we do? Do you have a plan?
+class REROL_damien_do_you_have_a_plan extends RER_DialogData {
+  default dialog_id = 1181615;
+}
+
+// Damien: Make haste! Time is of the essence…
+class REROL_damien_make_haste extends RER_DialogData {
+  default dialog_id = 1170938;
+}
+
+// Damien: Yet all are still brainless beasts.
+class REROL_damien_all_brainless_beasts extends RER_DialogData {
+  default dialog_id = 1179345;
+}
+
+// Damien: To a lone witcher, perhaps. To forty of my men at arms, but another skirmish.
+class REROL_damien_to_a_lone_witcher extends RER_DialogData {
+  default dialog_id = 1170865;
+}
+
+// Damien: You have not seen my guardsmen in action.
+class REROL_damien_my_guardsmen_in_action extends RER_DialogData {
+  default dialog_id = 1179336;
+}
+
+// Damien: Pfff, is this a problem? Is it too much for a witcher? A monster slayer?  But everyone knows how to end a vampire. Draw him by trick into sunlight. Or arm yourself with ample garlic and drive a stake through its heart.
+class REROL_damien_is_this_a_problem extends RER_DialogData {
+  default dialog_id = 1179219;
+}
+
+// Damien: So it seems.
+class REROL_damien_so_it_seems extends RER_DialogData {
+  default dialog_id = 1168543;
+}
+
+// Damien: Very well. But you must behave. Less like a hired thug and more like a man deserving of the duchy's highest honor.
+class REROL_damien_very_well_you_must_behave_less_like_thug extends RER_DialogData {
+  default dialog_id = 1161577;
+}
+
+// Damien: I've heard much about you. You bring trouble, or thus far have, always. And we've enough trouble as it is. Yet we are capable of defeating the Beast on our own, without an outsider's help. I've no doubt about it.
+class REROL_damien_ive_heard_much_about_you extends RER_DialogData {
+  default dialog_id = 1168024;
+}
+
+// Damien: In fact, you'd do best to maintain a dignified silence throughout.
+class REROL_damien_youd_best_maintain_silence extends RER_DialogData {
+  default dialog_id = 1161579;
+}
+//#endregion Damien's voicelines
