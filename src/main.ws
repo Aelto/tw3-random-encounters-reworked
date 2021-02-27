@@ -204,6 +204,8 @@ statemachine class CRandomEncounters extends CEntity {
     // is set to true only if trophies were picked up
     will_play_cutscene = lootTrophiesInRadius();
 
+    RER_tutorialTryShowTrophy();
+
     if (will_play_cutscene) {
       LogChannel('modRandomEncounters', "playing out of combat cutscene");
 
@@ -227,8 +229,6 @@ statemachine class CRandomEncounters extends CEntity {
         REROL_good_size_wonder_if_someone_pay_sync();
       }
     }
-
-    RER_tutorialTryShowTrophy();
   }
   //#endregion OutOfCombat action
 
