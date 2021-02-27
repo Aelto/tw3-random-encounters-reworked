@@ -149,7 +149,7 @@ class RER_TrailMaker {
   }
 
   public function getLastPlacedTrack(): RER_MonsterClue {
-    if (this.tracks_looped) {
+    if (this.tracks_looped && this.tracks_index >= 0) {
       return this.tracks_entities[this.tracks_index];
     }
     
