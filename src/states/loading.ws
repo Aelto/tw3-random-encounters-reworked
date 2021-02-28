@@ -8,7 +8,7 @@ state Loading in CRandomEncounters {
   }
 
   entry function startLoading() {
-    parent.bounty_manager.bounty_master_manager.init();
+    parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
     this.registerStaticEncounters();
 
     // give time for other mods to register their static encounters

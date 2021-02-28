@@ -14,12 +14,12 @@ function RER_tutorialTryShowBounty(): bool {
     "until there is no more groups to kill. " +
     "<br />" +
     "<br />" +
-    "Everything you see during bounties like the markers and their position, the creatures " +
+    "Everything you see during bounties like the markers and their positions, the creatures " +
     "that compose the bounties, and how many markers and overall creatures are determined " +
-    "by the seed (the number) that you will pick in the haggle window. Two bounties " +
-    "with the same seed will result in the exact same encounter. But don't worry, there " +
+    "by the seed (the number) that you picked in the seed selector window. Two bounties " +
+    "with the same seed will result in the exact same encounter. But don't worry, there is " +
     "an almost infinite number of seeds. " +
-    "if you're indecisive about the seed, picking a seed of 0 will make a completely random bounty " +
+    "If you're indecisive about the seed, picking a seed of 0 will make a completely random bounty " +
     "for you." +
     "<br />" +
     "Higher seeds result in more difficult bounties. And as you complete bounties you unlock " + 

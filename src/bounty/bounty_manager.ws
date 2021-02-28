@@ -173,6 +173,16 @@ class RER_BountyManager {
       }
     }
 
+    theSound.SoundEvent( 'gui_enchanting_socket_add' );
+
+    Sleep(2);
+
+    RER_tutorialTryShowBounty();
+
+    Sleep(2);
+
+    
+
     NLOG("bounty started");
   }
 
