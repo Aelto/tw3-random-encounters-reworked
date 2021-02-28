@@ -181,9 +181,30 @@ class RER_BountyManager {
 
     Sleep(2);
 
-    
+    RER_openPopup(
+      "Bounty information",
+      this.getInformationMessageAboutCurrentBounty()
+    );
 
     NLOG("bounty started");
+  }
+
+  public function getInformationMessageAboutCurrentBounty(): string {
+    var group: RER_BountyRandomMonsterGroupData;
+    var message: string;
+    var i: int;
+
+    message = "The following creatures were seen and now have bounties on their heads:<br />";
+
+    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size(); i += 1) {
+      group = this.master.storages.bounty.current_bounty.random_data.groups[i];
+      message += " - " + group.count + " ";
+      message += " " + getCreatureNameFromCreatureType(this.master.bestiary, group.type) + "<br />";
+    }
+
+    message += "<br />Whoever brings their trophies to the bounty master will get a sizable reward";
+
+    return message;
   }
 
   public latent function progressThroughCurrentBounty() {
