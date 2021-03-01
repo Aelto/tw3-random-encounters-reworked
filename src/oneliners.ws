@@ -1041,6 +1041,11 @@ class REROL_alright_we_can_start extends RER_DialogData {
   default dialog_id = 1151460;
 }
 
+// Geralt: I see the wounds, might be able to tell what kind of monster killed them.
+class REROL_see_the_wounds_what_kind_of_monster extends RER_DialogData {
+  default dialog_id = 570951;
+}
+
 class REROL_give_me_a_minute extends RER_DialogData {
   default dialog_id = 1196680;
 }
@@ -1137,6 +1142,7 @@ class REROL_damien_wait extends RER_DialogData {
   default dialog_id = 1180770;
 }
 
+// Damien: Honestly? I've no clue. Look, I've told you what I saw. What you do with it is no concern of mine."
 class REROL_damien_i_told_you_what_i_saw extends RER_DialogData {
   default dialog_id = 1151551;
 }
@@ -1152,6 +1158,11 @@ class REROL_damien_do_not_tarry_time_is_not_our_friend extends RER_DialogData {
 // Damien: Your plan puts you at great risk… but I sense you will handle it well. Let us go.
 class REROL_damien_i_sense_you_will_handle_it extends RER_DialogData {
   default dialog_id = 1200318;
+}
+
+// Damien: Crespi was the first to die. He was famed once for his many glorious tournament victories. Then he grew old, hung up his sword and took to wine making.
+class REROL_damien_crespi_was_the_first_to_die extends RER_DialogData {
+  default dialog_id = 1168529;
 }
 
 // Damien: Hmm… I should double the patrols. Just in case.
@@ -1197,6 +1208,11 @@ class REROL_damien_i_was_wrong_about_you extends RER_DialogData {
 // Damien: That was the plan, but…
 class REROL_damien_that_was_the_plan_but extends RER_DialogData {
   default dialog_id = 1185732;
+}
+
+// Damien: Do you mean to insinuate the investigation thus far has been sloppy?
+class REROL_damien_you_insinuate_investigation_has_been_sloppy extends RER_DialogData {
+  default dialog_id = 1168451;
 }
 
 // Damien: Who sent you?

@@ -219,7 +219,6 @@ state Talking in RER_BountyMasterManager {
 
   entry function Talking_main() {
     this.runConversation();
-    parent.GotoState('Waiting');
   }
 
   latent function runConversation() {
@@ -266,84 +265,10 @@ state Talking in RER_BountyMasterManager {
 
       (new RER_RandomDialogBuilder in thePlayer)
         .start()
+        .dialog(new REROL_damien_will_start_at_the_beginning in thePlayer, true)
+        .dialog(new REROL_damien_crespi_was_the_first_to_die in thePlayer, true)
         .dialog(new REROL_damien_he_died_claws in thePlayer, true)
         .play(npc_actor);
-
-      // if (RandRange(10) > 5) {
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .dialog(new REROL_less_moaning in thePlayer, true)
-      //     .play();
-
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .dialog(new REROL_damien_i_told_you_what_i_saw in thePlayer, true)
-      //     .play(npc_actor);
-      // }
-      // else {
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .dialog(new REROL_not_the_first_time in thePlayer, true)
-      //     .play();
-
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .dialog(new REROL_damien_must_you_always in thePlayer, true)
-      //     .dialog(new REROL_damien_i_told_you_what_i_saw in thePlayer, true)
-      //     .play(npc_actor);
-      // }
-
-      (new RER_RandomDialogBuilder in thePlayer)
-          .start()
-          .dialog(new REROL_damien_all_brainless_beasts in thePlayer, true)
-          .dialog(new REROL_damien_do_you_have_a_plan in thePlayer, true)
-          .play(npc_actor);
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .dialog(new REROL_not_sure_monster_no_side_war in thePlayer, true)
-      //     .play();
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .dialog(new REROL_damien_you_certain_of_this in thePlayer, true)
-      //       .play(npc_actor);
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .dialog(new REROL_im_a_monster_slayer in thePlayer, true)
-      //       .play();
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .dialog(new REROL_damien_if_thats_how_you_treat_it in thePlayer, true)
-      //     .dialog(new REROL_damien_i_should_double_patrols in thePlayer, true)
-      //     .play(npc_actor);
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .either(new REROL_this_is_work_for_witcher in thePlayer, true, 1)
-      //       .either(new REROL_send_them_certain_death in thePlayer, true, 1)
-      //       .either(new REROL_boys_could_handle_monsters in thePlayer, true, 1)
-      //       .play();
-
-      // if (RandRange(10) > 5) {
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //     .start()
-      //     .either(new REROL_damien_to_a_lone_witcher in thePlayer, true, 1)
-      //     .either(new REROL_damien_my_guardsmen_in_action in thePlayer, true, 1)
-      //     .play(npc_actor);
-      // }
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .dialog(new REROL_got_a_different_plan in thePlayer, true)
-      //       .play();
-
-      // (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .dialog(new REROL_damien_and_what_would_that_be in thePlayer, true)
-      //       .play(npc_actor);
 
       (new RER_RandomDialogBuilder in thePlayer)
               .start()
@@ -351,9 +276,22 @@ state Talking in RER_BountyMasterManager {
               .dialog(new REROL_any_witnesses in thePlayer, true)
               .play();
 
+      if (RandRange(10) > 5) {
+        (new RER_RandomDialogBuilder in thePlayer)
+            .start()
+            .dialog(new REROL_damien_you_insinuate_investigation_has_been_sloppy in thePlayer, true)
+            .play(npc_actor);
+
+        (new RER_RandomDialogBuilder in thePlayer)
+              .start()
+              .dialog(new REROL_see_the_wounds_what_kind_of_monster in thePlayer, true)
+              .play();
+      }
+
       (new RER_RandomDialogBuilder in thePlayer)
             .start()
-            .dialog(new REROL_damien_do_you_believe_me_an_amateur in thePlayer, true)
+            .either(new REROL_damien_do_you_believe_me_an_amateur in thePlayer, true, 0.5)
+            .either(new REROL_damien_i_told_you_what_i_saw in thePlayer, true, 1)
             .play(npc_actor);
 
       (new RER_RandomDialogBuilder in thePlayer)
@@ -362,44 +300,42 @@ state Talking in RER_BountyMasterManager {
               .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
               .play();
 
+      if (RandRange(10) > 5) {
+          (new RER_RandomDialogBuilder in thePlayer)
+              .start()
+              .dialog(new REROL_damien_i_should_double_patrols in thePlayer, true)
+              .play(npc_actor);
+
+          (new RER_RandomDialogBuilder in thePlayer)
+                .start()
+                .either(new REROL_this_is_work_for_witcher in thePlayer, true, 1)
+                .either(new REROL_send_them_certain_death in thePlayer, true, 1)
+                .either(new REROL_boys_could_handle_monsters in thePlayer, true, 1)
+                .play();
+
+          if (RandRange(10) > 5) {
+            (new RER_RandomDialogBuilder in thePlayer)
+              .start()
+              .either(new REROL_damien_to_a_lone_witcher in thePlayer, true, 1)
+              .either(new REROL_damien_my_guardsmen_in_action in thePlayer, true, 1)
+              .play(npc_actor);
+          }
+      }
+      else {
+        (new RER_RandomDialogBuilder in thePlayer)
+          .start()
+          .either(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true, 1)
+          .either(new REROL_damien_good_luck in thePlayer, true, 1)
+          .either(new REROL_damien_i_see_the_effort_you_put in thePlayer, true, 1)
+          .play(npc_actor);
+      }
+
       (new RER_RandomDialogBuilder in thePlayer)
         .start()
-        .either(new REROL_damien_i_thank_you_witcher in thePlayer, true, 1)
-        .either(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true, 1)
-        .either(new REROL_damien_good_luck in thePlayer, true, 1)
-        .either(new REROL_damien_i_see_the_effort_you_put in thePlayer, true, 1)
-        .then()
-        .either(new REROL_damien_onward_witcher in thePlayer, true, 1)
-        .either(new REROL_damien_do_not_tarry_time_is_not_our_friend in thePlayer, true, 1)
-        .either(new REROL_damien_why_do_you_wait_save_them in thePlayer, true, 1)
+        .then(1)
+        .dialog(new REROL_damien_do_not_tarry_time_is_not_our_friend in thePlayer, true)
         .play(npc_actor);
 
-      // if (RandRange(10) < 2) {
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .dialog(new REROL_damien_very_well_you_must_behave_less_like_thug in thePlayer, true)
-      //       .either(new REROL_damien_ive_heard_much_about_you in thePlayer, true, 1)
-      //       .either(new REROL_damien_youd_best_maintain_silence in thePlayer, true, 1)
-      //       .then()
-      //       .dialog(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true)
-      //       .either(new REROL_damien_do_not_tarry_time_is_not_our_friend in thePlayer, true, 1)
-      //       .either(new REROL_damien_why_do_you_wait_save_them in thePlayer, true, 1)
-      //       .play(npc_actor);
-      // }
-      // else {
-      //   (new RER_RandomDialogBuilder in thePlayer)
-      //       .start()
-      //       .either(new REROL_damien_i_agree_with_you in thePlayer, true, 1)
-      //       .either(new REROL_damien_will_start_at_the_beginning in thePlayer, true, 1)
-      //       .then()
-      //       .either(new REROL_damien_i_thank_you_witcher in thePlayer, true, 1)
-      //       .either(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true, 1)
-      //       .either(new REROL_damien_good_luck in thePlayer, true, 1)
-      //       .either(new REROL_damien_i_see_the_effort_you_put in thePlayer, true, 1)
-      //       .then()
-      //       .dialog(new REROL_damien_onward_witcher in thePlayer, true)
-      //       .play(npc_actor);
-      // }
     }
 
     distance_from_player = VecDistanceSquared(
@@ -411,6 +347,9 @@ state Talking in RER_BountyMasterManager {
     if (distance_from_player < radius) {
       parent.last_talking_time = theGame.GetEngineTimeAsSeconds();
       this.openHaggleWindow();
+    }
+    else {
+      parent.GotoState('Waiting');
     }
   }
 
