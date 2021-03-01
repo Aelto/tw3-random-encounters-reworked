@@ -20,21 +20,23 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
     var distance_from_bait: float;
     var current_entity: CEntity;
     var current_heading: float;
-    var is_player_busy: bool;
     var i: int;
 
     do {
       if (parent.areAllEntitiesDead()) {
-        LogChannel('modRandomEncounters', "HuntEntity - wandering state, all entities dead");
+        LogChannel('modRandomEncounters', "HuntingGroundEntity - wandering state, all entities dead");
 
         parent.GotoState('Ending');
 
         break;
       }
 
+      // in case it moves
+      parent.bait_entity.Teleport(parent.GetWorldPosition());
+      this.keepCreaturesOnPoint(parent.GetWorldPosition(), 25);
+
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];
-        is_player_busy = isPlayerInScene();
 
         distance_from_player = VecDistance(
           current_entity.GetWorldPosition(),
@@ -77,6 +79,44 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
 
       Sleep(3);
     } while (true);
+  }
+
+  // Checks if one of the creatures is outside the given point and its radius
+  // and teleports it back into the circle  ifthe creature is indeed outside.
+  // The function is supposed to be called in a fast while loop to keep the
+  // creatures on point in an efficient way.
+  function keepCreaturesOnPoint(position: Vector, radius: float) {
+    var distance_from_point: float;
+    var old_position: Vector;
+    var new_position: Vector;
+    var i: int;
+
+    for (i = 0; i < parent.entities.Size(); i += 1) {
+      old_position = parent.entities[i].GetWorldPosition();
+
+      distance_from_point = VecDistanceSquared(
+        old_position,
+        position
+      );
+
+      if (distance_from_point > radius) {
+        new_position = VecInterpolate(
+          old_position,
+          position,
+          1 / radius
+        );
+
+        FixZAxis(new_position);
+
+        if (new_position.Z < old_position.Z) {
+          new_position.Z = old_position.Z;
+        }
+
+        parent
+          .entities[i]
+          .Teleport(new_position);
+      }
+    }
   }
 
   latent function resetEntitiesActions() {
