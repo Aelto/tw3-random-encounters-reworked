@@ -33,8 +33,8 @@ statemachine class RER_BountyMasterManager {
     if (bounty_master_entity) {
       // remove a pin, and if there was no pin and it returns true, remove the
       // one we added just now then.
-      if (RER_toggleInfoPinAtPosition(bounty_master_entity.GetWorldPosition())) {
-        RER_toggleInfoPinAtPosition(bounty_master_entity.GetWorldPosition());
+      if (RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition())) {
+        RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition());
       }
 
       // teleport the bounty master at the current position based on the current playtime
@@ -54,8 +54,8 @@ statemachine class RER_BountyMasterManager {
       this.bounty_master_entity.AddTag('RER_bounty_master');
     }
 
-    if (!RER_toggleInfoPinAtPosition(bounty_master_entity.GetWorldPosition())) {
-      RER_toggleInfoPinAtPosition(bounty_master_entity.GetWorldPosition());
+    if (!RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition())) {
+      RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition());
     }
 
     NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
@@ -226,6 +226,7 @@ state Talking in RER_BountyMasterManager {
     var distance_from_player: float;
     var radius: float;
     var max_radius: float;
+    var crowns_from_trophies: int;
 
     npc_actor = (CActor)(parent.bounty_master_entity);
     max_radius = 10 * 10;
@@ -249,7 +250,6 @@ state Talking in RER_BountyMasterManager {
       if (distance_from_player > max_radius) {
         return;
       }
-
     }
 
     { // dialogs
@@ -257,6 +257,11 @@ state Talking in RER_BountyMasterManager {
       .start()
       .dialog(new REROL_damien_greetings_witcher in thePlayer, true)
       .play(npc_actor);
+
+      crowns_from_trophies = this.convertTrophiesIntoCrowns();
+      if (crowns_from_trophies > 0) {
+        NDEBUG("The bounty master bought your trophies for " + RER_yellowFont(crowns_from_trophies) + " crowns");
+      }
 
       (new RER_RandomDialogBuilder in thePlayer)
           .start()
@@ -351,6 +356,41 @@ state Talking in RER_BountyMasterManager {
     else {
       parent.GotoState('Waiting');
     }
+  }
+
+  // returns the amount of crowns the player received from the trophies
+  function convertTrophiesIntoCrowns(): int {
+    var trophy_guids: array<SItemUniqueId>;
+    var inventory: CInventoryComponent;
+    var guid: SItemUniqueId;
+    var price: int;
+    var i: int;
+    var output: int;
+    var buying_price: float;
+    
+    buying_price = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice')
+    ) / 100;
+
+    inventory = thePlayer
+      .GetInventory();
+
+    trophy_guids = inventory
+      .GetItemsByTag('RER_Trophy');
+
+    for (i = 0; i < trophy_guids.Size(); i += 1) {
+      guid = trophy_guids[i];
+
+      price = (int)(inventory.GetItemPrice(guid) * buying_price);
+
+      inventory.AddMoney(price);
+      inventory.RemoveItem(guid);
+
+      output += price;
+    }
+    
+    return output;
   }
 
   function openHaggleWindow() {

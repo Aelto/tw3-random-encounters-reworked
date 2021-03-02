@@ -5517,6 +5517,7 @@
                 <Entry varId="RERtrophiesHunt" value="1" />
                 <Entry varId="RERtrophiesContract" value="1" />
                 <Entry varId="RERtrophiesHuntingGround" value="1" />
+                <Entry varId="RERtrophyMasterBuyingPrice" value="55" />
 
                 <Entry varId="Hags"                    value="100"     />
                 <Entry varId="Foglets"                value="100"     />
@@ -5773,6 +5774,7 @@
             <Var id="RERtrophiesHunt" displayName="rer_trophies_hunt" displayType="TOGGLE"></Var>
             <Var id="RERtrophiesContract" displayName="rer_trophies_contract" displayType="TOGGLE"></Var>
             <Var id="RERtrophiesHuntingGround" displayName="rer_trophies_hunting_ground" displayType="TOGGLE"></Var>
+            <Var id="RERtrophyMasterBuyingPrice" displayName="rer_trophy_master_buying_price" displayType="SLIDER;0;100;100"></Var>
 
             <Var id="Gargoyles" displayName="rer_gargoyles" displayType="SLIDER;0;100;100" />
             <Var id="Dracolizards" displayName="rer_dracolizards" displayType="SLIDER;0;100;100" />
