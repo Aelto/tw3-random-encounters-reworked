@@ -270,13 +270,31 @@ state Loading in CRandomEncounters {
       StaticEncounterType_LARGE
     );
 
-    // White Orchard: Endregas near a tree behind the mill
+    // skellige, wraiths on a house near a lake
     this.makeStaticEncounter(
       CreatureNIGHTWRAITH,
       Vector(378, 173, 22),
       RER_RegionConstraint_ONLY_SKELLIGE,
       15,
       StaticEncounterType_LARGE
+    );
+
+    // a random, lost village
+    this.makeStaticEncounter(
+      CreatureFIEND,
+      Vector(1995, -643, 0),
+      RER_RegionConstraint_ONLY_VELEN,
+      25,
+      StaticEncounterType_SMALL
+    );
+
+    // people hanged on a tree
+    this.makeStaticEncounter(
+      CreatureWRAITH,
+      Vector(-447, -77, 10),
+      RER_RegionConstraint_ONLY_VELEN,
+      15,
+      StaticEncounterType_SMALL
     );
 
 
