@@ -317,7 +317,8 @@ class RER_BountyManager {
       group_data.count,
       , // density
       true, // trophies
-      EncounterType_HUNTINGGROUND
+      EncounterType_HUNTINGGROUND,
+      true
     );
 
     NLOG("bounty group " + group_index + " spawned " + entities.Size() + " entities at " + VecToString(position));

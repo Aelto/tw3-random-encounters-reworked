@@ -90,7 +90,11 @@ abstract class RER_BestiaryEntry {
     optional density: float,
     optional allow_trophies: bool,
     optional encounter_type: EncounterType,
-    optional do_no_persist: bool
+    optional do_no_persist: bool,
+    // if set to true, it will ignore the bestiary feature that removes unknown
+    // creatures from the spawn. It's used for the bounties where settings are
+    // ignored.
+    optional ignore_bestiary_feature: bool
   ): array<CEntity> {
     
     var creatures_templates: EnemyTemplateList;
@@ -130,7 +134,7 @@ abstract class RER_BestiaryEntry {
     creatures_templates = fillEnemyTemplateList(
       this.template_list,
       count,
-      master.settings.only_known_bestiary_creatures
+      master.settings.only_known_bestiary_creatures && !ignore_bestiary_feature
     );
 
     group_positions = getGroupPositions(
