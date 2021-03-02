@@ -429,28 +429,28 @@ class RER_BountyManager {
 
       case AN_Skellige_ArdSkellig:
         // first the X coordinates
-        min = -4000;
-        max = 4000;
+        min = -3000;
+        max = 3000;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -4000;
-        max = 4000;
+        min = -3000;
+        max = 3000;
 
         output.Y = min + (max - min) * percent_y;
         break;
 
       case AN_Kaer_Morhen:
         // first the X coordinates
-        min = -4000;
-        max = 4000;
+        min = -500;
+        max = 500;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -4000;
-        max = 4000;
+        min = -1000;
+        max = 1000;
 
         output.Y = min + (max - min) * percent_y;
         break;
@@ -458,14 +458,14 @@ class RER_BountyManager {
       case AN_NMLandNovigrad:
       case AN_Velen:
         // first the X coordinates
-        min = -4000;
-        max = 4000;
+        min = -1000;
+        max = 1000;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -4000;
-        max = 4000;
+        min = -1500;
+        max = 1000;
 
         output.Y = min + (max - min) * percent_y;
         break;
@@ -475,14 +475,14 @@ class RER_BountyManager {
 
         if (area_string == "bob") {
           // first the X coordinates
-          min = -4000;
-          max = 4000;
+          min = -1500;
+          max = 1500;
 
           output.X = min + (max - min) * percent_x;
 
           // then the Y coordinates
-          min = -4000;
-          max = 4000;
+          min = -1500;
+          max = 1500;
 
           output.Y = min + (max - min) * percent_y;
         }
