@@ -63,8 +63,8 @@ state Combat in RandomEncountersReworkedHuntEntity {
     scene.velocity = Vector(0.001, 0.001, 0);
 
     scene.duration = 0.2;
-    scene.position_blending_ratio = 0.01;
-    scene.rotation_blending_ratio = 0.01;
+    scene.position_blending_ratio = 0.05;
+    scene.rotation_blending_ratio = 0.05;
 
     camera = RER_getStaticCamera();
 
