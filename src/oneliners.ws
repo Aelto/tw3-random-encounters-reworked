@@ -376,7 +376,6 @@ latent function REROL_mhm(optional do_not_wait: bool) {
 }
 class REROL_mhm_data extends RER_DialogData {
   default dialog_id = 1185176;
-  default dialog_duration = 1.5;
 }
 
 // Geralt: It's over.
@@ -1031,6 +1030,11 @@ class REROL_any_witnesses extends RER_DialogData {
   default dialog_id = 570953;
 }
 
+// Geralt: I am. Don't think I've seen your notice, though.
+class REROL_i_am_dont_seen_notice extends RER_DialogData {
+  default dialog_id = 1153652;
+}
+
 // Geralt: Not sure you actually get what it is I do. I'm a professional monster slayer.
 class REROL_im_a_monster_slayer extends RER_DialogData {
   default dialog_id = 1154437;
@@ -1087,6 +1091,16 @@ class REROL_send_them_certain_death extends RER_DialogData {
 // Geralt: Less moaning, more details. What happened? And how can I help? And remember, I don't work for free - witchers' code and all.
 class REROL_less_moaning extends RER_DialogData {
   default dialog_id = 1030584;
+}
+
+// Geralt: greetings
+class REROL_greetings extends RER_DialogData {
+  default dialog_id = 1189573;
+}
+
+// Geralt: Thanks. Really helpful, that.
+class REROL_really_helpful_that extends RER_DialogData {
+  default dialog_id = 566260;
 }
 
 //#region Damien's voicelines
@@ -1305,3 +1319,83 @@ class REROL_damien_youd_best_maintain_silence extends RER_DialogData {
   default dialog_id = 1161579;
 }
 //#endregion Damien's voicelines
+
+//#region Graden's voicelines
+
+// Graden: You're a witcher. Will you help?
+class REROL_graden_youre_a_witcher_will_you_help extends RER_DialogData {
+  default dialog_id = 519794;
+}
+
+// Graden: Hmm, akh akh… Noble of you. A killer for hire abandoning his bounty for the good of another. The hunters and the Church of the Eternal Fire thank you.
+class REROL_graden_noble_of_you_thank_you extends RER_DialogData {
+  default dialog_id = 402273;
+}
+
+// Graden: Graden, witch hunter in the service of His Royal Majesty Radovid of Redania. I'm certain you've heard of us.
+class REROL_graden_certain_youve_heard_of_us extends RER_DialogData {
+  default dialog_id = 401785;
+}
+
+// Graden: A-hem. I remind you we've a matter to resolve here.
+class REROL_graden_matter_to_resolve extends RER_DialogData {
+  default dialog_id = 1071650;
+}
+
+// Graden: I've lost five men and have little notion of what else to expect in this cursed place.
+class REROL_graden_ive_lost_five_men extends RER_DialogData {
+  default dialog_id = 519812;
+}
+
+// Graden: Didn't sound like wolves.
+class REROL_graden_didnt_sound_like_wolves extends RER_DialogData {
+  default dialog_id = 462667;
+}
+
+// Graden: Looked a fiend to me.
+class REROL_graden_looked_a_fiend extends RER_DialogData {
+  default dialog_id = 448497;
+}
+
+// Graden: May the Eternal Fire guide and protect you.
+class REROL_graden_eternal_fire_protect_you extends RER_DialogData {
+  default dialog_id = 1015510;
+}
+
+// Geralt: Witcher...
+class REROL_graden_witcher extends RER_DialogData {
+  default dialog_id = 1037722;
+}
+
+//#endregion Graden's voicelines
+
+// Geralt: Seems like you could use a witcher - so, yeah, I'll help.
+class REROL_seems_like_you_could_use_a_witcher extends RER_DialogData {
+  default dialog_id = 558185;
+}
+
+// Geralt: Geralt. I'm a witcher.
+class REROL_geralt_im_a_witcher extends RER_DialogData {
+  default dialog_id = 388551;
+}
+
+// Geralt: Glad you know who I am. Haven't introduced yourself, though.
+class REROL_glad_you_know_who_i_am extends RER_DialogData {
+  default dialog_id = 401765;
+}
+
+// Geralt: Mhm.
+class REROL_mhm_2 extends RER_DialogData {
+  default dialog_id = 1173584;
+}
+
+// Geralt: Farewell.
+class REROL_farewell extends RER_DialogData {
+  default dialog_id = 452638;
+}
+
+// Geralt: Ring a bell.
+class REROL_rings_a_bell extends RER_DialogData {
+  default dialog_id = 402217;
+}
+

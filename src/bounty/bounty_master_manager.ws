@@ -19,8 +19,11 @@ statemachine class RER_BountyMasterManager {
     var valid_positions: array<Vector>;
     var template: CEntityTemplate;
     var position_index: int;
+    var template_path: string;
 
     this.bounty_master_entity = theGame.GetEntityByTag('RER_bounty_master');
+
+    template_path = "quests\secondary_npcs\graden.w2ent";
 
     // every hour of playtime it changes the index in the valid positions
     valid_positions = this.getBountyMasterValidPositions();
@@ -30,18 +33,32 @@ statemachine class RER_BountyMasterManager {
     );
 
     // the bounty master already exist
-    if (bounty_master_entity) {
+    if (this.bounty_master_entity) {
+      NLOG("bounty master exists, template = " + StrAfterFirst(this.bounty_master_entity.ToString(), "::"));
       this.bounty_manager.master.pin_manager.removePinHere(
         bounty_master_entity.GetWorldPosition(),
         RER_InterestPin
       );
 
-      // teleport the bounty master at the current position based on the current playtime
-      bounty_master_entity.Teleport(valid_positions[position_index]);
+      // not the same template as the one asked, we kill the current bounty master
+
+      if (StrAfterFirst(this.bounty_master_entity.ToString(), "::") != template_path) {
+        NLOG("bounty master wrong template");
+        // ((CActor)this.bounty_master_entity).Kill('RER');
+        this.bounty_master_entity.Destroy();
+        delete this.bounty_master_entity;
+      }
+      else {
+        // teleport the bounty master at the current position based on the current playtime
+        bounty_master_entity.Teleport(valid_positions[position_index]);
+      }
+
     }
-    else {
-      // TODO: spawn him
-      template = (CEntityTemplate)LoadResourceAsync("dlc\bob\data\quests\secondary_npcs\damien.w2ent", true);
+    
+    if (!this.bounty_master_entity) {
+      NLOG("bounty master doesn't exist");
+
+      template = (CEntityTemplate)LoadResourceAsync(template_path, true);
 
       this.bounty_master_entity = theGame.CreateEntity(
         template,
@@ -252,96 +269,190 @@ state Talking in RER_BountyMasterManager {
       }
     }
 
-    { // dialogs
-      (new RER_RandomDialogBuilder in thePlayer)
-      .start()
-      .dialog(new REROL_damien_greetings_witcher in thePlayer, true)
-      .play(npc_actor);
+    crowns_from_trophies = this.convertTrophiesIntoCrowns();
 
-      crowns_from_trophies = this.convertTrophiesIntoCrowns();
-      if (crowns_from_trophies > 0) {
-        NDEBUG("The bounty master bought your trophies for " + RER_yellowFont(crowns_from_trophies) + " crowns");
-      }
-
-      (new RER_RandomDialogBuilder in thePlayer)
-          .start()
-          .dialog(new REROL_what_surprise_new_monster_to_kill in thePlayer, true)
-          .play();
-
-      (new RER_RandomDialogBuilder in thePlayer)
-        .start()
-        .dialog(new REROL_damien_will_start_at_the_beginning in thePlayer, true)
-        .dialog(new REROL_damien_crespi_was_the_first_to_die in thePlayer, true)
-        .dialog(new REROL_damien_he_died_claws in thePlayer, true)
+    { // graden dialogs
+      // plays the voicelines only the first time the player meets Graden
+      if (parent.bounty_manager.master.storages.bounty.bounty_level == 0) {
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_youre_a_witcher_will_you_help in thePlayer, true)
         .play(npc_actor);
 
-      (new RER_RandomDialogBuilder in thePlayer)
-              .start()
-              .dialog(new REROL_i_see_the_wounds in thePlayer, true)
-              .dialog(new REROL_any_witnesses in thePlayer, true)
-              .play();
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_i_am_dont_seen_notice in thePlayer, true)
+        // .then(0.4)
+        // .dialog(new REROL_seems_like_you_could_use_a_witcher in thePlayer, true)
+        .play();
 
-      if (RandRange(10) > 5) {
-        (new RER_RandomDialogBuilder in thePlayer)
-            .start()
-            .dialog(new REROL_damien_you_insinuate_investigation_has_been_sloppy in thePlayer, true)
-            .play(npc_actor);
 
-        (new RER_RandomDialogBuilder in thePlayer)
-              .start()
-              .dialog(new REROL_see_the_wounds_what_kind_of_monster in thePlayer, true)
-              .play();
-      }
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_noble_of_you_thank_you in thePlayer, true)
+        .play(npc_actor);
 
-      (new RER_RandomDialogBuilder in thePlayer)
-            .start()
-            .either(new REROL_damien_do_you_believe_me_an_amateur in thePlayer, true, 0.5)
-            .either(new REROL_damien_i_told_you_what_i_saw in thePlayer, true, 1)
-            .play(npc_actor);
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_glad_you_know_who_i_am in thePlayer, true)
+        .play();
 
-      (new RER_RandomDialogBuilder in thePlayer)
-              .start()
-              .either(new REROL_fine_show_me_where_monsters in thePlayer, true, 1)
-              .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
-              .play();
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_certain_youve_heard_of_us in thePlayer, true)
+        .play(npc_actor);
 
-      if (RandRange(10) > 5) {
-          (new RER_RandomDialogBuilder in thePlayer)
-              .start()
-              .dialog(new REROL_damien_i_should_double_patrols in thePlayer, true)
-              .play(npc_actor);
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_rings_a_bell in thePlayer, true)
+        .play();
 
-          (new RER_RandomDialogBuilder in thePlayer)
-                .start()
-                .either(new REROL_this_is_work_for_witcher in thePlayer, true, 1)
-                .either(new REROL_send_them_certain_death in thePlayer, true, 1)
-                .either(new REROL_boys_could_handle_monsters in thePlayer, true, 1)
-                .play();
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_matter_to_resolve in thePlayer, true)
+        .play(npc_actor);
 
-          if (RandRange(10) > 5) {
-            (new RER_RandomDialogBuilder in thePlayer)
-              .start()
-              .either(new REROL_damien_to_a_lone_witcher in thePlayer, true, 1)
-              .either(new REROL_damien_my_guardsmen_in_action in thePlayer, true, 1)
-              .play(npc_actor);
-          }
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_mhm_2 in thePlayer, true)
+        .play();
       }
       else {
-        (new RER_RandomDialogBuilder in thePlayer)
-          .start()
-          .either(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true, 1)
-          .either(new REROL_damien_good_luck in thePlayer, true, 1)
-          .either(new REROL_damien_i_see_the_effort_you_put in thePlayer, true, 1)
-          .play(npc_actor);
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_witcher in thePlayer, true)
+        .play(npc_actor);
+        
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_greetings in thePlayer, true)
+        .play();
       }
 
-      (new RER_RandomDialogBuilder in thePlayer)
-        .start()
-        .then(1)
-        .dialog(new REROL_damien_do_not_tarry_time_is_not_our_friend in thePlayer, true)
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_what_surprise_new_monster_to_kill in thePlayer, true)
+        .play();
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_ive_lost_five_men in thePlayer, true)
         .play(npc_actor);
 
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_i_see_the_wounds in thePlayer, true)
+        .dialog(new REROL_any_witnesses in thePlayer, true)
+        .play();
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .either(new REROL_graden_didnt_sound_like_wolves in thePlayer, true, 1)
+        .either(new REROL_graden_looked_a_fiend in thePlayer, true, 1)
+        .play(npc_actor);
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_mhm_2 in thePlayer, true)
+        .then(0.2)
+        .play();
+
+      if (RandRange(10) > 5) {
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_really_helpful_that in thePlayer, true)
+        .play();
+      }
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .either(new REROL_fine_show_me_where_monsters in thePlayer, true, 1)
+        .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
+        .play();
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
+        .play(npc_actor);
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_farewell in thePlayer, true)
+        .play();
+
     }
+
+    // { // dialogs
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //   .start()
+    //   .dialog(new REROL_damien_greetings_witcher in thePlayer, true)
+    //   .play(npc_actor);
+
+    //   crowns_from_trophies = this.convertTrophiesIntoCrowns();
+    //   if (crowns_from_trophies > 0) {
+    //     NDEBUG("The bounty master bought your trophies for " + RER_yellowFont(crowns_from_trophies) + " crowns");
+    //   }
+
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //       .start()
+    //       .dialog(new REROL_what_surprise_new_monster_to_kill in thePlayer, true)
+    //       .play();
+
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //     .start()
+    //     .dialog(new REROL_damien_will_start_at_the_beginning in thePlayer, true)
+    //     .dialog(new REROL_damien_crespi_was_the_first_to_die in thePlayer, true)
+    //     .dialog(new REROL_damien_he_died_claws in thePlayer, true)
+    //     .play(npc_actor);
+
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //           .start()
+    //           .dialog(new REROL_i_see_the_wounds in thePlayer, true)
+    //           .dialog(new REROL_any_witnesses in thePlayer, true)
+    //           .play();
+
+    //   if (RandRange(10) > 5) {
+    //     (new RER_RandomDialogBuilder in thePlayer)
+    //         .start()
+    //         .dialog(new REROL_damien_you_insinuate_investigation_has_been_sloppy in thePlayer, true)
+    //         .play(npc_actor);
+
+    //     (new RER_RandomDialogBuilder in thePlayer)
+    //           .start()
+    //           .dialog(new REROL_see_the_wounds_what_kind_of_monster in thePlayer, true)
+    //           .play();
+    //   }
+
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //         .start()
+    //         .either(new REROL_damien_do_you_believe_me_an_amateur in thePlayer, true, 0.5)
+    //         .either(new REROL_damien_i_told_you_what_i_saw in thePlayer, true, 1)
+    //         .play(npc_actor);
+
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //           .start()
+    //           .either(new REROL_fine_show_me_where_monsters in thePlayer, true, 1)
+    //           .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
+    //           .play();
+
+    //   if (RandRange(10) > 5) {
+    //       (new RER_RandomDialogBuilder in thePlayer)
+    //           .start()
+    //           .dialog(new REROL_damien_i_should_double_patrols in thePlayer, true)
+    //           .play(npc_actor);
+
+    //       (new RER_RandomDialogBuilder in thePlayer)
+    //             .start()
+    //             .either(new REROL_this_is_work_for_witcher in thePlayer, true, 1)
+    //             .either(new REROL_send_them_certain_death in thePlayer, true, 1)
+    //             .either(new REROL_boys_could_handle_monsters in thePlayer, true, 1)
+    //             .play();
+
+    //       if (RandRange(10) > 5) {
+    //         (new RER_RandomDialogBuilder in thePlayer)
+    //           .start()
+    //           .either(new REROL_damien_to_a_lone_witcher in thePlayer, true, 1)
+    //           .either(new REROL_damien_my_guardsmen_in_action in thePlayer, true, 1)
+    //           .play(npc_actor);
+    //       }
+    //   }
+    //   else {
+    //     (new RER_RandomDialogBuilder in thePlayer)
+    //       .start()
+    //       .either(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true, 1)
+    //       .either(new REROL_damien_good_luck in thePlayer, true, 1)
+    //       .either(new REROL_damien_i_see_the_effort_you_put in thePlayer, true, 1)
+    //       .play(npc_actor);
+    //   }
+
+    //   (new RER_RandomDialogBuilder in thePlayer)
+    //     .start()
+    //     .then(1)
+    //     .dialog(new REROL_damien_do_not_tarry_time_is_not_our_friend in thePlayer, true)
+    //     .play(npc_actor);
+
+    // }
 
     distance_from_player = VecDistanceSquared(
       thePlayer.GetWorldPosition(),
