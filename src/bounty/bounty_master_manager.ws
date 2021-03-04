@@ -31,11 +31,10 @@ statemachine class RER_BountyMasterManager {
 
     // the bounty master already exist
     if (bounty_master_entity) {
-      // remove a pin, and if there was no pin and it returns true, remove the
-      // one we added just now then.
-      if (RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition())) {
-        RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition());
-      }
+      this.bounty_manager.master.pin_manager.removePinHere(
+        bounty_master_entity.GetWorldPosition(),
+        RER_InterestPin
+      );
 
       // teleport the bounty master at the current position based on the current playtime
       bounty_master_entity.Teleport(valid_positions[position_index]);
@@ -54,9 +53,10 @@ statemachine class RER_BountyMasterManager {
       this.bounty_master_entity.AddTag('RER_bounty_master');
     }
 
-    if (!RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition())) {
-      RER_toggleInterestPinAtPosition(bounty_master_entity.GetWorldPosition());
-    }
+    this.bounty_manager.master.pin_manager.addPinHere(
+      bounty_master_entity.GetWorldPosition(),
+      RER_InterestPin
+    );
 
     NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
 

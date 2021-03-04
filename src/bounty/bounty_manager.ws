@@ -309,7 +309,12 @@ class RER_BountyManager {
     var i: int;
 
     bestiary_entry = this.master.bestiary.entries[group_data.type];
-    position = this.getCoordinatesFromPercentValues(group_data.position_x, group_data.position_y);
+    position = this.getSafeCoordinatesFromPoint(
+      this.getCoordinatesFromPercentValues(
+        group_data.position_x,
+        group_data.position_y
+      )
+    );
 
     entities = bestiary_entry.spawn(
       this.master,
@@ -362,7 +367,12 @@ class RER_BountyManager {
     var position: Vector;
     var i: int;
 
-    position = this.getCoordinatesFromPercentValues(group_data.position_x, group_data.position_y);
+    position = this.getSafeCoordinatesFromPoint(
+      this.getCoordinatesFromPercentValues(
+        group_data.position_x,
+        group_data.position_y
+      )
+    );
     
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
@@ -502,6 +512,63 @@ class RER_BountyManager {
 
         break;
     }
+
+    return output;
+  }
+
+  // because lots of bounties end up in bodies of water, this function returns 
+  // the closest piece of land.
+  public function getSafeCoordinatesFromPoint(point: Vector): Vector {
+    // we will use water depth to detect if the point is on land or in water
+    // every other functions failed certainly because the game doesn't load
+    // the data about the chunks until the player gets close enough.
+    //
+    // This function works everywhere, and returns 10 000 when it's on land
+    // and a value between 0 and 100 or 200 when in a body of water.
+    var water_depth: float;
+    var signposts: array<CEntity>;
+    var array_of_nodes: array<CNode>;
+    var closest_signpost_node: CNode;
+    var closest_signpost_position: Vector;
+    var i: int;
+    var output: Vector;
+
+    water_depth = theGame.GetWorld().GetWaterDepth(point);
+
+    // it's on land, we can return now
+    if (water_depth >= 5000) {
+      return point;
+    }
+
+    // get all the signposts in the map
+    theGame.GetEntitiesByTag(
+      'W3FastTravelEntity',
+      signposts
+    );
+
+    for (i = 0; i < signposts.Size(); i += 1) {
+      array_of_nodes.PushBack((CNode)signposts[i]);
+    }
+
+    // then find the closest one
+    closest_signpost_node = FindClosestNode(point, array_of_nodes);
+    closest_signpost_position = closest_signpost_node.GetWorldPosition();
+
+    // set the output at the starting point
+    output = point;
+
+    do {
+      // then slowly get closer to the signpost position
+      output = VecInterpolate(output, closest_signpost_position, 0.05);
+
+      // update the water depth
+      water_depth = theGame.GetWorld().GetWaterDepth(output);
+
+    // while the water depth is not over 5000 which means there is a body of water
+    // at the current position
+    } while (water_depth < 5000);
+
+    NLOG("safe position = " + VecToString(output));
 
     return output;
   }

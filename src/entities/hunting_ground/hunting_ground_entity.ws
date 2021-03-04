@@ -41,12 +41,6 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.is_bounty = true;
     this.bounty_group_index = group_index;
 
-    // because there was a pin at the position already it removed it. We don't
-    // want to remove it so add one back.
-    if (!RER_toggleSkullPinAtPosition(this.GetWorldPosition())) {
-      RER_toggleSkullPinAtPosition(this.GetWorldPosition());
-    }
-
     NLOG("activateBountyMode - " + group_index);
   }
 

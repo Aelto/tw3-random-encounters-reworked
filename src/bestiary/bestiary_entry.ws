@@ -180,6 +180,16 @@ abstract class RER_BestiaryEntry {
               );
           }
 
+          // add a bounty notice to the entity
+          if (RandRange(100) < 3) {
+            ((CActor)created_entity)
+              .GetInventory()
+              .AddAnItem(
+                'modrer_bounty_notice',
+                1
+              );
+          }
+
           // add crowns to the entity, based on the settings
           ((CActor)created_entity)
           .GetInventory()

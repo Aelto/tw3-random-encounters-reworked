@@ -379,8 +379,7 @@ function FixZAxis(out pos : Vector) {
   if (world.NavigationComputeZ(pos, pos.Z - 128, pos.Z + 128, z)) {
     pos.Z = z;
   }
-
-  if (world.PhysicsCorrectZ(pos, z)) {
+  else if (world.PhysicsCorrectZ(pos, z)) {
     pos.Z = z;
   }
 }

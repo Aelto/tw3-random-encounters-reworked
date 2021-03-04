@@ -25,6 +25,10 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
     ((CActor)parent.bait_entity).EnableStaticCollisions(false);
     ((CActor)parent.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
 
+    if (parent.is_bounty) {
+      parent.master.pin_manager.addPinHere(parent.GetWorldPosition(), RER_SkullPin);
+    }
+
     parent.GotoState('Wandering');
   }
 

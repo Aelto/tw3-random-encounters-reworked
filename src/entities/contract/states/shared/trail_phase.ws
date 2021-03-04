@@ -107,9 +107,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
       .GetVarValue('RERoptionalFeatures', 'RERmarkersContractIntermediaryPhase');
 
     if (can_show_markers) {
-      if (!RER_toggleInfoPinAtPosition(position)) {
-        RER_toggleInfoPinAtPosition(position);
-      }
+      parent.master.pin_manager.addPinHere(position, RER_InfoPin);
     }
 
     // squared radius to save performances by using VecDistanceSquared
@@ -128,9 +126,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     }
 
     if (can_show_markers) {
-      if (RER_toggleInfoPinAtPosition(position)) {
-        RER_toggleInfoPinAtPosition(position);
-      }
+      parent.master.pin_manager.removePinHere(position, RER_InfoPin);
     }
   }
 

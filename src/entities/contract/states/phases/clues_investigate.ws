@@ -235,7 +235,10 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is in the investigation radius
     if (can_show_markers) {
-      RER_toggleInfoPinAtPosition(this.investigation_center_position);
+      parent.master.pin_manager.addPinHere(
+        this.investigation_center_position,
+        RER_InfoPin
+      );
     }
 
     do {
@@ -268,7 +271,10 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     } while (distance_from_player > this.investigation_radius * this.investigation_radius * 1.5);
 
     if (can_show_markers) {
-      RER_toggleInfoPinAtPosition(this.investigation_center_position);
+      parent.master.pin_manager.removePinHere(
+        this.investigation_center_position,
+        RER_InfoPin
+      );
     }
 
     // 2. once the player is in the radius, we play sone oneliners
