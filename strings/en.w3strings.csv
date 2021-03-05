@@ -262,3 +262,7 @@
 2115018261|        |option_rer_tutorial_ecosystem|The ecosystem
 2115018262|        |panel_hud_dialogue_title_bet_rer|Bounty seed selector
 2115018263|        |option_rer_trophy_master_buying_price|Trophy buying price from bounty master (%)
+2115018264|        |rer_bounty_notice|Bounty notice
+2115018265|        |rer_bounty_notice_description|The bounty master is looking for a Witcher, monsters to be killed. Come with a bounty notice for an increased reward.
+2115018266|        |item_desc_trophy|A monster trophy, the bounty master will probably buy it at a better price.
+2115018267|        |option_rer_ignore_seed_selector_window|Skip bounty seed selector window

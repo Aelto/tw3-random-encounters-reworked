@@ -5866,6 +5866,7 @@
                 <Entry varId="RERmarkersContractIntermediaryPhase" value="1" />
                 <Entry varId="RERmarkersBountyHunting" value="1" />
                 <Entry varId="RERmarkersChallengeMode" value="1" />
+                <Entry varId="RERignoreSeedSelectorWindow" value="0" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5896,6 +5897,8 @@
             <Var id="RERmarkersBountyHunting" displayName="rer_markers_bounty_hunting" displayType="TOGGLE"></Var>
             
             <Var id="RERmarkersChallengeMode" displayName="rer_markers_challenge_mode" displayType="TOGGLE"></Var>
+            
+            <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
 
         </VisibleVars>
     </Group>

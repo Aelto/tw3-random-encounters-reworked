@@ -54,6 +54,15 @@ class RER_BountyManager {
   }
 
   public function getDifficultyForSeed(seed: int): int {
+    // when using the 0 seed, which means the bounty is completely random. The
+    // difficulty no longer scales on the seed as there is no seed but instead
+    // on the player's level.
+    if (seed == 0) {
+      // there is still a level of randomness here, it uses the settings values
+      // to get the difficulty relative to the player's level.
+      return getRandomLevelBasedOnSettings(this.master.settings);
+    }
+
     return (int)(seed / this.getSeedDifficultyStep());
   }
 
@@ -91,9 +100,11 @@ class RER_BountyManager {
     var number_of_groups: int;
     var i: int;
 
-    // TODO: do something to the seed based on the current world too.
-    // so a same seed doesn't give the same result in Skellige, Toussaint or Velen
-    rng = (new RandomNumberGenerator in this).setSeed(seed);
+    // the seed 0 means the bounty will be completely random and won't use the
+    // seed in the RNG
+    rng = (new RandomNumberGenerator in this).setSeed(seed)
+      .useSeed(seed != 0);
+
     data = RER_BountyRandomData();
     number_of_groups = this.getNumberOfGroupsForSeed(seed);
 
@@ -425,42 +436,42 @@ class RER_BountyManager {
       case AN_Wyzima:
       case AN_Island_of_Myst:
         // first the X coordinates
-        min = -300;
-        max = 300;
+        min = -350;
+        max = 450;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -300;
-        max = 300;
+        min = -200;
+        max = 235;
 
         output.Y = min + (max - min) * percent_y;
         break;
 
       case AN_Skellige_ArdSkellig:
         // first the X coordinates
-        min = -3000;
-        max = 3000;
+        min = -1750;
+        max = 1750;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -3000;
-        max = 3000;
+        min = -1750;
+        max = 1750;
 
         output.Y = min + (max - min) * percent_y;
         break;
 
       case AN_Kaer_Morhen:
         // first the X coordinates
-        min = -500;
-        max = 500;
+        min = -150;
+        max = `160;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -1000;
-        max = 1000;
+        min = -500;
+        max = 900;
 
         output.Y = min + (max - min) * percent_y;
         break;
@@ -468,14 +479,14 @@ class RER_BountyManager {
       case AN_NMLandNovigrad:
       case AN_Velen:
         // first the X coordinates
-        min = -1000;
-        max = 1000;
+        min = -350;
+        max = 2500;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -1500;
-        max = 1000;
+        min = -1000;
+        max = 2500;
 
         output.Y = min + (max - min) * percent_y;
         break;
@@ -486,13 +497,13 @@ class RER_BountyManager {
         if (area_string == "bob") {
           // first the X coordinates
           min = -1500;
-          max = 1500;
+          max = 1250;
 
           output.X = min + (max - min) * percent_x;
 
           // then the Y coordinates
-          min = -1500;
-          max = 1500;
+          min = -2000;
+          max = 1000;
 
           output.Y = min + (max - min) * percent_y;
         }

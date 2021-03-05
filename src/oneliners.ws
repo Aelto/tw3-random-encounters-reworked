@@ -1035,6 +1035,11 @@ class REROL_i_am_dont_seen_notice extends RER_DialogData {
   default dialog_id = 1153652;
 }
 
+// Geralt: Lemme guess - there's a monster needs killing.
+class REROL_lemme_guess_monster_needs_killing extends RER_DialogData {
+  default dialog_id = 1097914;
+}
+
 // Geralt: Not sure you actually get what it is I do. I'm a professional monster slayer.
 class REROL_im_a_monster_slayer extends RER_DialogData {
   default dialog_id = 1154437;

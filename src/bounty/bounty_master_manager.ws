@@ -30,7 +30,7 @@ statemachine class RER_BountyMasterManager {
     position_index = (int)RandNoiseF(
       GameTimeHours(theGame.CalculateTimePlayed()),
       valid_positions.Size()
-    );
+    ) % valid_positions.Size(); // the % is just in case
 
     // the bounty master already exist
     if (this.bounty_master_entity) {
@@ -71,7 +71,7 @@ statemachine class RER_BountyMasterManager {
     }
 
     this.bounty_manager.master.pin_manager.addPinHere(
-      bounty_master_entity.GetWorldPosition(),
+      valid_positions[position_index],
       RER_InterestPin
     );
 
@@ -211,6 +211,13 @@ state Waiting in RER_BountyMasterManager {
       
       can_talk_again = theGame.GetEngineTimeAsSeconds() - parent.last_talking_time > 60;
 
+      if (distance_from_player > radius * 2) {
+        parent.bounty_manager.master.pin_manager.addPinHere(
+          parent.bounty_master_entity.GetWorldPosition(),
+          RER_InterestPin
+        );
+      }
+
       // sleep for:
       // 1s at 10 meters
       // 2s at 20 meters
@@ -244,6 +251,7 @@ state Talking in RER_BountyMasterManager {
     var radius: float;
     var max_radius: float;
     var crowns_from_trophies: int;
+    var should_continue: bool;
 
     npc_actor = (CActor)(parent.bounty_master_entity);
     max_radius = 10 * 10;
@@ -271,188 +279,201 @@ state Talking in RER_BountyMasterManager {
 
     crowns_from_trophies = this.convertTrophiesIntoCrowns();
 
+    if (crowns_from_trophies > 0) {
+      NDEBUG("The bounty master bought your trophies for " + RER_yellowFont(crowns_from_trophies) + " crowns");
+    }
+
     { // graden dialogs
       // plays the voicelines only the first time the player meets Graden
       if (parent.bounty_manager.master.storages.bounty.bounty_level == 0) {
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_youre_a_witcher_will_you_help in thePlayer, true)
-        .play(npc_actor);
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_graden_youre_a_witcher_will_you_help in thePlayer, true),
+          npc_actor
+        );
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_i_am_dont_seen_notice in thePlayer, true)
-        // .then(0.4)
-        // .dialog(new REROL_seems_like_you_could_use_a_witcher in thePlayer, true)
-        .play();
+        if (!should_continue) {
+          return;
+        }
 
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_i_am_dont_seen_notice in thePlayer, true)
+        );
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_noble_of_you_thank_you in thePlayer, true)
-        .play(npc_actor);
+        if (!should_continue) {
+          return;
+        }
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_glad_you_know_who_i_am in thePlayer, true)
-        .play();
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_graden_noble_of_you_thank_you in thePlayer, true),
+          npc_actor
+        );
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_certain_youve_heard_of_us in thePlayer, true)
-        .play(npc_actor);
+        if (!should_continue) {
+          return;
+        }
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_rings_a_bell in thePlayer, true)
-        .play();
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_glad_you_know_who_i_am in thePlayer, true)
+        );
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_matter_to_resolve in thePlayer, true)
-        .play(npc_actor);
+        if (!should_continue) {
+          return;
+        }
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_mhm_2 in thePlayer, true)
-        .play();
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_graden_certain_youve_heard_of_us in thePlayer, true),
+          npc_actor
+        );
+
+        if (!should_continue) {
+          return;
+        }
+
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_rings_a_bell in thePlayer, true)
+        );
+
+        if (!should_continue) {
+          return;
+        }
+
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_matter_to_resolve in thePlayer, true),
+          npc_actor
+        );
+
+        if (!should_continue) {
+          return;
+        }
+
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_mhm_2 in thePlayer, true)
+        );
+
+        if (!should_continue) {
+          return;
+        }
       }
       else {
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_witcher in thePlayer, true)
-        .play(npc_actor);
-        
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_greetings in thePlayer, true)
-        .play();
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_graden_witcher in thePlayer, true),
+          npc_actor
+        );
+
+        if (!should_continue) {
+          return;
+        }
+
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_greetings in thePlayer, true)
+        );
+
+        if (!should_continue) {
+          return;
+        }
       }
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_what_surprise_new_monster_to_kill in thePlayer, true)
-        .play();
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .either(new REROL_what_surprise_new_monster_to_kill in thePlayer, true, 1)
+        .either(new REROL_lemme_guess_monster_needs_killing in thePlayer, true, 1)
+      );
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_ive_lost_five_men in thePlayer, true)
-        .play(npc_actor);
+      if (!should_continue) {
+        return;
+      }
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_ive_lost_five_men in thePlayer, true),
+        npc_actor
+      );
+
+      if (!should_continue) {
+        return;
+      }
+
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_i_see_the_wounds in thePlayer, true)
         .dialog(new REROL_any_witnesses in thePlayer, true)
-        .play();
+      );
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
-        .either(new REROL_graden_didnt_sound_like_wolves in thePlayer, true, 1)
-        .either(new REROL_graden_looked_a_fiend in thePlayer, true, 1)
-        .play(npc_actor);
-
-      (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_mhm_2 in thePlayer, true)
-        .then(0.2)
-        .play();
-
-      if (RandRange(10) > 5) {
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_really_helpful_that in thePlayer, true)
-        .play();
+      if (!should_continue) {
+        return;
       }
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .either(new REROL_graden_didnt_sound_like_wolves in thePlayer, true, 1)
+        .either(new REROL_graden_looked_a_fiend in thePlayer, true, 1),
+        npc_actor
+      );
+
+      if (!should_continue) {
+        return;
+      }
+
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_mhm_2 in thePlayer, true)
+        .then(0.2)
+      );
+
+      if (!should_continue) {
+        return;
+      }
+
+      if (RandRange(10) > 5) {
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_really_helpful_that in thePlayer, true)
+        );
+
+        if (!should_continue) {
+          return;
+        }
+      }
+
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
         .either(new REROL_fine_show_me_where_monsters in thePlayer, true, 1)
         .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
-        .play();
+      );
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
-        .play(npc_actor);
+      if (!should_continue) {
+        return;
+      }
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true),
+        npc_actor
+      );
+
+      if (!should_continue) {
+        return;
+      }
+
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_farewell in thePlayer, true)
-        .play();
+      );
 
+      if (!should_continue) {
+        return;
+      }
     }
-
-    // { // dialogs
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //   .start()
-    //   .dialog(new REROL_damien_greetings_witcher in thePlayer, true)
-    //   .play(npc_actor);
-
-    //   crowns_from_trophies = this.convertTrophiesIntoCrowns();
-    //   if (crowns_from_trophies > 0) {
-    //     NDEBUG("The bounty master bought your trophies for " + RER_yellowFont(crowns_from_trophies) + " crowns");
-    //   }
-
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //       .start()
-    //       .dialog(new REROL_what_surprise_new_monster_to_kill in thePlayer, true)
-    //       .play();
-
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //     .start()
-    //     .dialog(new REROL_damien_will_start_at_the_beginning in thePlayer, true)
-    //     .dialog(new REROL_damien_crespi_was_the_first_to_die in thePlayer, true)
-    //     .dialog(new REROL_damien_he_died_claws in thePlayer, true)
-    //     .play(npc_actor);
-
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //           .start()
-    //           .dialog(new REROL_i_see_the_wounds in thePlayer, true)
-    //           .dialog(new REROL_any_witnesses in thePlayer, true)
-    //           .play();
-
-    //   if (RandRange(10) > 5) {
-    //     (new RER_RandomDialogBuilder in thePlayer)
-    //         .start()
-    //         .dialog(new REROL_damien_you_insinuate_investigation_has_been_sloppy in thePlayer, true)
-    //         .play(npc_actor);
-
-    //     (new RER_RandomDialogBuilder in thePlayer)
-    //           .start()
-    //           .dialog(new REROL_see_the_wounds_what_kind_of_monster in thePlayer, true)
-    //           .play();
-    //   }
-
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //         .start()
-    //         .either(new REROL_damien_do_you_believe_me_an_amateur in thePlayer, true, 0.5)
-    //         .either(new REROL_damien_i_told_you_what_i_saw in thePlayer, true, 1)
-    //         .play(npc_actor);
-
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //           .start()
-    //           .either(new REROL_fine_show_me_where_monsters in thePlayer, true, 1)
-    //           .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
-    //           .play();
-
-    //   if (RandRange(10) > 5) {
-    //       (new RER_RandomDialogBuilder in thePlayer)
-    //           .start()
-    //           .dialog(new REROL_damien_i_should_double_patrols in thePlayer, true)
-    //           .play(npc_actor);
-
-    //       (new RER_RandomDialogBuilder in thePlayer)
-    //             .start()
-    //             .either(new REROL_this_is_work_for_witcher in thePlayer, true, 1)
-    //             .either(new REROL_send_them_certain_death in thePlayer, true, 1)
-    //             .either(new REROL_boys_could_handle_monsters in thePlayer, true, 1)
-    //             .play();
-
-    //       if (RandRange(10) > 5) {
-    //         (new RER_RandomDialogBuilder in thePlayer)
-    //           .start()
-    //           .either(new REROL_damien_to_a_lone_witcher in thePlayer, true, 1)
-    //           .either(new REROL_damien_my_guardsmen_in_action in thePlayer, true, 1)
-    //           .play(npc_actor);
-    //       }
-    //   }
-    //   else {
-    //     (new RER_RandomDialogBuilder in thePlayer)
-    //       .start()
-    //       .either(new REROL_damien_thank_you_i_hope_youre_worth_the_coin in thePlayer, true, 1)
-    //       .either(new REROL_damien_good_luck in thePlayer, true, 1)
-    //       .either(new REROL_damien_i_see_the_effort_you_put in thePlayer, true, 1)
-    //       .play(npc_actor);
-    //   }
-
-    //   (new RER_RandomDialogBuilder in thePlayer)
-    //     .start()
-    //     .then(1)
-    //     .dialog(new REROL_damien_do_not_tarry_time_is_not_our_friend in thePlayer, true)
-    //     .play(npc_actor);
-
-    // }
 
     distance_from_player = VecDistanceSquared(
       thePlayer.GetWorldPosition(),
@@ -462,11 +483,48 @@ state Talking in RER_BountyMasterManager {
     // start the bounty only if the player is close to the bounty master
     if (distance_from_player < radius) {
       parent.last_talking_time = theGame.GetEngineTimeAsSeconds();
-      this.openHaggleWindow();
+
+      // the player decided not to have the seed selector window show up. In this
+      // case, we directly notify the bounty manager we want a bounty with the
+      // seed 0.
+      // The seed 0 is a special case, with this seed everything is completely
+      // random and none of the values depend on the seed. Two bounties with
+      // the seed 0 are not guaranteed to be the same unlike other seeds.
+      if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERignoreSeedSelectorWindow')) {
+        parent.bountySeedSelected(0);
+      }
+      else {
+        this.openHaggleWindow();
+      }
     }
     else {
       parent.GotoState('Waiting');
     }
+  }
+
+  private function shouldCancelDialogue(squared_radius: float): bool {
+    return VecDistanceSquared(
+      thePlayer.GetWorldPosition(),
+      parent.bounty_master_entity.GetWorldPosition()
+    ) > squared_radius;
+  }
+
+  private latent function playDialogue(dialog_builder: RER_RandomDialogBuilder, optional npc: CActor): bool {
+    if (this.shouldCancelDialogue(3 * 3)) {
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
+        .play((CActor)(parent.bounty_master_entity));
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_farewell in thePlayer, true)
+        .play();
+
+      return false;
+    }
+
+    dialog_builder.play(npc);
+
+    return true;
   }
 
   // returns the amount of crowns the player received from the trophies
@@ -478,6 +536,7 @@ state Talking in RER_BountyMasterManager {
     var i: int;
     var output: int;
     var buying_price: float;
+    var quantity: int;
     
     buying_price = StringToFloat(
       theGame.GetInGameConfigWrapper()
@@ -492,11 +551,12 @@ state Talking in RER_BountyMasterManager {
 
     for (i = 0; i < trophy_guids.Size(); i += 1) {
       guid = trophy_guids[i];
+      quantity = inventory.GetItemQuantity(guid);
 
-      price = (int)(inventory.GetItemPrice(guid) * buying_price);
+      price = (int)(inventory.GetItemPrice(guid) * buying_price) * quantity;
 
       inventory.AddMoney(price);
-      inventory.RemoveItem(guid);
+      inventory.RemoveItem(guid, quantity);
 
       output += price;
     }

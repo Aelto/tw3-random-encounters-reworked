@@ -53,6 +53,4 @@ As you complete bounty hunts, the maximum level cap increases by 50. So the firs
 seed higher than level 50
 
 ## personal notes
-- Could use Graden voicelines
-- `theGame.CalculateTimePlayed()` and `GameTimeHours(game_time)` could be use to randomly select the position of the bounty master based on play time.
-- `DisplayTutorial` in `tutorialManager.ws`
+- a mod menu to skip the seed selection entirely
