@@ -258,7 +258,7 @@ state Talking in RER_BountyMasterManager {
 
     // 1. first we wait for the player to get near enough so that the bounty master
     //    starts calling him.
-    radius = 5 * 5;
+    radius = 3 * 3;
     distance_from_player = VecDistanceSquared(
       thePlayer.GetWorldPosition(),
       parent.bounty_master_entity.GetWorldPosition()
