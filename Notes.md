@@ -53,4 +53,4 @@ As you complete bounty hunts, the maximum level cap increases by 50. So the firs
 seed higher than level 50
 
 ## personal notes
-- a mod menu to skip the seed selection entirely
+- make the creature size scale on difficulty

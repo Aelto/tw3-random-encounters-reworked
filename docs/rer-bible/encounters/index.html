@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../master.css">
+  <title>RER Bible | Encounters</title>
+</head>
+<body>
+  
+  <h1>Random Encounters Reworked bible</h1>
+  <blockquote>Everything you need to know about RER</blockquote>
+  <a href="../index.html">back to summary</a>
+
+  <section>
+    <h2>Encounters</h2>
+
+    <p>
+      Encouters in RER are random groups of creatures you will encounter in your
+      world. These groups are spawned by RER around the player at random intervals.
+      Each of these encounters have different behaviours and do completely different
+      things, you can learn more by looking at their respective pages.
+    </p>
+
+    <p>
+      As said earlier, encounters are spawned at random intervals. You can control
+      this interval with the delay sliders in the <span>Encounters System / General</span>
+      menu.
+      <img src="delays.png" alt="image showing the two delay sliders">
+      You can set different delays for the night and the day, particularely useful
+      if you want encounters only during the night for example. In such case you'd
+      set the day delays to a really high value like 600 seconds (10 minutes).
+      <br>
+      There are two sliders each time, the minimum and maximum delay because RER
+      picks a random value between the two intervals. So with the settings shown in
+      the image RER will pick create an encounter at an interval between 60 and 130 seconds
+    </p>
+
+    <p>
+      You can also control how far encounters are created as encounters are spawned
+      around you. The distance sliders help you control this
+      <img src="distances.png" alt="image showing the three distance sliders">
+      the first slider, the <span>minimum spawn distance</span> controls the distance
+      at which encounters cannot be created. It is a safe radius around you.
+      <br>
+      The second slider <span>spawn diameter</span> is the danger zone after the safe zone
+      where encounters are created. So with the settings shown in the image encounters
+      will be created between 40 meters and 160 meters from you.
+      <br>
+      The last slider, the <span>automatic kill threshold</span> tells at which distance
+      RER considers an encounter lost and kills it to save performances. Because it is
+      not guaranteed creature from encounters will go towards Geralt, this slider is important.
+    </p>
+
+    <p>
+      Creatures from RER are always spawned at Geralt's level, it ensures a pleasant experience.
+      But you can control their level with the levels sliders
+      <img src="levels.png" alt="">
+      It is pretty simple, with <span>lowest: -3</span> and <span>highest: 3</span> you will get creatures
+      with a random level around yours but never higher than three levels and never lower than three.
+      <br>
+      You can set both sliders to <span>+10</span> and every creatures will be ten levels higher than you.
+    </p>
+
+    <p>
+      Static encounters are so simple they don't deserve they own menu, so their
+      spawn chance were set in this menu.
+      <img src="staticencounters.png" alt="image showing static encounters sliders">
+      If you want to learn more about them, see the static encounters page.
+    </p>
+
+    <p>
+      Creatures from encounters may drop tracks on the ground, this slider controls
+      how often they leave tracks and how dense the trails will be.
+      <img src="trailratio.png" alt="">
+      A value around
+      30% will result in vanilla like trails where tracks are placed every few meters.
+      While 100% will result in really dense trails that are easier to follow. But note
+      that RER limits 200 tracks per entity and after the limit is reached it starts
+      recycling old tracks to save performances. With really dense trails the entities
+      will reach the limit really fast and you may see trails disapear in front of your
+      eyes.
+    </p>
+  </section>
+
+</body>
+</html>
