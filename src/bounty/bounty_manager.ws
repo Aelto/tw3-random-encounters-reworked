@@ -470,7 +470,7 @@ class RER_BountyManager {
       case AN_Kaer_Morhen:
         // first the X coordinates
         min = -150;
-        max = 160;
+        max = 120;
 
         output.X = min + (max - min) * percent_x;
 
