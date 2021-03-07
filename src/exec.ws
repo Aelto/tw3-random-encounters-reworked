@@ -1,4 +1,41 @@
 
+exec function rergetpincoord() {
+  var id: int;
+  var index: int;
+  var x: float;
+  var y: float;
+  var type: int;
+  var area: int;
+
+  theGame.GetCommonMapManager().GetIdOfFirstUser1MapPin(id);
+
+  theGame.GetCommonMapManager()
+  .GetUserMapPinByIndex(
+    theGame.GetCommonMapManager().GetUserMapPinIndexById(
+      id
+    ),
+    id,
+    area,
+    x,
+    y,
+    type
+  );
+
+  NDEBUG("x: " + x + " y: " + y);
+}
+
+exec function rerremoveallpins() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  RER_removeAllPins(rer_entity.pin_manager);
+}
+
 // gpc for GetPlayerCoordinates
 exec function rergpc() {
   var entities: array<CGameplayEntity>;

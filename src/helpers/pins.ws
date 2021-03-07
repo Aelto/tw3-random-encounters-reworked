@@ -5,6 +5,26 @@ enum RER_PinType {
   RER_InfoPin = 3
 }
 
+function RER_removeAllPins(pin_manager: RER_PinManager) {
+  var manager  : CCommonMapManager;
+  var i: int;
+  var id: int;
+  var area: int;
+  var x: float;
+  var y: float;
+  var type: int;
+  var idx: int;
+
+  manager = theGame.GetCommonMapManager();
+
+  for (i = 0; i < manager.GetUserMapPinCount(); i += 1) {
+    if (manager.GetUserMapPinByIndex(i, id, area, x, y, type)) {
+      pin_manager.removePinHere(Vector(x, y), type);
+      // manager.ToggleUserMapPin(area, , type, false, idx, idx);
+    }
+  }
+}
+
 function RER_togglePinAtPosition(position: Vector, type: RER_PinType): bool {
   var manager  : CCommonMapManager;
   var id_to_add, id_to_remove: int;

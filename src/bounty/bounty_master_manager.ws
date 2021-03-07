@@ -200,7 +200,7 @@ state Waiting in RER_BountyMasterManager {
       parent.bounty_master_entity.GetWorldPosition()
     );
 
-    can_talk_again = theGame.GetEngineTimeAsSeconds() - parent.last_talking_time > 60;
+    can_talk_again = theGame.GetEngineTimeAsSeconds() - parent.last_talking_time > 15;
 
     // 
     while (distance_from_player > radius || !can_talk_again) {
@@ -209,7 +209,7 @@ state Waiting in RER_BountyMasterManager {
         parent.bounty_master_entity.GetWorldPosition()
       );
       
-      can_talk_again = theGame.GetEngineTimeAsSeconds() - parent.last_talking_time > 60;
+      can_talk_again = theGame.GetEngineTimeAsSeconds() - parent.last_talking_time > 15;
 
       if (distance_from_player > radius * 2) {
         parent.bounty_manager.master.pin_manager.addPinHere(
@@ -243,6 +243,7 @@ state Talking in RER_BountyMasterManager {
 
   entry function Talking_main() {
     this.runConversation();
+    parent.GotoState('Waiting');
   }
 
   latent function runConversation() {

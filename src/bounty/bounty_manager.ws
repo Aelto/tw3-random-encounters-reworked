@@ -7,6 +7,9 @@ class RER_BountyManager extends CEntity {
   // the list of hunting grounds for the current bounty.
   var currently_managed_groups: array<RandomEncountersReworkedHuntingGroundEntity>;
 
+  // uses the group indices for the position indices
+  var cached_bounty_group_positions: array<Vector>;
+
   public function init(master: CRandomEncounters) {
     this.master = master;
     this.bounty_master_manager = new RER_BountyMasterManager in this;
@@ -22,6 +25,8 @@ class RER_BountyManager extends CEntity {
     if (!this.master.storages.bounty.current_bounty.is_active) {
       return;
     }
+
+    this.cached_bounty_group_positions = this.getAllBountyGroupPositions();
 
     bounty = this.getCurrentBountyCopy();
 
@@ -43,6 +48,29 @@ class RER_BountyManager extends CEntity {
 
       this.currently_managed_groups.PushBack(new_managed_group);
     }
+  }
+
+  public function getAllBountyGroupPositions(): array<Vector> {
+    var groups: array<RER_BountyRandomMonsterGroupData>;
+    var positions: array<Vector>;
+    var i: int;
+
+    groups = this.master.storages.bounty.current_bounty.random_data.groups;
+
+    for (i = 0; i < groups.Size(); i += 1) {
+      positions.PushBack(
+        this.getSafeCoordinatesFromPoint(
+          this.moveCoordinatesAwayFromSafeAreas(
+            this.getCoordinatesFromPercentValues(
+              groups[i].position_x,
+              groups[i].position_y
+            )
+          )
+        )
+      );
+    }
+
+    return positions;
   }
 
   public function getCurrentBountyCopy(): RER_Bounty {
@@ -163,10 +191,14 @@ class RER_BountyManager extends CEntity {
     
     this.master.storages.bounty.current_bounty = bounty;
 
+    RER_removeAllPins(this.master.pin_manager);
+
     this.master
         .storages
         .bounty
         .save();
+
+    this.cached_bounty_group_positions = this.getAllBountyGroupPositions();
 
     NLOG("starting bounty with " + this.master.storages.bounty.current_bounty.random_data.groups.Size() + " groups");
 
@@ -264,12 +296,7 @@ class RER_BountyManager extends CEntity {
 
     // there is still a group to pick
     if (this.getRandomGroupToPick(this.master.storages.bounty.current_bounty, random_group, random_group_index)) {
-      position = this.getSafeCoordinatesFromPoint(
-        this.getCoordinatesFromPercentValues(
-          random_group.position_x,
-          random_group.position_y
-        )
-      );
+      position = this.cached_bounty_group_positions[random_group_index];
 
       this.master
         .pin_manager
@@ -319,8 +346,9 @@ class RER_BountyManager extends CEntity {
     this.progressThroughCurrentBounty();
 
     (new RER_RandomDialogBuilder in thePlayer).start()
-    .either(new REROL_alright_whats_next in thePlayer, true, 1)
-    .either(new REROL_thats_my_next_destination in thePlayer, true, 1)
+    .then(2)
+    .either(new REROL_alright_whats_next in thePlayer, false, 1)
+    .either(new REROL_thats_my_next_destination in thePlayer, false, 1)
     .play();
   }
 
@@ -362,15 +390,18 @@ class RER_BountyManager extends CEntity {
     var rer_entity_template: CEntityTemplate;
     var entities: array<CEntity>;
     var position: Vector;
+    var player_position: Vector;
     var i: int;
 
     bestiary_entry = this.master.bestiary.entries[group_data.type];
-    position = this.getSafeCoordinatesFromPoint(
-      this.getCoordinatesFromPercentValues(
-        group_data.position_x,
-        group_data.position_y
-      )
-    );
+    position = this.cached_bounty_group_positions[group_index];
+
+    // to get it closer to the real ground position. It works because bounty
+    // groups are spawned only when the player gets close.
+    if (position.Z == 0) {
+      player_position = thePlayer.GetWorldPosition();
+      position.Z = player_position.Z;
+    }
 
     entities = bestiary_entry.spawn(
       this.master,
@@ -379,7 +410,8 @@ class RER_BountyManager extends CEntity {
       , // density
       true, // trophies
       EncounterType_HUNTINGGROUND,
-      true
+      ,
+      true // no bestiary
     );
 
     NLOG("bounty group " + group_index + " spawned " + entities.Size() + " entities at " + VecToString(position));
@@ -423,12 +455,7 @@ class RER_BountyManager extends CEntity {
     var position: Vector;
     var i: int;
 
-    position = this.getSafeCoordinatesFromPoint(
-      this.getCoordinatesFromPercentValues(
-        group_data.position_x,
-        group_data.position_y
-      )
-    );
+    position = this.cached_bounty_group_positions[group_index];
     
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
@@ -509,7 +536,7 @@ class RER_BountyManager extends CEntity {
 
       case AN_Kaer_Morhen:
         // first the X coordinates
-        min = -150;
+        min = -180;
         max = 50;
 
         output.X = min + (max - min) * percent_x;
@@ -629,6 +656,109 @@ class RER_BountyManager extends CEntity {
     return output;
   }
 
+  // the goal of this function is to move the supplied from outside pre-defined
+  // safe areas in the world. The safe areas were made because the original bounds
+  // are rectangular and sometimes to avoid a single unreachable area it would mean
+  // removing 50% of the bound width, which i don't want.
+  // The safe areas are circles with a radius, and the start by all the safe areas
+  // the point is in. And then we add to a displacement vector all the translations
+  // needed to move the point out of the areas. Because we don't do it one by one
+  // and instead add all the translations needed, it creates a sort of "mean"
+  // vector that will gracefully move the point outside of ALL areas.
+  public function moveCoordinatesAwayFromSafeAreas(point: Vector): Vector {
+    var current_distance_percentage: float;
+    var distance_from_center: float;
+    var displacement_vector: Vector;
+    var safe_areas: array<Vector>;
+    var squared_radius: float;
+    var i: int;
+
+    safe_areas = this.getSafeAreasByRegion(
+      AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea())
+    );
+
+    NLOG("moveCoordinatesAwayFromSafeAreas 1.");
+
+    for (i = 0; i < safe_areas.Size(); i += 1) {
+      squared_radius = safe_areas[i].Z * safe_areas[i].Z;
+      distance_from_center = VecDistanceSquared2D(safe_areas[i], point);
+
+      // the point is not inside the circle, skip
+      if (distance_from_center > squared_radius) {
+        continue;
+      }
+
+      current_distance_percentage = distance_from_center / squared_radius;
+
+      NLOG("moveCoordinatesAwayFromSafeAreas, squared radius = " + squared_radius + " distance_percentage = " + current_distance_percentage);
+
+      displacement_vector += VecInterpolate(
+        Vector(safe_areas[i].X, safe_areas[i].Y, point.Z),
+        point,
+        1 - current_distance_percentage
+      );
+    }
+
+    NLOG("moveCoordinatesAwayFromSafeAreas 2.");
+
+    return point + displacement_vector;
+  }
+
+  // the safe areas are Vectors where X and Y are used for the coordinates,
+  // and Z is the radius. I didn't want to create yet another struct for it.
+  public function getSafeAreasByRegion(region: string): array<Vector> {
+    var areas: array<Vector>;
+
+    /*
+    // the javascript code used to generate the coordinates.
+    // combined with the rergetpincoord command
+    {
+    // center of the circle
+    const a = { x: -340, y: -450 };
+    // edge of the circle
+    const b = { x: -140, y: -320 };
+
+    const radius = Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+
+    `areas.PushBack(Vector(${a.x}, ${a.y}, ${Math.round(radius)}));`
+    }
+
+    */
+
+    switch (region) {
+      case 'prolog_village':
+      case 'prolog_village_winter':
+      break;
+
+      case 'no_mans_land':
+      case 'novigrad':
+      areas.PushBack(Vector(340, 1980, 502)); // novigrad
+      areas.PushBack(Vector(1760, 900, 215)); // oxenfurt
+
+      break;
+
+      case 'skellige':
+      areas.PushBack(Vector(-100, -636, 110)); // kaer trolde
+      areas.PushBack(Vector(-90, -800, 162)); // big mountain south of the main island
+      areas.PushBack(Vector(-1700, -1000, 304)); // forge mountain on the giant's island
+      break;
+
+      case 'kaer_morhen':
+      areas.PushBack(Vector(-11, 19, 95)); // the keep
+      areas.PushBack(Vector(130, 210, 183)); // the big mountain north of the keep
+      areas.PushBack(Vector(-500, -700, 330)); // the mountain south west of the map
+      areas.PushBack(Vector(-340, -450, 239)); // same
+      areas.PushBack(Vector(-620, 500, 330)); // a mountain north west of the map
+      areas.PushBack(Vector(-100, -106, 30)); // the tower near the keep
+      break;
+
+      case 'bob':
+      break;
+    }
+
+    return areas;
+  }
+
   // return the maximum progress the bounty will have for this seed. Each progress
   // level is a group of creatures.
   public function getNumberOfGroupsForSeed(seed: int): int {
@@ -699,7 +829,7 @@ state Processing in RER_BountyManager {
     var player_position: Vector;
 
     groups = parent.master.storages.bounty.current_bounty.random_data.groups;
-    max_distance = 50 * 50;
+    max_distance = 100 * 100;
     player_position = thePlayer.GetWorldPosition();
 
     for (i = 0; i < groups.Size(); i += 1) {
@@ -708,12 +838,7 @@ state Processing in RER_BountyManager {
       }
 
       // here, we know the group we currently have was picked and was not spawned
-      position = parent.getSafeCoordinatesFromPoint(
-        parent.getCoordinatesFromPercentValues(
-          groups[i].position_x,
-          groups[i].position_y
-        )
-      );
+      position = parent.cached_bounty_group_positions[i];
 
       position.Z = player_position.Z;
 
