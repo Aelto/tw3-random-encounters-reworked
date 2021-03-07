@@ -41,4 +41,7 @@ struct RER_BountyRandomMonsterGroupData {
 
   var was_spawned: bool;
   var was_killed: bool;
+  // set to true when the group was picked and was set to appear on the map.
+  // but it may not be spawned yet.
+  var was_picked: bool;
 }

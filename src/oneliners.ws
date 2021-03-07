@@ -1035,6 +1035,16 @@ class REROL_i_am_dont_seen_notice extends RER_DialogData {
   default dialog_id = 1153652;
 }
 
+// Geralt: alright what's next?
+class REROL_alright_whats_next extends RER_DialogData {
+  default dialog_id = 1044520;
+}
+
+// Geralt: That's my next destination.
+class REROL_thats_my_next_destination extends RER_DialogData {
+  default dialog_id = 1206128;
+}
+
 // Geralt: Lemme guess - there's a monster needs killing.
 class REROL_lemme_guess_monster_needs_killing extends RER_DialogData {
   default dialog_id = 1097914;

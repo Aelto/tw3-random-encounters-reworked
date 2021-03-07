@@ -67,7 +67,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     var i: int;
 
     for (i = 0; i < this.entities.Size(); i += 1) {
-      if (((CActor)this.entities[i]).IsAlive()) {
+      if (((CActor)this.entities[i]).GetHealthPercents() >= 0.01) {
         return false;
       }
     }

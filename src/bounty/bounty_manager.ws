@@ -1,6 +1,6 @@
 
 
-class RER_BountyManager {
+class RER_BountyManager extends CEntity {
   var master: CRandomEncounters;
   var bounty_master_manager: RER_BountyMasterManager;
 
@@ -10,6 +10,7 @@ class RER_BountyManager {
   public function init(master: CRandomEncounters) {
     this.master = master;
     this.bounty_master_manager = new RER_BountyMasterManager in this;
+    this.GotoState('Processing');
   }
 
   public latent function retrieveBountyGroups() {
@@ -169,20 +170,24 @@ class RER_BountyManager {
 
     NLOG("starting bounty with " + this.master.storages.bounty.current_bounty.random_data.groups.Size() + " groups");
 
-    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size(); i += 1) {
-      new_managed_group = this.spawnBountyGroup(
-        this.master.storages.bounty.current_bounty.random_data.groups[i],
-        i
-      );
-
-      this.currently_managed_groups.PushBack(new_managed_group);
-
-      // don't spawn more than 5 groups at the start.
-      // The rest of the groups are spawned the player progresses through the bounty.
-      if (i >= 4) {
-        break;
-      }
+    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size() && i < 4; i += 1) {
+      this.progressThroughCurrentBounty();
     }
+
+    // for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size(); i += 1) {
+    //   new_managed_group = this.spawnBountyGroup(
+    //     this.master.storages.bounty.current_bounty.random_data.groups[i],
+    //     i
+    //   );
+
+    //   this.currently_managed_groups.PushBack(new_managed_group);
+
+    //   // don't spawn more than 5 groups at the start.
+    //   // The rest of the groups are spawned the player progresses through the bounty.
+    //   if (i >= 4) {
+    //     break;
+    //   }
+    // }
 
     theSound.SoundEvent( 'gui_enchanting_socket_add' );
 
@@ -222,16 +227,12 @@ class RER_BountyManager {
     var current_seed: int;
     var random_group: RER_BountyRandomMonsterGroupData;
     var random_group_index: int;
-    var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
+    // var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
+    var position: Vector;
 
     if (!this.master.storages.bounty.current_bounty.is_active) {
       return;
     }
-
-    this.master
-        .storages
-        .bounty
-        .save();
 
     // if the player has killed enough groups then we consider the bounty finished
     if (!this.hasAnyGroupToKillYet(this.master.storages.bounty.current_bounty)) {
@@ -261,12 +262,30 @@ class RER_BountyManager {
       return;
     }
 
-    // there is still a group to spawn
-    if (this.getRandomGroupToSpawn(this.master.storages.bounty.current_bounty, random_group, random_group_index)) {
-      NLOG("progress - still one group to spawn, spawning it " + random_group_index);
-      new_managed_group = this.spawnBountyGroup(random_group, random_group_index);
+    // there is still a group to pick
+    if (this.getRandomGroupToPick(this.master.storages.bounty.current_bounty, random_group, random_group_index)) {
+      position = this.getSafeCoordinatesFromPoint(
+        this.getCoordinatesFromPercentValues(
+          random_group.position_x,
+          random_group.position_y
+        )
+      );
 
-      this.currently_managed_groups.PushBack(new_managed_group);
+      this.master
+        .pin_manager
+        .addPinHere(position, RER_SkullPin);
+
+      this.master
+        .storages
+        .bounty
+        .current_bounty
+        .random_data
+        .groups[random_group_index].was_picked = true;
+
+    this.master
+      .storages
+      .bounty
+      .save();
     }
   }
 
@@ -298,6 +317,11 @@ class RER_BountyManager {
 
 
     this.progressThroughCurrentBounty();
+
+    (new RER_RandomDialogBuilder in thePlayer).start()
+    .either(new REROL_alright_whats_next in thePlayer, true, 1)
+    .either(new REROL_thats_my_next_destination in thePlayer, true, 1)
+    .play();
   }
 
   // returns false if it could not find any more group to spawn in the supplied bounty.
@@ -306,6 +330,22 @@ class RER_BountyManager {
 
     for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
       if (!bounty.random_data.groups[i].was_spawned) {
+        group_data = bounty.random_data.groups[i];
+        group_index = i;
+        
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // returns false if it could not find any more group to pick in the supplied bounty.
+  public function getRandomGroupToPick(bounty: RER_Bounty, out group_data: RER_BountyRandomMonsterGroupData, out group_index: int): bool {
+    var i: int;
+
+    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
+      if (!bounty.random_data.groups[i].was_picked) {
         group_data = bounty.random_data.groups[i];
         group_index = i;
         
@@ -470,7 +510,7 @@ class RER_BountyManager {
       case AN_Kaer_Morhen:
         // first the X coordinates
         min = -150;
-        max = 120;
+        max = 50;
 
         output.X = min + (max - min) * percent_x;
 
@@ -617,5 +657,84 @@ class RER_BountyManager {
       .storages
       .bounty
       .save();
+  }
+}
+
+state Processing in RER_BountyManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    NLOG("RER_BountyManager - Processing");
+
+    this.Processing_main();
+  }
+
+  entry function Processing_main() {
+
+    // we also call it instantly to handle cases where the player teleported near
+    // a group that was picked but not spawned yet
+    this.spawnNearbyBountyGroups();
+
+    while (true) {
+      Sleep(10);
+
+      // no active bounty, do nothing
+      if (!parent.master.storages.bounty.current_bounty.is_active) {
+        continue;
+      }
+
+      this.spawnNearbyBountyGroups();
+
+    }
+
+  }
+
+  latent function spawnNearbyBountyGroups() {
+    var i: int;
+    var groups: array<RER_BountyRandomMonsterGroupData>;
+    var position: Vector;
+    var distance_from_player: float;
+    var max_distance: float;
+    var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
+    var player_position: Vector;
+
+    groups = parent.master.storages.bounty.current_bounty.random_data.groups;
+    max_distance = 50 * 50;
+    player_position = thePlayer.GetWorldPosition();
+
+    for (i = 0; i < groups.Size(); i += 1) {
+      if (!groups[i].was_picked || groups[i].was_spawned) {
+        continue;
+      }
+
+      // here, we know the group we currently have was picked and was not spawned
+      position = parent.getSafeCoordinatesFromPoint(
+        parent.getCoordinatesFromPercentValues(
+          groups[i].position_x,
+          groups[i].position_y
+        )
+      );
+
+      position.Z = player_position.Z;
+
+      distance_from_player = VecDistanceSquared(
+        player_position,
+        position
+      );
+
+      // the player is too far from the group, we'll wait for him to get closer
+      // before spawning it
+      if (distance_from_player > max_distance) {
+        continue;
+      }
+
+      new_managed_group = parent.spawnBountyGroup(
+        parent.master.storages.bounty.current_bounty.random_data.groups[i],
+        i
+      );
+
+      parent.currently_managed_groups.PushBack(new_managed_group);
+    }
+    
   }
 }
