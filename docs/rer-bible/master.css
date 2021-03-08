@@ -59,9 +59,9 @@ h2 {
   text-decoration: underline;
 }
 
-section {
+/* section {
   border-top: solid 8px white;
-}
+} */
 
 *:target {
   border-left: solid 6px black;
