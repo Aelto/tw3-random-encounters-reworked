@@ -75,4 +75,7 @@ img, iframe {
   margin: 2em 0;
   border-radius: 3px;
   box-shadow: 0 6px 24px 2px rgb(0 0 0 / 30%);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
