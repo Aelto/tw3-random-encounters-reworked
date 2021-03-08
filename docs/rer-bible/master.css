@@ -71,7 +71,7 @@ h2 {
 }
 
 img, iframe {
-  width: 100%;
+  max-width: 100%;
   margin: 2em 0;
   border-radius: 3px;
   box-shadow: 0 6px 24px 2px rgb(0 0 0 / 30%);
