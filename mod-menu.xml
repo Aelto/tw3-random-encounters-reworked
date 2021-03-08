@@ -5885,6 +5885,8 @@
             <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
 
             <Var id="RERcameraScenesDisabledOnHorse" displayName="rer_camera_immersive_camera_compatibility" displayType="TOGGLE"/>
+            
+            <Var id="RERdelayLoadingStart" displayName="rer_delay_loading_start" displayType="TOGGLE"/>
 
             <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="SLIDER;0;100;100"></Var>
 

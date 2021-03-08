@@ -266,3 +266,4 @@
 2115018265|        |rer_bounty_notice_description|The bounty master is looking for a Witcher, monsters to be killed. Come with a bounty notice for an increased reward.
 2115018266|        |item_desc_trophy|A monster trophy, the bounty master will probably buy it at a better price.
 2115018267|        |option_rer_ignore_seed_selector_window|Skip bounty seed selector window
+2115018268|        |option_rer_delay_loading_start|Delay RER loading start (Bootstrap Hooked compatibility)

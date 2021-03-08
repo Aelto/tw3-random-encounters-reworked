@@ -32,6 +32,14 @@ statemachine class RER_BountyMasterManager {
       valid_positions.Size()
     ) % valid_positions.Size(); // the % is just in case
 
+    if (position_index < 0 || position_index > valid_positions.Size() - 1) {
+      position_index = (int)RandNoiseF(thePlayer.GetLevel(), valid_positions.Size() - 1) % valid_positions.Size();
+    }
+
+    if (position_index < 0 || position_index > valid_positions.Size() - 1) {
+      position_index = 0;
+    }
+
     // the bounty master already exist
     if (this.bounty_master_entity) {
       NLOG("bounty master exists, template = " + StrAfterFirst(this.bounty_master_entity.ToString(), "::"));

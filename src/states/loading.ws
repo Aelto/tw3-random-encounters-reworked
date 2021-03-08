@@ -8,6 +8,12 @@ state Loading in CRandomEncounters {
   }
 
   entry function startLoading() {
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERdelayLoadingStart')) {
+      NLOG("Delaying RER loading start");
+
+      Sleep(5);
+    }
+
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
     this.registerStaticEncounters();
 
