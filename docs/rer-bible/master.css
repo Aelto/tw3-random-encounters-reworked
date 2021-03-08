@@ -1,9 +1,16 @@
+:root {
+  --color-accent: #a78445;
+  --color-dark: #171413;
+  --color-light: #b5b3b3;
+  --color-light-transparent: #0000008f;
+}
+
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* background: black;
-  color: white; */
+  background: var(--color-dark);
+  color: var(--color-light);
 
 }
 
@@ -20,15 +27,15 @@ html {
 span {
   /* background: rgba(255, 255, 255, 1); */
   /* color: black; */
-  background: black;
-  color: white;
+  background: var(--color-light-transparent);
+  color: var(--color-accent);
   padding: .2em .2em;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   white-space: nowrap;
 }
 
 a {
-  /* color: white; */
+  color: var(--color-accent);
 }
 
 blockquote {
