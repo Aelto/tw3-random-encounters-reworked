@@ -36,6 +36,21 @@ exec function rerremoveallpins() {
   RER_removeAllPins(rer_entity.pin_manager);
 }
 
+exec function rerabandonbounty() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.storages.bounty.current_bounty.is_active = false;
+  rer_entity.storages.bounty.save();
+
+  NDEBUG("The bounty was removed, you can safely remove the markers.");
+}
+
 // gpc for GetPlayerCoordinates
 exec function rergpc() {
   var entities: array<CGameplayEntity>;
