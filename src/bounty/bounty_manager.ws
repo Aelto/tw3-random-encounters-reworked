@@ -106,7 +106,7 @@ class RER_BountyManager extends CEntity {
 
   // create a new bounty struct with all the data we need to know about the new
   // bounty.
-  public function getNewBounty(seed: int): RER_Bounty {
+  public latent function getNewBounty(seed: int): RER_Bounty {
     var bounty: RER_Bounty;
 
     if (seed <= 0) {
@@ -121,7 +121,7 @@ class RER_BountyManager extends CEntity {
     return bounty;
   }
 
-  public function generateRandomDataForBounty(seed: int): RER_BountyRandomData {
+  public latent function generateRandomDataForBounty(seed: int): RER_BountyRandomData {
     var current_group_data: RER_BountyRandomMonsterGroupData;
     var current_bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
@@ -140,9 +140,19 @@ class RER_BountyManager extends CEntity {
     for (i = 0; i < number_of_groups; i += 1) {
       current_group_data = RER_BountyRandomMonsterGroupData();
 
-      current_group_data.type = (int)(rng.next() * (int)CreatureMAX);
-      
-      current_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
+      if (seed == 0) {
+        current_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
+          this.master,
+          EncounterType_HUNTINGGROUND
+        );
+
+        current_group_data.type = current_bestiary_entry.type;
+      }
+      else {
+        current_group_data.type = (int)(rng.next() * (int)CreatureMAX);
+        
+        current_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
+      }
       
       current_group_data.count = rollDifficultyFactorWithRng(
         current_bestiary_entry.template_list.difficulty_factor,

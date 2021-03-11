@@ -592,7 +592,7 @@ state CreateBounty in RER_BountyMasterManager {
 
   entry function CreateBounty_main() {
     parent.bounty_manager
-      .startBounty(parent.picked_seed);
+      .startBounty(parent.bounty_manager.getNewBounty(parent.picked_seed));
 
       parent.GotoState('Waiting');
   }
