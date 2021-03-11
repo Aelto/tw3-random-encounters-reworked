@@ -104,7 +104,7 @@ statemachine class RER_BountyMasterManager {
         output.PushBack(Vector(491.3, -64.7, 8.9));
 
         // Woeson Bridge - white orchard blacksmith
-        output.PushBack(Vector(11.5, -24.9, 2.2));
+        output.PushBack(Vector(11.5, -24.9, 2.3));
         
         break;
 
@@ -142,7 +142,7 @@ statemachine class RER_BountyMasterManager {
         output.PushBack(Vector(543, 1669, 4.12));
 
         // Novigrad - rosemary and thyme
-        output.PushBack(Vector(707.6, 1751.2, 4.2));
+        output.PushBack(Vector(707.6, 1751.2, 4.3));
 
         // Oxenfurt - novigrad gate
         output.PushBack(Vector(1758, 1049, 6.8));
