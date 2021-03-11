@@ -83,6 +83,7 @@ class RE_Settings {
     this.loadModEnabledSettings(inGameConfigWrapper);
     this.loadMonsterHuntsChances(inGameConfigWrapper);
     this.loadMonsterContractsChances(inGameConfigWrapper);
+    this.loadMonsterHuntingGroundChances(inGameConfigWrapper);
     this.loadMonsterAmbushChances(inGameConfigWrapper);
     this.loadMonsterContractsLongevity(inGameConfigWrapper);
     this.loadCustomFrequencies(inGameConfigWrapper);
