@@ -32,7 +32,7 @@ class RER_BountyManager extends CEntity {
 
     for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
       // it was not spawned earlier so we skip it
-      if (!bounty.random_data.groups[i].was_spawned) {
+      if (!bounty.random_data.groups[i].was_picked) {
         continue;
       }
 
@@ -41,12 +41,18 @@ class RER_BountyManager extends CEntity {
         continue;
       }
 
-      // now if the group was spawned earlier and was not killed it,
-      // we create a new hunting group there with the bounty entities around the
-      // point.
-      new_managed_group = retrieveBountyGroup(bounty.random_data.groups[i], i);
+      if (bounty.random_data.groups[i].was_spawned) {
+        // now if the group was spawned earlier and was not killed,
+        // we create a new hunting group there with the bounty entities around the
+        // point.
+        new_managed_group = retrieveBountyGroup(bounty.random_data.groups[i], i);
 
-      this.currently_managed_groups.PushBack(new_managed_group);
+        this.currently_managed_groups.PushBack(new_managed_group);
+      }
+
+      this.master
+        .pin_manager
+        .addPinHere(this.cached_bounty_group_positions[i], RER_SkullPin);
     }
   }
 
@@ -109,9 +115,9 @@ class RER_BountyManager extends CEntity {
   public latent function getNewBounty(seed: int): RER_Bounty {
     var bounty: RER_Bounty;
 
-    if (seed <= 0) {
-      seed = RandRange(this.getMaximumSeed());
-    }
+    // if (seed <= 0) {
+    //   seed = RandRange(this.getMaximumSeed());
+    // }
 
     bounty = RER_Bounty();
     bounty.seed = seed;
@@ -136,6 +142,8 @@ class RER_BountyManager extends CEntity {
 
     data = RER_BountyRandomData();
     number_of_groups = this.getNumberOfGroupsForSeed(seed);
+
+    NLOG("number of groups = " + number_of_groups);
 
     for (i = 0; i < number_of_groups; i += 1) {
       current_group_data = RER_BountyRandomMonsterGroupData();
@@ -200,6 +208,8 @@ class RER_BountyManager extends CEntity {
     this.currently_managed_groups.Clear();
     
     this.master.storages.bounty.current_bounty = bounty;
+
+    NLOG("starting bounty with " + bounty.random_data.groups.Size() + " groups");
 
     RER_removeAllPins(this.master.pin_manager);
 

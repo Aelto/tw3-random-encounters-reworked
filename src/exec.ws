@@ -433,9 +433,13 @@ state RunChallengeMode in RER_ExecRunner {
   }
 
   entry function RunChallengeMode_main() {
+    var bounty: RER_Bounty;
+
+    bounty = parent.master.bounty_manager.getNewBounty(parent.seed);
+
     parent.master
       .bounty_manager
-      .startBounty(parent.master.bounty_manager.getNewBounty(parent.seed));
+      .startBounty(bounty);
 
     NDEBUG("A bounty was created with the seed " + RER_yellowFont(parent.seed));
   }
