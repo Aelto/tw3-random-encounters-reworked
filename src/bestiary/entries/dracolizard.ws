@@ -14,12 +14,19 @@ class RER_BestiaryDracolizard extends RER_BestiaryEntry {
       )
     );
 
-      this.template_list.difficulty_factor.minimum_count_easy = 1;
-      this.template_list.difficulty_factor.maximum_count_easy = 1;
-      this.template_list.difficulty_factor.minimum_count_medium = 1;
-      this.template_list.difficulty_factor.maximum_count_medium = 1;
-      this.template_list.difficulty_factor.minimum_count_hard = 1;
-      this.template_list.difficulty_factor.maximum_count_hard = 1;
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\oszluzg.w2ent",,,
+        "dlc\bob\journal\bestiary\dracolizard.journal"
+      )
+    );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
 
     this.trophy_names.PushBack('modrer_dracolizard_trophy_low');
     this.trophy_names.PushBack('modrer_dracolizard_trophy_medium');
