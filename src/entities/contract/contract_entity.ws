@@ -262,7 +262,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     player_position = thePlayer.GetWorldPosition();
 
     for (i = 0; i < this.entities.Size(); i += 1) {
-      if (VecDistanceSquared(this.entities[i].GetWorldPosition(), player_position) < 30 * 30) {
+      if (VecDistanceSquared(this.entities[i].GetWorldPosition(), player_position) < 30 * 30 * ((int)((CNewNPC)this.entities[i]).IsFlying() + 1)) {
         return false;
       }
     }
