@@ -12,7 +12,7 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
     if (parent.is_bounty) {
       parent.bounty_manager.notifyHuntingGroundKilled(parent.bounty_group_index);
 
-      parent.master.pin_manager.removePinHere(parent.GetWorldPosition(), RER_SkullPin);
+      parent.master.pin_manager.removePinHere(parent.GetWorldPosition(), RER_SkullPin, -1);
     }
 
     parent.clean();

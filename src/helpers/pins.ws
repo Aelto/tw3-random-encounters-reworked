@@ -1,11 +1,12 @@
 
 enum RER_PinType {
+  RER_DefaultPin = 0,
   RER_SkullPin = 1,
   RER_InterestPin = 2,
   RER_InfoPin = 3
 }
 
-function RER_removeAllPins(pin_manager: RER_PinManager) {
+function RER_removeAllPins(pin_manager: RER_PinManager, optional pin_type: RER_PinType) {
   var manager  : CCommonMapManager;
   var i: int;
   var id: int;
@@ -19,21 +20,26 @@ function RER_removeAllPins(pin_manager: RER_PinManager) {
 
   for (i = 0; i < manager.GetUserMapPinCount(); i += 1) {
     if (manager.GetUserMapPinByIndex(i, id, area, x, y, type)) {
-      pin_manager.removePinHere(Vector(x, y), type);
-      // manager.ToggleUserMapPin(area, , type, false, idx, idx);
+      if (pin_type == RER_DefaultPin || type == pin_type) {
+        pin_manager.removePinHere(Vector(x, y), type, area);
+      }
     }
   }
 }
 
-function RER_togglePinAtPosition(position: Vector, type: RER_PinType): bool {
+function RER_togglePinAtPosition(position: Vector, type: RER_PinType, area: int): bool {
   var manager  : CCommonMapManager;
   var id_to_add, id_to_remove: int;
 
   manager = theGame.GetCommonMapManager();
 
+  if (area < 0) {
+    area = manager.GetCurrentArea();
+  }
+
   manager
   .ToggleUserMapPin(
-    manager.GetCurrentArea(),
+    area,
     position,
     (int)type,
     false,
@@ -50,6 +56,7 @@ function RER_togglePinAtPosition(position: Vector, type: RER_PinType): bool {
 struct RER_PinManagerRequest {
   var position: Vector;
   var type: RER_PinType;
+  var area: int;
 }
 
 // Should be used when creating multiple pins at the same time. It seems the game
@@ -60,7 +67,7 @@ struct RER_PinManagerRequest {
 // queue, the class will enter in state where it empties the queue with a delay
 // between each pin.
 // Once the queue is empty it returns to the waiting state.
-class RER_PinManager extends CEntity {
+statemachine class RER_PinManager extends CEntity {
   // queues for pins to add or remove.
   // The difference between them is that we cannot know if there is a pin at the
   // given position or not. Our only way to know if there was a pin at a position
@@ -74,15 +81,16 @@ class RER_PinManager extends CEntity {
   var remove_queue: array<RER_PinManagerRequest>;
 
   public function addPinHere(position: Vector, type: RER_PinType) {
-    this.add_queue.PushBack(RER_PinManagerRequest(position, type));
+    this.add_queue.PushBack(RER_PinManagerRequest(position, type, -1));
 
     if (this.GetCurrentStateName() != 'Processing') {
       this.GotoState('Processing');
     }
   }
 
-  public function removePinHere(position: Vector, type: RER_PinType) {
-    this.remove_queue.PushBack(RER_PinManagerRequest(position, type));
+  // use -1 for the area if you want the current area
+  public function removePinHere(position: Vector, type: RER_PinType, area: int) {
+    this.remove_queue.PushBack(RER_PinManagerRequest(position, type, area));
 
     if (this.GetCurrentStateName() != 'Processing') {
       this.GotoState('Processing');
@@ -118,7 +126,7 @@ state Processing in RER_PinManager {
       // we initially wanted to add a pin here but the return values says we
       // removed one. It means there was already a toggle at the position, so we
       // add a new request in the queue that will add the pin back.
-      if (!RER_togglePinAtPosition(current_request.position, current_request.type)) {
+      if (!RER_togglePinAtPosition(current_request.position, current_request.type, current_request.area)) {
         parent.addPinHere(current_request.position, current_request.type);
       }
 
@@ -131,8 +139,8 @@ state Processing in RER_PinManager {
       // we initially wanted to remove a pin here but the return values says
       // we added one. It means there was already a toggle at the position, so
       // we add a new request in the queue that will remove the pin this time.
-      if (RER_togglePinAtPosition(current_request.position, current_request.type)) {
-        parent.removePinHere(current_request.position, current_request.type);
+      if (RER_togglePinAtPosition(current_request.position, current_request.type, current_request.area)) {
+        parent.removePinHere(current_request.position, current_request.type, current_request.area);
       }
 
       Sleep(0.5);

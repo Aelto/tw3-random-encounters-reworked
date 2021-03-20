@@ -126,7 +126,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     }
 
     if (can_show_markers) {
-      parent.master.pin_manager.removePinHere(position, RER_InfoPin);
+      parent.master.pin_manager.removePinHere(position, RER_InfoPin, -1);
     }
   }
 

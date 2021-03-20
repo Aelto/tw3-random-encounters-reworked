@@ -273,7 +273,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     if (can_show_markers) {
       parent.master.pin_manager.removePinHere(
         this.investigation_center_position,
-        RER_InfoPin
+        RER_InfoPin,
+        -1
       );
     }
 
