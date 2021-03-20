@@ -267,3 +267,4 @@
 2115018266|        |item_desc_trophy|A monster trophy, the bounty master will probably buy it at a better price.
 2115018267|        |option_rer_ignore_seed_selector_window|Skip bounty seed selector window
 2115018268|        |option_rer_delay_loading_start|Delay RER loading start (Bootstrap Hooked compatibility)
+2115018269|        |option_rer_shorten_bounty_master_conversation|Shorten bounty master conversation
