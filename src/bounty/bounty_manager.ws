@@ -1,6 +1,6 @@
 
 
-class RER_BountyManager extends CEntity {
+statemachine class RER_BountyManager extends CEntity {
   var master: CRandomEncounters;
   var bounty_master_manager: RER_BountyMasterManager;
 
@@ -211,7 +211,7 @@ class RER_BountyManager extends CEntity {
 
     NLOG("starting bounty with " + bounty.random_data.groups.Size() + " groups");
 
-    RER_removeAllPins(this.master.pin_manager);
+    RER_removeAllPins(this.master.pin_manager, RER_DefaultPin);
 
     this.master
         .storages
@@ -517,8 +517,6 @@ class RER_BountyManager extends CEntity {
     var area_string: string;
 
     area = theGame.GetCommonMapManager().GetCurrentArea();
-    // TODO: use real values
-    // the min & max values are random values at the moment
 
     switch (area) {
       case AN_Prologue_Village:
@@ -629,7 +627,7 @@ class RER_BountyManager extends CEntity {
     // This function works everywhere, and returns 10 000 when it's on land
     // and a value between 0 and 100 or 200 when in a body of water.
     var water_depth: float;
-    var signposts: array<CEntity>;
+    var signposts: array<CGameplayEntity>;
     var array_of_nodes: array<CNode>;
     var closest_signpost_node: CNode;
     var closest_signpost_position: Vector;
@@ -644,32 +642,49 @@ class RER_BountyManager extends CEntity {
     }
 
     // get all the signposts in the map
-    theGame.GetEntitiesByTag(
-      'W3FastTravelEntity',
-      signposts
+    FindGameplayEntitiesInRange(
+      signposts,
+      thePlayer,
+      5000, // range, we'll have to check if 50 is too big/small
+      100, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'W3FastTravelEntity'
     );
 
     for (i = 0; i < signposts.Size(); i += 1) {
       array_of_nodes.PushBack((CNode)signposts[i]);
     }
 
+    NLOG("number of nodes = " + array_of_nodes.Size());
+
     // then find the closest one
     closest_signpost_node = FindClosestNode(point, array_of_nodes);
     closest_signpost_position = closest_signpost_node.GetWorldPosition();
 
+    NLOG("closest signpost position = " + VecToString(closest_signpost_position));
+
     // set the output at the starting point
     output = point;
 
+    // note: we reuse i here, it will be used to calculate the iterations
+    i = 0;
+
     do {
+      i += 1;
+
       // then slowly get closer to the signpost position
-      output = VecInterpolate(output, closest_signpost_position, 0.05);
+      output = VecInterpolate(output, closest_signpost_position, 0.05 * i);
+
+      NLOG("searching safe position at " + VecToString(output));
 
       // update the water depth
       water_depth = theGame.GetWorld().GetWaterDepth(output);
 
     // while the water depth is not over 5000 which means there is a body of water
     // at the current position
-    } while (water_depth < 5000);
+    } while (water_depth < 5000 && VecDistanceSquared2D(output, closest_signpost_position) > 10 * 10);
 
     NLOG("safe position = " + VecToString(output));
 
@@ -712,11 +727,10 @@ class RER_BountyManager extends CEntity {
 
       NLOG("moveCoordinatesAwayFromSafeAreas, squared radius = " + squared_radius + " distance_percentage = " + current_distance_percentage);
 
-      displacement_vector += VecInterpolate(
-        Vector(safe_areas[i].X, safe_areas[i].Y, point.Z),
-        point,
-        1 - current_distance_percentage
-      );
+      displacement_vector += (
+        point 
+        - Vector(safe_areas[i].X, safe_areas[i].Y, point.Z)
+      ) * (1 - current_distance_percentage);
     }
 
     NLOG("moveCoordinatesAwayFromSafeAreas 2.");
@@ -773,6 +787,10 @@ class RER_BountyManager extends CEntity {
       break;
 
       case 'bob':
+      areas.PushBack(Vector(-2430, 1230, 2077)); // top left mountain
+      areas.PushBack(Vector(1840, 1070, 1729)); // top right mountain
+      areas.PushBack(Vector(1920, -2700, 1809)); // bottom right mountain
+      areas.PushBack(Vector(-1700, -2700, 1294)); // bottom left mountain
       break;
     }
 
