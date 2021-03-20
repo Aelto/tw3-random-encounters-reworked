@@ -5867,6 +5867,7 @@
                 <Entry varId="RERmarkersBountyHunting" value="1" />
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
+                <Entry varId="RERshortenBountyMasterConversation" value="0" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5901,6 +5902,8 @@
             <Var id="RERmarkersChallengeMode" displayName="rer_markers_challenge_mode" displayType="TOGGLE"></Var>
             
             <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
+
+            <Var id="RERshortenBountyMasterConversation" displayName="rer_shorten_bounty_master_conversation" displayType="TOGGLE"></Var>
 
         </VisibleVars>
     </Group>

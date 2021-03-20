@@ -261,6 +261,7 @@ state Talking in RER_BountyMasterManager {
     var max_radius: float;
     var crowns_from_trophies: int;
     var should_continue: bool;
+    var shorten_conversation: bool;
 
     npc_actor = (CActor)(parent.bounty_master_entity);
     max_radius = 10 * 10;
@@ -293,6 +294,9 @@ state Talking in RER_BountyMasterManager {
     }
 
     { // graden dialogs
+      shorten_conversation = theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERshortenBountyMasterConversation');
+
       // plays the voicelines only the first time the player meets Graden
       if (parent.bounty_manager.master.storages.bounty.bounty_level == 0) {
         should_continue = this.playDialogue(
@@ -402,35 +406,37 @@ state Talking in RER_BountyMasterManager {
         return;
       }
 
-      should_continue = this.playDialogue(
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_ive_lost_five_men in thePlayer, true),
-        npc_actor
-      );
+      if (!shorten_conversation) {
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_graden_ive_lost_five_men in thePlayer, true),
+          npc_actor
+        );
 
-      if (!should_continue) {
-        return;
-      }
+        if (!should_continue) {
+          return;
+        }
 
-      should_continue = this.playDialogue(
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_i_see_the_wounds in thePlayer, true)
-        .dialog(new REROL_any_witnesses in thePlayer, true)
-      );
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_i_see_the_wounds in thePlayer, true)
+          .dialog(new REROL_any_witnesses in thePlayer, true)
+        );
 
-      if (!should_continue) {
-        return;
-      }
+        if (!should_continue) {
+          return;
+        }
 
-      should_continue = this.playDialogue(
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .either(new REROL_graden_didnt_sound_like_wolves in thePlayer, true, 1)
-        .either(new REROL_graden_looked_a_fiend in thePlayer, true, 1),
-        npc_actor
-      );
+        should_continue = this.playDialogue(
+          (new RER_RandomDialogBuilder in thePlayer).start()
+          .either(new REROL_graden_didnt_sound_like_wolves in thePlayer, true, 1)
+          .either(new REROL_graden_looked_a_fiend in thePlayer, true, 1),
+          npc_actor
+        );
 
-      if (!should_continue) {
-        return;
+        if (!should_continue) {
+          return;
+        }
       }
 
       should_continue = this.playDialogue(
@@ -443,7 +449,7 @@ state Talking in RER_BountyMasterManager {
         return;
       }
 
-      if (RandRange(10) > 5) {
+      if (!shorten_conversation && RandRange(10) > 5) {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_really_helpful_that in thePlayer, true)
