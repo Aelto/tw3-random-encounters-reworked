@@ -1,16 +1,19 @@
 
-function getGroundPosition(out input_position: Vector, optional personal_space: float, optional max_height_check: float): bool {
+function getGroundPosition(out input_position: Vector, optional personal_space: float, optional radius: float): bool {
   var output_position: Vector;
   var point_z: float;
   var collision_normal: Vector;
   var result: bool;
+  var max_height_check: float;
 
   output_position = input_position;
 
   personal_space = MaxF(personal_space, 1.0);
 
-  if (max_height_check == 0) {
-    max_height_check = 30.0;
+  max_height_check = 30.0;
+
+  if (radius == 0) {
+    radius = 10.0;
   }
 
   // first search for ground based on navigation data.
@@ -25,7 +28,7 @@ function getGroundPosition(out input_position: Vector, optional personal_space: 
 
 	output_position.Z = point_z;
 
-  if (!theGame.GetWorld().NavigationFindSafeSpot(output_position, personal_space, 10, output_position)) {
+  if (!theGame.GetWorld().NavigationFindSafeSpot(output_position, personal_space, radius, output_position)) {
     return false;
   }
 
