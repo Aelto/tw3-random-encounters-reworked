@@ -43,15 +43,6 @@ statemachine class RER_BountyMasterManager {
     // the bounty master already exist
     if (this.bounty_master_entity) {
       NLOG("bounty master exists, template = " + StrAfterFirst(this.bounty_master_entity.ToString(), "::"));
-      RER_removeAllPins(
-        this.bounty_manager.master.pin_manager,
-        RER_InterestPin
-      );
-
-      // this.bounty_manager.master.pin_manager.removePinHere(
-      //   bounty_master_entity.GetWorldPosition(),
-      //   RER_InterestPin
-      // );
 
       // not the same template as the one asked, we kill the current bounty master
 
