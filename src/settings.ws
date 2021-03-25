@@ -69,6 +69,8 @@ class RE_Settings {
 
   public var ecosystem_community_natural_death_speed: float;
 
+  public var settlement_delay_multiplier: float;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -168,6 +170,7 @@ class RE_Settings {
     customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow'));
     customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
     customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));
+    settlement_delay_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'RERsettlementDelayMultiplier'));
   }
 
   private function loadMonsterHuntingGroundChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -226,6 +229,8 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERencountersHuntNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencountersContractDay', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencountersContractNight', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersHuntingGroundDay', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERencountersHuntingGroundNight', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERevents', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERoptionalFeatures', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERmonsterCrowns', 0);

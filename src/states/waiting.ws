@@ -10,6 +10,10 @@ state Waiting in CRandomEncounters {
       parent.ticks_before_spawn = parent.ticks_before_spawn / 3;
     }
 
+    if (parent.rExtra.isPlayerInSettlement()) {
+      parent.ticks_before_spawn = (int)(parent.ticks_before_spawn * parent.settings.settlement_delay_multiplier);
+    }
+
     LogChannel('modRandomEncounters', "waiting " + parent.ticks_before_spawn + " ticks");
 
     this.startWaiting();
