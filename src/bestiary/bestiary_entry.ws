@@ -94,7 +94,8 @@ abstract class RER_BestiaryEntry {
     // if set to true, it will ignore the bestiary feature that removes unknown
     // creatures from the spawn. It's used for the bounties where settings are
     // ignored.
-    optional ignore_bestiary_feature: bool
+    optional ignore_bestiary_feature: bool,
+    optional custom_tag: name
   ): array<CEntity> {
     
     var creatures_templates: EnemyTemplateList;
@@ -146,6 +147,10 @@ abstract class RER_BestiaryEntry {
     group_positions_index = 0;
 
     tags_array.PushBack('RandomEncountersReworked_Entity');
+
+    if (IsNameValid(custom_tag)) {
+      tags_array.PushBack(custom_tag);
+    }
 
     for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
       current_entity_template = creatures_templates.templates[i];
