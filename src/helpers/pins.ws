@@ -6,7 +6,7 @@ enum RER_PinType {
   RER_InfoPin = 3
 }
 
-function RER_removeAllPins(pin_manager: RER_PinManager, optional pin_type: RER_PinType) {
+function RER_removeAllPins(pin_manager: RER_PinManager) {
   var manager  : CCommonMapManager;
   var i: int;
   var id: int;
@@ -20,9 +20,7 @@ function RER_removeAllPins(pin_manager: RER_PinManager, optional pin_type: RER_P
 
   for (i = 0; i < manager.GetUserMapPinCount(); i += 1) {
     if (manager.GetUserMapPinByIndex(i, id, area, x, y, type)) {
-      if (pin_type == RER_DefaultPin || type == pin_type) {
-        pin_manager.removePinHere(Vector(x, y), type, area);
-      }
+      pin_manager.removePinHere(Vector(x, y), type, area);
     }
   }
 }
