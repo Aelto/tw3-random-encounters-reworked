@@ -211,7 +211,7 @@ statemachine class RER_BountyManager extends CEntity {
 
     NLOG("starting bounty with " + bounty.random_data.groups.Size() + " groups");
 
-    RER_removeAllPins(this.master.pin_manager, RER_DefaultPin);
+    RER_removeAllPins(this.master.pin_manager);
 
     this.master
         .storages
@@ -423,6 +423,10 @@ statemachine class RER_BountyManager extends CEntity {
       position.Z = player_position.Z;
     }
 
+    if (!getGroundPosition(position, 5, 50)) {
+      NLOG("spawnBountyGroup, could not find a safe ground position. Defaulting to marker position");
+    }
+
     entities = bestiary_entry.spawn(
       this.master,
       position,
@@ -431,7 +435,8 @@ statemachine class RER_BountyManager extends CEntity {
       true, // trophies
       EncounterType_HUNTINGGROUND,
       ,
-      true // no bestiary
+      true, // no bestiary
+      'RandomEncountersReworked_BountyCreature'
     );
 
     NLOG("bounty group " + group_index + " spawned " + entities.Size() + " entities at " + VecToString(position));
@@ -473,22 +478,23 @@ statemachine class RER_BountyManager extends CEntity {
     var entities: array<CGameplayEntity>;
     var filtered_entities: array<CEntity>;
     var position: Vector;
+    var original_position: Vector;
     var i: int;
 
     position = this.cached_bounty_group_positions[group_index];
+    original_position = position;
     
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
       true
     );
-    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(rer_entity_template, position, thePlayer.GetWorldRotation());
 
     FindGameplayEntitiesInRange(
       entities,
       rer_entity,
-      50, // radius
+      100, // radius
       50, // max number of entities
-      'RandomEncountersReworked_Entity', // tag
+      'RandomEncountersReworked_BountyCreature', // tag
       FLAG_ExcludePlayer,
       thePlayer, // target
       'CEntity'
@@ -502,7 +508,32 @@ statemachine class RER_BountyManager extends CEntity {
       entities[i].AddTag('RER_controlled');
       filtered_entities.PushBack((CEntity)entities[i]);
     }
-    
+
+    // to better place the marker, set the position to the first creature found
+    // but we still move the position a bit closer to the marker to avoid
+    // the case where the creature, over many reloads, slowly moves away from
+    // the marker up to the point where it's not found anymore.
+    if (entities.Size() > 0) {
+      position = entities[0].GetWorldPosition();
+      position = VecInterpolate(
+        position,
+        original_position,
+        0.05
+      );
+
+      // then we find a safe spot in the position if possible. We don't really
+      // care if it succeeds or not.
+      if (!getGroundPosition(position, 5, 10)) {
+        NLOG("retrieveBountyGroup, could not find a safe ground position.");
+      }
+    }
+
+    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(
+      rer_entity_template,
+      position,
+      thePlayer.GetWorldRotation()
+    );
+
     rer_entity.activateBountyMode(this, group_index);
     rer_entity.startEncounter(this.master, filtered_entities, this.master.bestiary.entries[group_data.type]);
 
@@ -631,15 +662,16 @@ statemachine class RER_BountyManager extends CEntity {
     var array_of_nodes: array<CNode>;
     var closest_signpost_node: CNode;
     var closest_signpost_position: Vector;
+    var distance_in_z_level: float;
     var i: int;
     var output: Vector;
 
     water_depth = theGame.GetWorld().GetWaterDepth(point);
 
     // it's on land, we can return now
-    if (water_depth >= 5000) {
-      return point;
-    }
+    // if (water_depth >= 5000) {
+    //   return point;
+    // }
 
     // get all the signposts in the map
     FindGameplayEntitiesInRange(
@@ -680,11 +712,19 @@ statemachine class RER_BountyManager extends CEntity {
       NLOG("searching safe position at " + VecToString(output));
 
       // update the water depth
-      water_depth = theGame.GetWorld().GetWaterDepth(output);
+      water_depth = theGame.GetWorld().GetWaterDepth(Vector(output.X, output.Y, 2), true);
+      
+      distance_in_z_level = closest_signpost_position.Z - output.Z;
+
+      NLOG("distance in Z level = " + distance_in_z_level);
 
     // while the water depth is not over 5000 which means there is a body of water
     // at the current position
-    } while (water_depth < 5000 && VecDistanceSquared2D(output, closest_signpost_position) > 10 * 10);
+    } while ((water_depth < 5000 || distance_in_z_level > closest_signpost_position.Z * 0.05) && VecDistanceSquared2D(output, closest_signpost_position) > 5 * 5);
+
+    // we do it one last time because the water level gets below 500 on shore too,
+    // where this is still a bit of water.
+    output = VecInterpolate(output, closest_signpost_position, 0.2);
 
     NLOG("safe position = " + VecToString(output));
 
