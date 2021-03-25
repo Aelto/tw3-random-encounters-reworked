@@ -14,6 +14,8 @@ state Loading in CRandomEncounters {
       Sleep(5);
     }
 
+    RER_removeAllPins(parent.pin_manager);
+
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
     this.registerStaticEncounters();
 
@@ -301,6 +303,15 @@ state Loading in CRandomEncounters {
       RER_RegionConstraint_ONLY_VELEN,
       15,
       StaticEncounterType_SMALL
+    );
+
+    // people hanged on a tree
+    this.makeStaticEncounter(
+      CreatureCOCKATRICE,
+      Vector(-90, -848, 6),
+      RER_RegionConstraint_ONLY_VELEN,
+      40,
+      StaticEncounterType_LARGE
     );
 
 
