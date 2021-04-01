@@ -111,6 +111,10 @@ abstract class RER_BestiaryEntry {
     var i: int;
     var j: int;
 
+    // random scale applied to the creatures
+		var scale: float;
+
+
     if (do_no_persist) {
       persistance = PM_DontPersist;
     }
@@ -169,6 +173,27 @@ abstract class RER_BestiaryEntry {
             persistance,
             tags_array
           );
+
+          // TEST - BEGIN
+          // the scale is calculated based on the level of the creature. In the
+          // formula we add +100 to both end so a level 4 creature when level
+          // doesn't end up 400% bigger. It will also make the difference in height
+          // more noticeable at lower levels.
+          scale = (getRandomLevelBasedOnSettings(master.settings) + 100)
+                / (thePlayer.GetLevel() + 100);
+
+          created_entity.GetRootAnimatedComponent().SetScale(Vector(5, 5, 5, 5));
+          // animcomp = (CAnimatedComponent)created_entity.GetComponentByClassName('CAnimatedComponent');
+          // meshcomp = (CMeshComponent)created_entity.GetComponentByClassName('CMeshComponent');
+
+          // if(animcomp) {
+          //   animcomp.SetScale(Vector(2, 2, 2, 1));
+          // }
+          
+          // if(meshcomp) {
+          //   meshcomp.SetScale(Vector(2, 2, 2, 1));
+          // }
+          // TEST - END
 
           ((CNewNPC)created_entity).SetLevel(
             getRandomLevelBasedOnSettings(master.settings)
