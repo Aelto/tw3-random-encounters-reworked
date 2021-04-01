@@ -9,6 +9,7 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
 
   entry function Loading_main() {
     var template: CEntityTemplate;
+    var can_place_bounty_marker: bool;
 
     template = (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true);
 
@@ -25,7 +26,9 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
     ((CActor)parent.bait_entity).EnableStaticCollisions(false);
     ((CActor)parent.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
 
-    if (parent.is_bounty) {
+    can_place_bounty_marker = theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting');
+    if (parent.is_bounty && can_place_bounty_marker) {
       parent.master.pin_manager.addPinHere(parent.GetWorldPosition(), RER_SkullPin);
     }
 
