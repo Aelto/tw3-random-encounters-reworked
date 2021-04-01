@@ -21,7 +21,8 @@ exec function rergetpincoord() {
     type
   );
 
-  NDEBUG("x: " + x + " y: " + y);
+  NDEBUG("x: " + CeilF(x) + " y: " + CeilF(y));
+  NLOG("pincoords x: " + CeilF(x) + " y: " + CeilF(y));
 }
 
 exec function rerremoveallpins() {
