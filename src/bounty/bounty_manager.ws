@@ -50,38 +50,23 @@ statemachine class RER_BountyManager extends CEntity {
         this.currently_managed_groups.PushBack(new_managed_group);
       }
 
-      this.master
-        .pin_manager
-        .addPinHere(this.cached_bounty_group_positions[i], RER_SkullPin);
+
+      if (theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+        this.master
+          .pin_manager
+          .addPinHere(this.cached_bounty_group_positions[i], RER_SkullPin);
+      }
     }
   }
 
-  public function getAllBountyGroupPositions(): array<Vector> {
-    var groups: array<RER_BountyRandomMonsterGroupData>;
-    var positions: array<Vector>;
-    var i: int;
 
-    groups = this.master.storages.bounty.current_bounty.random_data.groups;
-
-    for (i = 0; i < groups.Size(); i += 1) {
-      positions.PushBack(
-        this.getSafeCoordinatesFromPoint(
-          this.moveCoordinatesAwayFromSafeAreas(
-            this.getCoordinatesFromPercentValues(
-              groups[i].position_x,
-              groups[i].position_y
-            )
-          )
-        )
-      );
-    }
-
-    return positions;
-  }
 
   public function getCurrentBountyCopy(): RER_Bounty {
     return this.master.storages.bounty.current_bounty;
   }
+
+  //#region bounty settings & constants
 
   // returns the steps at which the seed gains difficulty points
   public function getSeedDifficultyStep(): int {
@@ -109,6 +94,11 @@ statemachine class RER_BountyManager extends CEntity {
   public function getMaximumSeed(): int {
     return this.master.storages.bounty.bounty_level * this.getSeedBountyLevelStep();
   }
+
+  //#endregion bounty settings & constants
+
+
+  //#region bounty creation
 
   // create a new bounty struct with all the data we need to know about the new
   // bounty.
@@ -180,6 +170,11 @@ statemachine class RER_BountyManager extends CEntity {
 
     return data;
   }
+
+  //#endregion bounty creation
+
+
+  //#region bounty workflow
 
   // create the new bounty from the bounty struct that contains all the data about
   // the bounty.
@@ -318,9 +313,13 @@ statemachine class RER_BountyManager extends CEntity {
     if (this.getRandomGroupToPick(this.master.storages.bounty.current_bounty, random_group, random_group_index)) {
       position = this.cached_bounty_group_positions[random_group_index];
 
-      this.master
-        .pin_manager
-        .addPinHere(position, RER_SkullPin);
+      if (theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+
+        this.master
+          .pin_manager
+          .addPinHere(position, RER_SkullPin);
+      }
 
       this.master
         .storages
@@ -404,6 +403,11 @@ statemachine class RER_BountyManager extends CEntity {
     return false;
   }
 
+  //#endregion bounty workflow
+
+
+  //#region bounty spawn & retrieve
+
   public latent function spawnBountyGroup(group_data: RER_BountyRandomMonsterGroupData, group_index: int): RandomEncountersReworkedHuntingGroundEntity {
     var bestiary_entry: RER_BestiaryEntry;
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
@@ -422,6 +426,10 @@ statemachine class RER_BountyManager extends CEntity {
       player_position = thePlayer.GetWorldPosition();
       position.Z = player_position.Z;
     }
+
+    // we remove the pin because the hunting ground will create one and the
+    // getGroundPosition will probably slightly move the point away.
+    this.master.pin_manager.removePinHere(position, RER_SkullPin, -1);
 
     if (!getGroundPosition(position, 5, 50)) {
       NLOG("spawnBountyGroup, could not find a safe ground position. Defaulting to marker position");
@@ -539,6 +547,11 @@ statemachine class RER_BountyManager extends CEntity {
 
     return rer_entity;
   }
+
+  //#endregion bounty spawn & retrieve
+
+
+  //#region coordinates
 
   public function getCoordinatesFromPercentValues(percent_x: float, percent_y: float): Vector {
     var min: float;
@@ -666,6 +679,8 @@ statemachine class RER_BountyManager extends CEntity {
     var i: int;
     var output: Vector;
 
+    return point;
+
     water_depth = theGame.GetWorld().GetWaterDepth(point);
 
     // it's on land, we can return now
@@ -778,6 +793,135 @@ statemachine class RER_BountyManager extends CEntity {
     return point + displacement_vector;
   }
 
+  // the goal of this function is to move the supplied point inside the pre-defined
+  // valid areas in the world. It will work in big steps:
+  //  - 1. it will take the closest valid area
+  //  - 2. then we move the point in the closest circle based on its X:Y coordinates.
+  public function moveCoordinatesInsideValidAreas(point: Vector, x_percent: float, y_percent: float): Vector {
+    var areas: array<Vector>;
+    var closest_area: Vector;
+    var distance_from_area: float;
+    var distance_from_closest_area: float;
+    var region: string;
+    var i: int;
+
+    region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+    if (region != "skellige") {
+      return point;
+    }
+
+    areas.PushBack(Vector(-1828, 1190, 58));
+    areas.PushBack(Vector(-1758, 1239, 56));
+    areas.PushBack(Vector(-1641, 1284, 85));
+    areas.PushBack(Vector(-1637, 1434, 61));
+    areas.PushBack(Vector(-1555, 1543, 88));
+    areas.PushBack(Vector(-1439, 1486, 60));
+    areas.PushBack(Vector(-1355, 1411, 52));
+    areas.PushBack(Vector(340, 1544, 32));
+    areas.PushBack(Vector(313, 1591, 22));
+    areas.PushBack(Vector(274, 1602, 19));
+    areas.PushBack(Vector(1600, 1896, 74));
+    areas.PushBack(Vector(1493, 1917, 60));
+    areas.PushBack(Vector(1358, 1933, 94));
+    areas.PushBack(Vector(1339, 1960, 85));
+    areas.PushBack(Vector(2752, -116, 84));
+    areas.PushBack(Vector(2759, 42, 89));
+    areas.PushBack(Vector(2535, 203, 103));
+    areas.PushBack(Vector(2541, 306, 47));
+    areas.PushBack(Vector(2402, 155, 59));
+    areas.PushBack(Vector(2212, 82, 26));
+    areas.PushBack(Vector(2267, 35, 27));
+    areas.PushBack(Vector(2419, 34, 27));
+    areas.PushBack(Vector(2443, -16, 35));
+    areas.PushBack(Vector(2491, -83, 36));
+    areas.PushBack(Vector(2602, -132, 47));
+    areas.PushBack(Vector(1536, -1921, 35));
+    areas.PushBack(Vector(1709, -1925, 50));
+    areas.PushBack(Vector(1675, -1804, 20));
+    areas.PushBack(Vector(1592, -1809, 23));
+    areas.PushBack(Vector(1863, -1942, 56));
+    areas.PushBack(Vector(1936, -1902, 42));
+    areas.PushBack(Vector(1999, -1982, 39));
+    areas.PushBack(Vector(2130, -1946, 28));
+    areas.PushBack(Vector(2201, -1944, 38));
+    areas.PushBack(Vector(2302, -1977, 73));
+    areas.PushBack(Vector(-1575, -758, 75));
+    areas.PushBack(Vector(-1676, -632, 113));
+    areas.PushBack(Vector(-1816, -619, 75));
+    areas.PushBack(Vector(-1954, -638, 83));
+    areas.PushBack(Vector(-2118, -655, 46));
+    areas.PushBack(Vector(-1947, -820, 44));
+    areas.PushBack(Vector(-1744, -824, 76));
+    areas.PushBack(Vector(420, -1352, 54));
+    areas.PushBack(Vector(172, -1322, 49));
+    areas.PushBack(Vector(88, -1230, 53));
+    areas.PushBack(Vector(-41, -1209, 54));
+    areas.PushBack(Vector(-353, -940, 71));
+    areas.PushBack(Vector(-429, -785, 78));
+    areas.PushBack(Vector(-520, -566, 86));
+    areas.PushBack(Vector(-520, -303, 182));
+    areas.PushBack(Vector(-406, -206, 155));
+    areas.PushBack(Vector(-200, -297, 175));
+    areas.PushBack(Vector(-192, -537, 63));
+    areas.PushBack(Vector(-124, -448, 53));
+    areas.PushBack(Vector(31, -229, 132));
+    areas.PushBack(Vector(237, -249, 198));
+    areas.PushBack(Vector(188, -40, 103));
+    areas.PushBack(Vector(310, -501, 143));
+    areas.PushBack(Vector(436, -485, 90));
+    areas.PushBack(Vector(361, -685, 66));
+    areas.PushBack(Vector(254, -815, 78));
+    areas.PushBack(Vector(298, -971, 80));
+    areas.PushBack(Vector(543, -795, 59));
+    areas.PushBack(Vector(631, -805, 31));
+    areas.PushBack(Vector(380, -24, 123));
+    areas.PushBack(Vector(203, 92, 64));
+    areas.PushBack(Vector(223, 244, 77));
+    areas.PushBack(Vector(-10, 419, 122));
+    areas.PushBack(Vector(319, 555, 69));
+    areas.PushBack(Vector(365, 298, 84));
+    areas.PushBack(Vector(514, 184, 121));
+    areas.PushBack(Vector(497, 357, 72));
+    areas.PushBack(Vector(553, 588, 73));
+    areas.PushBack(Vector(490, 629, 41));
+    areas.PushBack(Vector(357, 738, 29));
+    areas.PushBack(Vector(324, 795, 30));
+    areas.PushBack(Vector(649, 694, 42));
+    areas.PushBack(Vector(756, 706, 47));
+    areas.PushBack(Vector(982, 627, 94));
+    areas.PushBack(Vector(1092, 492, 34));
+    areas.PushBack(Vector(1107, 404, 50));
+    areas.PushBack(Vector(1164, 415, 38));
+    areas.PushBack(Vector(1234, 373, 45));
+    areas.PushBack(Vector(1307, 367, 31));
+    areas.PushBack(Vector(1013, 213, 177));
+    areas.PushBack(Vector(834, -89, 165));
+    areas.PushBack(Vector(570, 13, 84));
+    areas.PushBack(Vector(803, -310, 274));
+
+    // 1. finding the closest area
+    distance_from_closest_area = 10000000;
+
+    for (i = 0; i < areas.Size(); i += 1) {
+      distance_from_area = VecDistanceSquared2D(point, areas[i]);
+
+      if (distance_from_area < distance_from_closest_area) {
+        distance_from_closest_area = distance_from_area;
+        closest_area = areas[i];
+      }
+    }
+
+    return RER_placeCircleCoordinatesAroundPoint(
+      RER_mapSquareToCircleCoordinates(
+        Vector(x_percent, y_percent)
+      ),
+      closest_area
+    );
+    
+    return point;
+  }
+
   // the safe areas are Vectors where X and Y are used for the coordinates,
   // and Z is the radius. I didn't want to create yet another struct for it.
   public function getSafeAreasByRegion(region: string): array<Vector> {
@@ -800,24 +944,24 @@ statemachine class RER_BountyManager extends CEntity {
     */
 
     switch (region) {
-      case 'prolog_village':
-      case 'prolog_village_winter':
+      case "prolog_village":
+      case "prolog_village_winter":
       break;
 
-      case 'no_mans_land':
-      case 'novigrad':
+      case "no_mans_land":
+      case "novigrad":
       areas.PushBack(Vector(340, 1980, 502)); // novigrad
       areas.PushBack(Vector(1760, 900, 215)); // oxenfurt
 
       break;
 
-      case 'skellige':
+      case "skellige":
       areas.PushBack(Vector(-100, -636, 110)); // kaer trolde
       areas.PushBack(Vector(-90, -800, 162)); // big mountain south of the main island
       areas.PushBack(Vector(-1700, -1000, 304)); // forge mountain on the giant's island
       break;
 
-      case 'kaer_morhen':
+      case "kaer_morhen":
       areas.PushBack(Vector(-11, 19, 95)); // the keep
       areas.PushBack(Vector(130, 210, 183)); // the big mountain north of the keep
       areas.PushBack(Vector(-500, -700, 330)); // the mountain south west of the map
@@ -826,7 +970,7 @@ statemachine class RER_BountyManager extends CEntity {
       areas.PushBack(Vector(-100, -106, 30)); // the tower near the keep
       break;
 
-      case 'bob':
+      case "bob":
       areas.PushBack(Vector(-2430, 1230, 2077)); // top left mountain
       areas.PushBack(Vector(1840, 1070, 1729)); // top right mountain
       areas.PushBack(Vector(1920, -2700, 1809)); // bottom right mountain
@@ -836,6 +980,35 @@ statemachine class RER_BountyManager extends CEntity {
 
     return areas;
   }
+
+  public function getAllBountyGroupPositions(): array<Vector> {
+    var groups: array<RER_BountyRandomMonsterGroupData>;
+    var positions: array<Vector>;
+    var i: int;
+
+    groups = this.master.storages.bounty.current_bounty.random_data.groups;
+
+    for (i = 0; i < groups.Size(); i += 1) {
+      positions.PushBack(
+        this.getSafeCoordinatesFromPoint(
+          this.moveCoordinatesAwayFromSafeAreas(
+            this.moveCoordinatesInsideValidAreas(
+              this.getCoordinatesFromPercentValues(
+                groups[i].position_x,
+                groups[i].position_y
+              ),
+              groups[i].position_x,
+              groups[i].position_y
+            )
+          )
+        )
+      );
+    }
+
+    return positions;
+  }
+
+  //#endregion coordinates
 
   // return the maximum progress the bounty will have for this seed. Each progress
   // level is a group of creatures.
