@@ -283,3 +283,4 @@
 2115018282|        |rer_tutorial_rewards_title|RER Tutorial - Rewards
 2115018283|        |rer_tutorial_rewards_body|You just found a <font color="#CD7D03">Trophy<font/> from the mod Random Encounters Reworked. These trophies were created only to reward Geralt for the creatures he hunts and do not have any purpose but to be sold.<br />Creatures from the mod also drop a few crowns for the same purpose. If you do not like the rewards or would like to change how many you find you can do so in the <font color="#CD7D03">Rewards System<font/> menu specifically made for it.
 2115018284|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
+2115018285|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)

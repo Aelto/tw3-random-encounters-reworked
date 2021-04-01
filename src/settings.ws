@@ -71,6 +71,8 @@ class RE_Settings {
 
   public var settlement_delay_multiplier: float;
 
+  public var dynamic_creatures_size: bool;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -106,6 +108,8 @@ class RE_Settings {
     this.loadAdvancedEventSystemSettings(inGameConfigWrapper);
     this.loadAdvancedPerformancesSettings(inGameConfigWrapper);
     this.loadEcosystemSettings(inGameConfigWrapper);
+
+    this.dynamic_creatures_size = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERdynamicCreaturesSize');
   }
 
   function loadXMLSettingsAndShowNotification() {
