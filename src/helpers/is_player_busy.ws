@@ -6,6 +6,7 @@ function isPlayerBusy(): bool {
       || thePlayer.IsInCombat()
       || thePlayer.IsUsingBoat()
       || thePlayer.IsSwimming()
+      || !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
       || isPlayerInScene();
 }
 
