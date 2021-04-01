@@ -4,3 +4,4 @@ release
 **/node_modules
 scripts/**/tokens.js
 scripts/create-gh-release/tokens.js
+docs/skellige-valid-points-bounties.psd
