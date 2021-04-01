@@ -74,12 +74,16 @@ statemachine class RER_BountyMasterManager {
       this.bounty_master_entity.AddTag('RER_bounty_master');
     }
 
-    this.bounty_manager.master.pin_manager.addPinHere(
-      valid_positions[position_index],
-      RER_InterestPin
-    );
+    if (theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
 
-    NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
+      this.bounty_manager.master.pin_manager.addPinHere(
+        valid_positions[position_index],
+        RER_InterestPin
+      );
+
+      NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
+    }
 
   }
 
@@ -216,10 +220,14 @@ state Waiting in RER_BountyMasterManager {
       can_talk_again = theGame.GetEngineTimeAsSeconds() - parent.last_talking_time > 15;
 
       if (distance_from_player > radius * 2) {
-        parent.bounty_manager.master.pin_manager.addPinHere(
-          parent.bounty_master_entity.GetWorldPosition(),
-          RER_InterestPin
-        );
+        if (theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+
+          parent.bounty_manager.master.pin_manager.addPinHere(
+            parent.bounty_master_entity.GetWorldPosition(),
+            RER_InterestPin
+          );
+        }
       }
 
       // sleep for:
