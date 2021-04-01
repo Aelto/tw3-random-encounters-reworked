@@ -684,9 +684,9 @@ statemachine class RER_BountyManager extends CEntity {
     water_depth = theGame.GetWorld().GetWaterDepth(point);
 
     // it's on land, we can return now
-    // if (water_depth >= 5000) {
-    //   return point;
-    // }
+    if (water_depth >= 5000) {
+      return point;
+    }
 
     // get all the signposts in the map
     FindGameplayEntitiesInRange(
