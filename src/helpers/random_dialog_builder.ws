@@ -54,7 +54,7 @@ class RER_RandomDialogBuilder {
     return this;
   }
 
-  latent function play(optional actor: CActor) {
+  latent function play(optional actor: CActor, optional with_camera: bool) {
     var i: int;
 
     if (actor) {
@@ -66,9 +66,43 @@ class RER_RandomDialogBuilder {
 
     this.then();
 
+    if (with_camera) {
+      this.teleportCameraToLookAtTalkingActor();
+    }
+
     for (i = 0; i < this.sections.Size(); i += 1) {
       this.playSection(i);
     }
+  }
+
+  private latent function teleportCameraToLookAtTalkingActor() {
+    var camera: RER_StaticCamera;
+    var position: Vector;
+    var rotation: EulerAngles;
+
+    camera = RER_getStaticCamera();
+    camera.deactivationDuration = 1;
+    camera.activationDuration = 1;
+
+    position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 2) + VecConeRand(
+      this.talking_actor.GetHeading(),
+      180,
+      4,
+      5
+    );
+
+    rotation = VecToRotation(
+      this.talking_actor.GetWorldPosition() + Vector(0, 0, 2)
+      - position
+    );
+    rotation.Pitch *= -1;
+
+    camera.TeleportWithRotation(
+      position,
+      rotation
+    );
+
+    camera.Run();
   }
 
   private latent function playSection(index: int) {
