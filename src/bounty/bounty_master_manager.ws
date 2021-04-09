@@ -231,13 +231,13 @@ state Waiting in RER_BountyMasterManager {
       }
 
       // sleep for:
-      // 1s at 10 meters
-      // 2s at 20 meters
-      // 3s at 30 meters
+      // 0.5s at 10 meters
+      // 1s at 20 meters
+      // 1.5s at 30 meters
       // ...
       //
       // Capped at 60s
-      Sleep(MinF(distance_from_player / 10, 60));
+      Sleep(MinF(distance_from_player / 20, 60));
     }
 
     parent.GotoState('Talking');
