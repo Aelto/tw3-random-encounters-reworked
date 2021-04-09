@@ -178,7 +178,21 @@ class RER_EcosystemManager {
         .storages
         .ecosystem
         .ecosystem_areas[current_index]
-        .impacts_power_by_creature_type[creature] += power_change * (1 - distance_from_center);
+        .impacts_power_by_creature_type[creature] += power_change
+          * (1 - distance_from_center)
+
+          // this is to make changes more impactful on minorities and large communities
+          // the power change is multiplied by the power of the community.
+          * (1 +
+            AbsF(this.master
+            .storages
+            .ecosystem
+            .ecosystem_areas[current_index]
+            // 2.5% for every power
+            // Let's imagine a case where 5 drowners spawn. 5 drowners mean +5 power
+            // the next time drowners spawn instead of adding +5 it will be +6.5 or something
+            .impacts_power_by_creature_type[creature] * 0.025)
+          );
     }
 
     this.ecosystem_modifier
