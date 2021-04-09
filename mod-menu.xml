@@ -5906,8 +5906,6 @@
 
             <Var id="RERshortenBountyMasterConversation" displayName="rer_shorten_bounty_master_conversation" displayType="TOGGLE"></Var>
 
-            <Var id="RERshortenBountyMasterConversation" displayName="rer_shorten_bounty_master_conversation" displayType="TOGGLE"></Var>
-
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
 
         </VisibleVars>
