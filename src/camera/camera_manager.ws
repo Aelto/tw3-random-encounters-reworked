@@ -1,137 +1,280 @@
 
-// class RER_CameraDataInterface {
-//   latent function loop(camera: RER_StaticCamera) {}
-// }
+class RER_CameraDataInterface {
+  public var can_loop: bool;
+  default can_loop = true;
 
-// class RER_CameraDataMoveToPositionLookAtPosition extends RER_CameraDataInterface {
-//   // edit these two variables 
-//   public var camera_position_goal: Vector;
-//   public var camera_target: Vector;
+  latent function loop(camera: RER_StaticCamera) {}
+}
+
+class RER_CameraDataMoveToPositionLookAtPosition extends RER_CameraDataInterface {
+  // edit these two variables 
+  public var camera_position_goal: Vector;
+  public var camera_target: Vector;
   
-//   // or extend the class and override this method if your target is a moving target
-//   function getCameraTarget() {
-//     return this.camera_target;
-//   }
+  // or extend the class and override these method if your target is a moving target
+  function getCameraTarget(): Vector {
+    return this.camera_target;
+  }
 
-//   private var camera_position: Vector;
-//   private var camera_rotation: EulerAngles;
-//   private var camera_rotation_goal: EulerAngles;
+  function getCameraPositionGoal(): Vector {
+    return this.camera_position_goal;
+  }
 
-//   latent function loop(camera: RER_StaticCamera) {
-//     var distance_to_position: Vector;
+  function canRunLoop(): bool {
+    return VecDistanceSquared(
+      this.camera_position,
+      this.camera_position_goal
+    ) > 1;
+  }
 
-//     this.camera_position = theCamera.GetCameraPosition();
-//     this.camera_rotation = theCamera.GetCameraRotation();
+  public var camera_rotation_blending: float;
+  default camera_rotation_blending = 0.01;
 
-//     distance_to_position = VecDistanceSquared(
-//       this.camera_position,
-//       this.camera_position_goal
-//     );
+  private var camera_position: Vector;
+  private var camera_rotation: EulerAngles;
+  private var camera_rotation_goal: EulerAngles;
 
-//     while (distance_to_position > 1) {
-//       // we get the mean value between both entities
-//       this.camera_target = this.getCameraTarget();
+  latent function loop(camera: RER_StaticCamera) {
+    var distance_to_position: Vector;
+    var rotation_velocity: EulerAngles;
+    var position_velocity: Vector;
+    var position_goal: Vector;
 
-//       this.camera_position += (this.camera_position_goal - this.camera_position) * 0.01;
+    this.camera_position = theCamera.GetCameraPosition();
+    this.camera_rotation = theCamera.GetCameraRotation();
 
-//       this.camera_rotation_goal = VecToRotation(this.camera_target + Vector(0, 0, 1) - this.camera_position);
-//       this.camera_rotation_goal.Pitch *= -1;
+    while (this.can_loop && this.canRunLoop()) {
+      position_goal = this.getCameraPositionGoal();
+      position_velocity += VecNormalize(position_goal - this.camera_position) * 0.001 + position_velocity * 0.01;
+      position_velocity *= 0.90;
 
-//       this.camera_rotation.Roll += AngleNormalize180(this.camera_rotation_goal.Roll - this.camera_rotation.Roll) * 0.01;
-//       this.camera_rotation.Yaw += AngleNormalize180(this.camera_rotation_goal.Yaw - this.camera_rotation.Yaw) * 0.01;
-//       this.camera_rotation.Pitch += AngleNormalize180(this.camera_rotation_goal.Pitch - this.camera_rotation.Pitch) * 0.01;
+      if (VecDistanceSquared(this.camera_position, position_goal) < 0.001) {
+        position_velocity *= 0.5;
+      }
 
-//       this.camera.TeleportWithRotation(this.camera_position, this.camera_rotation);
+      this.camera_position += position_velocity;
 
-//       distance_to_position = VecDistanceSquared(
-//         this.camera_position,
-//         this.camera_position_goal
-//       );
-//     }
-//   }
-// }
+      this.camera_target = this.getCameraTarget();
+      this.camera_rotation_goal = VecToRotation(this.camera_target - this.camera_position);
+      this.camera_rotation_goal.Pitch *= -1;
 
-// // Here the camera looks in the direction it's going.
-// class RER_CameraDataMoveToPoint extends RER_CameraDataInterface {
-//   // edit the variable
-//   public var camera_position_goal: Vector;
+      rotation_velocity.Roll += AngleNormalize180(this.camera_rotation_goal.Roll - this.camera_rotation.Roll) * this.camera_rotation_blending;
+      rotation_velocity.Yaw += AngleNormalize180(this.camera_rotation_goal.Yaw - this.camera_rotation.Yaw) * this.camera_rotation_blending;
+      rotation_velocity.Pitch += AngleNormalize180(this.camera_rotation_goal.Pitch - this.camera_rotation.Pitch) * this.camera_rotation_blending;
+      rotation_velocity.Roll *= 0.8;
+      rotation_velocity.Yaw *= 0.8;
+      rotation_velocity.Pitch *= 0.8;
+      
+      this.camera_rotation.Roll += rotation_velocity.Roll;
+      this.camera_rotation.Yaw += rotation_velocity.Yaw;
+      this.camera_rotation.Pitch += rotation_velocity.Pitch;
 
-//   private var camera_position: Vector;
-//   private var camera_rotation: EulerAngles;
-//   private var camera_rotation_goal: EulerAngles;
-//   private var camera_target: Vector;
+      camera.TeleportWithRotation(this.camera_position, this.camera_rotation);
+      SleepOneFrame();
+    }
+  }
+}
 
-//   latent function loop(camera: RER_StaticCamera) {
-//     var distance_to_position: Vector;
+// Here the camera looks in the direction it's going.
+class RER_CameraDataMoveToPoint extends RER_CameraDataInterface {
+  // edit the variable
+  public var camera_position_goal: Vector;
 
-//     this.camera_position = theCamera.GetCameraPosition();
-//     this.camera_rotation = theCamera.GetCameraRotation();
+  private var camera_position: Vector;
+  private var camera_rotation: EulerAngles;
+  private var camera_rotation_goal: EulerAngles;
+  private var camera_target: Vector;
 
-//     distance_to_position = VecDistanceSquared(
-//       this.camera_position,
-//       this.camera_position_goal
-//     );
+  // or extend the class and override this method if your target is a moving target
+  function getCameraTarget(): Vector {
+    return this.camera_target;
+  }
 
-//     while (distance_to_position > 1) {
-//       // we get the mean value between both entities
-//       this.camera_target = this.getCameraTarget();
+  function canRunLoop(): bool {
+    return VecDistanceSquared(
+      this.camera_position,
+      this.camera_position_goal
+    ) > 1;
+  }
 
-//       this.camera_position += (this.camera_position_goal - this.camera_position) * 0.01;
+  latent function loop(camera: RER_StaticCamera) {
+    var distance_to_position: float;
 
-//       this.camera_rotation_goal = VecToRotation(this.camera_target + Vector(0, 0, 1) - this.camera_position);
-//       this.camera_rotation_goal.Pitch *= -1;
+    this.camera_position = theCamera.GetCameraPosition();
+    this.camera_rotation = theCamera.GetCameraRotation();
 
-//       this.camera_rotation.Roll += AngleNormalize180(this.camera_rotation_goal.Roll - this.camera_rotation.Roll) * 0.01;
-//       this.camera_rotation.Yaw += AngleNormalize180(this.camera_rotation_goal.Yaw - this.camera_rotation.Yaw) * 0.01;
-//       this.camera_rotation.Pitch += AngleNormalize180(this.camera_rotation_goal.Pitch - this.camera_rotation.Pitch) * 0.01;
+    while (this.can_loop && this.canRunLoop()) {
+      // we get the mean value between both entities
+      this.camera_target = this.getCameraTarget();
 
-//       this.camera.TeleportWithRotation(this.camera_position, this.camera_rotation);
+      this.camera_position += (this.camera_position_goal - this.camera_position) * 0.01;
 
-//       distance_to_position = VecDistanceSquared(
-//         this.camera_position,
-//         this.camera_position_goal
-//       );
-//     }
-//   }
-// }
+      this.camera_rotation_goal = VecToRotation(this.camera_target + Vector(0, 0, 1) - this.camera_position);
+      this.camera_rotation_goal.Pitch *= -1;
+
+      this.camera_rotation.Roll += AngleNormalize180(this.camera_rotation_goal.Roll - this.camera_rotation.Roll) * 0.01;
+      this.camera_rotation.Yaw += AngleNormalize180(this.camera_rotation_goal.Yaw - this.camera_rotation.Yaw) * 0.01;
+      this.camera_rotation.Pitch += AngleNormalize180(this.camera_rotation_goal.Pitch - this.camera_rotation.Pitch) * 0.01;
+
+      camera.TeleportWithRotation(this.camera_position, this.camera_rotation);
+    }
+  }
+}
+
+class RER_CameraDataFloatAndLookAtTalkingActors extends RER_CameraDataMoveToPositionLookAtPosition {
+  // edit this variable
+  public var actors: array<CActor>;
+
+  default camera_rotation_blending = 0.01;
+
+  function getCameraPositionGoal(): Vector {
+    var number_of_actors: int;
+    var heading: float;
+    var actor_1: CActor;
+    var actor_2: CActor;
+    var distance_between_actors: float;
+    var target: EulerAngles;
+    var i: int;
+    var talking_actor: CActor;
+
+    number_of_actors = this.actors.Size();
+
+    for (i = 0; i < number_of_actors; i += 1) {
+      heading += this.actors[i].GetHeading();
+    }
+
+    if (number_of_actors > 1) {
+      actor_1 = this.actors[0];
+      actor_2 = this.actors[1];
+
+      distance_between_actors = VecDistance(actor_1.GetWorldPosition(), actor_2.GetWorldPosition());
+    }
+    else {
+      distance_between_actors = 2;
+    }
+
+    if (last_talking_actor_index >= 0) {
+      talking_actor = this.actors[this.last_talking_actor_index];
+
+      return this.getCameraTarget() + (VecFromHeading(heading / number_of_actors)) * (distance_between_actors + 1) + Vector(0, 0, 1.5) + VecFromHeading(talking_actor.GetHeading());
+    }
+
+    return this.getCameraTarget() + (VecFromHeading(heading / number_of_actors)) * (distance_between_actors + 1) + Vector(0, 0, 1.5);
+  }
+
+  protected var last_talking_actor_index: int;
+  default last_talking_actor_index = -1;
+
+  // for this class the camera will by default look between the actors
+  // but if an actor is talking the camera is look more in his direction while
+  // still trying to target the other non-talking actors
+  function getCameraTarget(): Vector {
+    var number_of_actors: int;
+    var position: Vector;
+    var weight: int;
+    var i: int;
+
+    number_of_actors = this.actors.Size();
+
+    for (i = 0; i < number_of_actors; i += 1) {
+      if (this.actors[i].IsSpeaking()) {
+        this.last_talking_actor_index = i;
+      }
+    }
+
+    for (i = 0; i < number_of_actors; i += 1) {
+      if (this.last_talking_actor_index == i) {
+        position += (this.actors[i].GetWorldPosition() + Vector(0, 0, 1.5)) * 2;
+        weight += 2;
+      }
+      else {
+        position += this.actors[i].GetWorldPosition() + Vector(0, 0, 1.5);
+        weight += 1;
+      }
+    }
+
+    return position / weight;
+  }
+
+  function addActor(actor: CActor): RER_CameraDataFloatAndLookAtTalkingActors {
+    this.actors.PushBack(actor);
+
+    return this;
+  }
+
+  function canRunLoop(): bool {
+    return true;
+  }
+}
 
 
-// class RER_CameraManager extends CEntity {
-//   private var camera: RER_StaticCamera;
+statemachine class RER_CameraManager extends CEntity {
+  public var camera: RER_StaticCamera;
 
-//   latent function spawnCameraEntity() {
-//     this.camera = RER_getStaticCamera();
+  latent function spawnCameraEntity() {
+    this.camera = RER_getStaticCamera();
+  }
 
-//     this.camera_position = theCamera.GetCameraPosition();
-//     this.camera_rotation = theCamera.GetCameraRotation();
-//     this.camera_position_goal = camera_position;
-//     this.camera_rotation_goal = camera_rotation;
+  public latent function init() {
+    this.spawnCameraEntity();
+  }
 
-//   }
+  public var current_scenes: array<RER_CameraDataInterface>;
+  public var current_scene_index: int;
 
-//   latent public function init(scenes: array<RER_CameraDataInterface>) {
-//     this.spawnCameraEntity();
-//     this.mainLoop();
-//   }
+  public latent function play(scenes: array<RER_CameraDataInterface>) {
+    this.current_scenes = scenes;
+    this.current_scene_index = 0;
 
-//   latent function mainLoop() {
-//     this.camera.deactivationDuration = 1.5;
-//     this.camera.activationDuration = 1.5;
-//     this.camera.Run();
+    this.GotoState('Running');
+  }
 
-//     while (true) {
-//       this.updateCamera();
+  public latent function playScene(scene: RER_CameraDataInterface) {
+    var scenes: array<RER_CameraDataInterface>;
 
-//       SleepOneFrame();
-//     }
+    scenes.PushBack(scene);
 
-//     this.camera.Stop();
-//   }
+    this.play(scenes);
+  }
 
-  
-//   function updateCamera() {
+  public function stopCurrentScene() {
+    if (this.current_scene_index < 0 && this.current_scene_index >= this.current_scenes.Size()) {
+      return;
+    }
 
-    
-//   }
-// }
+    this.current_scenes[this.current_scene_index].can_loop = false;
+  }
+}
 
+state Running in RER_CameraManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    NLOG("RER_CameraManager - State RUNNING");
+
+    this.run();
+  }
+
+  entry function run() {
+    var i: int;
+
+    parent.camera.deactivationDuration = 1.5;
+    parent.camera.activationDuration = 1.5;
+
+    parent.camera.Run();
+
+    for (i = 0; i < parent.current_scenes.Size(); i += 1) {
+      parent.current_scene_index = i;
+
+      parent.current_scenes[i].loop(parent.camera);
+    }
+
+    parent.camera.Stop();
+  }
+}
+
+state Waiting in RER_CameraManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    NLOG("RER_CameraManager - State WAITING");
+  }
+}
