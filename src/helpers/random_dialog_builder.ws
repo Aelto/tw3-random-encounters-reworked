@@ -56,6 +56,7 @@ class RER_RandomDialogBuilder {
 
   latent function play(optional actor: CActor, optional with_camera: bool) {
     var i: int;
+    var camera: RER_StaticCamera;
 
     if (actor) {
       this.talking_actor = actor;
@@ -67,15 +68,19 @@ class RER_RandomDialogBuilder {
     this.then();
 
     if (with_camera) {
-      this.teleportCameraToLookAtTalkingActor();
+      camera = this.teleportCameraToLookAtTalkingActor();
     }
 
     for (i = 0; i < this.sections.Size(); i += 1) {
       this.playSection(i);
     }
+
+    if (with_camera) {
+      camera.Stop();
+    }
   }
 
-  private latent function teleportCameraToLookAtTalkingActor() {
+  private latent function teleportCameraToLookAtTalkingActor(): RER_StaticCamera {
     var camera: RER_StaticCamera;
     var position: Vector;
     var rotation: EulerAngles;
@@ -84,12 +89,24 @@ class RER_RandomDialogBuilder {
     camera.deactivationDuration = 1;
     camera.activationDuration = 1;
 
-    position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 2) + VecConeRand(
-      this.talking_actor.GetHeading(),
-      180,
-      4,
-      5
-    );
+    // left camera
+    if (RandRange(10) > 5) {
+      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 2) + VecConeRand(
+        this.talking_actor.GetHeading() - 45,
+        45,
+        2,
+        2.5
+      );
+    }
+    // right camera
+    else {
+      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 2) + VecConeRand(
+        this.talking_actor.GetHeading() + 45,
+        45,
+        4,
+        5
+      );
+    }
 
     rotation = VecToRotation(
       this.talking_actor.GetWorldPosition() + Vector(0, 0, 2)
@@ -103,6 +120,8 @@ class RER_RandomDialogBuilder {
     );
 
     camera.Run();
+
+    return camera;
   }
 
   private latent function playSection(index: int) {

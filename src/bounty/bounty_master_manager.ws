@@ -532,16 +532,16 @@ state Talking in RER_BountyMasterManager {
     if (this.shouldCancelDialogue(3 * 3)) {
       (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
-        .play((CActor)(parent.bounty_master_entity));
+        .play((CActor)(parent.bounty_master_entity), true);
 
       (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_farewell in thePlayer, true)
-        .play();
+        .play(, true);
 
       return false;
     }
 
-    dialog_builder.play(npc);
+    dialog_builder.play(npc, true);
 
     return true;
   }

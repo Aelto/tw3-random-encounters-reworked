@@ -21,6 +21,9 @@ statemachine class RER_EcosystemAnalyzer extends CEntity {
 
 state Waiting in RER_EcosystemAnalyzer {}
 
+// this state creates a pop-up that displays more information about the surrounding
+// ecosystems. It also shows the closests two bounties and gives information about
+// them too, such as the distance and the creature from the bounty.
 state Analysing in RER_EcosystemAnalyzer {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -66,7 +69,6 @@ state Analysing in RER_EcosystemAnalyzer {
 
   latent function playAnimation() {
 		thePlayer.PlayerStartAction( PEA_ExamineGround, '' );
-    // ActionPlaySlotAnimationAsync
   }
 
   latent function stopAnimation() {
@@ -350,6 +352,9 @@ state Analysing in RER_EcosystemAnalyzer {
 
     return advice;
   }
+
+  //#region nearby bounties
+  //#endregion nearby bounties
 }
 
 struct RER_SurroundingCreaturePercentage {

@@ -141,7 +141,8 @@ statemachine class RER_BountyManager extends CEntity {
       if (seed == 0) {
         current_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
           this.master,
-          EncounterType_HUNTINGGROUND
+          EncounterType_HUNTINGGROUND,
+          true
         );
 
         current_group_data.type = current_bestiary_entry.type;

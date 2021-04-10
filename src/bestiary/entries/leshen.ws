@@ -35,7 +35,9 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
           "dlc\bob\journal\bestiary\mq7002spriggan.journal"
         )
       );
-      this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+    }
+
+    this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -94,14 +96,13 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureFORKTAIL
       .influence(influences.kills_them) //CreatureSKELTROLL
       .build();
-  }
 
-      this.template_list.difficulty_factor.minimum_count_easy = 1;
-      this.template_list.difficulty_factor.maximum_count_easy = 1;
-      this.template_list.difficulty_factor.minimum_count_medium = 1;
-      this.template_list.difficulty_factor.maximum_count_medium = 1;
-      this.template_list.difficulty_factor.minimum_count_hard = 1;
-      this.template_list.difficulty_factor.maximum_count_hard = 1;
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
 
     this.trophy_names.PushBack('modrer_leshen_trophy_low');
     this.trophy_names.PushBack('modrer_leshen_trophy_medium');

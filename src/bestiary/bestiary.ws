@@ -18,7 +18,7 @@ class RER_Bestiary {
     }
   }
 
-  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType): RER_BestiaryEntry {
+  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType, optional for_bounty: bool): RER_BestiaryEntry {
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
@@ -28,14 +28,19 @@ class RER_Bestiary {
     master.spawn_roller.reset();
 
     creatures_preferences = new RER_CreaturePreferences in this;
+
     creatures_preferences
-      .setIsNight(theGame.envMgr.IsNight())
-      .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
-      .setIsNearWater(master.rExtra.IsPlayerNearWater())
-      .setIsInForest(master.rExtra.IsPlayerInForest())
-      .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
-      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()))
-      .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
+      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
+
+    if (!for_bounty) {
+      creatures_preferences
+        .setIsNight(theGame.envMgr.IsNight())
+        .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
+        .setIsNearWater(master.rExtra.IsPlayerNearWater())
+        .setIsInForest(master.rExtra.IsPlayerInForest())
+        .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
+        .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
+    }
 
     for (i = 0; i < CreatureMAX; i += 1) {
       this.entries[i]
@@ -219,9 +224,9 @@ class RER_Bestiary {
 
   var third_party_entries: array<RER_BestiaryEntry>;
 
-  public function addThirdPartyCreature(third_party_id: int, bestiary_entry: RER_BestiaryEntry) {
-    if (this.hasThirdPartyCreature(third_party_id)) {
-      LogChannel('modRandomEncounters', "3rd party creature with id [" + third_party_id + "], name [" + bestiary_entry.menu_name + "] denied because id already exists");
+  public function addThirdPartyCreature(bestiary_entry: RER_BestiaryEntry) {
+    if (this.hasThirdPartyCreature(bestiary_entry.type)) {
+      LogChannel('modRandomEncounters', "3rd party creature with id [" + bestiary_entry.type + "], name [" + bestiary_entry.menu_name + "] denied because id already exists");
       
       return;
     }
