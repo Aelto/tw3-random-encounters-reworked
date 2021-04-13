@@ -91,7 +91,7 @@ class RER_RandomDialogBuilder {
 
     // left camera
     if (RandRange(10) > 5) {
-      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 2) + VecConeRand(
+      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 1.1) + VecConeRand(
         this.talking_actor.GetHeading() - 45,
         45,
         2,
@@ -100,7 +100,7 @@ class RER_RandomDialogBuilder {
     }
     // right camera
     else {
-      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 2) + VecConeRand(
+      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 1.1) + VecConeRand(
         this.talking_actor.GetHeading() + 45,
         45,
         4,
