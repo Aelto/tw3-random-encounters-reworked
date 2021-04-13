@@ -26,7 +26,7 @@ class RER_BountyModuleDialog extends CR4HudModuleDialog {
     data.ScreenPosX = 0.62;
     data.ScreenPosY = 0.65;
 
-    data.SetMessageTitle( GetLocStringByKeyExt("panel_hud_dialogue_title_bet_rer"));
+    data.SetMessageTitle( GetLocStringByKey("panel_hud_dialogue_title_bet_rer"));
 		data.dialogueRef = this;
 		data.BlurBackground = false;
 

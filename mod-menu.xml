@@ -1260,7 +1260,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="OPTIONS">
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Bruxae" value="0"/>
@@ -1292,7 +1292,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Fleders" displayName="rer_Fleder" displayType="OPTIONS">
+            <Var id="Fleders" displayName="rer_fleder" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Fleders" value="0"/>
@@ -1324,7 +1324,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Garkains" displayName="rer_Garkain" displayType="OPTIONS">
+            <Var id="Garkains" displayName="rer_garkain" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Garkains" value="0"/>
@@ -1388,7 +1388,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Giants" displayName="rer_Giant" displayType="OPTIONS">
+            <Var id="Giants" displayName="rer_giant" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Giants" value="0"/>
@@ -1420,7 +1420,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="OPTIONS">
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Skeletons" value="0"/>
@@ -1452,7 +1452,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Barghests" displayName="rer_Barghest" displayType="OPTIONS">
+            <Var id="Barghests" displayName="rer_barghest" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Barghests" value="0"/>
@@ -1484,7 +1484,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
+            <Var id="Echinops" displayName="rer_echinops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Echinops" value="0"/>
@@ -1516,7 +1516,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="OPTIONS">
+            <Var id="Centipedes" displayName="rer_centipede" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Centipedes" value="0"/>
@@ -1548,7 +1548,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="OPTIONS">
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Kikimores" value="0"/>
@@ -1580,7 +1580,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Panthers" displayName="rer_Panther" displayType="OPTIONS">
+            <Var id="Panthers" displayName="rer_panther" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Panthers" value="0"/>
@@ -1612,7 +1612,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="OPTIONS">
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Shaelmaars" value="0"/>
@@ -1644,7 +1644,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Wights" displayName="rer_Wight" displayType="OPTIONS">
+            <Var id="Wights" displayName="rer_wight" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Wights" value="0"/>
@@ -1676,7 +1676,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Humans" displayName="rer_human_chance" displayType="OPTIONS">
+            <Var id="Humans" displayName="rer_human" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Humans" value="0"/>
@@ -1708,7 +1708,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="OPTIONS">
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Wild_Hunt" value="0"/>
@@ -1804,7 +1804,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Wyverns" value="0"/>
@@ -1836,7 +1836,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Forktails" displayName="rer_Forktail" displayType="OPTIONS">
+            <Var id="Forktails" displayName="rer_forktail" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Forktails" value="0"/>
@@ -1868,7 +1868,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="OPTIONS">
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Basilisks" value="0"/>
@@ -1900,7 +1900,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Katakans" displayName="rer_Katakan" displayType="OPTIONS">
+            <Var id="Katakans" displayName="rer_katakan" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Katakans" value="0"/>
@@ -1932,7 +1932,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="OPTIONS">
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_region_constraint_none">
                         <Entry varId="Ekimmaras" value="0"/>
@@ -2514,7 +2514,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="OPTIONS">
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Bruxae" value="0"/>
@@ -2525,7 +2525,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Fleders" displayName="rer_Fleder" displayType="OPTIONS">
+            <Var id="Fleders" displayName="rer_fleder" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Fleders" value="0"/>
@@ -2536,7 +2536,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Garkains" displayName="rer_Garkain" displayType="OPTIONS">
+            <Var id="Garkains" displayName="rer_garkain" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Garkains" value="0"/>
@@ -2558,7 +2558,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Giants" displayName="rer_Giant" displayType="OPTIONS">
+            <Var id="Giants" displayName="rer_giant" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Giants" value="0"/>
@@ -2569,7 +2569,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="OPTIONS">
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Skeletons" value="0"/>
@@ -2580,7 +2580,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Barghests" displayName="rer_Barghest" displayType="OPTIONS">
+            <Var id="Barghests" displayName="rer_barghest" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Barghests" value="0"/>
@@ -2591,7 +2591,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Echinops" displayName="rer_Echinops" displayType="OPTIONS">
+            <Var id="Echinops" displayName="rer_echinops" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Echinops" value="0"/>
@@ -2602,7 +2602,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="OPTIONS">
+            <Var id="Centipedes" displayName="rer_centipede" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Centipedes" value="0"/>
@@ -2613,7 +2613,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="OPTIONS">
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Kikimores" value="0"/>
@@ -2624,7 +2624,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Panthers" displayName="rer_Panther" displayType="OPTIONS">
+            <Var id="Panthers" displayName="rer_panther" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Panthers" value="0"/>
@@ -2635,7 +2635,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="OPTIONS">
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Shaelmaars" value="0"/>
@@ -2646,7 +2646,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Wights" displayName="rer_Wight" displayType="OPTIONS">
+            <Var id="Wights" displayName="rer_wight" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Wights" value="0"/>
@@ -2657,7 +2657,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Humans" displayName="rer_human_chance" displayType="OPTIONS">
+            <Var id="Humans" displayName="rer_human" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Humans" value="0"/>
@@ -2668,7 +2668,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="OPTIONS">
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Wild_Hunt" value="0"/>
@@ -2701,7 +2701,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="OPTIONS">
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Wyverns" value="0"/>
@@ -2712,7 +2712,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Forktails" displayName="rer_Forktail" displayType="OPTIONS">
+            <Var id="Forktails" displayName="rer_forktail" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Forktails" value="0"/>
@@ -2723,7 +2723,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="OPTIONS">
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Basilisks" value="0"/>
@@ -2734,7 +2734,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Katakans" displayName="rer_Katakan" displayType="OPTIONS">
+            <Var id="Katakans" displayName="rer_katakan" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Katakans" value="0"/>
@@ -2745,7 +2745,7 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="OPTIONS">
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_select_no">
                         <Entry varId="Ekimmaras" value="0"/>
@@ -3040,28 +3040,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -3344,28 +3344,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -3648,28 +3648,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -3952,28 +3952,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -4259,28 +4259,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -4563,28 +4563,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -4867,28 +4867,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -5171,28 +5171,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
@@ -5294,28 +5294,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
     <!-- #endregion encounters -->
@@ -5487,28 +5487,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;200" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;200" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;200" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;200" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;200" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;200" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;200" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;200" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;200" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;200" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;200" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;200" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;200" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;200" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;200" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;200" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;200" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;200" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;200" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;200" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;200" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;200" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;200" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;200" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;200" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;200" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;200" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;200" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;200" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;200" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;200" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;200" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;200" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;200" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;200" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;200" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;200" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;200" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;200" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;200" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;200" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;200" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;200" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;200" />
         </VisibleVars>
     </Group>
 
@@ -5812,28 +5812,28 @@
             <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
             <Var id="Boars" displayName="rer_boars" displayType="SLIDER;0;100;100" />
             <Var id="Higher_Vampires" displayName="rer_Higher_Vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_Bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_Fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_Garkain" displayType="SLIDER;0;100;100" />
+            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
+            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
+            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
             <Var id="Graviers" displayName="rer_drownerDLC" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_Giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_Skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_Barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_Echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_Centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_Kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_Panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_Sharley" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_Wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human_chance" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wild_chance" displayType="SLIDER;0;100;100" />
+            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
+            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
+            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
+            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
+            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
+            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
+            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
+            <Var id="Shaelmaars" displayName="rer_sharley" displayType="SLIDER;0;100;100" />
+            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
+            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
+            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
             <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
             <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_Wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_Forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_Basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_Katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_Ekimmara" displayType="SLIDER;0;100;100" />
+            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
+            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
+            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
+            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
+            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 

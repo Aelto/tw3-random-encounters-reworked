@@ -28,62 +28,62 @@
 2115018026|        |panel_ambush_night_settings|Ambush Night
 2115018027|        |preset_value_rer_everything_off|Everything OFF
 2115018028|        |preset_value_rer_everything_on|Everything ON
-2115018029|        |option_rer_leshen|Leshen
-2115018030|        |option_rer_werewolf|Werewolf
-2115018031|        |option_rer_cyclops|Cyclop
+2115018029|        |option_rer_leshen|Leshens
+2115018030|        |option_rer_werewolf|Werewolves
+2115018031|        |option_rer_cyclops|Cyclops
 2115018032|        |option_rer_arachas|Arachas
-2115018033|        |option_rer_fiend|Fiend
-2115018034|        |option_rer_chort|Chort
-2115018035|        |option_rer_vampire|Vampire
-2115018036|        |option_rer_bear|Bear
-2115018037|        |option_rer_skelligebear|Skellige Bear
-2115018038|        |option_rer_golem|Golem
-2115018039|        |option_rer_elemental|Elemental
-2115018040|        |option_rer_nightwraith|NightWraith
-2115018041|        |option_rer_noonwraith|NoonWraith
-2115018042|        |option_rer_troll|Troll
-2115018043|        |option_rer_skelligetroll|Skellige Troll
-2115018044|        |option_rer_hag|Hag
+2115018033|        |option_rer_fiend|Fiends
+2115018034|        |option_rer_chort|Chorts
+2115018035|        |option_rer_vampire|Vampires
+2115018036|        |option_rer_bear|Bears
+2115018037|        |option_rer_skelligebear|Skellige Bears
+2115018038|        |option_rer_golem|Golems
+2115018039|        |option_rer_elemental|Elementals
+2115018040|        |option_rer_nightwraith|NightWraiths
+2115018041|        |option_rer_noonwraith|NoonWraiths
+2115018042|        |option_rer_troll|Trolls
+2115018043|        |option_rer_skelligetroll|Skellige Trolls
+2115018044|        |option_rer_hag|Hags
 2115018045|        |option_rer_harpies|Harpies
-2115018046|        |option_rer_fogling|Fogling (Foglet)
-2115018047|        |option_rer_endrega|Endrega
-2115018048|        |option_rer_ghoul|Ghoul
-2115018049|        |option_rer_alghoul|Alghoul
+2115018046|        |option_rer_fogling|Foglings
+2115018047|        |option_rer_endrega|Endregas
+2115018048|        |option_rer_ghoul|Ghouls
+2115018049|        |option_rer_alghoul|Alghouls
 2115018050|        |option_rer_nekkers|Nekkers
-2115018051|        |option_rer_drowner|Drowner
-2115018052|        |option_rer_rotfiend|Rotfiend
-2115018053|        |option_rer_wolf|Wolf
-2115018054|        |option_rer_skelligewolf|Skellige Wolf
-2115018055|        |option_rer_wraith|Wraith
-2115018056|        |option_rer_spider|Spider
-2115018057|        |option_rer_boars|Boar
-2115018058|        |option_rer_Higher_Vampire|Higher Vampire
-2115018059|        |option_rer_Bruxa|Bruxa
-2115018060|        |option_rer_Fleder|Fleder
-2115018061|        |option_rer_Garkain|Garkain
-2115018062|        |option_rer_drownerDLC|Scurver (Graveir)
-2115018063|        |option_rer_Giant|Giant
-2115018064|        |option_rer_Skeleton|Skeleton
-2115018065|        |option_rer_Barghest|Barghest
-2115018066|        |option_rer_Echinops|Echinops
-2115018067|        |option_rer_Centipede|Centipede
-2115018068|        |option_rer_Kikimore|Kikimore
-2115018069|        |option_rer_Panther|Panther
-2115018070|        |option_rer_Sharley|Sharley (Shaelmaar)
-2115018071|        |option_rer_Wight|Wight
-2115018072|        |option_rer_human_chance|Human
-2115018073|        |option_rer_wild_chance|Wild Hunt
-2115018074|        |option_rer_gryphon|Gryphon
-2115018075|        |option_rer_cockatrice|Cockatrice
-2115018076|        |option_rer_Wyvern|Wyvern
-2115018077|        |option_rer_Forktail|Forktail
-2115018078|        |option_rer_Basilisk|Basilisk
-2115018079|        |option_rer_Katakan|Katakan
-2115018080|        |option_rer_Ekimmara|Ekimmara
-2115018081|        |option_rer_sirens|Siren
-2115018082|        |option_rer_berserkers|Berserker
-2115018083|        |option_rer_dracolizards|Slyzard
-2115018084|        |option_rer_gargoyles|Gargoyle
+2115018051|        |option_rer_drowner|Drowners
+2115018052|        |option_rer_rotfiend|Rotfiends
+2115018053|        |option_rer_wolf|Wolves
+2115018054|        |option_rer_skelligewolf|Skellige Wolves
+2115018055|        |option_rer_wraith|Wraiths
+2115018056|        |option_rer_spider|Spiders
+2115018057|        |option_rer_boars|Boars
+2115018058|        |option_rer_Higher_Vampire|Higher Vampires
+2115018059|        |option_rer_bruxa|Bruxaes
+2115018060|        |option_rer_fleder|Fleders
+2115018061|        |option_rer_garkain|Garkains
+2115018062|        |option_rer_drownerDLC|Scurvers
+2115018063|        |option_rer_giant|Giants
+2115018064|        |option_rer_skeleton|Skeletons
+2115018065|        |option_rer_barghest|Barghests
+2115018066|        |option_rer_echinops|Echinops
+2115018067|        |option_rer_centipede|Centipedes
+2115018068|        |option_rer_kikimore|Kikimores
+2115018069|        |option_rer_panther|Panthers
+2115018070|        |option_rer_sharley|Shaelmaars
+2115018071|        |option_rer_wight|Wights
+2115018072|        |option_rer_human|Humans
+2115018073|        |option_rer_wildhunt|Wild Hunts
+2115018074|        |option_rer_gryphon|Gryphons
+2115018075|        |option_rer_cockatrice|Cockatrices
+2115018076|        |option_rer_wyvern|Wyverns
+2115018077|        |option_rer_forktail|Forktails
+2115018078|        |option_rer_basilisk|Basilisks
+2115018079|        |option_rer_katakan|Katakans
+2115018080|        |option_rer_ekimmara|Ekimmaras
+2115018081|        |option_rer_sirens|Sirens
+2115018082|        |option_rer_berserkers|Berserkers
+2115018083|        |option_rer_dracolizards|Slyzards
+2115018084|        |option_rer_gargoyles|Gargoyles
 2115018085|        |preset_Mods_rer_name_rer_main_settings|Main settings
 2115018086|        |preset_Mods_rer_name_rer_creature_frequency|Creatures frequencies
 2115018087|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_ambush_day_settings|Ambush Day
@@ -284,3 +284,11 @@
 2115018283|        |rer_tutorial_rewards_body|You just found a <font color="#CD7D03">Trophy<font/> from the mod Random Encounters Reworked. These trophies were created only to reward Geralt for the creatures he hunts and do not have any purpose but to be sold.<br />Creatures from the mod also drop a few crowns for the same purpose. If you do not like the rewards or would like to change how many you find you can do so in the <font color="#CD7D03">Rewards System<font/> menu specifically made for it.
 2115018284|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
 2115018285|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)
+2115018286|        |rer_unknown|Unknown
+2115018287|        |rer_bounty_start_popup|The following creatures were seen and now have bounties on their heads:<br />{{creature_listing}}</br />Whoever brings their trophies to the bounty master will get a sizable reward
+2115018288|        |rer_mappin_bounty_master_title|Bounty master
+2115018289|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
+2115018290|        |rer_mappin_bounty_target_title|Bounty target
+2115018291|        |rer_mappin_bounty_target_description|A group of {{creature_type}} was seen in the area. Kill them and collect their trophies for a reward.
+2115018292|        |rer_mappin_regular_title|
+2115018293|        |rer_mappin_regular_description|Clues led to this area, something interesting must be in the area.

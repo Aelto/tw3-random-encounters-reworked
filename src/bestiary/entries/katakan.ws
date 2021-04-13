@@ -6,6 +6,7 @@ class RER_BestiaryKatakan extends RER_BestiaryEntry {
 
     this.type = CreatureKATAKAN;
     this.menu_name = 'Katakans';
+    this.localized_name = 'option_rer_katakan';
 
     
 

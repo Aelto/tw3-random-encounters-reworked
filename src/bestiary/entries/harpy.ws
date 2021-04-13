@@ -6,6 +6,7 @@ class RER_BestiaryHarpy extends RER_BestiaryEntry {
 
     this.type = CreatureHARPY;
     this.menu_name = 'Harpies';
+    this.localized_name = 'option_rer_harpy';
 
     
 

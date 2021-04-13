@@ -6,6 +6,7 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
 
     this.type = CreatureELEMENTAL;
     this.menu_name = 'Elementals';
+    this.localized_name = 'option_rer_elemental';
 
     
 

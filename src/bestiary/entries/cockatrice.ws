@@ -6,6 +6,7 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
 
     this.type = CreatureCOCKATRICE;
     this.menu_name = 'Cockatrices';
+    this.localized_name = 'option_rer_cockatrice';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

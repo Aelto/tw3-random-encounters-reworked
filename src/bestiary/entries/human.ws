@@ -6,6 +6,7 @@ class RER_BestiaryHuman extends RER_BestiaryEntry {
 
     this.type = CreatureHUMAN;
     this.menu_name = 'Humans';
+    this.localized_name = 'option_rer_human';
 
     this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\nml_deserters_axe_normal.w2ent"));        
     this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\nml_deserters_bow.w2ent", 3));        

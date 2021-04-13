@@ -6,6 +6,7 @@ class RER_BestiaryWraith extends RER_BestiaryEntry {
 
     this.type = CreatureWRAITH;
     this.menu_name = 'Wraiths';
+    this.localized_name = 'option_rer_wraith';
 
     
 

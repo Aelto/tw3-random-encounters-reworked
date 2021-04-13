@@ -6,6 +6,7 @@ class RER_BestiaryWight extends RER_BestiaryEntry {
 
     this.type = CreatureWIGHT;
     this.menu_name = 'Wights';
+    this.localized_name = 'option_rer_wight';
 
     
 

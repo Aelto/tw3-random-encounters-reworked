@@ -6,6 +6,7 @@ class RER_BestiaryNekker extends RER_BestiaryEntry {
 
     this.type = CreatureNEKKER;
     this.menu_name = 'Nekkers';
+    this.localized_name = 'option_rer_nekker';
 
     
 

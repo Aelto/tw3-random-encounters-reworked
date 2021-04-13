@@ -6,6 +6,7 @@ class RER_BestiarySkeleton extends RER_BestiaryEntry {
 
     this.type = CreatureSKELETON;
     this.menu_name = 'Skeletons';
+    this.localized_name = 'option_rer_skeleton';
 
     
 

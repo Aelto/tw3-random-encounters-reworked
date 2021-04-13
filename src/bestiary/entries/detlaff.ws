@@ -6,6 +6,7 @@ class RER_BestiaryDetlaff extends RER_BestiaryEntry {
 
     this.type = CreatureDETLAFF;
     this.menu_name = 'Higher_Vampires';
+    this.localized_name = 'option_rer_Higher_Vampire';
 
     
 

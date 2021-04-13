@@ -6,6 +6,7 @@ class RER_BestiaryGryphon extends RER_BestiaryEntry {
 
     this.type = CreatureGRYPHON;
     this.menu_name = 'Gryphons';
+    this.localized_name = 'option_rer_gryphon';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

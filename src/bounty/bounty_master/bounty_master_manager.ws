@@ -20,6 +20,7 @@ statemachine class RER_BountyMasterManager {
     var template: CEntityTemplate;
     var position_index: int;
     var template_path: string;
+    var map_pin: SU_MapPin;
 
     this.bounty_master_entity = theGame.GetEntityByTag('RER_bounty_master');
 
@@ -74,13 +75,21 @@ statemachine class RER_BountyMasterManager {
       this.bounty_master_entity.AddTag('RER_bounty_master');
     }
 
+    SU_removeCustomPinByTag("RER_bounty_master");
+
     if (theGame.GetInGameConfigWrapper()
         .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
 
-      this.bounty_manager.master.pin_manager.addPinHere(
-        valid_positions[position_index],
-        RER_InterestPin
-      );
+      map_pin = new SU_MapPin in thePlayer;
+      map_pin.tag = "RER_bounty_master";
+      map_pin.position = valid_positions[position_index];
+      map_pin.description = GetLocStringByKey("rer_mappin_bounty_master_description");
+      map_pin.label = GetLocStringByKey("rer_mappin_bounty_master_title");
+      map_pin.type = "QuestGiverSide";
+      map_pin.radius = 0;
+      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+      thePlayer.addCustomPin(map_pin);
 
       NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
     }

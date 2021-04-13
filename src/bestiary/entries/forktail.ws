@@ -6,6 +6,7 @@ class RER_BestiaryForktail extends RER_BestiaryEntry {
 
     this.type = CreatureFORKTAIL;
     this.menu_name = 'Forktails';
+    this.localized_name = 'option_rer_forktail';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

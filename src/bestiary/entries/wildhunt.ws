@@ -6,6 +6,7 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
 
     this.type = CreatureWILDHUNT;
     this.menu_name = 'Wild_Hunt';
+    this.localized_name = 'option_rer_wildhunt';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

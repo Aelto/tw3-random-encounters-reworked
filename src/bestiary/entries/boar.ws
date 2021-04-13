@@ -6,6 +6,7 @@ class RER_BestiaryBoar extends RER_BestiaryEntry {
 
     this.type = CreatureBOAR;
     this.menu_name = 'Boars';
+    this.localized_name = 'option_rer_boar';
 
     
 

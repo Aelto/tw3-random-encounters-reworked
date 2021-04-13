@@ -6,6 +6,7 @@ class RER_BestiaryFiend extends RER_BestiaryEntry {
 
     this.type = CreatureFIEND;
     this.menu_name = 'Fiends';
+    this.localized_name = 'option_rer_fiend';
 
     this.template_list.templates.PushBack(makeEnemyTemplate(
       "characters\npc_entities\monsters\bies_lvl1.w2ent",,,

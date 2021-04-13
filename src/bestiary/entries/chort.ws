@@ -6,6 +6,7 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
 
     this.type = CreatureCHORT;
     this.menu_name = 'Chorts';
+    this.localized_name = 'option_rer_chort';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

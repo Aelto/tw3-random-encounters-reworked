@@ -6,6 +6,7 @@ class RER_BestiaryGargoyle extends RER_BestiaryEntry {
 
     this.type = CreatureGARGOYLE;
     this.menu_name = 'Gargoyles';
+    this.localized_name = 'option_rer_gargoyle';
 
     
 

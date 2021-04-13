@@ -6,6 +6,7 @@ class RER_BestiaryBasilisk extends RER_BestiaryEntry {
 
     this.type = CreatureBASILISK;
     this.menu_name = 'Basilisks';
+    this.localized_name = 'option_rer_basilisk';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

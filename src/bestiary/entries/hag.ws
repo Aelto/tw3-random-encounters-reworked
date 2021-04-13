@@ -6,6 +6,7 @@ class RER_BestiaryHag extends RER_BestiaryEntry {
 
     this.type = CreatureHAG;
     this.menu_name = 'Hags';
+    this.localized_name = 'option_rer_hag';
 
     
 

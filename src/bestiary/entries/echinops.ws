@@ -6,6 +6,7 @@ class RER_BestiaryEchinops extends RER_BestiaryEntry {
 
     this.type = CreatureECHINOPS;
     this.menu_name = 'Echinops';
+    this.localized_name = 'option_rer_echinops';
 
     
 

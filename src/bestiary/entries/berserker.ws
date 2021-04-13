@@ -6,6 +6,7 @@ class RER_BestiaryBerserker extends RER_BestiaryEntry {
 
     this.type = CreatureBERSERKER;
     this.menu_name = 'Berserkers';
+    this.localized_name = 'option_rer_berserkers';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

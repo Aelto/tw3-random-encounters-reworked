@@ -6,6 +6,7 @@ class RER_BestiaryGiant extends RER_BestiaryEntry {
 
     this.type = CreatureGIANT;
     this.menu_name = 'Giants';
+    this.localized_name = 'option_rer_giant';
 
     
 

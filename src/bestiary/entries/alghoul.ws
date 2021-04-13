@@ -6,6 +6,7 @@ class RER_BestiaryAlghoul extends RER_BestiaryEntry {
 
     this.type = CreatureALGHOUL;
     this.menu_name = 'Alghouls';
+    this.localized_name = 'option_rer_alghoul';
 
     
 

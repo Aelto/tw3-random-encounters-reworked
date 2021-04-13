@@ -6,6 +6,7 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
 
     this.type = CreatureWEREWOLF;
     this.menu_name = 'Werewolves';
+    this.localized_name = 'option_rer_werewolf';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

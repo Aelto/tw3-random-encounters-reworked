@@ -102,12 +102,22 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     var distance_from_player: float;
     var can_show_markers: bool;
     var should_cancel: bool;
+    var map_pin: SU_MapPin;
 
     can_show_markers = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERoptionalFeatures', 'RERmarkersContractIntermediaryPhase');
 
     if (can_show_markers) {
-      parent.master.pin_manager.addPinHere(position, RER_InfoPin);
+      map_pin = new SU_MapPin in thePlayer;
+      map_pin.tag = "RER_contract_target";
+      map_pin.position = position;
+      map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
+      map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
+      map_pin.type = "TreasureQuest";
+      map_pin.radius = 10;
+      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+      thePlayer.addCustomPin(map_pin);
     }
 
     // squared radius to save performances by using VecDistanceSquared
@@ -125,9 +135,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
       distance_from_player = VecDistanceSquared(thePlayer.GetWorldPosition(), position);
     }
 
-    if (can_show_markers) {
-      parent.master.pin_manager.removePinHere(position, RER_InfoPin, -1);
-    }
+    SU_removeCustomPinByPosition(position);
   }
 
   // override the function if necessary

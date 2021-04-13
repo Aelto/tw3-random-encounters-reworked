@@ -6,6 +6,7 @@ class RER_BestiaryDrowner extends RER_BestiaryEntry {
 
     this.type = CreatureDROWNER;
     this.menu_name = 'Drowners';
+    this.localized_name = 'option_rer_drowner';
 
     
 

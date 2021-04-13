@@ -6,6 +6,7 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
 
     this.type = CreatureCYCLOP;
     this.menu_name = 'Cyclops';
+    this.localized_name = 'option_rer_cyclop';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

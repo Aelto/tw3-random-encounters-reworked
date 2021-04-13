@@ -6,6 +6,7 @@ class RER_BestiaryEndrega extends RER_BestiaryEntry {
 
     this.type = CreatureENDREGA;
     this.menu_name = 'Endregas';
+    this.localized_name = 'option_rer_endrega';
 
     
 
