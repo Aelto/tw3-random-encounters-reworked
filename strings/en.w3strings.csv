@@ -30,7 +30,7 @@
 2115018028|        |preset_value_rer_everything_on|Everything ON
 2115018029|        |option_rer_leshen|Leshens
 2115018030|        |option_rer_werewolf|Werewolves
-2115018031|        |option_rer_cyclops|Cyclops
+2115018031|        |option_rer_cyclop|Cyclops
 2115018032|        |option_rer_arachas|Arachas
 2115018033|        |option_rer_fiend|Fiends
 2115018034|        |option_rer_chort|Chorts
@@ -44,20 +44,20 @@
 2115018042|        |option_rer_troll|Trolls
 2115018043|        |option_rer_skelligetroll|Skellige Trolls
 2115018044|        |option_rer_hag|Hags
-2115018045|        |option_rer_harpies|Harpies
+2115018045|        |option_rer_harpy|Harpies
 2115018046|        |option_rer_fogling|Foglings
 2115018047|        |option_rer_endrega|Endregas
 2115018048|        |option_rer_ghoul|Ghouls
 2115018049|        |option_rer_alghoul|Alghouls
-2115018050|        |option_rer_nekkers|Nekkers
+2115018050|        |option_rer_nekker|Nekkers
 2115018051|        |option_rer_drowner|Drowners
 2115018052|        |option_rer_rotfiend|Rotfiends
 2115018053|        |option_rer_wolf|Wolves
 2115018054|        |option_rer_skelligewolf|Skellige Wolves
 2115018055|        |option_rer_wraith|Wraiths
 2115018056|        |option_rer_spider|Spiders
-2115018057|        |option_rer_boars|Boars
-2115018058|        |option_rer_Higher_Vampire|Higher Vampires
+2115018057|        |option_rer_boar|Boars
+2115018058|        |option_rer_higher_vampire|Higher Vampires
 2115018059|        |option_rer_bruxa|Bruxaes
 2115018060|        |option_rer_fleder|Fleders
 2115018061|        |option_rer_garkain|Garkains
@@ -80,10 +80,10 @@
 2115018078|        |option_rer_basilisk|Basilisks
 2115018079|        |option_rer_katakan|Katakans
 2115018080|        |option_rer_ekimmara|Ekimmaras
-2115018081|        |option_rer_sirens|Sirens
-2115018082|        |option_rer_berserkers|Berserkers
-2115018083|        |option_rer_dracolizards|Slyzards
-2115018084|        |option_rer_gargoyles|Gargoyles
+2115018081|        |option_rer_siren|Sirens
+2115018082|        |option_rer_berserker|Berserkers
+2115018083|        |option_rer_dracolizard|Slyzards
+2115018084|        |option_rer_gargoyle|Gargoyles
 2115018085|        |preset_Mods_rer_name_rer_main_settings|Main settings
 2115018086|        |preset_Mods_rer_name_rer_creature_frequency|Creatures frequencies
 2115018087|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_ambush_day_settings|Ambush Day
