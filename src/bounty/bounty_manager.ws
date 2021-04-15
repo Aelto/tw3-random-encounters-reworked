@@ -207,6 +207,8 @@ statemachine class RER_BountyManager extends CEntity {
 
     theGame.GetEntitiesByTag('RER_BountyEntity', entities);
 
+    SU_removeCustomPinByTag("RER_bounty_target");
+
     for (i = 0; i < entities.Size(); i += 1) {
       ((CNewNPC)entities[i]).Kill('Bounty');
     }
