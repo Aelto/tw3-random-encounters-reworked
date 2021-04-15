@@ -6,6 +6,7 @@ class RER_BestiaryRotfiend extends RER_BestiaryEntry {
 
     this.type = CreatureROTFIEND;
     this.menu_name = 'Rotfiends';
+    this.localized_name = 'option_rer_rotfiend';
 
     
 

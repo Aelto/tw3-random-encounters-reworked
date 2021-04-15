@@ -6,6 +6,7 @@ class RER_BestiaryFleder extends RER_BestiaryEntry {
 
     this.type = CreatureFLEDER;
     this.menu_name = 'Fleders';
+    this.localized_name = 'option_rer_fleder';
 
     
 

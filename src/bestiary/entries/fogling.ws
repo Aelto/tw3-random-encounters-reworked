@@ -6,6 +6,7 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
 
     this.type = CreatureFOGLET;
     this.menu_name = 'Foglets';
+    this.localized_name = 'option_rer_fogling';
 
     
 

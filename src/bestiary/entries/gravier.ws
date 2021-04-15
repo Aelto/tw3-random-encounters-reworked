@@ -6,6 +6,7 @@ class RER_BestiaryGravier extends RER_BestiaryEntry {
 
     this.type = CreatureDROWNERDLC;
     this.menu_name = 'Graviers';
+    this.localized_name = 'option_rer_scurver';
 
     
 

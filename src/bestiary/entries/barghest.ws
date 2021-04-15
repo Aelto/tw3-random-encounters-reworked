@@ -6,6 +6,7 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
 
     this.type = CreatureBARGHEST;
     this.menu_name = 'Barghests';
+    this.localized_name = 'option_rer_barghest';
 
     
 

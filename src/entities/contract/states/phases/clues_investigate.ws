@@ -227,6 +227,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     var distance_from_player: float;
     var has_set_weather_snow: bool;
     var can_show_markers: bool;
+    var map_pin: SU_MapPin;
     
     can_show_markers = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERoptionalFeatures', 'RERmarkersContractFirstPhase');
@@ -235,10 +236,16 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
 
     // 1. first we wait until the player is in the investigation radius
     if (can_show_markers) {
-      parent.master.pin_manager.addPinHere(
-        this.investigation_center_position,
-        RER_InfoPin
-      );
+      map_pin = new SU_MapPin in thePlayer;
+      map_pin.tag = "RER_contract_target";
+      map_pin.position = this.investigation_center_position;
+      map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
+      map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
+      map_pin.type = "TreasureQuest";
+      map_pin.radius = 10;
+      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+      thePlayer.addCustomPin(map_pin);
     }
 
     do {
@@ -271,11 +278,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     } while (distance_from_player > this.investigation_radius * this.investigation_radius * 1.5);
 
     if (can_show_markers) {
-      parent.master.pin_manager.removePinHere(
-        this.investigation_center_position,
-        RER_InfoPin,
-        -1
-      );
+      SU_removeCustomPinByPosition(this.investigation_center_position);
     }
 
     // 2. once the player is in the radius, we play sone oneliners

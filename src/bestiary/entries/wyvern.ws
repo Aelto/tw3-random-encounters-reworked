@@ -6,6 +6,7 @@ class RER_BestiaryWyvern extends RER_BestiaryEntry {
 
     this.type = CreatureWYVERN;
     this.menu_name = 'Wyverns';
+    this.localized_name = 'option_rer_wyvern';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

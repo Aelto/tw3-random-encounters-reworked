@@ -1414,3 +1414,7 @@ class REROL_rings_a_bell extends RER_DialogData {
   default dialog_id = 402217;
 }
 
+// Geralt: Thanks. Think that's all I need for now.
+class REROL_thanks_all_i_need_for_now extends RER_DialogData {
+  default dialog_id = 1208816;
+}

@@ -1,8 +1,10 @@
 
 function getCreatureNameFromCreatureType(bestiary: RER_Bestiary, type: CreatureType): string {
   if (type >= CreatureMAX) {
-    return "Unknown";
+    return GetLocStringByKey("rer_unknown");
   }
 
-  return StrReplace(bestiary.entries[type].menu_name, "_", " ");
+  NLOG("name from type " + GetLocStringByKey(bestiary.entries[type].localized_name) + " for " + type);
+
+  return GetLocStringByKey(bestiary.entries[type].localized_name);
 }

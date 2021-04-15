@@ -57,6 +57,13 @@ struct RER_CameraScene {
 }
 
 class RER_StaticCamera extends CStaticCamera {
+  public function setFov(value: float) {
+    var component: CCameraComponent;
+    component = (CCameraComponent)this.GetComponentByClassName('CCameraComponent');
+
+    component.fov = value;
+  }
+
   public function start() {
     this.Run();
   }

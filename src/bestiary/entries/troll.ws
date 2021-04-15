@@ -6,6 +6,7 @@ class RER_BestiaryTroll extends RER_BestiaryEntry {
 
     this.type = CreatureTROLL;
     this.menu_name = 'Trolls';
+    this.localized_name = 'option_rer_troll';
 
     
 

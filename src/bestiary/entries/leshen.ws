@@ -6,6 +6,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
 
     this.type = CreatureLESHEN;
     this.menu_name = 'Leshens';
+    this.localized_name = 'option_rer_leshen';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

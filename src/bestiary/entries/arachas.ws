@@ -6,6 +6,7 @@ class RER_BestiaryArachas extends RER_BestiaryEntry {
 
     this.type = CreatureARACHAS;
     this.menu_name = 'Arachas';
+    this.localized_name = 'option_rer_arachas';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

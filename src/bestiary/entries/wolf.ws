@@ -6,6 +6,7 @@ class RER_BestiaryWolf extends RER_BestiaryEntry {
 
     this.type = CreatureWOLF;
     this.menu_name = 'Wolves';
+    this.localized_name = 'option_rer_wolf';
 
     
 

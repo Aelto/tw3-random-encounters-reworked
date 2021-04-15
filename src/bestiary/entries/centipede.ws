@@ -6,6 +6,7 @@ class RER_BestiaryCentipede extends RER_BestiaryEntry {
 
     this.type = CreatureCENTIPEDE;
     this.menu_name = 'Centipedes';
+    this.localized_name = 'option_rer_centipede';
 
     
 

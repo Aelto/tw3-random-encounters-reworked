@@ -6,6 +6,7 @@ class RER_BestiarySkelbear extends RER_BestiaryEntry {
 
     this.type = CreatureSKELBEAR;
     this.menu_name = 'Skellige_Bears';
+    this.localized_name = 'option_rer_bear';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

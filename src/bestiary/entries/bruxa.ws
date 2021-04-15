@@ -6,6 +6,7 @@ class RER_BestiaryBruxa extends RER_BestiaryEntry {
 
     this.type = CreatureBRUXA;
     this.menu_name = 'Bruxae';
+    this.localized_name = 'option_rer_bruxa';
 
     
 

@@ -6,6 +6,7 @@ class RER_BestiaryDracolizard extends RER_BestiaryEntry {
 
     this.type = CreatureDRACOLIZARD;
     this.menu_name = 'Dracolizards';
+    this.localized_name = 'option_rer_dracolizard';
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(

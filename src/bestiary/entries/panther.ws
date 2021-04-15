@@ -6,6 +6,7 @@ class RER_BestiaryPanther extends RER_BestiaryEntry {
 
     this.type = CreaturePANTHER;
     this.menu_name = 'Panthers';
+    this.localized_name = 'option_rer_panther';
 
     
 

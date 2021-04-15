@@ -1,0 +1,3 @@
+[submodule "shared-utils"]
+	path = shared-utils
+	url = https://github.com/Aelto/tw3-shared-utils

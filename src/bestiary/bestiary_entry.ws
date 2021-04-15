@@ -14,6 +14,8 @@ abstract class RER_BestiaryEntry {
 
   // the name used in the mod menus
   var menu_name: name;
+  
+  var localized_name: name;
 
   var ecosystem_impact: EcosystemCreatureImpact;
 

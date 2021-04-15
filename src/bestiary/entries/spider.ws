@@ -6,6 +6,7 @@ class RER_BestiarySpider extends RER_BestiaryEntry {
 
     this.type = CreatureSPIDER;
     this.menu_name = 'Spiders';
+    this.localized_name = 'option_rer_spider';
 
     
 

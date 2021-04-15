@@ -6,6 +6,7 @@ class RER_BestiaryGarkain extends RER_BestiaryEntry {
 
     this.type = CreatureGARKAIN;
     this.menu_name = 'Garkains';
+    this.localized_name = 'option_rer_garkain';
 
     
 

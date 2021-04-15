@@ -19,6 +19,7 @@ statemachine class RER_BountyManager extends CEntity {
   public latent function retrieveBountyGroups() {
     var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
     var bounty: RER_Bounty;
+    var map_pin: SU_MapPin;
     var i, k: int;
 
     // there is no current bounty active in the world.
@@ -29,6 +30,8 @@ statemachine class RER_BountyManager extends CEntity {
     this.cached_bounty_group_positions = this.getAllBountyGroupPositions();
 
     bounty = this.getCurrentBountyCopy();
+
+    SU_removeCustomPinByTag("RER_bounty_target");
 
     for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
       // it was not spawned earlier so we skip it
@@ -53,9 +56,25 @@ statemachine class RER_BountyManager extends CEntity {
 
       if (theGame.GetInGameConfigWrapper()
         .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
-        this.master
-          .pin_manager
-          .addPinHere(this.cached_bounty_group_positions[i], RER_SkullPin);
+
+        map_pin = new SU_MapPin in thePlayer;
+        map_pin.tag = "RER_bounty_target";
+        map_pin.position = this.cached_bounty_group_positions[i];
+        map_pin.description = StrReplace(
+          GetLocStringByKey("rer_mappin_bounty_target_description"),
+          "{{creature_type}}",
+          getCreatureNameFromCreatureType(
+            this.master.bestiary,
+            bounty.random_data.groups[i]
+              .type
+          )
+        );
+        map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
+        map_pin.type = "MonsterQuest";
+        map_pin.radius = 100;
+        map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+        thePlayer.addCustomPin(map_pin);
       }
     }
   }
@@ -188,6 +207,8 @@ statemachine class RER_BountyManager extends CEntity {
 
     theGame.GetEntitiesByTag('RER_BountyEntity', entities);
 
+    SU_removeCustomPinByTag("RER_bounty_target");
+
     for (i = 0; i < entities.Size(); i += 1) {
       ((CNewNPC)entities[i]).Kill('Bounty');
     }
@@ -258,24 +279,24 @@ statemachine class RER_BountyManager extends CEntity {
     var message: string;
     var i: int;
 
-    message = "The following creatures were seen and now have bounties on their heads:<br />";
-
     for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size(); i += 1) {
       group = this.master.storages.bounty.current_bounty.random_data.groups[i];
       message += " - " + group.count + " ";
       message += " " + getCreatureNameFromCreatureType(this.master.bestiary, group.type) + "<br />";
     }
 
-    message += "<br />Whoever brings their trophies to the bounty master will get a sizable reward";
-
-    return message;
+    return StrReplace(
+      GetLocStringByKey("rer_bounty_start_popup"),
+      "{{creature_listing}}",
+      message
+    );
   }
 
   public latent function progressThroughCurrentBounty() {
     var current_seed: int;
     var random_group: RER_BountyRandomMonsterGroupData;
     var random_group_index: int;
-    // var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
+    var map_pin: SU_MapPin;
     var position: Vector;
 
     if (!this.master.storages.bounty.current_bounty.is_active) {
@@ -317,9 +338,29 @@ statemachine class RER_BountyManager extends CEntity {
       if (theGame.GetInGameConfigWrapper()
         .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
 
-        this.master
-          .pin_manager
-          .addPinHere(position, RER_SkullPin);
+        map_pin = new SU_MapPin in thePlayer;
+        map_pin.tag = "RER_bounty_target";
+        map_pin.position = position;
+        map_pin.description = StrReplace(
+          GetLocStringByKey("rer_mappin_bounty_target_description"),
+          "{{creature_type}}",
+          getCreatureNameFromCreatureType(
+            this.master.bestiary,
+            this.master
+              .storages
+              .bounty
+              .current_bounty
+              .random_data
+              .groups[random_group_index]
+              .type
+          )
+        );
+        map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
+        map_pin.type = "MonsterQuest";
+        map_pin.radius = 100;
+        map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+        thePlayer.addCustomPin(map_pin);
       }
 
       this.master
@@ -430,7 +471,7 @@ statemachine class RER_BountyManager extends CEntity {
 
     // we remove the pin because the hunting ground will create one and the
     // getGroundPosition will probably slightly move the point away.
-    this.master.pin_manager.removePinHere(position, RER_SkullPin, -1);
+    SU_removeCustomPinByPosition(position);
 
     if (!getGroundPosition(position, 5, 50)) {
       NLOG("spawnBountyGroup, could not find a safe ground position. Defaulting to marker position");

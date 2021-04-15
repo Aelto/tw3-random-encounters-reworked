@@ -14,7 +14,7 @@ state Loading in CRandomEncounters {
       Sleep(5);
     }
 
-    RER_removeAllPins(parent.pin_manager);
+    this.removeAllRerMapPins();
 
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
     this.registerStaticEncounters();
@@ -426,5 +426,15 @@ state Loading in CRandomEncounters {
     parent
       .static_encounter_manager
       .registerStaticEncounter(parent, new_static_encounter);
+  }
+
+  private function removeAllRerMapPins() {
+    SU_removeCustomPinByPredicate(new SU_CustomPinRemoverPredicateFromRER in parent);
+  }
+}
+
+class SU_CustomPinRemoverPredicateFromRER extends SU_PredicateInterfaceRemovePin {
+  function predicate(pin: SU_MapPin): bool {
+    return StrStartsWith(pin.tag, "RER_");
   }
 }

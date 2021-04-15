@@ -6,6 +6,7 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
 
     this.type = CreatureEKIMMARA;
     this.menu_name = 'Ekimmaras';
+    this.localized_name = 'option_rer_ekimmara';
 
     
 

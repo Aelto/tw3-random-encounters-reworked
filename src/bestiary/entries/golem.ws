@@ -6,6 +6,7 @@ class RER_BestiaryGolem extends RER_BestiaryEntry {
 
     this.type = CreatureGOLEM;
     this.menu_name = 'Golems';
+    this.localized_name = 'option_rer_golem';
 
     
 
