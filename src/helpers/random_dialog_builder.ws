@@ -54,7 +54,7 @@ class RER_RandomDialogBuilder {
     return this;
   }
 
-  latent function play(optional actor: CActor, optional with_camera: bool) {
+  latent function play(optional actor: CActor, optional with_camera: bool, optional interlocutor: CActor) {
     var i: int;
     var camera: RER_StaticCamera;
 
@@ -68,7 +68,7 @@ class RER_RandomDialogBuilder {
     this.then();
 
     if (with_camera) {
-      camera = this.teleportCameraToLookAtTalkingActor();
+      camera = this.teleportCameraToLookAtTalkingActor(interlocutor);
     }
 
     for (i = 0; i < this.sections.Size(); i += 1) {
@@ -80,36 +80,42 @@ class RER_RandomDialogBuilder {
     }
   }
 
-  private latent function teleportCameraToLookAtTalkingActor(): RER_StaticCamera {
+  private latent function teleportCameraToLookAtTalkingActor(optional interlocutor: CActor): RER_StaticCamera {
+    var other_entity_position: Vector;
+    var talking_actor_position: Vector;
     var camera: RER_StaticCamera;
     var position: Vector;
     var rotation: EulerAngles;
+    var roll: int;
+    var i: int;
 
     camera = RER_getStaticCamera();
-    camera.deactivationDuration = 1;
-    camera.activationDuration = 1;
+    // camera.deactivationDuration = 0.1;
+    // camera.activationDuration = 0.15;
+    camera.setFov(17);
+    camera.FocusOn((CNode)this.talking_actor);
 
-    // left camera
-    if (RandRange(10) > 5) {
-      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 1.1) + VecConeRand(
-        this.talking_actor.GetHeading() - 45,
-        45,
-        2,
-        2.5
+    // 1.
+    // pick a position in front of the talking actor, preferably behind the actor
+    // that is listening.
+    talking_actor_position = this.talking_actor.GetBoneWorldPosition('head');
+    if (interlocutor) {
+      position = talking_actor_position;
+      other_entity_position = interlocutor.GetBoneWorldPosition('head');
+
+      position = VecInterpolate(
+        talking_actor_position,
+        other_entity_position,
+        2
       );
-    }
-    // right camera
-    else {
-      position = this.talking_actor.GetWorldPosition() + Vector(0, 0, getCreatureHeight(this.talking_actor) * 1.1) + VecConeRand(
-        this.talking_actor.GetHeading() + 45,
-        45,
-        4,
-        5
-      );
+
+      // FixZAxis(position);
+      // position.Z += 1.7;
+      position += VecFromHeading(this.talking_actor.GetHeading() + 90) * Vector(0.6, 0.6, 0.001);
     }
 
     rotation = VecToRotation(
-      this.talking_actor.GetWorldPosition() + Vector(0, 0, 2)
+      talking_actor_position
       - position
     );
     rotation.Pitch *= -1;
@@ -120,6 +126,66 @@ class RER_RandomDialogBuilder {
     );
 
     camera.Run();
+
+    camera = RER_getStaticCamera();
+    // camera.deactivationDuration = 1;
+
+    roll = RandRange(20);
+    if (roll < 8) {
+      NDEBUG("slow slide forward");
+      camera.activationDuration = 20;
+      camera.setFov(17);
+      position += VecFromHeading(this.talking_actor.GetHeading() + 180) * Vector(0.6, 0.6, 0.001);
+
+      rotation = VecToRotation(
+        talking_actor_position
+        - position
+      );
+
+      camera.TeleportWithRotation(
+        position,
+        rotation
+      );
+
+      camera.Run();
+    }
+    else if (roll < 10) {
+      // going slowly to the right
+      NDEBUG("slow slide to the right");
+      camera.activationDuration = 20;
+      camera.setFov(15);
+      position += VecFromHeading(this.talking_actor.GetHeading() + 90) * Vector(0.6, 0.6, 0.001);
+
+      rotation = VecToRotation(
+        talking_actor_position
+        - position
+      );
+
+      camera.TeleportWithRotation(
+        position,
+        rotation
+      );
+
+      camera.Run();
+    }
+    else if (roll < 12) {
+      NDEBUG("slow slide to the left");
+      camera.activationDuration = 20;
+      camera.setFov(17);
+      position += VecFromHeading(this.talking_actor.GetHeading() - 90) * Vector(1.2, 1.2, 0.001);
+
+      rotation = VecToRotation(
+        talking_actor_position
+        - position
+      );
+
+      camera.TeleportWithRotation(
+        position,
+        rotation
+      );
+
+      camera.Run();
+    }
 
     return camera;
   }

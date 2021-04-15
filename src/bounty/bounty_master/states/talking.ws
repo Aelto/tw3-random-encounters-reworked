@@ -19,6 +19,7 @@ state Talking in RER_BountyMasterManager {
     var max_radius: float;
     var should_continue: bool;
     var shorten_conversation: bool;
+    var grounded_position: Vector;
 
     npc_actor = (CActor)(parent.bounty_master_entity);
     max_radius = 10 * 10;
@@ -48,12 +49,23 @@ state Talking in RER_BountyMasterManager {
       shorten_conversation = theGame.GetInGameConfigWrapper()
         .GetVarValue('RERoptionalFeatures', 'RERshortenBountyMasterConversation');
 
+      // we make sure the bounty master is perfectly visible and looks at the player
+      grounded_position = npc_actor.GetWorldPosition();
+      FixZAxis(grounded_position);
+      npc_actor.TeleportWithRotation(
+        grounded_position,
+        VecToRotation(
+          thePlayer.GetWorldPosition() - grounded_position
+        )
+      );
+
       // plays the voicelines only the first time the player meets Graden
       if (parent.bounty_manager.master.storages.bounty.bounty_level == 0) {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_graden_youre_a_witcher_will_you_help in thePlayer, true),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -62,7 +74,8 @@ state Talking in RER_BountyMasterManager {
 
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_i_am_dont_seen_notice in thePlayer, true)
+          .dialog(new REROL_i_am_dont_seen_notice in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -72,7 +85,8 @@ state Talking in RER_BountyMasterManager {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_graden_noble_of_you_thank_you in thePlayer, true),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -81,7 +95,8 @@ state Talking in RER_BountyMasterManager {
 
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_glad_you_know_who_i_am in thePlayer, true)
+          .dialog(new REROL_glad_you_know_who_i_am in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -91,7 +106,8 @@ state Talking in RER_BountyMasterManager {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_graden_certain_youve_heard_of_us in thePlayer, true),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -100,7 +116,8 @@ state Talking in RER_BountyMasterManager {
 
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_rings_a_bell in thePlayer, true)
+          .dialog(new REROL_rings_a_bell in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -110,7 +127,8 @@ state Talking in RER_BountyMasterManager {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_graden_matter_to_resolve in thePlayer, true),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -119,7 +137,8 @@ state Talking in RER_BountyMasterManager {
 
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_mhm_2 in thePlayer, true)
+          .dialog(new REROL_mhm_2 in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -130,7 +149,8 @@ state Talking in RER_BountyMasterManager {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_graden_witcher in thePlayer, true),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -139,7 +159,8 @@ state Talking in RER_BountyMasterManager {
 
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_greetings in thePlayer, true)
+          .dialog(new REROL_greetings in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -150,7 +171,8 @@ state Talking in RER_BountyMasterManager {
       should_continue = this.playDialogue(
         (new RER_RandomDialogBuilder in thePlayer).start()
         .either(new REROL_what_surprise_new_monster_to_kill in thePlayer, true, 1)
-        .either(new REROL_lemme_guess_monster_needs_killing in thePlayer, true, 1)
+        .either(new REROL_lemme_guess_monster_needs_killing in thePlayer, true, 1),,
+        npc_actor
       );
 
       if (!should_continue) {
@@ -161,7 +183,8 @@ state Talking in RER_BountyMasterManager {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_graden_ive_lost_five_men in thePlayer, true),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -171,7 +194,8 @@ state Talking in RER_BountyMasterManager {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
           .dialog(new REROL_i_see_the_wounds in thePlayer, true)
-          .dialog(new REROL_any_witnesses in thePlayer, true)
+          .dialog(new REROL_any_witnesses in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -182,7 +206,8 @@ state Talking in RER_BountyMasterManager {
           (new RER_RandomDialogBuilder in thePlayer).start()
           .either(new REROL_graden_didnt_sound_like_wolves in thePlayer, true, 1)
           .either(new REROL_graden_looked_a_fiend in thePlayer, true, 1),
-          npc_actor
+          npc_actor,
+          thePlayer
         );
 
         if (!should_continue) {
@@ -193,7 +218,8 @@ state Talking in RER_BountyMasterManager {
       should_continue = this.playDialogue(
         (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_mhm_2 in thePlayer, true)
-        .then(0.2)
+        .then(0.2),,
+        npc_actor
       );
 
       if (!should_continue) {
@@ -203,7 +229,8 @@ state Talking in RER_BountyMasterManager {
       if (!shorten_conversation && RandRange(10) > 5) {
         should_continue = this.playDialogue(
           (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_really_helpful_that in thePlayer, true)
+          .dialog(new REROL_really_helpful_that in thePlayer, true),,
+          npc_actor
         );
 
         if (!should_continue) {
@@ -214,16 +241,7 @@ state Talking in RER_BountyMasterManager {
       should_continue = this.playDialogue(
         (new RER_RandomDialogBuilder in thePlayer).start()
         .either(new REROL_fine_show_me_where_monsters in thePlayer, true, 1)
-        .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1)
-      );
-
-      if (!should_continue) {
-        return;
-      }
-
-      should_continue = this.playDialogue(
-        (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true),
+        .either(new REROL_fine_ill_see_what_i_can_do in thePlayer, true, 1),,
         npc_actor
       );
 
@@ -233,7 +251,19 @@ state Talking in RER_BountyMasterManager {
 
       should_continue = this.playDialogue(
         (new RER_RandomDialogBuilder in thePlayer).start()
-        .dialog(new REROL_farewell in thePlayer, true)
+        .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true),
+        npc_actor,
+        thePlayer
+      );
+
+      if (!should_continue) {
+        return;
+      }
+
+      should_continue = this.playDialogue(
+        (new RER_RandomDialogBuilder in thePlayer).start()
+        .dialog(new REROL_farewell in thePlayer, true),,
+        npc_actor
       );
 
       if (!should_continue) {
@@ -241,31 +271,7 @@ state Talking in RER_BountyMasterManager {
       }
     }
 
-    distance_from_player = VecDistanceSquared(
-      thePlayer.GetWorldPosition(),
-      parent.bounty_master_entity.GetWorldPosition()
-    );
-
-    // start the bounty only if the player is close to the bounty master
-    if (distance_from_player < radius) {
-      parent.last_talking_time = theGame.GetEngineTimeAsSeconds();
-
-      // the player decided not to have the seed selector window show up. In this
-      // case, we directly notify the bounty manager we want a bounty with the
-      // seed 0.
-      // The seed 0 is a special case, with this seed everything is completely
-      // random and none of the values depend on the seed. Two bounties with
-      // the seed 0 are not guaranteed to be the same unlike other seeds.
-      if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERignoreSeedSelectorWindow')) {
-        parent.bountySeedSelected(0);
-      }
-      else {
-        this.openHaggleWindow();
-      }
-    }
-    else {
-      parent.GotoState('Waiting');
-    }
+    parent.GotoState('SeedSelection');
   }
 
   private function shouldCancelDialogue(squared_radius: float): bool {
@@ -275,28 +281,24 @@ state Talking in RER_BountyMasterManager {
     ) > squared_radius;
   }
 
-  private latent function playDialogue(dialog_builder: RER_RandomDialogBuilder, optional npc: CActor): bool {
+  private latent function playDialogue(dialog_builder: RER_RandomDialogBuilder, optional npc: CActor, optional interlocutor: CActor): bool {
     if (this.shouldCancelDialogue(3 * 3)) {
       (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
-        .play((CActor)(parent.bounty_master_entity), true);
+        .play((CActor)(parent.bounty_master_entity), false, thePlayer);
 
       (new RER_RandomDialogBuilder in thePlayer).start()
         .dialog(new REROL_farewell in thePlayer, true)
-        .play(, true);
+        .play(, false, (CActor)(parent.bounty_master_entity));
 
       return false;
     }
 
-    dialog_builder.play(npc, true);
+    dialog_builder
+    // the .then() is to add a small delay between the talking actors
+    .then(RandF())
+    .play(npc, false, interlocutor);
 
     return true;
-  }
-
-  function openHaggleWindow() {
-    var haggle_module_dialog: RER_BountyModuleDialog;
-
-    haggle_module_dialog = new RER_BountyModuleDialog in parent;
-    haggle_module_dialog.openSeedSelectorWindow(parent);
   }
 }
