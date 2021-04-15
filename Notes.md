@@ -28,6 +28,21 @@
 
 ## personal notes
 
+- The bounty master will have a new tab for contracts, contracts accepted from this tab will give you a notice with all the information you need to start the hunt.
+
+- A statemachine class should be created `abstract class QuestMakingUtility` which will give useful methods like:
+  - keep monsters on point
+  - wait for player to reach point
+  - will come with a trail_maker ready
+  - it will also offer a way to register states with a quest progress. So we don't have to do `GotoState('theNextState')` but instead `parent.quest_progress.goForward()`. And it will know which state to go into based on the current and previous progress.
+  - branches could probably be implemented by giving an optional paremeter to `goForward(branch_index)`
+
+- With it will come another class `abstract class QuestProgressUtility` which will be used to store the progress of the player in a quest.
+  - it will come with method to progress forward **and** backward (useful for testing)
+  - this class will be instanciated in the `QuestMakingUtility` class as a property.
+
+- the main RER class will be updated so we can register `QuestMakingUtility` classes. The mod will then take care of showing the new quest in the bounty master tab 
+
 
   
 ```
