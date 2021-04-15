@@ -10,7 +10,7 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
   entry function Loading_main() {
     var template: CEntityTemplate;
     var can_place_bounty_marker: bool;
-    var predicate: SU_CustomPinRemoverPredicatePositionNearby;
+    // var predicate: SU_CustomPinRemoverPredicatePositionNearby;
     var map_pin: SU_MapPin;
 
     template = (CEntityTemplate)LoadResourceAsync("characters\npc_entities\animals\hare.w2ent", true);
@@ -39,7 +39,7 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
 
       map_pin = new SU_MapPin in thePlayer;
         map_pin.tag = "RER_bounty_target";
-        map_pin.position = predicate.position;
+        map_pin.position = parent.GetWorldPosition();
         map_pin.description = StrReplace(
           GetLocStringByKey("rer_mappin_bounty_target_description"),
           "{{creature_type}}",
