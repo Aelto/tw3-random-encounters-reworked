@@ -9,34 +9,52 @@ state DialogChoice in RER_BountyMasterManager {
 
   entry function DialogChoice_main() {
     var choices: array<SSceneChoice>;
+    var has_completed_a_bounty: bool;
     var crowns_from_trophies: int;
 
+    has_completed_a_bounty = parent.bounty_manager.master.storages.bounty.bounty_level > 0;
+
+    this.doMovementAdjustment();
+
     choices.PushBack(SSceneChoice(
-      "Start bounty",
-      true,
+      GetLocStringByKey("rer_dialog_start_bounty"),
+      !has_completed_a_bounty,
       false,
       false,
       DialogAction_MONSTERCONTRACT,
       'StartBounty'
     ));
 
+    if (has_completed_a_bounty) {
+      choices.PushBack(SSceneChoice(
+        GetLocStringByKey("rer_dialog_start_bounty_no_conversation"),
+        true,
+        false,
+        false,
+        DialogAction_MONSTERCONTRACT,
+        'StartBountySkipConversation'
+      ));
+    }
+
     crowns_from_trophies = this.convertTrophiesIntoCrowns(true);
 
     choices.PushBack(SSceneChoice(
       StrReplace(
-        "Sell trophies ({{crowns}})",
-        "{{crowns}}",
+        GetLocStringByKey("rer_dialog_sell_trophies"),
+        "{{crowns_amount}}",
         crowns_from_trophies
       ),
       false,
-      false,
+      // set the choice as `previously_chosen` to make it gray when selling the
+      // trophies (if there are any trophy) would reward 0 crowns.
+      crowns_from_trophies <= 0,
       false,
       DialogAction_SHOPPING,
       'SellTrophies'
     ));
 
     choices.PushBack(SSceneChoice(
-      "Farewell.",
+      GetLocStringByKey("rer_dialog_farewell"),
       false,
       false,
       false,
@@ -55,6 +73,14 @@ state DialogChoice in RER_BountyMasterManager {
       SU_closeDialogChoiceInterface();
 
       if (response.playGoChunk == 'CloseDialog') {
+        (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_farewell in thePlayer, true)
+          .play();
+
+        (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
+          .play((CActor)(parent.bounty_master_entity));
+
         parent.GotoState('Waiting');
         return;
       }
@@ -63,6 +89,15 @@ state DialogChoice in RER_BountyMasterManager {
         parent.GotoState('Talking');
         return;
       }
+
+      if (response.playGoChunk == 'StartBountySkipConversation') {
+        parent.GotoState('SeedSelection');
+        return;
+      }
+
+      (new RER_RandomDialogBuilder in thePlayer).start()
+          .dialog(new REROL_thanks_all_i_need_for_now in thePlayer, true)
+          .play();
 
       this.convertTrophiesIntoCrowns();
     }
@@ -106,9 +141,45 @@ state DialogChoice in RER_BountyMasterManager {
     }
 
     if (output > 0) {
-      NDEBUG("The bounty master bought your trophies for " + RER_yellowFont(output) + " crowns");
+      NDEBUG(
+        StrReplace(
+          GetLocStringByKey("rer_bounty_master_trophies_bought_notification"),
+          "{{crowns_amount}}",
+          RER_yellowFont(output)
+        )
+      );
     }
     
     return output;
+  }
+
+  function doMovementAdjustment() {
+    var movement_adjustor: CMovementAdjustor;
+    var slide_ticket: SMovementAdjustmentRequestTicket;
+    var target: CActor;
+
+    target = thePlayer;
+
+    movement_adjustor = ((CActor)parent.bounty_master_entity)
+      .GetMovingAgentComponent()
+      .GetMovementAdjustor();
+
+    slide_ticket = movement_adjustor.GetRequest( 'RotateTowardsPlayer' );
+
+    // cancel any adjustement made with the same name
+    movement_adjustor.CancelByName( 'RotateTowardsPlayer' );
+
+    // and now we create a new request
+    slide_ticket = movement_adjustor.CreateNewRequest( 'RotateTowardsPlayer' );
+
+    movement_adjustor.AdjustmentDuration(
+      slide_ticket,
+      1 // 500ms
+    );
+
+    movement_adjustor.RotateTowards(
+      slide_ticket,
+      target
+    );
   }
 }
