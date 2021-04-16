@@ -25,5 +25,5 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 
   LogChannel('modRandomEnocunters', "random creature level = " + level);
 
-  return level;
+  return Max(level, 1);
 }

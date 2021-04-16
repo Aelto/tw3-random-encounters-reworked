@@ -27,7 +27,8 @@ REM Shared utilities
 XCOPY "%modpath%\shared-utils\mod_shared_utils_mappins\" "%modpath%\release\mods\mod_shared_utils_mappins\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_dialogChoices\" "%modpath%\release\mods\mod_sharedutils_dialogChoices\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_npcInteraction\" "%modpath%\release\mods\mod_sharedutils_npcInteraction\" /e /s /y
-XCOPY "%modpath%\shared-utils\mod0000_sharedutilsmappinsfhudpatch\" "%modpath%\release\mods\mod0000_sharedutilsmappinsfhudpatch\" /e /s /y
+@REM it's an optional patch, so it is not includeed
+@REM XCOPY "%modpath%\shared-utils\mod0000_sharedutilsmappinsfhudpatch\" "%modpath%\release\mods\mod0000_sharedutilsmappinsfhudpatch\" /e /s /y
 
 if "%1"=="-github" (
   echo "creating github release"

@@ -31,6 +31,8 @@ class RER_StartBountyMasterConversationOnInteraction extends SU_InteractionEvent
 
     if (!getRandomEncounters(rer)) {
       NDEBUG("An error occured, could not find the RER entity in the world");
+
+      return false;
     }
 
     if (rer.bounty_manager.bounty_master_manager.GetCurrentStateName() == 'Waiting') {

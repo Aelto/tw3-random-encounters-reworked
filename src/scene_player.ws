@@ -61,7 +61,8 @@ class RER_StaticCamera extends CStaticCamera {
     var component: CCameraComponent;
     component = (CCameraComponent)this.GetComponentByClassName('CCameraComponent');
 
-    component.fov = value;
+    // TODO: causes an issue with EE
+    // component.fov = value;
   }
 
   public function start() {
