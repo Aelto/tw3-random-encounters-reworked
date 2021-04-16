@@ -18,8 +18,8 @@ state DialogChoice in RER_BountyMasterManager {
 
     choices.PushBack(SSceneChoice(
       GetLocStringByKey("rer_dialog_start_bounty"),
-      !has_completed_a_bounty,
-      false,
+      true,
+      has_completed_a_bounty,
       false,
       DialogAction_MONSTERCONTRACT,
       'StartBounty'
@@ -68,6 +68,10 @@ state DialogChoice in RER_BountyMasterManager {
   latent function displayDialogChoices(choices: array<SSceneChoice>) {
     var response: SSceneChoice;
 
+    // while on gamepad, the interact input is directly sent in the dialog choice
+    // it is safer to wait a bit before capturing the input.
+    Sleep(0.25);
+
     while (true) {
       response = SU_setDialogChoicesAndWaitForResponse(choices);
       SU_closeDialogChoiceInterface();
@@ -100,8 +104,20 @@ state DialogChoice in RER_BountyMasterManager {
           .play();
 
       this.convertTrophiesIntoCrowns();
+      this.removeTrophyChoiceFromList(choices);
     }
 
+  }
+
+  function removeTrophyChoiceFromList(out choices: array<SSceneChoice>) {
+    var i: int;
+
+    for (i = 0; i < choices.Size(); i += 1) {
+      if (choices[i].playGoChunk == 'SellTrophies') {
+        choices.Erase(i);
+        return;
+      }
+    }
   }
 
   // returns the amount of crowns the player received from the trophies
@@ -140,7 +156,7 @@ state DialogChoice in RER_BountyMasterManager {
       output += price;
     }
 
-    if (output > 0) {
+    if (output > 0 && !ignore_item_transaction) {
       NDEBUG(
         StrReplace(
           GetLocStringByKey("rer_bounty_master_trophies_bought_notification"),
