@@ -85,7 +85,7 @@ statemachine class RER_BountyMasterManager {
       map_pin.position = valid_positions[position_index];
       map_pin.description = GetLocStringByKey("rer_mappin_bounty_master_description");
       map_pin.label = GetLocStringByKey("rer_mappin_bounty_master_title");
-      map_pin.type = "QuestGiverSide";
+      map_pin.type = "QuestGiverChapter";
       map_pin.radius = 5;
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
