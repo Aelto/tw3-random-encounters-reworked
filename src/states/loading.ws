@@ -351,7 +351,7 @@ state Loading in CRandomEncounters {
     for (i = 0; i < entities.Size(); i += 1) {
       entity = entities[i];
 
-      entity.SetLevel(getRandomLevelBasedOnSettings(parent.settings));
+      ((CNewNPC)entity).SetLevel(getRandomLevelBasedOnSettings(parent.settings));
       entity.RemoveTag('RER_controlled');
     }
 
