@@ -55,6 +55,7 @@ exec function rerabandonbounty() {
 // gpc for GetPlayerCoordinates
 exec function rergpc() {
   var entities: array<CGameplayEntity>;
+  var rotation: EulerAngles;
   var message: string;
   var i: int;
 
@@ -69,7 +70,12 @@ exec function rergpc() {
     'CNewNPC'
   );
 
+  rotation = thePlayer.GetWorldRotation();
   message += "position: " + VecToString(thePlayer.GetWorldPosition()) + "<br/>";
+  message += "rotation: <br/>";
+  message += " - pitch = " + rotation.Pitch + "<br/>";
+  message += " - yaw = " + rotation.Yaw + "<br/>";
+  message += " - roll = " + rotation.Roll + "<br/>";
   
   if (entities.Size() > 0) {
     message += "nearby entities:<br/>";
