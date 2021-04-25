@@ -26,7 +26,7 @@ class RER_StartBountyMasterConversationOnInteraction extends SU_InteractionEvent
 
   default tag = "RER_StartBountyMasterConversationOnInteraction";
 
-  public function run(actionName : string, activator : CEntity, receptor: CNewNPC): bool {
+  public function run(actionName : string, activator : CEntity, receptor: CPeristentEntity): bool {
     var rer: CRandomEncounters;
 
     if (!getRandomEncounters(rer)) {
