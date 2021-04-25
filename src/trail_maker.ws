@@ -272,8 +272,17 @@ class RER_TrailMaker {
     this.tracks_entities.Clear();
   }
 
+  /**
+   * set it to true if you don't want the class to clean all tracks when it's
+   * destroyed. Especially useful if you create a temporary TrailMaker just
+   * to quickly draw trails
+   */
+  var dont_clean_on_destroy: bool;
+
   event OnDestroyed() {
-    this.clean();
+    if (!this.dont_clean_on_destroy) {
+      this.clean();
+    }
   }
 
 }
