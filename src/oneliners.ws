@@ -214,6 +214,11 @@ latent function REROL_should_look_around(optional do_not_wait: bool) {
   }
 }
 
+// Geralt: A man-eating troll this near a city. Pretty dangerous…
+class REROL_data_should_look_around extends RER_DialogData {
+  default dialog_id = 397220;
+}
+
 // Geralt: Hm… Definitely came through here.
 latent function REROL_came_through_here(optional do_not_wait: bool) {
   // this integer corresponds to the hexa found in the `witcher_dialogs.csv` file
@@ -288,6 +293,10 @@ latent function REROL_ground_splattered_with_blood() {
   thePlayer.PlayLine(433486, true);
 
   Sleep(4.238883); // Approved duration
+}
+// Geralt: Ground's splattered with blood for a few feet around. A lot of it.
+class REROL_data_ground_splattered_with_blood extends RER_DialogData {
+  default dialog_id = 433486;
 }
 
 // Geralt: Another trail.
@@ -749,6 +758,10 @@ latent function REROL_interesting(optional do_not_wait: bool) {
     Sleep(3); // Approved duration
   }
 }
+// Geralt: Interesting.
+class REROL_data_interesting extends RER_DialogData {
+  default dialog_id = 376165;
+}
 
 // Geralt: Insect excretions…
 latent function REROL_insectoid_excretion(optional do_not_wait: bool) {
@@ -815,6 +828,10 @@ latent function REROL_trail_goes_on(optional do_not_wait: bool) {
   if (!do_not_wait) {
     Sleep(4.365868); // Approved duration
   }
+}
+// Geralt: Hmm, trail goes on. Good thing it doesn't end here.
+class REROL_data_trail_goes_on extends RER_DialogData {
+  default dialog_id = 393988;
 }
 
 // Geralt choice: Wonder why they split up.
@@ -1417,4 +1434,114 @@ class REROL_rings_a_bell extends RER_DialogData {
 // Geralt: Thanks. Think that's all I need for now.
 class REROL_thanks_all_i_need_for_now extends RER_DialogData {
   default dialog_id = 1208816;
+}
+
+// Geralt: Harpies got their nest here.
+class REROL_harpies_got_their_nest_here extends RER_DialogData {
+  default dialog_id = 1054261;
+}
+
+// Geralt: A feather… broken. There was a fight.
+class REROL_feather_broken_there_was_fight extends RER_DialogData {
+  default dialog_id = 1165318;
+}
+
+// Geralt: Corpse has decomposed almost completely.
+class REROL_corpse_decomposed_almost_completely extends RER_DialogData {
+  default dialog_id = 550019;
+}
+
+// Geralt: Tracks end here. Damn birds must've picked the ground clean.
+class REROL_tracks_end_here_damn_birds_ground_clean extends RER_DialogData {
+  default dialog_id = 564637;
+}
+
+// Geralt: Claw marks, bite marks. Armor ripped to shreds…
+class REROL_claw_marks_bite_marks_ripped_to_shreds extends RER_DialogData {
+  default dialog_id = 564612;
+}
+
+// Geralt: Harpies treated him to a painful end.
+class REROL_harpies_treated_him_painful_end extends RER_DialogData {
+  default dialog_id = 1027713;
+}
+
+// Geralt: Ugh… Smells worse than it looks.
+class REROL_smells_worse_than_it_looks extends RER_DialogData {
+  default dialog_id = 507754;
+}
+
+// Geralt: Takes strength to do something like this.
+class REROL_takes_strength_to_do_something_like_this extends RER_DialogData {
+  default dialog_id = 507756;
+}
+
+// Geralt: A rock troll, looks like…
+class REROL_a_rock_troll_looks_like extends RER_DialogData {
+  default dialog_id = 579959;
+}
+
+// Geralt: A man-eating troll this near a city. Pretty dangerous…
+class REROL_a_man_eating_troll extends RER_DialogData {
+  default dialog_id = 466660;
+}
+
+// Geralt: Large, deep tracks.
+class REROL_large_deep_tracks extends RER_DialogData {
+  default dialog_id = 1156669;
+}
+
+// Geralt: Mhm. The view from there - spectacular.
+class REROL_view_from_there_spectacular extends RER_DialogData {
+  default dialog_id = 533975;
+}
+
+// Troll_1: Offsod! Or yous throw in soup!
+class REROL_offsod_or_throw_in_soup extends RER_DialogData {
+  default dialog_id = 1073877;
+}
+
+// Geralt: Gotta jump down there. Hope I don't break my legs.
+class REROL_jump_down_there extends RER_DialogData {
+  default dialog_id = 1058437;
+}
+
+// Geralt: Wait. I wanna talk.
+class REROL_wait_i_wanna_talk extends RER_DialogData {
+  default dialog_id = 380699;
+}
+
+// Troll_1: Talk…? Talk. But you calm. Or troll you wham-a-wham, like thems.
+class REROL_talk_but_you_calm extends RER_DialogData {
+  default dialog_id = 380701;
+}
+
+// Geralt: Exactly. Why'd you… wham 'em?
+class REROL_exactly_why_you_wham_them extends RER_DialogData {
+  default dialog_id = 380703;
+}
+
+// Troll_1: Man? Wham-a-wham go man! So wham go troll, too!"
+class REROL_man_go_an_wham_go_troll extends RER_DialogData {
+  default dialog_id = 380697;
+}
+
+// Geralt: Sorry, can't let you get away with this.
+class REROL_cant_let_you_get_away_with_this extends RER_DialogData {
+  default dialog_id = 375420;
+}
+
+// Geralt choice: I'll let this slide. They were asking for it.
+class REROL_ill_let_this_slide extends RER_DialogData {
+  default dialog_id = 375418;
+}
+
+// Geralt: From what you say, they were asking for trouble.. I'll let it slide, this time. But kill any other humans, and I'll come back and cut off your head. Understand?"
+class REROL_they_where_asking_for_trouble extends RER_DialogData {
+  default dialog_id = 380719;
+}
+
+// Troll_1: Ah. No more troll wham. And this man take. For be good man and no swish-a-swash.
+class REROL_no_more_troll_wham extends RER_DialogData {
+  default dialog_id = 442052;
 }
