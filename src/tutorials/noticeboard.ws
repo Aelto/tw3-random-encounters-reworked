@@ -1,7 +1,7 @@
 
 function RER_tutorialTryShowNoticeboard(): bool {
   if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialMonsterContract')) {
+      .GetVarValue('RERtutorials', 'RERtutorialNoticeboardEvent')) {
     return false;
   }
 
@@ -12,7 +12,7 @@ function RER_tutorialTryShowNoticeboard(): bool {
 
   theGame
     .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 0);
+    .SetVarValue('RERtutorials', 'RERtutorialNoticeboardEvent', 0);
 
   theGame.SaveUserSettings();
 

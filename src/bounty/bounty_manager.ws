@@ -324,8 +324,11 @@ statemachine class RER_BountyManager extends CEntity {
         .save();
 
       NDEBUG(
-        "Bounty finished, you now have a bounty level of "
-        + RER_yellowFont(this.master.storages.bounty.bounty_level)
+        StrReplace(
+          GetLocStringByKey("rer_bounty_finished_notification"),
+          "{{bounty_level}}",
+          RER_yellowFont(this.master.storages.bounty.bounty_level)
+        )
       );
 
       return;

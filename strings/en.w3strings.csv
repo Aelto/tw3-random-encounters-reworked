@@ -61,7 +61,7 @@
 2115018059|        |option_rer_bruxa|Bruxaes
 2115018060|        |option_rer_fleder|Fleders
 2115018061|        |option_rer_garkain|Garkains
-2115018062|        |option_rer_drownerDLC|Scurvers
+2115018062|        |option_rer_scurver|Scurvers
 2115018063|        |option_rer_giant|Giants
 2115018064|        |option_rer_skeleton|Skeletons
 2115018065|        |option_rer_barghest|Barghests
@@ -69,7 +69,7 @@
 2115018067|        |option_rer_centipede|Centipedes
 2115018068|        |option_rer_kikimore|Kikimores
 2115018069|        |option_rer_panther|Panthers
-2115018070|        |option_rer_sharley|Shaelmaars
+2115018070|        |option_rer_shaelmaar|Shaelmaars
 2115018071|        |option_rer_wight|Wights
 2115018072|        |option_rer_human|Bandits
 2115018073|        |option_rer_wildhunt|Wild Hunts
@@ -184,7 +184,7 @@
 2115018182|        |preset_value_rer_region_constraint_no_velen|No Velen
 2115018183|        |preset_value_rer_region_constraint_no_skellige|No Skellige
 2115018184|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
-2115018185|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_rer_region_constraints_settings|Region constraints
+2115018185|        |preset_Mods_rer_name_rer_encounters_settings_rer_region_constraints_settings|Region constraints
 2115018186|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
 2115018187|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
 2115018188|        |panel_rer_region_constraints_settings|Region constraints
@@ -284,10 +284,6 @@
 2115018283|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
 2115018284|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)
 2115018285|        |rer_unknown|Unknown
-; to translators:
-; the text between {{ and }} should not be changed,  this is what RER uses
-; to place variables in the text. But it can be moved around without any risk.
-; Thanks!
 2115018286|        |rer_bounty_start_popup|The following creatures were seen and now have bounties on their heads:<br />{{creature_listing}}</br />Whoever brings their trophies to the bounty master will get a sizable reward
 2115018287|        |rer_mappin_bounty_master_title|Bounty master
 2115018288|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
@@ -300,8 +296,4 @@
 2115018295|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
 2115018296|        |rer_dialog_sell_trophies|Sell trophies ({{crowns_amount}})
 2115018297|        |rer_bounty_master_trophies_bought_notification|The bounty master bought your trophies for {{crowns_amount}} crowns
-; To translators for the transition from v2.1 to v2.2:
-; I had to change a few previous lines. For example creature names are now all
-; in the plural form wolf -> wolves, ghoul -> ghouls.
-; This was done because the names are used in the menu and the bounty popup as
-; well. And in english the phrase "A group of wolves" made more sense.
+2115018298|        |rer_bounty_finished_notification|Bounty finished, you now have a bounty level of {{bounty_level}}
