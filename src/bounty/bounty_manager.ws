@@ -616,12 +616,12 @@ statemachine class RER_BountyManager extends CEntity {
       case AN_Island_of_Myst:
         // first the X coordinates
         min = -350;
-        max = 450;
+        max = 375;
 
         output.X = min + (max - min) * percent_x;
 
         // then the Y coordinates
-        min = -200;
+        min = -150;
         max = 235;
 
         output.Y = min + (max - min) * percent_y;
