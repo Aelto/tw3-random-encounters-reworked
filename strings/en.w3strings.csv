@@ -172,128 +172,135 @@
 2115018170|        |option_rer_event_fightnoise_chance|Event % chance - fight noise ambush
 2115018171|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
 2115018172|        |option_rer_event_meditationambush_chance|Event % chance - meditation ambush
-2115018173|        |option_rer_event_noticeboardcontract_chance|noticeboard Event - Distance
-2115018174|        |option_rer_event_noticeboardcontract_automatic_cutscene|Automatic noticeboard cutscene
-2115018175|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
-2115018176|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
-2115018177|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)
-2115018178|        |preset_value_rer_region_constraint_none|Everywhere
-2115018179|        |preset_value_rer_region_constraint_only_velen|Only in Velen
-2115018180|        |preset_value_rer_region_constraint_only_skellige|Only in Skellige
-2115018181|        |preset_value_rer_region_constraint_only_toussaint|Only in Toussaint
-2115018182|        |preset_value_rer_region_constraint_no_velen|No Velen
-2115018183|        |preset_value_rer_region_constraint_no_skellige|No Skellige
-2115018184|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
-2115018185|        |preset_Mods_rer_name_rer_encounters_settings_rer_region_constraints_settings|Region constraints
-2115018186|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
-2115018187|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
-2115018188|        |panel_rer_region_constraints_settings|Region constraints
-2115018189|        |preset_Mods_rer_name_rer_encounters_settings|Creatures_settings ratios
-2115018190|        |panel_rer_creatures_ratio|Creatures ratios
-2115018191|        |panel_hunt_day_settings|Hunt Day
-2115018192|        |panel_hunt_night_settings|Hunt Night
-2115018193|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_day_settings|Hunt Day
-2115018194|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_night_settings|Hunt Night
-2115018195|        |panel_contract_day_settings|Contract Day
-2115018196|        |panel_contract_night_settings|Contract Night
-2115018197|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_day_settings|Contract Day
-2115018198|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_night_settings|Contract Night
-2115018199|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
-2115018200|        |panel_performances|Performance settings
-2115018201|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
-2115018202|        |preset_value_rer_all_everywhere|Everywhere all
-2115018203|        |option_rer_camera_blending_disabled|Disable camera blending
-2115018204|        |option_dlc_rer|Random Encounters Reworked
-2115018205|        |option_rer_camera_scenes_disabled|Disable camera scenes
-2115018206|        |option_rer_monster_ambush_ratio_night|<font color="#ffd33d">Frequency</font>
-2115018207|        |option_rer_monster_hunt_ratio_night|<font color="#ffd33d">Frequency</font>
-2115018208|        |option_rer_monster_contract_ratio_night|<font color="#ffd33d">Frequency</font>
-2115018209|        |option_rer_enable_action_camera_scenes|Enable action camera scenes
-2115018210|        |preset_Mods_rer_name_rer_encounters_settings|Encounter system
-2115018211|        |preset_Mods_rer_name_rer_encounters_settings_rer_general_settings|General
-2115018212|        |preset_Mods_rer_name_rer_encounters_settings_rer_constraints_settings|Region constraints
-2115018213|        |preset_Mods_rer_name_rer_encounters_settings_rer_settlement_settings|Settlement spawns
-2115018214|        |panel_rer_general_settings|General
-2115018215|        |panel_rer_optional_features_settings|Optional features
-2115018216|        |panel_rer_encounters_settings|Encounter system
-2115018217|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features
-2115018218|        |option_rer_monster_contract_longevity|<font color="#ffd33d">Longevity</font>
-2115018219|        |panel_creature_type_multiplier|Creature type multiplier
-2115018220|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
-2115018221|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>
-2115018222|        |option_rer_crowns_hunt|<font color="#ffd33d">From hunts</font>
-2115018223|        |option_rer_crowns_contract|<font color="#ffd33d">From contracts</font>
-2115018225|        |preset_Mods_rer_name_rer_rewards_settings|Reward system
-2115018226|        |panel_rer_rewards_settings|Reward system
-2115018227|        |preset_Mods_rer_name_rer_rewards_settings_rer_crowns_settings|Crowns
-2115018228|        |panel_rer_crowns_settings|Crowns
-2115018229|        |option_rer_trails_use_pathfinding|Use path finding for trails
-2115018230|        |option_rer_static_encounter_small_spawn_chance|<font color="#ec6cb9">Static encounters:</font> small - spawning chance (%)
-2115018231|        |option_rer_static_encounter_large_spawn_chance|<font color="#ec6cb9">                             :</font> large - spawning chance (%)
-2115018232|        |option_rer_camera_immersive_camera_compatibility|No camera scene on horse (ImmersiveCamera compatibility)
-2115018233|        |panel_rer_ecosystem_settings|Ecosystem system
-2115018234|        |preset_Mods_rer_name_rer_ecosystem_settings|Ecosystem system
-2115018235|        |option_rer_ecosystem_community_power_effect|Community diversity (higher = less, lower = more)
-2115018236|        |option_rer_ecosystem_community_natural_death_speed|Community natural death speed
-2115018237|        |option_rer_ecosystem_community_power_spread|community power spread
-2115018238|        |option_rer_crowns_hunting_ground|<font color="#ffd33d">From hunting grounds</font>
-2115018239|        |panel_hunting_ground_day_settings|Hunting ground Day
-2115018240|        |panel_hunting_ground_night_settings|Hunting ground Night
-2115018241|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_day_settings|Hunting Ground Day
-2115018242|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_night_settings|Hunting Ground Night
-2115018243|        |option_rer_monster_hunting_ground_ratio_night|<font color="#ffd33d">Frequency</font>
-2115018244|        |option_rer_monster_hunting_ground_ratio_day|<font color="#ffd33d">Frequency</font>
-2115018245|        |preset_Mods_rer_name_ratios_and_frequencies|Ratios & Frequencies
-2115018246|        |panel_ratios_and_frequencies|Ratios & Frequencies
-2115018247|        |option_rer_trophies_hunting_ground|<font color="#ffd33d">From hunting grounds</font>
-2115018248|        |option_rer_markers_contract_first_phase|Markers - contract first phase
-2115018249|        |option_rer_markers_contract_intermediary_phase|Markers - contract intermediary phase
-2115018250|        |option_rer_markers_bounty_hunting|Markers - bounty hunting
-2115018251|        |option_rer_markers_challenge_mode|Markers - challenge mode
-2115018252|        |preset_Mods_rer_name_rer_tutorials_settings|Tutorials
-2115018253|        |panel_rer_tutorials_settings|Tutorials
-2115018254|        |option_rer_tutorial_challenge_mode|Challenge mode
-2115018255|        |option_rer_tutorial_bounty_hunting|Bounty hunting
-2115018256|        |option_rer_tutorial_monster_contract|Monster contract
-2115018257|        |option_rer_tutorial_noticeboard_event|Noticeboard event
-2115018258|        |option_rer_tutorial_clue_examined|Clue examined
-2115018259|        |option_rer_tutorial_ambushed|Geralt ambushed
-2115018260|        |option_rer_tutorial_trophy|The rewards
-2115018261|        |option_rer_tutorial_ecosystem|The ecosystem
-2115018262|        |panel_hud_dialogue_title_bet_rer|Bounty seed selector
-2115018263|        |option_rer_trophy_master_buying_price|Trophy buying price from bounty master (%)
-2115018264|        |rer_bounty_notice|Bounty notice
-2115018265|        |rer_bounty_notice_description|The bounty master is looking for a Witcher, monsters to be killed. Come with a bounty notice for an increased reward.
-2115018266|        |item_desc_trophy|A monster trophy, the bounty master will probably buy it at a better price.
-2115018267|        |option_rer_ignore_seed_selector_window|Skip bounty seed selector window
-2115018268|        |option_rer_delay_loading_start|Delay RER loading start (Bootstrap Hooked compatibility)
-2115018269|        |rer_tutorial_ambush_title|RER Tutorial - Ambushed
-2115018270|        |rer_tutorial_ambush_body|You are being <font color="#CD7D03">Ambushed</font> by monsters or bandits from the mod Random Encounters Reworked. Fight in an attempt to survive the ambush you will be rewarded by trophies and crowns.<br /><br />If you don't like being ambushed, you can change the amount of ambushes created by the mod and also control exactly what kind of creature you will see from them in the <font color='#CD7D03'>Encounter System</font> menu and the sub-menus for ambushes.
-2115018271|        |rer_tutorial_bounty_title|RER Tutorial - Bounty hunting
-2115018272|        |rer_tutorial_bounty_body|A <font color="#CD7D03">Bounty hunt</font> from the mod Random Encounters Reworked has just started. A bounty is pretty simple, important groups of creatures are marked on your map. You have to kill every marked groups to finish the bounty, and as you progress through the bounty new marked groups may appear. The bounty continues until there is no more groups to kill.<br /><br />Everything you see during bounties like the markers and their positions, the creatures that compose the bounties, and how many markers and overall creatures are determined by the seed (the number) that you picked in the seed selector window. Two bounties with the same seed will result in the exact same encounter. But don't worry, there is an almost infinite number of seeds. If you're indecisive about the seed, picking a seed of 0 will make a completely random bounty for you.<br />Higher seeds result in more difficult bounties. And as you complete bounties you unlock more seeds and thus more difficult bounties. <br /><br />You may have found bounty notices when killing wild creatures before. These notices, if in your inventory when you start a bounty are all consumed to increase the rewards for the bounty by 3% per notice, but also increase all effects of difficulty by 1%. The notice are found on non-bounty creatures and may be stored in your bank if you do not want them to be consumed.<br /><br />You should know that if you use the mod Friendly HUD, the map markers also appear as 3D markers which is really useful.
-2115018273|        |rer_tutorial_clue_title|RER Tutorial - Clue examined
-2115018274|        |rer_tutorial_clue_body|You just <font color="#CD7D03">examined</font> a track from the mod Random Encounters Reworked. When you examine a track Geralt will tell what monster it is from, and if you follow the trail you will eventually find the creature that left them. <br />  Almost all creatures from the mod leave tracks on the ground. But be aware that because RER uses voicelines from the game the creature you'll see may not always correspond exactly to what Geralt said. But you can be sure the family will always be the right one. For example Geralt never says NoonWraith and so it will say NightWraith instead, but it's still a wraith so it's ok.
-2115018275|        |rer_tutorial_contract_title|RER Tutorial - Monster contract
-2115018276|        |rer_tutorial_contract_body|A <font color="#CD7D03">Monster Contract</font> from the mod Random Encounters Reworked has just started. You may have noticed a camera scene was played and perhaps Geralt talking, from now on and if you want to progress through the monster contract you will have to follow the trails, the map markers the mod placed or where the camera scene guided you. <br/> A monster contract is randomly generated and is composed of small pre-built phases that are combined to form something that could look like a vanilla contract, with less details of-course as it is generated on the fly. <br />  You can control the amount of phases that are used to build the contract, or in other terms, its length with the RER_yellowFont(Longevity) slider you can find in the mod menu. One longevity point is roughly equivalent to 1 minute and 30 seconds of gameplay after you're used to the flow of the system. <br /><br />Some phases are pretty simple and ask you to simply follow a trail or examine the ground, while some others will get you in combat. The monster contract is an encounter where you must be prepared to fight and should be considered as hard, if not harder, than vanilla contracts. <br />  <br />  A monster contract lasts until Geralt says the line <font color="#CD7D03">`It's over`.</font> There are some cases where the mod is not able to find a suitable position or an error occured and the encounter will be shut down and Geralt will once again say the line. So whenever you hear  the line `It's over` don't look further because everything about the contract except the loot will soon disappear <br /><br />  Good luck, and if you encounter any bug, have a suggestion or feedback, feel free to contact me!  <br />  - Aeltoth
-2115018277|        |rer_tutorial_ecosystem_title|RER Tutorial - The ecosystem
-2115018278|        |rer_tutorial_ecosystem_body|You recently killed a creature and indirectly changed the <font color="#CD7D03">surrounding ecosystem</font>. The mod Random Encounters Reworked simulates a food chain that will permanently change the creatures you see (only creatures from the mod). Because you killed living creatures or bandits, the surrounding ecosystem changed a little and if you continue new species will come and some other will even migrate to new places. <br /><br />You can examine the surrounding ecosystem with the <font color="#CD7D03">Ecosystem Analyse</font> keybind, which will allow you to learn useful information about the species and their habits. To learn how to get the keybind, please refer to the in-depth install guide. <br /><br />If you do not like the feature you can change its settings in the <font color="#CD7D03">Ecosystem System</font> menu. The power value controls how much your actions and the species' actions will impact the ecosystem. To get a more restrictive but realistic ecosystem you can increase the value. The spread value controls how much species will migrate when you kill creatures. The death rate controls the speed at which creatures die.
-2115018279|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Noticeboard event
-2115018280|        |rer_tutorial_noticeboard_event_body|A <font color="#CD7D03">Noticeboard Event</font> from the mod Random Encounters Reworked has just started. When you'll close the window, a camera scene will play and Geralt will say a few lines. After that the mod will wait for you to leave the settlement or the city you're in, and once you far enough a <font color="#CD7D03">Monster Contract</font> will start based on the path you walked.
-2115018281|        |rer_tutorial_rewards_title|RER Tutorial - Rewards
-2115018282|        |rer_tutorial_rewards_body|You just found a <font color="#CD7D03">Trophy<font/> from the mod Random Encounters Reworked. These trophies were created only to reward Geralt for the creatures he hunts and do not have any purpose but to be sold.<br />Creatures from the mod also drop a few crowns for the same purpose. If you do not like the rewards or would like to change how many you find you can do so in the <font color="#CD7D03">Rewards System<font/> menu specifically made for it.
-2115018283|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
-2115018284|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)
-2115018285|        |rer_unknown|Unknown
-2115018286|        |rer_bounty_start_popup|The following creatures were seen and now have bounties on their heads:<br />{{creature_listing}}</br />Whoever brings their trophies to the bounty master will get a sizable reward
-2115018287|        |rer_mappin_bounty_master_title|Bounty master
-2115018288|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
-2115018289|        |rer_mappin_bounty_target_title|Bounty target
-2115018290|        |rer_mappin_bounty_target_description|A group of {{creature_type}} was seen in the area. Kill them and collect their trophies for a reward.
-2115018291|        |rer_mappin_regular_title|
-2115018292|        |rer_mappin_regular_description|Clues led to this area, something interesting must be in the area.
-2115018293|        |rer_dialog_farewell|Farewell.
-2115018294|        |rer_dialog_start_bounty|Start bounty
-2115018295|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
-2115018296|        |rer_dialog_sell_trophies|Sell trophies ({{crowns_amount}})
-2115018297|        |rer_bounty_master_trophies_bought_notification|The bounty master bought your trophies for {{crowns_amount}} crowns
-2115018298|        |rer_bounty_finished_notification|Bounty finished, you now have a bounty level of {{bounty_level}}
+2115018174|        |option_rer_event_system_internal_cooldown|Seconds before an event can trigger again
+2115018175|        |option_rer_event_fillcreaturesgroup_allow_combat|Event Fill creatures group - allow copy of creatures in combat
+2115018176|        |option_rer_big_city_spawns|Allow city spawns (Novigrad/Oxenfurt/Kaer Trolde)
+2115018177|        |preset_value_rer_region_constraint_none|Everywhere
+2115018178|        |preset_value_rer_region_constraint_only_velen|Only in Velen
+2115018179|        |preset_value_rer_region_constraint_only_skellige|Only in Skellige
+2115018180|        |preset_value_rer_region_constraint_only_toussaint|Only in Toussaint
+2115018181|        |preset_value_rer_region_constraint_no_velen|No Velen
+2115018182|        |preset_value_rer_region_constraint_no_skellige|No Skellige
+2115018183|        |preset_value_rer_region_constraint_no_toussaint|No Toussaint
+2115018184|        |preset_Mods_rer_name_rer_encounters_settings_rer_region_constraints_settings|Region constraints
+2115018185|        |preset_value_rer_region_constraint_only_whiteorchard|Only in White Orchard
+2115018186|        |preset_value_rer_region_constraint_no_whiteorchard|No White Orchard
+2115018187|        |panel_rer_region_constraints_settings|Region constraints
+2115018188|        |preset_Mods_rer_name_rer_encounters_settings|Creatures_settings ratios
+2115018189|        |panel_rer_creatures_ratio|Creatures ratios
+2115018190|        |panel_hunt_day_settings|Hunt Day
+2115018191|        |panel_hunt_night_settings|Hunt Night
+2115018192|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_day_settings|Hunt Day
+2115018193|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_night_settings|Hunt Night
+2115018194|        |panel_contract_day_settings|Contract Day
+2115018195|        |panel_contract_night_settings|Contract Night
+2115018196|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_day_settings|Contract Day
+2115018197|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_night_settings|Contract Night
+2115018198|        |preset_Mods_rer_name_rer_advanced_settings_performances|Performance settings
+2115018199|        |panel_performances|Performance settings
+2115018200|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
+2115018201|        |preset_value_rer_all_everywhere|Everywhere all
+2115018202|        |option_rer_camera_blending_disabled|Disable camera blending
+2115018203|        |option_dlc_rer|Random Encounters Reworked
+2115018204|        |option_rer_camera_scenes_disabled|Disable camera scenes
+2115018205|        |option_rer_monster_ambush_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018206|        |option_rer_monster_hunt_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018207|        |option_rer_monster_contract_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018208|        |option_rer_enable_action_camera_scenes|Enable action camera scenes
+2115018209|        |preset_Mods_rer_name_rer_encounters_settings|Encounter system
+2115018210|        |preset_Mods_rer_name_rer_encounters_settings_rer_general_settings|General
+2115018211|        |preset_Mods_rer_name_rer_encounters_settings_rer_constraints_settings|Region constraints
+2115018212|        |preset_Mods_rer_name_rer_encounters_settings_rer_settlement_settings|Settlement spawns
+2115018213|        |panel_rer_general_settings|General
+2115018214|        |panel_rer_optional_features_settings|Optional features
+2115018215|        |panel_rer_encounters_settings|Encounter system
+2115018216|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features
+2115018217|        |option_rer_monster_contract_longevity|<font color="#ffd33d">Longevity</font>
+2115018218|        |panel_creature_type_multiplier|Creature type multiplier
+2115018219|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
+2115018220|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>
+2115018221|        |option_rer_crowns_hunt|<font color="#ffd33d">From hunts</font>
+2115018222|        |option_rer_crowns_contract|<font color="#ffd33d">From contracts</font>
+2115018224|        |preset_Mods_rer_name_rer_rewards_settings|Reward system
+2115018225|        |panel_rer_rewards_settings|Reward system
+2115018226|        |preset_Mods_rer_name_rer_rewards_settings_rer_crowns_settings|Crowns
+2115018227|        |panel_rer_crowns_settings|Crowns
+2115018228|        |option_rer_trails_use_pathfinding|Use path finding for trails
+2115018229|        |option_rer_static_encounter_small_spawn_chance|<font color="#ec6cb9">Static encounters:</font> small - spawning chance (%)
+2115018230|        |option_rer_static_encounter_large_spawn_chance|<font color="#ec6cb9">                             :</font> large - spawning chance (%)
+2115018231|        |option_rer_camera_immersive_camera_compatibility|No camera scene on horse (ImmersiveCamera compatibility)
+2115018232|        |panel_rer_ecosystem_settings|Ecosystem system
+2115018233|        |preset_Mods_rer_name_rer_ecosystem_settings|Ecosystem system
+2115018234|        |option_rer_ecosystem_community_power_effect|Community diversity (higher = less, lower = more)
+2115018235|        |option_rer_ecosystem_community_natural_death_speed|Community natural death speed
+2115018236|        |option_rer_ecosystem_community_power_spread|community power spread
+2115018237|        |option_rer_crowns_hunting_ground|<font color="#ffd33d">From hunting grounds</font>
+2115018238|        |panel_hunting_ground_day_settings|Hunting ground Day
+2115018239|        |panel_hunting_ground_night_settings|Hunting ground Night
+2115018240|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_day_settings|Hunting Ground Day
+2115018241|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_night_settings|Hunting Ground Night
+2115018242|        |option_rer_monster_hunting_ground_ratio_night|<font color="#ffd33d">Frequency</font>
+2115018243|        |option_rer_monster_hunting_ground_ratio_day|<font color="#ffd33d">Frequency</font>
+2115018244|        |preset_Mods_rer_name_ratios_and_frequencies|Ratios & Frequencies
+2115018245|        |panel_ratios_and_frequencies|Ratios & Frequencies
+2115018246|        |option_rer_trophies_hunting_ground|<font color="#ffd33d">From hunting grounds</font>
+2115018247|        |option_rer_markers_contract_first_phase|Markers - contract first phase
+2115018248|        |option_rer_markers_contract_intermediary_phase|Markers - contract intermediary phase
+2115018249|        |option_rer_markers_bounty_hunting|Markers - bounty hunting
+2115018250|        |option_rer_markers_challenge_mode|Markers - challenge mode
+2115018251|        |preset_Mods_rer_name_rer_tutorials_settings|Tutorials
+2115018252|        |panel_rer_tutorials_settings|Tutorials
+2115018253|        |option_rer_tutorial_challenge_mode|Challenge mode
+2115018254|        |option_rer_tutorial_bounty_hunting|Bounty hunting
+2115018255|        |option_rer_tutorial_monster_contract|Monster contract
+2115018256|        |option_rer_tutorial_noticeboard_event|Noticeboard event
+2115018257|        |option_rer_tutorial_clue_examined|Clue examined
+2115018258|        |option_rer_tutorial_ambushed|Geralt ambushed
+2115018259|        |option_rer_tutorial_trophy|The rewards
+2115018260|        |option_rer_tutorial_ecosystem|The ecosystem
+2115018261|        |panel_hud_dialogue_title_bet_rer|Bounty seed selector
+2115018262|        |option_rer_trophy_master_buying_price|Trophy buying price from bounty master (%)
+2115018263|        |rer_bounty_notice|Bounty notice
+2115018264|        |rer_bounty_notice_description|The bounty master is looking for a Witcher, monsters to be killed. Come with a bounty notice for an increased reward.
+2115018265|        |item_desc_trophy|A monster trophy, the bounty master will probably buy it at a better price.
+2115018266|        |option_rer_ignore_seed_selector_window|Skip bounty seed selector window
+2115018267|        |option_rer_delay_loading_start|Delay RER loading start (Bootstrap Hooked compatibility)
+2115018268|        |rer_tutorial_ambush_title|RER Tutorial - Ambushed
+2115018269|        |rer_tutorial_ambush_body|You are being <font color="#CD7D03">Ambushed</font> by monsters or bandits from the mod Random Encounters Reworked. Fight in an attempt to survive the ambush you will be rewarded by trophies and crowns.<br /><br />If you don't like being ambushed, you can change the amount of ambushes created by the mod and also control exactly what kind of creature you will see from them in the <font color='#CD7D03'>Encounter System</font> menu and the sub-menus for ambushes.
+2115018270|        |rer_tutorial_bounty_title|RER Tutorial - Bounty hunting
+2115018271|        |rer_tutorial_bounty_body|A <font color="#CD7D03">Bounty hunt</font> from the mod Random Encounters Reworked has just started. A bounty is pretty simple, important groups of creatures are marked on your map. You have to kill every marked groups to finish the bounty, and as you progress through the bounty new marked groups may appear. The bounty continues until there is no more groups to kill.<br /><br />Everything you see during bounties like the markers and their positions, the creatures that compose the bounties, and how many markers and overall creatures are determined by the seed (the number) that you picked in the seed selector window. Two bounties with the same seed will result in the exact same encounter. But don't worry, there is an almost infinite number of seeds. If you're indecisive about the seed, picking a seed of 0 will make a completely random bounty for you.<br />Higher seeds result in more difficult bounties. And as you complete bounties you unlock more seeds and thus more difficult bounties. <br /><br />You may have found bounty notices when killing wild creatures before. These notices, if in your inventory when you start a bounty are all consumed to increase the rewards for the bounty by 3% per notice, but also increase all effects of difficulty by 1%. The notice are found on non-bounty creatures and may be stored in your bank if you do not want them to be consumed.<br /><br />You should know that if you use the mod Friendly HUD, the map markers also appear as 3D markers which is really useful.
+2115018272|        |rer_tutorial_clue_title|RER Tutorial - Clue examined
+2115018273|        |rer_tutorial_clue_body|You just <font color="#CD7D03">examined</font> a track from the mod Random Encounters Reworked. When you examine a track Geralt will tell what monster it is from, and if you follow the trail you will eventually find the creature that left them. <br />  Almost all creatures from the mod leave tracks on the ground. But be aware that because RER uses voicelines from the game the creature you'll see may not always correspond exactly to what Geralt said. But you can be sure the family will always be the right one. For example Geralt never says NoonWraith and so it will say NightWraith instead, but it's still a wraith so it's ok.
+2115018274|        |rer_tutorial_contract_title|RER Tutorial - Monster contract
+2115018275|        |rer_tutorial_contract_body|A <font color="#CD7D03">Monster Contract</font> from the mod Random Encounters Reworked has just started. You may have noticed a camera scene was played and perhaps Geralt talking, from now on and if you want to progress through the monster contract you will have to follow the trails, the map markers the mod placed or where the camera scene guided you. <br/> A monster contract is randomly generated and is composed of small pre-built phases that are combined to form something that could look like a vanilla contract, with less details of-course as it is generated on the fly. <br />  You can control the amount of phases that are used to build the contract, or in other terms, its length with the RER_yellowFont(Longevity) slider you can find in the mod menu. One longevity point is roughly equivalent to 1 minute and 30 seconds of gameplay after you're used to the flow of the system. <br /><br />Some phases are pretty simple and ask you to simply follow a trail or examine the ground, while some others will get you in combat. The monster contract is an encounter where you must be prepared to fight and should be considered as hard, if not harder, than vanilla contracts. <br />  <br />  A monster contract lasts until Geralt says the line <font color="#CD7D03">`It's over`.</font> There are some cases where the mod is not able to find a suitable position or an error occured and the encounter will be shut down and Geralt will once again say the line. So whenever you hear  the line `It's over` don't look further because everything about the contract except the loot will soon disappear <br /><br />  Good luck, and if you encounter any bug, have a suggestion or feedback, feel free to contact me!  <br />  - Aeltoth
+2115018276|        |rer_tutorial_ecosystem_title|RER Tutorial - The ecosystem
+2115018277|        |rer_tutorial_ecosystem_body|You recently killed a creature and indirectly changed the <font color="#CD7D03">surrounding ecosystem</font>. The mod Random Encounters Reworked simulates a food chain that will permanently change the creatures you see (only creatures from the mod). Because you killed living creatures or bandits, the surrounding ecosystem changed a little and if you continue new species will come and some other will even migrate to new places. <br /><br />You can examine the surrounding ecosystem with the <font color="#CD7D03">Ecosystem Analyse</font> keybind, which will allow you to learn useful information about the species and their habits. To learn how to get the keybind, please refer to the in-depth install guide. <br /><br />If you do not like the feature you can change its settings in the <font color="#CD7D03">Ecosystem System</font> menu. The power value controls how much your actions and the species' actions will impact the ecosystem. To get a more restrictive but realistic ecosystem you can increase the value. The spread value controls how much species will migrate when you kill creatures. The death rate controls the speed at which creatures die.
+2115018278|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Noticeboard event
+2115018279|        |rer_tutorial_noticeboard_event_body|A <font color="#CD7D03">Noticeboard Event</font> from the mod Random Encounters Reworked has just started. When you'll close the window Geralt will say a few lines, after that the mod will wait for you to leave the settlement or the city you're in, and once you're far enough a <font color="#CD7D03">Monster Contract</font> will start based on the path you walked.
+2115018280|        |rer_tutorial_rewards_title|RER Tutorial - Rewards
+2115018281|        |rer_tutorial_rewards_body|You just found a <font color="#CD7D03">Trophy<font/> from the mod Random Encounters Reworked. These trophies were created only to reward Geralt for the creatures he hunts and do not have any purpose but to be sold.<br />Creatures from the mod also drop a few crowns for the same purpose. If you do not like the rewards or would like to change how many you find you can do so in the <font color="#CD7D03">Rewards System<font/> menu specifically made for it.
+2115018282|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
+2115018283|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)
+2115018284|        |rer_unknown|Unknown
+2115018285|        |rer_bounty_start_popup|The following creatures were seen and now have bounties on their heads:<br />{{creature_listing}}</br />Whoever brings their trophies to the bounty master will get a sizable reward
+2115018286|        |rer_mappin_bounty_master_title|Bounty master
+2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
+2115018288|        |rer_mappin_bounty_target_title|Bounty target
+2115018289|        |rer_mappin_bounty_target_description|A group of {{creature_type}} was seen in the area. Kill them and collect their trophies for a reward.
+2115018290|        |rer_mappin_regular_title|
+2115018291|        |rer_mappin_regular_description|Clues led to this area, something interesting must be in the area.
+2115018292|        |rer_dialog_farewell|Farewell.
+2115018293|        |rer_dialog_start_bounty|Start bounty
+2115018294|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
+2115018295|        |rer_dialog_sell_trophies|Sell trophies ({{crowns_amount}})
+2115018296|        |rer_bounty_master_trophies_bought_notification|The bounty master bought your trophies for {{crowns_amount}} crowns
+2115018297|        |rer_bounty_finished_notification|Bounty finished, you now have a bounty level of {{bounty_level}}
+2115018298|        |option_rer_tutorial_started|First launch
+2115018299|        |rer_tutorial_started_title|RER Tutorial - First launch
+2115018300|        |rer_tutorial_started_body|You just installed the mod <font color="#CD7D03">Random Encounters Reworked<font color="#CD7D03">, if you didn't apply the default presets yourself then it did it for you. It means that <font color="#CD7D03">RER is fully functional<font color="#CD7D03"> and you can go kill some monsters!<br /><br />You won't see this popup again unless you reset the settings.<br />The mod will continue to display tutorials as you discover things. If you don't want them, although i (Aeltoth) highly suggest to keep them, you can go in the Tutorials menu and set them OFF.
+2115018301|        |rer_noticeboard_errand_0|Looking for a witcher
+; to translators:
+; the end is not a typo but simply a random name formed with the letters of Aeltoth, my nickname,
+; as a way for users to recognise the notices created by RER but without breaking immersion!
+; and the spaces are so the name appears on the right on the notice.
+2115018302|        |rer_noticeboard_errand_0_text|Good Folk!<br /><br />There's a vile and dangerous spook, beast or devil of sorts causing no end of trouble near our homes. We promise our profoundest gratitude - and a sizeable reward - to any brave lad who can slay it.<br /><br />                              - <font color="#7e6d57">A. Letoth<font color="#CD7D03">
