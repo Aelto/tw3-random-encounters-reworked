@@ -32,6 +32,8 @@ state Loading in CRandomEncounters {
 
     // this.addCustomQuests();
 
+    RER_addNoticeboardInjectors();
+
     parent.GotoState('Waiting');
   }
 

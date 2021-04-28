@@ -27,6 +27,7 @@ statemachine class CRandomEncounters extends CEntity {
   var storages: RER_StorageCollection;
   var bounty_manager: RER_BountyManager;
   var pin_manager: RER_PinManager;
+  var contract_manager: RER_contractManager;
 
   var ticks_before_spawn: int;
 
@@ -59,6 +60,7 @@ statemachine class CRandomEncounters extends CEntity {
       ecosystem_manager = new RER_EcosystemManager in this;
       bounty_manager = new RER_BountyManager in this;
       pin_manager = new RER_PinManager in this;
+      contract_manager = new RER_contractManager in this;
 
       this.initiateRandomEncounters();
     }
@@ -122,8 +124,11 @@ statemachine class CRandomEncounters extends CEntity {
 
     this.ecosystem_manager.init(this);
     this.bounty_manager.init(this);
+    this.contract_manager.init(this);
 
     this.storages = RER_loadStorageCollection();
+
+    RER_tutorialTryShowStarted();
     
     LogChannel('RER', "ecosystem areas storage count = " + this.storages
       .ecosystem
