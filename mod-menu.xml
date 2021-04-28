@@ -5332,9 +5332,7 @@
                 <Entry varId="eventFightNoise"            value="3"    />
                 <Entry varId="eventFillCreaturesGroup"    value="50"    />
                 <Entry varId="eventMeditationAmbush"    value="10"    />
-                <Entry varId="eventNoticeboardContract"                value="50"    />
                 <Entry varId="eventFillCreaturesGroupAllowCombat"    value="0"    />
-                <Entry varId="eventNoticeboardContractAutomaticCutscene"    value="1"    />
             </Preset>
 
             <Preset id="1" displayName="rer_high" >
@@ -5359,8 +5357,6 @@
             <Var id="eventFightNoise" displayName="rer_event_fightnoise_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventFillCreaturesGroup" displayName="rer_event_fillcreaturesgroup_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventMeditationAmbush" displayName="rer_event_meditationambush_chance" displayType="SLIDER;0;100;10000"></Var>
-            <Var id="eventNoticeboardContract" displayName="rer_event_noticeboardcontract_chance" displayType="SLIDER;0;100;10000"></Var>
-            <Var id="eventNoticeboardContractAutomaticCutscene" displayName="rer_event_noticeboardcontract_automatic_cutscene" displayType="TOGGLE"></Var>
             <Var id="eventFillCreaturesGroupAllowCombat" displayName="rer_event_fillcreaturesgroup_allow_combat" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
@@ -5918,6 +5914,7 @@
                 <Entry varId="RERtutorialAmbushed" value="1" />
                 <Entry varId="RERtutorialTrophy" value="1" />
                 <Entry varId="RERtutorialEcosystem" value="1" />
+                <Entry varId="RERtutorialStarted" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5929,6 +5926,7 @@
             <Var id="RERtutorialAmbushed" displayName="rer_tutorial_ambushed" displayType="TOGGLE"></Var>
             <Var id="RERtutorialTrophy" displayName="rer_tutorial_trophy" displayType="TOGGLE"></Var>
             <Var id="RERtutorialEcosystem" displayName="rer_tutorial_ecosystem" displayType="TOGGLE"></Var>
+            <Var id="RERtutorialStarted" displayName="rer_tutorial_started" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
 
