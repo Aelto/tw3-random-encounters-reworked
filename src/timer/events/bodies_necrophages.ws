@@ -93,7 +93,9 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       .setIsNearWater(master.rExtra.IsPlayerNearWater())
       .setIsInForest(master.rExtra.IsPlayerInForest())
       .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
-      .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
+      .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY)
+      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
+
 
     creatures_preferences
       .reset();
