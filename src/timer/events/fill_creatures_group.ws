@@ -133,6 +133,9 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
   private latent function duplicateEntity(master: CRandomEncounters, entity: CNewNPC) {
     var entity_template: CEntityTemplate;
     var created_entity: CEntity;
+    var tags_array: array<name>;
+
+    tags_array.PushBack('RandomEncountersReworked_Entity');
 
     LogChannel('modRandomEncounters', "duplicating = " + StrAfterFirst(entity.ToString(), "::"));
 
@@ -144,7 +147,8 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     created_entity = theGame.CreateEntity(
       entity_template,
       entity.GetWorldPosition(),
-      entity.GetWorldRotation()
+      entity.GetWorldRotation(),,,,,
+      tags_array
     );
 
     ((CNewNPC)created_entity).SetLevel(
