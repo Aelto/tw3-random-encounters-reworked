@@ -160,7 +160,7 @@ statemachine class RER_BountyManager extends CEntity {
       if (seed == 0) {
         current_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
           this.master,
-          EncounterType_HUNTINGGROUND,
+          EncounterType_CONTRACT,
           true
         );
 
@@ -486,7 +486,7 @@ statemachine class RER_BountyManager extends CEntity {
       group_data.count,
       , // density
       true, // trophies
-      EncounterType_HUNTINGGROUND,
+      EncounterType_CONTRACT,
       ,
       true, // no bestiary
       'RandomEncountersReworked_BountyCreature'
