@@ -32,11 +32,11 @@ function RER_addNoticeboardInjectors() {
 class RER_ContractErrandInjector extends SU_ErrandInjector {
   default tag = "RER_ContractErrandInjector";
   
-  public function run(board: W3NoticeBoard) {
+  public function run(out board: W3NoticeBoard) {
     SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
   }
 
-  public function accepted(board: W3NoticeBoard, errand_name: string) {
+  public function accepted(out board: W3NoticeBoard, errand_name: string) {
     var rer_entity: CRandomEncounters;
 
     if (errand_name == "rer_noticeboard_errand_0" && getRandomEncounters(rer_entity)) {
