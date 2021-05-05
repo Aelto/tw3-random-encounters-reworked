@@ -55,8 +55,10 @@ class RER_StaticEncounterManager {
       encounter.getSpawningPosition(),
       , // count
       , // density
-      true, // allow_trophies
-      , // encounter type
+      master
+      .settings
+      .trophies_enabled_by_encounter[EncounterType_HUNTINGGROUND], // allow_trophies
+      EncounterType_HUNTINGGROUND, // encounter type
       false // do not persist
     );
 
