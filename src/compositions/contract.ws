@@ -27,13 +27,27 @@ class CreatureContractComposition extends CompositionSpawner {
   public var started_from_noticeboard: bool;
   default started_from_noticeboard = false;
 
-  public function init(settings: RE_Settings) {
+  public latent function init(settings: RE_Settings) {
+    var bestiary_entry: RER_BestiaryEntry;
+
     LogChannel('modRandomEncounters', "CreatureContractComposition");
+
+    bestiary_entry = this
+      .master
+      .bestiary
+      .getRandomEntryFromBestiary(
+        this.master,
+        EncounterType_CONTRACT,
+        , // for bounty
+        CreatureDRACOLIZARD,  // left offset
+        CreatureMAX // right offset
+      );
 
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance)
       .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
       .setEncounterType(EncounterType_CONTRACT)
+      .setBestiaryEntry(bestiary_entry)
 
       // these settings aren't used when it's an entity manager.
       // I leave them here for the day where i'll update the CompositionSpawner

@@ -27,7 +27,13 @@ state Ambush in RandomEncountersReworkedContractEntity {
     bestiary_entry = parent
       .master
       .bestiary
-      .getRandomEntryFromBestiary(parent.master, EncounterType_CONTRACT);
+      .getRandomEntryFromBestiary(
+        parent.master,
+        EncounterType_CONTRACT,
+        , // for bounty
+        CreatureHUMAN,  // left offset
+        CreatureDRACOLIZARD // right offset
+      );
 
     parent.entities = bestiary_entry.spawn(
       parent.master,

@@ -60,6 +60,41 @@ class SpawnRoller {
     this.third_party_creatures_counters[type] = count;
   }
 
+  /**
+   * remove the creatures that are outside the range set by the offsets.
+   * The creatures passed for the offsets are NOT reset, it's everything OUTSIDE
+   * the range that is reset.
+   */
+  public function setOffsets(optional left_offset: CreatureType, optional right_offset: CreatureType, optional multiplier: float) {
+    var can_apply_offset: bool;
+    var i: int;
+
+    if ((int)right_offset == 0) {
+      right_offset = CreatureMAX - 1;
+    }
+
+    // first we check if any creature IN the range has a spawn rate of 0 or more
+    // otherwise when we'll roll the SpawnRoller it will default to humans.
+    for (i = left_offset; i <= right_offset; i += 1) {
+      if (this.creatures_counters[i] > 0) {
+        can_apply_offset = true;
+        break;
+      }
+    }
+
+    if (!can_apply_offset) {
+      return;
+    }
+
+    for (i = 0; i < left_offset; i += 1) {
+      this.creatures_counters[i] = (int)(this.creatures_counters[i] * multiplier);
+    }
+
+    for (i = right_offset + 1; i < CreatureMAX; i += 1) {
+      this.creatures_counters[i] = (int)(this.creatures_counters[i] * multiplier);
+    }
+  }
+
   public function rollCreatures(ecosystem_manager: RER_EcosystemManager, optional third_party_creatures_count: int): SpawnRoller_Roll {
     var current_position: int;
     var total: int;
