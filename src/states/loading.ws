@@ -309,12 +309,21 @@ state Loading in CRandomEncounters {
       StaticEncounterType_SMALL
     );
 
-    // people hanged on a tree
+    // near a water body where a cockatrice is in vanilla
     this.makeStaticEncounter(
       CreatureCOCKATRICE,
       Vector(-90, -848, 6),
       RER_RegionConstraint_ONLY_VELEN,
       40,
+      StaticEncounterType_LARGE
+    );
+
+    // a big gcave
+    this.makeStaticEncounter(
+      CreatureKATAKAN,
+      Vector(1956, 32, 43),
+      RER_RegionConstraint_ONLY_VELEN,
+      20,
       StaticEncounterType_LARGE
     );
 
