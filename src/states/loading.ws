@@ -30,8 +30,6 @@ state Loading in CRandomEncounters {
 
     parent.static_encounter_manager.spawnStaticEncounters(parent);
 
-    // this.addCustomQuests();
-
     RER_addNoticeboardInjectors();
 
     parent.GotoState('Waiting');
@@ -444,16 +442,6 @@ state Loading in CRandomEncounters {
 
   private function removeAllRerMapPins() {
     SU_removeCustomPinByPredicate(new SU_CustomPinRemoverPredicateFromRER in parent);
-  }
-
-  private function addCustomQuests() {
-    var quest_entry: RER_quest1;
-
-    quest_entry = (new RER_quest1 in thePlayer).init();
-
-    if (!SU_doesQuestWithUniqueTagExist(quest_entry.unique_tag)) {
-      thePlayer.addJournalQuestEntry(quest_entry);
-    }
   }
 }
 
