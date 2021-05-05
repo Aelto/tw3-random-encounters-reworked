@@ -485,7 +485,7 @@ statemachine class RER_BountyManager extends CEntity {
       position,
       group_data.count,
       , // density
-      true, // trophies
+      master.settings.trophies_enabled_by_encounter[EncounterType_CONTRACT], // trophies
       EncounterType_CONTRACT,
       ,
       true, // no bestiary
