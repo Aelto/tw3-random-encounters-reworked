@@ -18,7 +18,7 @@ class RER_Bestiary {
     }
   }
 
-  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType, optional for_bounty: bool, optional left_offset: CreatureType, optional right_offset: CreatureType): RER_BestiaryEntry {
+  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType, optional for_bounty: bool, optional left_offset: CreatureType, optional right_offset: CreatureType, optional offset_multiplier: float): RER_BestiaryEntry {
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
@@ -68,7 +68,7 @@ class RER_Bestiary {
       }
     }
 
-    master.spawn_roller.setOffsets(left_offset, right_offset);
+    master.spawn_roller.setOffsets(left_offset, right_offset, offset_multiplier);
 
     spawn_roll = master.spawn_roller.rollCreatures(
       master.ecosystem_manager,

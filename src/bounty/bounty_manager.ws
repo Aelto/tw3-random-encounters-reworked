@@ -161,7 +161,10 @@ statemachine class RER_BountyManager extends CEntity {
         current_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
           this.master,
           EncounterType_CONTRACT,
-          true
+          true,
+          CreatureDRACOLIZARD,
+          CreatureMAX,
+          0.1 // creature outside the offset have -90% chance to appear
         );
 
         current_group_data.type = current_bestiary_entry.type;
