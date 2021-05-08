@@ -9,7 +9,7 @@ class RER_StaticEncounterManager {
   public latent function registerStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter) {
     this.encounters.PushBack(encounter);
 
-    // instantly spawn the encounter if the RER already spawned the registered
+    // instantly spawn the encounter if RER already spawned the registered
     // static encounters
     if (this.already_spawned_registered_encounters) {
       this.trySpawnStaticEncounter(master, encounter);
@@ -85,6 +85,7 @@ class RER_StaticEncounter {
   public function canSpawn(): bool {
     var entities: array<CGameplayEntity>;
     var current_region: string;
+    var radius: float;
     var i: int;
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
@@ -109,8 +110,10 @@ class RER_StaticEncounter {
     }
 
     // check if the player is nearby, cancel spawn.
-    if (VecDistanceSquared(thePlayer.GetWorldPosition(), this.position) < this.radius * this.radius) {
-      LogChannel('modRandomEncounters', "StaticEncounter player too close");
+    radius = (this.radius * this.radius) * 5
+           + 50 * 50; // also add 50 meters to the radius
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), this.position) < radius) {
+      NLOG("StaticEncounter player too close");
       return false;
     }
 
@@ -118,7 +121,7 @@ class RER_StaticEncounter {
     FindGameplayEntitiesCloseToPoint(
       entities,
       this.position,
-      this.radius + 10, // the +10 is to still catch monster on small radius in case they move
+      this.radius + 20, // the +20 is to still catch monster on small radius in case they move
       1 * (int)this.radius,
       , // tags
       , // queryflags
@@ -126,18 +129,31 @@ class RER_StaticEncounter {
       'CNewNPC'
     );
 
-    for (i = 0; i < entities.Size(); i += 1) {
-      // we found a nearby enemy that is from the same template
-      if (this.isTemplateInEntry(entities[i])) {
-        LogChannel('modRandomEncounters', "StaticEncounter already spawned");
-
-        return false;
-      }
+    if (areThereEntitiesWithSameTemplate(entities)) {
+      return false;
     }
 
     LogChannel('modRandomEncounters', "StaticEncounter can spawn");
 
     return true;
+  }
+
+  private function areThereEntitiesWithSameTemplate(entities: array<CGameplayEntity>) {
+    var hashed_name: string;
+    var i: int;
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      hashed_name = entities[i].GetReadableName();
+
+      // we found a nearby enemy that is from the same template
+      if (this.isTemplateInEntry(hashed_name)) {
+        LogChannel('modRandomEncounters', "StaticEncounter already spawned");
+
+        return true;
+      }
+    }
+    
+    return false;
   }
 
   private function isTemplateInEntry(template: string): bool {
