@@ -16,6 +16,7 @@ class CreatureHuntingGroundComposition extends CompositionSpawner {
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance)
       .setRandomPositionMaxRadius(settings.minimum_spawn_distance + settings.spawn_diameter)
+      .setAllowTrophy(settings.trophies_enabled_by_encounter[EncounterType_HUNTINGGROUND])
       .setEncounterType(EncounterType_HUNTINGGROUND);
 
   }
