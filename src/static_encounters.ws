@@ -138,7 +138,7 @@ class RER_StaticEncounter {
     return true;
   }
 
-  private function areThereEntitiesWithSameTemplate(entities: array<CGameplayEntity>) {
+  private function areThereEntitiesWithSameTemplate(entities: array<CGameplayEntity>): bool {
     var hashed_name: string;
     var i: int;
 
