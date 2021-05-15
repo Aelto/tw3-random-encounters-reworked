@@ -86,6 +86,9 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     var i: int;
     var picked_npc: CNewNPC;
     var boss_tag: name;
+    var player_position: Vector;
+
+    player_position = thePlayer.GetWorldPosition();
 
     FindGameplayEntitiesInRange(
       entities,
@@ -115,7 +118,8 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
         this.can_duplicate_creatures_in_combat
         || !((CNewNPC)entities[i]).IsInCombat()
       )
-      && !((CNewNPC)entities[i]).HasTag(boss_tag)) {
+      && !((CNewNPC)entities[i]).HasTag(boss_tag)
+      && VecDistanceSquared2D(player_position, entities[i].GetWorldPosition()) > 30 * 30) {
         picked_npc_list.PushBack((CNewNPC)entities[i]);
       }
     }
