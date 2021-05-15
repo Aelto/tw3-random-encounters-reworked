@@ -78,11 +78,6 @@ class RE_Settings {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    if (this.shouldResetRERSettings(inGameConfigWrapper)) {
-      LogChannel('modRandomEncounters', 'reset RER settings');
-      this.resetRERSettings(inGameConfigWrapper);
-    }
-
     this.loadMainMenuSettings(inGameConfigWrapper);
     this.loadModEnabledSettings(inGameConfigWrapper);
     this.loadMonsterHuntsChances(inGameConfigWrapper);
@@ -213,7 +208,7 @@ class RE_Settings {
     );
   }
 
-  private function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
+  public function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
     return !inGameConfigWrapper.GetVarValue('RERmain', 'RERmodInitialized');
   }
 
@@ -221,7 +216,7 @@ class RE_Settings {
     this.is_enabled = inGameConfigWrapper.GetVarValue('RERmain', 'RERmodEnabled');
   }
 
-  private function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+  public function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     inGameConfigWrapper.ApplyGroupPreset('RERmain', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencounters', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencountersGeneral', 0);

@@ -1545,3 +1545,13 @@ class REROL_they_where_asking_for_trouble extends RER_DialogData {
 class REROL_no_more_troll_wham extends RER_DialogData {
   default dialog_id = 442052;
 }
+
+// Geralt: Whoa. In for one helluva ride.
+class REROL_whoa_in_for_one_helluva_ride extends RER_DialogData {
+  default dialog_id = 594716;
+}
+
+// Geralt: Ready to go, now.
+class REROL_ready_to_go_now extends RER_DialogData {
+  default dialog_id = 1103826;
+}

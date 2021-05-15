@@ -62,7 +62,7 @@ statemachine class CRandomEncounters extends CEntity {
       pin_manager = new RER_PinManager in this;
       contract_manager = new RER_contractManager in this;
 
-      this.initiateRandomEncounters();
+      this.GotoState('Initialising');
     }
   }
 
@@ -105,42 +105,6 @@ statemachine class CRandomEncounters extends CEntity {
           displayRandomEncounterDisabledNotification();
         }
       }
-    }
-  }
-
-  private function initiateRandomEncounters() {
-    var has_saved: bool;
-
-    this.spawn_roller.fill_arrays();
-
-    this.bestiary.init();
-    this.bestiary.loadSettings();
-
-    this.settings.loadXMLSettings();
-    this.resources.load_resources();
-
-    this.events_manager.init(this);
-    this.events_manager.start();
-
-    this.ecosystem_manager.init(this);
-    this.bounty_manager.init(this);
-    this.contract_manager.init(this);
-
-    this.storages = RER_loadStorageCollection();
-
-    RER_tutorialTryShowStarted();
-    
-    LogChannel('RER', "ecosystem areas storage count = " + this.storages
-      .ecosystem
-      .ecosystem_areas.Size());
-
-    AddTimer('onceReady', 3.0, false);
-    this.GotoState('Loading');
-  }
-
-  timer function onceReady(optional delta: float, optional id: Int32) {
-    if (!this.settings.hide_next_notifications) {
-      displayRandomEncounterEnabledNotification();
     }
   }
 
