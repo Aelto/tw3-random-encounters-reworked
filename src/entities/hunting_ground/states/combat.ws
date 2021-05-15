@@ -50,6 +50,7 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
     while (!parent.areAllEntitiesDead() && !parent.areAllEntitiesFarFromPlayer()) {
       this.makeEntitiesTargetPlayer();
       parent.removeDeadEntities();
+      RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 20);
 
       Sleep(1);
     }
