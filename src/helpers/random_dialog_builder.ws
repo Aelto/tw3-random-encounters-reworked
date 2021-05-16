@@ -207,10 +207,13 @@ class RER_RandomDialogBuilder {
     }
 
     // from here we know the picked section is at index K so we play it
-    this.talking_actor.PlayLine(this.sections[index].dialogs[k].dialog_id, true);
+    // but only if the player is not in a scene
+    if (!isPlayerInScene()) {
+      this.talking_actor.PlayLine(this.sections[index].dialogs[k].dialog_id, true);
 
-    if (this.sections[index].dialogs[k].wait_until_end) {
-      this.talking_actor.WaitForEndOfSpeach();
+      if (this.sections[index].dialogs[k].wait_until_end) {
+        this.talking_actor.WaitForEndOfSpeach();
+      }
     }
 
     if (this.sections[index].pause_after > 0) {
