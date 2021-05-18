@@ -68,6 +68,7 @@ state Noticeboard in RER_contractManager {
     var minimum_distance_multiplier: float;
     var maximum_distance_multiplier: float;
     var contract_position: Vector;
+    var contract_heading: float;
     var position_attempts: int;
     var found_position: bool;
 
@@ -95,7 +96,9 @@ state Noticeboard in RER_contractManager {
       contract_position = thePlayer.GetWorldPosition();
     }
 
-    createRandomCreatureContract(parent.master, new RER_BestiaryEntryNull in this, contract_position);
+    contract_heading = VecHeading(contract_position - position_when_it_started);
+
+    createRandomCreatureContractWithPositionAndHeading(parent.master, new RER_BestiaryEntryNull in this, contract_position, contract_heading);
     parent.GotoState('Waiting');
   }
 

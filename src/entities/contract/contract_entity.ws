@@ -69,6 +69,14 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   // go up to 2 or 3.
   var longevity: float;
 
+  // a normalized heading that represent the direction the contract should
+  // head to whenever a new position has to be picked.
+  // This allows the contract to progress
+  var phase_transition_heading: float;
+
+  // this an internal variable to know if a custom heading was set.
+  private var use_phase_transitation_heading: bool;
+
   public latent function startEncounter(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
     this.bestiary_entry = bestiary_entry;
@@ -99,6 +107,15 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     this.longevity = master
       .settings
       .monster_contract_longevity;
+
+    if (!this.use_phase_transitation_heading) {
+      this.phase_transition_heading = RandRange(360);
+    }
+  }
+
+  public function setPhaseTransitionHeading(heading: float) {
+    this.use_phase_transitation_heading = true;
+    this.phase_transition_heading = heading;
   }
 
   public latent function clean() {
@@ -299,6 +316,21 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
     camera = RER_getStaticCamera();
     camera.playCameraScene(scene, true);
+  }
+
+  //
+  // updates the phase transition heading based on the new position that is
+  // going to be picked. Note that it updates it just slightly, it tries to keep
+  // the old heading and pick a mean value between the two.
+  public function updatePhaseTransitionHeading(old_position: Vector, new_position: Vector) {
+    var new_heading: float;
+
+    new_heading = VecHeading(new_position - old_position);
+
+    // the current phase_transition_heading has more weight so the transition
+    // isn't too abrupt.
+    this.phase_transition_heading =
+      (this.phase_transition_heading * 2 + new_heading) / 3;
   }
 
   //

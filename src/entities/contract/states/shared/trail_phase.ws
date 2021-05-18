@@ -77,13 +77,13 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     }
 
     max_attempt_count = 10;
-    search_heading = VecHeading(parent.previous_phase_checkpoint - thePlayer.GetWorldPosition());
+    search_heading = parent.phase_transition_heading;
     min_radius = 100 * distance_multiplier;
     max_radius = 200 * distance_multiplier;
 
     for (i = 0; i < max_attempt_count; i += 1) {
       current_search_destination = parent.previous_phase_checkpoint
-          + VecConeRand(search_heading, 270, min_radius, max_radius);
+          + VecConeRand(search_heading, 125, min_radius, max_radius);
 
       found_destination = getGroundPosition(current_search_destination, 5);
       if (found_destination) {

@@ -26,6 +26,11 @@ state TrailBreakoff in RandomEncountersReworkedContractEntity extends TrailPhase
       return;
     }
 
+    parent.updatePhaseTransitionHeading(
+      parent.previous_phase_checkpoint,
+      this.destination
+    );
+
     this.play_oneliner_begin();
 
     this.drawTrailsToWithCorpseDetailsMaker(

@@ -24,6 +24,11 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
       return;
     }
 
+    parent.updatePhaseTransitionHeading(
+      parent.previous_phase_checkpoint,
+      this.destination
+    );
+
     this.drawTrailsToWithCorpseDetailsMaker(
       this.destination,
       parent.number_of_creatures

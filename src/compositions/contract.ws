@@ -7,17 +7,20 @@ latent function createRandomCreatureContract(master: CRandomEncounters, bestiary
   var composition: CreatureContractComposition;
 
   composition = new CreatureContractComposition in master;
+  composition.init(master.settings);
+  composition.setBestiaryEntry(bestiary_entry)
+    .spawn(master);
+}
 
+latent function createRandomCreatureContractWithPositionAndHeading(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry, position: Vector, heading: float) {
+  var composition: CreatureContractComposition;
+
+  composition = new CreatureContractComposition in master;
   composition.init(master.settings);
 
-  // Kind of a hack, if there is a forced position it means the contract was
-  // started from a noticeboard. Because it's the only place where the position
-  // is forced.
-  if (position.X != 0 || position.Y != 0 || position.Z != 0) {
-    composition.setSpawnPosition(position);
-
-    composition.started_from_noticeboard = true;
-  }  
+  composition.setContractHeading(heading);
+  composition.setSpawnPosition(position);
+  composition.started_from_noticeboard = true;
 
   composition.setBestiaryEntry(bestiary_entry)
     .spawn(master);
@@ -64,6 +67,13 @@ class CreatureContractComposition extends CompositionSpawner {
 
   }
 
+  public var heading: float;
+  public var use_heading: bool;
+  public function setContractHeading(heading: float) {
+    this.heading = heading;
+    this.use_heading = true;
+  }
+
   protected latent function afterSpawningEntities(): bool {
     var rer_entity: RandomEncountersReworkedContractEntity;
     var rer_entity_template: CEntityTemplate;
@@ -75,6 +85,11 @@ class CreatureContractComposition extends CompositionSpawner {
 
     rer_entity = (RandomEncountersReworkedContractEntity)theGame.CreateEntity(rer_entity_template, this.initial_position, thePlayer.GetWorldRotation());
     rer_entity.started_from_noticeboard = this.started_from_noticeboard;
+
+    if (this.use_heading) {
+      rer_entity.setPhaseTransitionHeading(this.heading);
+    }
+
     rer_entity.startEncounter(this.master, this.bestiary_entry);
 
     return true;

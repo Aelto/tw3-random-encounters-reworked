@@ -92,10 +92,20 @@ state TrailChoice in RandomEncountersReworkedContractEntity extends TrailPhase {
   }
 
   latent function updateCheckpoint(picked_destination: int) {
-    if (picked_destination == 1) {     
+    if (picked_destination == 1) {
+      parent.updatePhaseTransitionHeading(
+        parent.previous_phase_checkpoint,
+        this.destination_one
+      );
+
       parent.previous_phase_checkpoint = this.destination_one;
     }
     else {
+      parent.updatePhaseTransitionHeading(
+        parent.previous_phase_checkpoint,
+        this.destination_two
+      );
+
       parent.previous_phase_checkpoint = this.destination_two;
     }
   }
