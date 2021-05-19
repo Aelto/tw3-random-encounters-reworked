@@ -61,14 +61,13 @@ state EnhancedEdition in RER_PresetManager {
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersHuntingGroundNight', 'Fleders', 0.5);
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersHuntingGroundNight', 'Garkains', 0.5);
 
-    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customdFrequencyLow', 3.0);
-    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customdFrequencyHigh', 3.0);
-    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customnFrequencyLow', 3.0);
-    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customnFrequencyHigh', 3.0);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customdFrequencyLow', 2.0);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customdFrequencyHigh', 2.0);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customnFrequencyLow', 2.0);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'customnFrequencyHigh', 2.0);
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'RERminLevelRange', 0.35);
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersGeneral', 'RERmaxLevelRange', 0.35);
 
-    // this.wrapperMultiplyFloatValue(wrapper, 'RERevents', 'eventSystemICD', 1.5);
     this.wrapperMultiplyFloatValue(wrapper, 'RERevents', 'eventFightNoise', 0.8);
     this.wrapperMultiplyFloatValue(wrapper, 'RERevents', 'eventMeditationAmbush', 0.8);
 
