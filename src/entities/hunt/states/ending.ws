@@ -9,6 +9,7 @@ state Ending in RandomEncountersReworkedHuntEntity {
   }
 
   entry function Ending_main() {
+    RER_tryRefillRandomContainer();
     parent.clean();
   }
 }

@@ -15,6 +15,8 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
       SU_removeCustomPinByPosition(parent.GetWorldPosition());
     }
 
+    RER_tryRefillRandomContainer();
+
     parent.clean();
   }
 }

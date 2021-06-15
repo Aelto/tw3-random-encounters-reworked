@@ -15,6 +15,8 @@ state Ending in RandomEncountersReworkedContractEntity {
     // that is played as it's the starting phase, so we check for two.
     if (parent.played_phases.Size() > 2) {
       REROL_its_over();
+
+      RER_tryRefillRandomContainer();
     }
 
     parent.clean();

@@ -5364,6 +5364,77 @@
     <Group id="RERrewards" displayName="Mods.rer_name.rer_rewards_settings">
     </Group>
 
+    <Group id="RERcontainerRefill" displayName="Mods.rer_name.rer_rewards_settings.rer_container_refill_settings">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="RERcontainerRefillTriggerChance" value="5" />
+                <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
+                <Entry varId="RERcontainerRefillRadius" value="500" />
+                <Entry varId="RERcontainerRefillNumberOfContainers" value="1" />
+
+                <Entry varId="RERlootTable__generic_food_everywhere" value="15" />
+                <Entry varId="RERlootTable__generic_alco_everywhere" value="15" />
+                <Entry varId="RERlootTable__generic_gold_everywhere" value="15" />
+                <Entry varId="RERlootTable__loot_dwarven_body_everywhere" value="15" />
+                <Entry varId="RERlootTable__loot_badit_body_everywhere" value="15" />
+                <Entry varId="RERlootTable__generic_chest_everywhere" value="15" />
+                <Entry varId="RERlootTable__herbalist_area_prolog" value="20" />
+                <Entry varId="RERlootTable__herbalist_area_nml" value="20" />
+                <Entry varId="RERlootTable__herbalist_area_novigrad" value="20" />
+                <Entry varId="RERlootTable__herbalist_area_skelige" value="20" />
+                <Entry varId="RERlootTable__dungeon_everywhere" value="5" />
+                <Entry varId="RERlootTable__treasure_q1" value="5" />
+                <Entry varId="RERlootTable__treasure_q2" value="4" />
+                <Entry varId="RERlootTable__treasure_q3" value="3" />
+                <Entry varId="RERlootTable__treasure_q4" value="2" />
+                <Entry varId="RERlootTable__treasure_q5" value="1" />
+                <Entry varId="RERlootTable__unique_runes" value="5" />
+                <Entry varId="RERlootTable__unique_armorupgrades" value="5" />
+                <Entry varId="RERlootTable__unique_ingr" value="10" />
+                <Entry varId="RERlootTable__weapons_nml" value="5" />
+                <Entry varId="RERlootTable__unique_weapons_epic_dungeon_nml" value="1" />
+                <Entry varId="RERlootTable__uniqe_weapons_epic_dungeon_skelige" value="1" />
+                <Entry varId="RERlootTable__loot_monster_treasure_uniq_swords" value="1" />
+                <Entry varId="RERlootTable__uniq_armors" value="5" />
+            </Preset>
+
+            <Preset id="1" displayName="rer_everything_off" >
+                <Entry varId="RERcontainerRefillTriggerChance" value="0" />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="RERcontainerRefillTriggerChance" displayName="rer_container_refill_trigger_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERcontainerRefillOnlyEmptyContainers" displayName="rer_container_refill_only_empty_containers" displayType="TOGGLE" />
+            <Var id="RERcontainerRefillRadius" displayName="rer_container_refill_radius" displayType="SLIDER;0;1000;1000" />
+            <Var id="RERcontainerRefillNumberOfContainers" displayName="rer_container_refill_number_of_containers" displayType="SLIDER;0;10;10" />
+
+            <Var id="RERlootTable__generic_food_everywhere" displayName="rer_container_refill_loot_table__generic_food_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__generic_alco_everywhere" displayName="rer_container_refill_loot_table__generic_alco_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__generic_gold_everywhere" displayName="rer_container_refill_loot_table__generic_gold_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__loot_dwarven_body_everywhere" displayName="rer_container_refill_loot_table__loot_dwarven_body_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__loot_badit_body_everywhere" displayName="rer_container_refill_loot_table__loot_badit_body_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__generic_chest_everywhere" displayName="rer_container_refill_loot_table__generic_chest_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__herbalist_area_prolog" displayName="rer_container_refill_loot_table__herbalist_area_prolog" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__herbalist_area_nml" displayName="rer_container_refill_loot_table__herbalist_area_nml" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__herbalist_area_novigrad" displayName="rer_container_refill_loot_table__herbalist_area_novigrad" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__herbalist_area_skelige" displayName="rer_container_refill_loot_table__herbalist_area_skelige" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__dungeon_everywhere" displayName="rer_container_refill_loot_table__dungeon_everywhere" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__treasure_q1" displayName="rer_container_refill_loot_table__treasure_q1" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__treasure_q2" displayName="rer_container_refill_loot_table__treasure_q2" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__treasure_q3" displayName="rer_container_refill_loot_table__treasure_q3" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__treasure_q4" displayName="rer_container_refill_loot_table__treasure_q4" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__treasure_q5" displayName="rer_container_refill_loot_table__treasure_q5" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__unique_runes" displayName="rer_container_refill_loot_table__unique_runes" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__unique_armorupgrades" displayName="rer_container_refill_loot_table__unique_armorupgrades" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__unique_ingr" displayName="rer_container_refill_loot_table__unique_ingr" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__weapons_nml" displayName="rer_container_refill_loot_table__weapons_nml" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__unique_weapons_epic_dungeon_nml" displayName="rer_container_refill_loot_table__unique_weapons_epic_dungeon_nml" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__uniqe_weapons_epic_dungeon_skelige" displayName="rer_container_refill_loot_table__uniqe_weapons_epic_dungeon_skelige" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__loot_monster_treasure_uniq_swords" displayName="rer_container_refill_loot_table__loot_monster_treasure_uniq_swords" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootTable__uniq_armors" displayName="rer_container_refill_loot_table__uniq_armors" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
     <Group id="RERmonsterCrowns" displayName="Mods.rer_name.rer_rewards_settings.rer_crowns_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >

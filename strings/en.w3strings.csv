@@ -307,3 +307,33 @@
 2115018303|        |rer_dialog_preset_exit_do_nothing|Exit and leave settings untouched.
 2115018304|        |rer_dialog_preset_enhanced_edition|[RER preset] Witcher 3 Enhanced Edition
 2115018305|        |rer_dialog_preset_vanilla|[RER preset] Vanilla
+2115018306|        |preset_Mods_rer_name_rer_rewards_settings_rer_container_refill_settings|Container refill
+2115018307|        |panel_rer_container_refill_settings|Container refill
+2115018308|        |option_rer_container_refill_trigger_chance|Chance to trigger on encounter end (%)
+2115018309|        |option_rer_container_refill_only_empty_containers|Only empty containers
+2115018310|        |option_rer_container_refill_radius|Radius
+2115018311|        |option_rer_container_refill_number_of_containers|Number of containers per trigger
+2115018312|        |option_rer_container_refill_loot_table__generic_food_everywhere|<font color="#ffd33d"> - </font> Generic food
+2115018313|        |option_rer_container_refill_loot_table__generic_alco_everywhere|<font color="#ffd33d"> - </font> Generic alcohol
+2115018314|        |option_rer_container_refill_loot_table__generic_gold_everywhere|<font color="#ffd33d"> - </font> Generic gold
+2115018315|        |option_rer_container_refill_loot_table__loot_dwarven_body_everywhere|<font color="#ffd33d"> - </font> Dwarven loot
+2115018316|        |option_rer_container_refill_loot_table__loot_badit_body_everywhere|<font color="#ffd33d"> - </font> Bandit loot
+2115018317|        |option_rer_container_refill_loot_table__generic_chest_everywhere|<font color="#ffd33d"> - </font> Generic chest
+2115018318|        |option_rer_container_refill_loot_table__herbalist_area_prolog|<font color="#ffd33d"> - </font> White Orchard herbs
+2115018319|        |option_rer_container_refill_loot_table__herbalist_area_nml|<font color="#ffd33d"> - </font> Velen herbs
+2115018320|        |option_rer_container_refill_loot_table__herbalist_area_novigrad|<font color="#ffd33d"> - </font> Novigrad herbs
+2115018321|        |option_rer_container_refill_loot_table__herbalist_area_skelige|<font color="#ffd33d"> - </font> Skellige herbs
+2115018322|        |option_rer_container_refill_loot_table__dungeon_everywhere|<font color="#ffd33d"> - </font> Dungeon
+2115018323|        |option_rer_container_refill_loot_table__treasure_q1|<font color="#ffd33d"> - </font> Treasure quality 1
+2115018324|        |option_rer_container_refill_loot_table__treasure_q2|<font color="#ffd33d"> - </font> Treasure quality 2
+2115018325|        |option_rer_container_refill_loot_table__treasure_q3|<font color="#ffd33d"> - </font> Treasure quality 3
+2115018326|        |option_rer_container_refill_loot_table__treasure_q4|<font color="#ffd33d"> - </font> Treasure quality 4
+2115018327|        |option_rer_container_refill_loot_table__treasure_q5|<font color="#ffd33d"> - </font> Treasure quality 5
+2115018328|        |option_rer_container_refill_loot_table__unique_runes|<font color="#ffd33d"> - </font> Unique runes
+2115018329|        |option_rer_container_refill_loot_table__unique_armorupgrades|<font color="#ffd33d"> - </font> Unique armor upgrades
+2115018330|        |option_rer_container_refill_loot_table__unique_ingr|<font color="#ffd33d"> - </font> Unique ingredients
+2115018331|        |option_rer_container_refill_loot_table__weapons_nml|<font color="#ffd33d"> - </font> Velen weapons
+2115018332|        |option_rer_container_refill_loot_table__unique_weapons_epic_dungeon_nml|<font color="#ffd33d"> - </font> Unique Velen dungeon relics
+2115018333|        |option_rer_container_refill_loot_table__uniqe_weapons_epic_dungeon_skelige|<font color="#ffd33d"> - </font> Unique Skellige dungeon relics
+2115018334|        |option_rer_container_refill_loot_table__loot_monster_treasure_uniq_swords|<font color="#ffd33d"> - </font> Unique swords
+2115018335|        |option_rer_container_refill_loot_table__uniq_armors|<font color="#ffd33d"> - </font> unique armors

@@ -1,0 +1,199 @@
+// Everything about the contain refill feature for the rewards system.
+// This feature aims to refill random container in the world when Geralt kills
+// monsters.
+//
+// A list of loot tables are available and their chance to be picked can be
+// changed in the menus.
+
+/**
+ * This function does a random roll, if it succeeds it calls the function to
+ * fill a random container
+ */
+function RER_tryRefillRandomContainer() {
+  var inGameConfigWrapper: CInGameConfigWrapper;
+  var menu_chance: float;
+  
+  inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+  menu_chance = StringToFloat(
+    inGameConfigWrapper.GetVarValue(
+      'RERcontainerRefill',
+      'RERcontainerRefillTriggerChance'
+    )
+  );
+
+  if (RandRange(100) >= menu_chance) {
+    return;
+  }
+
+  RER_refillRandomContainer(inGameConfigWrapper);
+}
+
+/**
+ * This function refills X containers around the player using a random loot
+ * table for each container.
+ */
+function RER_refillRandomContainer(inGameConfigWrapper: CInGameConfigWrapper) {
+  var containers: array<CGameplayEntity>;
+  var number_of_containers: int;
+  var only_empty_containers: bool;
+  var loot_table: RER_LootTable;
+  var container: W3Container;
+  var radius: float;
+  var i: int;
+
+  radius = StringToFloat(
+    inGameConfigWrapper.GetVarValue(
+      'RERcontainerRefill',
+      'RERcontainerRefillRadius'
+    )
+  );
+
+  number_of_containers = StringToInt(
+    inGameConfigWrapper.GetVarValue(
+      'RERcontainerRefill',
+      'RERcontainerRefillNumberOfContainers'
+    )
+  );
+
+  only_empty_containers = inGameConfigWrapper.GetVarValue(
+    'RERcontainerRefill',
+    'RERcontainerRefillOnlyEmptyContainers'
+  );
+
+  FindGameplayEntitiesInRange(
+    containers,
+    thePlayer,
+    radius, // radius
+    number_of_containers * 2, // max number of entities
+    , // tag
+    ,
+    , // target
+    'W3Container'
+  );
+
+  for (i = 0; i < containers.Size(); i += 1) {
+    if (number_of_containers == 0) {
+      break;
+    }
+
+    loot_table = RER_getRandomLootTable(inGameConfigWrapper);
+
+    container = (W3Container)containers[i];
+
+    if (container && RER_tryRefillContainer(container, loot_table, only_empty_containers)) {
+      number_of_containers -= 1;
+    }
+  }
+}
+
+/**
+ * This function returns a random loot table based on the ratios the user set
+ * in the menus.
+ */
+function RER_getRandomLootTable(inGameConfigWrapper: CInGameConfigWrapper): RER_LootTable {
+  var loot_tables: array<RER_LootTable>;
+  var current_position: int;
+  var total: int;
+  var roll: int;
+  var i: int;
+
+  loot_tables = RER_getLootTables(inGameConfigWrapper);
+
+  for (i = 0; i < loot_tables.Size(); i += 1) {
+    total += loot_tables[i].menu_value;
+  }
+
+  roll = RandRange(total);
+  current_position = 0;
+
+  NLOG("refill - roll = " + roll);
+
+  for (i = 0; i < loot_tables.Size(); i += 1) {
+    current_position += loot_tables[i].menu_value;
+    NLOG("refill - loot_tables[i].menu_value = " + loot_tables[i].menu_value);
+
+    if (loot_tables[i].menu_value > 0 && roll <= current_position) {
+      return loot_tables[i];
+    }
+  }
+
+  return loot_tables[0];
+}
+
+struct RER_LootTable {
+  var table_name: name;
+  var menu_value: int;
+}
+
+function RER_getLootTables(inGameConfigWrapper: CInGameConfigWrapper): array<RER_LootTable> {
+  var loot_tables: array<RER_LootTable>;
+
+  loot_tables.PushBack(RER_LootTable('_generic food_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_food_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_generic alco_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_alco_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_generic gold_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_gold_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_loot dwarven body_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__loot_dwarven_body_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_loot badit body_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__loot_badit_body_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_generic chest_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_chest_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_prolog', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_prolog'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_nml', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_nml'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_novigrad', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_novigrad'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_skelige', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_skelige'))));
+  loot_tables.PushBack(RER_LootTable('_dungeon_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__dungeon_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q1', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q1'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q2', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q2'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q3', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q3'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q4', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q4'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q5', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q5'))));
+  loot_tables.PushBack(RER_LootTable('_unique_runes', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_runes'))));
+  loot_tables.PushBack(RER_LootTable('_unique_armorupgrades', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_armorupgrades'))));
+  loot_tables.PushBack(RER_LootTable('_unique_ingr', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_ingr'))));
+  loot_tables.PushBack(RER_LootTable('_weapons_nml', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__weapons_nml'))));
+  loot_tables.PushBack(RER_LootTable('_unique_weapons_epic_dungeon_nml', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_weapons_epic_dungeon_nml'))));
+  loot_tables.PushBack(RER_LootTable('_uniqe_weapons_epic_dungeon_skelige', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__uniqe_weapons_epic_dungeon_skelige'))));
+  loot_tables.PushBack(RER_LootTable('_loot_monster_treasure_uniq_swords', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__loot_monster_treasure_uniq_swords'))));
+  loot_tables.PushBack(RER_LootTable('_uniq_armors', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__uniq_armors'))));
+
+  return loot_tables;
+}
+
+// function RER_getLootTablesAndLoadMenuValues(inGameConfigWrapper: CInGameConfigWrapper): array<RER_LootTable> {
+//   var loot_tables: array<RER_LootTable>;
+//   var loot_table: RER_LootTable;
+//   var value: int;
+//   var i: int;
+
+//   inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+//   loot_tables = RER_getLootTables();
+
+//   for (i = 0; i < loot_tables.Size(); i += 1) {
+//     loot_table = loot_tables[i];
+
+//     value = StringToInt(
+//       inGameConfigWrapper.GetVarValue('RERmonsterCrowns', loot_table.menu_entry)
+//     );
+
+//     loot_tables.menu_value = value;
+//   }
+
+//   return loot_tables;
+// }
+
+/**
+ * This function tries to refill the supplied container. The return value tells
+ * if it did or not.
+ *
+ * There is a chance it doesn't refill the container because it's up to the user
+ * to tell if it should refill container that are not empty or not.
+ */
+function RER_tryRefillContainer(container: W3Container, loot_table: RER_LootTable, only_if_empty: bool): bool {
+  if (only_if_empty && !container.IsEmpty()) {
+    return false;
+  }
+
+  container.GetInventory().AddItemsFromLootDefinition(loot_table.table_name);
+  container.GetInventory().UpdateLoot();
+  container.Enable(true);
+
+  return true;
+}
