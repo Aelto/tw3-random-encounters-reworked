@@ -5512,10 +5512,10 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERtrophiesPrices" value="0" />
-                <Entry varId="RERtrophiesAmbush" value="1" />
-                <Entry varId="RERtrophiesHunt" value="1" />
+                <Entry varId="RERtrophiesAmbush" value="0" />
+                <Entry varId="RERtrophiesHunt" value="0" />
                 <Entry varId="RERtrophiesContract" value="1" />
-                <Entry varId="RERtrophiesHuntingGround" value="1" />
+                <Entry varId="RERtrophiesHuntingGround" value="0" />
                 <Entry varId="RERtrophyMasterBuyingPrice" value="55" />
 
                 <Entry varId="Hags"                    value="100"     />
