@@ -325,6 +325,151 @@ state Loading in CRandomEncounters {
       StaticEncounterType_LARGE
     );
 
+    // cave where the two ladies want to cut the nails of the dead
+    this.makeStaticEncounter(
+      CreatureKATAKAN,
+      Vector(58, 487, 10.45),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      5,
+      StaticEncounterType_LARGE
+    );
+
+    // entrance of the cave where the two ladies want to cut the nails of
+    // the dead
+    this.makeStaticEncounter(
+      CreatureTROLL,
+      Vector(140, 393, 23),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      5,
+      StaticEncounterType_LARGE
+    );
+
+    // a guarded treasure with a forktail
+    this.makeStaticEncounter(
+      CreatureFORKTAIL,
+      Vector(11, 237, 39),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      10,
+      StaticEncounterType_LARGE
+    );
+
+    // a big stone where there is sometimes a cyclop in vanilla
+    this.makeStaticEncounter(
+      CreatureCYCLOP,
+      Vector(420, 188, 64),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      20,
+      StaticEncounterType_LARGE
+    );
+
+    // a beach near kaer trolde
+    this.makeStaticEncounter(
+      CreatureHAG,
+      Vector(88, 167, 0),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      20,
+      StaticEncounterType_LARGE
+    );
+
+    // a mountain with lots of harpies
+    this.makeStaticEncounter(
+      CreatureHARPY,
+      Vector(645, 320, 87),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      50,
+      StaticEncounterType_SMALL
+    );
+
+    // a mountain peak
+    this.makeStaticEncounter(
+      CreatureFIEND,
+      Vector(737, 560, 155),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      30,
+      StaticEncounterType_LARGE
+    );
+
+    // a beach with broken boats
+    this.makeStaticEncounter(
+      CreatureCYCLOP,
+      Vector(1064, 570, 1),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      50,
+      StaticEncounterType_LARGE
+    );
+
+    // a beach with broken boats
+    this.makeStaticEncounter(
+      CreatureARACHAS,
+      Vector(978, 720, 18),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      10,
+      StaticEncounterType_SMALL
+    );
+
+    // a grotto in the middle of skellige
+    this.makeStaticEncounter(
+      CreatureBEAR,
+      Vector(671, 689, 81),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      40,
+      StaticEncounterType_SMALL
+    );
+
+    // a forest north east of skellige
+    this.makeStaticEncounter(
+      CreatureLESHEN,
+      Vector(546, 591, 63),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      55,
+      StaticEncounterType_LARGE
+    );
+
+    // a small lake near a forest
+    this.makeStaticEncounter(
+      CreatureTROLL,
+      Vector(426, 377, 44),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      20,
+      StaticEncounterType_LARGE
+    );
+
+    // lake south of skellige
+    this.makeStaticEncounter(
+      CreatureHAG,
+      Vector(-99, -525, 63),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      40,
+      StaticEncounterType_LARGE
+    );
+
+    // lake south of skellige
+    this.makeStaticEncounter(
+      CreatureDROWNER,
+      Vector(-99, -525, 63),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      40,
+      StaticEncounterType_SMALL
+    );
+
+    // lake south of skellige
+    this.makeStaticEncounter(
+      CreatureNEKKER,
+      Vector(-99, -525, 63),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      60,
+      StaticEncounterType_SMALL
+    );
+
+    // ruins south of skellige, near a lage
+    this.makeStaticEncounter(
+      CreatureHUMAN,
+      Vector(-10, -517, 66),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      10,
+      StaticEncounterType_SMALL
+    );
+
 
     // var example_static_encounter: RER_StaticEncounter;
 
