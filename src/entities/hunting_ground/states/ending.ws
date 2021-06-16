@@ -15,7 +15,9 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
       SU_removeCustomPinByPosition(parent.GetWorldPosition());
     }
 
-    RER_tryRefillRandomContainer();
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {
+      RER_tryRefillRandomContainer();
+    }
 
     parent.clean();
   }

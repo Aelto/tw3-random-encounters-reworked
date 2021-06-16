@@ -9,7 +9,9 @@ state Ending in RandomEncountersReworkedHuntEntity {
   }
 
   entry function Ending_main() {
-    RER_tryRefillRandomContainer();
+    if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {
+      RER_tryRefillRandomContainer();
+    }
     parent.clean();
   }
 }

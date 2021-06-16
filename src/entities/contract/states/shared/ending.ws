@@ -16,7 +16,9 @@ state Ending in RandomEncountersReworkedContractEntity {
     if (parent.played_phases.Size() > 2) {
       REROL_its_over();
 
-      RER_tryRefillRandomContainer();
+      if (VecDistanceSquared(parent.previous_phase_checkpoint, thePlayer.GetWorldPosition()) < 50 * 50) {
+        RER_tryRefillRandomContainer();
+      }
     }
 
     parent.clean();
