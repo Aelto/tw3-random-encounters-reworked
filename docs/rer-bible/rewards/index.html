@@ -20,8 +20,8 @@
       What would be the point of killing monsters, if you did not get any reward
       for it. RER adds new trophies with the sole purpose of being sold so that
       you can earn a few crowns from the monsters you killed. Because trophies
-      may not sell much with any economy altering mods you use, it also includes
-      an option for direct crown drops from creatures to compensate if you need it.
+      may not sell much with the economy altering mods you use, it also includes
+      an option for direct crown drops from creatures if you need it.
 
     </p>
 
@@ -58,6 +58,65 @@
       <span>100</span> means it has 100% chance to drop a trophy, <span>50</span> 
       means 50% and <span>0</span> means no trophies drop this creature.
       <img src="trophiesdrop.png" alt="">
+    </p>
+
+    <p>
+      <h3>Containers refill</h3>
+      RER has always been about revitalizing old content, or places. This feature
+      will refill the containers of regions where you kill monsters. From its
+      description you probably think it won't work because you need to kill monsters
+      for it to activate, and you rarely go back to old places just to kill monsters.
+      Well, you're right but you may have forgotted about one of RER's key feature:
+      <a href="../bounties/">the bounties</a>. The bounties force you to travel
+      the world to kill dangerous monsters and collect valuable trophies.
+    </p>
+
+    <p>
+      but anyway, the topic is not about the bounties here but the container but
+      the containers refill feature. It's a pretty simple feature: you kill
+      monsters, containers around you are filled with new loot. Obvsiously we
+      all have a different view of balance, this is why this feature comes with
+      a <i>few</i> (a lot of) sliders.
+      <br>
+      <img src="containerrefillpresets.png" alt="image showing the Default preset and the OFF preset">
+      First, let's talk about the presets: the <span>defaults</span> preset that
+      is applied automatically the first time you play with the mod; and second:
+      the OFF preset to disable the feature.
+      <br>
+      <img src="containermainsliders.png" alt="">
+      Now the main sliders:
+      <ul>
+        <li><span>chance to trigger</span> allows you to define the chance for
+          it to happen after you kill an encounter from RER. Note that it only works
+          for RER encounters.
+        </li>
+        <li><span>Only empty containers</span> by default the feature only works
+          on containers that are empty to prevent filling the containers with tons
+          of stuff.
+        </li>
+        <li>
+          <span>Radius</span>, it controls how far around the player RER will
+          look for containers.
+        </li>
+        <li>
+          <span>Number of containers</span> tells the maximum of containers will
+          be refilled everytime this system triggers. It is not guaranteed to
+          reach this number if there are not enough containers around you.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <img src="containerloottablessliders.png" alt="Image showing the sliders for the loot tables">
+      Each slider that starts with the little yellow dash is a loot table. Every
+      time this system triggers it will randomly pick one loot table for each
+      container (if you allowed more than one container per trigger) and then
+      fill the container with the objects from the loot table.
+      <br>
+      The values you set to these sliders control the chance for the loot table
+      to be picked. The value is like a ratio/coefficient, <span>15</span> doesn't
+      mean this loot table will have 15% chance to be picked. Instead it means
+      that it has half the chance to be picked compared to a <span>30</span>.
     </p>
   </section>
 
