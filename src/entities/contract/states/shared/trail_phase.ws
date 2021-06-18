@@ -70,6 +70,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     var search_heading: float;
     var min_radius: float;
     var max_radius: float;
+    var angle: float;
     var i: int;
 
     if (distance_multiplier == 0) {
@@ -77,6 +78,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
     }
 
     max_attempt_count = 10;
+    angle = 125;
     search_heading = parent.phase_transition_heading;
     min_radius = 100 * distance_multiplier;
     max_radius = 200 * distance_multiplier;
@@ -91,6 +93,10 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
 
         return true;
       }
+
+      // everytime it fails we add 20 degrees to the angle to slowly increase
+      // the cone.
+      angle = Min(360, angle + 20);
     }
 
     return false;
