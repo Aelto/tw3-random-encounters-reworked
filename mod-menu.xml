@@ -5367,9 +5367,9 @@
     <Group id="RERcontainerRefill" displayName="Mods.rer_name.rer_rewards_settings.rer_container_refill_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERcontainerRefillTriggerChance" value="5" />
+                <Entry varId="RERcontainerRefillTriggerChance" value="20" />
                 <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
-                <Entry varId="RERcontainerRefillRadius" value="500" />
+                <Entry varId="RERcontainerRefillRadius" value="1000" />
                 <Entry varId="RERcontainerRefillNumberOfContainers" value="1" />
 
                 <Entry varId="RERlootTable__generic_food_everywhere" value="15" />
@@ -5400,6 +5400,12 @@
 
             <Preset id="1" displayName="rer_everything_off" >
                 <Entry varId="RERcontainerRefillTriggerChance" value="0" />
+            </Preset>
+
+            <Preset id="2" displayName="rer_high" >
+                <Entry varId="RERcontainerRefillTriggerChance" value="100" />
+                <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
+                <Entry varId="RERcontainerRefillNumberOfContainers" value="2" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
