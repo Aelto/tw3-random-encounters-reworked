@@ -470,6 +470,42 @@ state Loading in CRandomEncounters {
       StaticEncounterType_SMALL
     );
 
+    // a forest south of skellige
+    this.makeStaticEncounter(
+      CreatureENDREGA,
+      Vector(-450, -512, 38),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      60,
+      StaticEncounterType_SMALL
+    );
+
+    // a tomb in the middle of skellige
+    this.makeStaticEncounter(
+      CreatureNIGHTWRAITH,
+      Vector(588, 142, 35),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      10,
+      StaticEncounterType_LARGE
+    );
+
+    // abandoned house with skeleton
+    this.makeStaticEncounter(
+      CreatureDROWNER,
+      Vector(750, -149, 31),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      4,
+      StaticEncounterType_SMALL
+    );
+
+    // abandoned house with skeleton
+    this.makeStaticEncounter(
+      CreatureCHORT,
+      Vector(792, -529, 78),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      4,
+      StaticEncounterType_LARGE
+    );
+
 
     // var example_static_encounter: RER_StaticEncounter;
 
