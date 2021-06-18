@@ -288,7 +288,7 @@
 2115018288|        |rer_mappin_bounty_target_title|Bounty target
 2115018289|        |rer_mappin_bounty_target_description|A group of {{creature_type}} was seen in the area. Kill them and collect their trophies for a reward.
 2115018290|        |rer_mappin_regular_title|
-2115018291|        |rer_mappin_regular_description|Clues led to this area, something interesting must be in the area.
+2115018291|        |rer_mappin_regular_description|Clues lead to this area, something interesting must be here.
 2115018292|        |rer_dialog_farewell|Farewell.
 2115018293|        |rer_dialog_start_bounty|Start bounty
 2115018294|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
