@@ -157,28 +157,6 @@ function RER_getLootTables(inGameConfigWrapper: CInGameConfigWrapper): array<RER
   return loot_tables;
 }
 
-// function RER_getLootTablesAndLoadMenuValues(inGameConfigWrapper: CInGameConfigWrapper): array<RER_LootTable> {
-//   var loot_tables: array<RER_LootTable>;
-//   var loot_table: RER_LootTable;
-//   var value: int;
-//   var i: int;
-
-//   inGameConfigWrapper = theGame.GetInGameConfigWrapper();
-//   loot_tables = RER_getLootTables();
-
-//   for (i = 0; i < loot_tables.Size(); i += 1) {
-//     loot_table = loot_tables[i];
-
-//     value = StringToInt(
-//       inGameConfigWrapper.GetVarValue('RERmonsterCrowns', loot_table.menu_entry)
-//     );
-
-//     loot_tables.menu_value = value;
-//   }
-
-//   return loot_tables;
-// }
-
 /**
  * This function tries to refill the supplied container. The return value tells
  * if it did or not.
