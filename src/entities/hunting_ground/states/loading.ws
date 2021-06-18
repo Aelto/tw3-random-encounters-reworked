@@ -38,20 +38,22 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
       // SU_removeCustomPinByPredicate(predicate);
 
       map_pin = new SU_MapPin in thePlayer;
-        map_pin.tag = "RER_bounty_target";
-        map_pin.position = parent.GetWorldPosition();
-        map_pin.description = StrReplace(
-          GetLocStringByKey("rer_mappin_bounty_target_description"),
-          "{{creature_type}}",
-          getCreatureNameFromCreatureType(
-            parent.master.bestiary,
-            parent.bestiary_entry.type
-          )
-        );
-        map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
-        map_pin.type = "MonsterQuest";
-        map_pin.radius = 100;
-        map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+      map_pin.tag = "RER_bounty_target";
+      map_pin.position = parent.GetWorldPosition();
+      map_pin.description = StrReplace(
+        GetLocStringByKey("rer_mappin_bounty_target_description"),
+        "{{creature_type}}",
+        getCreatureNameFromCreatureType(
+          parent.master.bestiary,
+          parent.bestiary_entry.type
+        )
+      );
+      map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
+      map_pin.type = "MonsterQuest";
+      map_pin.radius = 100;
+      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+      thePlayer.addCustomPin(map_pin);
     }
 
     parent.GotoState('Wandering');
