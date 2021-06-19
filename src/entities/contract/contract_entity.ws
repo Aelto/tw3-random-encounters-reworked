@@ -34,6 +34,8 @@ struct ContractEntitySettings {
 statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   var master: CRandomEncounters;
 
+  var facts: RER_ContractFactManager;
+
   var entities: array<CEntity>;
 
   var bestiary_entry: RER_BestiaryEntry;
@@ -79,6 +81,7 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
 
   public latent function startEncounter(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
+    this.facts = new RER_ContractFactManager in this;
     this.bestiary_entry = bestiary_entry;
     this.number_of_creatures = rollDifficultyFactor(
       this.bestiary_entry.template_list.difficulty_factor,

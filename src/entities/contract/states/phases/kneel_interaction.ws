@@ -13,6 +13,8 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
   entry function KneelInteraction_main() {
     parent.previous_phase_checkpoint = thePlayer.GetWorldPosition();
 
+    parent.facts.add(ContractFact_PHASE_KNEEL_PLAYED);
+
     this.KneelInteraction_createTracks();
     this.KneelInteraction_playAnimation();
     RER_tutorialTryShowContract();

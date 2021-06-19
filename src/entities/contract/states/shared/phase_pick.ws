@@ -75,7 +75,7 @@ state PhasePick in RandomEncountersReworkedContractEntity {
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('Ambush', 10, 2));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailChoice', 10, 1));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailBreakoff', 10, 1));
-        if (n1_phase != 'KneelInteraction') {
+        if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
           registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 10, 1));
         }
         break;
@@ -93,7 +93,7 @@ state PhasePick in RandomEncountersReworkedContractEntity {
         break;
 
       case 'TrailBreakoff':
-        if (n1_phase != 'KneelInteraction') {
+        if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
           registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 5, 0.5));
         }
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('Ambush', 5, 2));
@@ -102,7 +102,7 @@ state PhasePick in RandomEncountersReworkedContractEntity {
         break;
 
       case 'Ambush':
-        if (n1_phase != 'KneelInteraction') {
+        if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
           registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 10, 0.5));
         }
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailBreakoff', 10, 1));
@@ -117,10 +117,10 @@ state PhasePick in RandomEncountersReworkedContractEntity {
 
     switch (picked_phase.phase_name) {
       case 'TrailChoice':
-      case 'KneelAnimation':
+      case 'KneelInteraction':
       case 'Ambush':
       case 'TrailBreakoff':
-        if (previous_phase != 'KneelAnimation') {
+        if (previous_phase != 'KneelInteraction') {
           parent.trail_maker.hidePreviousTracks();
         }
         break;
