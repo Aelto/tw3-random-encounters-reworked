@@ -111,7 +111,6 @@ function RER_getRandomLootTable(inGameConfigWrapper: CInGameConfigWrapper): RER_
 
   for (i = 0; i < loot_tables.Size(); i += 1) {
     current_position += loot_tables[i].menu_value;
-    NLOG("refill - loot_tables[i].menu_value = " + loot_tables[i].menu_value);
 
     if (loot_tables[i].menu_value > 0 && roll <= current_position) {
       return loot_tables[i];
@@ -168,6 +167,8 @@ function RER_tryRefillContainer(container: W3Container, loot_table: RER_LootTabl
   if (only_if_empty && !container.IsEmpty()) {
     return false;
   }
+
+  NLOG("container refilled with loot table: " + loot_table.table_name);
 
   container.GetInventory().AddItemsFromLootDefinition(loot_table.table_name);
   container.GetInventory().UpdateLoot();
