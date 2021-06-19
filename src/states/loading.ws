@@ -506,6 +506,15 @@ state Loading in CRandomEncounters {
       StaticEncounterType_LARGE
     );
 
+    // siren nest
+    this.makeStaticEncounter(
+      CreatureSIREN,
+      Vector(387, -1161, 0),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      20,
+      StaticEncounterType_SMALL
+    );
+
 
     // var example_static_encounter: RER_StaticEncounter;
 
