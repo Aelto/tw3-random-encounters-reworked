@@ -96,7 +96,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
 
       // everytime it fails we add 20 degrees to the angle to slowly increase
       // the cone.
-      angle = Min(360, angle + 20);
+      angle = MinF(360, angle + 20);
     }
 
     return false;
