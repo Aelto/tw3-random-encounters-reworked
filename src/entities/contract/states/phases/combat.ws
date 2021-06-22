@@ -15,6 +15,10 @@ state Combat in RandomEncountersReworkedContractEntity {
     this.makeEntitiesTargetPlayer();
     this.waitUntilPlayerFinishesCombat();
 
+    // anytime the player gets out of combat, a refill random container call is
+    // sent.
+    RER_tryRefillRandomContainer();
+
     parent.GotoState('PhasePick');
   }
 
