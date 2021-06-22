@@ -22,7 +22,9 @@ function RER_tryRefillRandomContainer() {
     )
   );
 
-  if (RandRange(100) >= menu_chance) {
+  NLOG("container refill called");
+
+  if (RandRange(100) < menu_chance) {
     return;
   }
 
@@ -65,7 +67,7 @@ function RER_refillRandomContainer(inGameConfigWrapper: CInGameConfigWrapper) {
     containers,
     thePlayer,
     radius, // radius
-    number_of_containers * 2, // max number of entities
+    50 + number_of_containers * 10, // max number of entities
     , // tag
     ,
     , // target
