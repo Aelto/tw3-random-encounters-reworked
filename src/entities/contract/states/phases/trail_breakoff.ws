@@ -31,12 +31,12 @@ state TrailBreakoff in RandomEncountersReworkedContractEntity extends TrailPhase
       this.destination
     );
 
-    this.play_oneliner_begin();
-
     this.drawTrailsToWithCorpseDetailsMaker(
       this.destination,
       parent.number_of_creatures
     );
+
+    this.play_oneliner_begin();
 
     this.waitForPlayerToReachPoint(this.destination, 10);
 
