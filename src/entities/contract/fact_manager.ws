@@ -1,7 +1,8 @@
 enum RER_ContractFact {
 	ContractFact_PHASE_KNEEL_PLAYED = 0,
-	ContractFact_MAX = 	1,
-	ContractFact_NONE = 2,
+	ContractFact_PHASE_NPC_RESCUE_PLAYED = 1,
+	ContractFact_MAX = 	2,
+	ContractFact_NONE = 3,
 }
 
 class RER_ContractFactManager {
@@ -14,12 +15,8 @@ class RER_ContractFactManager {
   function init() {
     var i: int;
 
-    if (ContractFact_MAX > 0) {
-      this.facts.Resize(ContractFact_MAX + 1);
-    }
-
     for (i = 0; i < ContractFact_MAX; i += 1) {
-      this.set(i, 0);
+			this.facts.PushBack(0);
     }
   }
 
@@ -28,11 +25,13 @@ class RER_ContractFactManager {
 	}
 
 	function set(fact: RER_ContractFact, value: int) {
+		NLOG("Contract::FactMananer - " + fact + " set to " + value);
+
 		this.facts[fact] = value;
 	}
 
 	function add(fact: RER_ContractFact) {
-		this.facts[fact] = this.facts[fact] + 1;
+		this.set(fact, this.get(fact) + 1);
 	}
 
 }

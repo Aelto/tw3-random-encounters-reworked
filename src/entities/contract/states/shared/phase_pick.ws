@@ -78,23 +78,35 @@ state PhasePick in RandomEncountersReworkedContractEntity {
         if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
           registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 10, 1));
         }
+        if (parent.facts.get(ContractFact_PHASE_NPC_RESCUE_PLAYED) == 0) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('NpcRescue', 5, 2));
+        }
         break;
       
       case 'TrailSplit':
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailCombat', 10, 2));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailBreakoff', 10, 1));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('Ambush', 4, 2));
+        if (parent.facts.get(ContractFact_PHASE_NPC_RESCUE_PLAYED) == 0) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('NpcRescue', 10, 2));
+        }
         break;
 
       case 'TrailChoice':
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailCombat', 10, 2));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailBreakoff', 10, 1));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('Ambush', 4, 2));
+        if (parent.facts.get(ContractFact_PHASE_NPC_RESCUE_PLAYED) == 0) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('NpcRescue', 10, 2));
+        }
         break;
 
       case 'TrailBreakoff':
-        if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
-          registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 5, 0.5));
+        // if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
+        //   registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 5, 0.5));
+        // }
+        if (parent.facts.get(ContractFact_PHASE_NPC_RESCUE_PLAYED) == 0) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('NpcRescue', 10, 2));
         }
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('Ambush', 5, 2));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailSplit', 10, 1));
@@ -105,6 +117,20 @@ state PhasePick in RandomEncountersReworkedContractEntity {
         if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
           registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 10, 0.5));
         }
+        if (parent.facts.get(ContractFact_PHASE_NPC_RESCUE_PLAYED) == 0) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('NpcRescue', 10, 0.5));
+        }
+        registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailBreakoff', 10, 1));
+        registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailChoice', 10, 1));
+        registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailCombat', 5, 2));
+        break;
+
+      case 'NpcRescue':
+        if (parent.facts.get(ContractFact_PHASE_KNEEL_PLAYED) == 0) {
+          registered_phases.PushBack(RER_PhasePickRegisteredPhase('KneelInteraction', 30, 0.5));
+        }
+
+        registered_phases.PushBack(RER_PhasePickRegisteredPhase('Ambush', 15, 2));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailBreakoff', 10, 1));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailChoice', 10, 1));
         registered_phases.PushBack(RER_PhasePickRegisteredPhase('TrailCombat', 5, 2));

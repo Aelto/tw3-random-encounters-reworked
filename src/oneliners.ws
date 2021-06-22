@@ -343,7 +343,7 @@ latent function REROL_unusual_contract() {
   // converted to integer.
   thePlayer.PlayLine(1154439, true);
 
-  Sleep(5); // Could not find Approved duration
+  Sleep(3); // Could not find Approved duration
 }
 
 // Geralt: All right, time I got to work. Where'll I find this monster?
@@ -1554,4 +1554,51 @@ class REROL_whoa_in_for_one_helluva_ride extends RER_DialogData {
 // Geralt: Ready to go, now.
 class REROL_ready_to_go_now extends RER_DialogData {
   default dialog_id = 1103826;
+}
+
+//#region Von Gratz
+// Von Gratz: Witcher?!
+class REROL_vongratz_witcher extends RER_DialogData {
+  default dialog_id = 1039956;
+}
+
+// Von Gratz: Hey! Help! Help!
+class REROL_vongratz_hey_help_help extends RER_DialogData {
+  default dialog_id = 1039958;
+}
+
+// Von Gratz: Geralt!
+class REROL_vongratz_geralt extends RER_DialogData {
+  default dialog_id = 1039962;
+}
+
+// Von Gratz: Mhm. Thank you.
+class REROL_vongratz_mmmh_thank_you extends RER_DialogData {
+  default dialog_id = 1003382;
+}
+
+// Von Gratz: Thank you, Geralt. Were it not for you, this would never have ceased."
+class REROL_vongratz_thank_you_geralt extends RER_DialogData {
+  default dialog_id = 1016518;
+}
+//#endregion Von Gratz
+
+// Geralt: Sorry. Gotta go.
+class REROL_sorry_gotta_go extends RER_DialogData {
+  default dialog_id = 1164596;
+}
+
+// Geralt choice: Sorry… gotta go.
+class REROL_sorry_gotta_go_2 extends RER_DialogData {
+  default dialog_id = 1164592;
+}
+
+// Geralt: Arrived too late. Nothing I could do.
+class REROL_nothing_i_could_do extends RER_DialogData {
+  default dialog_id = 1172465;
+}
+
+// Geralt: Damn.
+class REROL_damn extends RER_DialogData {
+  default dialog_id = 526352;
 }
