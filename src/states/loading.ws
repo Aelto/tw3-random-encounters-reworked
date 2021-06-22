@@ -515,6 +515,24 @@ state Loading in CRandomEncounters {
       StaticEncounterType_SMALL
     );
 
+    // random road
+    this.makeStaticEncounter(
+      CreatureHUMAN,
+      Vector(432, -3, 34),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      100,
+      StaticEncounterType_SMALL
+    );
+
+    // a place where this is already a cyclop
+    this.makeStaticEncounter(
+      CreatureCYCLOP,
+      Vector(-624, -617, 5),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      100,
+      StaticEncounterType_LARGE
+    );
+
 
     // var example_static_encounter: RER_StaticEncounter;
 
