@@ -231,7 +231,7 @@ statemachine class RER_BountyManager extends CEntity {
 
     NLOG("starting bounty with " + bounty.random_data.groups.Size() + " groups");
 
-    RER_removeAllPins(this.master.pin_manager);
+    SU_removeCustomPinByTag("RER_bounty_target");
 
     this.master
         .storages
