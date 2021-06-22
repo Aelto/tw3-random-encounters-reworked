@@ -33,7 +33,12 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
 
       // in case it moves
       parent.bait_entity.Teleport(parent.GetWorldPosition());
-      this.keepCreaturesOnPoint(parent.GetWorldPosition(), 25);
+
+      SUH_keepCreaturesOnPoint(
+        parent.GetWorldPosition(),
+        25,
+        parent.entities,
+      );
 
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];

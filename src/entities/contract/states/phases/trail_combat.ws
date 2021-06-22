@@ -81,7 +81,11 @@ state TrailCombat in RandomEncountersReworkedContractEntity extends TrailPhase {
   }
 
   latent function waitForPlayerToReachPoint_action(): bool {
-    this.keepCreaturesOnPoint(this.destination, 20);
+    SUH_keepCreaturesOnPoint(
+      this.destination,
+      20,
+      parent.entities,
+    );
 
     // tell it to stop waiting if one creature targets Geralt
     return parent.hasOneOfTheEntitiesGeraltAsTarget();
