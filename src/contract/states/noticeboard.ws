@@ -18,7 +18,7 @@ state Noticeboard in RER_contractManager {
     var chance_scale: float;
     var roll_delay: float;
 
-    this.menu_distance_value = 40;
+    this.menu_distance_value = 20;
     position_when_it_started = thePlayer.GetWorldPosition();
 
     while (thePlayer.IsActionBlockedBy(EIAB_Interactions, 'NoticeBoard')) {
@@ -55,6 +55,8 @@ state Noticeboard in RER_contractManager {
       if (RandRangeF(100) < trigger_chance * chance_scale + meters_from_city / distance_trigger_chance_scale) {
         break;
       }
+
+      trigger_chance += 0.5;
 
       Sleep(0.5);
     }
