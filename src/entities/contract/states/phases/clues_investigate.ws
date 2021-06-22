@@ -62,7 +62,7 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
     }
 
     // 1.2 then we place some random tracks
-    max_number_of_clues = RandRange(60, 30);
+    max_number_of_clues = RandRange(50, 30) / parent.master.settings.foottracks_ratio;
 
     for (i = 0; i < max_number_of_clues; i += 1) {
       current_clue_position = this.investigation_center_position 
@@ -75,8 +75,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
         .addTrackHere(current_clue_position, VecToRotation(VecRingRand(1, 2)));
     }
 
-    // 1.3 then we place lots of blood
-    max_number_of_clues = RandRange(100, 50);
+    // 1.3 then we place blood
+    max_number_of_clues = RandRange(25, 10);
 
     for (i = 0; i < max_number_of_clues; i += 1) {
       current_clue_position = this.investigation_center_position 
