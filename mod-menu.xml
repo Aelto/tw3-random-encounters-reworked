@@ -5980,7 +5980,7 @@
 
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
             
-            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands_disabled" displayType="TOGGLE"></Var>
+            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
 
         </VisibleVars>
     </Group>
