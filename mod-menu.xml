@@ -5943,7 +5943,8 @@
                 <Entry varId="RERmarkersBountyHunting" value="1" />
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
-                <Entry varId="RERshortenBountyMasterConversation" value="0" />
+                <Entry varId="RERdynamicCreaturesSize" value="1" />
+                <Entry varId="RERdisableNoticeboardErrands" value="0" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5978,6 +5979,8 @@
             <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
 
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
+            
+            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands_disabled" displayType="TOGGLE"></Var>
 
         </VisibleVars>
     </Group>

@@ -33,7 +33,14 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
   default tag = "RER_ContractErrandInjector";
   
   public function run(out board: W3NoticeBoard) {
-    SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
+    var can_inject_errand: bool;
+
+    can_inject_errand = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERnoticeboardErrands');
+
+    if (can_inject_errand) {
+      SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
+    }
   }
 
   public function accepted(out board: W3NoticeBoard, errand_name: string) {
