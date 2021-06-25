@@ -14,13 +14,11 @@ class RER_BestiaryFiend extends RER_BestiaryEntry {
       )
     );
 
-    // this fiend is removed from the list, every time i saw this fiend it was
-    // passive and didn't attack.
-    // this.template_list.templates.PushBack(makeEnemyTemplate(
-    //   "characters\npc_entities\monsters\bies_lvl2.w2ent",,,
-    //   "gameplay\journal\bestiary\fiend2.journal" // TODO: confirm journal
-    //   )
-    // );
+    this.template_list.templates.PushBack(makeEnemyTemplate(
+      "gameplay\templates\monsters\bies_lvl2a.w2ent",,,
+      "gameplay\journal\bestiary\fiend2.journal" // TODO: confirm journal
+      )
+    );
 
       this.template_list.difficulty_factor.minimum_count_easy = 1;
       this.template_list.difficulty_factor.maximum_count_easy = 1;
