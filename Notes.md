@@ -28,44 +28,17 @@
 
 ## personal notes
 
-- The bounty master will have a new tab for contracts, contracts accepted from this tab will give you a notice with all the information you need to start the hunt.
-
-- A statemachine class should be created `abstract class QuestMakingUtility` which will give useful methods like:
-  - keep monsters on point
-  - wait for player to reach point
-  - will come with a trail_maker ready
-  - it will also offer a way to register states with a quest progress. So we don't have to do `GotoState('theNextState')` but instead `parent.quest_progress.goForward()`. And it will know which state to go into based on the current and previous progress.
-  - branches could probably be implemented by giving an optional paremeter to `goForward(branch_index)`
-
-- With it will come another class `abstract class QuestProgressUtility` which will be used to store the progress of the player in a quest.
-  - it will come with method to progress forward **and** backward (useful for testing)
-  - this class will be instanciated in the `QuestMakingUtility` class as a property.
-
-- the main RER class will be updated so we can register `QuestMakingUtility` classes. The mod will then take care of showing the new quest in the bounty master tab 
-
-
-  
-```
-	private final function BuildCombo()
-	{
-		// 1. Create definition
-		comboDefinition = new CComboDefinition in this;
-		
-		// 2. Fill aspects
-		OnCreateAttackAspects();
-		
-		// 3. Create player
-		comboPlayer = new CComboPlayer in this;
-		if ( !comboPlayer.Build( comboDefinition, parent ) )
-		{
-			LogChannel( 'ComboNode', "Error: BuildCombo" );	
-		}
-		
-		// Set default blend duration between combo's animations
-		comboPlayer.SetDurationBlend( 0.2f );
-		
-		// Clean up combo data
-		CleanUpComboStuff();
-	}
-
-```
+### contract ideas
+#### contract phases
+- [starting-phase] corpse on the ground, player interacts with it and examines it
+- [intermediary-phase] NPC asking for help, must help him and kill the monsters around him. Optional: npc is alive and gives you coins.
+  - Von Gratz has good dialogues for that
+	- Geralt choice: Don't have the time.
+	- Geralt: Sorry. No time just now.
+	- 0x0011c534    Geralt: Sorry. Gotta go.
+	- 0x0011c530  Geralt choice: Sorry… gotta go.
+  -  0x0010a322      Geralt: Sorry, got more important matters to tend to.
+  -  0x00055ca9    Geralt: Wish I could help.
+  -  0x0011e3f1    Geralt: Arrived too late. Nothing I could do.
+- [intermediary-phase] a lost NPC you can interact with, he gives you information on where to go
+- [intermediary-phase] a mercenary you can pay to have him follow you for the rest of the contract
