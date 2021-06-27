@@ -21,6 +21,9 @@ state Ending in RandomEncountersReworkedContractEntity {
       }
     }
 
+    parent.master.storages.contract.last_phase = '';
+    parent.master.storages.contract.save();
+
     parent.clean();
   }
 }

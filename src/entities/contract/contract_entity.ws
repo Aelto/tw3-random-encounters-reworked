@@ -79,6 +79,9 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
   // this an internal variable to know if a custom heading was set.
   private var use_phase_transitation_heading: bool;
 
+  // when set, the phase pick phase will always go to this state
+  var state_to_restore: name;
+
   public latent function startEncounter(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
     this.facts = new RER_ContractFactManager in this;
@@ -90,6 +93,24 @@ statemachine class RandomEncountersReworkedContractEntity extends CEntity {
     );
     this.loadSettings(master);
     this.previous_phase_checkpoint = thePlayer.GetWorldPosition();
+
+    this.AddTimer('intervalLifeCheck', 10.0, true);
+    this.GotoState('Loading');
+  }
+
+  public function restoreEncounter(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry, last_checkpoint: Vector, longevity: float, last_state: name) {
+    this.master = master;
+    this.facts = new RER_ContractFactManager in this;
+    this.bestiary_entry = bestiary_entry;
+    this.number_of_creatures = rollDifficultyFactor(
+      this.bestiary_entry.template_list.difficulty_factor,
+      this.master.settings.selectedDifficulty,
+      this.master.settings.enemy_count_multiplier
+    );
+    this.loadSettings(master);
+    this.previous_phase_checkpoint = last_checkpoint;
+    this.longevity = longevity;
+    this.state_to_restore = last_state;
 
     this.AddTimer('intervalLifeCheck', 10.0, true);
     this.GotoState('Loading');

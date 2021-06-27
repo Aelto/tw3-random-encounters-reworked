@@ -151,10 +151,25 @@ state PhasePick in RandomEncountersReworkedContractEntity {
         }
         break;
     }
-    
-    if (picked_phase.phase_name != '__unknown__') {
+
+
+    if (parent.state_to_restore != '') {
+      picked_phase.phase_name = parent.state_to_restore;
+      parent.state_to_restore = '';
+      parent.played_phases.PushBack(picked_phase.phase_name);
+      parent.GotoState(picked_phase.phase_name);
+    }
+    else if (picked_phase.phase_name != '__unknown__') {
       parent.longevity -= picked_phase.longevity_cost;
       parent.played_phases.PushBack(picked_phase.phase_name);
+
+      parent.master.storages.contract.last_phase = picked_phase.phase_name;
+      parent.master.storages.contract.last_checkpoint = parent.previous_phase_checkpoint;
+      parent.master.storages.contract.last_longevity = parent.longevity;
+      parent.master.storages.contract.last_picked_creature = parent.bestiary_entry.type;
+      parent.master.storages.contract.last_heading = parent.phase_transition_heading;
+      parent.master.storages.contract.save();
+
       parent.GotoState(picked_phase.phase_name);
     }
     else {

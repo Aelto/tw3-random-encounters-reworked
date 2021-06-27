@@ -19,6 +19,12 @@ state Loading in CRandomEncounters {
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
     this.registerStaticEncounters();
 
+    // if there is a last_phase then we'll restore the contract from before the
+    // loading screen.
+    if (parent.storages.contract.last_phase != '') {
+      this.restoreContract();
+    }
+
     // give time for other mods to register their static encounters
     Sleep(10);
 
@@ -547,6 +553,37 @@ state Loading in CRandomEncounters {
     //   .registerStaticEncounter(parent, example_static_encounter);
 
     // this.test();
+  }
+
+  latent function restoreContract() {
+    var rer_entity: RandomEncountersReworkedContractEntity;
+    var rer_entity_template: CEntityTemplate;
+    var contract_storage: RER_ContractStorage;
+
+    contract_storage = parent.storages.contract;
+    rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_contract_entity.w2ent",
+      true
+    );
+
+    rer_entity = (RandomEncountersReworkedContractEntity)theGame.CreateEntity(
+      rer_entity_template,
+      contract_storage.last_checkpoint,
+      thePlayer.GetWorldRotation()
+    );
+    
+    // it doesn't matter what value we set anyway
+    rer_entity.started_from_noticeboard = true;
+
+
+    rer_entity.setPhaseTransitionHeading(parent.storages.contract.last_heading);
+    rer_entity.restoreEncounter(
+      parent,
+      parent.bestiary.entries[contract_storage.last_picked_creature],
+      contract_storage.last_checkpoint,
+      contract_storage.last_longevity,
+      contract_storage.last_phase
+    );
   }
 
   // the mod loses control of the previously spawned entities when the player
