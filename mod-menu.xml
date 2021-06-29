@@ -48,6 +48,7 @@
                 <Entry varId="customdFrequencyHigh" value="170" />
                 <Entry varId="customnFrequencyLow" value="65" />
                 <Entry varId="customnFrequencyHigh" value="160" />
+                <Entry varId="RERadditionalDelayPerPlayerLevel" value="-1" />
 
                 <Entry varId="minSpawnDistance" value="60" />
                 <Entry varId="spawnDiameter" value="140" />
@@ -68,6 +69,7 @@
             <Var id="customdFrequencyHigh" displayName="rer_custom_frequency_high_day" displayType="SLIDER;0;6000;6000" />
             <Var id="customnFrequencyLow" displayName="rer_custom_frequency_low_night" displayType="SLIDER;0;6000;6000" />
             <Var id="customnFrequencyHigh" displayName="rer_custom_frequency_hight_night" displayType="SLIDER;0;6000;6000" />
+            <Var id="RERadditionalDelayPerPlayerLevel" displayName="rer_additional_delay_per_player_level" displayType="SLIDER;-3000;3000;6000" />
 
             <Var id="minSpawnDistance" displayName="rer_min_spawn_distance" displayType="SLIDER;10;1010;1000"/>
             <Var id="spawnDiameter" displayName="rer_spawn_diameter" displayType="SLIDER;10;1010;1000"/>

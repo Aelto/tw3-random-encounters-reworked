@@ -33,9 +33,11 @@ state Waiting in CRandomEncounters {
 
   function calculateRandomTicksBeforeSpawn(): int {
     if (theGame.envMgr.IsNight()) {
-      return RandRange(parent.settings.customNightMin, parent.settings.customNightMax);
+      return RandRange(parent.settings.customNightMin, parent.settings.customNightMax)
+           + parent.settings.additional_delay_per_player_level;
     }
 
-    return RandRange(parent.settings.customDayMin, parent.settings.customDayMax);
+    return RandRange(parent.settings.customDayMin, parent.settings.customDayMax)
+         + parent.settings.additional_delay_per_player_level;
   }
 }

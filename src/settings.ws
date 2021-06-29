@@ -71,6 +71,8 @@ class RE_Settings {
 
   public var settlement_delay_multiplier: float;
 
+  public var additional_delay_per_player_level: int;
+
   public var dynamic_creatures_size: bool;
 
   function loadXMLSettings() {
@@ -170,6 +172,7 @@ class RE_Settings {
     customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
     customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));
     settlement_delay_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'RERsettlementDelayMultiplier'));
+    additional_delay_per_player_level = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERadditionalDelayPerPlayerLevel'));
   }
 
   private function loadMonsterHuntingGroundChances(inGameConfigWrapper: CInGameConfigWrapper) {

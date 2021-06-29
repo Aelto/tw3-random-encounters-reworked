@@ -338,3 +338,4 @@
 2115018334|        |option_rer_container_refill_loot_table__loot_monster_treasure_uniq_swords|<font color="#ffd33d"> - </font> Unique swords
 2115018335|        |option_rer_container_refill_loot_table__uniq_armors|<font color="#ffd33d"> - </font> unique armors
 2115018336|        |option_rer_noticeboard_errands|Noticeboard errands to start RER contracts
+2115018337|        |option_rer_additional_delay_per_player_level|Additional delay (in seconds) per player level
