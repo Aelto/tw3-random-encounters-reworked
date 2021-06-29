@@ -60,7 +60,7 @@ async function main() {
   
   const create_release_response = await octokit.repos.createRelease({
     owner: 'Aelto',
-    repo: 'W3_RandomEncounters_Tweaks',
+    repo: 'tw3-random-encounters-reworked',
     name: new_version_name,
     tag_name: new_version_name,
     body: changelog,
@@ -69,14 +69,14 @@ async function main() {
 
   octokit.repos.uploadReleaseAsset({
     owner: 'Aelto',
-    repo: 'W3_RandomEncounters_Tweaks',
+    repo: 'tw3-random-encounters-reworked',
     release_id: create_release_response.data.id,
     name: zip_file_path,
     label: zip_file_path,
     data: fs.readFileSync(zip_file_path)
   });
 
-  fs.unlinkSync(zip_file_path)
+  // fs.unlinkSync(zip_file_path)
 }
 
 main();
