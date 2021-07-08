@@ -539,6 +539,24 @@ state Loading in CRandomEncounters {
       StaticEncounterType_LARGE
     );
 
+    // a treasure near the water
+    this.makeStaticEncounter(
+      CreatureHAG,
+      Vector(-1489, 1248, 0),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      30,
+      StaticEncounterType_SMALL
+    );
+
+    // an isolated beach
+    this.makeStaticEncounter(
+      CreatureWYVERN,
+      Vector(-1536, 1175, 0),
+      RER_RegionConstraint_ONLY_SKELLIGE,
+      30,
+      StaticEncounterType_LARGE
+    );
+
 
     // var example_static_encounter: RER_StaticEncounter;
 
