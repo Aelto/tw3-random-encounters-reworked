@@ -2,6 +2,12 @@
 # Notes
 > Custom notes i write for myself to not forget them 😊
 
+ - 0x00088329  Geralt: More will spawn. Need to destroy the nests.
+ - 0x00105489  Geralt: Here's the nest…
+ - 0x00105493  Geralt: Finally. The main nest…
+ - 0x000fb2fe  Geralt: Found a good place for their nest.
+ - 0x00101641  Geralt: Monster nest. Best destroyed with a Dancing Star or Grapeshot.
+
 # monster contracts
 ## new phases i could add
 - cart tracks, and cart riddled with arrows + ambush, see this video for the cart:

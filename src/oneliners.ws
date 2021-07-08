@@ -1602,3 +1602,26 @@ class REROL_nothing_i_could_do extends RER_DialogData {
 class REROL_damn extends RER_DialogData {
   default dialog_id = 526352;
 }
+
+//#region nest oneliners
+// Geralt: More will spawn. Need to destroy the nests.
+class REROL_more_will_spawn extends RER_DialogData {
+  default dialog_id = 557865;
+}
+// Geralt: Here's the nest…
+class REROL_here_is_the_nest extends RER_DialogData {
+  default dialog_id = 1070217;
+}
+// Geralt: Finally. The main nest…
+class REROL_finally_the_main_nest extends RER_DialogData {
+  default dialog_id = 1070227;
+}
+// Geralt: Found a good place for their nest.
+class REROL_good_place_for_their_nest extends RER_DialogData {
+  default dialog_id = 1028862;
+}
+// Geralt: Monster nest. Best destroyed with a Dancing Star or Grapeshot.
+class REROL_monster_nest_best_destroyed extends RER_DialogData {
+  default dialog_id = 1054273;
+}
+//#endregion
