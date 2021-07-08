@@ -8,7 +8,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     LogChannel('modRandomEncounters', "spawning - HUNT");
     createRandomCreatureHunt(random_encounters_class, CreatureNONE);
 
-    if (random_encounters_class.settings.geralt_comments_enabled) {
+    if (random_encounters_class.settings.geralt_comments_enabled && !isPlayerInScene()) {
       thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
     }
   }
@@ -16,7 +16,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     LogChannel('modRandomEncounters', "spawning - AMBUSH");
     createRandomCreatureAmbush(random_encounters_class, CreatureNONE);
 
-    if (random_encounters_class.settings.geralt_comments_enabled) {
+    if (random_encounters_class.settings.geralt_comments_enabled && !isPlayerInScene()) {
       thePlayer.PlayVoiceset( 90, "BattleCryBadSituation" );
     }
   }
@@ -31,7 +31,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     LogChannel('modRandomEncounters', "spawning - CONTRACT");
     createRandomCreatureContract(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);
 
-    if (random_encounters_class.settings.geralt_comments_enabled) {
+    if (random_encounters_class.settings.geralt_comments_enabled && !isPlayerInScene()) {
       // TODO: find a unique voiceset for the contract
       thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
     }
