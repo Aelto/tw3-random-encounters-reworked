@@ -479,8 +479,10 @@ statemachine class RER_BountyManager extends CEntity {
     // getGroundPosition will probably slightly move the point away.
     SU_removeCustomPinByPosition(position);
 
-    if (!getGroundPosition(position, 5, 50)) {
-      NLOG("spawnBountyGroup, could not find a safe ground position. Defaulting to marker position");
+    if (!getGroundPosition(position, 2, 50) || position.Z <= 0) {
+      if (!getRandomPositionBehindCamera(position, 50)) {
+        NLOG("spawnBountyGroup, could not find a safe ground position. Defaulting to marker position");
+      }
     }
 
     entities = bestiary_entry.spawn(
