@@ -14,5 +14,7 @@ state NestDestroyed in RER_MonsterNest {
 
   entry function NestDestroyed_main() {
 		parent.is_destroyed = true;
+
+		SU_removeCustomPinByPosition(parent.pin_position);
   }
 }

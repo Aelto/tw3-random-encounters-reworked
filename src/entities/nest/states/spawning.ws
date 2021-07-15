@@ -21,9 +21,15 @@ state Spawning in RER_MonsterNest {
 
     while (parent.monsters_spawned_count < parent.monsters_spawned_limit) {
       NLOG("RER_MonsterNest - spawning monster");
-      Sleep(RandRange(10, 5));
+      
+      Sleep(RandRange(8, 3));
 
       SUH_removeDeadEntities(parent.entities);
+
+      // no more than two monsters if the nest was not approached yet
+      if (!parent.voicesetPlayed && parent.entities.Size() > 2) {
+        continue;
+      }
 
       if (parent.entities.Size() > 5) {
         continue;
@@ -39,8 +45,8 @@ state Spawning in RER_MonsterNest {
     var entity: CEntity;
     var i: int;
 
-    if (!getRandomPositionBehindCamera(position, 20, 5)) {
-      position = parent.GetWorldPosition();
+    if (!parent.voicesetPlayed || !getRandomPositionBehindCamera(position, 10, 5)) {
+      position = parent.GetWorldPosition() + VecRingRand(0, 5);
     }
 
     entities = parent.bestiary_entry.spawn(

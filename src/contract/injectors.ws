@@ -39,15 +39,27 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
       .GetVarValue('RERoptionalFeatures', 'RERnoticeboardErrands');
 
     if (can_inject_errand) {
-      SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
+      if (RandRange(10) < 5) {
+        SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
+      }
+      if (RandRange(10) < 5) {
+        SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
+      }
     }
   }
 
   public function accepted(out board: W3NoticeBoard, errand_name: string) {
     var rer_entity: CRandomEncounters;
 
-    if (errand_name == "rer_noticeboard_errand_0" && getRandomEncounters(rer_entity)) {
-      rer_entity.contract_manager.pickedContractNoticeFromNoticeboard();
+    switch (errand_name) {
+      case "rer_noticeboard_errand_0":
+      case "rer_noticeboard_errand_1":
+
+      if (getRandomEncounters(rer_entity)) {
+        rer_entity.contract_manager.pickedContractNoticeFromNoticeboard(errand_name);
+      }
+
+      break;
     }
   }
 }

@@ -1,15 +1,15 @@
 
-state Noticeboard in RER_contractManager {
+state GeneratedContract in RER_contractManager {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    NLOG("RER_contractManager - state NOTICEBOARD");
+    NLOG("RER_contractManager - state GeneratedContract");
 
-    this.Noticeboard_main();
+    this.GeneratedContract_main();
   }
 
   private var menu_distance_value: float;
 
-  entry function Noticeboard_main() {
+  entry function GeneratedContract_main() {
     var last_known_position_in_city: Vector;
     var distance_trigger_chance_scale: float;
     var position_when_it_started: Vector;

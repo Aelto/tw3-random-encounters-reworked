@@ -8,7 +8,16 @@ statemachine class RER_contractManager extends CEntity {
     this.GotoState('Waiting');
   }
 
-  function pickedContractNoticeFromNoticeboard() {
-    this.GotoState('Noticeboard');
+  function pickedContractNoticeFromNoticeboard(errand_name: string) {
+    switch (errand_name) {
+      case "rer_noticeboard_errand_0":
+        this.GotoState('GeneratedContract');
+        break;
+
+      case "rer_noticeboard_errand_1":
+        this.GotoState('NestContract');
+        break;
+
+    }
   }
 }

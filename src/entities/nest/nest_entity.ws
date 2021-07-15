@@ -28,6 +28,8 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   var monsters_spawned_limit: int;
   default monsters_spawned_limit = 15;
 
+  var pin_position: Vector;
+
   function startEncounter(master: CRandomEncounters) {
     this.master = master;
     this.loadSettings(master);
@@ -52,12 +54,15 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     this.disable_monsters_loot_threshold = 5;
 
     if (master.settings.selectedDifficulty == RER_Difficulty_RANDOM) {
-      this.monsters_spawned_limit = RandRange((int)RER_Difficulty_HARD + 1);
+      this.monsters_spawned_limit = RandRange(
+        ((int)RER_Difficulty_HARD + 1) * 4,
+        ((int)RER_Difficulty_EASY + 1) * 4
+      );
     }
     else {
       this.monsters_spawned_limit = RandRange(
+        ((int)master.settings.selectedDifficulty + 1) * 4,
         ((int)master.settings.selectedDifficulty + 1) * 3,
-        ((int)master.settings.selectedDifficulty + 1) * 2,
       );
     }
   }
@@ -80,9 +85,11 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
       this.GotoState('Talking');
     }
     // he did, so we directly go to the spawning state
-    else {
+    else if (GetCurrentStateName() != 'Spawning') {
       this.GotoState('Spawning');
     }
+
+    SUH_makeEntitiesTargetPlayer(this.entities);
   }
 
   event OnFireHit(source: CGameplayEntity) {}
@@ -140,10 +147,6 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     creatures_preferences
       .reset();
       
-    master.bestiary.entries[CreatureGHOUL]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
     master.bestiary.entries[CreatureGHOUL]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
