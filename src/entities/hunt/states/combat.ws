@@ -101,7 +101,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
     // player runs away from the monster
     Sleep(3);
 
-    while (!parent.areAllEntitiesDead() && !parent.areAllEntitiesFarFromPlayer()) {
+    while (!parent.areAllEntitiesDead() && !SUH_areAllEntitiesFarFromPlayer(parent.entities)) {
       this.makeEntitiesTargetPlayer();
       parent.removeDeadEntities();
       RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 20);

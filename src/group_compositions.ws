@@ -240,7 +240,7 @@ abstract class CompositionSpawner {
       10
     );
 
-    initial_position = RER_moveCoordinatesAwayFromSafeAreas(initial_position);
+    initial_position = SU_moveCoordinatesAwayFromSafeAreas(initial_position);
 
     return attempt;
   }
