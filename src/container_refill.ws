@@ -24,7 +24,7 @@ function RER_tryRefillRandomContainer() {
 
   NLOG("container refill called");
 
-  if (RandRange(100) < menu_chance) {
+  if (RandRange(100) > menu_chance) {
     return;
   }
 
