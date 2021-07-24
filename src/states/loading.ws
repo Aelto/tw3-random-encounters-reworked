@@ -250,15 +250,6 @@ state Loading in CRandomEncounters {
       StaticEncounterType_SMALL
     );
 
-    // White Orchard: Place where you kill the griffin
-    this.makeStaticEncounter(
-      CreatureHUMAN,
-      Vector(65, 230, 12.6),
-      RER_RegionConstraint_ONLY_WHITEORCHARD,
-      10,
-      StaticEncounterType_SMALL
-    );
-
     // White Orchard: Wall with a gate, near the map limit
     this.makeStaticEncounter(
       CreatureHUMAN,
@@ -712,4 +703,30 @@ class SU_CustomPinRemoverPredicateFromRER extends SU_PredicateInterfaceRemovePin
   function predicate(pin: SU_MapPin): bool {
     return StrStartsWith(pin.tag, "RER_");
   }
+}
+
+class SU_CustomPinRemovePredicateFromRERAndRegion extends SU_PredicateInterfaceRemovePin {
+  var starts_with: string;
+  default starts_with = "RER_";
+
+  var position: Vector;
+
+  var radius: float;
+  default radius = 50;
+
+  function predicate(pin: SU_MapPin): bool {
+    return StrStartsWith(pin.tag, this.starts_with)
+        && VecDistanceSquared2D(this.position, pin.position) < this.radius;
+  }
+}
+
+function RER_removePinsInAreaAndWithTag(tag_start: string, center: Vector, radius: float) {
+  var predicate: SU_CustomPinRemovePredicateFromRERAndRegion;
+
+  predicate = new SU_CustomPinRemovePredicateFromRERAndRegion in thePlayer;
+  predicate.position = center;
+  predicate.radius = radius;
+  predicate.starts_with = tag_start;
+
+  SU_removeCustomPinByPredicate(predicate);
 }

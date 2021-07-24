@@ -3,7 +3,7 @@ state Ending in RER_MonsterNest {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "Contract - State Ending");
+    NLOG("RER_MonsterNest - State Ending");
 
     this.Ending_main();
   }

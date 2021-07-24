@@ -52,18 +52,6 @@ exec function rergetpincoord() {
   NLOG("pincoords x: " + CeilF(x) + " y: " + CeilF(y));
 }
 
-exec function rerremoveallpins() {
-  var rer_entity : CRandomEncounters;
-
-  if (!getRandomEncounters(rer_entity)) {
-    NDEBUG("No entity found with tag <RandomEncounterTag>");
-    
-    return;
-  }
-
-  RER_removeAllPins(rer_entity.pin_manager);
-}
-
 exec function rerabandonbounty() {
   var rer_entity : CRandomEncounters;
 

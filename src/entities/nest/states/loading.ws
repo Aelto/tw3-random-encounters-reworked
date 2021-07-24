@@ -32,7 +32,7 @@ state Loading in RER_MonsterNest {
 
     if (can_show_markers) {
       position = parent.GetWorldPosition()
-          + VecRingRand(0, 5);
+          + VecRingRand(0, 50);
 
       map_pin = new SU_MapPin in thePlayer;
       map_pin.tag = "RER_nest_contract_target";
