@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta property="og:title" content="Random Encounters Reworked">
+  <meta property="og:description" content="Random Encounters Reworked. Monster contracts, bounties, nests, hunts, ambushes, events. Dynamic ecosystem and food chain simulation. All this with a fully complete mod menu.">
+
+  <meta name="author" content="Aeltoth">
+  <meta name="description" content="Random Encounters Reworked. Monster contracts, bounties, nests, hunts, ambushes, events. Dynamic ecosystem and food chain simulation. All this with a fully complete mod menu.">
+  <meta name="keywords" content="Random, encounters, reworked, bounty, contract, hunt, ambush, witcher, witcher 3, the witcher 3, the witcher, Aelto, Aeltoth">
+
+
   <link rel="stylesheet" href="master.css">
-  <title>Random Encounters - Reworked | The Witcher 3</title>
+  <title>Random Encounters Reworked | The Witcher 3</title>
 </head>
 <body>
   <menu>
@@ -25,9 +34,45 @@
         frameborder="0"></iframe>
     </div>
     <div class="content center">
-      Add random encounters to The Witcher world. Bandits waiting to ambush you, or a pack of wolves attacking you. You can even start tracking large creatures wandering around you by following their tracks
+      Monster contracts, bounties, nests, hunts, ambushes, events. Dynamic ecosystem and food chain simulation. All this with a fully complete mod menu.
     </div>
 
+  </section>
+
+  <section id="summary">
+    <h2>Summary</h2>
+
+    <blockquote class="info">Everything the mod has to offer</blockquote>
+
+    <ul>
+      <!-- <li><a href="">Keywords used</a></li> -->
+      <li>
+        <a href="rer-bible/encounters/index.html">Encounters</a>
+        <ul>
+          <li><a href="rer-bible/encounters/ambushes.html">Ambushes</a></li>
+          <li><a href="rer-bible/encounters/hunts.html">Hunts</a></li>
+          <li><a href="rer-bible/encounters/hunting-grounds.html">Hunting grounds</a></li>
+          <li><a href="rer-bible/encounters/static-encounters.html">Static encounters</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="rer-bible/events/index.html">Events</a>
+        <ul>
+          <li><a href="rer-bible/events/fightnoise.html">Fight noise</a></li>
+          <li><a href="rer-bible/events/bloodnecrophages.html">Blood attracts necrophages</a></li>
+          <li><a href="rer-bible/events/remainsnecrophages.html">Remains attracts necrophages</a></li>
+          <li><a href="rer-bible/events/fillgroups.html">Fill creatures group</a></li>
+          <li><a href="rer-bible/events/meditationambush.html">Meditation ambushes</a></li>
+          <li><a href="rer-bible/events/swampambush.html">Swamp ambushes</a></li>
+        </ul>
+      </li>
+      <li><a href="rer-bible/ecosystem/index.html">Ecosystem</a></li>
+      <li><a href="rer-bible/contracts/index.html">Contracts</a></li>
+      <li><a href="rer-bible/bounties/index.html">Bounties</a></li>
+      <li><a href="rer-bible/rewards/index.html">Rewards</a></li>
+      <li><a href="rer-bible/optional-features/index.html">Optional features</a></li>
+      <li><a href="rer-bible/console/index.html">Console commands</a></li>
+    </ul>
   </section>
 
   <section id="install">
@@ -44,53 +89,58 @@
     </p>
     
     <blockquote class="info">
-      As of July 2021, nexusmods is no longer used for my mods. Updates will continue to be hosted on Github
-      in order to retain full control over my projects and IP. That means you will have to download the recent versions
-      on Github, an entirely free website for you that is also ad-free, respects your privacy and doesn't put any
-      non-premium restrictions.
+      As of July 2021, nexusmods is no longer used for my mods. Updates will continue to be hosted on Github.
+      You can also see the rest of my work on <a href="https://aelto.github.io/modspot/browse/?game=witcher-3&search=user%3Aaelto">modspot</a> a
+      free & add-free alternative i'm developing
     </blockquote>
 
     <p>
       Then take the <a href="https://github.com/Aelto/tw3-random-encounters-reworked/releases">
         latest release from Github
       </a> and drop its content (not the directory itself, the three sub-directories bin/mods/dlc) in your <span>The Witcher 3</span> directory
+      <br />
+      Merge the scripts.
     </p>
 
     <p>
-      Merge the changes introduced by the Shared Utils
-    </p>
+      Edit the bootstrap registry by into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by double clicking it.
+      <div class="wrapper">
+        <details>
+          <summary>
+            Click to see how to do it manually
+          </summary>
+      
+          <p>
+            add the following line of code into <span>The Witcher 3\Mods\modBootstrap-registry\content\scripts\local\mods_registry.ws</span>
+            <pre>add(modCreate_RandomEncountersReworked());</pre>
+            so the file looks like this :
+            <pre>
+      // ----------------------------------------------------------------------------
+      // ----------------------------------------------------------------------------
+      class CModRegistry extends CModFactory {
+          protected function createMods() {
+              // add mod creation calls here, like this:
+              //
+              // add(modCreate_<ModName>());
+              // ...
+
+              // see example dir
+              //add(modCreate_ExampleMod());
+              //add(modCreate_ExampleEntityMod());
+              //add(modCreate_UiExampleMod());
+
+              add(modCreate_RandomEncountersReworked()); // <-- you added this line
+          }
+      }
+      // ----------------------------------------------------------------------------
+      // ----------------------------------------------------------------------------
+            </pre>
+          </p>
+        </details>
+      </div>
 
     <p>
-      Add the following line of code into <span>The Witcher 3\Mods\modBootstrap-registry\content\scripts\local\mods_registry.ws</span>
-      <pre>
-add(modCreate_RandomEncountersReworked());
-      </pre>
-      so the file looks like this :
-      <pre>
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
-class CModRegistry extends CModFactory {
-    protected function createMods() {
-        // add mod creation calls here, like this:
-        //
-        // add(modCreate_<ModName>());
-        // ...
-
-        // see example dir
-        //add(modCreate_ExampleMod());
-        //add(modCreate_ExampleEntityMod());
-        //add(modCreate_UiExampleMod());
-
-        add(modCreate_RandomEncountersReworked()); // <-- you added this line
-    }
-}
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
-      </pre>
-    </p>
-
-    <p>
-      Start the game, let it compile the new scripts and <span>open the new mod menu to configure the mod as you want</span> (it needs a loading screen to update the values).
+      Start the game, let it compile the new scripts and load a save. You are supposed to see a preset selector, if you see it then everything is working and you can enjoy the mod.
     </p>
 
     <p>
@@ -101,7 +151,7 @@ class CModRegistry extends CModFactory {
   <section id="source-code">
     <h2>Source Code</h2>
     <p>
-      If you have ideas about features, or you encountered a bug and want it fixed (or even better you fixed it) head to the <a href="https://github.com/Aelto/W3_RandomEncounters_Tweaks">github repository</a> and create an issue i appreciate any feedback 👍
+      If you have ideas about features, or you encountered a bug and want it fixed (or even better you fixed it) head to the <a href="https://github.com/Aelto/tw3-random-encounters-reworked">github repository</a> and create an issue i appreciate any feedback 👍
     </p>
   </section>
 
