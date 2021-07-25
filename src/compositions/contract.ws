@@ -42,8 +42,9 @@ class CreatureContractComposition extends CompositionSpawner {
         this.master,
         EncounterType_CONTRACT,
         , // for bounty
-        CreatureDRACOLIZARD,  // left offset
-        CreatureMAX // right offset
+        (new RER_SpawnRollerFilter in this)
+          .init()
+          .setOffsets(CreatureDRACOLIZARD, CreatureMAX)
       );
 
     this

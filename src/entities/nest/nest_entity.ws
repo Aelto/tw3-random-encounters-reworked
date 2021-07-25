@@ -92,7 +92,17 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     SUH_makeEntitiesTargetPlayer(this.entities);
   }
 
-  event OnFireHit(source: CGameplayEntity) {}
+  event OnFireHit(source: CGameplayEntity) {
+    if (this.monsters_spawned_count > this.monsters_spawned_limit * 0.75) {
+      GetEncounter();
+			wasExploded = true;
+			
+			interactionComponent.SetEnabled( false );
+			airDmg = false;
+
+      this.GotoState('Explosion');
+    }
+  }
   event OnAardHit(sign: W3AardProjectile) {}
 	
   event OnInteraction(actionName: string, activator: CEntity) {
@@ -123,101 +133,37 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     return true;
   }
 
-  private latent function getRandomNestCreatureType(master: CRandomEncounters): CreatureType {
-    var spawn_roller: SpawnRoller;
-    var creatures_preferences: RER_CreaturePreferences;
-    var i: int;
-    var can_spawn_creature: bool;
-    var manager : CWitcherJournalManager;
-    var roll: SpawnRoller_Roll;
+  latent function getRandomNestCreatureType(master: CRandomEncounters): RER_BestiaryEntry {
+    var bentry: RER_BestiaryEntry;
 
-    spawn_roller = new SpawnRoller in this;
-    spawn_roller.fill_arrays();
+    bentry = master.bestiary.getRandomEntryFromBestiary(
+      master,
+      EncounterType_CONTRACT,
+      RER_BREF_IGNORE_SETTLEMENT,
+      (new RER_SpawnRollerFilter in this)
+        .init()
+        .removeEveryone()
+        .allowCreature(CreatureARACHAS)
+        .allowCreature(CreatureENDREGA)
+        .allowCreature(CreatureGHOUL)
+        .allowCreature(CreatureALGHOUL)
+        .allowCreature(CreatureNEKKER)
+        .allowCreature(CreatureDROWNER)
+        .allowCreature(CreatureROTFIEND)
+        .allowCreature(CreatureWOLF)
+        .allowCreature(CreatureHARPY)
+        .allowCreature(CreatureSPIDER)
+        .allowCreature(CreatureCENTIPEDE)
+        .allowCreature(CreatureDROWNERDLC)
+        .allowCreature(CreatureBOAR)
+        .allowCreature(CreatureECHINOPS)
+        .allowCreature(CreatureKIKIMORE)
+        .allowCreature(CreatureSKELWOLF)
+        .allowCreature(CreatureSIREN)
+        .allowCreature(CreatureWRAITH)
+    );
 
-    creatures_preferences = new RER_CreaturePreferences in this;
-    creatures_preferences
-      .setIsNight(theGame.envMgr.IsNight())
-      .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
-      .setIsNearWater(master.rExtra.IsPlayerNearWater())
-      .setIsInForest(master.rExtra.IsPlayerInForest())
-      .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
-      .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY)
-      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
-
-    creatures_preferences
-      .reset();
-      
-    master.bestiary.entries[CreatureGHOUL]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureALGHOUL]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureDROWNER]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureDROWNERDLC]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureROTFIEND]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-    
-    master.bestiary.entries[CreatureARACHAS]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureENDREGA]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureNEKKER]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureHARPY]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureSPIDER]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureCENTIPEDE]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureECHINOPS]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureKIKIMORE]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureSIREN]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    // we remove every unknown creatures from the spawning pool
-    if (master.settings.only_known_bestiary_creatures) {
-      manager = theGame.GetJournalManager();
-
-      for (i = 0; i < CreatureMAX; i += 1) {
-        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
-        
-        if (!can_spawn_creature) {
-          spawn_roller.setCreatureCounter(i, 0);
-        }
-      }
-    }
-
-    roll = spawn_roller.rollCreatures(master.ecosystem_manager);
-    return roll.roll;
+    return bentry;
   }
 
   timer function intervalLifeCheck(optional dt : float, optional id : Int32) {

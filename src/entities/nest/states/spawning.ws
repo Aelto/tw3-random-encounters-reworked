@@ -7,13 +7,7 @@ state Spawning in RER_MonsterNest {
 
   entry function Spawning_main() {
     if (!parent.bestiary_entry) {
-      parent.bestiary_entry = parent.master.bestiary.getRandomEntryFromBestiary(
-        parent.master,
-        EncounterType_HUNTINGGROUND,
-        false,
-        CreatureARACHAS, // left offset
-        CreatureDRACOLIZARD // right offset
-      );
+      parent.bestiary_entry = parent.getRandomNestCreatureType(parent.master);
     }
 
     // start by spawning a few monsters around the nest

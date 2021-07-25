@@ -60,38 +60,25 @@ class SpawnRoller {
     this.third_party_creatures_counters[type] = count;
   }
 
-  /**
-   * remove the creatures that are outside the range set by the offsets.
-   * The creatures passed for the offsets are NOT reset, it's everything OUTSIDE
-   * the range that is reset.
-   */
-  public function setOffsets(optional left_offset: CreatureType, optional right_offset: CreatureType, optional multiplier: float) {
-    var can_apply_offset: bool;
+  public function applyFilter(filter: RER_SpawnRollerFilter) {
+    var can_apply_filter: bool;
     var i: int;
 
-    if ((int)right_offset == 0) {
-      right_offset = CreatureMAX - 1;
-    }
-
-    // first we check if any creature IN the range has a spawn rate of 0 or more
+    // first we check if any creature IN the filter has a spawn rate of 1 or more
     // otherwise when we'll roll the SpawnRoller it will default to humans.
-    for (i = left_offset; i <= right_offset; i += 1) {
-      if (this.creatures_counters[i] > 0) {
-        can_apply_offset = true;
+    for (i = 0; i < CreatureMAX; i += 1) {
+      if ((int)(this.creatures_counters[i] * filter.multipliers[i]) > 0) {
+        can_apply_filter = true;
         break;
       }
     }
 
-    if (!can_apply_offset) {
+    if (!can_apply_filter) {
       return;
     }
 
-    for (i = 0; i < left_offset; i += 1) {
-      this.creatures_counters[i] = (int)(this.creatures_counters[i] * multiplier);
-    }
-
-    for (i = right_offset + 1; i < CreatureMAX; i += 1) {
-      this.creatures_counters[i] = (int)(this.creatures_counters[i] * multiplier);
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.creatures_counters[i] = (int)(this.creatures_counters[i] * filter.multipliers[i]);
     }
   }
 
@@ -215,4 +202,86 @@ enum SpawnRoller_RollType {
 struct SpawnRoller_Roll {
   var type: SpawnRoller_RollType;
   var roll: CreatureType;
+}
+
+/**
+ * This class, when applied to a spawn roller will filter the spawning pool
+ * from the creatures you configured.
+ *
+ * It offers a few methods to define different kinds of filters, such as:
+ *  - left offset
+ *  - right offset
+ *  - remove a specific creature from the pool
+ */
+class RER_SpawnRollerFilter {
+  /**
+   * The index represents the CreatureType.
+   * The value is a multiplier that will be applied to the value the creature
+   * has in the spawn_roller.
+   *
+   * For example, to remove a creature from the pool the multiplier should be
+   * set at 0. A multiplier of 1 won't change anything.
+   */
+  public var multipliers: array<float>;
+
+  /**
+   * MUST be called before doing anything or else the array will be empty and
+   * will filter out everyone.
+   */
+  public function init(): RER_SpawnRollerFilter {
+    var i: int;
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.multipliers.PushBack(1);
+    }
+
+    return this;
+  }
+
+  public function allowCreature(type: CreatureType): RER_SpawnRollerFilter {
+    this.multipliers[(int)type] = 1;
+
+    return this;
+  }
+
+  public function removeCreature(type: CreatureType): RER_SpawnRollerFilter {
+    this.multipliers[(int)type] = 0;
+
+    return this;
+  }
+
+  public function removeEveryone(): RER_SpawnRollerFilter {
+    var i: int;
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.multipliers[i] = 0;
+    }
+
+    return this;
+  }
+
+  /**
+   * remove the creatures that are outside the range set by the offsets.
+   * The creatures passed for the offsets are NOT reset, it's everything OUTSIDE
+   * the range that is reset.
+   */
+  public function setOffsets(optional left_offset: CreatureType, optional right_offset: CreatureType, optional multiplier: float): RER_SpawnRollerFilter {
+    var can_apply_offset: bool;
+    var i: int;
+
+    if ((int)right_offset == 0) {
+      right_offset = CreatureMAX - 1;
+    }
+
+    for (i = 0; i < left_offset; i += 1) {
+      this.multipliers[i] = multiplier;
+    }
+
+    for (i = right_offset + 1; i < CreatureMAX; i += 1) {
+      this.multipliers[i] = multiplier;
+    }
+
+    return this;
+  }
+
 }

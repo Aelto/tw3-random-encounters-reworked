@@ -31,8 +31,9 @@ state Ambush in RandomEncountersReworkedContractEntity {
         parent.master,
         EncounterType_CONTRACT,
         , // for bounty
-        CreatureHUMAN,  // left offset
-        CreatureDRACOLIZARD // right offset
+        (new RER_SpawnRollerFilter in parent)
+          .init()
+          .setOffsets(CreatureDRACOLIZARD, CreatureMAX)
       );
 
     parent.entities = bestiary_entry.spawn(

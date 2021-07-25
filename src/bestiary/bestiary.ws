@@ -18,7 +18,7 @@ class RER_Bestiary {
     }
   }
 
-  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType, optional for_bounty: bool, optional left_offset: CreatureType, optional right_offset: CreatureType, optional offset_multiplier: float): RER_BestiaryEntry {
+  public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType, optional flags: RER_BestiaryRandomBestiaryEntryFlag, optional filter: RER_SpawnRollerFilter): RER_BestiaryEntry {
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
@@ -32,14 +32,25 @@ class RER_Bestiary {
     creatures_preferences
       .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
 
-    if (!for_bounty) {
+    if ((flags & RER_BREF_IGNORE_BIOMES) == 0) {
       creatures_preferences
         .setIsNight(theGame.envMgr.IsNight())
         .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
         .setIsNearWater(master.rExtra.IsPlayerNearWater())
         .setIsInForest(master.rExtra.IsPlayerInForest())
-        .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
+        .setIsInSwamp(master.rExtra.IsPlayerInSwamp());
+    }
+    else {
+      NLOG("getRandomEntryFromBestiary - ignore biomes");
+    }
+
+    if ((flags & RER_BREF_IGNORE_SETTLEMENT) == 0) {
+
+      creatures_preferences
         .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
+    }
+    else {
+      NLOG("getRandomEntryFromBestiary - ignore settlement");
     }
 
     for (i = 0; i < CreatureMAX; i += 1) {
@@ -68,7 +79,9 @@ class RER_Bestiary {
       }
     }
 
-    master.spawn_roller.setOffsets(left_offset, right_offset, offset_multiplier);
+    if (filter) {
+      master.spawn_roller.applyFilter(filter);
+    }
 
     spawn_roll = master.spawn_roller.rollCreatures(
       master.ecosystem_manager,
@@ -257,3 +270,9 @@ class RER_Bestiary {
 
 
 }
+
+enum RER_BestiaryRandomBestiaryEntryFlag {
+  RER_BREF_NONE = 0,
+  RER_BREF_IGNORE_SETTLEMENT = 10,
+  RER_BREF_IGNORE_BIOMES = 01
+};

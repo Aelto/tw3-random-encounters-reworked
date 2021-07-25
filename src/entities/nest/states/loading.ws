@@ -9,13 +9,14 @@ state Loading in RER_MonsterNest {
   }
 
   entry function Loading_main() {
-    parent.bestiary_entry = parent.master.bestiary.getRandomEntryFromBestiary(
-      parent.master,
-      EncounterType_HUNTINGGROUND,
-      false,
-      CreatureARACHAS, // left offset
-      CreatureDRACOLIZARD // right offset
-    );
+    parent.bestiary_entry = parent.getRandomNestCreatureType(parent.master);
+
+    if (parent.bestiary_entry.type == CreatureARACHAS ) {
+      parent.monsters_spawned_limit /= 3;
+    }
+    if (parent.bestiary_entry.type == CreatureWRAITH) {
+      parent.monsters_spawned_limit /= 2;
+    }
 
     this.placeMarker();
 
