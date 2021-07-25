@@ -716,7 +716,7 @@ class SU_CustomPinRemovePredicateFromRERAndRegion extends SU_PredicateInterfaceR
 
   function predicate(pin: SU_MapPin): bool {
     return StrStartsWith(pin.tag, this.starts_with)
-        && VecDistanceSquared2D(this.position, pin.position) < this.radius;
+        && VecDistanceSquared2D(this.position, pin.position) < this.radius * this.radius;
   }
 }
 
