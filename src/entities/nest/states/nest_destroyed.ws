@@ -9,7 +9,7 @@ state NestDestroyed in RER_MonsterNest {
 		parent.StopAllEffects();
 		parent.encounter.EnableEncounter( false );
 		
-		
+		this.NestDestroyed_main();
 	}
 
   entry function NestDestroyed_main() {
