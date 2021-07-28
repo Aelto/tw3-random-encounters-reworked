@@ -306,7 +306,7 @@
 2115018302|        |rer_noticeboard_errand_0_text|Good Folk!<br /><br />There's a vile and dangerous spook, beast or devil of sorts causing no end of trouble near our homes. We promise our profoundest gratitude - and a sizeable reward - to any brave lad who can slay it.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
 2115018303|        |rer_dialog_preset_exit_do_nothing|Exit and leave settings untouched.
 2115018304|        |rer_dialog_preset_enhanced_edition|[RER preset] Witcher 3 Enhanced Edition
-2115018305|        |rer_dialog_preset_vanilla|[RER preset] Vanilla
+2115018305|        |rer_dialog_preset_vanilla|[RER preset] Vanilla/Default
 2115018306|        |preset_Mods_rer_name_rer_rewards_settings_rer_container_refill_settings|Container refill
 2115018307|        |panel_rer_container_refill_settings|Container refill
 2115018308|        |option_rer_container_refill_trigger_chance|Chance to trigger on encounter end (%)
