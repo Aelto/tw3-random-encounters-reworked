@@ -26,7 +26,7 @@ state NestContract in RER_contractManager {
       SU_moveCoordinatesAwayFromSafeAreas(
         SU_moveCoordinatesInsideValidAreas(
           thePlayer.GetWorldPosition()
-          + VecRingRand(50, 100)
+          + VecRingRand(100, 150)
         )
       )
     );
