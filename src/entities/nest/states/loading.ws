@@ -47,6 +47,8 @@ state Loading in RER_MonsterNest {
       thePlayer.addCustomPin(map_pin);
 
       parent.pin_position = position;
+
+      SU_updateMinimapPins();
     }
   }
 }

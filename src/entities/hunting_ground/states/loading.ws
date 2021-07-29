@@ -54,6 +54,7 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
       thePlayer.addCustomPin(map_pin);
+      SU_updateMinimapPins();
     }
 
     parent.GotoState('Wandering');

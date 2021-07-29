@@ -37,6 +37,7 @@ state Loading in CRandomEncounters {
     parent.static_encounter_manager.spawnStaticEncounters(parent);
 
     RER_addNoticeboardInjectors();
+    SU_updateMinimapPins();
 
     parent.GotoState('Waiting');
   }

@@ -124,6 +124,7 @@ state TrailPhase in RandomEncountersReworkedContractEntity {
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
       thePlayer.addCustomPin(map_pin);
+      SU_updateMinimapPins();
     }
 
     // squared radius to save performances by using VecDistanceSquared
