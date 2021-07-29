@@ -93,12 +93,15 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   }
 
   event OnFireHit(source: CGameplayEntity) {
+    if (activator != thePlayer || wasExploded) {
+      return false;
+    }
+
     if (this.monsters_spawned_count > this.monsters_spawned_limit * 0.75) {
       GetEncounter();
-			wasExploded = true;
-			
-			interactionComponent.SetEnabled( false );
-			airDmg = false;
+
+      wasExploded = true;
+      airDmg = false;
 
       this.GotoState('Explosion');
     }
