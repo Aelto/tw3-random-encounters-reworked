@@ -278,6 +278,8 @@ statemachine class RER_BountyManager extends CEntity {
       this.getInformationMessageAboutCurrentBounty()
     );
 
+    SU_updateMinimapPins();
+
     NLOG("bounty started");
   }
 
