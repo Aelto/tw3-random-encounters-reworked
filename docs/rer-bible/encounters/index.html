@@ -35,6 +35,27 @@
       There are two sliders for each, the minimum and maximum delay because RER
       picks a random value between the two intervals. So with the settings shown in
       the image RER will pick create an encounter at an interval between 60 and 130 seconds
+      <br>
+      Then on top of the default delay sliders, there is a unique slider to add a
+      custom delay based on your current level: <span>Additional delay (in seconds) per player level</span>.
+      At a first glance this slider may not seem very useful, but it allows you
+      to creature dynamic delays that progressively get shorter as you progress in the game.
+      <br>
+      For example, let's say you want a chill start but a rough ending at around level 50.
+      You'd set the default sliders to around 300 seconds each and then you would set this slider
+      to <span>-5</span>. Every time you level up the delays will be shorter by 5 seconds,
+      that means you will get the following delays in your game:
+      <ul>
+        <li>300 seconds at level 0</li>
+        <li>250 seconds at level 10</li>
+        <li>200 seconds at level 20</li>
+        <li>150 seconds at level 30</li>
+        <li>100 seconds at level 40</li>
+        <li>50 seconds at level 50</li>
+      </ul>
+      Of course you can adjust the values to get different results. But as you can see
+      this sliders allows you to get different experiences based on your progress in
+      the playthrough.
     </p>
 
     <p>
