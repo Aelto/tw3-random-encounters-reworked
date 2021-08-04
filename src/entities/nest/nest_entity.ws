@@ -125,7 +125,6 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     }
 
     if(interactionComponent && interactionComponent.IsEnabled()) {
-      theGame.CreateNoSaveLock( 'nestSettingExplosives', saveLockIdx );
       wasExploded = true;
       GetEncounter();
       interactionComponent.SetEnabled(false);

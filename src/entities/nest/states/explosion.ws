@@ -4,9 +4,6 @@ state Explosion in RER_MonsterNest {
     NLOG("RER_MonsterNest - State EXPLOSION");
 		parent.canPlayVset = false;
 		
-    // remove save lock
-		theGame.ReleaseNoSaveLock(parent.saveLockIdx);
-		
 		Explosion();
 	}
 	
