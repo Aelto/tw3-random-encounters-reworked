@@ -93,7 +93,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   }
 
   event OnFireHit(source: CGameplayEntity) {
-    if (activator != thePlayer || wasExploded) {
+    if (source != thePlayer || wasExploded) {
       return false;
     }
 
