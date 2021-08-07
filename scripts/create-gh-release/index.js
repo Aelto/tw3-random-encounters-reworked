@@ -42,7 +42,7 @@ async function main() {
     .map(commit => commit.slice(commit.indexOf(' ')));
 
   const changelog = commits
-    .map(c => ` - ${c}`)
+    .map(c => ` -${c}`)
     .join('\n');
 
   console.log(`new version changelog:\n${changelog} `);
@@ -57,13 +57,36 @@ async function main() {
   const octokit = new Octokit({
     auth: tokens.github
   });
-  
+
+  let body = '';
+
+  body += `
+# Random Encounters Reworked ${new_version_name}
+
+> **📩 Want email email/notifications when new releases are created?**
+> You can click the \`watch\` button at the top of the page and set a custom rule.
+> Or just star the repository to get the news on your homepage.
+`;
+
+  if (is_prerelease) {
+    body += `
+## CHANGELOG (since last release)
+${changelog}
+`;
+  }
+  else {
+    body += `
+## CHANGELOG (since last full release)
+${changelog}
+`;
+  }
+
   const create_release_response = await octokit.repos.createRelease({
     owner: 'Aelto',
     repo: 'tw3-random-encounters-reworked',
     name: new_version_name,
     tag_name: new_version_name,
-    body: changelog,
+    body: body,
     prerelease: is_prerelease,
   });
 
