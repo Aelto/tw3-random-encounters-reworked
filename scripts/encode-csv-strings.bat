@@ -10,6 +10,19 @@ del *.w3strings
 del *.ws
 rename en.w3strings.csv.w3strings en.w3strings
 
-cd %modpath%\scripts
+copy en.w3strings ar.w3strings
+copy en.w3strings br.w3strings
+copy en.w3strings cz.w3strings
+copy en.w3strings de.w3strings
+copy en.w3strings es.w3strings
+copy en.w3strings esmx.w3strings
+copy en.w3strings fr.w3strings
+copy en.w3strings hu.w3strings
+copy en.w3strings it.w3strings
+copy en.w3strings jp.w3strings
+copy en.w3strings kr.w3strings
+copy en.w3strings pl.w3strings
+copy en.w3strings ru.w3strings
+copy en.w3strings zh.w3strings
 
-node create-all-string-from-en.js
+cd %modpath%\scripts
