@@ -99,7 +99,7 @@ ${changelog}
     data: fs.readFileSync(zip_file_path)
   });
 
-  // fs.unlinkSync(zip_file_path)
+  fs.unlinkSync(zip_file_path);
 }
 
 main();
