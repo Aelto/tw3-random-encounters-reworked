@@ -52,6 +52,8 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
       map_pin.type = "MonsterQuest";
       map_pin.radius = 100;
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives');
 
       thePlayer.addCustomPin(map_pin);
       SU_updateMinimapPins();

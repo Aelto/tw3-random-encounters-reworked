@@ -371,6 +371,8 @@ statemachine class RER_BountyManager extends CEntity {
         map_pin.type = "MonsterQuest";
         map_pin.radius = 100;
         map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+        map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
 
         thePlayer.addCustomPin(map_pin);
       }

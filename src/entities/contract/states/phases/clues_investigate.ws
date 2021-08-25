@@ -244,6 +244,8 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       map_pin.type = "TreasureQuest";
       map_pin.radius = 10;
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives');
 
       thePlayer.addCustomPin(map_pin);
     }

@@ -5978,6 +5978,12 @@
 
             <Var id="RERmarkersBountyHunting" displayName="rer_markers_bounty_hunting" displayType="TOGGLE"></Var>
             
+            <Var id="RERminimapMarkerBountyMaster" displayName="rer_minimap_marker_bounty_master" displayType="TOGGLE"></Var>
+
+            <Var id="RERminimapMarkerBounties" displayName="rer_minimap_marker_bounties" displayType="TOGGLE"></Var>
+
+            <Var id="RERminimapMarkerGenericObjectives" displayName="rer_minimap_marker_generic_objectives" displayType="TOGGLE"></Var>
+
             <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
 
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
