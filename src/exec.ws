@@ -115,6 +115,17 @@ exec function rerkillall() {
   }
 }
 
+exec function rerkillbountymaster() {
+  var entities: array<CEntity>;
+  var i: int;
+
+  theGame.GetEntitiesByTag('RER_bounty_master', entities);
+
+  for (i = 0; i < entities.Size(); i += 1) {
+    ((CNewNPC)entities[i]).Destroy();
+  }
+}
+
 exec function rerchallenge(optional seed: int) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;
