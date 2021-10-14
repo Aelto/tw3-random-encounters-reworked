@@ -150,7 +150,7 @@ statemachine class RER_BountyManager extends CEntity {
       .useSeed(seed != 0);
 
     data = RER_BountyRandomData();
-    number_of_groups = this.getNumberOfGroupsForSeed(seed);
+    number_of_groups = this.getNumberOfGroupsForSeed(rng, seed);
 
     NLOG("number of groups = " + number_of_groups);
 
@@ -639,7 +639,7 @@ statemachine class RER_BountyManager extends CEntity {
 
   // return the maximum progress the bounty will have for this seed. Each progress
   // level is a group of creatures.
-  public function getNumberOfGroupsForSeed(seed: int): int {
+  public function getNumberOfGroupsForSeed(rng: RandomNumberGenerator, seed: int): int {
     var min: int;
     var max: int;
 
@@ -652,7 +652,7 @@ statemachine class RER_BountyManager extends CEntity {
     // a difficulty 0 seed has maximum 5 monster groups in it
     // the difficulty seed step divided by 100 means that a difficulty 100 seed
     // will double the amount of creatures.
-    return (int)(RandNoiseF(seed, max, min));
+    return (int)rng.nextRange(max, min);
   }
 
   public function increaseBountyLevel() {
