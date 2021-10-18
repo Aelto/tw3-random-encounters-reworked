@@ -32,6 +32,7 @@
       if you want encounters only during the night for example. In such case you'd
       set the day delays to a really high value like 600 seconds (10 minutes).
       <br>
+      <img src="delays-per-level.png" alt="image showing the two delay sliders">
       There are two sliders for each, the minimum and maximum delay because RER
       picks a random value between the two intervals. So with the settings shown in
       the image RER will pick create an encounter at an interval between 60 and 130 seconds
@@ -56,6 +57,42 @@
       Of course you can adjust the values to get different results. But as you can see
       this sliders allows you to get different experiences based on your progress in
       the playthrough.
+    </p>
+
+    <p>
+      <a href="https://github.com/Aelto/tw3-random-encounters-reworked/releases">RER v2.6</a> also
+      introduces a new slider to control even more the delays and how often
+      creatures are spawned.
+      <img src="ecosystem-delay-multiplier.png" alt="image showing the two delay sliders">
+      This slider controls how much repeatedly killing monsters in an area will
+      affect the delays. RER will then adjust the pace at which it creates new creatures,
+      the default value of <span>100</span> means that this feature works at 100%
+      of its intended efficacy. This slider can also go below zero, into negative values to
+      completely invert its effect on the delays.
+    </p>
+
+    <p>
+      By default a killed Ghoul will increase the speed of spawns by 1.5%, but if you
+      set the slider to <span>-100</span> then it will <b>slow down</b> the spawn speed
+      by 1.5%. This was done to allow for immersive playthroughs where killing monsters of
+      an area slowly eradicates any form of life from the region. The default value
+      doesn't go the immersion route but rather gameplay experience route, as killing
+      creatures will ensures even more creatures come.
+      <br>
+      However there is an important detail to remember here, it works on monster kills
+      but also on monster spawns. With the default values a monster spawn will slow down
+      the spawn rate of the next creatures in the area, this will help balance the
+      amount of creatures you see in the same regions. And of course if you go for the
+      immersive solution with a negative value more monsters will mean a greater spawn rate.
+      That's where you may understand why i picked these default values!
+    </p>
+
+    <p>
+      If you are wondering the state of the surrounding ecosystem and what's the spawn rate
+      in the region, you can use the <a href="https://www.youtube.com/watch?v=2txXNrz_QLY">ecosystem analyse</a> (
+        <a href="https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/#part-4-4">setup guide</a>
+      ) which will now include a line with the spawn rate
+      <img src="ecosystem-analyser-delay_multiplayer.png" alt="">
     </p>
 
     <p>
