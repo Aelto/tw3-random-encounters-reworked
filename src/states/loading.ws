@@ -684,7 +684,7 @@ state Loading in CRandomEncounters {
     var new_static_encounter: RER_StaticEncounter;
 
     new_static_encounter = new RER_StaticEncounter in parent;
-    new_static_encounter.bestiary_entry = parent.bestiary.entries[type];
+    new_static_encounter.bestiary_entry = parent.bestiary.getEntry(parent, type);
     new_static_encounter.position = position;
     new_static_encounter.region_constraint = constraint;
     new_static_encounter.radius = radius;

@@ -18,6 +18,14 @@ class RER_Bestiary {
     }
   }
 
+  public function getEntry(master: CRandomEncounters, type: CreatureType): RER_BestiaryEntry {
+    if (type == CreatureHUMAN) {
+      return this.human_entries[master.rExtra.getRandomHumanTypeByCurrentArea()];
+    }
+
+    return this.entries[type];
+  }
+
   public latent function getRandomEntryFromBestiary(master: CRandomEncounters, encounter_type: EncounterType, optional flags: RER_BestiaryRandomBestiaryEntryFlag, optional filter: RER_SpawnRollerFilter): RER_BestiaryEntry {
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
