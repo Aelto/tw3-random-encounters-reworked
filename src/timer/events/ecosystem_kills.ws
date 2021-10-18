@@ -168,7 +168,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
           // at this point the power_changes[i] is simply the enemy count
           .updatePowerForCreatureInCurrentEcosystemAreas(
             i,
-            (power_changes[i] * -1.5),
+            (power_changes[i]),
             thePlayer.GetWorldPosition()
           );
       }

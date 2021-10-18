@@ -247,7 +247,7 @@ abstract class RER_BestiaryEntry {
           // currently leaving this as is. But it may be a good idea to divide this
           // power gain by the power the surrounding areas currently have to avoid
           // an infinitely growing community.
-          created_entities.Size(),
+          created_entities.Size() * 0.5,
           position
         );
     } 
