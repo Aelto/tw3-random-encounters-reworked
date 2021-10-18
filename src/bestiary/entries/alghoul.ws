@@ -55,6 +55,7 @@ class RER_BestiaryAlghoul extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_necrophage_trophy_high');
 
     
+    this.ecosystem_delay_multiplier = 2.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
