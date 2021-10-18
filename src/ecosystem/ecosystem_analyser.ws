@@ -209,6 +209,9 @@ state Analysing in RER_EcosystemAnalyzer {
     //   }
     // }
 
+    message += "<br /><br />";
+    message += this.getMessageAboutEcosystemDelayMultiplier();
+
     RER_openPopup("Surrounding ecosystem", message);
   }
 
@@ -353,8 +356,26 @@ state Analysing in RER_EcosystemAnalyzer {
     return advice;
   }
 
-  //#region nearby bounties
-  //#endregion nearby bounties
+  function getMessageAboutEcosystemDelayMultiplier(): string {
+    var ecosystem_frequency_multiplier: float;
+    var ecosystem_frequency_multiplier_multiplier: float;
+    var rate: float;
+    var output: string;
+
+    ecosystem_frequency_multiplier = parent.ecosystem_manager
+      .getEcosystemAreasFrequencyMultiplier(parent.ecosystem_manager.getCurrentEcosystemAreas());
+      
+    ecosystem_frequency_multiplier_multiplier = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
+    ) * 0.01;
+
+    rate = 100 * ecosystem_frequency_multiplier * ecosystem_frequency_multiplier_multiplier;
+
+    return "Creatures in the area are multiplying at " 
+      + RoundF(rate)
+      + "% of their usual rate";
+  }
 }
 
 struct RER_SurroundingCreaturePercentage {

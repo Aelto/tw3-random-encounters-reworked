@@ -40,31 +40,9 @@ state Waiting in CRandomEncounters {
     NLOG("RERecosystemFrequencyMultiplier [menu] = " + this.ecosystem_frequency_multiplier_multiplier);
 
     while (parent.ticks_before_spawn >= 0) {
-      if (this.ecosystem_frequency_multiplier > 0) {
-        parent.ticks_before_spawn -= 1 / (
-            1
-            + this.ecosystem_frequency_multiplier
-            * this.ecosystem_frequency_multiplier_multiplier
-          );
-      }
-      else if (this.ecosystem_frequency_multiplier < 0) {
-        parent.ticks_before_spawn -= 1 * (
-            1
-            + this.ecosystem_frequency_multiplier
-            * this.ecosystem_frequency_multiplier_multiplier
-          );
-      }
-
-      NLOG("parent.ticks_before_spawn = " + parent.ticks_before_spawn);
-
-      parent.ticks_before_spawn -= 1 *
-        MaxF(
-          0, // cannot go below 0 obvsiouly
-
-          this.ecosystem_frequency_multiplier
-          * this.ecosystem_frequency_multiplier_multiplier
-          * -1 // we invert the number in the end as a positive
-        );
+      parent.ticks_before_spawn -= 1
+                                 * this.ecosystem_frequency_multiplier
+                                 * this.ecosystem_frequency_multiplier_multiplier;
 
       // we refresh the ecosystem effects on frequencies every 30 seconds
       if (ModF(parent.ticks_before_spawn, 30.0) == 0) {
@@ -73,6 +51,8 @@ state Waiting in CRandomEncounters {
 
       Sleep(1);
     }
+
+    parent.GotoState('Spawning');
   }
 
   function calculateRandomTicksBeforeSpawn(): int {

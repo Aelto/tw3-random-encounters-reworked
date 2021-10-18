@@ -396,6 +396,8 @@ class RER_EcosystemManager {
   // A negative power increases the multiplier while a negative power decreases it.
   // That means killing monsters will increase the speed at which new monsters are
   // spawned while letting them leave will decrease the speed.
+  // 
+  // This function returns a MULTIPLIER,
   public function getEcosystemAreasFrequencyMultiplier(areas: array<int>): float {
     var current_index: int;
     var current_area: EcosystemArea;
@@ -428,7 +430,42 @@ class RER_EcosystemManager {
 
     // and finally we divide the multiplier by the amount of ecosystem areas
     // to create a mean value.
-    return multiplier / areas.Size();
+    //
+    // At this point the multiplier is the raw power value, that means it's
+    // either a positive % value or if it's a negative it is rather a based 100
+    // divider value.
+    // +100 means it's a 100% increase in speed (a 50% decrease in time so)
+    // -100 means it's the opposite of a 100% increase, which is x2 and so here
+    // it is a division by 2 or 50% in speed (or a 100% increase in time)
+    multiplier /= areas.Size();
+
+    NLOG("multiplier = " + multiplier);
+
+    if (multiplier == 0) {
+      return 1;
+    }
+    else if (multiplier < 0) {
+      //  -50 gives a 1.5 multiplier in speed
+      // -100 gives a 2 multiplier
+      // -200 gives a 3 multiplier
+      return multiplier
+           * -0.01 // bring back to the range of a multiplier, so 100% is now 1
+           + 1; // because it's a multiplier we want it to be higher than 1
+           // otherwise it would decrease the delay instead of increasing it.
+    }
+    else {
+      //  +50 gives a 0.66 multiplier in speed
+      // +100 gives a 0.5 multiplier
+      // +200 gives a 0.33
+      return 1
+           / (
+              (multiplier)
+              * 0.01 // same reason as above
+              + 1 // because at -100 we want it to be the same as
+              // a division by 2, at -50 it should be a division by 1.5
+             );
+
+    }
   }
 
   public function resetAllEcosystems() {
