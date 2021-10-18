@@ -25,6 +25,18 @@ exec function test1() {
   nest.startEncounter(rer_entity);
 }
 
+exec function rerclearecosystems() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.ecosystem_manager.resetAllEcosystems();
+}
+
 
 exec function rergetpincoord() {
   var id: int;

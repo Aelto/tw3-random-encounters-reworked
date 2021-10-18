@@ -68,6 +68,7 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_werewolf_trophy_medium');
     this.trophy_names.PushBack('modrer_werewolf_trophy_high');
 
+    this.ecosystem_delay_multiplier = 10;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.friend_with) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS

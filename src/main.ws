@@ -28,7 +28,7 @@ statemachine class CRandomEncounters extends CEntity {
   var bounty_manager: RER_BountyManager;
   var contract_manager: RER_contractManager;
 
-  var ticks_before_spawn: int;
+  var ticks_before_spawn: float;
 
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;

@@ -392,4 +392,57 @@ class RER_EcosystemManager {
     return output;
   }
 
+  // returns the frequency multiplier based on the state of the supplied ecosystems.
+  // A negative power increases the multiplier while a negative power decreases it.
+  // That means killing monsters will increase the speed at which new monsters are
+  // spawned while letting them leave will decrease the speed.
+  public function getEcosystemAreasFrequencyMultiplier(areas: array<int>): float {
+    var current_index: int;
+    var current_area: EcosystemArea;
+    var current_power: float;
+    var i, j: int;
+    var multiplier: float;
+    
+    // for each area
+    for (i = 0; i < areas.Size(); i += 1) {
+      current_index = areas[i];
+      current_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
+
+      for (j = 0; j < CreatureMAX; j += 1) {
+        current_power = current_area.impacts_power_by_creature_type[j];
+
+        // when power is at 0 we can skip it as it won't change anything
+        if (current_power == 0) {
+          continue;
+        }
+
+        NLOG("current_power [" + ((CreatureType)j) + "] =" + current_power);
+
+        // note that here, J is also an int that can be used as a CreatureType
+        multiplier += current_power * this.master
+          .bestiary
+          .entries[j]
+          .ecosystem_delay_multiplier;
+      }
+    }
+
+    // and finally we divide the multiplier by the amount of ecosystem areas
+    // to create a mean value.
+    return multiplier / areas.Size();
+  }
+
+  public function resetAllEcosystems() {
+    var player_position: Vector;
+    var current_area: EcosystemArea;
+    var i: int;
+
+    this.master.storages.ecosystem.ecosystem_areas.Clear();
+
+    // we now save the storage to store the power change.
+    this.master
+      .storages
+      .ecosystem
+      .save();
+  }
+
 }

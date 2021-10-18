@@ -38,6 +38,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
       );
     }
 
+    this.ecosystem_delay_multiplier = 15;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS

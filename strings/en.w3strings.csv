@@ -344,3 +344,4 @@
 2115018340|        |option_rer_minimap_marker_bounty_master|Minimap markers <font color="#ffd33d">-</font> Bounty Master
 2115018341|        |option_rer_minimap_marker_bounties|Minimap markers <font color="#ffd33d">-</font> Bounties
 2115018342|        |option_rer_minimap_marker_generic_objectives|Minimap markers <font color="#ffd33d">-</font> Generic objectives
+2115018343|        |option_rer_ecosystem_frequency_mutliplier|Effects of kills on delays (100% = faster, -100% = slower)

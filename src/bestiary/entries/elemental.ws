@@ -36,6 +36,20 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
         "gameplay\journal\bestiary\bestiaryelemental.journal"
       )
     );
+  }
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+    this.trophy_names.PushBack('modrer_elemental_trophy_low');
+    this.trophy_names.PushBack('modrer_elemental_trophy_medium');
+    this.trophy_names.PushBack('modrer_elemental_trophy_high');
+
+    this.ecosystem_delay_multiplier = 14;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.friend_with) //CreatureHUMAN
       .influence(influences.high_indirect_influence) //CreatureARACHAS
@@ -95,21 +109,6 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
-  }
-
-    this.template_list.difficulty_factor.minimum_count_easy = 1;
-    this.template_list.difficulty_factor.maximum_count_easy = 1;
-    this.template_list.difficulty_factor.minimum_count_medium = 1;
-    this.template_list.difficulty_factor.maximum_count_medium = 1;
-    this.template_list.difficulty_factor.minimum_count_hard = 1;
-    this.template_list.difficulty_factor.maximum_count_hard = 1;
-
-  
-
-    this.trophy_names.PushBack('modrer_elemental_trophy_low');
-    this.trophy_names.PushBack('modrer_elemental_trophy_medium');
-    this.trophy_names.PushBack('modrer_elemental_trophy_high');
-
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

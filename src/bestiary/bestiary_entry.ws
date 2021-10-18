@@ -19,6 +19,10 @@ abstract class RER_BestiaryEntry {
 
   var ecosystem_impact: EcosystemCreatureImpact;
 
+  // controls how myuch 1 of this type killed affects the delays, the value is
+  // expressed in %.
+  var ecosystem_delay_multiplier: float;
+
   // both use the enum EncounterType as index
   var chances_day: array<int>;
   var chances_night: array<int>;

@@ -38,6 +38,8 @@ class RER_BestiaryArachas extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_insectoid_trophy_medium');
     this.trophy_names.PushBack('modrer_insectoid_trophy_high');
 
+    this.ecosystem_delay_multiplier = 9;
+
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.self_influence) //CreatureARACHAS

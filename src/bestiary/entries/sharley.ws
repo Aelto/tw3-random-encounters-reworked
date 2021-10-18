@@ -48,6 +48,7 @@ class RER_BestiarySharley extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_sharley_trophy_medium');
     this.trophy_names.PushBack('modrer_sharley_trophy_high');
 
+    this.ecosystem_delay_multiplier = 20;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.no_influence) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
