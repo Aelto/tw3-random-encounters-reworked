@@ -94,13 +94,8 @@ abstract class RER_BestiaryEntry {
     position: Vector,
     optional count: int,
     optional density: float,
-    optional allow_trophies: bool,
     optional encounter_type: EncounterType,
-    optional do_no_persist: bool,
-    // if set to true, it will ignore the bestiary feature that removes unknown
-    // creatures from the spawn. It's used for the bounties where settings are
-    // ignored.
-    optional ignore_bestiary_feature: bool,
+    optional flags: RER_BestiaryEntrySpawnFlag,
     optional custom_tag: name
   ): array<CEntity> {
     
@@ -121,7 +116,7 @@ abstract class RER_BestiaryEntry {
 		var scale: float;
 
 
-    if (do_no_persist) {
+    if (RER_flagEnabled(flags, RER_BESF_NO_PERSIST)) {
       persistance = PM_DontPersist;
     }
     else {
@@ -145,7 +140,7 @@ abstract class RER_BestiaryEntry {
     creatures_templates = fillEnemyTemplateList(
       this.template_list,
       count,
-      master.settings.only_known_bestiary_creatures && !ignore_bestiary_feature
+      master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BESF_NO_BESTIARY_FEATURE)
     );
 
     group_positions = getGroupPositions(
@@ -197,7 +192,7 @@ abstract class RER_BestiaryEntry {
             getRandomLevelBasedOnSettings(master.settings)
           );
 
-          if (allow_trophies && RandRange(100) < this.trophy_chance) {
+          if (!RER_flagEnabled(flags, RER_BESF_NO_TROPHY) && RandRange(100) < this.trophy_chance) {
             LogChannel('modRandomEncounters', "adding 1 trophy " + this.type);
             
             ((CActor)created_entity)
@@ -243,17 +238,19 @@ abstract class RER_BestiaryEntry {
     }
 
     // notify the ecosystem manager some creatures were added. Every time we spawn
-    // some it should slightly increase their power.
-    master
-      .ecosystem_manager
-      .updatePowerForCreatureInCurrentEcosystemAreas(
-        this.type,
-        // currently leaving this as is. But it may be a good idea to divide this
-        // power gain by the power the surrounding areas currently have to avoid
-        // an infinitely growing community.
-        created_entities.Size(),
-        position
-      );
+    // something it should slightly increase their power.
+    if (!RER_flagEnabled(flags, RER_BESF_NO_ECOSYSTEM_EFFECT)) {
+      master
+        .ecosystem_manager
+        .updatePowerForCreatureInCurrentEcosystemAreas(
+          this.type,
+          // currently leaving this as is. But it may be a good idea to divide this
+          // power gain by the power the surrounding areas currently have to avoid
+          // an infinitely growing community.
+          created_entities.Size(),
+          position
+        );
+    } 
 
     LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
@@ -283,3 +280,15 @@ class RER_BestiaryEntryNull extends RER_BestiaryEntry {
     return true;
   }
 }
+
+enum RER_BestiaryEntrySpawnFlag {
+  RER_BESF_NONE = 0,
+  RER_BESF_NO_TROPHY = 1000,
+  RER_BESF_NO_PERSIST = 0100,
+  RER_BESF_NO_ECOSYSTEM_EFFECT = 0010,
+
+  // if set, it will ignore the bestiary feature that removes unknown
+  // creatures from the spawn. It's used for the bounties where settings are
+  // ignored.
+  RER_BESF_NO_BESTIARY_FEATURE = 0001
+};

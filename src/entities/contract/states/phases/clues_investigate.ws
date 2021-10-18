@@ -189,9 +189,9 @@ state CluesInvestigate in RandomEncountersReworkedContractEntity {
       .spawn(
         parent.master,
         parent.previous_phase_checkpoint,,,
-        parent.entity_settings.allow_trophies,
         EncounterType_CONTRACT,
-        false // because they're put in a passive state it is safer to make them
+        RER_flag(RER_BESF_NO_TROPHY, !parent.entity_settings.allow_trophies)
+        | RER_BESF_NO_PERSIST // because they're put in a passive state it is safer to make them
         // as not persistent
       );
 

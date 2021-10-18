@@ -498,10 +498,9 @@ statemachine class RER_BountyManager extends CEntity {
       position,
       group_data.count,
       , // density
-      master.settings.trophies_enabled_by_encounter[EncounterType_CONTRACT], // trophies
       EncounterType_CONTRACT,
-      ,
-      true, // no bestiary
+      RER_flag(RER_BESF_NO_TROPHY, !master.settings.trophies_enabled_by_encounter[EncounterType_CONTRACT])
+      | RER_BESF_NO_BESTIARY_FEATURE,
       'RandomEncountersReworked_BountyCreature'
     );
 

@@ -67,8 +67,8 @@ state NpcRescue in RandomEncountersReworkedContractEntity {
       parent.master,
       position,
       ,,
-      parent.entity_settings.allow_trophies,
-      EncounterType_CONTRACT
+      EncounterType_CONTRACT,
+      RER_flag(RER_BESF_NO_TROPHY, !parent.entity_settings.allow_trophies)
     );
   }
 
