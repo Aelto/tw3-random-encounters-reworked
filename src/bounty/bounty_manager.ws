@@ -690,10 +690,130 @@ state Processing in RER_BountyManager {
         continue;
       }
 
+      this.moveBountyTargets();
       this.spawnNearbyBountyGroups();
-
     }
 
+  }
+
+  function moveBountyTargets() {
+    var groups: array<RER_BountyRandomMonsterGroupData>;
+    var custom_pins: array<SU_MapPin>;
+    var current_translation: Vector;
+    var current_group_index: int;
+    var new_position: Vector;
+    var pin: SU_MapPin;
+    var i: int;
+    
+    groups = parent.master.storages.bounty.current_bounty.random_data.groups;
+    for (i = 0; i < groups.Size(); i += 1) {
+      // we only move the targets that were not spawned yet and only the markers
+      // that are currently shown on the map.
+      if (!groups[i].was_picked || groups[i].was_spawned) {
+        continue;
+      }
+
+      // randomly change the current translation heading up to a maximum of 5
+      // degrees.
+      groups[i].translation_heading = AngleNormalize(
+        groups[i].translation_heading + RandRangeF(5, -5)
+      );
+
+      current_translation = VecConeRand(
+        groups[i].translation_heading,
+        15, // angle
+        0, // min range
+        0.01 // max range
+      );
+
+      NLOG("moveBountyTargets, old position_x = " + groups[i].position_x);
+      NLOG("moveBountyTargets, old position_Y = " + groups[i].position_y);
+
+      // we mutate the original coordinates
+      groups[i].position_x += current_translation.X;
+      groups[i].position_y += current_translation.Y;
+
+      if (groups[i].position_x <= 0) {
+        groups[i].position_x = 0;
+
+        // 270 degrees is the right
+        groups[i].translation_heading = AngleNormalize(
+          (groups[i].translation_heading + 270 * 3) / 4
+        );
+      }
+
+      if (groups[i].position_x >= 1) {
+        groups[i].position_x = 1;
+
+        // 270 degrees is the left
+        groups[i].translation_heading = AngleNormalize(
+          (groups[i].translation_heading + 90 * 3) / 4
+        );
+      }
+
+      // y below zero is the bottom of the map
+      if (groups[i].position_y <= 0) {
+        groups[i].position_y = 0;
+
+        // 0 degrees is the top of the map
+        groups[i].translation_heading = AngleNormalize(
+          (groups[i].translation_heading + 0 * 3) / 4
+        );
+      }
+
+      if (groups[i].position_y >= 1) {
+        groups[i].position_y = 1;
+
+        // 180 degrees is the bottom of the map
+        groups[i].translation_heading = AngleNormalize(
+          (groups[i].translation_heading + 180 * 3) / 4
+        );
+      }
+
+      NLOG("moveBountyTargets, new position_x = " + groups[i].position_x);
+      NLOG("moveBountyTargets, new position_Y = " + groups[i].position_y);
+
+      new_position = SU_getSafeCoordinatesFromPoint(
+        SU_moveCoordinatesAwayFromSafeAreas(
+          SU_moveCoordinatesInsideValidAreas(
+            SU_getCoordinatesFromPercentValues(
+              groups[i].position_x,
+              groups[i].position_y
+            )
+          )
+        )
+      );
+
+      parent.master.storages.bounty.current_bounty.random_data.groups[i].position_x = groups[i].position_x;
+      parent.master.storages.bounty.current_bounty.random_data.groups[i].position_y = groups[i].position_y;
+      parent.cached_bounty_group_positions[i] = new_position;
+    }
+
+    // updating markers now:
+    if (theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+
+      current_group_index = 0;
+      custom_pins = thePlayer.customMapPins;
+      for (i = 0; i < custom_pins.Size(); i += 1) {
+        if (custom_pins[i].tag != "RER_bounty_target") {
+          continue;
+        }
+
+        if (current_group_index < parent.cached_bounty_group_positions.Size()) {
+          custom_pins[i].position = parent.cached_bounty_group_positions[current_group_index];
+
+          current_group_index += 1;
+        }
+        // for some reason there are more pins in the array than we have bounty
+        // targets, we remove that extra pin.
+        else {
+          SU_removeCustomPinByIndex(i);
+        }
+      }
+    }
+
+    SU_updateMinimapPins();
   }
 
   latent function spawnNearbyBountyGroups() {

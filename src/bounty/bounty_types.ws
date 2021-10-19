@@ -44,4 +44,9 @@ struct RER_BountyRandomMonsterGroupData {
   // set to true when the group was picked and was set to appear on the map.
   // but it may not be spawned yet.
   var was_picked: bool;
+
+  // used to store the current translation heading of the bounty target. This is
+  // used to know where the bounty is currently heading to avoid erratic
+  // movements between each tick
+  var translation_heading: float;
 }
