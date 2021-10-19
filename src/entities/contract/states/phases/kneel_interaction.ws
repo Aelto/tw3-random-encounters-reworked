@@ -50,12 +50,12 @@ state KneelInteraction in RandomEncountersReworkedContractEntity {
 
   latent function KneelInteraction_playAnimation() {
     var monster_clue: RER_MonsterClue;
-
-    REROL_mhm();
-    Sleep(0.5);
     
     monster_clue = parent.trail_maker.getLastPlacedTrack();
     monster_clue.GotoState('Interacting');
+
+    Sleep(0.2);
+    REROL_mhm();
 
     if (!parent.master.settings.disable_camera_scenes) {
       this.playCameraScene();
