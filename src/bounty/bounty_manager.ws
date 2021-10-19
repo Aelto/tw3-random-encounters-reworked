@@ -726,9 +726,6 @@ state Processing in RER_BountyManager {
         0.01 // max range
       );
 
-      NLOG("moveBountyTargets, old position_x = " + groups[i].position_x);
-      NLOG("moveBountyTargets, old position_Y = " + groups[i].position_y);
-
       // we mutate the original coordinates
       groups[i].position_x += current_translation.X;
       groups[i].position_y += current_translation.Y;
@@ -769,9 +766,6 @@ state Processing in RER_BountyManager {
           (groups[i].translation_heading + 180 * 3) / 4
         );
       }
-
-      NLOG("moveBountyTargets, new position_x = " + groups[i].position_x);
-      NLOG("moveBountyTargets, new position_Y = " + groups[i].position_y);
 
       new_position = SU_getSafeCoordinatesFromPoint(
         SU_moveCoordinatesAwayFromSafeAreas(
