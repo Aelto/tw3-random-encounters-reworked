@@ -17,6 +17,13 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(
+        "characters\npc_entities\monsters\cyclop_lvl2.w2ent",,,
+        "gameplay\journal\bestiary\cyclops.journal"
+      )
+    );
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
         "characters\npc_entities\monsters\ice_giant.w2ent",,,
         "gameplay\journal\bestiary\icegiant.journal"
       )

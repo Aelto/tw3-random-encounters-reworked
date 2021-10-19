@@ -17,6 +17,13 @@ class RER_BestiaryGryphon extends RER_BestiaryEntry {
 
     this.template_list.templates.PushBack(
       makeEnemyTemplate(
+        "characters\npc_entities\monsters\gryphon_lvl2.w2ent",,,
+        "gameplay\journal\bestiary\griffin.journal"
+      )
+    );
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
         "characters\npc_entities\monsters\gryphon_lvl3__volcanic.w2ent",,,
         "gameplay\journal\bestiary\bestiarymonsterhuntmh301.journal"
       )
