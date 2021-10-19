@@ -44,6 +44,11 @@ state Waiting in CRandomEncounters {
                                  * this.ecosystem_frequency_multiplier
                                  * this.ecosystem_frequency_multiplier_multiplier;
 
+      NLOG("RERecosystemFrequencyMultiplier [tick] = " + (1
+                                 * this.ecosystem_frequency_multiplier
+                                 * this.ecosystem_frequency_multiplier_multiplier));
+
+
       // we refresh the ecosystem effects on frequencies every 30 seconds
       if (ModF(parent.ticks_before_spawn, 30.0) == 0) {
         this.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
