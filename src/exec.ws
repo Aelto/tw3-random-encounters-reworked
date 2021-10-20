@@ -1,29 +1,4 @@
 
-exec function test1() {
-  var current_template: CEntityTemplate;
-  var rer_entity : CRandomEncounters;
-  var nest: RER_MonsterNest;
-  var path: string;
-
-  if (!getRandomEncounters(rer_entity)) {
-    NDEBUG("No entity found with tag <RandomEncounterTag>");
-    
-    return;
-  }
-
-  // "gameplay\interactive_objects\monster_nest\monster_nest_ghoul.w2ent"
-  path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
-
-  current_template = (CEntityTemplate)LoadResource(path, true);
-  nest = (RER_MonsterNest)theGame.CreateEntity(
-    current_template,
-    thePlayer.GetWorldPosition() + Vector(1, 1),
-    thePlayer.GetWorldRotation(),,,,
-    PM_DontPersist
-  );
-
-  nest.startEncounter(rer_entity);
-}
 
 exec function rerclearecosystems() {
   var rer_entity : CRandomEncounters;
