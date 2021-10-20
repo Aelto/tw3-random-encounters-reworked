@@ -18,6 +18,10 @@ statemachine class RER_contractManager extends CEntity {
         this.GotoState('NestContract');
         break;
 
+      case "rer_noticeboard_errand_2":
+        this.GotoState('HordeContract');
+        break;
+
     }
   }
 }

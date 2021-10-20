@@ -89,6 +89,14 @@ abstract class RER_BestiaryEntry {
     return this.type == CreatureNONE;
   }
 
+  public function getSpawnCount(master: CRandomEncounters): int {
+    return rollDifficultyFactor(
+      this.template_list.difficulty_factor,
+      master.settings.selectedDifficulty,
+      master.settings.enemy_count_multiplier * this.creature_type_multiplier
+    );
+  }
+
   public latent function spawn(
     master: CRandomEncounters,
     position: Vector,
@@ -115,6 +123,8 @@ abstract class RER_BestiaryEntry {
     // random scale applied to the creatures
 		var scale: float;
 
+    LogChannel('RER', "BestiaryEntry, spawn() count = " + count + " " + this.type);
+
 
     if (RER_flagEnabled(flags, RER_BESF_NO_PERSIST)) {
       persistance = PM_DontPersist;
@@ -124,11 +134,7 @@ abstract class RER_BestiaryEntry {
     }
 
     if (count == 0) {
-      count = rollDifficultyFactor(
-        this.template_list.difficulty_factor,
-        master.settings.selectedDifficulty,
-        master.settings.enemy_count_multiplier * this.creature_type_multiplier
-      );
+      count = this.getSpawnCount(master);
     }
 
     if (density <= 0) {
@@ -247,7 +253,7 @@ abstract class RER_BestiaryEntry {
           // currently leaving this as is. But it may be a good idea to divide this
           // power gain by the power the surrounding areas currently have to avoid
           // an infinitely growing community.
-          created_entities.Size() * 0.5,
+          created_entities.Size() * 0.25,
           position
         );
     } 

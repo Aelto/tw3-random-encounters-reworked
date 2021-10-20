@@ -39,11 +39,14 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
       .GetVarValue('RERoptionalFeatures', 'RERnoticeboardErrands');
 
     if (can_inject_errand) {
-      if (RandRange(10) < 5) {
+      if (RandRange(15) < 5) {
         SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
       }
-      if (RandRange(10) < 5) {
+      if (RandRange(15) < 5) {
         SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
+      }
+      if (RandRange(15) < 5) {
+        SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_2");
       }
     }
   }
@@ -54,6 +57,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     switch (errand_name) {
       case "rer_noticeboard_errand_0":
       case "rer_noticeboard_errand_1":
+      case "rer_noticeboard_errand_2":
 
       if (getRandomEncounters(rer_entity)) {
         rer_entity.contract_manager.pickedContractNoticeFromNoticeboard(errand_name);

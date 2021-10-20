@@ -1,0 +1,30 @@
+
+// When you want the horde manager to slowly spawn monsters you send a request.
+// The request contains the amount of monsters to spawn and what type to spawn
+// exactly.
+//
+// You are supposed to extend the class if you want to add a custom action on
+// completion.
+class RER_HordeRequest {
+  // the enum CreatureType is used as the index, while the value is the amount
+  // of creatures of the given type to spawn.
+  var counters_per_creature_types: array<int>;
+
+  // the entities spawned for that request
+  var entities: array<CEntity>;
+
+  public function init() {
+    var i: int;
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.counters_per_creature_types.PushBack(0);
+    }
+  }
+
+  public function setCreatureCounter(creature: CreatureType, count: int) {
+    this.counters_per_creature_types[creature] = count;
+  }
+
+  // override the method to run your code
+  public latent function onComplete(master: CRandomEncounters) {}
+}

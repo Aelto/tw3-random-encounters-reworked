@@ -1625,3 +1625,23 @@ class REROL_monster_nest_best_destroyed extends RER_DialogData {
   default dialog_id = 1054273;
 }
 //#endregion
+
+// Geralt: And one more …
+class REROL_and_one_more extends RER_DialogData {
+  default dialog_id = 1132241;
+}
+
+//  Geralt: Another one …
+class REROL_another_one extends RER_DialogData {
+  default dialog_id = 1132243;
+}
+
+// Geralt: That's enough for now.
+class REROL_enough_for_now extends RER_DialogData {
+  default dialog_id = 1047889;
+}
+
+// Geralt: All right, that's enough.
+class REROL_thats_enough extends RER_DialogData {
+  default dialog_id = 590997;
+}

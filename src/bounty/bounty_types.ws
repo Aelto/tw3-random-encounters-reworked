@@ -49,4 +49,14 @@ struct RER_BountyRandomMonsterGroupData {
   // used to know where the bounty is currently heading to avoid erratic
   // movements between each tick
   var translation_heading: float;
+
+  // controls whether the bounty target should spawn only after the player has
+  // killed a given amount of small creatures in the area.
+  // the value of that int is the number of creatures that should be spawned.
+  var horde_before_bounty: int;
+
+  // controls whether the bounty target will get help from monsters during the
+  // fight.
+  // the value of that int is the number of creatures that should be spawned.
+  var horde_during_bounty: int;
 }

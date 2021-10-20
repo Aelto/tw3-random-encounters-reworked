@@ -40,13 +40,13 @@ state Waiting in CRandomEncounters {
     NLOG("RERecosystemFrequencyMultiplier [menu] = " + this.ecosystem_frequency_multiplier_multiplier);
 
     while (parent.ticks_before_spawn >= 0) {
-      parent.ticks_before_spawn -= 1
+      parent.ticks_before_spawn -= 5
                                  * this.ecosystem_frequency_multiplier
                                  * this.ecosystem_frequency_multiplier_multiplier;
 
-      NLOG("RERecosystemFrequencyMultiplier [tick] = " + (1
-                                 * this.ecosystem_frequency_multiplier
-                                 * this.ecosystem_frequency_multiplier_multiplier));
+      // NDEBUG("RERecosystemFrequencyMultiplier [tick] = " + (1
+      //                            * this.ecosystem_frequency_multiplier
+      //                            * this.ecosystem_frequency_multiplier_multiplier));
 
 
       // we refresh the ecosystem effects on frequencies every 30 seconds
@@ -54,7 +54,7 @@ state Waiting in CRandomEncounters {
         this.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
       }
 
-      Sleep(1);
+      Sleep(5);
     }
 
     parent.GotoState('Spawning');

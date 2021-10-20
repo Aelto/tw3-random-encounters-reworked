@@ -169,7 +169,7 @@ class CModRExtra {
       return this.isNearGuards(radius_check);
     }
     
-    return thePlayer.IsInSettlement();
+    return thePlayer.IsInSettlement() || this.isNearGuards(radius_check);
   }
 
   public function getRandomHumanTypeByCurrentArea(): EHumanType {
