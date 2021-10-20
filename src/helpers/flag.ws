@@ -1,6 +1,6 @@
 
 function RER_flagEnabled(flag: int, value: int): bool {
-  return (flag & value) == 0;
+  return (flag & value) != 0;
 }
 
 function RER_setFlag(flag: int, value: int, should_add: bool): int {
