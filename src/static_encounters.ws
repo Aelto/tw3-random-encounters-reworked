@@ -61,7 +61,7 @@ class RER_StaticEncounterManager {
         !master
           .settings
           .trophies_enabled_by_encounter[EncounterType_HUNTINGGROUND]
-      ) | RER_BESF_NO_PERSIST
+      ) | RER_BESF_NO_PERSIST | RER_BESF_NO_ECOSYSTEM_EFFECT
     );
 
     return true;
