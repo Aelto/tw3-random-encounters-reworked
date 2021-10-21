@@ -27,16 +27,24 @@ state HordeContract in RER_contractManager {
       .getRandomEntryFromBestiary(
         parent.master,
         EncounterType_CONTRACT,
-        , // for bounty
+        RER_BREF_IGNORE_SETTLEMENT,
         (new RER_SpawnRollerFilter in this)
           .init()
           .setOffsets(CreatureHUMAN, CreatureDRACOLIZARD)
       );
 
-    request.setCreatureCounter(bestiary_entry.type, bestiary_entry.getSpawnCount(parent.master));
+    request.setCreatureCounter(bestiary_entry.type, bestiary_entry.getSpawnCount(parent.master) * 4);
 
     parent.master.horde_manager
       .sendRequest(request);
+
+    Sleep(10);
+    if (parent.master.rExtra.isPlayerInSettlement(50) && RandRange(10) < 5) {
+      (new RER_RandomDialogBuilder in thePlayer)
+        .start()
+        .either(new REROL_not_a_single_monster in thePlayer, true, 0.5)
+        .play();
+    }
 
     parent.GotoState('Waiting');
   }
@@ -56,7 +64,7 @@ state HordeContract in RER_contractManager {
       REROL_ill_tend_to_the_monster();
     }
     else {
-      REROL_i_accept_the_challenge();
+      REROL_where_will_i_find_this_monster();
     }
   }
 }
