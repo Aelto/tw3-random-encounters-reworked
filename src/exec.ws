@@ -1,4 +1,25 @@
 
+exec function rerhorde(type: CreatureType, optional count: int) {
+  var request: RER_HordeRequest;
+  var rer_entity : CRandomEncounters;
+
+  if (count <= 0) {
+    count = 10;
+  }
+
+  request = new RER_HordeRequest in parent.master;
+  request.init();
+  request.setCreatureCounter(type, count);
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.horde_manager
+      .sendRequest(request);
+}
 
 exec function rerclearecosystems() {
   var rer_entity : CRandomEncounters;
