@@ -26,5 +26,7 @@ class RER_HordeRequest {
   }
 
   // override the method to run your code
-  public latent function onComplete(master: CRandomEncounters) {}
+  public latent function onComplete(master: CRandomEncounters) {
+    NLOG("RER_HordeRequest - onComplete");
+  }
 }
