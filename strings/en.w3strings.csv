@@ -346,4 +346,9 @@
 2115018342|        |option_rer_minimap_marker_generic_objectives|Minimap markers <font color="#ffd33d">-</font> Generic objectives
 2115018343|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Day & Night:</font> Effects of kills on delays <font size="11">(+100%: faster, -100%: slower)</font>
 2115018344|        |rer_noticeboard_errand_2|Looking for an experience hunter
-2115018345|        |rer_noticeboard_errand_2_text|To Whom It May Concern:<br />Let it hereby be known that whoever kills the monsters that's wove their nests near our lands and have taken to killing both men and beasts, will be given a sizable reward. Kill enough beasts, and you'll become famed throughout the lands, and your purse'll be heavy with gold.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018345|        |rer_noticeboard_errand_2_text|To Whom It May Concern:<br /><br />Let it hereby be known that whoever kills the monsters that's wove their nests near our lands and have taken to killing both men and beasts, will be given a sizable reward. Kill enough beasts, and you'll become famed throughout the lands, and your purse'll be heavy with gold.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+; Do not translate the "{{creature_name}}", this will be replaced with the actual
+; creature name dynamically.
+;
+; Thank you!
+2115018346|        |rer_horde_invasion_strength_title|{{creature_name}} strength
