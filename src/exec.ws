@@ -7,7 +7,7 @@ exec function rerhorde(type: CreatureType, optional count: int) {
     count = 10;
   }
 
-  request = new RER_HordeRequest in parent.master;
+  request = new RER_HordeRequest in thePlayer;
   request.init();
   request.setCreatureCounter(type, count);
 
