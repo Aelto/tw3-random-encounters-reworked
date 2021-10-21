@@ -1645,3 +1645,13 @@ class REROL_enough_for_now extends RER_DialogData {
 class REROL_thats_enough extends RER_DialogData {
   default dialog_id = 590997;
 }
+
+// Geralt: Hm… Not a single sign of monsters. Locals're either imagining things, or someone's scared them off."
+class REROL_not_a_single_monster extends RER_DialogData {
+  default dialog_id = 1073849;
+}
+
+// Geralt: Well, well… Spent years hunting monsters, and yet I'm still learning.
+class REROL_well_well_still_learning extends RER_DialogData {
+  default dialog_id = 468534;
+}
