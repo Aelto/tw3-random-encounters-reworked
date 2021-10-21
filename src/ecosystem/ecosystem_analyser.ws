@@ -213,6 +213,13 @@ state Analysing in RER_EcosystemAnalyzer {
     message += this.getMessageAboutEcosystemDelayMultiplier();
 
     RER_openPopup("Surrounding ecosystem", message);
+
+    if (RandRange(10) < 4) {
+      (new RER_RandomDialogBuilder in thePlayer)
+        .start()
+        .either(new REROL_well_well_still_learning in thePlayer, true, 0.5)
+        .play();
+    }
   }
 
   function sortCreaturePercentagesAscending(percentages: array<RER_SurroundingCreaturePercentage>): array<RER_SurroundingCreaturePercentage> {
