@@ -4,7 +4,5 @@ function getCreatureNameFromCreatureType(bestiary: RER_Bestiary, type: CreatureT
     return GetLocStringByKey("rer_unknown");
   }
 
-  NLOG("name from type " + GetLocStringByKey(bestiary.entries[type].localized_name) + " for " + type);
-
   return GetLocStringByKey(bestiary.entries[type].localized_name);
 }
