@@ -780,8 +780,15 @@ state Processing in RER_BountyManager {
 
       parent.master.storages.bounty.current_bounty.random_data.groups[i].position_x = groups[i].position_x;
       parent.master.storages.bounty.current_bounty.random_data.groups[i].position_y = groups[i].position_y;
-      parent.cached_bounty_group_positions[i] = new_position;
+      // parent.cached_bounty_group_positions[i] = new_position;
     }
+
+    parent.cached_bounty_group_positions = parent.getAllBountyGroupPositions();
+    
+    parent.master
+        .storages
+        .bounty
+        .save();
 
     // updating markers now:
     if (theGame.GetInGameConfigWrapper()
@@ -837,6 +844,8 @@ state Processing in RER_BountyManager {
         player_position,
         position
       );
+
+      NLOG("spawnNearbyBountyGroups - position = " + VecToString(position) + " - player position =" + VecToString(player_position));
 
       // the player is too far from the group, we'll wait for him to get closer
       // before spawning it
