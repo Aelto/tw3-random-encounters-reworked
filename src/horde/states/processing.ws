@@ -79,7 +79,9 @@ state Processing in RER_HordeManager {
           i -= 1;
           number_of_requests -= 1;
         }
-        else {
+        // we do not spawn more creatures if already 25% of the total creatures
+        // are in the world at the moment.
+        else if (parent.requests[i].entities.Size() < total_of_creatures_to_spawn * 0.25) {
           this.spawnMonsterFromRequest(parent.requests[i], creature_to_spawn);
         }
 
