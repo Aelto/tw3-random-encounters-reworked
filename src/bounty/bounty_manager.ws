@@ -723,7 +723,7 @@ state Processing in RER_BountyManager {
         groups[i].translation_heading,
         15, // angle
         0, // min range
-        0.01 // max range
+        0.005 // max range
       );
 
       // we mutate the original coordinates
