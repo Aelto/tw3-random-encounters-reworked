@@ -17,6 +17,7 @@ state HordeContract in RER_contractManager {
   latent function sendHordeRequest() {
     var bestiary_entry: RER_BestiaryEntry;
     var request: RER_HordeRequest;
+    var count: float;
 
     request = new RER_HordeRequest in parent.master;
     request.init();
@@ -33,7 +34,14 @@ state HordeContract in RER_contractManager {
           .setOffsets(CreatureHUMAN, CreatureDRACOLIZARD)
       );
 
-    request.setCreatureCounter(bestiary_entry.type, bestiary_entry.getSpawnCount(parent.master) * 4);
+    // we divide the value by the ecosystem impact, it's a great value to
+    // determine if something is strong or not. Stronger creature have a higher
+    // ecosystem impact.
+    count = bestiary_entry.getSpawnCount(parent.master)
+          * 4
+          / bestiary_entry.ecosystem_delay_multiplier;
+
+    request.setCreatureCounter(bestiary_entry.type, (int)count);
 
     parent.master.horde_manager
       .sendRequest(request);
