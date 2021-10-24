@@ -191,6 +191,7 @@ statemachine class RER_BountyManager extends CEntity {
 
       current_group_data.position_x = rng.next();
       current_group_data.position_y = rng.next();
+      current_group_data.translation_heading = rng.nextRange(360, 0);
 
       data.groups.PushBack(current_group_data);
     }
@@ -716,7 +717,7 @@ state Processing in RER_BountyManager {
       // randomly change the current translation heading up to a maximum of 5
       // degrees.
       groups[i].translation_heading = AngleNormalize(
-        groups[i].translation_heading + RandRangeF(5, -5)
+        groups[i].translation_heading + RandRangeF(10) - 5
       );
 
       current_translation = VecConeRand(
