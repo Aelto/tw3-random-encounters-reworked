@@ -12,7 +12,8 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
     if (parent.is_bounty) {
       parent.bounty_manager.notifyHuntingGroundKilled(parent.bounty_group_index);
 
-      SU_removeCustomPinByPosition(parent.GetWorldPosition());
+      RER_removePinsInAreaAndWithTag("RER_bounty_target", parent.GetWorldPosition(), 100);
+      SU_updateMinimapPins();
     }
 
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {
