@@ -710,7 +710,7 @@ state Processing in RER_BountyManager {
     for (i = 0; i < groups.Size(); i += 1) {
       // we only move the targets that were not spawned yet and only the markers
       // that are currently shown on the map.
-      if (!groups[i].was_picked || groups[i].was_spawned) {
+      if (!this.isGroupActive(groups[i])) {
         continue;
       }
 
@@ -802,8 +802,9 @@ state Processing in RER_BountyManager {
           continue;
         }
 
-        if (current_group_index < parent.cached_bounty_group_positions.Size()) {
-          custom_pins[i].position = parent.cached_bounty_group_positions[current_group_index];
+        // we reuse the new position variable here
+        if (this.getActiveBountyGroupPositionByIndex(current_group_index, new_position)) {
+          custom_pins[i].position = new_position;
 
           current_group_index += 1;
         }
@@ -816,6 +817,40 @@ state Processing in RER_BountyManager {
     }
 
     SU_updateMinimapPins();
+  }
+
+  function isGroupActive(group: RER_BountyRandomMonsterGroupData): bool {
+    return group.was_picked
+        && !group.was_spawned
+        && !group.was_killed;
+  }
+
+  // NOTE: this loops through the ACTIVE bounty groups, so an index of 2
+  // may not actually be the third in the array. It is the third ACTIVE bounty
+  // group.
+  //
+  function getActiveBountyGroupPositionByIndex(index: int, out group_position: Vector): bool {
+    var groups: array<RER_BountyRandomMonsterGroupData>;
+    var internal_index: int;
+    var i: int;
+
+    groups = parent.master.storages.bounty.current_bounty.random_data.groups;
+
+    for (i = 0; i < groups.Size(); i += 1) {
+      if (!this.isGroupActive(groups[i])) {
+        continue;
+      }
+
+      if (internal_index == index) {
+        group_position = parent.cached_bounty_group_positions[i];
+
+        return true;
+      }
+
+      internal_index += 1;
+    }
+
+    return false;
   }
 
   latent function spawnNearbyBountyGroups() {
