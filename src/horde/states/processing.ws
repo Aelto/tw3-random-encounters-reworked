@@ -9,6 +9,7 @@ state Processing in RER_HordeManager {
   }
 
   entry function Processing_main() {
+    var bestiary_entry: RER_BestiaryEntry;
     var creature_to_spawn: CreatureType;
     var number_of_requests: int;
     var old_number_of_requests: int;
@@ -71,6 +72,7 @@ state Processing in RER_HordeManager {
         SU_setCustomBossBarPercent(1 - dead_entities / total_of_creatures_to_spawn);
         SUH_makeEntitiesTargetPlayer(parent.requests[i].entities);
 
+        bestiary_entry = parent.master.bestiary.getEntry(parent.master, creature_to_spawn);
         if (creature_to_spawn == CreatureNONE
         &&  SUH_areAllEntitiesDead(parent.requests[i].entities)) {
           parent.requests[i].onComplete(parent.master);
@@ -81,7 +83,7 @@ state Processing in RER_HordeManager {
         }
         // we do not spawn more creatures if already 25% of the total creatures
         // are in the world at the moment.
-        else if (parent.requests[i].entities.Size() < total_of_creatures_to_spawn * 0.25) {
+        else if (parent.requests[i].entities.Size() < total_of_creatures_to_spawn * (0.3 - bestiary_entry.ecosystem_delay_multiplier * 0.01)) {
           this.spawnMonsterFromRequest(parent.requests[i], creature_to_spawn);
         }
 
