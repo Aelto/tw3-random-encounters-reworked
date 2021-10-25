@@ -141,7 +141,13 @@ abstract class RER_BestiaryEntry {
       density = 0.01;
     }
 
-    LogChannel('RER', "BestiaryEntry, spawn() count = " + count + " " + this.type);
+    set the flag automatically if the settings disable trophies for that
+    encounter type
+    flags = RER_setFlag(
+      flags,
+      RER_BESF_NO_TROPHY,
+      master.settings.trophies_enabled_by_encounter[encounter_type] == false
+    );
 
     creatures_templates = fillEnemyTemplateList(
       this.template_list,
@@ -289,12 +295,12 @@ class RER_BestiaryEntryNull extends RER_BestiaryEntry {
 
 enum RER_BestiaryEntrySpawnFlag {
   RER_BESF_NONE = 0,
-  RER_BESF_NO_TROPHY = 1000,
-  RER_BESF_NO_PERSIST = 0100,
-  RER_BESF_NO_ECOSYSTEM_EFFECT = 0010,
+  RER_BESF_NO_TROPHY = 01000,
+  RER_BESF_NO_PERSIST = 00100,
+  RER_BESF_NO_ECOSYSTEM_EFFECT = 00010,
 
   // if set, it will ignore the bestiary feature that removes unknown
   // creatures from the spawn. It's used for the bounties where settings are
   // ignored.
-  RER_BESF_NO_BESTIARY_FEATURE = 0001
+  RER_BESF_NO_BESTIARY_FEATURE = 00001
 };

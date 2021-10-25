@@ -115,8 +115,7 @@ state Processing in RER_HordeManager {
         position,
         count,,
         EncounterType_CONTRACT,
-        RER_flag(RER_BESF_NO_TROPHY, !parent.master.settings.trophies_enabled_by_encounter[EncounterType_CONTRACT])
-        | RER_BESF_NO_PERSIST
+        RER_BESF_NO_PERSIST
       );
 
     for (i = 0; i < entities.Size(); i += 1) {

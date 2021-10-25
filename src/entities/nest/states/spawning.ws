@@ -49,8 +49,7 @@ state Spawning in RER_MonsterNest {
       RandRange(2), // count
       , //density
       EncounterType_HUNTINGGROUND,
-      RER_flag(RER_BESF_NO_TROPHY, !parent.entity_settings.allow_trophies)
-      | RER_BESF_NO_PERSIST
+      RER_BESF_NO_PERSIST
     );
 
     for (i = 0; i < entities.Size(); i += 1) {

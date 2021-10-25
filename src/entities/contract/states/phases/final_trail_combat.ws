@@ -21,8 +21,7 @@ state FinalTrailCombat in RandomEncountersReworkedContractEntity extends TrailCo
       parent.master,
       this.destination,
       ,,
-      EncounterType_CONTRACT,
-      RER_flag(RER_BESF_NO_TROPHY, !parent.entity_settings.allow_trophies)
+      EncounterType_CONTRACT
     );
   }
 }

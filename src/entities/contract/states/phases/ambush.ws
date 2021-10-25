@@ -40,8 +40,7 @@ state Ambush in RandomEncountersReworkedContractEntity {
       parent.master,
       spawning_position,
       ,,
-      EncounterType_CONTRACT,
-      RER_flag(RER_BESF_NO_TROPHY, !parent.entity_settings.allow_trophies)
+      EncounterType_CONTRACT
     );
   }
 }
