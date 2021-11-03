@@ -239,7 +239,7 @@ abstract class CompositionSpawner {
       10
     );
 
-    initial_position = SU_moveCoordinatesAwayFromSafeAreas(initial_position);
+    initial_position = SUH_moveCoordinatesAwayFromSafeAreas(initial_position);
 
     return attempt;
   }

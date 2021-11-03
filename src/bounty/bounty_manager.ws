@@ -649,10 +649,10 @@ statemachine class RER_BountyManager extends CEntity {
 
     for (i = 0; i < groups.Size(); i += 1) {
       positions.PushBack(
-        SU_getSafeCoordinatesFromPoint(
-          SU_moveCoordinatesAwayFromSafeAreas(
-            SU_moveCoordinatesInsideValidAreas(
-              SU_getCoordinatesFromPercentValues(
+        SUH_getSafeCoordinatesFromPoint(
+          SUH_moveCoordinatesAwayFromSafeAreas(
+            SUH_moveCoordinatesInsideValidAreas(
+              SUH_getCoordinatesFromPercentValues(
                 groups[i].position_x,
                 groups[i].position_y
               )
@@ -798,10 +798,10 @@ state Processing in RER_BountyManager {
         );
       }
 
-      new_position = SU_getSafeCoordinatesFromPoint(
-        SU_moveCoordinatesAwayFromSafeAreas(
-          SU_moveCoordinatesInsideValidAreas(
-            SU_getCoordinatesFromPercentValues(
+      new_position = SUH_getSafeCoordinatesFromPoint(
+        SUH_moveCoordinatesAwayFromSafeAreas(
+          SUH_moveCoordinatesInsideValidAreas(
+            SUH_getCoordinatesFromPercentValues(
               groups[i].position_x,
               groups[i].position_y
             )
