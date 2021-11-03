@@ -142,7 +142,10 @@ statemachine class RER_BountyManager extends CEntity {
     var rng: RandomNumberGenerator;
     var data: RER_BountyRandomData;
     var number_of_groups: int;
+    var constants: RER_ConstantCreatureTypes;
     var i: int;
+
+    constants = RER_ConstantCreatureTypes();
 
     // the seed 0 means the bounty will be completely random and won't use the
     // seed in the RNG
@@ -165,8 +168,8 @@ statemachine class RER_BountyManager extends CEntity {
           (new RER_SpawnRollerFilter in this)
             .init()
             .setOffsets(
-              CreatureDRACOLIZARD,
-              CreatureMAX,
+              constants.large_creature_begin,
+              constants.large_creature_max,
               0.1 // creature outside the offset have -90% chance to appear
             )
         );
@@ -907,8 +910,6 @@ state Processing in RER_BountyManager {
         player_position,
         position
       );
-
-      NLOG("spawnNearbyBountyGroups - position = " + VecToString(position) + " - player position =" + VecToString(player_position));
 
       // the player is too far from the group, we'll wait for him to get closer
       // before spawning it
