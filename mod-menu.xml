@@ -5949,6 +5949,7 @@
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
                 <Entry varId="RERdisableNoticeboardErrands" value="0" />
+                <Entry varId="RERhordeChanceWithBountiesMultiplier" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5991,6 +5992,8 @@
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
             
             <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
+            
+            <Var id="RERhordeChanceWithBountiesMultiplier" displayName="rer_horde_chance_with_bounties" displayType="SLIDER;0;20;20"></Var>
 
         </VisibleVars>
     </Group>

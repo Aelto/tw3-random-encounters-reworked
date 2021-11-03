@@ -143,9 +143,14 @@ statemachine class RER_BountyManager extends CEntity {
     var data: RER_BountyRandomData;
     var number_of_groups: int;
     var constants: RER_ConstantCreatureTypes;
+    var horde_chance_multiplier: float;
     var i: int;
 
     constants = RER_ConstantCreatureTypes();
+    horde_chance_multiplier = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERhordeChanceWithBountiesMultiplier')
+    );
 
     // the seed 0 means the bounty will be completely random and won't use the
     // seed in the RNG

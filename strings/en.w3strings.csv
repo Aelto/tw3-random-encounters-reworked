@@ -352,3 +352,4 @@
 ;
 ; Thank you!
 2115018346|        |rer_horde_invasion_strength_title|{{creature_name}} strength
+2115018347|        |option_rer_horde_chance_with_bounties|Chance multiplier to get a horde with bounties <font size="11">(0 = disabled)</font>
