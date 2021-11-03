@@ -9,9 +9,14 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
   }
 
   entry function Combat_Main() {
-    this.resetEntitiesAttitudes();
-    this.makeEntitiesTargetPlayer();
-    this.waitUntilPlayerFinishesCombat();
+    SUH_resetEntitiesAttitudes(parent.entities);
+    SUH_makeEntitiesTargetPlayer(parent.entities);
+
+    if (parent.is_bounty) {
+      this.sendHordeRequestForBounty(parent.bounty_group_index);
+    }
+
+    SUH_waitUntilPlayerFinishesCombat(parent.entities);
 
     if (parent.entity_settings.allow_trophy_pickup_scene) {
       parent
@@ -22,42 +27,28 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
     this.Combat_goToNextState();
   }
 
-  private latent function resetEntitiesAttitudes() {
-    var i: int;
+  function sendHordeRequestForBounty(bounty_index: int) {
+    var request: RER_HordeRequest;
 
-    for (i = 0; i < parent.entities.Size(); i += 1) {
-      ((CActor)parent.entities[i])
-        .ResetTemporaryAttitudeGroup(AGP_Default);
+    if (parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty_started) {
+      return;
     }
-  }
 
-  private latent function makeEntitiesTargetPlayer() {
-    var i: int;
-
-    for (i = 0; i < parent.entities.Size(); i += 1) {
-      if (((CActor)parent.entities[i]).GetTarget() != thePlayer && !((CActor)parent.entities[i]).HasAttitudeTowards(thePlayer)) {
-        ((CNewNPC)parent.entities[i]).NoticeActor(thePlayer);
-        ((CActor)parent.entities[i]).SetAttitude(thePlayer, AIA_Hostile);
-      }
+    if (parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty == CreatureNONE) {
+      return;
     }
-  }
 
-  latent function waitUntilPlayerFinishesCombat() {
-    // sleep a bit before entering the loop, to avoid a really fast loop if the
-    // player runs away from the monster
-    Sleep(3);
+    request = new RER_HordeRequest in parent;
+    request.setCreatureCounter(
+      parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty,
+      parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty_count
+    );
 
-    while (!parent.areAllEntitiesDead() && !SUH_areAllEntitiesFarFromPlayer(parent.entities)) {
-      this.makeEntitiesTargetPlayer();
-      parent.removeDeadEntities();
-      RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 20);
-
-      Sleep(1);
-    }
+    parent.master.horde_manager.sendRequest(request);
   }
 
   latent function Combat_goToNextState() {
-    if (parent.areAllEntitiesDead()) {
+    if (SUH_areAllEntitiesDead(parent.entities)) {
       parent.GotoState('Ending');
     }
     else {

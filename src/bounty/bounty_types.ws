@@ -52,11 +52,18 @@ struct RER_BountyRandomMonsterGroupData {
 
   // controls whether the bounty target should spawn only after the player has
   // killed a given amount of small creatures in the area.
-  // the value of that int is the number of creatures that should be spawned.
-  var horde_before_bounty: int;
+  // This uses the horde_manager to create a small horde of the set creature
+  // right before the bounty target appears. The horde has to be cleared for
+  // the target to be spawned.
+  // A horde is created only if it has a value different than CreatureNONE.
+  var horde_before_bounty: CreatureType;
+  var horde_before_bounty_started: bool;
+  var horde_before_bounty_count: int;
 
   // controls whether the bounty target will get help from monsters during the
   // fight.
-  // the value of that int is the number of creatures that should be spawned.
-  var horde_during_bounty: int;
+  // A horde is created only if it has a value different than CreatureNONE.
+  var horde_during_bounty: CreatureType;
+  var horde_during_bounty_started: bool;
+  var horde_during_bounty_count: int;
 }
