@@ -6,7 +6,7 @@
  * and will teleport every creature from the array if one or more creatures
  * goes under the threshold value.
  */
-function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, radius: float) {
+function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, radius: float): bool {
   var player_position: Vector;
   var squared_distance: float;
   var squared_radius: float;
@@ -14,7 +14,7 @@ function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, rad
   var i: int;
 
   if (!isPlayerInScene()) {
-    return;
+    return false;
   }
 
   // square the radius
@@ -29,7 +29,13 @@ function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, rad
       // it could not find a suitable position. We do nothing and return, maybe
       // the next time this function is called will be the good one.
       if (!getRandomPositionBehindCamera(position, radius)) {
-        return;
+        SUH_keepCreaturesOutsidePoint(
+          thePlayer.GetWorldPosition(),
+          30,
+          entities
+        );
+
+        return true;
       }
 
       // we re-use i here because it doesn't matter as we'll leave the function

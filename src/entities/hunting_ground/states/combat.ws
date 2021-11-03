@@ -16,7 +16,9 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
       this.sendHordeRequestForBounty(parent.bounty_group_index);
     }
 
-    SUH_waitUntilPlayerFinishesCombat(parent.entities);
+    while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {
+      RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30);
+    }
 
     if (parent.entity_settings.allow_trophy_pickup_scene) {
       parent
