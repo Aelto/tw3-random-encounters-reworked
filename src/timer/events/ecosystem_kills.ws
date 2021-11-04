@@ -16,7 +16,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
   public latent function onInterval(was_spawn_already_triggered: bool, master: CRandomEncounters, delta: float, chance_scale: float): bool {
     var is_player_in_combat: bool;
     var new_checkup: array<CreatureType>;
-    var checkup_difference: array<CreatureType>;
+    var checkup_difference: array<int>;
 
     // to save performances we do a ckeckup only every few seconds and if the time
     // is still greater than 0 than no need to go further.
@@ -63,9 +63,9 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     // LogChannel('RER', "diff checkup:");
     // this.debugShowCheckup(checkup_difference);
 
-    if (checkup_difference.Size() > 0) {
-      RER_tutorialTryShowEcosystem();
-    }
+    // if (checkup_difference.Size() > 0) {
+    //   RER_tutorialTryShowEcosystem();
+    // }
 
     this.notifyEcosystemManager(master, checkup_difference);
 
@@ -122,53 +122,41 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
   }
 
   // returns creatures that were in `before` and are no longer in `after`
-  private function getDifferenceBetweenCheckups(before: array<CreatureType>, after: array<CreatureType>): array<CreatureType> {
-    var i, j: int;
-    var was_found: bool;
-    var output: array<CreatureType>;
+  private function getDifferenceBetweenCheckups(before: array<CreatureType>, after: array<CreatureType>): array<int> {
+    var i: int;
+    // use CreatureType as the index.
+    var differences: array<int>;
 
-    for (i = 0; i < before.Size(); i += 1) {
-      was_found = false;
-
-      for (j = 0; j < after.Size(); j += 1) {
-        if (after[i] == before[j]) {
-          // so that it doesn't match for other creatures. It's easier to set it
-          // to CreatureNONE than to remove it, it is more efficient. And we know
-          // that there are supposedly no CreatureNONE in after so we're good.
-          after[j] = CreatureNONE;
-
-          was_found = true;
-        }
-      }
-
-      if (!was_found) {
-        output.PushBack(before[i]);
-      }
+    // for every creature we find in `before` we will increment difference[creature_type] by 1
+    // then for every creature we find in `after` we will decrement differences[creature_type] by -1
+    // then we take any monster whose value is greater than 0
+    for (i = 0; i < CreatureMAX; i += 1) {
+      differences.PushBack(0);
     }
 
-    return output;
+    for (i = 0; i < before.Size(); i += 1) {
+      differences[before[i]] += 1;
+    }
+
+    for (i = 0; i < after.Size(); i += 1) {
+      differences[before[i]] -= 1;
+    }
+
+    return differences;
   }
 
-  private function notifyEcosystemManager(master: CRandomEncounters, difference: array<CreatureType>) {
+  private function notifyEcosystemManager(master: CRandomEncounters, differences: array<int>) {
     // uses CreatureType as the index
     var power_changes: array<float>;
     var i: int;
 
     for (i = 0; i < CreatureMAX; i += 1) {
-      power_changes.PushBack(0);
-    }
-
-    for (i = 0; i < difference.Size(); i += 1) {
-      power_changes[difference[i]] += 1;
-    }
-
-    for (i = 0; i < CreatureMAX; i += 1) {
-      if (power_changes[i] != 0) {
+      if (differences[i] > 0) {
         master.ecosystem_manager
           // at this point the power_changes[i] is simply the enemy count
           .updatePowerForCreatureInCurrentEcosystemAreas(
             i,
-            power_changes[i] * -1,
+            differences[i] * -1,
             thePlayer.GetWorldPosition()
           );
       }
