@@ -141,8 +141,8 @@ abstract class RER_BestiaryEntry {
       density = 0.01;
     }
 
-    set the flag automatically if the settings disable trophies for that
-    encounter type
+    //set the flag automatically if the settings disable trophies for that
+    // encounter type
     flags = RER_setFlag(
       flags,
       RER_BESF_NO_TROPHY,
