@@ -214,7 +214,7 @@ state Analysing in RER_EcosystemAnalyzer {
 
     RER_openPopup("Surrounding ecosystem", message);
 
-    if (RandRange(10) < 4) {
+    if (RandRange(10) < 1) {
       (new RER_RandomDialogBuilder in thePlayer)
         .start()
         .either(new REROL_well_well_still_learning in thePlayer, true, 0.5)
