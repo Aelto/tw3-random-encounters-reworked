@@ -22,9 +22,9 @@ state NestContract in RER_contractManager {
 
     path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
 
-    position = SU_getSafeCoordinatesFromPoint(
-      SU_moveCoordinatesAwayFromSafeAreas(
-        SU_moveCoordinatesInsideValidAreas(
+    position = SUH_getSafeCoordinatesFromPoint(
+      SUH_moveCoordinatesAwayFromSafeAreas(
+        SUH_moveCoordinatesInsideValidAreas(
           thePlayer.GetWorldPosition()
           + VecRingRand(100, 150)
         )

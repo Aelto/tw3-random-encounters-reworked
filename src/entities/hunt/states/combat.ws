@@ -101,17 +101,13 @@ state Combat in RandomEncountersReworkedHuntEntity {
     // player runs away from the monster
     Sleep(3);
 
-    while (!parent.areAllEntitiesDead() && !SUH_areAllEntitiesFarFromPlayer(parent.entities)) {
-      this.makeEntitiesTargetPlayer();
-      parent.removeDeadEntities();
-      RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 20);
-
-      Sleep(1);
+    while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {
+      RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30);
     }
   }
 
   latent function Combat_goToNextState() {
-    if (parent.areAllEntitiesDead()) {
+    if (SUH_areAllEntitiesDead(parent.entities)) {
       parent.GotoState('Ending');
     }
     else {

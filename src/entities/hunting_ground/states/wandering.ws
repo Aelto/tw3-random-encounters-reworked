@@ -23,7 +23,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
     var i: int;
 
     do {
-      if (parent.areAllEntitiesDead()) {
+      if (SUH_areAllEntitiesDead(parent.entities)) {
         LogChannel('modRandomEncounters', "HuntingGroundEntity - wandering state, all entities dead");
 
         parent.GotoState('Ending');

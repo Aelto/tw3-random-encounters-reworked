@@ -24,7 +24,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
     var i: int;
 
     do {
-      if (parent.areAllEntitiesDead()) {
+      if (SUH_areAllEntitiesDead(parent.entities)) {
         LogChannel('modRandomEncounters', "HuntEntity - wandering state, all entities dead");
 
         parent.GotoState('Ending');
@@ -96,7 +96,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
       // to keep the bait near the player at all time
       if (parent.bait_moves_towards_player) {
-        if (isPlayerBusy()) {
+        if (RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30)) {
           teleportBaitEntityOnMonsters();
         }
         else {

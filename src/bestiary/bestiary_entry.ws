@@ -283,6 +283,35 @@ abstract class RER_BestiaryEntry {
 
     return false;
   }
+
+  // Returns a random friendly creature if there is any. Otherwise returns
+  // CreatureNONE.
+  // This function uses a random-number-generator as it is mainly used by the
+  // bounties which are reliant on the RNG with a seed.
+  public function getRandomFriendlyCreature(rng: RandomNumberGenerator): CreatureType {
+    var friendly_creatures: array<CreatureType>;
+    var influences: RER_ConstantInfluences;
+    var i: int;
+
+    influences = RER_ConstantInfluences();
+
+    for (i = 0; i < this.ecosystem_impact.influences.Size(); i += 1) {
+      if (this.ecosystem_impact.influences[i] < influences.high_indirect_influence || this.ecosystem_impact.influences[i] == influences.self_influence) {
+        continue;
+      }
+
+      friendly_creatures.PushBack(i);
+    }
+
+    if (friendly_creatures.Size() == 0) {
+      return CreatureNONE;
+    }
+
+    // we re-use the variable here to store the index
+    i = rng.nextRange(friendly_creatures.Size(), 0);
+
+    return friendly_creatures[i];
+  }
 }
 
 class RER_BestiaryEntryNull extends RER_BestiaryEntry {

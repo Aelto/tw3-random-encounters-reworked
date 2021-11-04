@@ -75,6 +75,8 @@ class RE_Settings {
 
   public var dynamic_creatures_size: bool;
 
+  public var killing_spree_loot_tables: array<RER_KillingSpreeLootTable>;
+
   function loadXMLSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
 
@@ -105,6 +107,7 @@ class RE_Settings {
     this.loadAdvancedEventSystemSettings(inGameConfigWrapper);
     this.loadAdvancedPerformancesSettings(inGameConfigWrapper);
     this.loadEcosystemSettings(inGameConfigWrapper);
+    this.killing_spree_loot_tables = RER_getKillingSpreeLootTables(inGameConfigWrapper);
 
     this.dynamic_creatures_size = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERdynamicCreaturesSize');
   }

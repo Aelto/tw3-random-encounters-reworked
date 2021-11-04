@@ -30,7 +30,7 @@ state GeneratedContract in RER_contractManager {
     // 1.
     // first we wait for the playe to leave the settlement.
     // by default it's a 50meters radius check
-    while (parent.master.rExtra.isPlayerInSettlement(50)) {
+    while (parent.master.rExtra.isPlayerInSettlement(50) || SUH_isPositionInsideSafeAreas(last_known_position_in_city)) {
       last_known_position_in_city = thePlayer.GetWorldPosition();
 
       Sleep(1);

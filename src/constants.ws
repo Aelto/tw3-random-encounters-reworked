@@ -18,7 +18,7 @@ struct RER_ConstantInfluences {
   // is friend with the other
   // creature.
   var friend_with: float;
-  default friend_with = 2;
+  default friend_with = 2.5;
 
   // when the current creature
   // has no influence over the

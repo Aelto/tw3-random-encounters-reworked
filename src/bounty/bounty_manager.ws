@@ -142,7 +142,15 @@ statemachine class RER_BountyManager extends CEntity {
     var rng: RandomNumberGenerator;
     var data: RER_BountyRandomData;
     var number_of_groups: int;
+    var constants: RER_ConstantCreatureTypes;
+    var horde_chance_multiplier: float;
     var i: int;
+
+    constants = RER_ConstantCreatureTypes();
+    horde_chance_multiplier = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERhordeChanceWithBountiesMultiplier')
+    );
 
     // the seed 0 means the bounty will be completely random and won't use the
     // seed in the RNG
@@ -165,8 +173,8 @@ statemachine class RER_BountyManager extends CEntity {
           (new RER_SpawnRollerFilter in this)
             .init()
             .setOffsets(
-              CreatureDRACOLIZARD,
-              CreatureMAX,
+              constants.large_creature_begin,
+              constants.large_creature_max,
               0.1 // creature outside the offset have -90% chance to appear
             )
         );
@@ -192,6 +200,34 @@ statemachine class RER_BountyManager extends CEntity {
       current_group_data.position_x = rng.next();
       current_group_data.position_y = rng.next();
       current_group_data.translation_heading = rng.nextRange(360, 0);
+
+      current_group_data.horde_before_bounty = CreatureNONE;
+      current_group_data.horde_during_bounty = CreatureNONE;
+
+      // a 10% chance to have a horde before the bounty target.
+      if (rng.next() < 0.10) {
+        current_group_data.horde_before_bounty = current_bestiary_entry.getRandomFriendlyCreature(rng);
+        current_group_data.horde_before_bounty_count = (int)(rng.nextRange(20, 0);
+                                                     / current_bestiary_entry.ecosystem_delay_multiplier);
+
+        // however we don't want a horde of large creatures so
+        // we reset the creature type if it's one.
+        if (current_group_data.horde_before_bounty >= constants.large_creature_begin) {
+          constants.horde_before_bounty = CreatureNONE;
+        }
+      }
+      // a 5% chance to have a horde during the bounty target fight.
+      else if (rng.next() < 0.5) {
+        current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(rng);
+        current_group_data.horde_during_bounty_count = (int)(rng.nextRange(20, 0);
+                                                     / current_bestiary_entry.ecosystem_delay_multiplier);
+
+        // however we don't want a horde of large creatures so
+        // we reset the creature type if it's one.
+        if (current_group_data.horde_during_bounty >= constants.large_creature_begin) {
+          constants.horde_during_bounty = CreatureNONE;
+        }
+      }
 
       data.groups.PushBack(current_group_data);
     }
@@ -618,10 +654,10 @@ statemachine class RER_BountyManager extends CEntity {
 
     for (i = 0; i < groups.Size(); i += 1) {
       positions.PushBack(
-        SU_getSafeCoordinatesFromPoint(
-          SU_moveCoordinatesAwayFromSafeAreas(
-            SU_moveCoordinatesInsideValidAreas(
-              SU_getCoordinatesFromPercentValues(
+        SUH_getSafeCoordinatesFromPoint(
+          SUH_moveCoordinatesAwayFromSafeAreas(
+            SUH_moveCoordinatesInsideValidAreas(
+              SUH_getCoordinatesFromPercentValues(
                 groups[i].position_x,
                 groups[i].position_y
               )
@@ -767,10 +803,10 @@ state Processing in RER_BountyManager {
         );
       }
 
-      new_position = SU_getSafeCoordinatesFromPoint(
-        SU_moveCoordinatesAwayFromSafeAreas(
-          SU_moveCoordinatesInsideValidAreas(
-            SU_getCoordinatesFromPercentValues(
+      new_position = SUH_getSafeCoordinatesFromPoint(
+        SUH_moveCoordinatesAwayFromSafeAreas(
+          SUH_moveCoordinatesInsideValidAreas(
+            SUH_getCoordinatesFromPercentValues(
               groups[i].position_x,
               groups[i].position_y
             )
@@ -880,21 +916,67 @@ state Processing in RER_BountyManager {
         position
       );
 
-      NLOG("spawnNearbyBountyGroups - position = " + VecToString(position) + " - player position =" + VecToString(player_position));
-
       // the player is too far from the group, we'll wait for him to get closer
       // before spawning it
       if (distance_from_player > max_distance) {
         continue;
       }
 
-      new_managed_group = parent.spawnBountyGroup(
-        parent.master.storages.bounty.current_bounty.random_data.groups[i],
-        i
-      );
+      // now that we know we can start the bounty, we first check if a horde
+      // should be spawned before.
+      if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty != CreatureNONE) {
+        // the horde was already started so we do nothing.
+        // once the horde is over, it will create the horde_before_bounty to
+        // CreatureNONE which will make this bounty to enter the else case
+        // just below.
+        //
+        // This was done this way so that we re-use the position-check code
+        // that is written here. That we do not duplicate anything and it's
+        // the same code that handles starting the horde and starting the
+        // bounty after the horde is complete. It's a little more complex
+        // but also more robust.
+        if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty_started) {
+          continue;
+        }
 
-      parent.currently_managed_groups.PushBack(new_managed_group);
+        parent.master
+          .storages
+          .bounty
+          .current_bounty
+          .random_data
+          .groups[i]
+          .horde_before_bounty_started = true;
+
+        parent.master
+          .storages
+          .bounty
+          .save();
+
+        this.sendHordeRequestForBounty(
+          i,
+          parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty,
+          parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty_count
+        );
+      }
+      else {
+        new_managed_group = parent.spawnBountyGroup(
+          parent.master.storages.bounty.current_bounty.random_data.groups[i],
+          i
+        );
+
+        parent.currently_managed_groups.PushBack(new_managed_group);
+      }
     }
     
+  }
+
+  function sendHordeRequestForBounty(bounty_index: int, creature_type: CreatureType, count: int) {
+    var request: RER_HordeRequestBeforeBounty;
+
+    request = new RER_HordeRequestBeforeBounty in parent;
+    request.bounty_to_start_index = bounty_index;
+    request.setCreatureCounter(creature_type, count);
+
+    parent.master.horde_manager.sendRequest(request);
   }
 }

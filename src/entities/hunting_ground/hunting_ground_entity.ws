@@ -63,51 +63,6 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
   // below are helper functions used in the states //
   ///////////////////////////////////////////////////
 
-  public function areAllEntitiesDead(): bool {
-    var i: int;
-
-    for (i = 0; i < this.entities.Size(); i += 1) {
-      if (((CActor)this.entities[i]).GetHealthPercents() >= 0.01) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  //
-  // remove the dead entities from the list of entities
-  public function removeDeadEntities() {
-     var i: int;
-     var max: int;
-
-     max = this.entities.Size();
-
-     for (i = 0; i < max; i += 1) {
-       if (!((CActor)this.entities[i]).IsAlive()) {
-         this.entities.Remove(this.entities[i]);
-
-         max -= 1;
-         i -= 1;
-       }
-     }
-  }
-
-  public function areAllEntitiesFarFromPlayer(): bool {
-    var player_position: Vector;
-    var i: int;
-
-    player_position = thePlayer.GetWorldPosition();
-
-    for (i = 0; i < this.entities.Size(); i += 1) {
-      if (VecDistanceSquared(this.entities[i].GetWorldPosition(), player_position) < 20 * 20 * ((int)((CNewNPC)this.entities[i]).IsFlying() + 1)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
   public function killEntity(entity: CEntity): bool {
     ((CActor)entity).Kill('RandomEncountersReworked_Entity', true);
 

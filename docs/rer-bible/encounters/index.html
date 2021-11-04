@@ -73,19 +73,34 @@
     </p>
 
     <p>
-      By default a killed Ghoul will increase the speed of spawns by 1.5%, but if you
-      set the slider to <span>-100</span> then it will <b>slow down</b> the spawn speed
-      by 1.5%. This was done to allow for immersive playthroughs where killing monsters of
-      an area slowly eradicates any form of life from the region. The default value
-      doesn't go the immersion route but rather the gameplay experience route, as killing
-      creatures will ensures even more creatures come.
-      <br>
-      However there is an important detail to remember here, it works on monster kills
-      but also on monster spawns. With the default values a monster spawn will slow down
-      the spawn rate of the next creatures in the area, this will help balance the
-      amount of creatures you see in the same regions. And of course if you go for the
-      immersive solution with a negative value more monsters will mean a greater spawn rate.
-      That's where you may understand why i picked these default values!
+      There are two ways to set this slider as it can go into both positive and negative values.
+      <ul>
+        <li>
+          The first way are the positive values, this is the default value. Every time a creature
+          will be slain, the spawn rates of other creatures will <u>increase</u>. For example if
+          you happen to kill one Ghoul, that spawnrate of creatures in the surrounding ecosystems
+          will now be increased by 1.5%. So the more you kill, the faster creatures will respawn.
+          However you should note that creature spawns also affect the spawnrate the same way kills
+          do, but in the opposite direction. Meaning every time a creature will spawn the spawn rate
+          will <u>decrease</u>. This is why the default value for this slider is a positive value,
+          this helps balance the amount of creatures you see in a single area. For example if too
+          many creatures were to spawn around you, RER will then naturally slow down the spawn rate
+          of subsequent creatures. This avoids creature filled with too many creatures if you were
+          to stay in a single area without killing anything. This also allows you to stay in one
+          area and farm the creatures in case you like the ecosystems for example.
+        </li>
+        <li>
+          The second way is to go into the negative values. The negative values offer a more immersive
+          option as killing creatures will actually <u>slow down</u> the spawn rate of other creatures,
+          it is like slowly eradicating the lifeforms of an ecosystem. But again it works the opposite
+          way when creatures are spawned, which means that if you let creatures alive for too long this
+          will eventually lead to a point where creatures will spawn at an uncontrolled rate. If you
+          want to use a negative value, i highly suggest to look at the ecosystem menu and set <a href="../ecosystem/index.html">the death rate</a> to
+          a high percentage like 10 or 15%. A percentage of 10% means that the spawn rate will
+          tend to 200% over-time and will not go much higher as creatures of the ecosystem will die faster
+          than they come back.
+        </li>
+      </ul>
     </p>
 
     <p>

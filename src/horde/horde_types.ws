@@ -30,3 +30,20 @@ class RER_HordeRequest {
     NLOG("RER_HordeRequest - onComplete");
   }
 }
+
+// A horde request that will update the bounty at the supplied index once
+// the horde is complete.
+class RER_HordeRequestBeforeBounty {
+  // index of the bounty to update once the horde is complete.
+  var bounty_to_start_index: int;
+
+  public latent function onComplete(master: CRandomEncounters) {
+    master
+      .storages
+      .bounty
+      .current_bounty
+      .random_data
+      .groups[i]
+      .horde_before_bounty = CreatureNONE;
+  }
+}

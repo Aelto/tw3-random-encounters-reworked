@@ -6,13 +6,13 @@ function isPlayerBusy(): bool {
       || thePlayer.IsInCombat()
       || thePlayer.IsUsingBoat()
       || thePlayer.IsSwimming()
-      || !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
       || isPlayerInScene();
 }
 
 function isPlayerInScene(): bool {
   return thePlayer.IsInNonGameplayCutscene()
       || thePlayer.IsInGameplayScene()
+      || !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
       || thePlayer.IsCiri()
       || theGame.IsDialogOrCutscenePlaying()
       || theGame.IsCurrentlyPlayingNonGameplayScene()
