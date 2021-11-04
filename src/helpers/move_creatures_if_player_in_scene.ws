@@ -45,7 +45,9 @@ function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, rad
       }
 
       // and leave now
-      return;
+      return true;
     }
   }
+
+  return false;
 }

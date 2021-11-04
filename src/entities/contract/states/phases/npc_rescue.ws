@@ -158,6 +158,8 @@ state NpcRescue in RandomEncountersReworkedContractEntity {
     // 1. we wait until the player is out of combat
     while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {
       RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30);
+
+      Sleep(1);
     }
   }
 

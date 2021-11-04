@@ -33,7 +33,7 @@ class RER_HordeRequest {
 
 // A horde request that will update the bounty at the supplied index once
 // the horde is complete.
-class RER_HordeRequestBeforeBounty {
+class RER_HordeRequestBeforeBounty extends RER_HordeRequest {
   // index of the bounty to update once the horde is complete.
   var bounty_to_start_index: int;
 
@@ -43,7 +43,7 @@ class RER_HordeRequestBeforeBounty {
       .bounty
       .current_bounty
       .random_data
-      .groups[i]
+      .groups[this.bounty_to_start_index]
       .horde_before_bounty = CreatureNONE;
   }
 }

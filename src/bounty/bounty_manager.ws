@@ -207,25 +207,27 @@ statemachine class RER_BountyManager extends CEntity {
       // a 10% chance to have a horde before the bounty target.
       if (rng.next() < 0.10) {
         current_group_data.horde_before_bounty = current_bestiary_entry.getRandomFriendlyCreature(rng);
-        current_group_data.horde_before_bounty_count = (int)(rng.nextRange(20, 0);
-                                                     / current_bestiary_entry.ecosystem_delay_multiplier);
+        current_group_data.horde_before_bounty_count = (int)(
+          rng.nextRange(20, 0) / current_bestiary_entry.ecosystem_delay_multiplier
+        );
 
         // however we don't want a horde of large creatures so
         // we reset the creature type if it's one.
         if (current_group_data.horde_before_bounty >= constants.large_creature_begin) {
-          constants.horde_before_bounty = CreatureNONE;
+          current_group_data.horde_before_bounty = CreatureNONE;
         }
       }
       // a 5% chance to have a horde during the bounty target fight.
       else if (rng.next() < 0.5) {
         current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(rng);
-        current_group_data.horde_during_bounty_count = (int)(rng.nextRange(20, 0);
-                                                     / current_bestiary_entry.ecosystem_delay_multiplier);
+        current_group_data.horde_during_bounty_count = (int)(
+          rng.nextRange(20, 0) / current_bestiary_entry.ecosystem_delay_multiplier
+        );
 
         // however we don't want a horde of large creatures so
         // we reset the creature type if it's one.
         if (current_group_data.horde_during_bounty >= constants.large_creature_begin) {
-          constants.horde_during_bounty = CreatureNONE;
+          current_group_data.horde_during_bounty = CreatureNONE;
         }
       }
 

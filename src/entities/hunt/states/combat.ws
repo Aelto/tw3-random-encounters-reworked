@@ -103,6 +103,8 @@ state Combat in RandomEncountersReworkedHuntEntity {
 
     while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {
       RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30);
+
+      Sleep(1);
     }
   }
 

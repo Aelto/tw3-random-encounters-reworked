@@ -18,6 +18,8 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
 
     while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {
       RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30);
+
+      Sleep(1);
     }
 
     if (parent.entity_settings.allow_trophy_pickup_scene) {
