@@ -1,11 +1,5 @@
 
 state Waiting in CRandomEncounters {
-  var ecosystem_frequency_multiplier: float;
-  
-  // a second multiplier that multiplies the multiplier...
-  // this value is obtained from the menu.
-  var ecosystem_frequency_multiplier_multiplier: float;
-
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
     LogChannel('modRandomEncounters', "Entering state WAITING");
@@ -26,32 +20,30 @@ state Waiting in CRandomEncounters {
   }
 
   entry function startWaiting() {
+    var time_before_updating_frequency_multiplier: float;
     var ticks: float;
 
-    this.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
+    parent.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
 
     // we update the value from the menu every time we start waiting.
-    this.ecosystem_frequency_multiplier_multiplier = StringToFloat(
+    parent.ecosystem_frequency_multiplier_multiplier = StringToFloat(
       theGame.GetInGameConfigWrapper()
       .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
     ) * 0.01;
 
-    NLOG("RERecosystemFrequencyMultiplier = " + this.ecosystem_frequency_multiplier);
-    NLOG("RERecosystemFrequencyMultiplier [menu] = " + this.ecosystem_frequency_multiplier_multiplier);
+    time_before_updating_frequency_multiplier = 30;
 
     while (parent.ticks_before_spawn >= 0) {
-      parent.ticks_before_spawn -= 5
-                                 * this.ecosystem_frequency_multiplier
-                                 * this.ecosystem_frequency_multiplier_multiplier;
+      ticks = 1
+            * parent.ecosystem_frequency_multiplier
+            * parent.ecosystem_frequency_multiplier_multiplier;
 
-      // NDEBUG("RERecosystemFrequencyMultiplier [tick] = " + (1
-      //                            * this.ecosystem_frequency_multiplier
-      //                            * this.ecosystem_frequency_multiplier_multiplier));
+      parent.ticks_before_spawn -= ticks;
+      time_before_updating_frequency_multiplier -= ticks;
 
-
-      // we refresh the ecosystem effects on frequencies every 30 seconds
-      if (ModF(parent.ticks_before_spawn, 30.0) == 0) {
-        this.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
+      // we refresh the ecosystem effects on frequencies every 30 seconds or so
+      if (time_before_updating_frequency_multiplier <= 0) {
+        parent.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
       }
 
       Sleep(5);

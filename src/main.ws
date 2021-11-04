@@ -30,6 +30,12 @@ statemachine class CRandomEncounters extends CEntity {
   var horde_manager: RER_HordeManager;
 
   var ticks_before_spawn: float;
+  
+  var ecosystem_frequency_multiplier: float;
+  
+  // a second multiplier that multiplies the multiplier...
+  // this value is obtained from the menu.
+  var ecosystem_frequency_multiplier_multiplier: float;
 
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;

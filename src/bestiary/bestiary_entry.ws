@@ -259,10 +259,16 @@ abstract class RER_BestiaryEntry {
           // currently leaving this as is. But it may be a good idea to divide this
           // power gain by the power the surrounding areas currently have to avoid
           // an infinitely growing community.
-          created_entities.Size() * 0.25,
+          created_entities.Size() * 0.20,
           position
         );
-    } 
+    }
+
+    RER_addKillingSpreeCustomLootToEntities(
+      created_entities,
+      master.settings.killing_spree_loot_tables,
+      master.ecosystem_frequency_multiplier * master.ecosystem_frequency_multiplier_multiplier
+    );
 
     LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
@@ -308,7 +314,7 @@ abstract class RER_BestiaryEntry {
     }
 
     // we re-use the variable here to store the index
-    i = rng.nextRange(friendly_creatures.Size(), 0);
+    i = (int)rng.nextRange(friendly_creatures.Size(), 0);
 
     return friendly_creatures[i];
   }
