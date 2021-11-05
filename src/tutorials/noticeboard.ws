@@ -9,7 +9,7 @@ function RER_tutorialTryShowNoticeboard(): bool {
     GetLocStringByKey("rer_tutorial_noticeboard_event_title"),
     GetLocStringByKey("rer_tutorial_noticeboard_event_body")
   )) {
-    return;
+    return false;
   }
 
   theGame

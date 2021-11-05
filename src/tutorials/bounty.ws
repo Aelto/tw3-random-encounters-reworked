@@ -9,7 +9,7 @@ function RER_tutorialTryShowBounty(): bool {
     GetLocStringByKey("rer_tutorial_bounty_title"),
     GetLocStringByKey("rer_tutorial_bounty_body")
   )) {
-    return;
+    return false;
   }
 
   theGame

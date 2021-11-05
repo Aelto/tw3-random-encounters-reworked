@@ -9,7 +9,7 @@ function RER_tutorialTryShowAmbushed(): bool {
     GetLocStringByKey("rer_tutorial_ambush_title"),
     GetLocStringByKey("rer_tutorial_ambush_body")
   )) {
-    return;
+    return false;
   }
 
   theGame

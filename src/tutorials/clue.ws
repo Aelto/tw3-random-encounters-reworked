@@ -9,7 +9,7 @@ function RER_tutorialTryShowClue(): bool {
     GetLocStringByKey("rer_tutorial_clue_title"),
     GetLocStringByKey("rer_tutorial_clue_body")
   )) {
-    return;
+    return false;
   }
 
   theGame

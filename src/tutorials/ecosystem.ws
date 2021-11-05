@@ -9,7 +9,7 @@ function RER_tutorialTryShowEcosystem(): bool {
     GetLocStringByKey("rer_tutorial_ecosystem_title"),
     GetLocStringByKey("rer_tutorial_ecosystem_body")
   )) {
-    return;
+    return false;
   }
 
   theGame

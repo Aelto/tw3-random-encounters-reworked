@@ -9,7 +9,7 @@ function RER_tutorialTryShowContract(): bool {
     GetLocStringByKey("rer_tutorial_contract_title"),
     GetLocStringByKey("rer_tutorial_contract_body")
   )) {
-    return;
+    return false;
   }
 
   theGame

@@ -9,7 +9,7 @@ function RER_tutorialTryShowStarted(): bool {
     GetLocStringByKey("rer_tutorial_started_title"),
     GetLocStringByKey("rer_tutorial_started_body")
   )) {
-    return;
+    return false;
   }
 
   theGame
