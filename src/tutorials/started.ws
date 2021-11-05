@@ -5,10 +5,12 @@ function RER_tutorialTryShowStarted(): bool {
     return false;
   }
 
-  RER_openPopup(
+  if (!RER_openPopup(
     GetLocStringByKey("rer_tutorial_started_title"),
     GetLocStringByKey("rer_tutorial_started_body")
-  );
+  )) {
+    return;
+  }
 
   theGame
     .GetInGameConfigWrapper()

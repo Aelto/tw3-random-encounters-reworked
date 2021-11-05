@@ -5,10 +5,12 @@ function RER_tutorialTryShowEcosystem(): bool {
     return false;
   }
 
-  RER_openPopup(
+  if (!RER_openPopup(
     GetLocStringByKey("rer_tutorial_ecosystem_title"),
     GetLocStringByKey("rer_tutorial_ecosystem_body")
-  );
+  )) {
+    return;
+  }
 
   theGame
     .GetInGameConfigWrapper()

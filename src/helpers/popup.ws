@@ -19,9 +19,12 @@ class RER_PopupData extends BookPopupFeedback {
 
 }
 
-function RER_openPopup(title: string, message: string) {
+function RER_openPopup(title: string, message: string): bool {
   var popup_data: RER_PopupData;
-  // var id: SItemUniqueId;
+
+  if (isPlayerBusy()) {
+    return false;
+  }
 
   popup_data = new RER_PopupData in thePlayer;
   popup_data.SetMessageTitle( title );
@@ -32,4 +35,6 @@ function RER_openPopup(title: string, message: string) {
   popup_data.ScreenPosY = 155.0 / 1080.0;
 
   theGame.RequestMenu('PopupMenu', popup_data);
+
+  return true;
 }

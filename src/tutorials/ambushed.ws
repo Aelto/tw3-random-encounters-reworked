@@ -5,10 +5,12 @@ function RER_tutorialTryShowAmbushed(): bool {
     return false;
   }
 
-  RER_openPopup(
+  if (!RER_openPopup(
     GetLocStringByKey("rer_tutorial_ambush_title"),
     GetLocStringByKey("rer_tutorial_ambush_body")
-  );
+  )) {
+    return;
+  }
 
   theGame
     .GetInGameConfigWrapper()

@@ -5,10 +5,12 @@ function RER_tutorialTryShowTrophy(): bool {
     return false;
   }
 
-  RER_openPopup(
+  if (!RER_openPopup(
     GetLocStringByKey("rer_tutorial_rewards_title"),
     GetLocStringByKey("rer_tutorial_rewards_body")
-  );
+  )) {
+    return;
+  }
 
   theGame
     .GetInGameConfigWrapper()

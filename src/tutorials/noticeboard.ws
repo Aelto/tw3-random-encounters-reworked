@@ -5,10 +5,12 @@ function RER_tutorialTryShowNoticeboard(): bool {
     return false;
   }
 
-  RER_openPopup(
+  if (!RER_openPopup(
     GetLocStringByKey("rer_tutorial_noticeboard_event_title"),
     GetLocStringByKey("rer_tutorial_noticeboard_event_body")
-  );
+  )) {
+    return;
+  }
 
   theGame
     .GetInGameConfigWrapper()

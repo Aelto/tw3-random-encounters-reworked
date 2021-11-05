@@ -63,10 +63,6 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     // LogChannel('RER', "diff checkup:");
     // this.debugShowCheckup(checkup_difference);
 
-    // if (checkup_difference.Size() > 0) {
-    //   RER_tutorialTryShowEcosystem();
-    // }
-
     this.notifyEcosystemManager(master, checkup_difference);
 
     this.last_checkup = new_checkup;
@@ -152,6 +148,8 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
 
     for (i = 0; i < CreatureMAX; i += 1) {
       if (differences[i] > 0) {
+        RER_tutorialTryShowEcosystem();
+
         master.ecosystem_manager
           // at this point the power_changes[i] is simply the enemy count
           .updatePowerForCreatureInCurrentEcosystemAreas(
