@@ -33,6 +33,22 @@ exec function rerclearecosystems() {
   rer_entity.ecosystem_manager.resetAllEcosystems();
 }
 
+exec function rerecosystemupdate(power_change: float) {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.ecosystem_manager.updatePowerForCreatureInCurrentEcosystemAreas(
+    CreatureGHOUL,
+    power_change,
+    thePlayer.GetWorldPosition()
+  );
+}
+
 
 exec function rergetpincoord() {
   var id: int;
