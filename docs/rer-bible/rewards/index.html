@@ -117,5 +117,46 @@
     </p>
   </section>
 
+  <section id="killing-spree-loot">
+    <h3><a class="paragraph-link" href="#killing-spree-loot">§</a>Killing spree loot</h3>
+
+    <p>
+      <img src="custom-loot.png" alt="">
+      This feature allows you to unlock new loot tables for the creatures spawned by RER.
+      It is tightly coupled to the ecosystem feature as it uses
+      the <a href="../encounters/index.html#state-of-the-ecosystem">ecosystem strength</a> to
+      determine what loot table is unlocked.
+    </p>
+
+    <p>
+      <img src="custom-loot-tables-menu.png" alt="">
+      The more you kill creatures in an area the more you affect the ecosystem strength,
+      then as the ecosystem strength percentage increases (or decreases if you use custom values)
+      you will progressively unlock new loot tables.
+      <br>
+      Each loot table in the menu has two sliders:
+      <ul>
+        <li>The unlock %</li>
+        <li>The drop rate %</li>
+      </ul>
+      The unlock % tells you at which point you will start seeing loot from this table,
+      if your ecosystem strength is at <span>150%</span> and you table unlock % is
+      at <span>50%</span> then it will be unlocked. The ecosystem strength starts
+      at <span>100%</span> so <span>100 + 50 = 150</span>, which is right.
+    </p>
+
+    <p>
+      The second slider controls the drop rate of that loot table once it is unlocked.
+      However there is an important detail, as the ecosystem strength increases the drop rate
+      increases too. This drop rate you set is multiplied by the ecosystem strength,
+      to keep the same example let's say you have an ecosystem strength at <span>150%</span>,
+      if you loot table drop rate is <span>10%</span> then it will actually be 150% of 10%, so <span>15%</span>.
+      <br>
+      This is done to give you a reason to kill creature and increase the ecosystem strength
+      even after you reached your goal. That way you keep increasing the drop rate of all the
+      unlocked tables.
+    </p>
+  </section>
+
 </body>
 </html>

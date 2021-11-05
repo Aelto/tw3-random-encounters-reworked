@@ -110,3 +110,23 @@ hr {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
+.paragraph-link {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  transform: translate(-100%, 0%);
+  padding: 0 .5em;
+  transition: .15s;
+}
+
+h1, h2, h3, h4 {
+  position: relative;
+}
+
+h1:hover .paragraph-link,
+h2:hover .paragraph-link,
+h3:hover .paragraph-link,
+h4:hover .paragraph-link {
+  opacity: 1;
+}
