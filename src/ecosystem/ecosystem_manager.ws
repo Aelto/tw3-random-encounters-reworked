@@ -438,6 +438,10 @@ class RER_EcosystemManager {
     // -100 means it's the opposite of a 100% increase, which is x2 and so here
     // it is a division by 2 or 50% in speed (or a 100% increase in time)
     multiplier /= areas.Size();
+    multiplier *= StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
+    ) * 0.01;
 
     NLOG("multiplier = " + multiplier);
 

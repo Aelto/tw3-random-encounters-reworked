@@ -32,10 +32,6 @@ statemachine class CRandomEncounters extends CEntity {
   var ticks_before_spawn: float;
   
   var ecosystem_frequency_multiplier: float;
-  
-  // a second multiplier that multiplies the multiplier...
-  // this value is obtained from the menu.
-  var ecosystem_frequency_multiplier_multiplier: float;
 
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;
@@ -116,13 +112,7 @@ statemachine class CRandomEncounters extends CEntity {
 
   public function refreshEcosystemFrequencyMultiplier() {
     this.ecosystem_frequency_multiplier = this.ecosystem_manager
-      .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());;
-
-    // we update the value from the menu every time we start waiting.
-    this.ecosystem_frequency_multiplier_multiplier = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
-    ) * 0.01;
+      .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());
   }
 
   //#region OutOfCombat action

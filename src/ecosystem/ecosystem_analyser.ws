@@ -364,20 +364,12 @@ state Analysing in RER_EcosystemAnalyzer {
   }
 
   function getMessageAboutEcosystemDelayMultiplier(): string {
-    var ecosystem_frequency_multiplier: float;
-    var ecosystem_frequency_multiplier_multiplier: float;
     var rate: float;
     var output: string;
 
-    ecosystem_frequency_multiplier = parent.ecosystem_manager
-      .getEcosystemAreasFrequencyMultiplier(parent.ecosystem_manager.getCurrentEcosystemAreas());
-      
-    ecosystem_frequency_multiplier_multiplier = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
-    ) * 0.01;
+    parent.ecosystem_manager.master.refreshEcosystemFrequencyMultiplier();
 
-    rate = 100 * ecosystem_frequency_multiplier * ecosystem_frequency_multiplier_multiplier;
+    rate = 100 * parent.ecosystem_manager.master.ecosystem_frequency_multiplier;
 
     return "Creatures in the area are multiplying at " 
       + RoundF(rate)
