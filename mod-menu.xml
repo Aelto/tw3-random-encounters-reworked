@@ -6103,7 +6103,7 @@
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="ecosystemCommunityPowerEffect" value="5" />
                 <Entry varId="ecosystemCommunityNaturalDeathSpeed" value="5" />
-                <Entry varId="ecosystemCommunityPowerSpread" value="5" />
+                <Entry varId="ecosystemCommunityPowerSpread" value="10" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
