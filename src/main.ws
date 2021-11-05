@@ -114,6 +114,17 @@ statemachine class CRandomEncounters extends CEntity {
     }
   }
 
+  public function refreshEcosystemFrequencyMultiplier() {
+    this.ecosystem_frequency_multiplier = this.ecosystem_manager
+      .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());;
+
+    // we update the value from the menu every time we start waiting.
+    this.ecosystem_frequency_multiplier_multiplier = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
+    ) * 0.01;
+  }
+
   //#region OutOfCombat action
   private var out_of_combat_requests: array<OutOfCombatRequest>;
 

@@ -23,13 +23,7 @@ state Waiting in CRandomEncounters {
     var time_before_updating_frequency_multiplier: float;
     var ticks: float;
 
-    parent.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
-
-    // we update the value from the menu every time we start waiting.
-    parent.ecosystem_frequency_multiplier_multiplier = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
-    ) * 0.01;
+    parent.refreshEcosystemFrequencyMultiplier();
 
     time_before_updating_frequency_multiplier = 30;
 
@@ -43,7 +37,7 @@ state Waiting in CRandomEncounters {
 
       // we refresh the ecosystem effects on frequencies every 30 seconds or so
       if (time_before_updating_frequency_multiplier <= 0) {
-        parent.ecosystem_frequency_multiplier = this.getNewEcosystemFrequencyMultiplier();
+        parent.refreshEcosystemFrequencyMultiplier();
       }
 
       Sleep(5);
@@ -60,10 +54,5 @@ state Waiting in CRandomEncounters {
 
     return RandRange(parent.settings.customDayMin, parent.settings.customDayMax)
          + parent.settings.additional_delay_per_player_level;
-  }
-
-  function getNewEcosystemFrequencyMultiplier(): float {
-    return parent.ecosystem_manager
-      .getEcosystemAreasFrequencyMultiplier(parent.ecosystem_manager.getCurrentEcosystemAreas());
   }
 }

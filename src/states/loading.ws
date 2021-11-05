@@ -25,6 +25,8 @@ state Loading in CRandomEncounters {
       this.restoreContract();
     }
 
+    parent.refreshEcosystemFrequencyMultiplier();
+
     // give time for other mods to register their static encounters
     Sleep(10);
 

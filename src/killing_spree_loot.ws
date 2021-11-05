@@ -6,6 +6,13 @@ function RER_addKillingSpreeCustomLootToEntities(entities: array<CEntity>, loot_
   var i: int;
   var k: int;
 
+  // when it's a value in the ]0;1[ range, we bring it back to the [1;inf] range
+  // For example if it is a 0.5, so a 50% ecosystem strength it should be considered
+  // the same as a 200% ecosystem strength, so 2. And 1 / 0.5 = 2.
+  if (ecosystem_strength < 1 && ecosystem_strength != 0) {
+    ecosystem_strength = 1 / ecosystem_strength;
+  } 
+
   for (i = 0; i < loot_tables.Size(); i += 1) {
     table = loot_tables[i];
 
@@ -17,7 +24,7 @@ function RER_addKillingSpreeCustomLootToEntities(entities: array<CEntity>, loot_
       continue;
     }
 
-    NLOG("loot table unlocked: " + table.table_name + ", table.unlock_level " + table.unlock_level + " ecosystem strength = " + ecosystem_strength * 100);
+    // NLOG("loot table unlocked: " + table.table_name + ", table.unlock_level " + table.unlock_level + " ecosystem strength = " + ecosystem_strength * 100);
 
     for (k = 0; k < entities.Size(); k += 1) {
       if (RandRange(100) <= table.droprate * (1 + ecosystem_strength)) {
