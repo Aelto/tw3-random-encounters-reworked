@@ -294,29 +294,54 @@ abstract class RER_BestiaryEntry {
   // CreatureNONE.
   // This function uses a random-number-generator as it is mainly used by the
   // bounties which are reliant on the RNG with a seed.
-  public function getRandomFriendlyCreature(rng: RandomNumberGenerator): CreatureType {
-    var friendly_creatures: array<CreatureType>;
+  public latent function getRandomFriendlyCreature(master: CRandomEncounters, rng: RandomNumberGenerator, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter): CreatureType {
+    var creatures_preferences: RER_CreaturePreferences;
+    var spawn_roll: SpawnRoller_Roll;
+    var manager : CWitcherJournalManager;
+    var can_spawn_creature: bool;
     var influences: RER_ConstantInfluences;
     var i: int;
 
     influences = RER_ConstantInfluences();
+    master.spawn_roller.reset();
 
+    creatures_preferences = new RER_CreaturePreferences in this;
+    creatures_preferences
+      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
+    
     for (i = 0; i < this.ecosystem_impact.influences.Size(); i += 1) {
-      if (this.ecosystem_impact.influences[i] < influences.high_indirect_influence || this.ecosystem_impact.influences[i] == influences.self_influence) {
+      if (this.ecosystem_impact.influences[i] != influences.friend_with && this.ecosystem_impact.influences[i] != influences.high_indirect_influence) {
         continue;
       }
 
-      friendly_creatures.PushBack(i);
+      master.bestiary.entries[i]
+        .setCreaturePreferences(creatures_preferences, encounter_type)
+        .fillSpawnRoller(master.spawn_roller);
     }
 
-    if (friendly_creatures.Size() == 0) {
-      return CreatureNONE;
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (master.settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+
+      for (i = 0; i < CreatureMAX; i += 1) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
+        
+        if (!can_spawn_creature) {
+          master.spawn_roller.setCreatureCounter(i, 0);
+        }
+      }
     }
 
-    // we re-use the variable here to store the index
-    i = (int)rng.nextRange(friendly_creatures.Size(), 0);
+    if (filter) {
+      master.spawn_roller.applyFilter(filter);
+    }
 
-    return friendly_creatures[i];
+    spawn_roll = master.spawn_roller.rollCreatures(
+      master.ecosystem_manager
+    );
+
+    return spawn_roll.roll;
   }
 }
 

@@ -205,21 +205,39 @@ statemachine class RER_BountyManager extends CEntity {
       current_group_data.horde_during_bounty = CreatureNONE;
 
       // a 10% chance to have a horde before the bounty target.
-      if (rng.next() < 0.10) {
-        current_group_data.horde_before_bounty = current_bestiary_entry.getRandomFriendlyCreature(rng);
-        current_group_data.horde_before_bounty_count = (int)(
-          rng.nextRange(20, 0) / current_bestiary_entry.ecosystem_delay_multiplier
+      if (rng.next() < 0.10 * horde_chance_multiplier ) {
+        current_group_data.horde_before_bounty = current_bestiary_entry.getRandomFriendlyCreature(
+          this.master,
+          rng,
+          EncounterType_CONTRACT,
+          (new RER_SpawnRollerFilter in this)
+          .init()
+          .setOffsets(constants.small_creature_begin, constants.small_creature_max)
         );
+
+        current_group_data.horde_before_bounty_count = Max(3, (int)(
+          rng.nextRange(20, 0) / this.master.bestiary.entries[current_group_data.horde_before_bounty].ecosystem_delay_multiplier
+        ));
 
         // however we don't want a horde of large creatures so
         // we reset the creature type if it's one.
         if (current_group_data.horde_before_bounty >= constants.large_creature_begin) {
           current_group_data.horde_before_bounty = CreatureNONE;
         }
+
+        NLOG("bounty for horde before = " + current_group_data.horde_before_bounty);
       }
       // a 5% chance to have a horde during the bounty target fight.
-      else if (rng.next() < 0.5) {
-        current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(rng);
+      else if (rng.next() < 0.5 * horde_chance_multiplier ) {
+        current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(
+          this.master,
+          rng,
+          EncounterType_CONTRACT,
+          (new RER_SpawnRollerFilter in this)
+          .init()
+          .setOffsets(constants.small_creature_begin, constants.small_creature_max)
+        );
+
         current_group_data.horde_during_bounty_count = (int)(
           rng.nextRange(20, 0) / current_bestiary_entry.ecosystem_delay_multiplier
         );
@@ -229,6 +247,8 @@ statemachine class RER_BountyManager extends CEntity {
         if (current_group_data.horde_during_bounty >= constants.large_creature_begin) {
           current_group_data.horde_during_bounty = CreatureNONE;
         }
+
+        NLOG("bounty for horde during = " + current_group_data.horde_during_bounty);
       }
 
       data.groups.PushBack(current_group_data);
@@ -747,7 +767,8 @@ state Processing in RER_BountyManager {
     for (i = 0; i < groups.Size(); i += 1) {
       // we only move the targets that were not spawned yet and only the markers
       // that are currently shown on the map.
-      if (!this.isGroupActive(groups[i])) {
+      // do not move bounties where a horde is in progress either.
+      if (!this.isGroupActive(groups[i]) || groups[i].horde_before_bounty_started) {
         continue;
       }
 
@@ -863,7 +884,7 @@ state Processing in RER_BountyManager {
   }
 
   // NOTE: this loops through the ACTIVE bounty groups, so an index of 2
-  // may not actually be the third in the array. It is the third ACTIVE bounty
+  // may not actually be the third in the array. It is the second ACTIVE bounty
   // group.
   //
   function getActiveBountyGroupPositionByIndex(index: int, out group_position: Vector): bool {
@@ -878,7 +899,7 @@ state Processing in RER_BountyManager {
         continue;
       }
 
-      if (internal_index == index) {
+      if (internal_index == index && parent.cached_bounty_group_positions.Size() > i) {
         group_position = parent.cached_bounty_group_positions[i];
 
         return true;
@@ -924,6 +945,8 @@ state Processing in RER_BountyManager {
         continue;
       }
 
+      NLOG("bounty has horde before: " + parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty);
+
       // now that we know we can start the bounty, we first check if a horde
       // should be spawned before.
       if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty != CreatureNONE) {
@@ -967,6 +990,27 @@ state Processing in RER_BountyManager {
         );
 
         parent.currently_managed_groups.PushBack(new_managed_group);
+
+        if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_during_bounty != CreatureNONE) {
+          parent.master
+            .storages
+            .bounty
+            .current_bounty
+            .random_data
+            .groups[i]
+            .horde_during_bounty_started = true;
+
+          parent.master
+            .storages
+            .bounty
+            .save();
+
+          this.sendHordeRequestForBounty(
+            i,
+            parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_during_bounty,
+            parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_during_bounty_count
+          );
+        }
       }
     }
     
@@ -976,8 +1020,11 @@ state Processing in RER_BountyManager {
     var request: RER_HordeRequestBeforeBounty;
 
     request = new RER_HordeRequestBeforeBounty in parent;
+    request.init();
     request.bounty_to_start_index = bounty_index;
     request.setCreatureCounter(creature_type, count);
+
+    NLOG("sendHordeRequestForBounty: " + count + " of " + creature_type);
 
     parent.master.horde_manager.sendRequest(request);
   }
