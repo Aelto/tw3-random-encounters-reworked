@@ -49,7 +49,7 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_elemental_trophy_medium');
     this.trophy_names.PushBack('modrer_elemental_trophy_high');
 
-    this.ecosystem_delay_multiplier = 14;
+    this.ecosystem_delay_multiplier = 12.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.friend_with) //CreatureHUMAN
       .influence(influences.high_indirect_influence) //CreatureARACHAS

@@ -54,7 +54,7 @@ class RER_BestiaryWraith extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_wraith_trophy_medium');
     this.trophy_names.PushBack('modrer_wraith_trophy_high');
 
-    this.ecosystem_delay_multiplier = 1.25;
+    this.ecosystem_delay_multiplier = 1.75;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS

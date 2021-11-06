@@ -42,7 +42,7 @@ class RER_BestiaryEndrega extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_endrega_trophy_medium');
     this.trophy_names.PushBack('modrer_endrega_trophy_high');
 
-    this.ecosystem_delay_multiplier = 2;
+    this.ecosystem_delay_multiplier = 3.5;
 
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN

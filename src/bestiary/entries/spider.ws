@@ -36,7 +36,7 @@ class RER_BestiarySpider extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_insectoid_trophy_medium');
     this.trophy_names.PushBack('modrer_insectoid_trophy_high');
 
-    this.ecosystem_delay_multiplier = 3;
+    this.ecosystem_delay_multiplier = 4;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.low_indirect_influence) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS

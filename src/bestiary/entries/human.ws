@@ -25,7 +25,7 @@ class RER_BestiaryHuman extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_human_trophy_medium');
     this.trophy_names.PushBack('modrer_human_trophy_high');
 
-    this.ecosystem_delay_multiplier = 1.5;
+    this.ecosystem_delay_multiplier = 2.25;
 
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.no_influence) //CreatureHUMAN

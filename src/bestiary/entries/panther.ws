@@ -42,7 +42,7 @@ class RER_BestiaryPanther extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_beast_trophy_medium');
     this.trophy_names.PushBack('modrer_beast_trophy_high');
 
-    this.ecosystem_delay_multiplier = 4.5;
+    this.ecosystem_delay_multiplier = 2.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.high_indirect_influence) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
