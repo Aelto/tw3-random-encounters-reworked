@@ -78,67 +78,30 @@
 
   <section id="install">
     <h2>Install</h2>
-    <p class="info">I made a video guide showing you how to install the mod for people who prefer videos over text <a href="https://www.youtube.com/watch?v=QBLdV3T2IKs">youtube link</a></p>
-
-    <p>
-      First install the four dependencies for the mod:
-        <ul>
-          <li><a href="https://www.nexusmods.com/witcher3/mods/2109/?">modBootstrap</a> (the mod was tested with v0.4.1, lower versions won't work)</li>
-          <li><a href="https://www.nexusmods.com/witcher3/mods/2110/?">modSharedImports</a></li>
-          <li><a href="https://www.nexusmods.com/witcher3/mods/3652?">Community Patch - Base</a> (you may not need it if you use Ghost Mode or W3EE because you already have it)</li>
-        </ul>
-    </p>
     
-    <blockquote class="info">
-      As of July 2021, nexusmods is no longer used for my mods. Updates will continue to be hosted on <a href="https://github.com/Aelto/tw3-random-encounters-reworked">GitHub</a>.
-      You can also see the rest of my work on <a href="https://modspot.github.io/browse/?game=witcher-3&search=user%3Aaelto">modspot</a> a
-      free & ad-free alternative i'm developing
-    </blockquote>
+    <p>
+      Download the <a href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/download/dependencies-v1.0/install-mod.ps1">install script</a> and
+      place it right inside you <span>The Witcher 3</span> directory.
+    </p>
+
+    <p>Right click the install and run it with powershell</p>
 
     <p>
-      Then take the <a href="https://github.com/Aelto/tw3-random-encounters-reworked/releases">
-        latest release from Github
-      </a> and drop its content (not the directory itself, the three sub-directories bin/mods/dlc) in your <span>The Witcher 3</span> directory
-      <br />
-      Merge the scripts.
+      It will automatically download the mod and its four dependencies.
+      It will also detect the mods you currently have installed, then skip any
+      mod you may not need. Finally it will install the patches you need for better
+      compatibilty with known mods like Enhanced Edition or Ghost Mode.
     </p>
 
     <p>
-      Edit the bootstrap registry by into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by double clicking it.
-      <div class="wrapper">
-        <details>
-          <summary>
-            Click to see how to do it manually
-          </summary>
-      
-          <p>
-            add the following line of code into <span>The Witcher 3\Mods\modBootstrap-registry\content\scripts\local\mods_registry.ws</span>
-            <pre>add(modCreate_RandomEncountersReworked());</pre>
-            so the file looks like this :
-            <pre>
-      // ----------------------------------------------------------------------------
-      // ----------------------------------------------------------------------------
-      class CModRegistry extends CModFactory {
-          protected function createMods() {
-              // add mod creation calls here, like this:
-              //
-              // add(modCreate_<ModName>());
-              // ...
-
-              // see example dir
-              //add(modCreate_ExampleMod());
-              //add(modCreate_ExampleEntityMod());
-              //add(modCreate_UiExampleMod());
-
-              add(modCreate_RandomEncountersReworked()); // <-- you added this line
-          }
-      }
-      // ----------------------------------------------------------------------------
-      // ----------------------------------------------------------------------------
-            </pre>
-          </p>
-        </details>
-      </div>
+      Once the install script has finished, open your script-merger and merge the scripts.
+      A few exceptions that should not be merged are:
+      <ul>
+        <li>Conflict between Bootstrap and W3EE, if it happens leave it unmerged, bootstrap will load before.</li>
+        <li>Conflict between CustomBossBar and W3EE, the installer will install the patch for you and so you are not supposed to merge it.</li>
+        <li>Conflict between FriendlyHUD and the FHUD sharedutils patch, leave it unmerged.</li>
+      </ul>
+    </p>
 
     <p>
       Start the game, let it compile the new scripts and load a save. You are supposed to see a preset selector, if you see it then everything is working and you can enjoy the mod.
