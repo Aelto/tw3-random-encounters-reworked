@@ -228,7 +228,7 @@ statemachine class RER_BountyManager extends CEntity {
         NLOG("bounty for horde before = " + current_group_data.horde_before_bounty);
       }
       // a 5% chance to have a horde during the bounty target fight.
-      else if (rng.next() < 0.5 * horde_chance_multiplier ) {
+      if (rng.next() < 0.5 * horde_chance_multiplier) {
         current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(
           this.master,
           rng,
