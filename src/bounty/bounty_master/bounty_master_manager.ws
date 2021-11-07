@@ -55,7 +55,7 @@ statemachine class RER_BountyMasterManager {
       }
       else {
         // teleport the bounty master at the current position based on the current playtime
-        bounty_master_entity.Teleport(valid_positions[position_index]);
+        bounty_master_entity.Teleport(valid_positions[position_index] + Vector(0, 0, 0.2));
       }
 
     }
@@ -67,7 +67,7 @@ statemachine class RER_BountyMasterManager {
 
       this.bounty_master_entity = theGame.CreateEntity(
         template,
-        valid_positions[position_index],
+        valid_positions[position_index] + Vector(0, 0, 0.2),
         thePlayer.GetWorldRotation(),,,,
         PM_Persist
       );
