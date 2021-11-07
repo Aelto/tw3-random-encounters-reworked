@@ -26,9 +26,10 @@ state Waiting in CRandomEncounters {
     parent.refreshEcosystemFrequencyMultiplier();
 
     time_before_updating_frequency_multiplier = 30;
+    NLOG("ecosystem_frequency_multiplier = " + parent.ecosystem_frequency_multiplier);
 
     while (parent.ticks_before_spawn >= 0) {
-      ticks = 1 * parent.ecosystem_frequency_multiplier;
+      ticks = 5 * parent.ecosystem_frequency_multiplier;
 
       parent.ticks_before_spawn -= ticks;
       time_before_updating_frequency_multiplier -= ticks;
@@ -36,6 +37,7 @@ state Waiting in CRandomEncounters {
       // we refresh the ecosystem effects on frequencies every 30 seconds or so
       if (time_before_updating_frequency_multiplier <= 0) {
         parent.refreshEcosystemFrequencyMultiplier();
+        NLOG("ecosystem_frequency_multiplier = " + parent.ecosystem_frequency_multiplier);
       }
 
       Sleep(5);
