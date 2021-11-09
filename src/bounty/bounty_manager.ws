@@ -187,14 +187,16 @@ statemachine class RER_BountyManager extends CEntity {
         current_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
       }
       
-      current_group_data.count = rollDifficultyFactorWithRng(
-        current_bestiary_entry.template_list.difficulty_factor,
-        this.master.settings.selectedDifficulty,
-        this.master.settings.enemy_count_multiplier
-        * current_bestiary_entry.creature_type_multiplier
-        // double the amount of creatures at level 100
-        * (1 + this.getDifficultyForSeed(seed) * 0.01),
-        rng
+      current_group_data.count = Max(1,
+        rollDifficultyFactorWithRng(
+          current_bestiary_entry.template_list.difficulty_factor,
+          this.master.settings.selectedDifficulty,
+          this.master.settings.enemy_count_multiplier
+          * current_bestiary_entry.creature_type_multiplier
+          // double the amount of creatures at level 100
+          * (1 + this.getDifficultyForSeed(seed) * 0.01),
+          rng
+        )
       );
 
       current_group_data.position_x = rng.next();
