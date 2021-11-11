@@ -161,6 +161,7 @@ cd ./mods/modRandomEncountersReworked/
 ./update-registry.bat
 
 # final message
+cls
 echo ""
 echo "Please use the script merger to merge the scripts now."
 echo "A few exceptions that should not be merged are:"

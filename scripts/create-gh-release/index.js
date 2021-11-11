@@ -2,7 +2,6 @@ const { execSync } = require('child_process');
 const readline = require('readline');
 const fs = require('fs');
 const tokens = require('./tokens.js');
-const axios = require('axios').default;
 const AdmZip = require('adm-zip');
 const { Octokit } = require("@octokit/rest");
 
@@ -20,6 +19,9 @@ const question = message => new Promise(resolve => {
 });
 
 async function main() {
+  const only_zip = process.argv.some(arg => arg === '-only-zip');
+  console.log("process argv" + only_zip);
+
   const latest_release = execSync('git describe --tags --abbrev^=0').toString().trim();
   console.log(`last release is: ${latest_release}`);
   
@@ -29,10 +31,12 @@ async function main() {
   console.log(`commits since last release`);
   console.log(commits_since_last_release);
 
-  if (await question('Confirm you want to continue? (y/n) ') !== 'y') {
-    console.log('Cancelling');
-
-    return;
+  if (only_zip) {
+    if (await question('Confirm you want to continue? (y/n) ') !== 'y') {
+      console.log('Cancelling');
+  
+      return;
+    }
   }
 
   const commits = commits_since_last_release
@@ -47,12 +51,19 @@ async function main() {
 
   console.log(`new version changelog:\n${changelog} `);
 
-  const is_prerelease = await question('Is it a pre-release? (y/n) ') === 'y';
+  const is_prerelease = only_zip
+    ? true
+    : await question('Is it a pre-release? (y/n) ') === 'y';
   
   const zip_file_path = `${new_version_name}.zip`;
   const zip = new AdmZip();
   zip.addLocalFolder(`${__dirname}/../../release`, new_version_name);
   zip.writeZip(zip_file_path);
+
+  if (only_zip) {
+    return;
+  }
+
 
   const octokit = new Octokit({
     auth: tokens.github

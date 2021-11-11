@@ -38,5 +38,5 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_custombossbar\" "%modpath%\release
 if "%1"=="-github" (
   echo "creating github release"
   
-  node create-gh-release
+  node create-gh-release %2
 )
