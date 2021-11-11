@@ -34,7 +34,7 @@ state NestContract in RER_contractManager {
     FixZAxis(position);
 
     // it doesn't matter if it fails to find a ground position
-    getGroundPosition(position, 10, 25);
+    getGroundPosition(position, 5, 50);
 
     current_template = (CEntityTemplate)LoadResourceAsync(path, true);
     nest = (RER_MonsterNest)theGame.CreateEntity(
