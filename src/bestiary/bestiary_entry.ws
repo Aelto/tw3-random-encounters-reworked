@@ -272,6 +272,7 @@ abstract class RER_BestiaryEntry {
 
     LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
+    SUH_makeEntitiesAlliedWithEachother(created_entities);
 
     return created_entities;
   }
