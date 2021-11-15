@@ -159,14 +159,31 @@ echo ""
 echo "Updating bootstrap registry for Random Encounters Reworked"
 cd ./mods/modRandomEncountersReworked/
 ./update-registry.bat
+cd ../../
 
 # final message
 cls
 echo ""
-echo "Please use the script merger to merge the scripts now."
+write-host -ForegroundColor yellow "Please use the script merger to merge the scripts now."
 echo "A few exceptions that should not be merged are:"
 echo " - Conflict between Bootstrap and W3EE, if it happens leave it unmerged, bootstrap will load before."
 echo " - Conflict between CustomBossBar and W3EE, the installer will install the patch for you and so you are not supposed to merge it."
 echo " - Conflict between FriendlyHUD and the FHUD sharedutils patch, leave it unmerged."
+echo ""
+
+if ((test-path ./mods/modAbsoluteCamera31) -or (test-path ./mods/modW3EE)) {
+  echo ""
+  write-warning "It seems you have Absolute Camera installed."
+  echo "Before loading your save, please go in RER's optional features menu and enable the Absolute Camera compatibility"
+  echo ""
+  echo "Note that if you have Enhanced Edition, EE has a version of Absolute Camera bundled in."
+}
+
+if (test-path ./mods/modBootstrap/content/scripts/game/player/player.ws) {
+  echo ""
+  write-warning "It seems you have Bootstrap Sripthooked installed."
+  echo "Before loading your save, please go in RER's optional features menu and enable the Scripthooked compatibility"
+}
+
 echo ""
 pause
