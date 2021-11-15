@@ -6132,7 +6132,7 @@
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
-                <Entry varId="RERdisableNoticeboardErrands" value="0" />
+                <Entry varId="RERnoticeboardErrands" value="1" />
                 <Entry varId="RERhordeChanceWithBountiesMultiplier" value="1" />
             </Preset>
         </PresetsArray>
