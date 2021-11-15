@@ -186,4 +186,11 @@ if (test-path ./mods/modBootstrap/content/scripts/game/player/player.ws) {
 }
 
 echo ""
+echo ""
+echo "Note that RER comes with an update-script as well, anytime you want to update the mod,"
+echo "simply go inside mods/modRandomEncounters and right-click, run the update-mod.ps1 script."
+echo ""
+echo "Have fun!"
+echo ""
+
 pause
