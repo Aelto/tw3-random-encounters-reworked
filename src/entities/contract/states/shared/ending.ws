@@ -11,6 +11,8 @@ state Ending in RandomEncountersReworkedContractEntity {
   entry function Ending_main() {
     Sleep(1);
 
+    RER_hideCompanionIndicator('RER_contract_companion', "icons/quests/Companions/mq2017_hero_wannabe_quest_item_64x64.png");
+
     // play the oneliner only if two phases were played. There is always one phase
     // that is played as it's the starting phase, so we check for two.
     if (parent.played_phases.Size() > 2) {
