@@ -31,7 +31,7 @@ async function main() {
   console.log(`commits since last release`);
   console.log(commits_since_last_release);
 
-  if (only_zip) {
+  if (!only_zip) {
     if (await question('Confirm you want to continue? (y/n) ') !== 'y') {
       console.log('Cancelling');
   
