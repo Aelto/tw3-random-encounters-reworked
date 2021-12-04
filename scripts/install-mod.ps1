@@ -1,3 +1,5 @@
+# https://github.com/Aelto/tw3-random-encounters-reworked/releases/tag/dependencies-v1.0
+
 cls
 
 echo ""
@@ -37,7 +39,7 @@ $assetEePatches = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("e
 $assetFhudPatches = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("fhud-patches")} |Select -First 1
 
 # do not install community-patch-base if the user already has it or if has EE
-if (!(test-path mods/mod0000____CompilationTrigger) -and !(test-path mods/modW3EE)) {
+if (!(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
   echo ""
   echo "downloading community-patch-base"
 
@@ -58,7 +60,7 @@ if (!(test-path mods/modBootstrap-registry)) {
 }
 
 # do not install sharedimport if the user already has it or if he has EE
-if (!(test-path mods/modSharedImports) -and !(test-path mods/modW3EE)) {
+if (!(test-path mods/modSharedImports) -and !(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
   echo ""
   echo "downloading shared import"
 
