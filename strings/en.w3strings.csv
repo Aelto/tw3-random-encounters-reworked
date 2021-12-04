@@ -409,3 +409,6 @@
 2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> droprate %
 2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> droprate %
 2115018397|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> droprate %
+2115018398|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> version
+2115018399|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
+2115018400|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'

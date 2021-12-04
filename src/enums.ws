@@ -114,3 +114,8 @@ enum RER_Difficulty {
   RER_Difficulty_HARD = 2,
   RER_Difficulty_RANDOM = 3
 }
+
+enum StaticEncountersVariant {
+  StaticEncountersVariant_LUCOLIVIER = 0,
+  StaticEncountersVariant_AELTOTH = 1,
+}

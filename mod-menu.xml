@@ -60,6 +60,7 @@
 
                 <Entry varId="RERstaticEncounterSmallSpawnChance" value="80" />
                 <Entry varId="RERstaticEncounterLargeSpawnChance" value="60" />
+                <Entry varId="RERstaticEncounterVersion" value="0" />
 
                 <Entry varId="RERfoottracksRatio" value="30" />
 
@@ -82,6 +83,16 @@
 
             <Var id="RERstaticEncounterSmallSpawnChance" displayName="rer_static_encounter_small_spawn_chance" displayType="SLIDER;0;100;200"/>
             <Var id="RERstaticEncounterLargeSpawnChance" displayName="rer_static_encounter_large_spawn_chance" displayType="SLIDER;0;100;200"/>
+            <Var id="RERstaticEncounterVersion" displayName="rer_static_encounters_version" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_static_encounters_luc_olivier">
+                        <Entry varId="RERstaticEncounterVersion" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_static_encounters_aeltoth">
+                        <Entry varId="RERstaticEncounterVersion" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
 
             <Var id="RERfoottracksRatio" displayName="rer_foottracks_ratio" displayType="SLIDER;1;100;99"/>
         </VisibleVars>
