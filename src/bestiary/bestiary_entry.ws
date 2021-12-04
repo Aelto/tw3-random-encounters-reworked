@@ -169,6 +169,12 @@ abstract class RER_BestiaryEntry {
       tags_array.PushBack(custom_tag);
     }
 
+    // W3EE Redux compatibility, the mod has a perk to increase damage on contract
+    // targets. It does so by cheking the tag of the creatures.
+    if (encounter_type == EncounterType_CONTRACT) {
+      tags_array.PushBack('ContractTarget');
+    }
+
     for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
       current_entity_template = creatures_templates.templates[i];
 
