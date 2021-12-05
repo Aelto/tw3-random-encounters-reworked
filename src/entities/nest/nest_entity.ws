@@ -97,7 +97,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
       return false;
     }
 
-    if (this.monsters_spawned_count > this.monsters_spawned_limit * 0.75) {
+    if (!this.AddTag('WasDestroyed')) {
       GetEncounter();
 
       wasExploded = true;
