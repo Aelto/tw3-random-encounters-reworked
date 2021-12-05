@@ -445,10 +445,10 @@ statemachine class RER_BountyManager extends CEntity {
         .random_data
         .groups[random_group_index].was_picked = true;
 
-    this.master
-      .storages
-      .bounty
-      .save();
+      this.master
+        .storages
+        .bounty
+        .save();
     }
   }
 
