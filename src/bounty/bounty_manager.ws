@@ -728,6 +728,12 @@ statemachine class RER_BountyManager extends CEntity {
 }
 
 state Processing in RER_BountyManager {
+  /**
+   * used to scale the moving bounties with the gametime, so that is scales if
+   * the player meditates.
+   */
+  var moving_bounties_last_tick: GameTime;
+
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
@@ -741,6 +747,8 @@ state Processing in RER_BountyManager {
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     this.spawnNearbyBountyGroups();
+
+    moving_bounties_last_tick = theGame.GetGameTime();
 
     while (true) {
       Sleep(10);
@@ -758,13 +766,22 @@ state Processing in RER_BountyManager {
 
   function moveBountyTargets() {
     var groups: array<RER_BountyRandomMonsterGroupData>;
+    var gametime_delta_multiplier: float;
     var custom_pins: array<SU_MapPin>;
     var current_translation: Vector;
     var current_group_index: int;
+    var new_gametime: GameTime;
     var new_position: Vector;
     var pin: SU_MapPin;
     var i: int;
-    
+
+    new_gametime = theGame.GetGameTime();
+    gametime_delta_multiplier = AbsF(
+      ConvertGameSecondsToRealTimeSeconds(GameTimeToSeconds(new_gametime) - GameTimeToSeconds(this.moving_bounties_last_tick))
+    );
+
+    this.moving_bounties_last_tick = new_gametime;
+
     groups = parent.master.storages.bounty.current_bounty.random_data.groups;
     for (i = 0; i < groups.Size(); i += 1) {
       // we only move the targets that were not spawned yet and only the markers
@@ -784,48 +801,44 @@ state Processing in RER_BountyManager {
         groups[i].translation_heading,
         15, // angle
         0, // min range
-        0.005 // max range
+        0.005 * gametime_delta_multiplier // max range
       );
+
+      // y at 1 is the top of the map
+      // x at 1 is the right of the map
+      // heading at 0 is the 
 
       // we mutate the original coordinates
       groups[i].position_x += current_translation.X;
       groups[i].position_y += current_translation.Y;
 
-      if (groups[i].position_x <= 0) {
-        groups[i].position_x = 0;
+      if (groups[i].position_x <= 0.05) {
+        groups[i].position_x = 0.06;
 
         // 270 degrees is the right
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 270 * 3) / 4
-        );
+        groups[i].translation_heading = 270;
       }
 
-      if (groups[i].position_x >= 1) {
-        groups[i].position_x = 1;
+      if (groups[i].position_x >= 0.95) {
+        groups[i].position_x = 0.94;
 
-        // 270 degrees is the left
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 90 * 3) / 4
-        );
+        // 90 degrees is the left
+        groups[i].translation_heading = 90;
       }
 
-      // y below zero is the bottom of the map
-      if (groups[i].position_y <= 0) {
-        groups[i].position_y = 0;
+      // y below zero is the top of the map
+      if (groups[i].position_y <= 0.05) {
+        groups[i].position_y = 0.06;
 
         // 0 degrees is the top of the map
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 0 * 3) / 4
-        );
+        groups[i].translation_heading = 0;
       }
 
-      if (groups[i].position_y >= 1) {
-        groups[i].position_y = 1;
+      if (groups[i].position_y >= 0.95) {
+        groups[i].position_y = 0.94;
 
         // 180 degrees is the bottom of the map
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 180 * 3) / 4
-        );
+        groups[i].translation_heading = 180;
       }
 
       new_position = SUH_getSafeCoordinatesFromPoint(
@@ -841,6 +854,7 @@ state Processing in RER_BountyManager {
 
       parent.master.storages.bounty.current_bounty.random_data.groups[i].position_x = groups[i].position_x;
       parent.master.storages.bounty.current_bounty.random_data.groups[i].position_y = groups[i].position_y;
+      parent.master.storages.bounty.current_bounty.random_data.groups[i].translation_heading = groups[i].translation_heading;
       // parent.cached_bounty_group_positions[i] = new_position;
     }
 
