@@ -46,13 +46,7 @@ state HordeContract in RER_contractManager {
     parent.master.horde_manager
       .sendRequest(request);
 
-    Sleep(10);
-    if (parent.master.rExtra.isPlayerInSettlement(50) && RandRange(10) < 5) {
-      (new RER_RandomDialogBuilder in thePlayer)
-        .start()
-        .either(new REROL_not_a_single_monster in thePlayer, true, 0.5)
-        .play();
-    }
+    Sleep(5);
 
     parent.GotoState('Waiting');
   }

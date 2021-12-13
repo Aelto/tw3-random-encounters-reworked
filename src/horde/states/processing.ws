@@ -1,5 +1,7 @@
 
 state Processing in RER_HordeManager {
+  var failed_attempts: int;
+
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
@@ -40,6 +42,8 @@ state Processing in RER_HordeManager {
 
       // the horde monsters are spawned only if regular monsters can be spawned
       if (parent.master.rExtra.isPlayerInSettlement(50)) {
+        SU_hideCustomBossBar();
+
         continue;
       }
 
@@ -87,6 +91,17 @@ state Processing in RER_HordeManager {
           this.spawnMonsterFromRequest(parent.requests[i], creature_to_spawn);
         }
 
+        // too many attempts failed, give up on the horde.
+        if (this.failed_attempts > 5) {
+          SU_hideCustomBossBar();
+
+          (new RER_RandomDialogBuilder in thePlayer)
+            .start()
+            .either(new REROL_not_a_single_monster in thePlayer, true, 1)
+            .play();
+
+          parent.clearRequests();
+        }
       }
     }
   }
@@ -99,8 +114,12 @@ state Processing in RER_HordeManager {
     var i: int;
 
     if (!getRandomPositionAroundPlayer(position)) {
+      this.failed_attempts += 1;
+
       return;
     }
+
+    this.failed_attempts = 0;
 
     bestiary_entry = parent.master.bestiary.getEntry(parent.master, creature_to_spawn);
 
