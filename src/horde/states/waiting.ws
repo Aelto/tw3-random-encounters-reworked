@@ -5,7 +5,9 @@ state Waiting in RER_HordeManager {
 
     NLOG("RER_HordeManager - Waiting");
 
-    this.Waiting_main();
+    if (previous_state_name == 'Processing') {
+      this.Waiting_main();
+    }
   }
 
   entry function Waiting_main() {
