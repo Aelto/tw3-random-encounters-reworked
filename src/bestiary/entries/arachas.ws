@@ -99,6 +99,8 @@ class RER_BestiaryArachas extends RER_BestiaryEntry {
       .influence(influences.high_bad_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+    
+    this.possible_compositions.PushBack(CreatureENDREGA);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

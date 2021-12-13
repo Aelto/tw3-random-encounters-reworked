@@ -90,6 +90,11 @@ class RER_BestiaryGravier extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureDROWNER);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
+    this.possible_compositions.PushBack(CreatureGHOUL);
+    this.possible_compositions.PushBack(CreatureHAG);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

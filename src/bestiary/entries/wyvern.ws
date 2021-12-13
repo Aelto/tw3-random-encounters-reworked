@@ -92,6 +92,11 @@ class RER_BestiaryWyvern extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureFORKTAIL
       .influence(influences.friend_with) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
+    this.possible_compositions.PushBack(CreatureWYVERN);
+    this.possible_compositions.PushBack(CreatureHARPY);
+    this.possible_compositions.PushBack(CreatureSIREN);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

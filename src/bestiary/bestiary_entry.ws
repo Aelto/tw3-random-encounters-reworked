@@ -40,6 +40,8 @@ abstract class RER_BestiaryEntry {
 
   var city_spawn: bool;
 
+  var possible_compositions: array<CreatureType>;
+
   public function init() {}
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences {

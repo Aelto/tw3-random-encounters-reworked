@@ -108,6 +108,11 @@ class RER_BestiaryDrowner extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureSIREN);
+    this.possible_compositions.PushBack(CreatureHAG);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
+    this.possible_compositions.PushBack(CreatureDROWNERDLC);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

@@ -86,6 +86,9 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
       .influence(influences.low_bad_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureFIEND);
+    this.possible_compositions.PushBack(CreatureNEKKER);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

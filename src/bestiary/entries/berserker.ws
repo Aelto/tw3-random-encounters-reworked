@@ -86,6 +86,10 @@ class RER_BestiaryBerserker extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureFORKTAIL
       .influence(influences.friend_with) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureWOLF);
+    this.possible_compositions.PushBack(CreatureSKELWOLF);
+    this.possible_compositions.PushBack(CreatureSKELBEAR);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

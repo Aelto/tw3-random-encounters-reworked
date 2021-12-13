@@ -108,6 +108,10 @@ class RER_BestiaryEchinops extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.low_indirect_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureARACHAS);
+    this.possible_compositions.PushBack(CreatureCENTIPEDE);
+    this.possible_compositions.PushBack(CreatureENDREGA);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{
