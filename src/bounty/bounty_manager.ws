@@ -208,13 +208,9 @@ statemachine class RER_BountyManager extends CEntity {
 
       // a 10% chance to have a horde before the bounty target.
       if (rng.next() < 0.10 * horde_chance_multiplier ) {
-        current_group_data.horde_before_bounty = current_bestiary_entry.getRandomFriendlyCreature(
+        current_group_data.horde_before_bounty = current_bestiary_entry.getRandomCompositionCreature(
           this.master,
-          rng,
-          EncounterType_CONTRACT,
-          (new RER_SpawnRollerFilter in this)
-          .init()
-          .setOffsets(constants.small_creature_begin, constants.small_creature_max)
+          EncounterType_CONTRACT
         );
 
         current_group_data.horde_before_bounty_count = Max(3, (int)(
@@ -231,13 +227,9 @@ statemachine class RER_BountyManager extends CEntity {
       }
       // a 5% chance to have a horde during the bounty target fight.
       if (rng.next() < 0.5 * horde_chance_multiplier) {
-        current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(
+        current_group_data.horde_during_bounty = current_bestiary_entry.getRandomCompositionCreature(
           this.master,
-          rng,
-          EncounterType_CONTRACT,
-          (new RER_SpawnRollerFilter in this)
-          .init()
-          .setOffsets(constants.small_creature_begin, constants.small_creature_max)
+          EncounterType_CONTRACT
         );
 
         current_group_data.horde_during_bounty_count = (int)(

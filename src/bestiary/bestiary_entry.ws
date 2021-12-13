@@ -106,7 +106,8 @@ abstract class RER_BestiaryEntry {
     optional density: float,
     optional encounter_type: EncounterType,
     optional flags: RER_BestiaryEntrySpawnFlag,
-    optional custom_tag: name
+    optional custom_tag: name,
+    optional composition_count: int
   ): array<CEntity> {
     
     var creatures_templates: EnemyTemplateList;
@@ -119,6 +120,8 @@ abstract class RER_BestiaryEntry {
     var group_positions_index: int;
     var tags_array: array<name>;
     var persistance: EPersistanceMode;
+    var composition_type: CreatureType;
+    var composition_entities: array<CEntity>;
     var i: int;
     var j: int;
 
@@ -278,6 +281,28 @@ abstract class RER_BestiaryEntry {
       master.ecosystem_frequency_multiplier
     );
 
+    composition_type = this.getRandomCompositionCreature(
+      master,
+      encounter_type
+    );
+
+    composition_entities = this.spawnGroupCompositionCreatures(
+      composition_type,
+      master,
+      position,
+      count,
+      density,
+      encounter_type,
+      flags,
+      custom_tag,
+      composition_count
+    );
+
+    created_entities = this.combineEntitiesArrays(
+      created_entities,
+      composition_entities
+    );
+
     LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
     SUH_makeEntitiesAlliedWithEachother(created_entities);
@@ -301,9 +326,7 @@ abstract class RER_BestiaryEntry {
 
   // Returns a random friendly creature if there is any. Otherwise returns
   // CreatureNONE.
-  // This function uses a random-number-generator as it is mainly used by the
-  // bounties which are reliant on the RNG with a seed.
-  public latent function getRandomFriendlyCreature(master: CRandomEncounters, rng: RandomNumberGenerator, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter): CreatureType {
+  public latent function getRandomCompositionCreature(master: CRandomEncounters, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter): CreatureType {
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
@@ -311,19 +334,14 @@ abstract class RER_BestiaryEntry {
     var influences: RER_ConstantInfluences;
     var i: int;
 
-    influences = RER_ConstantInfluences();
     master.spawn_roller.reset();
 
     creatures_preferences = new RER_CreaturePreferences in this;
     creatures_preferences
       .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
     
-    for (i = 0; i < this.ecosystem_impact.influences.Size(); i += 1) {
-      if (this.ecosystem_impact.influences[i] != influences.friend_with && this.ecosystem_impact.influences[i] != influences.high_indirect_influence) {
-        continue;
-      }
-
-      master.bestiary.entries[i]
+    for (i = 0; i < this.possible_compositions.Size(); i += 1) {
+      master.bestiary.entries[this.possible_compositions[i]]
         .setCreaturePreferences(creatures_preferences, encounter_type)
         .fillSpawnRoller(master.spawn_roller);
     }
@@ -351,6 +369,75 @@ abstract class RER_BestiaryEntry {
     );
 
     return spawn_roll.roll;
+  }
+
+  public function combineEntitiesArrays(a: array<CEntity>, b: array<CEntity>): array<CEntity> {
+    var output: array<CEntity>;
+    var a_size: int;
+    var i: int;
+
+    a_size = a.Size();
+    // output.Resize(a_size + b.Size());
+
+    for (i = 0; i < a.Size(); i += 1) {
+      output.PushBack(a[i]);
+    }
+
+    for (i = 0; i < b.Size(); i += 1) {
+      output.PushBack(b[i]);
+    }
+
+    return output;
+  }
+
+  public latent function spawnGroupCompositionCreatures(
+    creature: CreatureType,
+    master: CRandomEncounters,
+    position: Vector,
+    optional count: int,
+    optional density: float,
+    optional encounter_type: EncounterType,
+    optional flags: RER_BestiaryEntrySpawnFlag,
+    optional custom_tag: name,
+    optional composition_count: int): array<CEntity> {
+    var bestiary_entry: RER_BestiaryEntry;
+    var entities: array<CEntity>;
+    var min: int;
+    var i: int;
+
+    // composition groups are recursive, a spawned group causes a composition to
+    // appear. But that composition can have its own composition.
+    // We add a failsafe to avoid a recursive crash/stack-overflow.
+    if (creature == CreatureNONE || composition_count > 3) {
+      return entities;
+    }
+
+    bestiary_entry = master.bestiary.entries[creature];
+    // change to have 0, chance to have at least 1
+    min = RandRange(2);
+    count = Max(min, (int)(count / MaxF(1, bestiary_entry.ecosystem_delay_multiplier)));
+
+    if (count <= 0) {
+      return entities;
+    }
+
+    entities = bestiary_entry.spawn(
+      master,
+      position,
+      count,
+      density,
+      encounter_type,
+      flags,
+      custom_tag,
+      composition_count + 1
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      entities[i].GetRootAnimatedComponent().SetScale(Vector(0.95, 0.95, 0.95, 0.95));
+      ((CActor)entities[i]).SetHealthPerc(60);
+    }
+
+    return entities;
   }
 }
 
