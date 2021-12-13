@@ -98,7 +98,7 @@ state Processing in RER_HordeManager {
     var count: int;
     var i: int;
 
-    if (!getRandomPositionBehindCamera(position)) {
+    if (!getRandomPositionAroundPlayer(position)) {
       return;
     }
 
