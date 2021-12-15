@@ -28,13 +28,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     // encounter you don't notice.
   }
   else {
-    LogChannel('modRandomEncounters', "spawning - CONTRACT");
-    createRandomCreatureContract(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);
-
-    if (random_encounters_class.settings.geralt_comments_enabled && !isPlayerInScene()) {
-      // TODO: find a unique voiceset for the contract
-      thePlayer.PlayVoiceset( 90, "MiscFreshTracks" );
-    }
+    NDEBUG("RER Error: an encounter was supposed to start but the encounter type is unknown = " + encounter_type);
   }
 }
 
