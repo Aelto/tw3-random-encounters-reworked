@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta property="og:title" content="Random Encounters Reworked - contracts revamp">
+  <meta property="og:description" content="Random Encounters Reworked. Monster contracts">
+  <meta property="og:image" content="rer-contracts-revamp.png">
+
+  <link rel="stylesheet" href="../master.css">
+  <title>Contracts revamp</title>
+</head>
+<body>
+  
+  <h1>Random Encounters Reworked bible</h1>
+  <blockquote>Everything you need to know about RER</blockquote>
+  <a href="../index.html">back to summary</a>
+
+  <section>
+    <h2>Contracts revamp</h2>
+
+    <p>
+      Complete revamp of the contracts system. The three types there are currently will
+      be removed from the mod and will leave their place to 1 simpler and unified mechanism.
+      <br>
+      This system will offer a way to players to experience the life of a monster hunter
+      without the need to leave themselves to the mercy of a randomly generated quest.
+    </p>
+
+    <p>
+      I will start by showing what the mod menu will look like, this will demonstrate
+      the whole setup and what to expect from it. Then i will go in details in how each step
+      will work.
+    </p>
+  </section>
+
+  <section>
+    <h3>The contracts mod menu</h3>
+
+    <ul>
+      <li>Real life hours before new contracts. Default: <span>1</span>.</li>
+      <li>Number of nearby easy contract. Default: <span>1</span></li>
+      <li>Number of nearby hard contract. Default: <span>1</span></li>
+      <li>Number of far easy contract. Default: <span>1</span></li>
+      <li>Number of far hard contract. Default: <span>1</span></li>
+      <li>Allow RER to learn about new locations as you explore the world. Default: <span>true</span></li>
+      <li>Contracts generation seed. Default: <span>0</span></li>
+      <li>Chances for:
+        <ul>
+          <li> - Ogroid contracts. Default: <span>10</span></li>
+          <li> - Draconid contracts. Default: <span>10</span></li>
+          <li> - Specter contracts. Default: <span>10</span></li>
+          <li> - Necrophage contracts. Default: <span>10</span></li>
+          <li> - Elemental contracts. Default: <span>10</span></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Starting a contract</h3>
+
+    <p>
+      RER now displays only one (1) errand on the noticeboard. This errand, once picked,
+      will tell the mod to display a dialogue menu with different options. These options
+      will depend on the values you set in the menu.
+    </p>
+
+    <ul>
+      <li>First it will display the list of nearby easy contracts for a random monster species you can accept.</li>
+      <li>In second, the list of nearby hard contracts</li>
+      <li>In third, the list of far easy contracts</li>
+      <li>In third, the list of far hard contracts</li>
+    </ul>
+
+    <p>
+      At this moment you can only accept one of the given contracts, to start a second
+      one you will have to go back to the noticeboard and take the RER errand again.
+      Doing so will cancel any currently unfinished RER contract you have in progress.
+    </p>
+
+    <p>
+      Once you picked the contract of your choice, RER will then pick among the list
+      of known and discovered locations in the world based on the distance of the contract.
+      Reach the location and the contract will start.
+    </p>
+  </section>
+
+  <section>
+    <h3>Known locations and discovered locations</h3>
+
+    <p>
+      RER comes with a pre-defined list of known locations, these locations are
+      hand-picked by the contributors and make for interesting places for contracts.
+    </p>
+
+    <p>
+      However RER has the ability to learn about new locations as you explore the world.
+      If the option is enabled, every time you will slay an enemy the mod will
+      be notified and it will scan the surrounding for new potential locations.
+    </p>
+
+    <p>
+      When a contract is picked, the mod will then have the ability to pick locations
+      from the hand-made locations but also the discovered locations for a greater
+      variety.
+    </p>
+  </section>
+
+  <section>
+    <h3>The distance & difficulty of contracts</h3>
+
+    <p>
+      The distance of a contract decides if the picked location you have to reach
+      will be around the noticeboard or if it will be around a neighbooring settlement or isle.
+    </p>
+
+    <p>
+      The difficulty of the contract decides the risks to encounter a challenging creature
+      during the completion of the encounter.
+    </p>
+  </section>
+
+  <section>
+    <h3>Completing contracts and rewards</h3>
+
+    <p>
+      Every time you will complete a contract, you will earn a token of gratitude
+      from the locals that you will be able to trade for valuables to the bounty master.
+      For each token the trader will offer various types of rewards:
+      <ul>
+        <li>Consumables</li>
+        <li>Crafting materials</li>
+        <li>Gear</li>
+        <li>Golds</li>
+        <li>Experience</li>
+      </ul>
+    </p>
+  </section>
+
+  <section>
+    <h3>Waiting for new contracts</h3>
+
+    <p>
+      Each noticeboard has a limit of contracts you can complete in a given lapse
+      of time. The length depends on the value you set in the menu, and it is expressed
+      in real life hours. That means meditating won't cause you to get new contracts and
+      the only way to get new ones is to go for another noticeboard.
+    </p>
+
+    <p>
+      The contracts that are generated each interval are seeded from the time spent
+      in the playthrough and the location. This means that during the first hour of a
+      playthrough the contract in White Orchard will be the same for all players
+      across all computers.
+    </p>
+
+    <p>
+      If needed, the mod menu exposes a slider that can be changed to use another
+      seed. However this will follow the same logic, any player with the same seed
+      will get the same contracts or the same amount of time spent in the playthrough.
+    </p>
+  </section>
+</body>
+</html>
