@@ -793,7 +793,7 @@ state Processing in RER_BountyManager {
         groups[i].translation_heading,
         15, // angle
         0, // min range
-        0.005 * gametime_delta_multiplier // max range
+        0.0005 * gametime_delta_multiplier // max range
       );
 
       // y at 1 is the top of the map
