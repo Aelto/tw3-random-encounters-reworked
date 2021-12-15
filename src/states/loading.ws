@@ -19,6 +19,7 @@ state Loading in CRandomEncounters {
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
 
     this.registerStaticEncounters();
+    RER_addNoticeboardInjectors();
 
     parent.refreshEcosystemFrequencyMultiplier();
 

@@ -412,3 +412,44 @@
 2115018398|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> version
 2115018399|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
 2115018400|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'
+2115018401|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
+2115018402|        |panel_rer_contracts_settings|Contract system
+2115018403|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
+2115018404|        |option_rer_easy_nearby_contracts_number|Number of easy & nearby contracts
+2115018405|        |option_rer_hard_nearby_contracts_number|Number of hard & nearby contracts
+2115018406|        |option_rer_easy_far_contracts_number|Number of easy & far contracts
+2115018407|        |option_rer_hard_far_contracts_number|Number of hard & far contracts
+2115018408|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
+2115018409|        |option_rer_contracts_generation_seed|Contract generation seed
+2115018410|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
+2115018411|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Cursed Ones
+2115018412|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Draconids
+2115018413|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Elementa
+2115018414|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrids
+2115018415|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insectoids
+2115018416|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Necrophages
+2115018417|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogroids
+2115018418|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relicts
+2115018419|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Specters
+2115018420|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Vampires
+2115018421|        |rer_species_beasts|Beasts
+2115018422|        |rer_species_cursed|Cursed Ones
+2115018423|        |rer_species_draconids|Draconids
+2115018424|        |rer_species_elementa|Elementa
+2115018425|        |rer_species_hybrids|Hybrids
+2115018426|        |rer_species_insectoids|Insectoids
+2115018427|        |rer_species_necrophages|Necrophages
+2115018428|        |rer_species_ogroids|Ogroids
+2115018429|        |rer_species_relicts|Relicts
+2115018430|        |rer_species_specters|Specters
+2115018431|        |rer_species_vampires|Vampires
+2115018432|        |rer_distance_close|close
+2115018433|        |rer_distance_far|far
+; this line is the one displayed when starting a contract, for example:
+; - Close and easy Ogroids contract
+; - Far and hard Draconids contract
+; the {{distance}} will be replaced by either "far" or "close"
+; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
+; the {{species}} will be replaced by the species translated just above.
+2115018434|        |rer_contract_dialog_choice|{{distance}} & {{difficulty}} {{species}} contract
+2115018435|        |rer_cancel|Cancel

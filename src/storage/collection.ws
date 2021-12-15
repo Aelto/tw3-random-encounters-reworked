@@ -3,6 +3,7 @@
 struct RER_StorageCollection {
   var ecosystem: RER_EcosystemStorage;
   var bounty: RER_BountyStorage;
+  var contract: RER_ContractStorage;
 }
 
 // an helper function to get the full storage collection
@@ -11,6 +12,7 @@ function RER_loadStorageCollection(): RER_StorageCollection {
 
   collection.ecosystem = RER_loadEcosystemStorage();
   collection.bounty = RER_loadBountyStorage();
+  collection.contract = RER_loadContractStorage();
 
   return collection;
 }

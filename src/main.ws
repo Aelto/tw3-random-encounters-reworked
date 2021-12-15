@@ -27,6 +27,7 @@ statemachine class CRandomEncounters extends CEntity {
   var storages: RER_StorageCollection;
   var bounty_manager: RER_BountyManager;
   var horde_manager: RER_HordeManager;
+  var contract_manager: RER_ContractManager;
 
   var ticks_before_spawn: float;
   
@@ -61,6 +62,7 @@ statemachine class CRandomEncounters extends CEntity {
       ecosystem_manager = new RER_EcosystemManager in this;
       bounty_manager = new RER_BountyManager in this;
       horde_manager = new RER_HordeManager in this;
+      contract_manager = new RER_ContractManager in this;
 
       if (this.isEnabled()) {
         NLOG("RER is enabled");
