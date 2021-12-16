@@ -5,6 +5,7 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCHORT;
+    this.species = SpeciesTypes_RELICTS;
     this.menu_name = 'Chorts';
     this.localized_name = 'option_rer_chort';
 

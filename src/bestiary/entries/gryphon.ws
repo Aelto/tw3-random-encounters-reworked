@@ -5,6 +5,7 @@ class RER_BestiaryGryphon extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGRYPHON;
+    this.species = SpeciesTypes_HYBRIDS;
     this.menu_name = 'Gryphons';
     this.localized_name = 'option_rer_gryphon';
 

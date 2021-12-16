@@ -228,6 +228,30 @@ class RER_Bestiary {
     return CreatureNONE;
   }
 
+  public function getEntriesFromSpeciesType(species: RER_SpeciesTypes): array<RER_BestiaryEntry> {
+    var output: array<RER_BestiaryEntry>;
+    var i: int;
+
+    for (i = 0; i < this.entries.Size(); i += 1) {
+      if (this.entries[i].species == species) {
+        output.PushBack(this.entries[i]);
+      }
+    }
+
+    return output;
+  }
+
+  public function getRandomEntryFromSpeciesType(species: RER_SpeciesTypes, rng: RandomNumberGenerator): RER_BestiaryEntry {
+    var entries: array<RER_BestiaryEntry>;
+    var index: int;
+
+    entries = this.getEntriesFromSpeciesType(species);
+
+    index = (int)rng.nextRange(entries.Size(), 0);
+
+    return entries[index];
+  }
+
 
   //#region 3rd party code
   // everything in here is code to handle third party encounters/creatures in 

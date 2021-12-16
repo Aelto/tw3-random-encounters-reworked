@@ -29,49 +29,101 @@ function RER_getSeededRandomSpeciesType(rng: RandomNumberGenerator): RER_Species
 }
 
 function RER_getSpeciesLocalizedString(species: RER_SpeciesTypes): string {
+  var output: string;
+  
   switch (species) {
     case SpeciesTypes_BEASTS:
-      return GetLocStringByKey("rer_species_beasts");
+      output = GetLocStringByKey("rer_species_beasts");
       break;
     
     case SpeciesTypes_CURSED:
-      return GetLocStringByKey("rer_species_cursed");
+      output = GetLocStringByKey("rer_species_cursed");
       break;
 
     case SpeciesTypes_DRACONIDS:
-      return GetLocStringByKey("rer_species_draconids");
+      output = GetLocStringByKey("rer_species_draconids");
       break;
 
     case SpeciesTypes_ELEMENTA:
-      return GetLocStringByKey("rer_species_elementa");
+      output = GetLocStringByKey("rer_species_elementa");
       break;
 
     case SpeciesTypes_HYBRIDS:
-      return GetLocStringByKey("rer_species_hybrids");
+      output = GetLocStringByKey("rer_species_hybrids");
       break;
 
     case SpeciesTypes_INSECTOIDS:
-      return GetLocStringByKey("rer_species_insectoids");
+      output = GetLocStringByKey("rer_species_insectoids");
       break;
 
     case SpeciesTypes_NECROPHAGES:
-      return GetLocStringByKey("rer_species_necrophages");
+      output = GetLocStringByKey("rer_species_necrophages");
       break;
 
     case SpeciesTypes_OGROIDS:
-      return GetLocStringByKey("rer_species_ogroids");
+      output = GetLocStringByKey("rer_species_ogroids");
       break;
 
     case SpeciesTypes_RELICTS:
-      return GetLocStringByKey("rer_species_relicts");
+      output = GetLocStringByKey("rer_species_relicts");
       break;
 
     case SpeciesTypes_SPECTERS:
-      return GetLocStringByKey("rer_species_specters");
+      output = GetLocStringByKey("rer_species_specters");
       break;
 
     case SpeciesTypes_VAMPIRES:
-      return GetLocStringByKey("rer_species_vampires");
+      output = GetLocStringByKey("rer_species_vampires");
       break;
   }
+
+  return output;
+}
+
+function RER_getSpeciesFromLocalizedString(localized_string: string): RER_SpeciesTypes {
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_beasts"))) {
+    return SpeciesTypes_BEASTS;
+  }
+    
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_cursed"))) {
+    return SpeciesTypes_CURSED;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_draconids"))) {
+    return SpeciesTypes_DRACONIDS;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_elementa"))) {
+    return SpeciesTypes_ELEMENTA;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_hybrids"))) {
+    return SpeciesTypes_HYBRIDS;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_insectoids"))) {
+    return SpeciesTypes_INSECTOIDS;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_necrophages"))) {
+    return SpeciesTypes_NECROPHAGES;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_ogroids"))) {
+    return SpeciesTypes_OGROIDS;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_relicts"))) {
+    return SpeciesTypes_RELICTS;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_specters"))) {
+    return SpeciesTypes_SPECTERS;
+  }
+
+  if (StrContains(localized_string, GetLocStringByKey("rer_species_vampires"))) {
+    return SpeciesTypes_VAMPIRES;
+  }
+
+  return SpeciesTypes_NONE;
 }

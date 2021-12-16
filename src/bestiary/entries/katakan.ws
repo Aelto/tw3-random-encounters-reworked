@@ -5,6 +5,7 @@ class RER_BestiaryKatakan extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureKATAKAN;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Katakans';
     this.localized_name = 'option_rer_katakan';
 

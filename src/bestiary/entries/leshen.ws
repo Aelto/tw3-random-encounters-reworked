@@ -5,6 +5,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureLESHEN;
+    this.species = SpeciesTypes_RELICTS;
     this.menu_name = 'Leshens';
     this.localized_name = 'option_rer_leshen';
 

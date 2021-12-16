@@ -84,17 +84,10 @@ class RER_StaticEncounter {
   var radius: float;
   default radius = 0.01;
 
-  public function canSpawn(): bool {
-    var entities: array<CGameplayEntity>;
+  public function isInRegion(): bool {
     var current_region: string;
-    var radius: float;
-    var i: int;
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-    if (thePlayer.IsCiri()) {
-      return false;
-    }
 
     if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (current_region == "no_mans_land" || current_region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (current_region == "skellige" || current_region == "kaer_morhen")
@@ -104,6 +97,22 @@ class RER_StaticEncounter {
     ||  this.region_constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && current_region != "prolog_village"
     ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && current_region != "skellige" && current_region != "kaer_morhen"
     ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && current_region != "no_mans_land" && current_region != "novigrad") {
+      return false;
+    }
+
+    return true;
+  }
+
+  public function canSpawn(): bool {
+    var entities: array<CGameplayEntity>;
+    var radius: float;
+    var i: int;
+
+    if (thePlayer.IsCiri()) {
+      return false;
+    }
+
+    if (!this.isInRegion()) {
       return false;
     }
 

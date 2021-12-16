@@ -5,6 +5,7 @@ class RER_BestiaryGolem extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGOLEM;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Golems';
     this.localized_name = 'option_rer_golem';
 

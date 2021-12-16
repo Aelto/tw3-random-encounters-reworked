@@ -5,6 +5,7 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureEKIMMARA;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Ekimmaras';
     this.localized_name = 'option_rer_ekimmara';
 

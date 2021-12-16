@@ -5,6 +5,7 @@ class RER_BestiaryGiant extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGIANT;
+    this.species = SpeciesTypes_OGROIDS;
     this.menu_name = 'Giants';
     this.localized_name = 'option_rer_giant';
 

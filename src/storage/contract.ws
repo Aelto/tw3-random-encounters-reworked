@@ -16,6 +16,10 @@ class RER_ContractStorage extends RER_BaseStorage {
    * last_errand_injection_time is refreshed.
    */
   var completed_contracts: array<RER_ContractIdentifier>;
+
+  var ongoing_contract: RER_ContractRepresentation;
+
+  var has_ongoing_contract: bool;
 }
 
 // an helper function to get contract storage

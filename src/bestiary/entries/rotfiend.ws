@@ -5,6 +5,7 @@ class RER_BestiaryRotfiend extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureROTFIEND;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Rotfiends';
     this.localized_name = 'option_rer_rotfiend';
 

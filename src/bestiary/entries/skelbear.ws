@@ -5,6 +5,7 @@ class RER_BestiarySkelbear extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureSKELBEAR;
+    this.species = SpeciesTypes_BEASTS;
     this.menu_name = 'Skellige_Bears';
     this.localized_name = 'option_rer_bear';
 

@@ -1,6 +1,7 @@
 
 abstract class RER_BestiaryEntry {
   var type: CreatureType;
+  var species: RER_SpeciesTypes;
 
   var template_list: EnemyTemplateList;
 

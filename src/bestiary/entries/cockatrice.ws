@@ -5,6 +5,7 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCOCKATRICE;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Cockatrices';
     this.localized_name = 'option_rer_cockatrice';
 

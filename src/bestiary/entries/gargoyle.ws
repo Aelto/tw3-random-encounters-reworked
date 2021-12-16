@@ -5,6 +5,7 @@ class RER_BestiaryGargoyle extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGARGOYLE;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Gargoyles';
     this.localized_name = 'option_rer_gargoyle';
 

@@ -5,6 +5,7 @@ class RER_BestiaryForktail extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureFORKTAIL;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Forktails';
     this.localized_name = 'option_rer_forktail';
 
