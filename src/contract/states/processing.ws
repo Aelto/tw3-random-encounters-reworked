@@ -93,6 +93,51 @@ state Processing in RER_ContractManager {
     else if (ongoing_contract.event_type == ContractEventType_HORDE) {
       this.sendHordeRequestAndWaitForEnd(ongoing_contract);
     }
+    else if (ongoing_contract.event_type == ContractEventType_BOSS) {
+      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
+    }
+  }
+
+  latent function createHuntingGroundAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
+    var bestiary_entry: RER_BestiaryEntry;
+    var rer_entity_template: CEntityTemplate;
+    var entities: array<CEntity>;
+    var rng: RandomNumberGenerator;
+    var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var position: Vector;
+    
+    bestiary_entry = parent.master.bestiary.getEntry(ongoing_contract.creature_type);
+    rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
+      .useSeed(true);
+
+    rng.next();
+    position = ongoing_contract.destination_point
+      + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+
+    entities = bestiary_entry.spawn(
+      parent.master,
+      position,
+      RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier),
+      , // density
+      EncounterType_CONTRACT,
+      RER_BESF_NO_BESTIARY_FEATURE,
+      'RandomEncountersReworked_ContractCreature
+    );
+
+    rer_entity_template = (CEntityTemplate)LoadResourceAsync(
+      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
+      true
+    );
+
+    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(rer_entity_template, position, thePlayer.GetWorldRotation());    rer_entity.startEncounter(this.master, entities, bestiary_entry);
+    rer_entity.manual_destruction = true;
+    rer_entity.startEncounter(this.master, entities, bestiary_entry);
+
+    while (rer_entity.GetCurrentStateName() != 'Ending') {
+      Sleep(1);
+    }
+
+    rer_entity.clean();
   }
 
   latent function createNestEncounterAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {

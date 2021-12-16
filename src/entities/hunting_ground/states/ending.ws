@@ -20,6 +20,8 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
       RER_tryRefillRandomContainer();
     }
 
-    parent.clean();
+    if (!parent.manual_destruction) {
+      parent.clean();
+    }
   }
 }
