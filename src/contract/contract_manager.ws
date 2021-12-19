@@ -149,15 +149,12 @@ statemachine class RER_ContractManager {
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
-    current_position = this.master.static_encounter_manager.encounters[0].position;
-    current_distance = VecDistanceSquared2D(starting_point, current_position);
-
     for (i = 0; i < this.master.static_encounter_manager.encounters.Size(); i += 1) {
       if (!this.master.static_encounter_manager.encounters[i].isInRegion(current_region)) {
         continue;
       }
 
-      current_position = this.master.static_encounter_manager.encounters[0].position;
+      current_position = this.master.static_encounter_manager.encounters[i].position;
       current_distance = VecDistanceSquared2D(starting_point, current_position);
 
       break;
