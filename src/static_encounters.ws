@@ -84,19 +84,15 @@ class RER_StaticEncounter {
   var radius: float;
   default radius = 0.01;
 
-  public function isInRegion(): bool {
-    var current_region: string;
-
-    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-    if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (current_region == "no_mans_land" || current_region == "novigrad")
-    ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (current_region == "skellige" || current_region == "kaer_morhen")
-    ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && current_region == "bob"
-    ||  this.region_constraint == RER_RegionConstraint_NO_WHITEORCHARD && current_region == "prolog_village"
-    ||  this.region_constraint == RER_RegionConstraint_ONLY_TOUSSAINT && current_region != "bob"
-    ||  this.region_constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && current_region != "prolog_village"
-    ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && current_region != "skellige" && current_region != "kaer_morhen"
-    ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && current_region != "no_mans_land" && current_region != "novigrad") {
+  public function isInRegion(region: string): bool {
+    if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (region == "no_mans_land" || region == "novigrad")
+    ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (region == "skellige" || region == "kaer_morhen")
+    ||  this.region_constraint == RER_RegionConstraint_NO_TOUSSAINT && region == "bob"
+    ||  this.region_constraint == RER_RegionConstraint_NO_WHITEORCHARD && region == "prolog_village"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_TOUSSAINT && region != "bob"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && region != "prolog_village"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_SKELLIGE && region != "skellige" && region != "kaer_morhen"
+    ||  this.region_constraint == RER_RegionConstraint_ONLY_VELEN && region != "no_mans_land" && region != "novigrad") {
       return false;
     }
 
@@ -105,6 +101,7 @@ class RER_StaticEncounter {
 
   public function canSpawn(): bool {
     var entities: array<CGameplayEntity>;
+    var current_region: string;
     var radius: float;
     var i: int;
 
@@ -112,7 +109,9 @@ class RER_StaticEncounter {
       return false;
     }
 
-    if (!this.isInRegion()) {
+    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+    if (!this.isInRegion(current_region)) {
       return false;
     }
 

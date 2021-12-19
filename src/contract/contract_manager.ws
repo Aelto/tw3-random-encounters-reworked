@@ -142,15 +142,18 @@ statemachine class RER_ContractManager {
     var next_node: RER_PositionNode;
     var current_position: Vector;
     var current_distance: float;
+    var current_region: string;
     var output: array<Vector>;
     var i: int;
     var k: int;
+
+    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
     current_position = this.master.static_encounter_manager.encounters[0].position;
     current_distance = VecDistanceSquared2D(starting_point, current_position);
 
     for (i = 0; i < this.master.static_encounter_manager.encounters.Size(); i += 1) {
-      if (!this.master.static_encounter_manager.encounters[i].isInRegion()) {
+      if (!this.master.static_encounter_manager.encounters[i].isInRegion(current_region)) {
         continue;
       }
 
@@ -162,9 +165,9 @@ statemachine class RER_ContractManager {
 
     queue_starting_node = (new RER_PositionNode in this).init(NULL, current_position, current_distance, NULL);
 
-    // important: it starts at 1 since we did the first one above.
-    for (i = 1; i < this.master.static_encounter_manager.encounters.Size(); i += 1) {
-      if (!this.master.static_encounter_manager.encounters[i].isInRegion()) {
+    // important: it starts at i since we did the first one above.
+    for (i; i < this.master.static_encounter_manager.encounters.Size(); i += 1) {
+      if (!this.master.static_encounter_manager.encounters[i].isInRegion(current_region)) {
         continue;
       }
 
