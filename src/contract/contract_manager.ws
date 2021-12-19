@@ -200,7 +200,7 @@ statemachine class RER_ContractManager {
     var next_node: RER_PositionNode;
 
     // first we check if the current node is not closer than the first one
-    if (queue_starting_node.distance > current_distance) {
+    if (current_distance < queue_starting_node.distance) {
       current_node = (new RER_PositionNode in this).init(NULL, current_position, current_distance, queue_starting_node);
       queue_starting_node.previous = current_node;
 
@@ -217,7 +217,7 @@ statemachine class RER_ContractManager {
         break;
       }
 
-      if (next_node.distance > current_distance) {
+      if (current_distance < next_node.distance) {
         current_node.next = (new RER_PositionNode in this).init(current_node, current_position, current_distance, next_node);
         next_node.previous = current_node.next;
 
