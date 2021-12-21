@@ -4,4 +4,10 @@ state Waiting in RER_ContractManager {
     super.OnEnterState(previous_state_name);
     NLOG("RER_ContractManager - state WAITING");
   }
+
+  entry function Waiting_main() {
+    if (parent.master.storages.contract.has_ongoing_contract) {
+      parent.GotoState('Processing');
+    }
+  }
 }

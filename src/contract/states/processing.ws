@@ -13,6 +13,8 @@ state Processing in RER_ContractManager {
   entry function Processing_main() {
     this.waitForPlayerToReachDestination();
     this.waitForPlayerToFinishContract();
+    parent.completeCurrentContract();
+    parent.GotoState('Waiting');
   }
 
   latent function waitForPlayerToReachDestination() {
@@ -22,12 +24,10 @@ state Processing in RER_ContractManager {
 
 
     while (true) {
-      NLOG("parent.master.storages.contract.has_ongoing_contract = " + parent.master.storages.contract.has_ongoing_contract);
-
       if (!parent.master.storages.contract.has_ongoing_contract) {
-        Sleep(20);
-
-        continue;
+        parent.GotoState('Waiting');
+        
+        return;
       }
 
       ongoing_contract = parent.master.storages.contract.ongoing_contract;
@@ -121,7 +121,7 @@ state Processing in RER_ContractManager {
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE,
-      'RandomEncountersReworked_ContractCreature
+      'RandomEncountersReworked_ContractCreature'
     );
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
@@ -194,10 +194,10 @@ state Processing in RER_ContractManager {
 
     parent.master.horde_manager.sendRequest(request);
 
-    if (parent.master.horde_manager.GetCurrentStateName() == 'Waiting') {
-      while (parent.master.horde_manager.GetCurrentStateName() == 'Waiting') {
-        Sleep(1);
-      }
+    // the statemachine may not enter the processing state right away,
+    // in this case we wait for it to leave the waiting state.
+    while (parent.master.horde_manager.GetCurrentStateName() == 'Waiting') {
+      Sleep(1);
     }
 
     while (parent.master.horde_manager.GetCurrentStateName() == 'Processing') {

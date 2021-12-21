@@ -47,6 +47,8 @@ state DialogChoice in RER_ContractManager {
     noticeboard_identifier = parent.getUniqueIdFromNoticeboard(this.getNearbyNoticeboard());
     rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time);
 
+    // TODO: display the available rewards from the current noticeboard
+
     // close & easy
     amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyNearbyContractsNumber'));
 

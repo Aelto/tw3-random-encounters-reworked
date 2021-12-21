@@ -16,6 +16,8 @@ state DialogChoice in RER_BountyMasterManager {
 
     this.doMovementAdjustment();
 
+    // TODO: add option to trade tokens into items
+
     choices.PushBack(SSceneChoice(
       GetLocStringByKey("rer_dialog_start_bounty"),
       true,

@@ -1,4 +1,24 @@
 
+/**
+ * Summary of the whole Contract system:
+ *  - An errand injector adds a notice to every noticeboard in the game
+ *  - When the errand is picked, it notifies the ContractManager which
+ *    displays a list of contracts the user can start.
+ *  - There is a limited amount of contracts per hour (by default)
+ *  - For contracts to be restricted per noticeboard, the noticeboards as
+ *    well as the contract have a unique identifier.
+ *  - These identifiers are used to determine if the same contract was
+ *    already completed from the same noticeboard.
+ *  - When a contract is started, it selects a random location in the
+ *    world, as well a random reward and a random species.
+ *  - Every thing random in contracts are generated from a seeded RNG
+ *  - The seed is obtained from the noticeboard and the current
+ *    generation time.
+ *  - Contracts do not persist in the save, but are regenerated every
+ *    the player is nearby.
+ *  - The available rewards depend on the region and also on the
+ *    noticeboard.
+ */
 statemachine class RER_ContractManager {
   var master: CRandomEncounters;
 
@@ -98,8 +118,9 @@ statemachine class RER_ContractManager {
     bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
     contract.creature_type = bestiary_entry.type;
     contract.region_name = data.region_name;
-    contract.reward_type = ContractRewardType_ALL;
     contract.rng_seed = data.rng_seed;
+    contract.reward_type = RER_getAllowedContractRewardsMaskFromRegion()
+                         | RER_getRandomAllowedRewardType(rng);
 
     if (data.difficulty == ContractDifficulty_EASY) {
       if (rng.nextRange(10, 0) < 5) {
@@ -130,22 +151,18 @@ statemachine class RER_ContractManager {
 
     // since it can return less than what we asked for
     size = closest_points.Size();
+    if (size <= 0) {
+      NDEBUG("ERROR: no available location for contract was found");
+    }
+
     index = (int)rng.nextRange(size, 0);
 
     return closest_points[index];
   }
 
   public function getClosestDestinationPoints(starting_point: Vector, amount_of_points: int): array<Vector> {
-    // we will use a linked-list to sort the positions based on the distances
-    var queue_starting_node: RER_PositionNode;
-    var current_node: RER_PositionNode;
-    var next_node: RER_PositionNode;
-    var current_position: Vector;
-    var current_distance: float;
-    var current_region: string;
+    var sorter_data: array<SU_ArraySorterData>;
     var output: array<Vector>;
-    var i: int;
-    var k: int;
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
@@ -157,76 +174,42 @@ statemachine class RER_ContractManager {
       current_position = this.master.static_encounter_manager.encounters[i].position;
       current_distance = VecDistanceSquared2D(starting_point, current_position);
 
-      break;
+      sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
     }
 
-    queue_starting_node = (new RER_PositionNode in this).init(NULL, current_position, current_distance, NULL);
+    // we re-use the same variable here
+    sorter_data = SU_sortArray(sorter_data);
 
-    // important: it starts at i since we did the first one above.
-    for (i; i < this.master.static_encounter_manager.encounters.Size(); i += 1) {
-      if (!this.master.static_encounter_manager.encounters[i].isInRegion(current_region)) {
-        continue;
-      }
-
-      current_position = this.master.static_encounter_manager.encounters[i].position;
-      current_distance = VecDistanceSquared2D(starting_point, current_position);
-
-      // now we insert the node in the linked-list right before the first node that
-      // that has a greater distance than the current one. Or if there is no next
-      // node, which would mean the current distance is the greatest
-      queue_starting_node = this.insertNodeInLinkedList(queue_starting_node, current_position, current_distance);
-    }
-
-    // now that we have a sorted linked-list, we can start reading the positions
-    // from the list in ascending order.
-    current_node = queue_starting_node;
-
-    for (i = 0; i < amount_of_points; i += 1) {
-      output.PushBack(current_node.position);
-
-      current_node = current_node.next;
-
-      if (!current_node) {
-        break;
-      }
+    for (i = 0; i < sorter_data.Size() && i < amount_of_points; i += 1) {
+      output.PushBack(sorter_data[i].position);
     }
 
     return output;
   }
 
-  public function insertNodeInLinkedList(out queue_starting_node: RER_PositionNode, current_position: Vector, current_distance: float): RER_PositionNode {
-    var new_starting_point: RER_PositionNode;
-    var current_node: RER_PositionNode;
-    var next_node: RER_PositionNode;
+  public function completeCurrentContract() {
+    var storage: RER_ContractStorage;
+    var token_name: name;
 
-    // first we check if the current node is not closer than the first one
-    if (current_distance < queue_starting_node.distance) {
-      current_node = (new RER_PositionNode in this).init(NULL, current_position, current_distance, queue_starting_node);
-      queue_starting_node.previous = current_node;
+    storage = this.master.storages.contract;
 
-      return current_node;
+    if (!storage.has_ongoing_contract) {
+      return;
     }
 
-    current_node = queue_starting_node;
-    while (true) {
-      next_node = current_node.next;
+    storage.completed_contracts.PushBack(storage.ongoing_contract.identifier);
+    storage.has_ongoing_contract = false;
 
-      if (!next_node) {
-        current_node.next = (new RER_PositionNode in this).init(current_node, current_position, current_distance, NULL);
+    token_name = RER_contractRewardTypeToItemName(
+      RER_getRandomContractRewardTypeFromFlag(storage.ongoing_contract.reward_type)
+    );
 
-        break;
-      }
-
-      if (current_distance < next_node.distance) {
-        current_node.next = (new RER_PositionNode in this).init(current_node, current_position, current_distance, next_node);
-        next_node.previous = current_node.next;
-
-        break;
-      }
-
-      current_node = next_node;
+    if (IsNameValid(token_name)) {
+      thePlayer
+        .GetInventory()
+        .AddAnItem(token_name);
     }
 
-    return queue_starting_node;
+    storage.save();
   }
 }

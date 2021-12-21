@@ -453,3 +453,13 @@
 ; the {{species}} will be replaced by the species translated just above.
 2115018434|        |rer_contract_dialog_choice|{{distance}} & {{difficulty}} {{species}} contract
 2115018435|        |rer_cancel|Cancel
+2115018436|        |rer_token_gear|Token of gratitude - Gear
+2115018437|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
+2115018438|        |rer_token_consumables|Token of gratitude - Consumables
+2115018439|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
+2115018440|        |rer_token_experience|Token of gratitude - Experience
+2115018441|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
+2115018442|        |rer_token_materials|Token of gratitude - Materials
+2115018443|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
+2115018444|        |rer_token_gold|Token of gratitude - Gold
+2115018445|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.

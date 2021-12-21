@@ -65,12 +65,13 @@ enum RER_ContractEventType {
 }
 
 enum RER_ContractRewardType {
-  ContractRewardType_NONE = 00000,
-  ContractRewardType_GEAR = 00001,
-  ContractRewardType_MATERIALS = 00010,
-  ContractRewardType_EXPERIENCE = 00100,
-  ContractRewardType_CONSUMABLES = 01000,
-  ContractRewardType_ALL = 11111
+  ContractRewardType_NONE = 000000,
+  ContractRewardType_GEAR = 000001,
+  ContractRewardType_MATERIALS = 000010,
+  ContractRewardType_EXPERIENCE = 000100,
+  ContractRewardType_CONSUMABLES = 001000,
+  ContractRewardType_GOLD = 010000,
+  ContractRewardType_ALL = 111111
 }
 
 /**
@@ -108,22 +109,16 @@ struct RER_ContractRepresentation {
 }
 
 /**
- * It's a clas because structs are copied in this language
+ * It's a class because structs are copied in this language
  */
-class RER_PositionNode {
-  var previous: RER_PositionNode;
-
+class RER_ContractLocation extends SU_ArraySorterData {
   var position: Vector;
 
-  var distance: float;
-
-  var next: RER_PositionNode;
-
-  public function init(previous: RER_PositionNode, position: Vector, distance: float, next: RER_PositionNode): RER_PositionNode {
-    this.previous = previous;
+  public function init(position: Vector, distance: float): RER_PositionNode {
     this.position = position;
-    this.distance = distance;
-    this.next = next;
+
+    // we use the distance as the value used during the sorting
+    this.value = distance;
 
     return this;
   }
