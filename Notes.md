@@ -44,3 +44,4 @@ display a custom haggle/ask more info/accept/deny; list of choices.
    - ❕ maybe even `ActionMoveCustom`, look in the class `CBehTreeActorTaskRunFromDanger` on how to use it
    - `CMoveTRGScript` look for that too
  - `CBTTaskGesturesManager` for the gestures during dialogue
+  - `SignalGameplayEvent('GesticulatingActor');` could be used to trigger the manager

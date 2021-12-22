@@ -284,5 +284,7 @@ state DialogChoice in RER_BountyMasterManager {
       slide_ticket,
       target
     );
+
+    parent.bounty_master_entity.Teleport(parent.bounty_master_entity.GetWorldPosition() + Vector(0, 0, 0.2));
   }
 }
