@@ -211,6 +211,7 @@ statemachine class RER_ContractManager {
 
       // TODO: maybe give more tokens for harder contracts
       thePlayer.DisplayItemRewardNotification(token_name, 1);
+      theSound.SoundEvent("gui_inventory_buy");
     }
 
     storage.save();

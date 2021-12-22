@@ -294,6 +294,8 @@ state DialogChoice in RER_ContractManager {
     parent.master.storages.contract.has_ongoing_contract = true;
     parent.master.storages.contract.save();
 
+    theSound.SoundEvent("gui_ingame_quest_success");
+
     parent.GotoState('Processing');
   }
 }

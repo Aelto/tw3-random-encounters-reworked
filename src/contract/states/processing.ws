@@ -64,18 +64,18 @@ state Processing in RER_ContractManager {
         SU_updateMinimapPins();
 
         has_added_pins = true;
+        theSound.SoundEvent("gui_hubmap_mark_pin");
       }
 
-      if (VecDistanceSquared2D(ongoing_contract.destination_point, thePlayer.GetWorldPosition()) > ongoing_contract.destination_radius * ongoing_contract.destination_radius) {
-        Sleep(10);
-
-        continue;
+      if (VecDistanceSquared2D(ongoing_contract.destination_point, thePlayer.GetWorldPosition()) <= ongoing_contract.destination_radius * ongoing_contract.destination_radius) {
+        break;
       }
-
-	    theGame.SaveGame( SGT_QuickSave, -1 );
 
       Sleep(10);
     }
+
+    theGame.SaveGame( SGT_QuickSave, -1 );
+    theSound.SoundEvent("gui_ingame_new_journal");
   }
 
   latent function waitForPlayerToFinishContract() {

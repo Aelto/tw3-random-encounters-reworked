@@ -31,6 +31,8 @@ function RER_applyLootFromContractTokenName(inventory: CInventoryComponent, item
   var loot_tables: array<name>;
   var index: int;
 
+  theSound.SoundEvent("gui_inventory_buy");
+
   if (item == 'rer_token_experience') {
     // re-use the index variable here
     index =  thePlayer.GetLevel() * 10;
