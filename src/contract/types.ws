@@ -97,6 +97,8 @@ struct RER_ContractRepresentation {
 
   var identifier: RER_ContractIdentifier;
 
+  var noticeboard_identifier: RER_NoticeboardIdentifier;
+
   /**
    * the possible rewards the player can get from completing the contract.
    * This value is a flag and can contain multiple reward types

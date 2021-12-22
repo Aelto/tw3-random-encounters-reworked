@@ -1,5 +1,8 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
+; 
+; Changed in v2.7:
+;  - Anything below id: 2115018401 was added
 ;
 ; Changed in v2.6:
 ;  - Anything below id: 2115018342 was added
@@ -454,12 +457,27 @@
 2115018434|        |rer_contract_dialog_choice|{{distance}} & {{difficulty}} {{species}} contract
 2115018435|        |rer_cancel|Cancel
 2115018436|        |rer_token_gear|Token of gratitude - Gear
-2115018437|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
-2115018438|        |rer_token_consumables|Token of gratitude - Consumables
-2115018439|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
-2115018440|        |rer_token_experience|Token of gratitude - Experience
-2115018441|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
-2115018442|        |rer_token_materials|Token of gratitude - Materials
-2115018443|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
-2115018444|        |rer_token_gold|Token of gratitude - Gold
-2115018445|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
+2115018437|        |rer_token_gear_short|Gear
+2115018438|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
+2115018439|        |rer_token_consumables|Token of gratitude - Consumables
+2115018440|        |rer_token_consumables_short|Consumables
+2115018441|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
+2115018442|        |rer_token_experience|Token of gratitude - Experience
+2115018443|        |rer_token_experience_short|Experience
+2115018444|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
+2115018445|        |rer_token_materials|Token of gratitude - Materials
+2115018446|        |rer_token_materials_short|Materials
+2115018447|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
+2115018448|        |rer_token_gold|Token of gratitude - Gold
+2115018449|        |rer_token_gold_short|Gold
+2115018450|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
+; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
+2115018451|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
+; As it may be hard to read with all these {{}}, here is an example of what 
+; it should look like once localized:
+; Gear (7 left)
+; {{reward_type}} are the `rer_token_type_short` lines you translated above.
+; {{tokens_amount}} is the number of tokens the player has in his inventory.
+2115018452|        |rer_token_trading_option|{{reward_type}} ({{tokens_amount}} left)
+2115018453|        |rer_token_trading_option_empty|No tokens to trade
+2115018454|        |rer_trade_tokens|Trade tokens of gratitude

@@ -47,7 +47,20 @@ state DialogChoice in RER_ContractManager {
     noticeboard_identifier = parent.getUniqueIdFromNoticeboard(this.getNearbyNoticeboard());
     rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time);
 
-    // TODO: display the available rewards from the current noticeboard
+    line = GetLocStringByKey("rer_available_rewards");
+    line = StrReplace(line, "{{rewards_list}}", RER_getLocalizedRewardTypesFromFlag(
+      RER_getAllowedContractRewardsMaskFromRegion()
+      | RER_getRandomAllowedRewardType(parent, noticeboard_identifier)
+    ));
+
+    choices.PushBack(SSceneChoice(
+      line,
+      false,
+      true, // already choosen
+      true, // disabled
+      DialogAction_MONSTERCONTRACT,
+      'StartContractDifficultyEasyDistanceClose'
+    ));
 
     // close & easy
     amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyNearbyContractsNumber'));
@@ -264,6 +277,7 @@ state DialogChoice in RER_ContractManager {
       contract_data.distance = ContractDistance_CLOSE;
     }
 
+    contract_data.noticeboard_identifier = noticeboard_identifier;
     contract_data.identifier = parent.getUniqueIdFromContract(
       noticeboard_identifier,
       contract_data.distance == ContractDistance_FAR, // is_far

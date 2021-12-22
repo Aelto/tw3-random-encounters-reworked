@@ -120,7 +120,7 @@ statemachine class RER_ContractManager {
     contract.region_name = data.region_name;
     contract.rng_seed = data.rng_seed;
     contract.reward_type = RER_getAllowedContractRewardsMaskFromRegion()
-                         | RER_getRandomAllowedRewardType(rng);
+                         | RER_getRandomAllowedRewardType(this, data.noticeboard_identifier);
 
     if (data.difficulty == ContractDifficulty_EASY) {
       if (rng.nextRange(10, 0) < 5) {
@@ -208,6 +208,9 @@ statemachine class RER_ContractManager {
       thePlayer
         .GetInventory()
         .AddAnItem(token_name);
+
+      // TODO: maybe give more tokens for harder contracts
+      thePlayer.DisplayItemRewardNotification(token_name, 1);
     }
 
     storage.save();

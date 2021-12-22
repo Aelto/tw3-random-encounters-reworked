@@ -16,8 +16,6 @@ state DialogChoice in RER_BountyMasterManager {
 
     this.doMovementAdjustment();
 
-    // TODO: add option to trade tokens into items
-
     choices.PushBack(SSceneChoice(
       GetLocStringByKey("rer_dialog_start_bounty"),
       true,
@@ -56,6 +54,15 @@ state DialogChoice in RER_BountyMasterManager {
     ));
 
     choices.PushBack(SSceneChoice(
+      GetLocStringByKey("rer_trade_tokens"),
+      false,
+      false,
+      false,
+      DialogAction_SHOPPING,
+      'TradeTokens'
+    ));
+
+    choices.PushBack(SSceneChoice(
       GetLocStringByKey("rer_dialog_farewell"),
       false,
       false,
@@ -91,6 +98,10 @@ state DialogChoice in RER_BountyMasterManager {
         return;
       }
 
+      if (response.playGoChunk == 'TradeTokens') {
+        this.displayTokenTradingDialogChoice();
+      }
+
       if (response.playGoChunk == 'StartBounty') {
         parent.GotoState('Talking');
         return;
@@ -108,7 +119,81 @@ state DialogChoice in RER_BountyMasterManager {
       this.convertTrophiesIntoCrowns();
       this.removeTrophyChoiceFromList(choices);
     }
+  }
 
+  latent function displayTokenTradingDialogChoice() {
+    var inventory: CInventoryComponent;
+    var choices: array<SSceneChoice>;
+    var response: SSceneChoice;
+
+    inventory = thePlayer.GetInventory();
+
+    this.addChoiceAboutToken(choices, inventory, ContractRewardType_GEAR);
+    this.addChoiceAboutToken(choices, inventory, ContractRewardType_CONSUMABLES);
+    this.addChoiceAboutToken(choices, inventory, ContractRewardType_EXPERIENCE);
+    this.addChoiceAboutToken(choices, inventory, ContractRewardType_GOLD);
+    this.addChoiceAboutToken(choices, inventory, ContractRewardType_MATERIALS);
+
+    if (choices.Size() <= 0) {
+      choices.PushBack(SSceneChoice(
+        GetLocStringByKey('rer_token_trading_option_empty'),
+        true,
+        true,
+        false,
+        DialogAction_GETBACK,
+        'CloseDialog'
+      ));
+    }
+
+    choices.PushBack(SSceneChoice(
+      GetLocStringByKey('rer_cancel'),
+      false,
+      false,
+      false,
+      DialogAction_GETBACK,
+      'CloseDialog'
+    ));
+
+    // while on gamepad, the interact input is directly sent in the dialog choice
+    // it is safer to wait a bit before capturing the input.
+    Sleep(0.25);
+
+    while (true) {
+      response = SU_setDialogChoicesAndWaitForResponse(choices);
+      SU_closeDialogChoiceInterface();
+
+      if (response.playGoChunk == 'CloseDialog') {
+        return;
+      }
+
+      RER_applyLootFromContractTokenName(inventory, response.playGoChunk);
+    }
+  }
+
+  function addChoiceAboutToken(choices: array<SSceneChoice>, inventory: CInventoryComponent, type: RER_ContractRewardType) {
+    var quantity: int;
+    var line: string;
+
+    quantity = inventory.GetItemQuantityByName(
+      RER_contractRewardTypeToItemName(type)
+    );
+
+    if (quantity <= 0) {
+      return;
+    }
+
+    line = GetLocStringByKey('rer_token_trading_option');
+    line = StrReplace("{{reward_type}}", RER_getLocalizedRewardType(type));
+    line = StrReplace("{{tokens_amount}}", IntToString(quantity));
+
+    choices.PushBack(SSceneChoice(
+      line,
+      true,
+      false,
+      false,
+      DialogAction_SHOPPING,
+      RER_contractRewardTypeToItemName(type)
+    ));
   }
 
   function removeTrophyChoiceFromList(out choices: array<SSceneChoice>) {
