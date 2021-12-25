@@ -2,7 +2,8 @@
 ; id      |key(hex)|key(str)| text
 ; 
 ; Changed in v2.7:
-;  - Anything below id: 2115018401 was added
+;  - Anything below id: 2115018400 was added
+;  - Line 2115018347 was deleted (all IDs after this line were decremented by 1)
 ;
 ; Changed in v2.6:
 ;  - Anything below id: 2115018342 was added
@@ -361,123 +362,122 @@
 ;
 ; Thank you!
 2115018346|        |rer_horde_invasion_strength_title|{{creature_name}} strength
-2115018347|        |option_rer_horde_chance_with_bounties|Chance multiplier to get a horde with bounties <font size="11">(0 = disabled)</font>
-2115018348|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Killing spree loot
-2115018349|        |panel_rer_killing_spree_custom_loot_settings|Killing spree loot
-2115018350|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere|Generic food<font color="#ffd33d">:</font> unlock %
-2115018351|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere|Generic alcohol<font color="#ffd33d">:</font> unlock %
-2115018352|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere|Generic gold<font color="#ffd33d">:</font> unlock %
-2115018353|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere|Dwarven loot<font color="#ffd33d">:</font> unlock %
-2115018354|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere|Bandit loot<font color="#ffd33d">:</font> unlock %
-2115018355|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere|Generic chest<font color="#ffd33d">:</font> unlock %
-2115018356|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog|White Orchard herbs<font color="#ffd33d">:</font> unlock %
-2115018357|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml|Velen herbs<font color="#ffd33d">:</font> unlock %
-2115018358|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad|Novigrad herbs<font color="#ffd33d">:</font> unlock %
-2115018359|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige|Skellige herbs<font color="#ffd33d">:</font> unlock %
-2115018360|        |option_rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere|Dungeon<font color="#ffd33d">:</font> unlock %
-2115018361|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1|Treasure quality 1<font color="#ffd33d">:</font> unlock %
-2115018362|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2|Treasure quality 2<font color="#ffd33d">:</font> unlock %
-2115018363|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3|Treasure quality 3<font color="#ffd33d">:</font> unlock %
-2115018364|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4|Treasure quality 4<font color="#ffd33d">:</font> unlock %
-2115018365|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5|Treasure quality 5<font color="#ffd33d">:</font> unlock %
-2115018366|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_runes|Unique runes<font color="#ffd33d">:</font> unlock %
-2115018367|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades|Unique armor upgrades<font color="#ffd33d">:</font> unlock %
-2115018368|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr|Unique ingredients<font color="#ffd33d">:</font> unlock %
-2115018369|        |option_rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml|Velen weapons<font color="#ffd33d">:</font> unlock %
-2115018370|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml|Unique Velen dungeon relics<font color="#ffd33d">:</font> unlock %
-2115018371|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> unlock %
-2115018372|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> unlock %
-2115018373|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> unlock %
-2115018374|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere|Generic food<font color="#ffd33d">:</font> droprate %
-2115018375|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere|Generic alcohol<font color="#ffd33d">:</font> droprate %
-2115018376|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere|Generic gold<font color="#ffd33d">:</font> droprate %
-2115018377|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere|Dwarven loot<font color="#ffd33d">:</font> droprate %
-2115018378|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere|Bandit loot<font color="#ffd33d">:</font> droprate %
-2115018379|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere|Generic chest<font color="#ffd33d">:</font> droprate %
-2115018380|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog|White Orchard herbs<font color="#ffd33d">:</font> droprate %
-2115018381|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml|Velen herbs<font color="#ffd33d">:</font> droprate %
-2115018382|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad|Novigrad herbs<font color="#ffd33d">:</font> droprate %
-2115018383|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige|Skellige herbs<font color="#ffd33d">:</font> droprate %
-2115018384|        |option_rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere|Dungeon<font color="#ffd33d">:</font> droprate %
-2115018385|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1|Treasure quality 1<font color="#ffd33d">:</font> droprate %
-2115018386|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2|Treasure quality 2<font color="#ffd33d">:</font> droprate %
-2115018387|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3|Treasure quality 3<font color="#ffd33d">:</font> droprate %
-2115018388|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4|Treasure quality 4<font color="#ffd33d">:</font> droprate %
-2115018389|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5|Treasure quality 5<font color="#ffd33d">:</font> droprate %
-2115018390|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_runes|Unique runes<font color="#ffd33d">:</font> droprate %
-2115018391|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades|Unique armor upgrades<font color="#ffd33d">:</font> droprate %
-2115018392|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr|Unique ingredients<font color="#ffd33d">:</font> droprate %
-2115018393|        |option_rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml|Velen weapons<font color="#ffd33d">:</font> droprate %
-2115018394|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml|Unique Velen dungeon relics<font color="#ffd33d">:</font> droprate %
-2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> droprate %
-2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> droprate %
-2115018397|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> droprate %
-2115018398|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> version
-2115018399|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
-2115018400|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'
-2115018401|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
-2115018402|        |panel_rer_contracts_settings|Contract system
-2115018403|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018404|        |option_rer_easy_nearby_contracts_number|Number of easy & nearby contracts
-2115018405|        |option_rer_hard_nearby_contracts_number|Number of hard & nearby contracts
-2115018406|        |option_rer_easy_far_contracts_number|Number of easy & far contracts
-2115018407|        |option_rer_hard_far_contracts_number|Number of hard & far contracts
-2115018408|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
-2115018409|        |option_rer_contracts_generation_seed|Contract generation seed
-2115018410|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
-2115018411|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Cursed Ones
-2115018412|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Draconids
-2115018413|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Elementa
-2115018414|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrids
-2115018415|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insectoids
-2115018416|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Necrophages
-2115018417|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogroids
-2115018418|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relicts
-2115018419|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Specters
-2115018420|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Vampires
-2115018421|        |rer_species_beasts|Beasts
-2115018422|        |rer_species_cursed|Cursed Ones
-2115018423|        |rer_species_draconids|Draconids
-2115018424|        |rer_species_elementa|Elementa
-2115018425|        |rer_species_hybrids|Hybrids
-2115018426|        |rer_species_insectoids|Insectoids
-2115018427|        |rer_species_necrophages|Necrophages
-2115018428|        |rer_species_ogroids|Ogroids
-2115018429|        |rer_species_relicts|Relicts
-2115018430|        |rer_species_specters|Specters
-2115018431|        |rer_species_vampires|Vampires
-2115018432|        |rer_distance_close|close
-2115018433|        |rer_distance_far|far
+2115018347|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Killing spree loot
+2115018348|        |panel_rer_killing_spree_custom_loot_settings|Killing spree loot
+2115018349|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere|Generic food<font color="#ffd33d">:</font> unlock %
+2115018350|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere|Generic alcohol<font color="#ffd33d">:</font> unlock %
+2115018351|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere|Generic gold<font color="#ffd33d">:</font> unlock %
+2115018352|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere|Dwarven loot<font color="#ffd33d">:</font> unlock %
+2115018353|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere|Bandit loot<font color="#ffd33d">:</font> unlock %
+2115018354|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere|Generic chest<font color="#ffd33d">:</font> unlock %
+2115018355|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog|White Orchard herbs<font color="#ffd33d">:</font> unlock %
+2115018356|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml|Velen herbs<font color="#ffd33d">:</font> unlock %
+2115018357|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad|Novigrad herbs<font color="#ffd33d">:</font> unlock %
+2115018358|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige|Skellige herbs<font color="#ffd33d">:</font> unlock %
+2115018359|        |option_rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere|Dungeon<font color="#ffd33d">:</font> unlock %
+2115018360|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1|Treasure quality 1<font color="#ffd33d">:</font> unlock %
+2115018361|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2|Treasure quality 2<font color="#ffd33d">:</font> unlock %
+2115018362|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3|Treasure quality 3<font color="#ffd33d">:</font> unlock %
+2115018363|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4|Treasure quality 4<font color="#ffd33d">:</font> unlock %
+2115018364|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5|Treasure quality 5<font color="#ffd33d">:</font> unlock %
+2115018365|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_runes|Unique runes<font color="#ffd33d">:</font> unlock %
+2115018366|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades|Unique armor upgrades<font color="#ffd33d">:</font> unlock %
+2115018367|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr|Unique ingredients<font color="#ffd33d">:</font> unlock %
+2115018368|        |option_rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml|Velen weapons<font color="#ffd33d">:</font> unlock %
+2115018369|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml|Unique Velen dungeon relics<font color="#ffd33d">:</font> unlock %
+2115018370|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> unlock %
+2115018371|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> unlock %
+2115018372|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> unlock %
+2115018373|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere|Generic food<font color="#ffd33d">:</font> droprate %
+2115018374|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere|Generic alcohol<font color="#ffd33d">:</font> droprate %
+2115018375|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere|Generic gold<font color="#ffd33d">:</font> droprate %
+2115018376|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere|Dwarven loot<font color="#ffd33d">:</font> droprate %
+2115018377|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere|Bandit loot<font color="#ffd33d">:</font> droprate %
+2115018378|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere|Generic chest<font color="#ffd33d">:</font> droprate %
+2115018379|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog|White Orchard herbs<font color="#ffd33d">:</font> droprate %
+2115018380|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml|Velen herbs<font color="#ffd33d">:</font> droprate %
+2115018381|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad|Novigrad herbs<font color="#ffd33d">:</font> droprate %
+2115018382|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige|Skellige herbs<font color="#ffd33d">:</font> droprate %
+2115018383|        |option_rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere|Dungeon<font color="#ffd33d">:</font> droprate %
+2115018384|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1|Treasure quality 1<font color="#ffd33d">:</font> droprate %
+2115018385|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2|Treasure quality 2<font color="#ffd33d">:</font> droprate %
+2115018386|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3|Treasure quality 3<font color="#ffd33d">:</font> droprate %
+2115018387|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4|Treasure quality 4<font color="#ffd33d">:</font> droprate %
+2115018388|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5|Treasure quality 5<font color="#ffd33d">:</font> droprate %
+2115018389|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_runes|Unique runes<font color="#ffd33d">:</font> droprate %
+2115018390|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades|Unique armor upgrades<font color="#ffd33d">:</font> droprate %
+2115018391|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr|Unique ingredients<font color="#ffd33d">:</font> droprate %
+2115018392|        |option_rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml|Velen weapons<font color="#ffd33d">:</font> droprate %
+2115018393|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml|Unique Velen dungeon relics<font color="#ffd33d">:</font> droprate %
+2115018394|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> droprate %
+2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> droprate %
+2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> droprate %
+2115018397|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> version
+2115018398|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
+2115018399|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'
+2115018400|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
+2115018401|        |panel_rer_contracts_settings|Contract system
+2115018402|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
+2115018403|        |option_rer_easy_nearby_contracts_number|Number of easy & nearby contracts
+2115018404|        |option_rer_hard_nearby_contracts_number|Number of hard & nearby contracts
+2115018405|        |option_rer_easy_far_contracts_number|Number of easy & far contracts
+2115018406|        |option_rer_hard_far_contracts_number|Number of hard & far contracts
+2115018407|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
+2115018408|        |option_rer_contracts_generation_seed|Contract generation seed
+2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
+2115018410|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Cursed Ones
+2115018411|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Draconids
+2115018412|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Elementa
+2115018413|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrids
+2115018414|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insectoids
+2115018415|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Necrophages
+2115018416|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogroids
+2115018417|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relicts
+2115018418|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Specters
+2115018419|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Vampires
+2115018420|        |rer_species_beasts|Beasts
+2115018421|        |rer_species_cursed|Cursed Ones
+2115018422|        |rer_species_draconids|Draconids
+2115018423|        |rer_species_elementa|Elementa
+2115018424|        |rer_species_hybrids|Hybrids
+2115018425|        |rer_species_insectoids|Insectoids
+2115018426|        |rer_species_necrophages|Necrophages
+2115018427|        |rer_species_ogroids|Ogroids
+2115018428|        |rer_species_relicts|Relicts
+2115018429|        |rer_species_specters|Specters
+2115018430|        |rer_species_vampires|Vampires
+2115018431|        |rer_distance_close|close
+2115018432|        |rer_distance_far|far
 ; this line is the one displayed when starting a contract, for example:
 ; - Close and easy Ogroids contract
 ; - Far and hard Draconids contract
 ; the {{distance}} will be replaced by either "far" or "close"
 ; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
 ; the {{species}} will be replaced by the species translated just above.
-2115018434|        |rer_contract_dialog_choice|{{distance}} & {{difficulty}} {{species}} contract
-2115018435|        |rer_cancel|Cancel
-2115018436|        |rer_token_gear|Token of gratitude - Gear
-2115018437|        |rer_token_gear_short|Gear
-2115018438|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
-2115018439|        |rer_token_consumables|Token of gratitude - Consumables
-2115018440|        |rer_token_consumables_short|Consumables
-2115018441|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
-2115018442|        |rer_token_experience|Token of gratitude - Experience
-2115018443|        |rer_token_experience_short|Experience
-2115018444|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
-2115018445|        |rer_token_materials|Token of gratitude - Materials
-2115018446|        |rer_token_materials_short|Materials
-2115018447|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
-2115018448|        |rer_token_gold|Token of gratitude - Gold
-2115018449|        |rer_token_gold_short|Gold
-2115018450|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
+2115018433|        |rer_contract_dialog_choice|{{distance}} & {{difficulty}} {{species}} contract
+2115018434|        |rer_cancel|Cancel
+2115018435|        |rer_token_gear|Token of gratitude - Gear
+2115018436|        |rer_token_gear_short|Gear
+2115018437|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
+2115018438|        |rer_token_consumables|Token of gratitude - Consumables
+2115018439|        |rer_token_consumables_short|Consumables
+2115018440|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
+2115018441|        |rer_token_experience|Token of gratitude - Experience
+2115018442|        |rer_token_experience_short|Experience
+2115018443|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
+2115018444|        |rer_token_materials|Token of gratitude - Materials
+2115018445|        |rer_token_materials_short|Materials
+2115018446|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
+2115018447|        |rer_token_gold|Token of gratitude - Gold
+2115018448|        |rer_token_gold_short|Gold
+2115018449|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
 ; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
-2115018451|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
+2115018450|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
 ; As it may be hard to read with all these {{}}, here is an example of what 
 ; it should look like once localized:
 ; Gear (7 left)
 ; {{reward_type}} are the `rer_token_type_short` lines you translated above.
 ; {{tokens_amount}} is the number of tokens the player has in his inventory.
-2115018452|        |rer_token_trading_option|{{reward_type}} ({{tokens_amount}} left)
-2115018453|        |rer_token_trading_option_empty|No tokens to trade
-2115018454|        |rer_trade_tokens|Trade tokens of gratitude
+2115018451|        |rer_token_trading_option|{{reward_type}} ({{tokens_amount}} left)
+2115018452|        |rer_token_trading_option_empty|No tokens to trade
+2115018453|        |rer_trade_tokens|Trade tokens of gratitude

@@ -179,7 +179,7 @@ state Processing in RER_ContractManager {
   }
 
   latent function sendHordeRequestAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
-    var request: RER_HordeRequestBeforeBounty;
+    var request: RER_HordeRequest;
     var bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
 
@@ -188,7 +188,7 @@ state Processing in RER_ContractManager {
       .useSeed(true);
 
 
-    request = new RER_HordeRequestBeforeBounty in parent;
+    request = new RER_HordeRequest in parent;
     request.init();
     request.setCreatureCounter(ongoing_contract.creature_type, RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier));
 
