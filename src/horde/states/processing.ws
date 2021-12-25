@@ -41,7 +41,7 @@ state Processing in RER_HordeManager {
       }
 
       // the horde monsters are spawned only if regular monsters can be spawned
-      if (parent.master.rExtra.isPlayerInSettlement(50)) {
+      if (parent.master.rExtra.isPlayerInScene()) {
         SU_hideCustomBossBar();
 
         continue;
