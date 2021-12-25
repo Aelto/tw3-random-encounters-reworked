@@ -215,7 +215,7 @@ class RE_Settings {
   }
 
   public function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
-    return !inGameConfigWrapper.GetVarValue('RERmain', 'RERmodInitialized');
+    return StringToFloat(inGameConfigWrapper.GetVarValue('RERmain', 'RERmodVersion')) <= 0;
   }
 
   private function loadModEnabledSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -223,6 +223,10 @@ class RE_Settings {
   }
 
   public function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    var constants: RER_Constants;
+
+    constants = RER_Constants();
+
     inGameConfigWrapper.ApplyGroupPreset('RERmain', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencounters', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERencountersGeneral', 0);
@@ -244,7 +248,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERecosystem', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERcreatureTypeMultiplier', 0);
 
-    inGameConfigWrapper.SetVarValue('RERmain', 'RERmodInitialized', 1);
+    inGameConfigWrapper.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }
 

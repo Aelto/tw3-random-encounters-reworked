@@ -1,8 +1,12 @@
 ///////////////////////////////
-// a set a constants structs //
+// a set of constants structs //
 // that you can instantiate  //
 ///////////////////////////////
 
+struct RER_Constants {
+  var version: float;
+  default version = 2.7;
+}
 
 // used to define influences the
 // currenth creature has over

@@ -8,14 +8,16 @@ state Initialising in CRandomEncounters {
   }
 
   entry function startInitialising() {
+    if (parent.settings.shouldResetRERSettings(theGame.GetInGameConfigWrapper())) {
+      this.displayPresetChoiceDialogeMenu();
+    }
+
+    this.updateSettings();
+
     parent.spawn_roller.fill_arrays();
 
     parent.bestiary.init();
     parent.bestiary.loadSettings();
-
-    if (parent.settings.shouldResetRERSettings(theGame.GetInGameConfigWrapper())) {
-      this.displayPresetChoiceDialogeMenu();
-    }
 
     parent.settings.loadXMLSettings();
     parent.resources.load_resources();
@@ -39,6 +41,31 @@ state Initialising in CRandomEncounters {
     parent.GotoState('Loading');
   }
 
+  function updateSettings() {
+    var config: CInGameConfigWrapper;
+    var constants: RER_Constants;
+    var current_version: float;
+
+    config = theGame.GetInGameConfigWrapper();
+    constants = RER_Constants();
+    current_version = StringToFloat(config.GetVarValue('RERmain', 'RERmodVersion'));
+
+    if (current_version < 2.7) {
+      config.ApplyGroupPreset('RERcontracts', 0);
+
+      current_version = 2.7;
+    }
+
+    if (current_version < 2.8) {
+      // next version...
+
+      current_version = 2.8;
+    }
+
+    config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
+    theGame.SaveUserSettings();
+  }
+
   latent function displayPresetChoiceDialogeMenu() {
     var choices: array<SSceneChoice>;
     var manager: RER_PresetManager;
@@ -48,6 +75,10 @@ state Initialising in CRandomEncounters {
     manager.master = parent;
 
     choices = manager.getChoiceList();
+
+    while (isPlayerBusy()) {
+      Sleep(5);
+    }
 
     Sleep(5);
 
@@ -67,9 +98,7 @@ state Initialising in CRandomEncounters {
       .dialog(new REROL_ready_to_go_now in thePlayer, true)
       .play();
 
-    theGame.GetInGameConfigWrapper().SetVarValue('RERmain', 'RERmodInitialized', 1);
     theGame.SaveUserSettings();
-
   }
 
 }

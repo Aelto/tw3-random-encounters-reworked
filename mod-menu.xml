@@ -7,7 +7,6 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodInitialized" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -32,7 +31,7 @@
 
             <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
-            <Var id="RERmodInitialized" displayName="rer_mod_initialized" displayType="TOGGLE"></Var>
+            <Var id="RERmodVersion" displayName="rer_mod_version" displayType="SLIDER;0;100;10000"></Var>
 
         </VisibleVars>
     </Group>
@@ -4769,6 +4768,7 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERhoursBeforeNewContracts" value="1" />
+                <Entry varId="RERnoticeboardErrands" value="1" />
 
                 <Entry varId="REReasyNearbyContractsNumber" value="1" />
                 <Entry varId="RERhardNearbyContractsNumber" value="1" />
@@ -4792,6 +4792,7 @@
             </Preset>
         </PresetsArray>
         <VisibleVars>
+            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
 
             <Var id="REReasyNearbyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
@@ -5581,7 +5582,6 @@
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
-                <Entry varId="RERnoticeboardErrands" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5618,8 +5618,6 @@
             <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
 
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
-            
-            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
 
         </VisibleVars>
     </Group>
