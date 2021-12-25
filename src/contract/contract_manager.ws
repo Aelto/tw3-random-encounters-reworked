@@ -162,7 +162,10 @@ statemachine class RER_ContractManager {
 
   public function getClosestDestinationPoints(starting_point: Vector, amount_of_points: int): array<Vector> {
     var sorter_data: array<SU_ArraySorterData>;
+    var entities: array<CGameplayEntity>;
+    var mappins: array<CGameplayEntity>;
     var output: array<Vector>;
+    var i: int;
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
@@ -177,11 +180,68 @@ statemachine class RER_ContractManager {
       sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
     }
 
+    // We use a list of point of interests across the map
+    mappins = this.getPointOfInterests();
+    for (i = 0; i < mappins.Size(); i += 1) {
+      current_position = mappins[i].entityPosition;
+      current_distance = VecDistanceSquared2D(starting_point, current_position);
+      sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
+    }
+
     // we re-use the same variable here
     sorter_data = SU_sortArray(sorter_data);
 
     for (i = 0; i < sorter_data.Size() && i < amount_of_points; i += 1) {
       output.PushBack(sorter_data[i].position);
+    }
+
+    return output;
+  }
+
+  private function getPointOfInterests(): array<SEntityMapPinInfo> {
+    var output: array<SEntityMapPinInfo>;
+    var all_pins: array<SEntityMapPinInfo>;
+    var i: int;
+
+    all_pins = theGame.GetCommonMapManager().GetEntityMapPins(theGame.GetWorld().GetDepotPath());
+
+    for (i = 0; i < all_pins.Size(); i += 1) {
+      if (all_pins[i].entityType == 'MonsterNest'
+       || all_pins[i].entityType == 'InfestedVineyard'
+       || all_pins[i].entityType == 'PlaceOfPower'
+       || all_pins[i].entityType == 'BanditCamp'
+       || all_pins[i].entityType == 'BanditCampfire'
+       || all_pins[i].entityType == 'BossAndTreasure'
+       || all_pins[i].entityType == 'RescuingTown'
+       || all_pins[i].entityType == 'DungeonCrawl'
+       || all_pins[i].entityType == 'Hideout'
+       || all_pins[i].entityType == 'Plegmund'
+       || all_pins[i].entityType == 'KnightErrant'
+       || all_pins[i].entityType == 'WineContract'
+       || all_pins[i].entityType == 'SignalingStake'
+       || all_pins[i].entityType == 'MonsterNest'
+       || all_pins[i].entityType == 'TreasureHuntMappin'
+       || all_pins[i].entityType == 'PointOfInterestMappin'
+        // the same pins but with Disabled at the end
+       || all_pins[i].entityType == 'MonsterNestDisabled'
+       || all_pins[i].entityType == 'InfestedVineyardDisabled'
+       || all_pins[i].entityType == 'PlaceOfPowerDisabled'
+       || all_pins[i].entityType == 'BanditCampDisabled'
+       || all_pins[i].entityType == 'BanditCampfireDisabled'
+       || all_pins[i].entityType == 'BossAndTreasureDisabled'
+       || all_pins[i].entityType == 'RescuingTownDisabled'
+       || all_pins[i].entityType == 'DungeonCrawlDisabled'
+       || all_pins[i].entityType == 'HideoutDisabled'
+       || all_pins[i].entityType == 'PlegmundDisabled'
+       || all_pins[i].entityType == 'KnightErrantDisabled'
+       || all_pins[i].entityType == 'WineContractDisabled'
+       || all_pins[i].entityType == 'SignalingStakeDisabled'
+       || all_pins[i].entityType == 'MonsterNestDisabled'
+       || all_pins[i].entityType == 'TreasureHuntMappinDisabled'
+       || all_pins[i].entityType == 'PointOfInterestMappinDisabled'
+       || all_pins[i].entityType == 'PointOfInterestMappinDisabled') {
+        output.PushBack(all_pins[i]);
+      }
     }
 
     return output;
