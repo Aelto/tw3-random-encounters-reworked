@@ -113,7 +113,7 @@ state Processing in RER_HordeManager {
     var count: int;
     var i: int;
 
-    if (!getRandomPositionAroundPlayer(position)) {
+    if (!getRandomPositionAroundPlayer(position, 30, 5)) {
       this.failed_attempts += 1;
 
       return;
