@@ -85,11 +85,8 @@ state Processing in RER_HordeManager {
           i -= 1;
           number_of_requests -= 1;
         }
-        // we do not spawn more creatures if already 25% of the total creatures
-        // are in the world at the moment.
-        else if (parent.requests[i].entities.Size() < total_of_creatures_to_spawn * (0.3 - bestiary_entry.ecosystem_delay_multiplier * 0.01)) {
-          this.spawnMonsterFromRequest(parent.requests[i], creature_to_spawn);
-        }
+        
+        this.spawnMonsterFromRequest(parent.requests[i], creature_to_spawn);
 
         // too many attempts failed, give up on the horde.
         if (this.failed_attempts > 5) {
@@ -125,7 +122,7 @@ state Processing in RER_HordeManager {
 
     count = Min(
       request.counters_per_creature_types[creature_to_spawn],
-      RandRange(1, 3)
+      RandRange(3, 1)
     );
 
     entities = bestiary_entry
