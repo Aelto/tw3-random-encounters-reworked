@@ -40,6 +40,8 @@ state Loading in CRandomEncounters {
 
     SU_updateMinimapPins();
 
+    parent.addon_manager.init(parent);
+
     parent.GotoState('Waiting');
   }
 
