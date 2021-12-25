@@ -185,6 +185,26 @@ statemachine class RER_ContractManager {
     for (i = 0; i < mappins.Size(); i += 1) {
       current_position = mappins[i].entityPosition;
       current_distance = VecDistanceSquared2D(starting_point, current_position);
+
+      sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
+    }
+
+    // We also fetch entities with a custom tag to support
+    // custom point of interests. This can prove useful in
+    // new maps from mod who may want to add support for RER
+    // contracts
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      10000, // range
+      500, // maxresults
+      'RER_contractPointOfInterest', // tag
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      current_position = entities[i].GetWorldPosition();
+      current_distance = VecDistanceSquared2D(starting_point, current_position);
+
       sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
     }
 
