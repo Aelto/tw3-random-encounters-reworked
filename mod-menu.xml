@@ -5577,8 +5577,6 @@
                 <Entry varId="RERcameraBlendingDisabled" value="0" />
                 <Entry varId="RERtrophyPickupAnimation" value="30" />
                 <Entry varId="RERtrailsUsePathFinding" value="1" />
-                <Entry varId="RERmarkersContractFirstPhase" value="1" />
-                <Entry varId="RERmarkersContractIntermediaryPhase" value="1" />
                 <Entry varId="RERmarkersBountyHunting" value="1" />
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
