@@ -209,3 +209,7 @@ section h2 {
 .spoiler > a {
   display: block;
 }
+
+.small {
+  font-size: .8em;
+}
