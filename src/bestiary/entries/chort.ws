@@ -27,7 +27,7 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_fiend_trophy_medium');
     this.trophy_names.PushBack('modrer_fiend_trophy_high');
 
-    this.ecosystem_delay_multiplier = 14;
+    this.ecosystem_delay_multiplier = 10;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
