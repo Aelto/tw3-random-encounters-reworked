@@ -143,10 +143,13 @@ state Processing in RER_ContractManager {
 
   latent function createNestEncounterAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
     var current_template: CEntityTemplate;
+    var nests: array<RER_MonsterNest>;
+    var are_all_nests_destroyed: bool;
     var rng: RandomNumberGenerator;
     var nest: RER_MonsterNest;
     var position: Vector;
     var path: string;
+    var i: int;
 
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
@@ -154,35 +157,66 @@ state Processing in RER_ContractManager {
     path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
 
     rng.next();
-    position = ongoing_contract.destination_point
-      + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
-    FixZAxis(position);
+    if (ongoing_contract.difficulty == ContractDifficulty_EASY) {
+      i = 1;
+    }
+    else {
+      i = RoundF(rng.nextRange(3, 1));
+    }
 
-    // it doesn't matter if it fails to find a ground position
-    getGroundPosition(position, 2, 5);
+    while (i > 0) {
+      i -= 1;
 
-    current_template = (CEntityTemplate)LoadResourceAsync(path, true);
-    nest = (RER_MonsterNest)theGame.CreateEntity(
-      current_template,
-      position,
-      thePlayer.GetWorldRotation(),,,,
-      PM_DontPersist
-    );
+      position = ongoing_contract.destination_point
+        + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
-    nest.bestiary_entry = parent.master.bestiary.entries[ongoing_contract.creature_type];
-    nest.forced_bestiary_entry = true;
-    nest.startEncounter(parent.master);
+      FixZAxis(position);
 
-    thePlayer.DisplayHudMessage(
-      StrReplace(
-        GetLocStringByKeyExt("rer_find_nest"),
-        "{{type}}",
-        getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
-      )
-    );
+      // it doesn't matter if it fails to find a ground position
+      getGroundPosition(position, 2, 5);
 
-    while (!nest.HasTag('WasDestroyed')) {
+      current_template = (CEntityTemplate)LoadResourceAsync(path, true);
+      nest = (RER_MonsterNest)theGame.CreateEntity(
+        current_template,
+        position,
+        thePlayer.GetWorldRotation(),,,,
+        PM_DontPersist
+      );
+
+      nest.bestiary_entry = parent.master.bestiary.entries[ongoing_contract.creature_type];
+      nest.forced_bestiary_entry = true;
+      nest.startEncounter(parent.master);
+
+      nests.PushBack(nest);
+    }
+
+    if (nests.Size() <= 1) {
+      thePlayer.DisplayHudMessage(
+        StrReplace(
+          GetLocStringByKeyExt("rer_find_nest"),
+          "{{type}}",
+          getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
+        )
+      );
+    }
+    else {
+      thePlayer.DisplayHudMessage(
+        StrReplace(
+          GetLocStringByKeyExt("rer_find_nests"),
+          "{{type}}",
+          getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
+        )
+      );
+    }
+
+    do {
+      are_all_nests_destroyed = true;
+
+      for (i = 0; i < nests.Size(); i += 1) {
+        are_all_nests_destroyed = are_all_nests_destroyed && nests[i].HasTag('WasDestroyed');
+      }
+
       Sleep(1);
     }
   }

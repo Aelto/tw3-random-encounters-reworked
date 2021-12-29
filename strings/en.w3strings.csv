@@ -484,9 +484,10 @@
 2115018453|        |rer_trade_tokens|Trade tokens of gratitude
 2115018454|        |option_rer_mod_version|MOD VERSION <font color="#d73a49">(DO NOT EDIT)</font>
 2115018455|        |rer_find_nest|Find the {{type}} nest
-2115018456|        |rer_survive_horde|Survive the {{type}} horde
-2115018457|        |rer_kill_target|Kill the {{type}}
-2115018458|        |rer_contract_finished|The contract is over
-2115018459|        |rer_reward_bag|Your {{reward_type}} is waiting in the bag at your feet
-2115018460|        |rer_contract_started|{{species}} contract has started, search the marker on your map
-2115018461|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
+2115018456|        |rer_find_nests|Find the {{type}} nests
+2115018457|        |rer_survive_horde|Survive the {{type}} horde
+2115018458|        |rer_kill_target|Kill the {{type}}
+2115018459|        |rer_contract_finished|The contract is over
+2115018460|        |rer_reward_bag|Your {{reward_type}} is waiting in the bag at your feet
+2115018461|        |rer_contract_started|{{species}} contract has started, search the marker on your map
+2115018462|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
