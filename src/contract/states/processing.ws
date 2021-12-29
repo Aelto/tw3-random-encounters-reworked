@@ -92,12 +92,17 @@ state Processing in RER_ContractManager {
   }
 
   latent function createHuntingGroundAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
-    var bestiary_entry: RER_BestiaryEntry;
-    var rer_entity_template: CEntityTemplate;
-    var entities: array<CEntity>;
-    var rng: RandomNumberGenerator;
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var rer_entity_template: CEntityTemplate;
+    var composition_entities: array<CEntity>;
+    var composition_entry: RER_BestiaryEntry;
+    var bestiary_entry: RER_BestiaryEntry;
+    var composition_type: CreatureType;
+    var rng: RandomNumberGenerator;
+    var entities: array<CEntity>;
+    var impact_points: float;
     var position: Vector;
+    var i: int;
     
     bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
@@ -107,6 +112,9 @@ state Processing in RER_ContractManager {
     position = ongoing_contract.destination_point
       + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
+    impact_points = rng.nextRange(20, 0)
+                  * (1 + (int)(ongoing_contract.difficulty == ContractDifficulty_HARD));
+
     entities = bestiary_entry.spawn(
       parent.master,
       position,
@@ -114,8 +122,43 @@ state Processing in RER_ContractManager {
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE,
-      'RandomEncountersReworked_ContractCreature'
+      'RandomEncountersReworked_ContractCreature',
+      // a high number to make sure there is no composition as we'll spawn them
+      // manually.
+      10000
     );
+
+    impact_points -= bestiary_entry.ecosystem_delay_multiplier;
+    while (impact_points > 0) {
+      composition_type = bestiary_entry.getStrongestCompositionCreature(
+        parent.master,
+        impact_points
+      );
+
+      if (composition_type == CreatureNONE) {
+        break;
+      }
+
+      composition_entry = parent.master.bestiary.getEntry(parent.master, composition_type);
+      composition_entities = composition_entry.spawn(
+        parent.master,
+        position,
+        1,
+        , // density
+        EncounterType_CONTRACT,
+        RER_BESF_NO_BESTIARY_FEATURE,
+        'RandomEncountersReworked_ContractCreature',
+        // a high number to make sure there is no composition as we'll spawn them
+        // manually.
+        10000
+      );
+
+      for (i = 0; i < composition_entities.Size(); i += 1) {
+        entities.PushBack(composition_entities[i]);
+
+        impact_points -= composition_entry.ecosystem_delay_multiplier;
+      }
+    }
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
@@ -218,7 +261,7 @@ state Processing in RER_ContractManager {
       }
 
       Sleep(1);
-    }
+    } while (!are_all_nests_destroyed);
   }
 
   latent function sendHordeRequestAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
@@ -232,7 +275,7 @@ state Processing in RER_ContractManager {
       .useSeed(true);
 
     enemy_count = RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier)
-      * (1 + (int)ongoing_contract.difficulty == ContractDifficulty_HARD);
+      * (1 + (int)(ongoing_contract.difficulty == ContractDifficulty_HARD));
 
     if (enemy_count < 3) {
       // the amount of enemies would be too low for it to be a good horde, in
