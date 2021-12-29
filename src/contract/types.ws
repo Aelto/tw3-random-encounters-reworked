@@ -95,6 +95,8 @@ struct RER_ContractRepresentation {
    */
   var event_type: RER_ContractEventType;
 
+  var difficulty: RER_ContractDifficulty;
+
   var creature_type: CreatureType;
 
   var identifier: RER_ContractIdentifier;

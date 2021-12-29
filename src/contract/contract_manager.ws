@@ -117,6 +117,7 @@ statemachine class RER_ContractManager {
 
     bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
     contract.creature_type = bestiary_entry.type;
+    contract.difficulty = data.difficulty;
     contract.region_name = data.region_name;
     contract.rng_seed = data.rng_seed;
     contract.reward_type = RER_getAllowedContractRewardsMaskFromRegion()
@@ -139,35 +140,35 @@ statemachine class RER_ContractManager {
 
   public function getRandomDestinationAroundPoint(starting_point: Vector, distance: RER_ContractDistance, rng: RandomNumberGenerator): Vector {
     var closest_points: array<Vector>;
-    var offset: int;
+    var quarter: int;
+    var half: int;
     var index: int;
     var size: int;
 
-    if (distance == ContractDistance_CLOSE) {
-      closest_points = this.getClosestDestinationPoints(starting_point, 10);
-    }
-    else {
-      closest_points = this.getClosestDestinationPoints(starting_point, 20);
-    }
+    closest_points = this.getClosestDestinationPoints(starting_point);
 
     // since it can return less than what we asked for
     size = closest_points.Size();
+    quarter = RoundF(size * 0.25);
     if (size <= 0) {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    offset = 0;
-    if (distance != ContractDistance_CLOSE) {
-      offset = Min(size, 10);
+    if (distance == ContractDistance_CLOSE) {
+      // the first 25%
+      index = (int)rng.nextRange(quarter, 0);
+    }
+    else {
+      // between 25% and 50%
+      index = (int)rng.nextRange(quarter * 2, quarter);
     }
 
-    index = (int)rng.nextRange(size, offset);
-    NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size + " offset = " + offset);
+    NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size );
 
     return closest_points[index];
   }
 
-  public function getClosestDestinationPoints(starting_point: Vector, amount_of_points: int): array<Vector> {
+  public function getClosestDestinationPoints(starting_point: Vector): array<Vector> {
     var sorter_data: array<SU_ArraySorterData>;
     var mappins: array<SEntityMapPinInfo>;
     var entities: array<CGameplayEntity>;
@@ -221,7 +222,7 @@ statemachine class RER_ContractManager {
     // we re-use the same variable here
     sorter_data = SU_sortArray(sorter_data);
 
-    for (i = 0; i < sorter_data.Size() && i < amount_of_points; i += 1) {
+    for (i = 0; i < sorter_data.Size(); i += 1) {
       output.PushBack(((RER_ContractLocation)sorter_data[i]).position);
     }
 

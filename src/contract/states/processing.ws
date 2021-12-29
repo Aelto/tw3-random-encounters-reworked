@@ -191,15 +191,29 @@ state Processing in RER_ContractManager {
     var request: RER_HordeRequest;
     var bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
+    var enemy_count: int;
 
     bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
+    enemy_count = RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier)
+      * (1 + (int)ongoing_contract.difficulty == ContractDifficulty_HARD);
+
+    if (enemy_count < 3) {
+      // the amount of enemies would be too low for it to be a good horde, in
+      // that case we spawn a bossfight instead
+      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
+
+      return;
+    }
 
     request = new RER_HordeRequest in parent;
     request.init();
-    request.setCreatureCounter(ongoing_contract.creature_type, RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier));
+    request.setCreatureCounter(
+      ongoing_contract.creature_type,
+      enemy_count
+    );
 
     parent.master.horde_manager.sendRequest(request);
 
