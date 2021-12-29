@@ -32,7 +32,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     var can_inject_errand: bool;
 
     can_inject_errand = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERoptionalFeatures', 'RERnoticeboardErrands');
+      .GetVarValue('RERcontracts', 'RERnoticeboardErrands');
 
     if (can_inject_errand) {
       SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");

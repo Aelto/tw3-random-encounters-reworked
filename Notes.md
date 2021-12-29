@@ -45,3 +45,4 @@ display a custom haggle/ask more info/accept/deny; list of choices.
    - `CMoveTRGScript` look for that too
  - `CBTTaskGesturesManager` for the gestures during dialogue
   - `SignalGameplayEvent('GesticulatingActor');` could be used to trigger the manager
+ - `DisplayPortalConfirmationPopup` can be used to dispay Yes/No popups

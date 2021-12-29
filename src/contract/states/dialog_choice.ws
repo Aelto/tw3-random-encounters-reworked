@@ -54,7 +54,7 @@ state DialogChoice in RER_ContractManager {
     ));
 
     choices.PushBack(SSceneChoice(
-      line,
+      upperCaseFirstLetter(line),
       false,
       true, // already choosen
       true, // disabled
@@ -82,7 +82,7 @@ state DialogChoice in RER_ContractManager {
       );
 
       choices.PushBack(SSceneChoice(
-        line,
+        upperCaseFirstLetter(line),
         false,
         parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
         false,
@@ -111,7 +111,7 @@ state DialogChoice in RER_ContractManager {
       );
 
       choices.PushBack(SSceneChoice(
-        line,
+        upperCaseFirstLetter(line),
         false,
         parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
         false,
@@ -140,7 +140,7 @@ state DialogChoice in RER_ContractManager {
       );
 
       choices.PushBack(SSceneChoice(
-        line,
+        upperCaseFirstLetter(line),
         false,
         parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
         false,
@@ -169,7 +169,7 @@ state DialogChoice in RER_ContractManager {
       );
 
       choices.PushBack(SSceneChoice(
-        line,
+        upperCaseFirstLetter(line),
         false,
         parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
         false,
@@ -286,7 +286,10 @@ state DialogChoice in RER_ContractManager {
       generation_time
     );
 
+    rng.setSeed((int)contract_data.identifier.identifier);
+    rng.next();
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
+
     contract_data.region_name = SUH_getCurrentRegion();
     contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
 
@@ -294,7 +297,14 @@ state DialogChoice in RER_ContractManager {
     parent.master.storages.contract.has_ongoing_contract = true;
     parent.master.storages.contract.save();
 
-    theSound.SoundEvent("gui_ingame_quest_success");
+    theSound.SoundEvent("gui_ingame_quest_active");
+    NHUD(
+      StrReplace(
+        GetLocStringByKey('rer_contract_started'),
+        "{{species}}",
+        RER_getSpeciesLocalizedString(contract_data.species)
+      )
+    );
 
     parent.GotoState('Processing');
   }

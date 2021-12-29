@@ -21,6 +21,10 @@ function NDEBUG(message: string, optional duration: float) {
   .ShowNotification(message, duration);
 }
 
+function NHUD(message: string) {
+  thePlayer.DisplayHudMessage(message);
+}
+
 function NLOG(message: string) {
   LogChannel('RER', message);
 }

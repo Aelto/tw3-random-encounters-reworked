@@ -55,18 +55,18 @@ state Loading in CRandomEncounters {
 
     if (!invert) {
       if (version == StaticEncountersVariant_LUCOLIVIER) {
-        RER_registerStaticEncountersLucOliver();
+        RER_registerStaticEncountersLucOliver(parent);
       }
       else {
-        RER_registerStaticEncountersAeltoth();
+        RER_registerStaticEncountersAeltoth(parent);
       }
     }
     else {
       if (version == StaticEncountersVariant_LUCOLIVIER) {
-        RER_registerStaticEncountersAeltoth(true);
+        RER_registerStaticEncountersAeltoth(parent, true);
       }
       else {
-        RER_registerStaticEncountersLucOliver(true);
+        RER_registerStaticEncountersLucOliver(parent, true);
       }
     }
   }

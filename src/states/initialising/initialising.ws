@@ -50,16 +50,16 @@ state Initialising in CRandomEncounters {
     constants = RER_Constants();
     current_version = StringToFloat(config.GetVarValue('RERmain', 'RERmodVersion'));
 
-    if (current_version < 2.7) {
+    if (current_version < 2.07) {
       config.ApplyGroupPreset('RERcontracts', 0);
 
-      current_version = 2.7;
+      current_version = 2.07;
     }
 
-    if (current_version < 2.8) {
+    if (current_version < 2.08) {
       // next version...
 
-      current_version = 2.8;
+      current_version = 2.08;
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);

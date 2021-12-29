@@ -49,6 +49,8 @@ struct RER_ContractGenerationData {
 
   var identifier: RER_ContractIdentifier;
 
+  var noticeboard_identifier: RER_NoticeboardIdentifier;
+
   var region_name: string;
 
   /**
@@ -116,7 +118,7 @@ struct RER_ContractRepresentation {
 class RER_ContractLocation extends SU_ArraySorterData {
   var position: Vector;
 
-  public function init(position: Vector, distance: float): RER_PositionNode {
+  public function init(position: Vector, distance: float): RER_ContractLocation {
     this.position = position;
 
     // we use the distance as the value used during the sorting

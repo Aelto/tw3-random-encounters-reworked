@@ -2,36 +2,37 @@
 function RER_contractRewardTypeToItemName(type: RER_ContractRewardType): name {
   var item_name: name;
 
-  switch (type):
+  switch (type) {
     case ContractRewardType_GEAR:
-      item_name = 'rer_token_gear'
+      item_name = 'rer_token_gear';
       break;
 
     case ContractRewardType_MATERIALS:
-      item_name = 'rer_token_materials'
+      item_name = 'rer_token_materials';
       break;
 
     case ContractRewardType_CONSUMABLES:
-      item_name = 'rer_token_consumables'
+      item_name = 'rer_token_consumables';
       break;
 
     case ContractRewardType_EXPERIENCE:
-      item_name = 'rer_token_experience'
+      item_name = 'rer_token_experience';
       break;
 
     case ContractRewardType_GOLD:
-      item_name = 'rer_token_gold'
+      item_name = 'rer_token_gold';
       break;
   }
 
   return item_name;
 }
 
-function RER_applyLootFromContractTokenName(inventory: CInventoryComponent, item: name) {
+latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name) {
   var loot_tables: array<name>;
+  var amount: int;
   var index: int;
 
-  theSound.SoundEvent("gui_inventory_buy");
+  thePlayer.GetInventory().RemoveItemByName(item, 1);
 
   if (item == 'rer_token_experience') {
     // re-use the index variable here
@@ -45,6 +46,8 @@ function RER_applyLootFromContractTokenName(inventory: CInventoryComponent, item
     return;
   }
 
+  amount = 1;
+
   switch (item) {
     case 'rer_token_gear':
       loot_tables.PushBack('_weapons_nml');
@@ -52,15 +55,24 @@ function RER_applyLootFromContractTokenName(inventory: CInventoryComponent, item
       loot_tables.PushBack('_uniqe_weapons_epic_dungeon_skelige');
       loot_tables.PushBack('_loot_monster_treasure_uniq_swords');
       loot_tables.PushBack('_uniq_armors');
+
+      theSound.SoundEvent("gui_inventory_weapon_attach");
       break;
     
     case 'rer_token_consumables':
       loot_tables.PushBack('_generic food_everywhere');
       loot_tables.PushBack('_generic alco_everywhere');
+
+      amount = 5;
+      theSound.SoundEvent("gui_pick_up_herbs");
       break;
     
     case 'rer_token_gold':
       loot_tables.PushBack('_generic gold_everywhere');
+      loot_tables.PushBack('_valuables');
+
+      amount = 10;
+      theSound.SoundEvent("gui_inventory_buy");
       break;
     
     case 'rer_token_materials':
@@ -72,22 +84,29 @@ function RER_applyLootFromContractTokenName(inventory: CInventoryComponent, item
       loot_tables.PushBack('_treasure_q5');
       loot_tables.PushBack('_unique_armorupgrades');
       loot_tables.PushBack('_unique_ingr');
+
+      theSound.SoundEvent("gui_inventory_potion_attach");
       break;
   }
 
-  index = RandRange(loot_tables.Size());
+  while (amount > 0) {
+    index = RandRange(loot_tables.Size());
+    amount -= 1;
 
-  inventory.AddItemsFromLootDefinition(
-    loot_tables[index]
-  );
+    NLOG("RER_applyLootFromContractTokenName =" + index + ", " + loot_tables[index]);
 
-  thePlayer.DisplayItemRewardNotification(loot_tables[index], -1);
+    Sleep(0.2);
+
+    RER_addItemsFromLootTable(master, inventory, loot_tables[index]);
+  }
 }
 
 function RER_getLocalizedRewardType(type: RER_ContractRewardType): string {
-  return GetLocStringByKey(
-    NameToString(RER_contractRewardTypeToItemName()) + "_short"
-  );
+  var item_name: string;
+
+  item_name = NameToString(RER_contractRewardTypeToItemName(type)) + "_short";
+
+  return GetLocStringByKey(item_name);
 }
 
 function RER_getLocalizedRewardTypesFromFlag(flag: RER_ContractRewardType): string {
@@ -156,7 +175,7 @@ function RER_getRandomContractRewardTypeFromFlag(flag: RER_ContractRewardType, r
     enabled_types.PushBack(ContractRewardType_MATERIALS);
   }
 
-  index = rng.nextRange(enabled_types.Size(), 0);
+  index = (int)rng.nextRange(enabled_types.Size(), 0);
 
   return enabled_types[index];
 }
@@ -204,7 +223,7 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
   var rng: RandomNumberGenerator;
   var roll: int;
   
-  rng = (new RandomNumberGenerator in contract_manager).setSeed(noticeboard_identifier.identifier)
+  rng = (new RandomNumberGenerator in contract_manager).setSeed((int)noticeboard_identifier.identifier)
     .useSeed(true);
 
   allowed_reward = ContractRewardType_NONE;
@@ -231,5 +250,5 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
       allowed_reward = ContractRewardType_GOLD;
   }
 
-  return allowed_reward
+  return allowed_reward;
 }

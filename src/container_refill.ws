@@ -9,7 +9,7 @@
  * This function does a random roll, if it succeeds it calls the function to
  * fill a random container
  */
-function RER_tryRefillRandomContainer() {
+latent function RER_tryRefillRandomContainer(master: CRandomEncounters) {
   var inGameConfigWrapper: CInGameConfigWrapper;
   var menu_chance: float;
   
@@ -28,19 +28,20 @@ function RER_tryRefillRandomContainer() {
     return;
   }
 
-  RER_refillRandomContainer(inGameConfigWrapper);
+  RER_refillRandomContainer(master, inGameConfigWrapper);
 }
 
 /**
  * This function refills X containers around the player using a random loot
  * table for each container.
  */
-function RER_refillRandomContainer(inGameConfigWrapper: CInGameConfigWrapper) {
+latent function RER_refillRandomContainer(master: CRandomEncounters, inGameConfigWrapper: CInGameConfigWrapper) {
   var containers: array<CGameplayEntity>;
   var number_of_containers: int;
   var only_empty_containers: bool;
   var loot_table: RER_LootTable;
   var container: W3Container;
+  var has_added: bool;
   var radius: float;
   var i: int;
 
@@ -83,8 +84,12 @@ function RER_refillRandomContainer(inGameConfigWrapper: CInGameConfigWrapper) {
 
     container = (W3Container)containers[i];
 
-    if (container && RER_tryRefillContainer(container, loot_table, only_empty_containers)) {
-      number_of_containers -= 1;
+    if (container) {
+      has_added = RER_tryRefillContainer(master, container, loot_table, only_empty_containers);
+      
+      if (has_added) {
+        number_of_containers -= 1;
+      }
     }
   }
 }
@@ -165,16 +170,50 @@ function RER_getLootTables(inGameConfigWrapper: CInGameConfigWrapper): array<RER
  * There is a chance it doesn't refill the container because it's up to the user
  * to tell if it should refill container that are not empty or not.
  */
-function RER_tryRefillContainer(container: W3Container, loot_table: RER_LootTable, only_if_empty: bool): bool {
+latent function RER_tryRefillContainer(master: CRandomEncounters, container: W3Container, loot_table: RER_LootTable, only_if_empty: bool): bool {
   if (only_if_empty && !container.IsEmpty()) {
     return false;
   }
 
   NLOG("container refilled with loot table: " + loot_table.table_name);
 
-  container.GetInventory().AddItemsFromLootDefinition(loot_table.table_name);
+  RER_addItemsFromLootTable(master, container.GetInventory(), loot_table.table_name);
   container.GetInventory().UpdateLoot();
   container.Enable(true);
 
   return true;
+}
+
+latent function RER_addItemsFromLootTable(master: CRandomEncounters, target_inventory: CInventoryComponent, loot_table: name) {
+  var container: W3AnimatedContainer;
+  var inventory: CInventoryComponent;
+  var items: array<SItemUniqueId>;
+  var template: CEntityTemplate;
+  var position: Vector;
+
+  template = (CEntityTemplate)LoadResourceAsync(
+    "dlc\modtemplates\randomencounterreworkeddlc\data\container_all_loottables.w2ent",
+    true
+  );
+
+  // always spawn the barrel under the bounty master since we know it is always
+  // on ground.
+  position = master.bounty_manager.bounty_master_manager.bounty_master_entity.GetWorldPosition() - Vector(0, 0, 5);
+  container = (W3AnimatedContainer)theGame.CreateEntity(
+    template, position,
+    thePlayer.GetWorldRotation(),
+    true,
+    false,
+    false,
+    PM_DontPersist
+  );
+
+  inventory = container.GetInventory();
+  inventory.AddItemsFromLootDefinition(loot_table);
+  inventory.UpdateLoot();
+  container.Enable(true);
+
+  inventory.GiveAllItemsTo(target_inventory);
+
+  container.Destroy();
 }

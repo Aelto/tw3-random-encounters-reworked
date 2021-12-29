@@ -44,15 +44,8 @@ state Processing in RER_ContractManager {
         map_pin = new SU_MapPin in thePlayer;
         map_pin.tag = "RER_contract_target";
         map_pin.position = ongoing_contract.destination_point;
-        map_pin.description = StrReplace(
-          GetLocStringByKey("rer_mappin_bounty_target_description"),
-          "{{creature_type}}",
-          getCreatureNameFromCreatureType(
-            parent.master.bestiary,
-            ongoing_contract.creature_type
-          )
-        );
-        map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
+        map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
+        map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
         map_pin.type = "MonsterQuest";
         map_pin.radius = ongoing_contract.destination_radius;
         map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
@@ -106,7 +99,7 @@ state Processing in RER_ContractManager {
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
     var position: Vector;
     
-    bestiary_entry = parent.master.bestiary.getEntry(ongoing_contract.creature_type);
+    bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
@@ -129,9 +122,17 @@ state Processing in RER_ContractManager {
       true
     );
 
-    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(rer_entity_template, position, thePlayer.GetWorldRotation());    rer_entity.startEncounter(this.master, entities, bestiary_entry);
+    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(rer_entity_template, position, thePlayer.GetWorldRotation());
     rer_entity.manual_destruction = true;
-    rer_entity.startEncounter(this.master, entities, bestiary_entry);
+    rer_entity.startEncounter(parent.master, entities, bestiary_entry);
+
+		thePlayer.DisplayHudMessage(
+      StrReplace(
+        GetLocStringByKeyExt("rer_kill_target"),
+        "{{type}}",
+        getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
+      )
+    );
 
     while (rer_entity.GetCurrentStateName() != 'Ending') {
       Sleep(1);
@@ -173,6 +174,14 @@ state Processing in RER_ContractManager {
     nest.forced_bestiary_entry = true;
     nest.startEncounter(parent.master);
 
+    thePlayer.DisplayHudMessage(
+      StrReplace(
+        GetLocStringByKeyExt("rer_find_nest"),
+        "{{type}}",
+        getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
+      )
+    );
+
     while (!nest.HasTag('WasDestroyed')) {
       Sleep(1);
     }
@@ -199,6 +208,14 @@ state Processing in RER_ContractManager {
     while (parent.master.horde_manager.GetCurrentStateName() == 'Waiting') {
       Sleep(1);
     }
+
+    thePlayer.DisplayHudMessage(
+      StrReplace(
+        GetLocStringByKeyExt("rer_survive_horde"),
+        "{{type}}",
+        getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
+      )
+    );
 
     while (parent.master.horde_manager.GetCurrentStateName() == 'Processing') {
       Sleep(1);

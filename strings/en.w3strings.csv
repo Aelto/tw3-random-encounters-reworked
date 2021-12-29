@@ -3,7 +3,8 @@
 ; 
 ; Changed in v2.7:
 ;  - Anything below id: 2115018400 was added
-;  - Line 2115018347 was deleted (all IDs after this line were decremented by 1)
+;  - id 2115018347 was deleted (all IDs after this line were decremented by 1)
+;  - id 2115018290 was updated
 ;
 ; Changed in v2.6:
 ;  - Anything below id: 2115018342 was added
@@ -297,7 +298,7 @@
 2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
 2115018288|        |rer_mappin_bounty_target_title|Bounty target
 2115018289|        |rer_mappin_bounty_target_description|A group of {{creature_type}} was seen in the area. Kill them and collect their trophies for a reward.
-2115018290|        |rer_mappin_regular_title|
+2115018290|        |rer_mappin_regular_title|Contract target
 2115018291|        |rer_mappin_regular_description|Clues lead to this area, something interesting must be here.
 2115018292|        |rer_dialog_farewell|Farewell.
 2115018293|        |rer_dialog_start_bounty|Start bounty
@@ -474,7 +475,7 @@
 ; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
 2115018450|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
 ; As it may be hard to read with all these {{}}, here is an example of what 
-; it should look like once localized:
+; it should look like this once localized:
 ; Gear (7 left)
 ; {{reward_type}} are the `rer_token_type_short` lines you translated above.
 ; {{tokens_amount}} is the number of tokens the player has in his inventory.
@@ -482,3 +483,10 @@
 2115018452|        |rer_token_trading_option_empty|No tokens to trade
 2115018453|        |rer_trade_tokens|Trade tokens of gratitude
 2115018454|        |option_rer_mod_version|MOD VERSION <font color="#d73a49">(DO NOT EDIT)</font>
+2115018455|        |rer_find_nest|Find the {{type}} nest
+2115018456|        |rer_survive_horde|Survive the {{type}} horde
+2115018457|        |rer_kill_target|Kill the {{type}}
+2115018458|        |rer_contract_finished|The contract is over
+2115018459|        |rer_reward_bag|Your {{reward_type}} is waiting in the bag at your feet
+2115018460|        |rer_contract_started|{{species}} contract has started, search the marker on your map
+2115018461|        |rer_huntsman_redux_bonus|+50% from Huntsman perk

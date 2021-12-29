@@ -17,7 +17,7 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
     }
 
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {
-      RER_tryRefillRandomContainer();
+      RER_tryRefillRandomContainer(parent.master);
     }
 
     if (!parent.manual_destruction) {

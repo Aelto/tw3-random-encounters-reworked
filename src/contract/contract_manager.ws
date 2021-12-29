@@ -139,14 +139,15 @@ statemachine class RER_ContractManager {
 
   public function getRandomDestinationAroundPoint(starting_point: Vector, distance: RER_ContractDistance, rng: RandomNumberGenerator): Vector {
     var closest_points: array<Vector>;
+    var offset: int;
     var index: int;
     var size: int;
 
     if (distance == ContractDistance_CLOSE) {
-      closest_points = this.getClosestDestinationPoints(starting_point, 5);
+      closest_points = this.getClosestDestinationPoints(starting_point, 10);
     }
     else {
-      closest_points = this.getClosestDestinationPoints(starting_point, 10);
+      closest_points = this.getClosestDestinationPoints(starting_point, 20);
     }
 
     // since it can return less than what we asked for
@@ -155,15 +156,24 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    index = (int)rng.nextRange(size, 0);
+    offset = 0;
+    if (distance != ContractDistance_CLOSE) {
+      offset = Min(size, 10);
+    }
+
+    index = (int)rng.nextRange(size, offset);
+    NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size + " offset = " + offset);
 
     return closest_points[index];
   }
 
   public function getClosestDestinationPoints(starting_point: Vector, amount_of_points: int): array<Vector> {
     var sorter_data: array<SU_ArraySorterData>;
+    var mappins: array<SEntityMapPinInfo>;
     var entities: array<CGameplayEntity>;
-    var mappins: array<CGameplayEntity>;
+    var current_position: Vector;
+    var current_distance: float;
+    var current_region: string;
     var output: array<Vector>;
     var i: int;
 
@@ -212,7 +222,7 @@ statemachine class RER_ContractManager {
     sorter_data = SU_sortArray(sorter_data);
 
     for (i = 0; i < sorter_data.Size() && i < amount_of_points; i += 1) {
-      output.PushBack(sorter_data[i].position);
+      output.PushBack(((RER_ContractLocation)sorter_data[i]).position);
     }
 
     return output;
@@ -270,6 +280,7 @@ statemachine class RER_ContractManager {
   public function completeCurrentContract() {
     var storage: RER_ContractStorage;
     var token_name: name;
+    var rng: RandomNumberGenerator;
 
     storage = this.master.storages.contract;
 
@@ -280,8 +291,11 @@ statemachine class RER_ContractManager {
     storage.completed_contracts.PushBack(storage.ongoing_contract.identifier);
     storage.has_ongoing_contract = false;
 
+    rng = (new RandomNumberGenerator in this).setSeed(storage.ongoing_contract.rng_seed)
+      .useSeed(true);
+
     token_name = RER_contractRewardTypeToItemName(
-      RER_getRandomContractRewardTypeFromFlag(storage.ongoing_contract.reward_type)
+      RER_getRandomContractRewardTypeFromFlag(storage.ongoing_contract.reward_type, rng)
     );
 
     if (IsNameValid(token_name)) {
@@ -292,6 +306,7 @@ statemachine class RER_ContractManager {
       // TODO: maybe give more tokens for harder contracts
       thePlayer.DisplayItemRewardNotification(token_name, 1);
       theSound.SoundEvent("gui_inventory_buy");
+      thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
 
     storage.save();
