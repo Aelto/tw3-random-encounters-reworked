@@ -115,6 +115,7 @@ statemachine class RER_ContractManager {
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, data.distance, rng);
     contract.destination_radius = 100;
 
+    // TODO: restrict creatures for nests
     bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
     contract.creature_type = bestiary_entry.type;
     contract.difficulty = data.difficulty;
@@ -280,8 +281,9 @@ statemachine class RER_ContractManager {
 
   public function completeCurrentContract() {
     var storage: RER_ContractStorage;
-    var token_name: name;
     var rng: RandomNumberGenerator;
+    var rewards_amount: int;
+    var token_name: name;
 
     storage = this.master.storages.contract;
 
@@ -300,12 +302,11 @@ statemachine class RER_ContractManager {
     );
 
     if (IsNameValid(token_name)) {
-      thePlayer
-        .GetInventory()
-        .AddAnItem(token_name);
+      rewards_amount = 1
+                     * (1 + storage.ongoing_contract.difficulty == ContractDifficulty_HARD);
 
-      // TODO: maybe give more tokens for harder contracts
-      thePlayer.DisplayItemRewardNotification(token_name, 1);
+      thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
+      thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
