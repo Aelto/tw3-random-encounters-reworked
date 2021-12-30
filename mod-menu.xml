@@ -4824,7 +4824,7 @@
     <Group id="RERcontainerRefill" displayName="Mods.rer_name.rer_rewards_settings.rer_container_refill_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERcontainerRefillTriggerChance" value="20" />
+                <Entry varId="RERcontainerRefillTriggerChance" value="100" />
                 <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
                 <Entry varId="RERcontainerRefillRadius" value="1000" />
                 <Entry varId="RERcontainerRefillNumberOfContainers" value="1" />
