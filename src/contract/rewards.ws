@@ -232,7 +232,7 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
     .useSeed(true);
 
   allowed_reward = ContractRewardType_NONE;
-  roll = (int)rng.nextRange(20, 0);
+  roll = (int)rng.nextRange(15, 0);
 
   switch (roll) {
     case 0:
