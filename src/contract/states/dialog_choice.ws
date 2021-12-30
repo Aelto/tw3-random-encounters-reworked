@@ -251,7 +251,7 @@ state DialogChoice in RER_ContractManager {
       .useSeed(true);
   }
 
-  function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, rng: RandomNumberGenerator) {
+  latent function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
     var nearby_noticeboard: W3NoticeBoard;
 
@@ -298,6 +298,8 @@ state DialogChoice in RER_ContractManager {
     parent.master.storages.contract.save();
 
     theSound.SoundEvent("gui_ingame_quest_active");
+
+    Sleep(1.5);
     NHUD(
       StrReplace(
         GetLocStringByKey('rer_contract_started'),
