@@ -112,13 +112,13 @@ state Processing in RER_ContractManager {
     position = ongoing_contract.destination_point
       + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
-    impact_points = rng.nextRange(20, 0)
+    impact_points = rng.nextRange(20, 10)
                   * (1 + (int)(ongoing_contract.difficulty == ContractDifficulty_HARD));
 
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier),
+      impact_points / bestiary_entry.ecosystem_delay_multiplier),
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE,
@@ -128,7 +128,7 @@ state Processing in RER_ContractManager {
       10000
     );
 
-    impact_points -= bestiary_entry.ecosystem_delay_multiplier;
+    impact_points -= bestiary_entry.ecosystem_delay_multiplier * entities.Size();
     while (impact_points > 0) {
       composition_type = bestiary_entry.getStrongestCompositionCreature(
         parent.master,
