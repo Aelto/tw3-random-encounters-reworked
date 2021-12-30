@@ -115,7 +115,6 @@ statemachine class RER_ContractManager {
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, data.distance, rng);
     contract.destination_radius = 100;
 
-    // TODO: restrict creatures for nests
     bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
     contract.creature_type = bestiary_entry.type;
     contract.difficulty = data.difficulty;
