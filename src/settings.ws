@@ -247,6 +247,7 @@ class RE_Settings {
     inGameConfigWrapper.ApplyGroupPreset('RERkillingSpreeCustomLoot', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERecosystem', 0);
     inGameConfigWrapper.ApplyGroupPreset('RERcreatureTypeMultiplier', 0);
+    inGameConfigWrapper.ApplyGroupPreset('RERcontracts', 0);
 
     inGameConfigWrapper.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
