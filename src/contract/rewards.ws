@@ -72,6 +72,11 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
       loot_tables.PushBack('_valuables');
 
       amount = 10;
+
+      if (RER_playerUsesEnhancedEditionRedux()) {
+        amount *= 0.5;
+      }
+
       theSound.SoundEvent("gui_inventory_buy");
       break;
     
