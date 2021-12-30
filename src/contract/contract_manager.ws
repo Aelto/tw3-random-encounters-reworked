@@ -239,7 +239,7 @@ statemachine class RER_ContractManager {
     for (i = 0; i < all_pins.Size(); i += 1) {
       if (all_pins[i].entityType == 'MonsterNest'
        || all_pins[i].entityType == 'InfestedVineyard'
-       || all_pins[i].entityType == 'PlaceOfPower'
+      //  || all_pins[i].entityType == 'PlaceOfPower'
        || all_pins[i].entityType == 'BanditCamp'
        || all_pins[i].entityType == 'BanditCampfire'
        || all_pins[i].entityType == 'BossAndTreasure'
@@ -256,7 +256,7 @@ statemachine class RER_ContractManager {
         // the same pins but with Disabled at the end
        || all_pins[i].entityType == 'MonsterNestDisabled'
        || all_pins[i].entityType == 'InfestedVineyardDisabled'
-       || all_pins[i].entityType == 'PlaceOfPowerDisabled'
+      //  || all_pins[i].entityType == 'PlaceOfPowerDisabled'
        || all_pins[i].entityType == 'BanditCampDisabled'
        || all_pins[i].entityType == 'BanditCampfireDisabled'
        || all_pins[i].entityType == 'BossAndTreasureDisabled'
