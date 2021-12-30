@@ -5,6 +5,7 @@ class RER_BestiarySpider extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureSPIDER;
+    this.species = SpeciesTypes_INSECTOIDS;
     this.menu_name = 'Spiders';
     this.localized_name = 'option_rer_spider';
 

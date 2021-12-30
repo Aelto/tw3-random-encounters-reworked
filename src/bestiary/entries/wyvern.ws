@@ -5,6 +5,7 @@ class RER_BestiaryWyvern extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWYVERN;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Wyverns';
     this.localized_name = 'option_rer_wyvern';
 

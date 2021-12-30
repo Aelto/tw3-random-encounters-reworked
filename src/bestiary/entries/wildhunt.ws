@@ -5,6 +5,7 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWILDHUNT;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Wild_Hunt';
     this.localized_name = 'option_rer_wildhunt';
 

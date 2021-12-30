@@ -5,6 +5,7 @@ class RER_BestiarySkeltroll extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureSKELTROLL;
+    this.species = SpeciesTypes_OGROIDS;
     this.menu_name = 'Skellige_Trolls';
     this.localized_name = 'option_rer_troll';
 

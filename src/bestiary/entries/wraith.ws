@@ -5,6 +5,7 @@ class RER_BestiaryWraith extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWRAITH;
+    this.species = SpeciesTypes_SPECTERS;
     this.menu_name = 'Wraiths';
     this.localized_name = 'option_rer_wraith';
 

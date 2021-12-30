@@ -15,6 +15,8 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
 
   var bait_entity: CEntity;
 
+  var manual_destruction: bool;
+
   public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
     this.entities = entities;

@@ -5,6 +5,7 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureFOGLET;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Foglets';
     this.localized_name = 'option_rer_fogling';
 

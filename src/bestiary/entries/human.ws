@@ -5,6 +5,7 @@ class RER_BestiaryHuman extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureHUMAN;
+    this.species = SpeciesTypes_BEASTS;
     this.menu_name = 'Humans';
     this.localized_name = 'option_rer_human';
 

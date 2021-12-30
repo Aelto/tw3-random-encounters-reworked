@@ -1,4 +1,44 @@
 
+exec function rercompletecontract() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.contract_manager.completeCurrentContract();
+}
+
+exec function rergotobountymaster() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  thePlayer.Teleport(
+    rer_entity.bounty_manager.bounty_master_manager.bounty_master_entity.GetWorldPosition()
+  );
+}
+
+function RER_getRandomItemFromDefinition(definition: name): name {
+  var main : SCustomNode;
+  var i: int;
+
+  main = theGame.GetDefinitionsManager()
+    .GetCustomDefinition(definition);
+
+  for (i = 0; i < main.subNodes.Size(); i += 1) {
+    NLOG("RER_getRandomItemFromDefinition, main.subNodes[i] = " + main.subNodes[i].nodeName);
+  }
+
+  return '';
+}
+
 exec function rerhorde(type: CreatureType, optional count: int) {
   var request: RER_HordeRequest;
   var rer_entity : CRandomEncounters;

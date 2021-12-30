@@ -5,6 +5,7 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGHOUL;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Ghouls';
     this.localized_name = 'option_rer_ghoul';
 

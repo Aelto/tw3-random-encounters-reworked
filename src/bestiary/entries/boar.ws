@@ -5,6 +5,7 @@ class RER_BestiaryBoar extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBOAR;
+    this.species = SpeciesTypes_BEASTS;
     this.menu_name = 'Boars';
     this.localized_name = 'option_rer_boar';
 

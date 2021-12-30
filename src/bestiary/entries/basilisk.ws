@@ -5,6 +5,7 @@ class RER_BestiaryBasilisk extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBASILISK;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Basilisks';
     this.localized_name = 'option_rer_basilisk';
 

@@ -11,13 +11,15 @@ state Loading in RER_MonsterNest {
   entry function Loading_main() {
     var entities: array<CEntity>;
 
-    parent.bestiary_entry = parent.getRandomNestCreatureType(parent.master);
+    if (!parent.forced_bestiary_entry) {
+      parent.bestiary_entry = parent.getRandomNestCreatureType(parent.master);
 
-    if (parent.bestiary_entry.type == CreatureARACHAS) {
-      parent.monsters_spawned_limit /= 3;
-    }
-    if (parent.bestiary_entry.type == CreatureWRAITH) {
-      parent.monsters_spawned_limit /= 2;
+      if (parent.bestiary_entry.type == CreatureARACHAS) {
+        parent.monsters_spawned_limit /= 3;
+      }
+      if (parent.bestiary_entry.type == CreatureWRAITH) {
+        parent.monsters_spawned_limit /= 2;
+      }
     }
 
     // add custom loot to the nest, it uses the killing spree loot.

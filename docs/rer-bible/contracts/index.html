@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta property="og:title" content="Random Encounters Reworked - RER Bible | Contracts">
+  <meta property="og:description" content="Random Encounters Reworked. Monster contracts">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Aelto/tw3-random-encounters-reworked/master/docs/rer-bible/contracts/rer-contracts-revamp.png">
+
   <link rel="stylesheet" href="../master.css">
   <title>RER Bible | Contracts</title>
 </head>
@@ -14,24 +19,158 @@
   <a href="../index.html">back to summary</a>
 
   <section>
-    <h2>Contracts</h2>
+    <h3>The contracts mod menu</h3>
+
+    <ul>
+      <li>Real life hours before new contracts. Default: <span>1</span>.</li>
+      <li>Number of nearby easy contract. Default: <span>1</span></li>
+      <li>Number of nearby hard contract. Default: <span>1</span></li>
+      <li>Number of far easy contract. Default: <span>1</span></li>
+      <li>Number of far hard contract. Default: <span>1</span></li>
+      <li>Allow RER to learn about new locations as you explore the world. Default: <span>true</span></li>
+      <li>Contracts generation seed. Default: <span>0</span></li>
+      <li>Chances for:
+        <ul>
+          <li> - Ogroid contracts. Default: <span>10</span></li>
+          <li> - Draconid contracts. Default: <span>10</span></li>
+          <li> - Specter contracts. Default: <span>10</span></li>
+          <li> - Necrophage contracts. Default: <span>10</span></li>
+          <li> - Elemental contracts. Default: <span>10</span></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Starting a contract</h3>
 
     <p>
-      RER will randomly inject notices on the noticeboard. These notices will tell
-      the mod to start one of the few contracts it offers when you pick them.
+      RER displays only one (1) errand on the noticeboard. This errand, once picked,
+      will tell the mod to display a dialogue menu with different options. These options
+      will depend on the values you set in the menu.
+    </p>
+
+    <ul>
+      <li>First it will display the list of nearby easy contracts for a random monster species you can accept.</li>
+      <li>In second, the list of nearby hard contracts</li>
+      <li>In third, the list of far easy contracts</li>
+      <li>In third, the list of far hard contracts</li>
+    </ul>
+
+    <p>
+      At this moment you can only accept one of the given contracts, to start a second
+      one you will have to go back to the noticeboard and take the RER errand again.
+      Doing so will cancel any currently unfinished RER contract you have in progress.
     </p>
 
     <p>
-      The mod currently offers three types of contracts:
-      <ul>
-        <li><a href="./trails.html">Trails contracts</a></li>
-        <li><a href="./nests.html">Nests contracts</a></li>
-        <li><a href="./hordes.html">Hordes contracts</a></li>
-      </ul>
-      And each one has its unique notice so that you can learn which notice leads
-      to which type and pick only the ones you like.
+      Once you picked the contract of your choice, RER will then pick among the list
+      of known and discovered locations in the world based on the distance of the contract.
+      Reach the location and the contract will start.
     </p>
   </section>
 
+  <section>
+    <h3>Known locations and discovered locations</h3>
+
+    <p>
+      RER comes with a pre-defined list of known locations, these locations are
+      hand-picked by the contributors and make for interesting places for contracts.
+      It also uses the point of interests from the base game, bandit camps, caverns,
+      places of powers, etc...
+    </p>
+
+    <p>
+      However RER has the ability to learn about new locations as you explore the world.
+      If the option is enabled, every time you will slay an enemy the mod will
+      be notified and it will scan the surrounding for new potential locations.
+    </p>
+
+    <p>
+      When a contract is picked, the mod will then have the ability to pick locations
+      from the hand-made locations but also the discovered locations for a greater
+      variety.
+    </p>
+  </section>
+
+  <section>
+    <h3>The hunting phase</h3>
+
+    <p>
+      Once the location reached and depending on the disance and the difficulty of the contract,
+      you will face different kinds of situations:
+      <ul>
+        <li>Monsters nests</li>
+        <li>Hordes of monsters</li>
+        <li>A boss fight</li>
+      </ul>
+    </p>
+
+    <p>
+      The objective is never really far away from the location of the contract, but will
+      often require some searching to find it.
+    </p>
+  </section>
+
+  <section>
+    <h3>The distance & difficulty of contracts</h3>
+
+    <p>
+      The distance of a contract decides if the picked location you have to reach
+      will be around the noticeboard or if it will be around a neighbooring settlement or isle.
+    </p>
+
+    <p>
+      The difficulty of the contract decides the risks to encounter a challenging creature
+      during the completion of the encounter.
+    </p>
+  </section>
+
+  <section>
+    <h3>Completing contracts and rewards</h3>
+
+    <p>
+      Every time you will complete a contract, you will earn a token of gratitude
+      from the locals that you will be able to trade for valuables to the bounty master.
+      For each token the trader will offer various types of rewards:
+      <ul>
+        <li>Consumables</li>
+        <li>Crafting materials</li>
+        <li>Gear</li>
+        <li>Golds</li>
+        <li>Experience</li>
+      </ul>
+    </p>
+
+    <p>
+      The rewards token you get from the completion of the contract however depends
+      on the location where you started the contract. A poor Velen settlement does not
+      have the same rewards as Novigrad for example.
+    </p>
+  </section>
+
+  <section>
+    <h3>Waiting for new contracts</h3>
+
+    <p>
+      Each noticeboard has a limit of contracts you can complete in a given lapse
+      of time. The length depends on the value you set in the menu, and it is expressed
+      in real life hours. That means meditating won't cause you to get new contracts and
+      the only way to get new ones is to go for another noticeboard.
+    </p>
+
+    <p>
+      The contracts that are generated each interval are seeded from the time spent
+      in the playthrough and the location. This means that during the first hour of a
+      playthrough the contract in White Orchard will be the same for all players
+      across all computers.
+    </p>
+
+    <p>
+      If needed, the mod menu exposes a slider that can be changed to use another
+      seed. However this will follow the same logic, any player with the same seed
+      will get the same contracts or the same amount of time spent in the playthrough.
+    </p>
+  </section>
 </body>
 </html>

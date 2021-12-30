@@ -12,10 +12,6 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
     SUH_resetEntitiesAttitudes(parent.entities);
     SUH_makeEntitiesTargetPlayer(parent.entities);
 
-    if (parent.is_bounty) {
-      this.sendHordeRequestForBounty(parent.bounty_group_index);
-    }
-
     while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {
       RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30);
 
@@ -29,26 +25,6 @@ state Combat in RandomEncountersReworkedHuntingGroundEntity {
     }
 
     this.Combat_goToNextState();
-  }
-
-  function sendHordeRequestForBounty(bounty_index: int) {
-    var request: RER_HordeRequest;
-
-    if (parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty_started) {
-      return;
-    }
-
-    if (parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty == CreatureNONE) {
-      return;
-    }
-
-    request = new RER_HordeRequest in parent;
-    request.setCreatureCounter(
-      parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty,
-      parent.master.storages.bounty.current_bounty.random_data.groups[bounty_index].horde_before_bounty_count
-    );
-
-    parent.master.horde_manager.sendRequest(request);
   }
 
   latent function Combat_goToNextState() {

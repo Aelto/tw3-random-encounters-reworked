@@ -5,6 +5,7 @@ class RER_BestiaryDetlaff extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureDETLAFF;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Higher_Vampires';
     this.localized_name = 'option_rer_higher_vampire';
 

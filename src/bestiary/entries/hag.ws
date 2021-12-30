@@ -5,6 +5,7 @@ class RER_BestiaryHag extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureHAG;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Hags';
     this.localized_name = 'option_rer_hag';
 

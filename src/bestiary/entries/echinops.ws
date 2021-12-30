@@ -5,6 +5,7 @@ class RER_BestiaryEchinops extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureECHINOPS;
+    this.species = SpeciesTypes_CURSED;
     this.menu_name = 'Echinops';
     this.localized_name = 'option_rer_echinops';
 

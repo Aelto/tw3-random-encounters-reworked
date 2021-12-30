@@ -1,8 +1,4 @@
 
-/**
- * a basic example that shows how to add a custom injector to a nearby
- * noticeboard.
- */
 function RER_addNoticeboardInjectors() {
   var entities: array<CGameplayEntity>;
   var board: W3NoticeBoard;
@@ -36,34 +32,18 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     var can_inject_errand: bool;
 
     can_inject_errand = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERoptionalFeatures', 'RERnoticeboardErrands');
+      .GetVarValue('RERcontracts', 'RERnoticeboardErrands');
 
     if (can_inject_errand) {
-      if (RandRange(15) < 5) {
-        SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_0");
-      }
-      if (RandRange(15) < 5) {
-        SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
-      }
-      if (RandRange(15) < 5) {
-        SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_2");
-      }
+      SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
     }
   }
 
   public function accepted(out board: W3NoticeBoard, errand_name: string) {
     var rer_entity: CRandomEncounters;
 
-    switch (errand_name) {
-      case "rer_noticeboard_errand_0":
-      case "rer_noticeboard_errand_1":
-      case "rer_noticeboard_errand_2":
-
-      if (getRandomEncounters(rer_entity)) {
-        rer_entity.contract_manager.pickedContractNoticeFromNoticeboard(errand_name);
-      }
-
-      break;
+    if (getRandomEncounters(rer_entity)) {
+      rer_entity.contract_manager.pickedContractNoticeFromNoticeboard(errand_name);
     }
   }
 }

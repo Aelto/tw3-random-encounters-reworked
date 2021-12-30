@@ -1,6 +1,7 @@
 
 abstract class RER_BestiaryEntry {
   var type: CreatureType;
+  var species: RER_SpeciesTypes;
 
   var template_list: EnemyTemplateList;
 
@@ -322,6 +323,56 @@ abstract class RER_BestiaryEntry {
     }
 
     return false;
+  }
+
+  public latent function getStrongestCompositionCreature(master: CRandomEncounters, maximum_strength: float): CreatureType {
+    var output: CreatureType;
+    var creatures_preferences: RER_CreaturePreferences;
+    var spawn_roll: SpawnRoller_Roll;
+    var manager : CWitcherJournalManager;
+    var can_spawn_creature: bool;
+    var influences: RER_ConstantInfluences;
+    var i: int;
+
+    output = CreatureNONE;
+
+    if (maximum_strength <= 0) {
+      return CreatureNONE;
+    }
+
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (master.settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+    }
+    
+    for (i = 0; i < this.possible_compositions.Size(); i += 1) {
+      // if a maximum strength is supplied, we make sure to include only creatures
+      // whose strength is within the boundary
+      if (maximum_strength > 0 && master.bestiary.entries[this.possible_compositions[i]].ecosystem_delay_multiplier >= maximum_strength) {
+        continue;
+      }
+
+      if (master.settings.only_known_bestiary_creatures) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
+
+        if (!can_spawn_creature) {
+          continue;
+        }
+      }
+
+      if (output == CreatureNONE) {
+        output = this.possible_compositions[i];
+
+        continue;
+      }
+
+      if (master.bestiary.entries[output].ecosystem_delay_multiplier < master.bestiary.entries[this.possible_compositions[i]].ecosystem_delay_multiplier) {
+        output = this.possible_compositions[i];
+      }
+    }
+
+    return output;
   }
 
   // Returns a random friendly creature if there is any. Otherwise returns

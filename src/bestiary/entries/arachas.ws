@@ -5,6 +5,7 @@ class RER_BestiaryArachas extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureARACHAS;
+    this.species = SpeciesTypes_INSECTOIDS;
     this.menu_name = 'Arachas';
     this.localized_name = 'option_rer_arachas';
 

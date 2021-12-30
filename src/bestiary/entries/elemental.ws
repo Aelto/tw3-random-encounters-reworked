@@ -5,6 +5,7 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureELEMENTAL;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Elementals';
     this.localized_name = 'option_rer_elemental';
 

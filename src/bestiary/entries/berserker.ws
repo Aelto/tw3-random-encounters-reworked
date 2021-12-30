@@ -5,6 +5,7 @@ class RER_BestiaryBerserker extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBERSERKER;
+    this.species = SpeciesTypes_CURSED;
     this.menu_name = 'Berserkers';
     this.localized_name = 'option_rer_berserker';
 

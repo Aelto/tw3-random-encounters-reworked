@@ -5,6 +5,7 @@ class RER_BestiaryDracolizard extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureDRACOLIZARD;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Dracolizards';
     this.localized_name = 'option_rer_dracolizard';
 
