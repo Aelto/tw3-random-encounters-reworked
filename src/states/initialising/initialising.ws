@@ -25,12 +25,12 @@ state Initialising in CRandomEncounters {
     parent.events_manager.init(parent);
     parent.events_manager.start();
 
+    parent.storages = RER_loadStorageCollection();
+
     parent.ecosystem_manager.init(parent);
     parent.bounty_manager.init(parent);
     parent.horde_manager.init(parent);
     parent.contract_manager.init(parent);
-
-    parent.storages = RER_loadStorageCollection();
 
     RER_tutorialTryShowStarted();
     
