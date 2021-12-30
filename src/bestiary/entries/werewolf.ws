@@ -5,6 +5,7 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWEREWOLF;
+    this.species = SpeciesTypes_CURSED;
     this.menu_name = 'Werewolves';
     this.localized_name = 'option_rer_werewolf';
 

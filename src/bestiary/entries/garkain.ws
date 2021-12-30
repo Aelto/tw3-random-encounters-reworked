@@ -5,6 +5,7 @@ class RER_BestiaryGarkain extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGARKAIN;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Garkains';
     this.localized_name = 'option_rer_garkain';
 

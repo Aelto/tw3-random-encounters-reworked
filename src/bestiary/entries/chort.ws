@@ -5,6 +5,7 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCHORT;
+    this.species = SpeciesTypes_RELICTS;
     this.menu_name = 'Chorts';
     this.localized_name = 'option_rer_chort';
 
@@ -26,7 +27,7 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_fiend_trophy_medium');
     this.trophy_names.PushBack('modrer_fiend_trophy_high');
 
-    this.ecosystem_delay_multiplier = 16;
+    this.ecosystem_delay_multiplier = 10;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS

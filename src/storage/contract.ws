@@ -2,25 +2,24 @@
 // in this class you will find all persistent data about the ecosystem the mod
 // stores in the user save files.
 class RER_ContractStorage extends RER_BaseStorage {
-    default id = 'RandomEncountersReworked';
-    default containerId = 'contract';
+  default id = 'RandomEncountersReworked';
+  default containerId = 'contract';
 
-    /**
-     * to know if a contract was running or not, check if the last_phase is a
-     * valid name or not. If last_phase = '', then no contract was running.
-     *
-     * That means the code will do last_phase = ''; once a contract is finished
-     * to declare no more contract is in progress.
-     *
-     * NOTE: because it can store only one last_phase, if the player starts a
-     * second contract while a first one is in progress. The second contract
-     * will override the current one and progress in the first one will be lost.
-     */
-    var last_phase: name;
-    var last_checkpoint: Vector;
-    var last_longevity: float;
-    var last_picked_creature: CreatureType;
-    var last_heading: float;
+  /**
+   * the time the contracts were last generated. The int value in the hours
+   * of playtime the player has spent in the save.
+   */
+  var last_generation_time: RER_GenerationTime;
+
+  /**
+   * an array of the currently completed contracts. It is flushed if the
+   * last_errand_injection_time is refreshed.
+   */
+  var completed_contracts: array<RER_ContractIdentifier>;
+
+  var ongoing_contract: RER_ContractRepresentation;
+
+  var has_ongoing_contract: bool;
 }
 
 // an helper function to get contract storage

@@ -5,6 +5,7 @@ class RER_BestiarySiren extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureSIREN;
+    this.species = SpeciesTypes_HYBRIDS;
     this.menu_name = 'Sirens';
     this.localized_name = 'option_rer_siren';
 

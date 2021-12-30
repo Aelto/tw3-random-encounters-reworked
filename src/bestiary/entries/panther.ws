@@ -5,6 +5,7 @@ class RER_BestiaryPanther extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreaturePANTHER;
+    this.species = SpeciesTypes_BEASTS;
     this.menu_name = 'Panthers';
     this.localized_name = 'option_rer_panther';
 

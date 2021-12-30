@@ -5,6 +5,7 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBARGHEST;
+    this.species = SpeciesTypes_SPECTERS;
     this.menu_name = 'Barghests';
     this.localized_name = 'option_rer_barghest';
 

@@ -12,7 +12,7 @@ state Ending in RER_MonsterNest {
     Sleep(1);
 
     if (VecDistanceSquared(parent.GetWorldPosition(), thePlayer.GetWorldPosition()) < 50 * 50) {
-      RER_tryRefillRandomContainer();
+      RER_tryRefillRandomContainer(parent.master);
     }
 
     parent.clean();

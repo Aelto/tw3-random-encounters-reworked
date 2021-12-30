@@ -31,20 +31,18 @@
 - Geralt choice: Let's go back
 
 
+# rer contracts
+at start, pick a random NPC nearby and tell the player to go talk to him.
 
-## personal notes
+update sharedutils to cancel the vanilla interaction event, and when interacted with,
+display a custom haggle/ask more info/accept/deny; list of choices.
 
-### contract ideas
-#### contract phases
-- [starting-phase] corpse on the ground, player interacts with it and examines it
-- [intermediary-phase] NPC asking for help, must help him and kill the monsters around him. Optional: npc is alive and gives you coins.
-  - Von Gratz has good dialogues for that
-	- Geralt choice: Don't have the time.
-	- Geralt: Sorry. No time just now.
-	- 0x0011c534    Geralt: Sorry. Gotta go.
-	- 0x0011c530  Geralt choice: Sorry… gotta go.
-  -  0x0010a322      Geralt: Sorry, got more important matters to tend to.
-  -  0x00055ca9    Geralt: Wish I could help.
-  -  0x0011e3f1    Geralt: Arrived too late. Nothing I could do.
-- [intermediary-phase] a lost NPC you can interact with, he gives you information on where to go
-- [intermediary-phase] a mercenary you can pay to have him follow you for the rest of the contract
+# functions
+ - `GetSubmergeDepth` to check if a movingagentcomponent is under water.
+ - `ActionMoveAwayFromNode` could be used to get the path from inside a settlement to outside by using an invisible entity and telling it to move away from the player
+ - `ActionMoveToDynamicNode` or `ActionMoveTo` could be used to get pathfinding on land using an invisible entity
+   - ❕ maybe even `ActionMoveCustom`, look in the class `CBehTreeActorTaskRunFromDanger` on how to use it
+   - `CMoveTRGScript` look for that too
+ - `CBTTaskGesturesManager` for the gestures during dialogue
+  - `SignalGameplayEvent('GesticulatingActor');` could be used to trigger the manager
+ - `DisplayPortalConfirmationPopup` can be used to dispay Yes/No popups

@@ -5,6 +5,7 @@ class RER_BestiaryTroll extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureTROLL;
+    this.species = SpeciesTypes_OGROIDS;
     this.menu_name = 'Trolls';
     this.localized_name = 'option_rer_troll';
 

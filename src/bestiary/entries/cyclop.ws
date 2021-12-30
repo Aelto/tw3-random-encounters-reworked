@@ -5,6 +5,7 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCYCLOP;
+    this.species = SpeciesTypes_OGROIDS;
     this.menu_name = 'Cyclops';
     this.localized_name = 'option_rer_cyclop';
 

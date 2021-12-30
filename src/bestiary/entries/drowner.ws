@@ -5,6 +5,7 @@ class RER_BestiaryDrowner extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureDROWNER;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Drowners';
     this.localized_name = 'option_rer_drowner';
 
