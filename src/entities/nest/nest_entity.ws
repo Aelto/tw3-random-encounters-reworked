@@ -154,25 +154,13 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
 
     filter = (new RER_SpawnRollerFilter in this)
         .init()
-        .removeEveryone()
-        .allowCreature(CreatureARACHAS)
-        .allowCreature(CreatureENDREGA)
-        .allowCreature(CreatureGHOUL)
-        .allowCreature(CreatureALGHOUL)
-        .allowCreature(CreatureNEKKER)
-        .allowCreature(CreatureDROWNER)
-        .allowCreature(CreatureROTFIEND)
-        .allowCreature(CreatureWOLF)
-        .allowCreature(CreatureHARPY)
-        .allowCreature(CreatureSPIDER)
-        .allowCreature(CreatureCENTIPEDE)
-        .allowCreature(CreatureDROWNERDLC)
-        .allowCreature(CreatureBOAR)
-        .allowCreature(CreatureECHINOPS)
-        .allowCreature(CreatureKIKIMORE)
-        .allowCreature(CreatureSKELWOLF)
-        .allowCreature(CreatureSIREN)
-        .allowCreature(CreatureWRAITH);
+        .removeEveryone();
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      if (RER_isCreatureTypeAllowedForNest(i)) {
+        filter.allowCreature(i);
+      }
+    }
 
     if (this.forced_species != SpeciesTypes_NONE) {
       for (i = 0; i < master.bestiary.entries.Size(); i += 1) {
@@ -232,4 +220,37 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
 
     this.Destroy();
   }
+}
+
+function RER_isCreatureTypeAllowedForNest(type: CreatureType): bool {
+  var output: bool;
+
+  switch (type) {
+    case CreatureARACHAS:
+    case CreatureENDREGA:
+    case CreatureGHOUL:
+    case CreatureALGHOUL:
+    case CreatureNEKKER:
+    case CreatureDROWNER:
+    case CreatureROTFIEND:
+    case CreatureWOLF:
+    case CreatureHARPY:
+    case CreatureSPIDER:
+    case CreatureCENTIPEDE:
+    case CreatureDROWNERDLC:
+    case CreatureBOAR:
+    case CreatureECHINOPS:
+    case CreatureKIKIMORE:
+    case CreatureSKELWOLF:
+    case CreatureSIREN:
+    case CreatureWRAITH:
+      output = true;
+      break;
+
+    default:
+      output = false;
+      break;
+  }
+
+  return output;
 }

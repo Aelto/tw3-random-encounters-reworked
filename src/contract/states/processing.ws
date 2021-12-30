@@ -199,7 +199,13 @@ state Processing in RER_ContractManager {
 
     path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
 
-    rng.next();
+    if (!RER_isCreatureTypeAllowedForNest(ongoing_contract.creature_type)) {
+      // the monster doesn't fit a nest, in that case we spawn a boss fight
+      // instead.
+      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
+
+      return;
+    }
 
     if (ongoing_contract.difficulty == ContractDifficulty_EASY) {
       i = 1;
