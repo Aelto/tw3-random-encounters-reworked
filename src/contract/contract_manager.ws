@@ -302,7 +302,7 @@ statemachine class RER_ContractManager {
 
     if (IsNameValid(token_name)) {
       rewards_amount = 1
-                     * (1 + storage.ongoing_contract.difficulty == ContractDifficulty_HARD);
+                     * (1 + (int)(storage.ongoing_contract.difficulty == ContractDifficulty_HARD));
 
       thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
       thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
