@@ -228,7 +228,7 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
   var rng: RandomNumberGenerator;
   var roll: int;
   
-  rng = (new RandomNumberGenerator in contract_manager).setSeed((int)noticeboard_identifier.identifier)
+  rng = (new RandomNumberGenerator in contract_manager).setSeed(RER_identifierToInt(noticeboard_identifier.identifier))
     .useSeed(true);
 
   allowed_reward = ContractRewardType_NONE;
