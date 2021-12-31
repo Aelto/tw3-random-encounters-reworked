@@ -112,13 +112,17 @@ state Processing in RER_ContractManager {
     position = ongoing_contract.destination_point
       + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
-    impact_points = rng.nextRange(20, 10)
-                  * (1 + (int)(ongoing_contract.difficulty == ContractDifficulty_HARD));
+    if (ongoing_contract.difficulty == ContractDifficulty_HARD) {
+      impact_points = rng.nextRange(40, 15);
+    }
+    else {
+      impact_points = rng.nextRange(10, 5);
+    }
 
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      impact_points / bestiary_entry.ecosystem_delay_multiplier),
+      RoundF(impact_points / bestiary_entry.ecosystem_delay_multiplier),
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE,
