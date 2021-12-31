@@ -68,38 +68,29 @@ statemachine class RER_ContractManager {
   public function getUniqueIdFromNoticeboard(noticeboard: W3NoticeBoard): RER_NoticeboardIdentifier {
     var position: Vector;
     var heading: float;
+    var uuid: string;
 
     position = noticeboard.GetWorldPosition();
     heading = noticeboard.GetHeading();
 
-    // a random formula to limit the chances of collision, nothing too fancy
-    return RER_NoticeboardIdentifier(
-      position.X * heading
-      - position.Y / heading
-      + position.Z + heading
-    );
+    uuid += RoundF(position.X) + "-";
+    uuid += RoundF(position.Y) + "-";
+    uuid += RoundF(position.Z) + "-";
+    uuid += RoundF(heading);
+
+    return RER_NoticeboardIdentifier(uuid);
   }
 
   public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, is_far: bool, is_hard: bool, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
-    var output: float;
+    var uuid: string;
 
-    output = noticeboard.identifier;
+    uuid += noticeboard.identifier + "-";
+    uuid += RoundF(generation_time.time) + "-";
+    uuid += 100 + (int)is_far + "-";
+    uuid += 10 + (int)is_hard + "-";
+    uuid += (int)species;
 
-    if (is_far) {
-      output /= generation_time.time;
-    }
-    else {
-      output *= generation_time.time;
-    }
-
-    if (is_hard) {
-      output -= generation_time.time;
-    }
-    else {
-      output += generation_time.time;
-    }
-
-    return RER_ContractIdentifier(output);
+    return RER_ContractIdentifier(uuid);
   }
 
   public function generateContract(data: RER_ContractGenerationData): RER_ContractRepresentation {
@@ -289,6 +280,8 @@ statemachine class RER_ContractManager {
     if (!storage.has_ongoing_contract) {
       return;
     }
+
+    NLOG("completeCurrentContract, uuid = " + storage.ongoing_contract.identifier.identifier);
 
     storage.completed_contracts.PushBack(storage.ongoing_contract.identifier);
     storage.has_ongoing_contract = false;

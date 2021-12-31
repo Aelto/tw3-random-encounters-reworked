@@ -249,7 +249,7 @@ state DialogChoice in RER_ContractManager {
     rng = new RandomNumberGenerator in this;
 
     return rng
-      .setSeed((int)(menu_seed + noticeboard_identifier.identifier + generation_time.time))
+      .setSeed((int)(menu_seed + RER_identifierToInt(noticeboard_identifier.identifier) + generation_time.time))
       .useSeed(true);
   }
 
@@ -288,7 +288,7 @@ state DialogChoice in RER_ContractManager {
       generation_time
     );
 
-    rng.setSeed((int)contract_data.identifier.identifier);
+    rng.setSeed(RER_identifierToInt(contract_data.identifier.identifier));
     rng.next();
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
 

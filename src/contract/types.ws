@@ -3,14 +3,32 @@
  * Unique identifier used to differentiate one noticeboard from another
  */
 struct RER_NoticeboardIdentifier {
-  var identifier: float;
+  var identifier: string;
 }
 
 /**
  * Unique identifier used to differentiate one contract from another
  */
 struct RER_ContractIdentifier {
-  var identifier: float;
+  var identifier: string;
+}
+
+function RER_identifierToInt(identifier: string): int {
+  var segment: string;
+  var sub: string;
+  var output: int;
+
+  segment = identifier;
+
+  while (StrLen(segment) > 0) {
+    sub = StrBeforeFirst(segment, "-");
+    output += StringToInt(sub);
+
+    // the +1 is there to exclude the "-"
+    segment = StrMid(segment, StrLen(sub) + 1);
+  };
+
+  return output;
 }
 
 /**
