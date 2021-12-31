@@ -192,6 +192,8 @@ function RER_getAllowedContractRewardsMaskFromRegion(): RER_ContractRewardType {
   // when the player is in novigrad or no_mans_land
   region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
+  NLOG("RER_getAllowedContractRewardsMaskFromRegion, region = " + region);
+
   if (region == "prolog_village_winter") {
     region = "prolog_village";
   }
@@ -254,6 +256,8 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
     case 4:
       allowed_reward = ContractRewardType_GOLD;
   }
+
+  NLOG("RER_getRandomAllowedRewardType, allowed_reward = " + allowed_reward);
 
   return allowed_reward;
 }
