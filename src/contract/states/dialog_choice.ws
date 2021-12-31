@@ -71,7 +71,7 @@ state DialogChoice in RER_ContractManager {
       line = GetLocStringByKey("rer_contract_dialog_choice");
       line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
       line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(RER_getSeededRandomSpeciesType(rng))));
+      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
@@ -80,6 +80,8 @@ state DialogChoice in RER_ContractManager {
         random_species,
         generation_time
       );
+
+      NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
 
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
@@ -100,7 +102,7 @@ state DialogChoice in RER_ContractManager {
       line = GetLocStringByKey("rer_contract_dialog_choice");
       line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
       line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(RER_getSeededRandomSpeciesType(rng))));
+      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
@@ -129,7 +131,7 @@ state DialogChoice in RER_ContractManager {
       line = GetLocStringByKey("rer_contract_dialog_choice");
       line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
       line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(RER_getSeededRandomSpeciesType(rng))));
+      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
@@ -158,7 +160,7 @@ state DialogChoice in RER_ContractManager {
       line = GetLocStringByKey("rer_contract_dialog_choice");
       line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
       line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(RER_getSeededRandomSpeciesType(rng))));
+      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
