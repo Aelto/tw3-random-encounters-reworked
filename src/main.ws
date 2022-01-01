@@ -66,13 +66,7 @@ statemachine class CRandomEncounters extends CEntity {
       contract_manager = new RER_ContractManager in this;
       addon_manager = new RER_AddonManager in this;
 
-      if (this.isEnabled()) {
-        NLOG("RER is enabled");
-        this.GotoState('Initialising');
-      }
-      else {
-        NLOG("RER is disabled");
-      }
+      this.GotoState('Initialising');
     }
   }
 
@@ -121,10 +115,6 @@ statemachine class CRandomEncounters extends CEntity {
   public function refreshEcosystemFrequencyMultiplier() {
     this.ecosystem_frequency_multiplier = this.ecosystem_manager
       .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());
-  }
-
-  function isEnabled(): bool {
-    return theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
   }
 
   //#region OutOfCombat action
