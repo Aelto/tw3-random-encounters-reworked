@@ -207,7 +207,7 @@ state DialogChoice in RER_ContractManager {
         continue;
       }
 
-      if (response.playGoChunk == 'Cancel') {
+      if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {
         parent.GotoState('Waiting');
         return;
       }
