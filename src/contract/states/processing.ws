@@ -22,6 +22,32 @@ state Processing in RER_ContractManager {
     var has_added_pins: bool;
     var map_pin: SU_MapPin;
 
+    if (!parent.master.storages.contract.has_ongoing_contract) {
+      parent.GotoState('Waiting');
+      
+      return;
+    }
+
+    ongoing_contract = parent.master.storages.contract.ongoing_contract;
+
+    SU_removeCustomPinByTag("RER_contract_target");
+
+    map_pin = new SU_MapPin in parent;
+    map_pin.tag = "RER_contract_target";
+    map_pin.position = ongoing_contract.destination_point;
+    map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
+    map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
+    map_pin.type = "MonsterQuest";
+    map_pin.radius = ongoing_contract.destination_radius;
+    map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+    map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
+
+    thePlayer.addCustomPin(map_pin);
+
+    SU_updateMinimapPins();
+    theSound.SoundEvent("gui_hubmap_mark_pin");
+
 
     while (true) {
       if (!parent.master.storages.contract.has_ongoing_contract) {
@@ -36,28 +62,6 @@ state Processing in RER_ContractManager {
       // meaning you get only the contract for the current region.
       if (!SUH_isPlayerInRegion(ongoing_contract.region_name)) {
         parent.GotoState('Waiting');
-      }
-
-      if (!has_added_pins) {
-        SU_removeCustomPinByTag("RER_contract_target");
-
-        map_pin = new SU_MapPin in thePlayer;
-        map_pin.tag = "RER_contract_target";
-        map_pin.position = ongoing_contract.destination_point;
-        map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
-        map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
-        map_pin.type = "MonsterQuest";
-        map_pin.radius = ongoing_contract.destination_radius;
-        map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-        map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
-          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
-
-        thePlayer.addCustomPin(map_pin);
-
-        SU_updateMinimapPins();
-
-        has_added_pins = true;
-        theSound.SoundEvent("gui_hubmap_mark_pin");
       }
 
       if (VecDistanceSquared2D(ongoing_contract.destination_point, thePlayer.GetWorldPosition()) <= ongoing_contract.destination_radius * ongoing_contract.destination_radius) {
