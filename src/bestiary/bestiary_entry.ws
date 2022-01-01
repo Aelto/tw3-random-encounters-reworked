@@ -502,12 +502,12 @@ class RER_BestiaryEntryNull extends RER_BestiaryEntry {
 
 enum RER_BestiaryEntrySpawnFlag {
   RER_BESF_NONE = 0,
-  RER_BESF_NO_TROPHY = 01000,
-  RER_BESF_NO_PERSIST = 00100,
-  RER_BESF_NO_ECOSYSTEM_EFFECT = 00010,
+  RER_BESF_NO_TROPHY = 1,
+  RER_BESF_NO_PERSIST = 2,
+  RER_BESF_NO_ECOSYSTEM_EFFECT = 4,
 
   // if set, it will ignore the bestiary feature that removes unknown
   // creatures from the spawn. It's used for the bounties where settings are
   // ignored.
-  RER_BESF_NO_BESTIARY_FEATURE = 00001
+  RER_BESF_NO_BESTIARY_FEATURE = 8
 };

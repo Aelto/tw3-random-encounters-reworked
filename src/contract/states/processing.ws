@@ -119,13 +119,15 @@ state Processing in RER_ContractManager {
       impact_points = rng.nextRange(10, 5);
     }
 
+    NLOG("bossfight contract, difficulty = " + ongoing_contract.difficulty + " impact points = " + impact_points);
+
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      RoundF(impact_points / bestiary_entry.ecosystem_delay_multiplier),
+      Max(RoundF(impact_points / bestiary_entry.ecosystem_delay_multiplier), 1),
       , // density
       EncounterType_CONTRACT,
-      RER_BESF_NO_BESTIARY_FEATURE,
+      RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
       'RandomEncountersReworked_ContractCreature',
       // a high number to make sure there is no composition as we'll spawn them
       // manually.
@@ -150,7 +152,7 @@ state Processing in RER_ContractManager {
         1,
         , // density
         EncounterType_CONTRACT,
-        RER_BESF_NO_BESTIARY_FEATURE,
+        RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
         'RandomEncountersReworked_ContractCreature',
         // a high number to make sure there is no composition as we'll spawn them
         // manually.
