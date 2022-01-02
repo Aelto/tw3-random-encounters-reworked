@@ -173,8 +173,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     bentry = master.bestiary.getRandomEntryFromBestiary(
       master,
       EncounterType_CONTRACT,
-      RER_BREF_IGNORE_SETTLEMENT,
-      
+      RER_BREF_IGNORE_SETTLEMENT
     );
 
     return bentry;

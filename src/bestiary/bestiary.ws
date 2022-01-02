@@ -40,7 +40,9 @@ class RER_Bestiary {
     creatures_preferences
       .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
 
-    if ((flags & RER_BREF_IGNORE_BIOMES) == 0) {
+    NLOG("getRandomEntryFromBestiary - flags = " + (int)flags);
+
+    if (!RER_flagEnabled(flags, RER_BREF_IGNORE_BIOMES)) {
       creatures_preferences
         .setIsNight(theGame.envMgr.IsNight())
         .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
@@ -52,13 +54,14 @@ class RER_Bestiary {
       NLOG("getRandomEntryFromBestiary - ignore biomes");
     }
 
-    if ((flags & RER_BREF_IGNORE_SETTLEMENT) == 0) {
-
+    if (RER_flagEnabled(flags, RER_BREF_IGNORE_SETTLEMENT)) {
+      NLOG("getRandomEntryFromBestiary - ignore settlement");
       creatures_preferences
-        .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
+        .setIsInCity(false);
     }
     else {
-      NLOG("getRandomEntryFromBestiary - ignore settlement");
+      creatures_preferences
+        .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
     }
 
     for (i = 0; i < CreatureMAX; i += 1) {
@@ -305,6 +308,6 @@ class RER_Bestiary {
 
 enum RER_BestiaryRandomBestiaryEntryFlag {
   RER_BREF_NONE = 0,
-  RER_BREF_IGNORE_SETTLEMENT = 010,
-  RER_BREF_IGNORE_BIOMES = 001
+  RER_BREF_IGNORE_SETTLEMENT = 1,
+  RER_BREF_IGNORE_BIOMES = 2
 };
