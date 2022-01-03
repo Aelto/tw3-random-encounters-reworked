@@ -14,8 +14,6 @@ state Loading in CRandomEncounters {
       Sleep(5);
     }
 
-    this.removeAllRerMapPins();
-
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
 
     this.registerStaticEncounters();
@@ -92,6 +90,10 @@ state Loading in CRandomEncounters {
     for (i = 0; i < entities.Size(); i += 1) {
       entity = entities[i];
 
+      if (entity.HasTag('RandomEncountersReworked_ContractCreature')) {
+        continue;
+      }
+
       ((CNewNPC)entity).SetLevel(getRandomLevelBasedOnSettings(parent.settings));
       entity.RemoveTag('RER_controlled');
     }
@@ -109,7 +111,7 @@ state Loading in CRandomEncounters {
       entity = entities[i];
       
       // RER has already taken control of this creature so we ignore it.
-      if (entity.HasTag('RER_controlled')) {
+      if (entity.HasTag('RER_controlled') || entity.HasTag('RandomEncountersReworked_ContractCreature')) {
         continue;
       }
 
@@ -153,10 +155,6 @@ state Loading in CRandomEncounters {
     }
 
     LogChannel('modRandomEncounters', "found " + entities.Size() + " RER entities");
-  }
-
-  private function removeAllRerMapPins() {
-    SU_removeCustomPinByPredicate(new SU_CustomPinRemoverPredicateFromRER in parent);
   }
 }
 

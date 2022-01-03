@@ -12,6 +12,7 @@ state Initialising in CRandomEncounters {
       this.displayPresetChoiceDialogeMenu();
     }
 
+    this.removeAllRerMapPins();
     this.updateSettings();
 
     parent.spawn_roller.fill_arrays();
@@ -101,5 +102,8 @@ state Initialising in CRandomEncounters {
     theGame.SaveUserSettings();
   }
 
+  private function removeAllRerMapPins() {
+    SU_removeCustomPinByPredicate(new SU_CustomPinRemoverPredicateFromRER in parent);
+  }
 }
 
