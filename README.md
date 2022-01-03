@@ -1,8 +1,8 @@
 # Random Encounters Reworked
 
 <div align="center">
-  <div><a href="https://www.youtube.com/watch?v=PxVIm5NHS4o">contracts</a> ---------------------- <a href="https://www.youtube.com/watch?v=BxBP95s">bounties</a> ---------------------- <a href="https://www.youtube.com/watch?v=5uWC3I-crjI">events</a></div>
-  <a href="https://www.youtube.com/watch?v=PxVIm5NHS4o"><img src="docs/noticeboard-square-small-yt.png"></a>
+  <div><a href="https://www.youtube.com/watch?v=p8T9XQW95pg">contracts</a> ---------------------- <a href="https://www.youtube.com/watch?v=BxBP95s">bounties</a> ---------------------- <a href="https://www.youtube.com/watch?v=5uWC3I-crjI">events</a></div>
+  <a href="https://www.youtube.com/watch?v=p8T9XQW95pg"><img src="docs/noticeboard-square-small-yt.png"></a>
   <a href="https://www.youtube.com/watch?v=BxBP95s-p5w"><img src="docs/bounties-square-small-yt.png"></a>
   <a href="https://www.youtube.com/watch?v=5uWC3I-crjI"><img src="docs/griffin-square-small-yt.png"></a>
  </div>
