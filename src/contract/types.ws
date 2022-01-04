@@ -85,13 +85,13 @@ enum RER_ContractEventType {
 }
 
 enum RER_ContractRewardType {
-  ContractRewardType_NONE = 000000,
-  ContractRewardType_GEAR = 000001,
-  ContractRewardType_MATERIALS = 000010,
-  ContractRewardType_EXPERIENCE = 000100,
-  ContractRewardType_CONSUMABLES = 001000,
-  ContractRewardType_GOLD = 010000,
-  ContractRewardType_ALL = 111111
+  ContractRewardType_NONE = 0,
+  ContractRewardType_GEAR = 1,
+  ContractRewardType_MATERIALS = 2,
+  ContractRewardType_EXPERIENCE = 4,
+  ContractRewardType_CONSUMABLES = 8,
+  ContractRewardType_GOLD = 16,
+  ContractRewardType_ALL = 32
 }
 
 /**
