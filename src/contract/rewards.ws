@@ -187,10 +187,8 @@ function RER_getRandomContractRewardTypeFromFlag(flag: RER_ContractRewardType, r
 
 function RER_getAllowedContractRewardsMaskFromRegion(): RER_ContractRewardType {
   var region: string;
-
-  // we don't use the sharedutils function because we need to know
-  // when the player is in novigrad or no_mans_land
-  region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+  var position: Vector;
+  region = SUH_getCurrentRegion();
 
   NLOG("RER_getAllowedContractRewardsMaskFromRegion, region = " + region);
 
@@ -199,9 +197,19 @@ function RER_getAllowedContractRewardsMaskFromRegion(): RER_ContractRewardType {
   }
 
   if (region == "no_mans_land") {
-    return ContractRewardType_EXPERIENCE
+    position = thePlayer.GetWorldPosition();
+
+    // novigrad, higher than oxenfurt on the map
+    if (position.X < 1150) {
+      return ContractRewardType_GOLD
+         | ContractRewardType_GEAR;
+    }
+    else {
+      return ContractRewardType_EXPERIENCE
          | ContractRewardType_MATERIALS;
+    }
   }
+  // should never enter this one, but left just in case it happens
   else if (region == "novigrad") {
     return ContractRewardType_GOLD
          | ContractRewardType_GEAR;

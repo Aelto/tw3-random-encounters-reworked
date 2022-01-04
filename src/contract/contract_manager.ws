@@ -114,6 +114,8 @@ statemachine class RER_ContractManager {
     contract.reward_type = RER_getAllowedContractRewardsMaskFromRegion()
                          | RER_getRandomAllowedRewardType(this, data.noticeboard_identifier);
 
+    NLOG("generateContract, reward_type = " + contract.reward_type);
+
     if (data.difficulty == ContractDifficulty_EASY) {
       if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_HORDE;
@@ -292,6 +294,8 @@ statemachine class RER_ContractManager {
     token_name = RER_contractRewardTypeToItemName(
       RER_getRandomContractRewardTypeFromFlag(storage.ongoing_contract.reward_type, rng)
     );
+
+    NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
     if (IsNameValid(token_name)) {
       rewards_amount = 1
