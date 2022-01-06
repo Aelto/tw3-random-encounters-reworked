@@ -165,6 +165,25 @@ cd ../../
 
 # final message
 cls
+
+write-host -ForegroundColor red "
+                           __  __   ___   ___    ___   ___        
+                          |  \/  | | __| | _ \  / __| | __|       
+                          | |\/| | | _|  |   / | (_ | | _|        
+                          |_|  |_| |___| |_|_\  \___| |___|       
+                          
+                               _____   _  _   ___
+                              |_   _| | || | | __|                
+                                | |   | __ | | _|                 
+                                |_|   |_||_| |___| 
+                        
+                       ___    ___   ___   ___   __    _____   ___
+                      / __|  / __| | _ \ |_ _| | _ \ |_   _| / __|
+                      \__ \ | (__  |   /  | |  |  _/   | |   \__ \
+                      |___/  \___| |_|_\ |___| |_|     |_|   |___/
+                                                                  
+"
+
 echo ""
 write-host -ForegroundColor yellow "Please use the script merger to merge the scripts now."
 echo "A few exceptions that should not be merged are:"
@@ -194,5 +213,23 @@ echo "simply go inside mods/modRandomEncounters and right-click, run the update-
 echo ""
 echo "Have fun!"
 echo ""
+
+write-host -ForegroundColor red "
+                           __  __   ___   ___    ___   ___        
+                          |  \/  | | __| | _ \  / __| | __|       
+                          | |\/| | | _|  |   / | (_ | | _|        
+                          |_|  |_| |___| |_|_\  \___| |___|       
+                          
+                               _____   _  _   ___
+                              |_   _| | || | | __|                
+                                | |   | __ | | _|                 
+                                |_|   |_||_| |___| 
+                        
+                       ___    ___   ___   ___   __    _____   ___
+                      / __|  / __| | _ \ |_ _| | _ \ |_   _| / __|
+                      \__ \ | (__  |   /  | |  |  _/   | |   \__ \
+                      |___/  \___| |_|_\ |___| |_|     |_|   |___/
+                                                                  
+"
 
 pause
