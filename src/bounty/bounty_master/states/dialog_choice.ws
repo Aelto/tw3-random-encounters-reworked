@@ -215,6 +215,24 @@ state DialogChoice in RER_BountyMasterManager {
     var bagPosition: Vector;
     var i: int;
 
+    if (reward_name == 'rer_token_experience') {
+      RER_applyLootFromContractTokenName(
+        parent.bounty_manager.master,
+        NULL,
+        reward_name
+      );
+
+      NDEBUG(
+        StrReplace(
+          GetLocStringByKey("rer_reward_bag"),
+          "{{reward_type}}",
+          StrLower(GetLocStringByKey(reward_name + "_short"))
+        )
+      );
+
+      return;
+    }
+
     FindGameplayEntitiesInRange(entities, thePlayer, 0.5, 100);
 
     for (i = 0; i < entities.Size(); i += 1) {

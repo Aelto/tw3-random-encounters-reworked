@@ -209,6 +209,7 @@ latent function RER_addItemsFromLootTable(master: CRandomEncounters, target_inve
   );
 
   inventory = container.GetInventory();
+  inventory.RemoveAllItems();
   inventory.AddItemsFromLootDefinition(loot_table);
   inventory.UpdateLoot();
   container.Enable(true);
