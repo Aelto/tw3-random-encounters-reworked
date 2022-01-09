@@ -115,6 +115,8 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
         loot_tables.PushBack('_unique_ingr');
       }
 
+      amount = 5;
+
       theSound.SoundEvent("gui_inventory_potion_attach");
       break;
   }
