@@ -44,6 +44,8 @@ state Spawning in CRandomEncounters {
       parent
     );
 
+    parent.static_encounter_manager.startSpawning();
+
     parent.GotoState('Waiting');
   }
 

@@ -16,7 +16,10 @@ state Loading in CRandomEncounters {
 
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
 
-    this.registerStaticEncounters();
+    parent.static_encounter_manager.init(parent);
+    RER_registerStaticEncountersLucOliver(parent);
+    RER_registerStaticEncountersAeltoth(parent);
+
     RER_addNoticeboardInjectors();
 
     parent.refreshEcosystemFrequencyMultiplier();
@@ -25,48 +28,18 @@ state Loading in CRandomEncounters {
     Sleep(10);
 
     // it's super important the mod takes control of the creatures BEFORE spawning
-    // the static encounters, or else RER will considered creatures from static encounters
+    // the static encounters, or else RER will consider creatures from static encounters
     // like HuntingGround encounters and because of the death threshold distance
     // it will kill them instantly. We don't want them to be killed.
     this.takeControlOfEntities();
 
-    parent.static_encounter_manager.spawnStaticEncounters(parent);
-
-    // load the other version of the static encounters, the data is used for the contracts
-    // objectives.
-    this.registerStaticEncounters(true);
+    parent.static_encounter_manager.startSpawning();
 
     SU_updateMinimapPins();
 
     parent.addon_manager.init(parent);
 
     parent.GotoState('Waiting');
-  }
-
-  latent function registerStaticEncounters(optional invert: bool) {
-    var version: StaticEncountersVariant;
-
-    version = StringToInt(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion')
-    );
-
-    if (!invert) {
-      if (version == StaticEncountersVariant_LUCOLIVIER) {
-        RER_registerStaticEncountersLucOliver(parent);
-      }
-      else {
-        RER_registerStaticEncountersAeltoth(parent);
-      }
-    }
-    else {
-      if (version == StaticEncountersVariant_LUCOLIVIER) {
-        RER_registerStaticEncountersAeltoth(parent, true);
-      }
-      else {
-        RER_registerStaticEncountersLucOliver(parent, true);
-      }
-    }
   }
 
   // the mod loses control of the previously spawned entities when the player

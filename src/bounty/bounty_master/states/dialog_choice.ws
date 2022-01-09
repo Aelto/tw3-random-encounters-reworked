@@ -254,6 +254,7 @@ state DialogChoice in RER_BountyMasterManager {
     );
 
     bag.LootDropped();
+    bag.Enable(true);
 
     NDEBUG(
       StrReplace(
