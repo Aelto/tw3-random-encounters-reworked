@@ -192,6 +192,33 @@ echo " - Conflict between CustomBossBar and W3EE, the installer will install the
 echo " - Conflict between FriendlyHUD and the FHUD sharedutils patch, leave it unmerged."
 echo ""
 
+if (test-path ./mods/modW3EE) {
+  write-host -ForegroundColor yellow "Close the W3EE Merging Instructions image to continue..."
+
+  Add-Type -AssemblyName 'System.Windows.Forms'
+  $imageurl = "https://raw.githubusercontent.com/Aelto/tw3-random-encounters-reworked/master/docs/merging-instructions-ee.png"
+  $imagepath = "./mods/modRandomEncountersReworked/merging-instructions-ee.png"
+
+  Invoke-WebRequest -Uri $imageurl -OutFile $imagepath
+  $file = (get-item $imagepath)
+  $img = [System.Drawing.Image]::Fromfile((get-item $file))
+
+  [System.Windows.Forms.Application]::EnableVisualStyles()
+  $form = new-object Windows.Forms.Form
+  $form.Text = "Random Encounters Reworked | W3EE Merging instructions"
+  $form.Width = $img.Size.Width / 1.3;
+  $form.Height =  $img.Size.Height / 1.3;
+  $pictureBox = new-object Windows.Forms.PictureBox
+  $pictureBox.Width =  $img.Size.Width / 1.3;
+  $pictureBox.Height =  $img.Size.Height / 1.3;
+  $pictureBox.SizeMode = 'Zoom';
+
+  $pictureBox.Image = $img;
+  $form.controls.add($pictureBox)
+  $form.Add_Shown( { $form.Activate() } )
+  $form.ShowDialog()
+}
+
 if ((test-path ./mods/modAbsoluteCamera31) -or (test-path ./mods/modW3EE)) {
   echo ""
   write-warning "It seems you have Absolute Camera installed."
@@ -213,23 +240,5 @@ echo "simply go inside mods/modRandomEncounters and right-click, run the update-
 echo ""
 echo "Have fun!"
 echo ""
-
-write-host -ForegroundColor red "
-                           __  __   ___   ___    ___   ___        
-                          |  \/  | | __| | _ \  / __| | __|       
-                          | |\/| | | _|  |   / | (_ | | _|        
-                          |_|  |_| |___| |_|_\  \___| |___|       
-                          
-                               _____   _  _   ___
-                              |_   _| | || | | __|                
-                                | |   | __ | | _|                 
-                                |_|   |_||_| |___| 
-                        
-                       ___    ___   ___   ___   __    _____   ___
-                      / __|  / __| | _ \ |_ _| | _ \ |_   _| / __|
-                      \__ \ | (__  |   /  | |  |  _/   | |   \__ \
-                      |___/  \___| |_|_\ |___| |_|     |_|   |___/
-                                                                  
-"
 
 pause
