@@ -42,6 +42,10 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
   public function accepted(out board: W3NoticeBoard, errand_name: string) {
     var rer_entity: CRandomEncounters;
 
+    if (errand_name != "rer_noticeboard_errand_1") {
+      return;
+    }
+
     if (getRandomEncounters(rer_entity)) {
       rer_entity.contract_manager.pickedContractNoticeFromNoticeboard(errand_name);
     }
