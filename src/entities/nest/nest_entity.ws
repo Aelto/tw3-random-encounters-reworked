@@ -242,7 +242,6 @@ function RER_isCreatureTypeAllowedForNest(type: CreatureType): bool {
     case CreatureKIKIMORE:
     case CreatureSKELWOLF:
     case CreatureSIREN:
-    case CreatureWRAITH:
       output = true;
       break;
 
