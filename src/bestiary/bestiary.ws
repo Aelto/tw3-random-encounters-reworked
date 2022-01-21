@@ -40,7 +40,9 @@ class RER_Bestiary {
     creatures_preferences
       .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
 
-    if ((flags & RER_BREF_IGNORE_BIOMES) == 0) {
+    NLOG("getRandomEntryFromBestiary - flags = " + (int)flags);
+
+    if (!RER_flagEnabled(flags, RER_BREF_IGNORE_BIOMES)) {
       creatures_preferences
         .setIsNight(theGame.envMgr.IsNight())
         .setExternalFactorsCoefficient(master.settings.external_factors_coefficient)
@@ -52,13 +54,14 @@ class RER_Bestiary {
       NLOG("getRandomEntryFromBestiary - ignore biomes");
     }
 
-    if ((flags & RER_BREF_IGNORE_SETTLEMENT) == 0) {
-
+    if (RER_flagEnabled(flags, RER_BREF_IGNORE_SETTLEMENT)) {
+      NLOG("getRandomEntryFromBestiary - ignore settlement");
       creatures_preferences
-        .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
+        .setIsInCity(false);
     }
     else {
-      NLOG("getRandomEntryFromBestiary - ignore settlement");
+      creatures_preferences
+        .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY);
     }
 
     for (i = 0; i < CreatureMAX; i += 1) {
@@ -228,6 +231,30 @@ class RER_Bestiary {
     return CreatureNONE;
   }
 
+  public function getEntriesFromSpeciesType(species: RER_SpeciesTypes): array<RER_BestiaryEntry> {
+    var output: array<RER_BestiaryEntry>;
+    var i: int;
+
+    for (i = 0; i < this.entries.Size(); i += 1) {
+      if (this.entries[i].species == species) {
+        output.PushBack(this.entries[i]);
+      }
+    }
+
+    return output;
+  }
+
+  public function getRandomEntryFromSpeciesType(species: RER_SpeciesTypes, rng: RandomNumberGenerator): RER_BestiaryEntry {
+    var entries: array<RER_BestiaryEntry>;
+    var index: int;
+
+    entries = this.getEntriesFromSpeciesType(species);
+
+    index = (int)rng.nextRange(entries.Size(), 0);
+
+    return entries[index];
+  }
+
 
   //#region 3rd party code
   // everything in here is code to handle third party encounters/creatures in 
@@ -281,6 +308,6 @@ class RER_Bestiary {
 
 enum RER_BestiaryRandomBestiaryEntryFlag {
   RER_BREF_NONE = 0,
-  RER_BREF_IGNORE_SETTLEMENT = 010,
-  RER_BREF_IGNORE_BIOMES = 001
+  RER_BREF_IGNORE_SETTLEMENT = 1,
+  RER_BREF_IGNORE_BIOMES = 2
 };

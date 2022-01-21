@@ -5,6 +5,7 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureEKIMMARA;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Ekimmaras';
     this.localized_name = 'option_rer_ekimmara';
 
@@ -90,6 +91,10 @@ class RER_BestiaryEkimmara extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureGHOUL);
+    this.possible_compositions.PushBack(CreatureALGHOUL);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

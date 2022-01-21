@@ -5,6 +5,7 @@ class RER_BestiaryWight extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWIGHT;
+    this.species = SpeciesTypes_CURSED;
     this.menu_name = 'Wights';
     this.localized_name = 'option_rer_wight';
 
@@ -96,6 +97,9 @@ class RER_BestiaryWight extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureBARGHEST);
+    this.possible_compositions.PushBack(CreatureWRAITH);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

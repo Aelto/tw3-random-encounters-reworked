@@ -5,6 +5,7 @@ class RER_BestiaryEndrega extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureENDREGA;
+    this.species = SpeciesTypes_INSECTOIDS;
     this.menu_name = 'Endregas';
     this.localized_name = 'option_rer_endrega';
 

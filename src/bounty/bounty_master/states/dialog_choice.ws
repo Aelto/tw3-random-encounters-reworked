@@ -11,6 +11,7 @@ state DialogChoice in RER_BountyMasterManager {
     var choices: array<SSceneChoice>;
     var has_completed_a_bounty: bool;
     var crowns_from_trophies: int;
+    var trophy_line: string;
 
     has_completed_a_bounty = parent.bounty_manager.master.storages.bounty.bounty_level > 0;
 
@@ -38,12 +39,18 @@ state DialogChoice in RER_BountyMasterManager {
 
     crowns_from_trophies = this.convertTrophiesIntoCrowns(true);
 
+    trophy_line = StrReplace(
+      GetLocStringByKey("rer_dialog_sell_trophies"),
+      "{{crowns_amount}}",
+      crowns_from_trophies
+    );
+
+    if (RER_playerUsesEnhancedEditionRedux() && thePlayer.GetSkillLevel(S_Perk_19) > 0) {
+      trophy_line += " (" + GetLocStringByKey('rer_huntsman_redux_bonus') + ")";
+    }
+
     choices.PushBack(SSceneChoice(
-      StrReplace(
-        GetLocStringByKey("rer_dialog_sell_trophies"),
-        "{{crowns_amount}}",
-        crowns_from_trophies
-      ),
+      trophy_line,
       false,
       // set the choice as `previously_chosen` to make it gray when selling the
       // trophies (if there are any trophy) would reward 0 crowns.
@@ -51,6 +58,15 @@ state DialogChoice in RER_BountyMasterManager {
       false,
       DialogAction_SHOPPING,
       'SellTrophies'
+    ));
+
+    choices.PushBack(SSceneChoice(
+      GetLocStringByKey("rer_trade_tokens"),
+      false,
+      false,
+      false,
+      DialogAction_SHOPPING,
+      'TradeTokens'
     ));
 
     choices.PushBack(SSceneChoice(
@@ -99,14 +115,172 @@ state DialogChoice in RER_BountyMasterManager {
         return;
       }
 
-      (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_thanks_all_i_need_for_now in thePlayer, true)
-          .play();
+      if (response.playGoChunk == 'TradeTokens') {
+        this.displayTokenTradingDialogChoice();
+        Sleep(0.2);
+      }
+      else {
+        (new RER_RandomDialogBuilder in thePlayer).start()
+            .dialog(new REROL_thanks_all_i_need_for_now in thePlayer, true)
+            .play();
 
-      this.convertTrophiesIntoCrowns();
-      this.removeTrophyChoiceFromList(choices);
+        this.convertTrophiesIntoCrowns();
+        this.removeTrophyChoiceFromList(choices);
+      }
+    }
+  }
+
+  latent function displayTokenTradingDialogChoice() {
+    var inventory: CInventoryComponent;
+    var choices: array<SSceneChoice>;
+    var response: SSceneChoice;
+
+    inventory = thePlayer.GetInventory();
+
+    // while on gamepad, the interact input is directly sent in the dialog choice
+    // it is safer to wait a bit before capturing the input.
+    Sleep(0.25);
+
+    while (true) {
+      choices.Clear();
+      this.addChoiceAboutToken(choices, inventory, ContractRewardType_GEAR);
+      this.addChoiceAboutToken(choices, inventory, ContractRewardType_CONSUMABLES);
+      this.addChoiceAboutToken(choices, inventory, ContractRewardType_EXPERIENCE);
+      this.addChoiceAboutToken(choices, inventory, ContractRewardType_GOLD);
+      this.addChoiceAboutToken(choices, inventory, ContractRewardType_MATERIALS);
+
+      if (choices.Size() <= 0) {
+        choices.PushBack(SSceneChoice(
+          GetLocStringByKey('rer_token_trading_option_empty'),
+          true,
+          true,
+          false,
+          DialogAction_GETBACK,
+          'CloseDialog'
+        ));
+      }
+
+      choices.PushBack(SSceneChoice(
+        GetLocStringByKey('rer_cancel'),
+        false,
+        false,
+        false,
+        DialogAction_GETBACK,
+        'CloseDialog'
+      ));
+
+      response = SU_setDialogChoicesAndWaitForResponse(choices);
+      SU_closeDialogChoiceInterface();
+
+      if (response.playGoChunk == 'CloseDialog') {
+        return;
+      }
+
+      this.addRewardToLootBag(response.playGoChunk);
+    }
+  }
+
+  function addChoiceAboutToken(out choices: array<SSceneChoice>, inventory: CInventoryComponent, type: RER_ContractRewardType) {
+    var quantity: int;
+    var line: string;
+
+    quantity = inventory.GetItemQuantityByName(
+      RER_contractRewardTypeToItemName(type)
+    );
+
+    if (quantity <= 0) {
+      return;
     }
 
+    line = GetLocStringByKey('rer_token_trading_option');
+    line = StrReplace(line, "{{reward_type}}", RER_getLocalizedRewardType(type));
+    line = StrReplace(line, "{{tokens_amount}}", IntToString(quantity));
+
+    choices.PushBack(SSceneChoice(
+      line,
+      true,
+      false,
+      false,
+      DialogAction_SHOPPING,
+      RER_contractRewardTypeToItemName(type)
+    ));
+  }
+
+  latent function addRewardToLootBag(reward_name: name) {
+    var tracedPosition, tracedNormal: Vector;
+    var entities: array<CGameplayEntity>;
+    var template: CEntityTemplate;
+    var bagtags: array<name>;
+    var bag: W3ActorRemains;
+    var bagPosition: Vector;
+    var i: int;
+
+    if (reward_name == 'rer_token_experience') {
+      RER_applyLootFromContractTokenName(
+        parent.bounty_manager.master,
+        NULL,
+        reward_name
+      );
+
+      NDEBUG(
+        StrReplace(
+          GetLocStringByKey("rer_reward_bag"),
+          "{{reward_type}}",
+          StrLower(GetLocStringByKey(reward_name + "_short"))
+        )
+      );
+
+      return;
+    }
+
+    FindGameplayEntitiesInRange(entities, thePlayer, 0.5, 100);
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      bag = (W3ActorRemains)entities[i];
+
+      if (bag) {
+        break;
+      }
+    }
+
+    if (!bag) {
+      template = (CEntityTemplate)LoadResourceAsync("lootbag");
+      bagtags.PushBack('lootbag');
+
+      // Do raycast down from player position to check if he's in the air
+      bagPosition = thePlayer.GetWorldPosition();
+      if (theGame.GetWorld().StaticTrace(bagPosition, bagPosition + Vector(0.0f, 0.0f, -10.0f, 0.0f), tracedPosition, tracedNormal)) {
+        bagPosition = tracedPosition;
+      }
+
+      bag = (W3ActorRemains)theGame.CreateEntity(
+        template,
+        bagPosition,
+        thePlayer.GetWorldRotation(),
+        true,
+        false,
+        false,
+        PM_Persist,
+        bagtags
+      );
+    }
+
+    RER_applyLootFromContractTokenName(
+      parent.bounty_manager.master,
+      bag.GetInventory(),
+      reward_name
+    );
+
+    bag.LootDropped();
+    bag.Enable(true);
+
+    NDEBUG(
+      StrReplace(
+        GetLocStringByKey("rer_reward_bag"),
+        "{{reward_type}}",
+        StrLower(GetLocStringByKey(reward_name + "_short"))
+      )
+    );
   }
 
   function removeTrophyChoiceFromList(out choices: array<SSceneChoice>) {
@@ -147,6 +321,10 @@ state DialogChoice in RER_BountyMasterManager {
       quantity = inventory.GetItemQuantity(guid);
 
       price = (int)(inventory.GetItemPrice(guid) * buying_price) * quantity;
+
+      if (RER_playerUsesEnhancedEditionRedux() && thePlayer.GetSkillLevel(S_Perk_19) > 0) {
+        price = (int)(price * 1.5); 
+      }
 
       if (!ignore_item_transaction) {
         inventory.AddMoney(price);
@@ -190,12 +368,14 @@ state DialogChoice in RER_BountyMasterManager {
 
     movement_adjustor.AdjustmentDuration(
       slide_ticket,
-      1 // 500ms
+      0.25 // 500ms
     );
 
     movement_adjustor.RotateTowards(
       slide_ticket,
       target
     );
+
+    parent.bounty_master_entity.Teleport(parent.bounty_master_entity.GetWorldPosition());
   }
 }

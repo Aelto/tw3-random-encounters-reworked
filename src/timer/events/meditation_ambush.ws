@@ -39,6 +39,11 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
     // if the player is not meditating right now
     // we can early cancel the event here.
     if (!is_meditating) {
+      // the player was meditating and is no longer meditating
+      if (this.time_spent_meditating > 0) {
+        master.static_encounter_manager.startSpawning();
+      }
+
       time_spent_meditating = 0;
 
       return false;

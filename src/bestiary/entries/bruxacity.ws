@@ -5,6 +5,7 @@ class RER_BestiaryBruxacity extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBRUXA;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Bruxaecity';
     this.localized_name = 'option_rer_bruxa';
 

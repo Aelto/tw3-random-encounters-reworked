@@ -7,7 +7,7 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodInitialized" value="1" />
+                <Entry varId="RERmodVersion" value="2.06" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -32,7 +32,7 @@
 
             <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
 
-            <Var id="RERmodInitialized" displayName="rer_mod_initialized" displayType="TOGGLE"></Var>
+            <Var id="RERmodVersion" displayName="rer_mod_version" displayType="SLIDER;0;100;10000"></Var>
 
         </VisibleVars>
     </Group>
@@ -60,6 +60,7 @@
 
                 <Entry varId="RERstaticEncounterSmallSpawnChance" value="80" />
                 <Entry varId="RERstaticEncounterLargeSpawnChance" value="60" />
+                <Entry varId="RERstaticEncounterVersion" value="0" />
 
                 <Entry varId="RERfoottracksRatio" value="30" />
 
@@ -82,6 +83,16 @@
 
             <Var id="RERstaticEncounterSmallSpawnChance" displayName="rer_static_encounter_small_spawn_chance" displayType="SLIDER;0;100;200"/>
             <Var id="RERstaticEncounterLargeSpawnChance" displayName="rer_static_encounter_large_spawn_chance" displayType="SLIDER;0;100;200"/>
+            <Var id="RERstaticEncounterVersion" displayName="rer_static_encounters_version" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_static_encounters_luc_olivier">
+                        <Entry varId="RERstaticEncounterVersion" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_static_encounters_aeltoth">
+                        <Entry varId="RERstaticEncounterVersion" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
 
             <Var id="RERfoottracksRatio" displayName="rer_foottracks_ratio" displayType="SLIDER;1;100;99"/>
         </VisibleVars>
@@ -3981,617 +3992,6 @@
         </VisibleVars>
     </Group>
 
-    <Group id="RERencountersContractDay" displayName="Mods.rer_name.rer_encounters_settings.ratios_and_frequencies.contract_day_settings">
-        <PresetsArray>
-            <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="allMonsterContractChanceDay" value="0" />
-                <Entry varId="RERMonsterContractLongevity" value="10" />
-
-
-                <Entry varId="Hags"                    value="25"    />
-                <Entry varId="Foglets"                value="25"    />
-                <Entry varId="Trolls"                value="25"    />
-                <Entry varId="Skellige_Trolls"        value="25"    />
-                <Entry varId="Werewolves"            value="20"    />
-                <Entry varId="Fiends"                value="20"    />
-                <Entry varId="Chorts"                value="20"    />
-                <Entry varId="Gryphons"             value="20"  />
-                <Entry varId="Cockatrices"           value="20"  />
-                <Entry varId="Wyverns"              value="20"  />
-                <Entry varId="Forktails"            value="20"  />
-                <Entry varId="Basilisks"             value="20"  />
-                <Entry varId="NightWraiths"            value="15"    />
-                <Entry varId="Wights"                value="15"    />
-                <Entry varId="NoonWraiths"            value="15"    />
-                <Entry varId="Katakans"              value="15"  />
-                <Entry varId="Ekimmaras"             value="15"  />
-                <Entry varId="Dracolizards"         value="10"  />
-                <Entry varId="Leshens"                value="10"    />
-                <Entry varId="Giants"                value="10"    />
-                <Entry varId="Shaelmaars"                value="10"    />
-                <Entry varId="Cyclops"                value="5"    />
-                <Entry varId="Golems"                value="5"    />
-                <Entry varId="Gargoyles"                value="5"    />
-                <Entry varId="Elementals"            value="5"    />
-                <Entry varId="Bruxae"                value="5"    />
-                <Entry varId="Fleders"                value="5"    />
-                <Entry varId="Garkains"                value="5"    />
-                <Entry varId="Higher_Vampires"            value="1"    />
-
-                <Entry varId="Humans"               value="30"  />
-                <Entry varId="Nekkers"                value="30"    />
-                <Entry varId="Drowners"                value="30"    />
-                <Entry varId="Graviers"            value="30"    />
-                <Entry varId="Ghouls"                value="30"    />
-                <Entry varId="Rotfiends"            value="30"    />
-                <Entry varId="Wolves"                value="25"    />
-                <Entry varId="Skellige_Wolves"        value="25"    />
-                <Entry varId="Wraiths"                value="25"    />
-                <Entry varId="Bears"                value="25"    />
-                <Entry varId="Skellige_Bears"        value="25"    />
-                <Entry varId="Berserkers"            value="20"    />
-                <Entry varId="Harpies"                value="25"    />
-                <Entry varId="Sirens"                value="25"    />
-                <Entry varId="Endregas"                value="25"    />
-                <Entry varId="Alghouls"                value="20"    />
-                <Entry varId="Arachas"                value="20"    />
-                <Entry varId="Kikimores"                value="20"    />
-                <Entry varId="Echinops"                value="15"    />
-                <Entry varId="Centipedes"            value="15"    />
-                <Entry varId="Spiders"                value="15"    />
-                <Entry varId="Boars"                value="15"    />
-                <Entry varId="Panthers"                value="15"    />
-                <Entry varId="Barghests"                value="15"    />
-                <Entry varId="Skeletons"                value="10"    />
-                <Entry varId="Wild_Hunt"             value="10"  />
-            </Preset>
-            <Preset id="1" displayName="rer_everything_off" >
-                    <Entry varId="Leshens"                value="0"    />
-                    <Entry varId="Werewolves"            value="0"    />
-                    <Entry varId="Cyclops"                value="0"    />
-                    <Entry varId="Arachas"                value="0"    />
-                    <Entry varId="Fiends"                value="0"    />
-                    <Entry varId="Chorts"                value="0"    />
-                    <Entry varId="Bears"                value="0"    />
-                    <Entry varId="Skellige_Bears"        value="0"    />
-                    <Entry varId="Berserkers"            value="0"    />
-                    <Entry varId="Golems"                value="0"    />
-                    <Entry varId="Gargoyles"            value="0"    />
-                    <Entry varId="Elementals"            value="0"    />
-                    <Entry varId="NightWraiths"            value="0"    />
-                    <Entry varId="NoonWraiths"            value="0"    />
-                    <Entry varId="Hags"                    value="0"    />
-                    <Entry varId="Harpies"                value="0"    />
-                    <Entry varId="Sirens"                value="0"    />
-                    <Entry varId="Foglets"                value="0"    />
-                    <Entry varId="Endregas"                value="0"    />
-                    <Entry varId="Ghouls"                value="0"    />
-                    <Entry varId="Alghouls"                value="0"    />
-                    <Entry varId="Nekkers"                value="0"    />
-                    <Entry varId="Drowners"                value="0"    />
-                    <Entry varId="Rotfiends"            value="0"    />
-                    <Entry varId="Wolves"                value="0"    />
-                    <Entry varId="Skellige_Wolves"        value="0"    />
-                    <Entry varId="Wraiths"                value="0"    />
-                    <Entry varId="Spiders"                value="0"    />
-                    <Entry varId="Boars"                value="0"    />
-                    <Entry varId="Trolls"                value="0"    />
-                    <Entry varId="Skellige_Trolls"        value="0"    />
-
-                    <Entry varId="Higher_Vampires"            value="0"    />
-                    <Entry varId="Bruxae"                value="0"    />
-                    <Entry varId="Fleders"                value="0"    />
-                    <Entry varId="Garkains"                value="0"    />
-                    <Entry varId="Graviers"            value="0"    />
-                    <Entry varId="Skeletons"                value="0"    />
-                    <Entry varId="Barghests"                value="0"    />
-                    <Entry varId="Echinops"                value="0"    />
-                    <Entry varId="Centipedes"            value="0"    />
-                    <Entry varId="Kikimores"                value="0"    />
-                    <Entry varId="Panthers"                value="0"    />
-                    <Entry varId="Shaelmaars"                value="0"    />
-                    <Entry varId="Wights"                value="0"    />
-                    <Entry varId="Giants"                value="0"    />
-
-                    <!-- added values -->
-                    <Entry varId="Humans"               value="0"  />
-                    <Entry varId="Wild_Hunt"             value="0"  />
-                    <Entry varId="Gryphons"             value="0"  />
-                    <Entry varId="Cockatrices"           value="0"  />
-                    <Entry varId="Wyverns"              value="0"  />
-                    <Entry varId="Forktails"            value="0"  />
-                    <Entry varId="Basilisks"             value="0"  />
-                    <Entry varId="Dracolizards"         value="0"  />
-                    <Entry varId="Katakans"              value="0"  />
-                    <Entry varId="Ekimmaras"             value="0"  />
-            </Preset>
-            <Preset id="2" displayName="rer_everything_on" >
-                    <Entry varId="Leshens"                value="10"    />
-                    <Entry varId="Werewolves"            value="10"    />
-                    <Entry varId="Cyclops"                value="10"    />
-                    <Entry varId="Arachas"                value="10"    />
-                    <Entry varId="Fiends"                value="10"    />
-                    <Entry varId="Chorts"                value="10"    />
-                    <Entry varId="Bears"                value="10"    />
-                    <Entry varId="Skellige_Bears"        value="10"    />
-                    <Entry varId="Berserkers"            value="10"    />
-                    <Entry varId="Golems"                value="10"    />
-                    <Entry varId="Gargoyles"            value="10"    />
-                    <Entry varId="Elementals"            value="10"    />
-                    <Entry varId="NightWraiths"            value="10"    />
-                    <Entry varId="NoonWraiths"            value="10"    />
-                    <Entry varId="Hags"                    value="10"    />
-                    <Entry varId="Harpies"                value="10"    />
-                    <Entry varId="Sirens"                value="10"    />
-                    <Entry varId="Foglets"                value="10"    />
-                    <Entry varId="Endregas"                value="10"    />
-                    <Entry varId="Ghouls"                value="10"    />
-                    <Entry varId="Alghouls"                value="10"    />
-                    <Entry varId="Nekkers"                value="10"    />
-                    <Entry varId="Drowners"                value="10"    />
-                    <Entry varId="Rotfiends"            value="10"    />
-                    <Entry varId="Wolves"                value="10"    />
-                    <Entry varId="Skellige_Wolves"        value="10"    />
-                    <Entry varId="Wraiths"                value="10"    />
-                    <Entry varId="Spiders"                value="10"    />
-                    <Entry varId="Boars"                value="10"    />
-                    <Entry varId="Trolls"                value="10"    />
-                    <Entry varId="Skellige_Trolls"        value="10"    />
-
-                    <Entry varId="Higher_Vampires"            value="10"    />
-                    <Entry varId="Bruxae"                value="10"    />
-                    <Entry varId="Fleders"                value="10"    />
-                    <Entry varId="Garkains"                value="10"    />
-                    <Entry varId="Graviers"            value="10"    />
-                    <Entry varId="Skeletons"                value="10"    />
-                    <Entry varId="Barghests"                value="10"    />
-                    <Entry varId="Echinops"                value="10"    />
-                    <Entry varId="Centipedes"            value="10"    />
-                    <Entry varId="Kikimores"                value="10"    />
-                    <Entry varId="Panthers"                value="10"    />
-                    <Entry varId="Shaelmaars"                value="10"    />
-                    <Entry varId="Wights"                value="10"    />
-                    <Entry varId="Giants"                value="10"    />
-
-                    <!-- added values -->
-                    <Entry varId="Humans"               value="10"  />
-                    <Entry varId="Wild_Hunt"             value="10"  />
-                    <Entry varId="Gryphons"             value="10"  />
-                    <Entry varId="Cockatrices"           value="10"  />
-                    <Entry varId="Wyverns"              value="10"  />
-                    <Entry varId="Forktails"            value="10"  />
-                    <Entry varId="Basilisks"             value="10"  />
-                    <Entry varId="Dracolizards"         value="10"  />
-                    <Entry varId="Katakans"              value="10"  />
-                    <Entry varId="Ekimmaras"             value="10"  />
-            </Preset>
-            <Preset id="3" displayName="rer_no_large_creatures" >
-                    <Entry varId="Hags"                    value="0"    />
-                    <Entry varId="Foglets"                value="0"    />
-                    <Entry varId="Trolls"                value="0"    />
-                    <Entry varId="Skellige_Trolls"        value="0"    />
-                    <Entry varId="Werewolves"            value="0"    />
-                    <Entry varId="Fiends"                value="0"    />
-                    <Entry varId="Chorts"                value="0"    />
-                    <Entry varId="Gryphons"             value="0"   />
-                    <Entry varId="Cockatrices"           value="0"   />
-                    <Entry varId="Wyverns"              value="0"   />
-                    <Entry varId="Forktails"            value="0"   />
-                    <Entry varId="Basilisks"             value="0"   />
-                    <Entry varId="NightWraiths"            value="0"    />
-                    <Entry varId="Wights"                value="0"    />
-                    <Entry varId="NoonWraiths"            value="0"    />
-                    <Entry varId="Katakans"              value="0"   />
-                    <Entry varId="Ekimmaras"             value="0"   />
-                    <Entry varId="Leshens"                value="0"    />
-                    <Entry varId="Giants"                value="0"    />
-                    <Entry varId="Shaelmaars"                value="0"    />
-                    <Entry varId="Cyclops"                value="0"    />
-                    <Entry varId="Golems"                value="0"    />
-                    <Entry varId="Elementals"            value="0"    />
-                    <Entry varId="Higher_Vampires"            value="0"    />
-                    <Entry varId="Bruxae"                value="0"    />
-                    <Entry varId="Fleders"                value="0"    />
-                    <Entry varId="Garkains"                value="0"    />
-                    <Entry varId="Gargoyles"            value="0"    />
-                    <Entry varId="Dracolizards"            value="0"    />
-            </Preset>
-
-            <Preset id="4" displayName="rer_no_small_creatures" >
-                    <Entry varId="Humans"               value="0"   />
-                    <Entry varId="Nekkers"                value="0"    />
-                    <Entry varId="Drowners"                value="0"    />
-                    <Entry varId="Graviers"            value="0"    />
-                    <Entry varId="Ghouls"                value="0"    />
-                    <Entry varId="Rotfiends"            value="0"    />
-                    <Entry varId="Wolves"                value="0"    />
-                    <Entry varId="Skellige_Wolves"        value="0"    />
-                    <Entry varId="Wraiths"                value="0"    />
-                    <Entry varId="Bears"                value="0"    />
-                    <Entry varId="Skellige_Bears"        value="0"    />
-                    <Entry varId="Harpies"                value="0"    />
-                    <Entry varId="Endregas"                value="0"    />
-                    <Entry varId="Alghouls"                value="0"    />
-                    <Entry varId="Arachas"                value="0"    />
-                    <Entry varId="Kikimores"                value="0"    />
-                    <Entry varId="Echinops"                value="0"    />
-                    <Entry varId="Centipedes"            value="0"    />
-                    <Entry varId="Spiders"                value="0"    />
-                    <Entry varId="Boars"                value="0"    />
-                    <Entry varId="Panthers"                value="0"    />
-                    <Entry varId="Barghests"                value="0"    />
-                    <Entry varId="Skeletons"                value="0"    />
-                    <Entry varId="Wild_Hunt"             value="0"   />
-                    <Entry varId="Sirens"               value="0"   />
-                    <Entry varId="Berserkers"           value="0"   />
-            </Preset>
-        </PresetsArray>
-        <VisibleVars>
-            <Var id="allMonsterContractChanceDay" displayName="rer_monster_contract_ratio_day" displayType="SLIDER;0;100;100"/>
-            <Var id="RERMonsterContractLongevity" displayName="rer_monster_contract_longevity" displayType="SLIDER;0;100;200"/>
-
-            <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
-            <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
-            <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;0;100;100" />
-            <Var id="Dracolizards" displayName="rer_dracolizard" displayType="SLIDER;0;100;100" />
-            <Var id="Leshens" displayName="rer_leshen" displayType="SLIDER;0;100;100" />
-            <Var id="Werewolves" displayName="rer_werewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Cyclops" displayName="rer_cyclop" displayType="SLIDER;0;100;100" />
-            <Var id="Arachas" displayName="rer_arachas" displayType="SLIDER;0;100;100" />
-            <Var id="Fiends" displayName="rer_fiend" displayType="SLIDER;0;100;100" />
-            <Var id="Chorts" displayName="rer_chort" displayType="SLIDER;0;100;100" />
-            <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
-            <Var id="Skellige_Bears" displayName="rer_skelligebear" displayType="SLIDER;0;100;100" />
-            <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
-            <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
-            <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
-            <Var id="Trolls" displayName="rer_troll" displayType="SLIDER;0;100;100" />
-            <Var id="Skellige_Trolls" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
-            <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
-            <Var id="Harpies" displayName="rer_harpy" displayType="SLIDER;0;100;100" />
-            <Var id="Foglets" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
-            <Var id="Endregas" displayName="rer_endrega" displayType="SLIDER;0;100;100" />
-            <Var id="Ghouls" displayName="rer_ghoul" displayType="SLIDER;0;100;100" />
-            <Var id="Alghouls" displayName="rer_alghoul" displayType="SLIDER;0;100;100" />
-            <Var id="Nekkers" displayName="rer_nekker" displayType="SLIDER;0;100;100" />
-            <Var id="Drowners" displayName="rer_drowner" displayType="SLIDER;0;100;100" />
-            <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
-            <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
-            <Var id="Skellige_Wolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
-            <Var id="Boars" displayName="rer_boar" displayType="SLIDER;0;100;100" />
-            <Var id="Higher_Vampires" displayName="rer_higher_vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
-            <Var id="Graviers" displayName="rer_scurver" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_shaelmaar" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
-            <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
-            <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
-        </VisibleVars>
-    </Group>
-
-    <Group id="RERencountersContractNight" displayName="Mods.rer_name.rer_encounters_settings.ratios_and_frequencies.contract_night_settings">
-        <PresetsArray>
-            <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="allMonsterContractChanceNight" value="5"    />
-
-                <Entry varId="Hags"                    value="25"    />
-                <Entry varId="Foglets"                value="25"    />
-                <Entry varId="Trolls"                value="25"    />
-                <Entry varId="Skellige_Trolls"        value="25"    />
-                <Entry varId="Werewolves"            value="20"    />
-                <Entry varId="Fiends"                value="20"    />
-                <Entry varId="Chorts"                value="20"    />
-                <Entry varId="Gryphons"             value="20"  />
-                <Entry varId="Cockatrices"           value="20"  />
-                <Entry varId="Wyverns"              value="20"  />
-                <Entry varId="Forktails"            value="20"  />
-                <Entry varId="Basilisks"             value="20"  />
-                <Entry varId="NightWraiths"            value="15"    />
-                <Entry varId="Wights"                value="15"    />
-                <Entry varId="NoonWraiths"            value="15"    />
-                <Entry varId="Katakans"              value="15"  />
-                <Entry varId="Ekimmaras"             value="15"  />
-                <Entry varId="Dracolizards"         value="10"  />
-                <Entry varId="Leshens"                value="10"    />
-                <Entry varId="Giants"                value="10"    />
-                <Entry varId="Shaelmaars"                value="10"    />
-                <Entry varId="Cyclops"                value="5"    />
-                <Entry varId="Golems"                value="5"    />
-                <Entry varId="Gargoyles"                value="5"    />
-                <Entry varId="Elementals"            value="5"    />
-                <Entry varId="Bruxae"                value="5"    />
-                <Entry varId="Fleders"                value="5"    />
-                <Entry varId="Garkains"                value="5"    />
-                <Entry varId="Higher_Vampires"            value="1"    />
-
-                <Entry varId="Humans"               value="30"  />
-                <Entry varId="Nekkers"                value="30"    />
-                <Entry varId="Drowners"                value="30"    />
-                <Entry varId="Graviers"            value="30"    />
-                <Entry varId="Ghouls"                value="30"    />
-                <Entry varId="Rotfiends"            value="30"    />
-                <Entry varId="Wolves"                value="25"    />
-                <Entry varId="Skellige_Wolves"        value="25"    />
-                <Entry varId="Wraiths"                value="25"    />
-                <Entry varId="Bears"                value="25"    />
-                <Entry varId="Skellige_Bears"        value="25"    />
-                <Entry varId="Berserkers"            value="20"    />
-                <Entry varId="Harpies"                value="25"    />
-                <Entry varId="Sirens"                value="25"    />
-                <Entry varId="Endregas"                value="25"    />
-                <Entry varId="Alghouls"                value="20"    />
-                <Entry varId="Arachas"                value="20"    />
-                <Entry varId="Kikimores"                value="20"    />
-                <Entry varId="Echinops"                value="15"    />
-                <Entry varId="Centipedes"            value="15"    />
-                <Entry varId="Spiders"                value="15"    />
-                <Entry varId="Boars"                value="15"    />
-                <Entry varId="Panthers"                value="15"    />
-                <Entry varId="Barghests"                value="15"    />
-                <Entry varId="Skeletons"                value="10"    />
-                <Entry varId="Wild_Hunt"             value="10"  />
-            </Preset>
-            <Preset id="1" displayName="rer_everything_off" >
-                    <Entry varId="Leshens"                value="0"    />
-                    <Entry varId="Werewolves"            value="0"    />
-                    <Entry varId="Cyclops"                value="0"    />
-                    <Entry varId="Arachas"                value="0"    />
-                    <Entry varId="Fiends"                value="0"    />
-                    <Entry varId="Chorts"                value="0"    />
-                    <Entry varId="Bears"                value="0"    />
-                    <Entry varId="Skellige_Bears"        value="0"    />
-                    <Entry varId="Berserkers"            value="0"    />
-                    <Entry varId="Golems"                value="0"    />
-                    <Entry varId="Gargoyles"            value="0"    />
-                    <Entry varId="Elementals"            value="0"    />
-                    <Entry varId="NightWraiths"            value="0"    />
-                    <Entry varId="NoonWraiths"            value="0"    />
-                    <Entry varId="Hags"                    value="0"    />
-                    <Entry varId="Harpies"                value="0"    />
-                    <Entry varId="Sirens"                value="0"    />
-                    <Entry varId="Foglets"                value="0"    />
-                    <Entry varId="Endregas"                value="0"    />
-                    <Entry varId="Ghouls"                value="0"    />
-                    <Entry varId="Alghouls"                value="0"    />
-                    <Entry varId="Nekkers"                value="0"    />
-                    <Entry varId="Drowners"                value="0"    />
-                    <Entry varId="Rotfiends"            value="0"    />
-                    <Entry varId="Wolves"                value="0"    />
-                    <Entry varId="Skellige_Wolves"        value="0"    />
-                    <Entry varId="Wraiths"                value="0"    />
-                    <Entry varId="Spiders"                value="0"    />
-                    <Entry varId="Boars"                value="0"    />
-                    <Entry varId="Trolls"                value="0"    />
-                    <Entry varId="Skellige_Trolls"        value="0"    />
-
-                    <Entry varId="Higher_Vampires"            value="0"    />
-                    <Entry varId="Bruxae"                value="0"    />
-                    <Entry varId="Fleders"                value="0"    />
-                    <Entry varId="Garkains"                value="0"    />
-                    <Entry varId="Graviers"            value="0"    />
-                    <Entry varId="Skeletons"                value="0"    />
-                    <Entry varId="Barghests"                value="0"    />
-                    <Entry varId="Echinops"                value="0"    />
-                    <Entry varId="Centipedes"            value="0"    />
-                    <Entry varId="Kikimores"                value="0"    />
-                    <Entry varId="Panthers"                value="0"    />
-                    <Entry varId="Shaelmaars"                value="0"    />
-                    <Entry varId="Wights"                value="0"    />
-                    <Entry varId="Giants"                value="0"    />
-
-                    <!-- added values -->
-                    <Entry varId="Humans"               value="0"  />
-                    <Entry varId="Wild_Hunt"             value="0"  />
-                    <Entry varId="Gryphons"             value="0"  />
-                    <Entry varId="Cockatrices"           value="0"  />
-                    <Entry varId="Wyverns"              value="0"  />
-                    <Entry varId="Forktails"            value="0"  />
-                    <Entry varId="Basilisks"             value="0"  />
-                    <Entry varId="Dracolizards"         value="0"  />
-                    <Entry varId="Katakans"              value="0"  />
-                    <Entry varId="Ekimmaras"             value="0"  />
-            </Preset>
-            <Preset id="2" displayName="rer_everything_on" >
-                    <Entry varId="Leshens"                value="10"    />
-                    <Entry varId="Werewolves"            value="10"    />
-                    <Entry varId="Cyclops"                value="10"    />
-                    <Entry varId="Arachas"                value="10"    />
-                    <Entry varId="Fiends"                value="10"    />
-                    <Entry varId="Chorts"                value="10"    />
-                    <Entry varId="Bears"                value="10"    />
-                    <Entry varId="Skellige_Bears"        value="10"    />
-                    <Entry varId="Berserkers"            value="10"    />
-                    <Entry varId="Golems"                value="10"    />
-                    <Entry varId="Gargoyles"            value="10"    />
-                    <Entry varId="Elementals"            value="10"    />
-                    <Entry varId="NightWraiths"            value="10"    />
-                    <Entry varId="NoonWraiths"            value="10"    />
-                    <Entry varId="Hags"                    value="10"    />
-                    <Entry varId="Harpies"                value="10"    />
-                    <Entry varId="Sirens"                value="10"    />
-                    <Entry varId="Foglets"                value="10"    />
-                    <Entry varId="Endregas"                value="10"    />
-                    <Entry varId="Ghouls"                value="10"    />
-                    <Entry varId="Alghouls"                value="10"    />
-                    <Entry varId="Nekkers"                value="10"    />
-                    <Entry varId="Drowners"                value="10"    />
-                    <Entry varId="Rotfiends"            value="10"    />
-                    <Entry varId="Wolves"                value="10"    />
-                    <Entry varId="Skellige_Wolves"        value="10"    />
-                    <Entry varId="Wraiths"                value="10"    />
-                    <Entry varId="Spiders"                value="10"    />
-                    <Entry varId="Boars"                value="10"    />
-                    <Entry varId="Trolls"                value="10"    />
-                    <Entry varId="Skellige_Trolls"        value="10"    />
-
-                    <Entry varId="Higher_Vampires"            value="10"    />
-                    <Entry varId="Bruxae"                value="10"    />
-                    <Entry varId="Fleders"                value="10"    />
-                    <Entry varId="Garkains"                value="10"    />
-                    <Entry varId="Graviers"            value="10"    />
-                    <Entry varId="Skeletons"                value="10"    />
-                    <Entry varId="Barghests"                value="10"    />
-                    <Entry varId="Echinops"                value="10"    />
-                    <Entry varId="Centipedes"            value="10"    />
-                    <Entry varId="Kikimores"                value="10"    />
-                    <Entry varId="Panthers"                value="10"    />
-                    <Entry varId="Shaelmaars"                value="10"    />
-                    <Entry varId="Wights"                value="10"    />
-                    <Entry varId="Giants"                value="10"    />
-
-                    <!-- added values -->
-                    <Entry varId="Humans"               value="10"  />
-                    <Entry varId="Wild_Hunt"             value="10"  />
-                    <Entry varId="Gryphons"             value="10"  />
-                    <Entry varId="Cockatrices"           value="10"  />
-                    <Entry varId="Wyverns"              value="10"  />
-                    <Entry varId="Forktails"            value="10"  />
-                    <Entry varId="Basilisks"             value="10"  />
-                    <Entry varId="Dracolizards"         value="10"  />
-                    <Entry varId="Katakans"              value="10"  />
-                    <Entry varId="Ekimmaras"             value="10"  />
-            </Preset>
-            <Preset id="3" displayName="rer_no_large_creatures" >
-                    <Entry varId="Hags"                    value="0"    />
-                    <Entry varId="Foglets"                value="0"    />
-                    <Entry varId="Trolls"                value="0"    />
-                    <Entry varId="Skellige_Trolls"        value="0"    />
-                    <Entry varId="Werewolves"            value="0"    />
-                    <Entry varId="Fiends"                value="0"    />
-                    <Entry varId="Chorts"                value="0"    />
-                    <Entry varId="Gryphons"             value="0"   />
-                    <Entry varId="Cockatrices"           value="0"   />
-                    <Entry varId="Wyverns"              value="0"   />
-                    <Entry varId="Forktails"            value="0"   />
-                    <Entry varId="Basilisks"             value="0"   />
-                    <Entry varId="NightWraiths"            value="0"    />
-                    <Entry varId="Wights"                value="0"    />
-                    <Entry varId="NoonWraiths"            value="0"    />
-                    <Entry varId="Katakans"              value="0"   />
-                    <Entry varId="Ekimmaras"             value="0"   />
-                    <Entry varId="Leshens"                value="0"    />
-                    <Entry varId="Giants"                value="0"    />
-                    <Entry varId="Shaelmaars"                value="0"    />
-                    <Entry varId="Cyclops"                value="0"    />
-                    <Entry varId="Golems"                value="0"    />
-                    <Entry varId="Elementals"            value="0"    />
-                    <Entry varId="Higher_Vampires"            value="0"    />
-                    <Entry varId="Bruxae"                value="0"    />
-                    <Entry varId="Fleders"                value="0"    />
-                    <Entry varId="Garkains"                value="0"    />
-                    <Entry varId="Gargoyles"            value="0"    />
-                    <Entry varId="Dracolizards"            value="0"    />
-            </Preset>
-
-            <Preset id="4" displayName="rer_no_small_creatures" >
-                    <Entry varId="Humans"               value="0"   />
-                    <Entry varId="Nekkers"                value="0"    />
-                    <Entry varId="Drowners"                value="0"    />
-                    <Entry varId="Graviers"            value="0"    />
-                    <Entry varId="Ghouls"                value="0"    />
-                    <Entry varId="Rotfiends"            value="0"    />
-                    <Entry varId="Wolves"                value="0"    />
-                    <Entry varId="Skellige_Wolves"        value="0"    />
-                    <Entry varId="Wraiths"                value="0"    />
-                    <Entry varId="Bears"                value="0"    />
-                    <Entry varId="Skellige_Bears"        value="0"    />
-                    <Entry varId="Harpies"                value="0"    />
-                    <Entry varId="Endregas"                value="0"    />
-                    <Entry varId="Alghouls"                value="0"    />
-                    <Entry varId="Arachas"                value="0"    />
-                    <Entry varId="Kikimores"                value="0"    />
-                    <Entry varId="Echinops"                value="0"    />
-                    <Entry varId="Centipedes"            value="0"    />
-                    <Entry varId="Spiders"                value="0"    />
-                    <Entry varId="Boars"                value="0"    />
-                    <Entry varId="Panthers"                value="0"    />
-                    <Entry varId="Barghests"                value="0"    />
-                    <Entry varId="Skeletons"                value="0"    />
-                    <Entry varId="Wild_Hunt"             value="0"   />
-                    <Entry varId="Sirens"               value="0"   />
-                    <Entry varId="Berserkers"           value="0"   />
-            </Preset>
-        </PresetsArray>
-        <VisibleVars>
-            <Var id="allMonsterContractChanceNight" displayName="rer_monster_contract_ratio_night" displayType="SLIDER;0;100;100"/>
-
-            <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
-            <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
-            <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;0;100;100" />
-            <Var id="Dracolizards" displayName="rer_dracolizard" displayType="SLIDER;0;100;100" />
-            <Var id="Leshens" displayName="rer_leshen" displayType="SLIDER;0;100;100" />
-            <Var id="Werewolves" displayName="rer_werewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Cyclops" displayName="rer_cyclop" displayType="SLIDER;0;100;100" />
-            <Var id="Arachas" displayName="rer_arachas" displayType="SLIDER;0;100;100" />
-            <Var id="Fiends" displayName="rer_fiend" displayType="SLIDER;0;100;100" />
-            <Var id="Chorts" displayName="rer_chort" displayType="SLIDER;0;100;100" />
-            <Var id="Bears" displayName="rer_bear" displayType="SLIDER;0;100;100" />
-            <Var id="Skellige_Bears" displayName="rer_skelligebear" displayType="SLIDER;0;100;100" />
-            <Var id="Golems" displayName="rer_golem" displayType="SLIDER;0;100;100" />
-            <Var id="Elementals" displayName="rer_elemental" displayType="SLIDER;0;100;100" />
-            <Var id="NightWraiths" displayName="rer_nightwraith" displayType="SLIDER;0;100;100" />
-            <Var id="NoonWraiths" displayName="rer_noonwraith" displayType="SLIDER;0;100;100" />
-            <Var id="Trolls" displayName="rer_troll" displayType="SLIDER;0;100;100" />
-            <Var id="Skellige_Trolls" displayName="rer_skelligetroll" displayType="SLIDER;0;100;100" />
-            <Var id="Hags" displayName="rer_hag" displayType="SLIDER;0;100;100" />
-            <Var id="Harpies" displayName="rer_harpy" displayType="SLIDER;0;100;100" />
-            <Var id="Foglets" displayName="rer_fogling" displayType="SLIDER;0;100;100" />
-            <Var id="Endregas" displayName="rer_endrega" displayType="SLIDER;0;100;100" />
-            <Var id="Ghouls" displayName="rer_ghoul" displayType="SLIDER;0;100;100" />
-            <Var id="Alghouls" displayName="rer_alghoul" displayType="SLIDER;0;100;100" />
-            <Var id="Nekkers" displayName="rer_nekker" displayType="SLIDER;0;100;100" />
-            <Var id="Drowners" displayName="rer_drowner" displayType="SLIDER;0;100;100" />
-            <Var id="Rotfiends" displayName="rer_rotfiend" displayType="SLIDER;0;100;100" />
-            <Var id="Wolves" displayName="rer_wolf" displayType="SLIDER;0;100;100" />
-            <Var id="Skellige_Wolves" displayName="rer_skelligewolf" displayType="SLIDER;0;100;100" />
-            <Var id="Wraiths" displayName="rer_wraith" displayType="SLIDER;0;100;100" />
-            <Var id="Spiders" displayName="rer_spider" displayType="SLIDER;0;100;100" />
-            <Var id="Boars" displayName="rer_boar" displayType="SLIDER;0;100;100" />
-            <Var id="Higher_Vampires" displayName="rer_higher_vampire" displayType="SLIDER;0;100;100" />
-            <Var id="Bruxae" displayName="rer_bruxa" displayType="SLIDER;0;100;100" />
-            <Var id="Fleders" displayName="rer_fleder" displayType="SLIDER;0;100;100" />
-            <Var id="Garkains" displayName="rer_garkain" displayType="SLIDER;0;100;100" />
-            <Var id="Graviers" displayName="rer_scurver" displayType="SLIDER;0;100;100" />
-            <Var id="Giants" displayName="rer_giant" displayType="SLIDER;0;100;100" />
-            <Var id="Skeletons" displayName="rer_skeleton" displayType="SLIDER;0;100;100" />
-            <Var id="Barghests" displayName="rer_barghest" displayType="SLIDER;0;100;100" />
-            <Var id="Echinops" displayName="rer_echinops" displayType="SLIDER;0;100;100" />
-            <Var id="Centipedes" displayName="rer_centipede" displayType="SLIDER;0;100;100" />
-            <Var id="Kikimores" displayName="rer_kikimore" displayType="SLIDER;0;100;100" />
-            <Var id="Panthers" displayName="rer_panther" displayType="SLIDER;0;100;100" />
-            <Var id="Shaelmaars" displayName="rer_shaelmaar" displayType="SLIDER;0;100;100" />
-            <Var id="Wights" displayName="rer_wight" displayType="SLIDER;0;100;100" />
-            <Var id="Humans" displayName="rer_human" displayType="SLIDER;0;100;100" />
-            <Var id="Wild_Hunt" displayName="rer_wildhunt" displayType="SLIDER;0;100;100" />
-            <Var id="Gryphons" displayName="rer_gryphon" displayType="SLIDER;0;100;100" />
-            <Var id="Cockatrices" displayName="rer_cockatrice" displayType="SLIDER;0;100;100" />
-            <Var id="Wyverns" displayName="rer_wyvern" displayType="SLIDER;0;100;100" />
-            <Var id="Forktails" displayName="rer_forktail" displayType="SLIDER;0;100;100" />
-            <Var id="Basilisks" displayName="rer_basilisk" displayType="SLIDER;0;100;100" />
-            <Var id="Katakans" displayName="rer_katakan" displayType="SLIDER;0;100;100" />
-            <Var id="Ekimmaras" displayName="rer_ekimmara" displayType="SLIDER;0;100;100" />
-        </VisibleVars>
-    </Group>
-
     <Group id="RERencountersHuntingGroundDay" displayName="Mods.rer_name.rer_encounters_settings.ratios_and_frequencies.hunting_ground_day_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
@@ -5365,13 +4765,66 @@
         </VisibleVars>
     </Group>
 
+    <Group id="RERcontracts" displayName="Mods.rer_name.rer_contracts_settings">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="RERhoursBeforeNewContracts" value="1" />
+                <Entry varId="RERnoticeboardErrands" value="1" />
+
+                <Entry varId="REReasyNearbyContractsNumber" value="1" />
+                <Entry varId="RERhardNearbyContractsNumber" value="1" />
+                <Entry varId="REReasyFarContractsNumber" value="1" />
+                <Entry varId="RERhardFarContractsNumber" value="1" />
+
+                <Entry varId="RERallowLearnNewLocations" value="1" />
+                <Entry varId="RERcontractsGenerationSeed" value="0" />
+
+                <Entry varId="RERspeciesChanceBeasts" value="50" />
+                <Entry varId="RERspeciesChanceCursed" value="50" />
+                <Entry varId="RERspeciesChanceDraconids" value="50" />
+                <Entry varId="RERspeciesChanceElementa" value="50" />
+                <Entry varId="RERspeciesChanceHybrids" value="50" />
+                <Entry varId="RERspeciesChanceInsectoids" value="50" />
+                <Entry varId="RERspeciesChanceNecrophages" value="50" />
+                <Entry varId="RERspeciesChanceOgroids" value="50" />
+                <Entry varId="RERspeciesChanceRelicts" value="50" />
+                <Entry varId="RERspeciesChanceSpecters" value="50" />
+                <Entry varId="RERspeciesChanceVampires" value="50" />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
+            <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
+
+            <Var id="REReasyNearbyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="RERhardNearbyContractsNumber" displayName="rer_hard_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="REReasyFarContractsNumber" displayName="rer_easy_far_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="RERhardFarContractsNumber" displayName="rer_hard_far_contracts_number" displayType="SLIDER;0;5;5"/>
+
+            <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
+            <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;1000"/>
+
+            <Var id="RERspeciesChanceBeasts" displayName="rer_species_chance_beasts" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceCursed" displayName="rer_species_chance_cursed" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceDraconids" displayName="rer_species_chance_draconids" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceElementa" displayName="rer_species_chance_elementa" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceHybrids" displayName="rer_species_chance_hybrids" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceInsectoids" displayName="rer_species_chance_insectoids" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceNecrophages" displayName="rer_species_chance_necrophages" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceOgroids" displayName="rer_species_chance_ogroids" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceRelicts" displayName="rer_species_chance_relicts" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceSpecters" displayName="rer_species_chance_specters" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceVampires" displayName="rer_species_chance_vampires" displayType="SLIDER;0;100;100"/>
+        </VisibleVars>
+    </Group>
+
     <Group id="RERrewards" displayName="Mods.rer_name.rer_rewards_settings">
     </Group>
 
     <Group id="RERcontainerRefill" displayName="Mods.rer_name.rer_rewards_settings.rer_container_refill_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERcontainerRefillTriggerChance" value="20" />
+                <Entry varId="RERcontainerRefillTriggerChance" value="100" />
                 <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
                 <Entry varId="RERcontainerRefillRadius" value="1000" />
                 <Entry varId="RERcontainerRefillNumberOfContainers" value="1" />
@@ -6126,14 +5579,10 @@
                 <Entry varId="RERcameraBlendingDisabled" value="0" />
                 <Entry varId="RERtrophyPickupAnimation" value="30" />
                 <Entry varId="RERtrailsUsePathFinding" value="1" />
-                <Entry varId="RERmarkersContractFirstPhase" value="1" />
-                <Entry varId="RERmarkersContractIntermediaryPhase" value="1" />
                 <Entry varId="RERmarkersBountyHunting" value="1" />
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
-                <Entry varId="RERdisableNoticeboardErrands" value="0" />
-                <Entry varId="RERhordeChanceWithBountiesMultiplier" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -6159,10 +5608,6 @@
 
             <Var id="RERtrailsUsePathFinding" displayName="rer_trails_use_pathfinding" displayType="TOGGLE"></Var>
 
-            <Var id="RERmarkersContractFirstPhase" displayName="rer_markers_contract_first_phase" displayType="TOGGLE"></Var>
-
-            <Var id="RERmarkersContractIntermediaryPhase" displayName="rer_markers_contract_intermediary_phase" displayType="TOGGLE"></Var>
-
             <Var id="RERmarkersBountyHunting" displayName="rer_markers_bounty_hunting" displayType="TOGGLE"></Var>
             
             <Var id="RERminimapMarkerBountyMaster" displayName="rer_minimap_marker_bounty_master" displayType="TOGGLE"></Var>
@@ -6174,10 +5619,6 @@
             <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
 
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
-            
-            <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
-            
-            <Var id="RERhordeChanceWithBountiesMultiplier" displayName="rer_horde_chance_with_bounties" displayType="SLIDER;0;20;20"></Var>
 
         </VisibleVars>
     </Group>
@@ -6186,7 +5627,6 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERtutorialBountyHunting" value="1" />
-                <Entry varId="RERtutorialMonsterContract" value="1" />
                 <Entry varId="RERtutorialClueExamined" value="1" />
                 <Entry varId="RERtutorialAmbushed" value="1" />
                 <Entry varId="RERtutorialTrophy" value="1" />
@@ -6197,7 +5637,6 @@
         <VisibleVars>
             <Var id="RERtutorialChallengeMode" displayName="rer_tutorial_challenge_mode" displayType="TOGGLE"></Var>
             <Var id="RERtutorialBountyHunting" displayName="rer_tutorial_bounty_hunting" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialMonsterContract" displayName="rer_tutorial_monster_contract" displayType="TOGGLE"></Var>
             <Var id="RERtutorialNoticeboardEvent" displayName="rer_tutorial_noticeboard_event" displayType="TOGGLE"></Var>
             <Var id="RERtutorialClueExamined" displayName="rer_tutorial_clue_examined" displayType="TOGGLE"></Var>
             <Var id="RERtutorialAmbushed" displayName="rer_tutorial_ambushed" displayType="TOGGLE"></Var>

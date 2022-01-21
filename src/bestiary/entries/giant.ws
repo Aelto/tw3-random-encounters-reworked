@@ -5,6 +5,7 @@ class RER_BestiaryGiant extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGIANT;
+    this.species = SpeciesTypes_OGROIDS;
     this.menu_name = 'Giants';
     this.localized_name = 'option_rer_giant';
 
@@ -36,7 +37,7 @@ class RER_BestiaryGiant extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_giant_trophy_medium');
     this.trophy_names.PushBack('modrer_giant_trophy_high');
 
-    this.ecosystem_delay_multiplier = 15;
+    this.ecosystem_delay_multiplier = 10;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
@@ -96,6 +97,10 @@ class RER_BestiaryGiant extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureSIREN);
+    this.possible_compositions.PushBack(CreatureBEAR);
+    this.possible_compositions.PushBack(CreatureSKELBEAR);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

@@ -5,6 +5,7 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGHOUL;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Ghouls';
     this.localized_name = 'option_rer_ghoul';
 
@@ -104,6 +105,11 @@ class RER_BestiaryGhoul extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureALGHOUL);
+    this.possible_compositions.PushBack(CreatureDROWNER);
+    this.possible_compositions.PushBack(CreatureDROWNERDLC);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

@@ -1,4 +1,11 @@
 
+struct ContractEntitySettings {
+  var kill_threshold_distance: float;
+  var allow_trophies: bool;
+  var allow_trophy_pickup_scene: bool;
+  var enable_loot: bool;
+}
+
 statemachine class RER_MonsterNest extends CMonsterNestEntity {
   var master: CRandomEncounters;
   var entities: array<CEntity>;
@@ -8,6 +15,11 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   var is_destroyed: bool;
 
   var bestiary_entry: RER_BestiaryEntry;
+
+  var forced_bestiary_entry: bool;
+
+  var forced_species: RER_SpeciesTypes;
+  default forced_species = SpeciesTypes_NONE;
 
   /**
    * counts how many monsters were spawned by this nest
@@ -97,7 +109,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
       return false;
     }
 
-    if (this.monsters_spawned_count > this.monsters_spawned_limit * 0.75) {
+    if (!this.HasTag('WasDestroyed')) {
       GetEncounter();
 
       wasExploded = true;
@@ -136,33 +148,32 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   }
 
   latent function getRandomNestCreatureType(master: CRandomEncounters): RER_BestiaryEntry {
+    var filter: RER_SpawnRollerFilter;
     var bentry: RER_BestiaryEntry;
+    var i: int;
+
+    filter = (new RER_SpawnRollerFilter in this)
+        .init()
+        .removeEveryone();
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      if (RER_isCreatureTypeAllowedForNest(i)) {
+        filter.allowCreature(i);
+      }
+    }
+
+    if (this.forced_species != SpeciesTypes_NONE) {
+      for (i = 0; i < master.bestiary.entries.Size(); i += 1) {
+        if (master.bestiary.entries[i].species != this.forced_species) {
+          filter.removeCreature(i);
+        }
+      }
+    }
 
     bentry = master.bestiary.getRandomEntryFromBestiary(
       master,
       EncounterType_CONTRACT,
-      RER_BREF_IGNORE_SETTLEMENT,
-      (new RER_SpawnRollerFilter in this)
-        .init()
-        .removeEveryone()
-        .allowCreature(CreatureARACHAS)
-        .allowCreature(CreatureENDREGA)
-        .allowCreature(CreatureGHOUL)
-        .allowCreature(CreatureALGHOUL)
-        .allowCreature(CreatureNEKKER)
-        .allowCreature(CreatureDROWNER)
-        .allowCreature(CreatureROTFIEND)
-        .allowCreature(CreatureWOLF)
-        .allowCreature(CreatureHARPY)
-        .allowCreature(CreatureSPIDER)
-        .allowCreature(CreatureCENTIPEDE)
-        .allowCreature(CreatureDROWNERDLC)
-        .allowCreature(CreatureBOAR)
-        .allowCreature(CreatureECHINOPS)
-        .allowCreature(CreatureKIKIMORE)
-        .allowCreature(CreatureSKELWOLF)
-        .allowCreature(CreatureSIREN)
-        .allowCreature(CreatureWRAITH)
+      RER_BREF_IGNORE_SETTLEMENT
     );
 
     return bentry;
@@ -208,4 +219,36 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
 
     this.Destroy();
   }
+}
+
+function RER_isCreatureTypeAllowedForNest(type: CreatureType): bool {
+  var output: bool;
+
+  switch (type) {
+    case CreatureARACHAS:
+    case CreatureENDREGA:
+    case CreatureGHOUL:
+    case CreatureALGHOUL:
+    case CreatureNEKKER:
+    case CreatureDROWNER:
+    case CreatureROTFIEND:
+    case CreatureWOLF:
+    case CreatureHARPY:
+    case CreatureSPIDER:
+    case CreatureCENTIPEDE:
+    case CreatureDROWNERDLC:
+    case CreatureBOAR:
+    case CreatureECHINOPS:
+    case CreatureKIKIMORE:
+    case CreatureSKELWOLF:
+    case CreatureSIREN:
+      output = true;
+      break;
+
+    default:
+      output = false;
+      break;
+  }
+
+  return output;
 }

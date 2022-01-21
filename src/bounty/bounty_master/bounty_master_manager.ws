@@ -55,7 +55,11 @@ statemachine class RER_BountyMasterManager {
       }
       else {
         // teleport the bounty master at the current position based on the current playtime
-        bounty_master_entity.Teleport(valid_positions[position_index] + Vector(0, 0, 0.2));
+        bounty_master_entity
+        .TeleportWithRotation(
+          valid_positions[position_index] + Vector(0, 0, 0.2),
+          VecToRotation(thePlayer.GetWorldPosition() - valid_positions[position_index])
+        );
       }
 
     }

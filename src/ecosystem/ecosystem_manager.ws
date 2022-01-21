@@ -401,12 +401,18 @@ class RER_EcosystemManager {
   public function getEcosystemAreasFrequencyMultiplier(areas: array<int>): float {
     var current_index: int;
     var current_area: EcosystemArea;
+    var number_of_areas: int;
     var current_power: float;
     var i, j: int;
     var multiplier: float;
+
+    number_of_areas = areas.Size();
+    if (number_of_areas <= 0) {
+      return 1;
+    }
     
     // for each area
-    for (i = 0; i < areas.Size(); i += 1) {
+    for (i = 0; i < number_of_areas; i += 1) {
       current_index = areas[i];
       current_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
 
@@ -437,7 +443,7 @@ class RER_EcosystemManager {
     // +100 means it's a 100% increase in speed (a 50% decrease in time so)
     // -100 means it's the opposite of a 100% increase, which is x2 and so here
     // it is a division by 2 or 50% in speed (or a 100% increase in time)
-    multiplier /= areas.Size();
+    multiplier /= number_of_areas;
     multiplier *= StringToFloat(
       theGame.GetInGameConfigWrapper()
       .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')

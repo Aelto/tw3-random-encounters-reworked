@@ -5,6 +5,7 @@ class RER_BestiaryBruxa extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBRUXA;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Bruxae';
     this.localized_name = 'option_rer_bruxa';
 
@@ -36,7 +37,7 @@ class RER_BestiaryBruxa extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_vampire_trophy_medium');
     this.trophy_names.PushBack('modrer_vampire_trophy_high');
 
-    this.ecosystem_delay_multiplier = 8;
+    this.ecosystem_delay_multiplier = 11;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
@@ -96,6 +97,8 @@ class RER_BestiaryBruxa extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureBRUXA);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

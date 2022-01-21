@@ -5,6 +5,7 @@ class RER_BestiaryNightwraith extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureNIGHTWRAITH;
+    this.species = SpeciesTypes_SPECTERS;
     this.menu_name = 'NightWraiths';
     this.localized_name = 'option_rer_nightwraith';
 
@@ -111,6 +112,8 @@ class RER_BestiaryNightwraith extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureWRAITH);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

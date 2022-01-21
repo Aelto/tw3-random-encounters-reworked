@@ -5,6 +5,7 @@ class RER_BestiaryNoonwraith extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureNOONWRAITH;
+    this.species = SpeciesTypes_SPECTERS;
     this.menu_name = 'NoonWraiths';
     this.localized_name = 'option_rer_noonwraith';
 
@@ -108,6 +109,8 @@ class RER_BestiaryNoonwraith extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureSKELWOLF);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

@@ -5,6 +5,7 @@ class RER_BestiaryDracolizard extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureDRACOLIZARD;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Dracolizards';
     this.localized_name = 'option_rer_dracolizard';
 
@@ -93,6 +94,9 @@ class RER_BestiaryDracolizard extends RER_BestiaryEntry {
       .influence(influences.high_bad_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureWYVERN);
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

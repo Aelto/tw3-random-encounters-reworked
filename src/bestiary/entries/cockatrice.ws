@@ -5,6 +5,7 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCOCKATRICE;
+    this.species = SpeciesTypes_DRACONIDS;
     this.menu_name = 'Cockatrices';
     this.localized_name = 'option_rer_cockatrice';
 
@@ -93,6 +94,11 @@ class RER_BestiaryCockatrice extends RER_BestiaryEntry {
       .influence(influences.low_bad_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureWYVERN);
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
+    this.possible_compositions.PushBack(CreatureHARPY);
+    this.possible_compositions.PushBack(CreatureSIREN);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

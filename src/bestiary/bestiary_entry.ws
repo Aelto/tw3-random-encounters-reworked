@@ -1,6 +1,7 @@
 
 abstract class RER_BestiaryEntry {
   var type: CreatureType;
+  var species: RER_SpeciesTypes;
 
   var template_list: EnemyTemplateList;
 
@@ -40,6 +41,8 @@ abstract class RER_BestiaryEntry {
 
   var city_spawn: bool;
 
+  var possible_compositions: array<CreatureType>;
+
   public function init() {}
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences {
@@ -69,8 +72,13 @@ abstract class RER_BestiaryEntry {
     this.chances_night[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersAmbushNight', this.menu_name));
     this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntDay', this.menu_name));
     this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntNight', this.menu_name));
-    this.chances_day[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractDay', this.menu_name));
-    this.chances_night[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersContractNight', this.menu_name));
+
+    // special case for the contracts, they used to have a menu but don't anymore.
+    // The contracts are now well balanced even for small creatures so the user
+    // does not need to assign different ratios for each creatures
+    this.chances_day[EncounterType_CONTRACT] = 1;
+    this.chances_night[EncounterType_CONTRACT] = 1;
+
     this.chances_day[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundDay', this.menu_name));
     this.chances_night[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundNight', this.menu_name));
     this.creature_type_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', this.menu_name));
@@ -104,7 +112,8 @@ abstract class RER_BestiaryEntry {
     optional density: float,
     optional encounter_type: EncounterType,
     optional flags: RER_BestiaryEntrySpawnFlag,
-    optional custom_tag: name
+    optional custom_tag: name,
+    optional composition_count: int
   ): array<CEntity> {
     
     var creatures_templates: EnemyTemplateList;
@@ -117,6 +126,8 @@ abstract class RER_BestiaryEntry {
     var group_positions_index: int;
     var tags_array: array<name>;
     var persistance: EPersistanceMode;
+    var composition_type: CreatureType;
+    var composition_entities: array<CEntity>;
     var i: int;
     var j: int;
 
@@ -167,6 +178,12 @@ abstract class RER_BestiaryEntry {
 
     if (IsNameValid(custom_tag)) {
       tags_array.PushBack(custom_tag);
+    }
+
+    // W3EE Redux compatibility, the mod has a perk to increase damage on contract
+    // targets. It does so by cheking the tag of the creatures.
+    if (encounter_type == EncounterType_CONTRACT) {
+      tags_array.PushBack('ContractTarget');
     }
 
     for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
@@ -270,6 +287,28 @@ abstract class RER_BestiaryEntry {
       master.ecosystem_frequency_multiplier
     );
 
+    composition_type = this.getRandomCompositionCreature(
+      master,
+      encounter_type
+    );
+
+    composition_entities = this.spawnGroupCompositionCreatures(
+      composition_type,
+      master,
+      position,
+      count,
+      density,
+      encounter_type,
+      flags,
+      custom_tag,
+      composition_count
+    );
+
+    created_entities = this.combineEntitiesArrays(
+      created_entities,
+      composition_entities
+    );
+
     LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
     SUH_makeEntitiesAlliedWithEachother(created_entities);
@@ -291,11 +330,8 @@ abstract class RER_BestiaryEntry {
     return false;
   }
 
-  // Returns a random friendly creature if there is any. Otherwise returns
-  // CreatureNONE.
-  // This function uses a random-number-generator as it is mainly used by the
-  // bounties which are reliant on the RNG with a seed.
-  public latent function getRandomFriendlyCreature(master: CRandomEncounters, rng: RandomNumberGenerator, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter): CreatureType {
+  public latent function getStrongestCompositionCreature(master: CRandomEncounters, maximum_strength: float): CreatureType {
+    var output: CreatureType;
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
@@ -303,19 +339,65 @@ abstract class RER_BestiaryEntry {
     var influences: RER_ConstantInfluences;
     var i: int;
 
-    influences = RER_ConstantInfluences();
+    output = CreatureNONE;
+
+    if (maximum_strength <= 0) {
+      return CreatureNONE;
+    }
+
+    // when the option "Only known bestiary creatures" is ON
+    // we remove every unknown creatures from the spawning pool
+    if (master.settings.only_known_bestiary_creatures) {
+      manager = theGame.GetJournalManager();
+    }
+    
+    for (i = 0; i < this.possible_compositions.Size(); i += 1) {
+      // if a maximum strength is supplied, we make sure to include only creatures
+      // whose strength is within the boundary
+      if (maximum_strength > 0 && master.bestiary.entries[this.possible_compositions[i]].ecosystem_delay_multiplier >= maximum_strength) {
+        continue;
+      }
+
+      if (master.settings.only_known_bestiary_creatures) {
+        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
+
+        if (!can_spawn_creature) {
+          continue;
+        }
+      }
+
+      if (output == CreatureNONE) {
+        output = this.possible_compositions[i];
+
+        continue;
+      }
+
+      if (master.bestiary.entries[output].ecosystem_delay_multiplier < master.bestiary.entries[this.possible_compositions[i]].ecosystem_delay_multiplier) {
+        output = this.possible_compositions[i];
+      }
+    }
+
+    return output;
+  }
+
+  // Returns a random friendly creature if there is any. Otherwise returns
+  // CreatureNONE.
+  public latent function getRandomCompositionCreature(master: CRandomEncounters, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter): CreatureType {
+    var creatures_preferences: RER_CreaturePreferences;
+    var spawn_roll: SpawnRoller_Roll;
+    var manager : CWitcherJournalManager;
+    var can_spawn_creature: bool;
+    var influences: RER_ConstantInfluences;
+    var i: int;
+
     master.spawn_roller.reset();
 
     creatures_preferences = new RER_CreaturePreferences in this;
     creatures_preferences
       .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
     
-    for (i = 0; i < this.ecosystem_impact.influences.Size(); i += 1) {
-      if (this.ecosystem_impact.influences[i] != influences.friend_with && this.ecosystem_impact.influences[i] != influences.high_indirect_influence) {
-        continue;
-      }
-
-      master.bestiary.entries[i]
+    for (i = 0; i < this.possible_compositions.Size(); i += 1) {
+      master.bestiary.entries[this.possible_compositions[i]]
         .setCreaturePreferences(creatures_preferences, encounter_type)
         .fillSpawnRoller(master.spawn_roller);
     }
@@ -344,6 +426,75 @@ abstract class RER_BestiaryEntry {
 
     return spawn_roll.roll;
   }
+
+  public function combineEntitiesArrays(a: array<CEntity>, b: array<CEntity>): array<CEntity> {
+    var output: array<CEntity>;
+    var a_size: int;
+    var i: int;
+
+    a_size = a.Size();
+    // output.Resize(a_size + b.Size());
+
+    for (i = 0; i < a.Size(); i += 1) {
+      output.PushBack(a[i]);
+    }
+
+    for (i = 0; i < b.Size(); i += 1) {
+      output.PushBack(b[i]);
+    }
+
+    return output;
+  }
+
+  public latent function spawnGroupCompositionCreatures(
+    creature: CreatureType,
+    master: CRandomEncounters,
+    position: Vector,
+    optional count: int,
+    optional density: float,
+    optional encounter_type: EncounterType,
+    optional flags: RER_BestiaryEntrySpawnFlag,
+    optional custom_tag: name,
+    optional composition_count: int): array<CEntity> {
+    var bestiary_entry: RER_BestiaryEntry;
+    var entities: array<CEntity>;
+    var min: int;
+    var i: int;
+
+    // composition groups are recursive, a spawned group causes a composition to
+    // appear. But that composition can have its own composition.
+    // We add a failsafe to avoid a recursive crash/stack-overflow.
+    if (creature == CreatureNONE || composition_count > 3) {
+      return entities;
+    }
+
+    bestiary_entry = master.bestiary.entries[creature];
+    // change to have 0, chance to have at least 1
+    min = RandRange(2);
+    count = Max(min, (int)(count / MaxF(1, bestiary_entry.ecosystem_delay_multiplier)));
+
+    if (count <= 0) {
+      return entities;
+    }
+
+    entities = bestiary_entry.spawn(
+      master,
+      position,
+      count,
+      density,
+      encounter_type,
+      flags,
+      custom_tag,
+      composition_count + 1
+    );
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      entities[i].GetRootAnimatedComponent().SetScale(Vector(0.95, 0.95, 0.95, 0.95));
+      ((CActor)entities[i]).SetHealthPerc(60);
+    }
+
+    return entities;
+  }
 }
 
 class RER_BestiaryEntryNull extends RER_BestiaryEntry {
@@ -356,12 +507,12 @@ class RER_BestiaryEntryNull extends RER_BestiaryEntry {
 
 enum RER_BestiaryEntrySpawnFlag {
   RER_BESF_NONE = 0,
-  RER_BESF_NO_TROPHY = 01000,
-  RER_BESF_NO_PERSIST = 00100,
-  RER_BESF_NO_ECOSYSTEM_EFFECT = 00010,
+  RER_BESF_NO_TROPHY = 1,
+  RER_BESF_NO_PERSIST = 2,
+  RER_BESF_NO_ECOSYSTEM_EFFECT = 4,
 
   // if set, it will ignore the bestiary feature that removes unknown
   // creatures from the spawn. It's used for the bounties where settings are
   // ignored.
-  RER_BESF_NO_BESTIARY_FEATURE = 00001
+  RER_BESF_NO_BESTIARY_FEATURE = 8
 };

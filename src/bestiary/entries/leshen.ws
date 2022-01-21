@@ -5,6 +5,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureLESHEN;
+    this.species = SpeciesTypes_RELICTS;
     this.menu_name = 'Leshens';
     this.localized_name = 'option_rer_leshen';
 
@@ -110,6 +111,8 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
     this.trophy_names.PushBack('modrer_leshen_trophy_medium');
     this.trophy_names.PushBack('modrer_leshen_trophy_high');
 
+    this.possible_compositions.PushBack(CreatureWOLF);
+    this.possible_compositions.PushBack(CreatureSKELWOLF);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

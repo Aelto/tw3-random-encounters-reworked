@@ -15,5 +15,9 @@ statemachine class RER_HordeManager {
       this.GotoState('Processing');
     }
   }
+
+  public function clearRequests() {
+    this.requests.Clear();
+  }
 }
 

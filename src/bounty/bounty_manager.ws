@@ -143,14 +143,9 @@ statemachine class RER_BountyManager extends CEntity {
     var data: RER_BountyRandomData;
     var number_of_groups: int;
     var constants: RER_ConstantCreatureTypes;
-    var horde_chance_multiplier: float;
     var i: int;
 
     constants = RER_ConstantCreatureTypes();
-    horde_chance_multiplier = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERhordeChanceWithBountiesMultiplier')
-    );
 
     // the seed 0 means the bounty will be completely random and won't use the
     // seed in the RNG
@@ -202,56 +197,6 @@ statemachine class RER_BountyManager extends CEntity {
       current_group_data.position_x = rng.next();
       current_group_data.position_y = rng.next();
       current_group_data.translation_heading = rng.nextRange(360, 0);
-
-      current_group_data.horde_before_bounty = CreatureNONE;
-      current_group_data.horde_during_bounty = CreatureNONE;
-
-      // a 10% chance to have a horde before the bounty target.
-      if (rng.next() < 0.10 * horde_chance_multiplier ) {
-        current_group_data.horde_before_bounty = current_bestiary_entry.getRandomFriendlyCreature(
-          this.master,
-          rng,
-          EncounterType_CONTRACT,
-          (new RER_SpawnRollerFilter in this)
-          .init()
-          .setOffsets(constants.small_creature_begin, constants.small_creature_max)
-        );
-
-        current_group_data.horde_before_bounty_count = Max(3, (int)(
-          rng.nextRange(20, 0) / this.master.bestiary.entries[current_group_data.horde_before_bounty].ecosystem_delay_multiplier
-        ));
-
-        // however we don't want a horde of large creatures so
-        // we reset the creature type if it's one.
-        if (current_group_data.horde_before_bounty >= constants.large_creature_begin) {
-          current_group_data.horde_before_bounty = CreatureNONE;
-        }
-
-        NLOG("bounty for horde before = " + current_group_data.horde_before_bounty);
-      }
-      // a 5% chance to have a horde during the bounty target fight.
-      if (rng.next() < 0.5 * horde_chance_multiplier) {
-        current_group_data.horde_during_bounty = current_bestiary_entry.getRandomFriendlyCreature(
-          this.master,
-          rng,
-          EncounterType_CONTRACT,
-          (new RER_SpawnRollerFilter in this)
-          .init()
-          .setOffsets(constants.small_creature_begin, constants.small_creature_max)
-        );
-
-        current_group_data.horde_during_bounty_count = (int)(
-          rng.nextRange(20, 0) / current_bestiary_entry.ecosystem_delay_multiplier
-        );
-
-        // however we don't want a horde of large creatures so
-        // we reset the creature type if it's one.
-        if (current_group_data.horde_during_bounty >= constants.large_creature_begin) {
-          current_group_data.horde_during_bounty = CreatureNONE;
-        }
-
-        NLOG("bounty for horde during = " + current_group_data.horde_during_bounty);
-      }
 
       data.groups.PushBack(current_group_data);
     }
@@ -445,10 +390,10 @@ statemachine class RER_BountyManager extends CEntity {
         .random_data
         .groups[random_group_index].was_picked = true;
 
-    this.master
-      .storages
-      .bounty
-      .save();
+      this.master
+        .storages
+        .bounty
+        .save();
     }
   }
 
@@ -758,19 +703,19 @@ state Processing in RER_BountyManager {
 
   function moveBountyTargets() {
     var groups: array<RER_BountyRandomMonsterGroupData>;
+    var gametime_delta_multiplier: float;
     var custom_pins: array<SU_MapPin>;
     var current_translation: Vector;
     var current_group_index: int;
     var new_position: Vector;
     var pin: SU_MapPin;
     var i: int;
-    
+
     groups = parent.master.storages.bounty.current_bounty.random_data.groups;
     for (i = 0; i < groups.Size(); i += 1) {
       // we only move the targets that were not spawned yet and only the markers
       // that are currently shown on the map.
-      // do not move bounties where a horde is in progress either.
-      if (!this.isGroupActive(groups[i]) || groups[i].horde_before_bounty_started) {
+      if (!this.isGroupActive(groups[i])) {
         continue;
       }
 
@@ -784,48 +729,44 @@ state Processing in RER_BountyManager {
         groups[i].translation_heading,
         15, // angle
         0, // min range
-        0.005 // max range
+        0.0005 // max range
       );
+
+      // y at 1 is the top of the map
+      // x at 1 is the right of the map
+      // heading at 0 is the 
 
       // we mutate the original coordinates
       groups[i].position_x += current_translation.X;
       groups[i].position_y += current_translation.Y;
 
-      if (groups[i].position_x <= 0) {
-        groups[i].position_x = 0;
+      if (groups[i].position_x <= 0.05) {
+        groups[i].position_x = 0.06;
 
         // 270 degrees is the right
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 270 * 3) / 4
-        );
+        groups[i].translation_heading = 270;
       }
 
-      if (groups[i].position_x >= 1) {
-        groups[i].position_x = 1;
+      if (groups[i].position_x >= 0.95) {
+        groups[i].position_x = 0.94;
 
-        // 270 degrees is the left
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 90 * 3) / 4
-        );
+        // 90 degrees is the left
+        groups[i].translation_heading = 90;
       }
 
-      // y below zero is the bottom of the map
-      if (groups[i].position_y <= 0) {
-        groups[i].position_y = 0;
+      // y below zero is the top of the map
+      if (groups[i].position_y <= 0.05) {
+        groups[i].position_y = 0.06;
 
         // 0 degrees is the top of the map
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 0 * 3) / 4
-        );
+        groups[i].translation_heading = 0;
       }
 
-      if (groups[i].position_y >= 1) {
-        groups[i].position_y = 1;
+      if (groups[i].position_y >= 0.95) {
+        groups[i].position_y = 0.94;
 
         // 180 degrees is the bottom of the map
-        groups[i].translation_heading = AngleNormalize(
-          (groups[i].translation_heading + 180 * 3) / 4
-        );
+        groups[i].translation_heading = 180;
       }
 
       new_position = SUH_getSafeCoordinatesFromPoint(
@@ -841,6 +782,7 @@ state Processing in RER_BountyManager {
 
       parent.master.storages.bounty.current_bounty.random_data.groups[i].position_x = groups[i].position_x;
       parent.master.storages.bounty.current_bounty.random_data.groups[i].position_y = groups[i].position_y;
+      parent.master.storages.bounty.current_bounty.random_data.groups[i].translation_heading = groups[i].translation_heading;
       // parent.cached_bounty_group_positions[i] = new_position;
     }
 
@@ -947,87 +889,12 @@ state Processing in RER_BountyManager {
         continue;
       }
 
-      NLOG("bounty has horde before: " + parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty);
+      new_managed_group = parent.spawnBountyGroup(
+        parent.master.storages.bounty.current_bounty.random_data.groups[i],
+        i
+      );
 
-      // now that we know we can start the bounty, we first check if a horde
-      // should be spawned before.
-      if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty != CreatureNONE) {
-        // the horde was already started so we do nothing.
-        // once the horde is over, it will create the horde_before_bounty to
-        // CreatureNONE which will make this bounty to enter the else case
-        // just below.
-        //
-        // This was done this way so that we re-use the position-check code
-        // that is written here. That we do not duplicate anything and it's
-        // the same code that handles starting the horde and starting the
-        // bounty after the horde is complete. It's a little more complex
-        // but also more robust.
-        if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty_started) {
-          continue;
-        }
-
-        parent.master
-          .storages
-          .bounty
-          .current_bounty
-          .random_data
-          .groups[i]
-          .horde_before_bounty_started = true;
-
-        parent.master
-          .storages
-          .bounty
-          .save();
-
-        this.sendHordeRequestForBounty(
-          i,
-          parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty,
-          parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_before_bounty_count
-        );
-      }
-      else {
-        new_managed_group = parent.spawnBountyGroup(
-          parent.master.storages.bounty.current_bounty.random_data.groups[i],
-          i
-        );
-
-        parent.currently_managed_groups.PushBack(new_managed_group);
-
-        if (parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_during_bounty != CreatureNONE) {
-          parent.master
-            .storages
-            .bounty
-            .current_bounty
-            .random_data
-            .groups[i]
-            .horde_during_bounty_started = true;
-
-          parent.master
-            .storages
-            .bounty
-            .save();
-
-          this.sendHordeRequestForBounty(
-            i,
-            parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_during_bounty,
-            parent.master.storages.bounty.current_bounty.random_data.groups[i].horde_during_bounty_count
-          );
-        }
-      }
+      parent.currently_managed_groups.PushBack(new_managed_group);
     }
-    
-  }
-
-  function sendHordeRequestForBounty(bounty_index: int, creature_type: CreatureType, count: int) {
-    var request: RER_HordeRequestBeforeBounty;
-
-    request = new RER_HordeRequestBeforeBounty in parent;
-    request.init();
-    request.bounty_to_start_index = bounty_index;
-    request.setCreatureCounter(creature_type, count);
-
-    NLOG("sendHordeRequestForBounty: " + count + " of " + creature_type);
-
-    parent.master.horde_manager.sendRequest(request);
   }
 }

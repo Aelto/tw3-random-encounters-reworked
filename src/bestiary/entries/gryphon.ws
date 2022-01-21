@@ -5,6 +5,7 @@ class RER_BestiaryGryphon extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGRYPHON;
+    this.species = SpeciesTypes_HYBRIDS;
     this.menu_name = 'Gryphons';
     this.localized_name = 'option_rer_gryphon';
 
@@ -109,6 +110,11 @@ class RER_BestiaryGryphon extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureFORKTAIL
       .influence(influences.friend_with) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
+    this.possible_compositions.PushBack(CreatureHARPY);
+    this.possible_compositions.PushBack(CreatureSIREN);
+    this.possible_compositions.PushBack(CreatureWYVERN);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

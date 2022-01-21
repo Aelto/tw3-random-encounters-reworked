@@ -5,6 +5,7 @@ class RER_BestiaryGarkain extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGARKAIN;
+    this.species = SpeciesTypes_VAMPIRES;
     this.menu_name = 'Garkains';
     this.localized_name = 'option_rer_garkain';
 
@@ -96,6 +97,10 @@ class RER_BestiaryGarkain extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureFLEDER);
+    this.possible_compositions.PushBack(CreatureGHOUL);
+    this.possible_compositions.PushBack(CreatureALGHOUL);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

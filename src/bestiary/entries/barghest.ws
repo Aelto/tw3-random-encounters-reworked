@@ -5,6 +5,7 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBARGHEST;
+    this.species = SpeciesTypes_SPECTERS;
     this.menu_name = 'Barghests';
     this.localized_name = 'option_rer_barghest';
 
@@ -90,6 +91,8 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.high_bad_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureWRAITH);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

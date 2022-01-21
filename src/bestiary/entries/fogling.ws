@@ -5,6 +5,7 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureFOGLET;
+    this.species = SpeciesTypes_NECROPHAGES;
     this.menu_name = 'Foglets';
     this.localized_name = 'option_rer_fogling';
 
@@ -109,6 +110,11 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureROTFIEND);
+    this.possible_compositions.PushBack(CreatureDROWNER);
+    this.possible_compositions.PushBack(CreatureDROWNERDLC);
+    this.possible_compositions.PushBack(CreatureFOGLET);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

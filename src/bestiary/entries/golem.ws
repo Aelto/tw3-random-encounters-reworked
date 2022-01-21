@@ -5,6 +5,7 @@ class RER_BestiaryGolem extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureGOLEM;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Golems';
     this.localized_name = 'option_rer_golem';
 
@@ -102,6 +103,8 @@ class RER_BestiaryGolem extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureGARGOYLE);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

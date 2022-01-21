@@ -5,6 +5,7 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureCYCLOP;
+    this.species = SpeciesTypes_OGROIDS;
     this.menu_name = 'Cyclops';
     this.localized_name = 'option_rer_cyclop';
 
@@ -100,6 +101,10 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureBEAR);
+    this.possible_compositions.PushBack(CreatureSKELBEAR);
+    this.possible_compositions.PushBack(CreatureSIREN);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

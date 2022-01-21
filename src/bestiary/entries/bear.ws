@@ -5,6 +5,7 @@ class RER_BestiaryBear extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureBEAR;
+    this.species = SpeciesTypes_BEASTS;
     this.menu_name = 'Bears';
     this.localized_name = 'option_rer_bear';
 
@@ -100,6 +101,10 @@ class RER_BestiaryBear extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureFORKTAIL
       .influence(influences.friend_with) //CreatureSKELTROLL
       .build();
+  
+    this.possible_compositions.PushBack(CreatureWOLF);
+    this.possible_compositions.PushBack(CreatureSKELWOLF);
+    this.possible_compositions.PushBack(CreatureSKELBEAR);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

@@ -5,6 +5,7 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWEREWOLF;
+    this.species = SpeciesTypes_CURSED;
     this.menu_name = 'Werewolves';
     this.localized_name = 'option_rer_werewolf';
 
@@ -128,6 +129,11 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureWOLF);
+    this.possible_compositions.PushBack(CreatureSKELWOLF);
+    this.possible_compositions.PushBack(CreatureBERSERKER);
+    this.possible_compositions.PushBack(CreatureHUMAN);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

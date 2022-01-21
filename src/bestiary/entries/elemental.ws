@@ -5,6 +5,7 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureELEMENTAL;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Elementals';
     this.localized_name = 'option_rer_elemental';
 
@@ -109,6 +110,9 @@ class RER_BestiaryElemental extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureGOLEM);
+    this.possible_compositions.PushBack(CreatureGARGOYLE);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{

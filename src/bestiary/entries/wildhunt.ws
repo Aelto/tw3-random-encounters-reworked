@@ -5,6 +5,7 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
     influences = RER_ConstantInfluences();
 
     this.type = CreatureWILDHUNT;
+    this.species = SpeciesTypes_ELEMENTA;
     this.menu_name = 'Wild_Hunt';
     this.localized_name = 'option_rer_wildhunt';
 
@@ -122,6 +123,8 @@ class RER_BestiaryWildhunt extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureFORKTAIL
       .influence(influences.no_influence) //CreatureSKELTROLL
       .build();
+
+    this.possible_compositions.PushBack(CreatureHUMAN);
   }
 
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{
