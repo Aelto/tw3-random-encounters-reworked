@@ -4,11 +4,17 @@
  * he can pick the contract he likes.
  */
 state DialogChoice in RER_ContractManager {
+  var camera: SU_StaticCamera;
+
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
     NLOG("RER_ContractManager - state DialogChoice");
 
     this.DialogChoice_main();
+  }
+
+  event OnLeaveState( nextStateName : name ) {
+    this.camera.Stop();
   }
 
   private var menu_distance_value: float;
@@ -19,11 +25,24 @@ state DialogChoice in RER_ContractManager {
   }
 
   private latent function startNoticeboardCutscene() {
-    RER_tutorialTryShowNoticeboard();
+    var noticeboard: W3NoticeBoard;
 
-    Sleep(0.1);
     REROL_mhm();
     Sleep(0.1);
+
+    this.camera = SU_getStaticCamera();
+    noticeboard = this.getNearbyNoticeboard();
+    
+    this.camera.teleportAndLookAt(
+      noticeboard.GetWorldPosition() + VecFromHeading(noticeboard.GetHeading()) * 2 + Vector(0, 0, 1.6),
+      noticeboard.GetWorldPosition() + Vector(0, 0, 1.5)
+    );
+
+    theGame.FadeOut(0.2);
+    this.camera.start();
+    theGame.FadeInAsync(0.4);
+
+    RER_tutorialTryShowNoticeboard();
   }
 
   private latent function DialogChoice_prepareAndDisplayDialogueChoices() {
