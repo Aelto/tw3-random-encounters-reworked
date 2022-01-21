@@ -673,12 +673,6 @@ statemachine class RER_BountyManager extends CEntity {
 }
 
 state Processing in RER_BountyManager {
-  /**
-   * used to scale the moving bounties with the gametime, so that is scales if
-   * the player meditates.
-   */
-  var moving_bounties_last_tick: GameTime;
-
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
@@ -692,8 +686,6 @@ state Processing in RER_BountyManager {
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     this.spawnNearbyBountyGroups();
-
-    moving_bounties_last_tick = theGame.GetGameTime();
 
     while (true) {
       Sleep(10);
@@ -715,17 +707,9 @@ state Processing in RER_BountyManager {
     var custom_pins: array<SU_MapPin>;
     var current_translation: Vector;
     var current_group_index: int;
-    var new_gametime: GameTime;
     var new_position: Vector;
     var pin: SU_MapPin;
     var i: int;
-
-    new_gametime = theGame.GetGameTime();
-    gametime_delta_multiplier = AbsF(
-      ConvertGameSecondsToRealTimeSeconds(GameTimeToSeconds(new_gametime) - GameTimeToSeconds(this.moving_bounties_last_tick))
-    );
-
-    this.moving_bounties_last_tick = new_gametime;
 
     groups = parent.master.storages.bounty.current_bounty.random_data.groups;
     for (i = 0; i < groups.Size(); i += 1) {
@@ -745,7 +729,7 @@ state Processing in RER_BountyManager {
         groups[i].translation_heading,
         15, // angle
         0, // min range
-        0.0005 * gametime_delta_multiplier // max range
+        0.0005 // max range
       );
 
       // y at 1 is the top of the map
