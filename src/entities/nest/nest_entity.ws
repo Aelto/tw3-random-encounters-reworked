@@ -225,7 +225,6 @@ function RER_isCreatureTypeAllowedForNest(type: CreatureType): bool {
   var output: bool;
 
   switch (type) {
-    case CreatureARACHAS:
     case CreatureENDREGA:
     case CreatureGHOUL:
     case CreatureALGHOUL:
@@ -235,11 +234,8 @@ function RER_isCreatureTypeAllowedForNest(type: CreatureType): bool {
     case CreatureWOLF:
     case CreatureHARPY:
     case CreatureSPIDER:
-    case CreatureCENTIPEDE:
     case CreatureDROWNERDLC:
     case CreatureBOAR:
-    case CreatureECHINOPS:
-    case CreatureKIKIMORE:
     case CreatureSKELWOLF:
     case CreatureSIREN:
       output = true;
