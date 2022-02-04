@@ -117,7 +117,7 @@ state Processing in RER_ContractManager {
       + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
     if (ongoing_contract.difficulty == ContractDifficulty_HARD) {
-      impact_points = rng.nextRange(40, 15);
+      impact_points = rng.nextRange(40, 25);
     }
     else {
       impact_points = rng.nextRange(10, 5);
