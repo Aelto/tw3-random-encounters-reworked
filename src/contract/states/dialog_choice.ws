@@ -34,7 +34,7 @@ state DialogChoice in RER_ContractManager {
     noticeboard = this.getNearbyNoticeboard();
     
     this.camera.teleportAndLookAt(
-      noticeboard.GetWorldPosition() + VecFromHeading(noticeboard.GetHeading()) * 2 + Vector(0, 0, 1.6),
+      noticeboard.GetWorldPosition() + VecFromHeading(noticeboard.GetHeading()) * 2 + Vector(0, 0, 1.5),
       noticeboard.GetWorldPosition() + Vector(0, 0, 1.5)
     );
 
