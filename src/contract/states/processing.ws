@@ -112,9 +112,27 @@ state Processing in RER_ContractManager {
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
-    rng.next();
-    position = ongoing_contract.destination_point
-      + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+    for (i = 0; i < 15; i += 1) {
+      rng.next();
+      position = ongoing_contract.destination_point
+        + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+
+      // try to see if the position is valid. If it returns true then it means
+      // it found a valid position.
+      if (getGroundPosition(position, 1, 10)) {
+        i = -1;
+
+        break;
+      }
+    }
+
+    // since i is set to -1 when a position is found, this means no position was
+    // found.    
+    if (i >= 0) {
+      // spawn the monster on the player directly as a last resort.
+      position = thePlayer.GetWorldPosition();
+      getGroundPosition(position, 1, 20);
+    }
 
     if (ongoing_contract.difficulty == ContractDifficulty_HARD) {
       impact_points = rng.nextRange(40, 25);
@@ -203,6 +221,7 @@ state Processing in RER_ContractManager {
     var position: Vector;
     var path: string;
     var i: int;
+    var k: int;
 
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
@@ -227,13 +246,29 @@ state Processing in RER_ContractManager {
     while (i > 0) {
       i -= 1;
 
-      position = ongoing_contract.destination_point
-        + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+      for (k = 0; k < 15; k += 1) {
+        rng.next();
+        position = ongoing_contract.destination_point
+          + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
 
-      FixZAxis(position);
+        FixZAxis(position);
 
-      // it doesn't matter if it fails to find a ground position
-      getGroundPosition(position, 2, 5);
+        // try to see if the position is valid. If it returns true then it means
+        // it found a valid position.
+        if (getGroundPosition(position, 2, 10)) {
+          k = -1;
+
+          break;
+        }
+      }
+
+      // since i is set to -1 when a position is found, this means no position was
+      // found.    
+      // if (k >= 0) {
+      //   // spawn the monster on the player directly as a last resort.
+      //   position = thePlayer.GetWorldPosition();
+      //   getGroundPosition(position, 1, 20);
+      // }
 
       current_template = (CEntityTemplate)LoadResourceAsync(path, true);
       nest = (RER_MonsterNest)theGame.CreateEntity(
