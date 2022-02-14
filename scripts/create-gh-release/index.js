@@ -24,7 +24,7 @@ async function main() {
 
   const latest_release = execSync('git describe --tags --abbrev^=0').toString().trim();
   console.log(`last release is: ${latest_release}`);
-  
+
   const new_version_name = await question('New version name? ');
   const commits_since_last_release = execSync(`git log ${latest_release}..HEAD --oneline`).toString();
 
@@ -34,7 +34,7 @@ async function main() {
   if (!only_zip) {
     if (await question('Confirm you want to continue? (y/n) ') !== 'y') {
       console.log('Cancelling');
-  
+
       return;
     }
   }
@@ -54,7 +54,7 @@ async function main() {
   const is_prerelease = only_zip
     ? true
     : await question('Is it a pre-release? (y/n) ') === 'y';
-  
+
   const zip_file_path = `${new_version_name}.zip`;
   const zip = new AdmZip();
   zip.addLocalFolder(`${__dirname}/../../release`, new_version_name);
@@ -74,9 +74,8 @@ async function main() {
   body += `
 # Random Encounters Reworked ${new_version_name}
 
-> **📩 Want email email/notifications when new releases are created?**
-> You can click the \`watch\` button at the top of the page and set a custom rule.
-> Or just star the repository to get the news on your homepage.
+> **📩 Want to get emails or notifications when new releases are created?**
+> You can click the \`watch\` button at the top of the page and set a custom rule, or just star the repository to get the news on your homepage.
 `;
 
   if (is_prerelease) {
