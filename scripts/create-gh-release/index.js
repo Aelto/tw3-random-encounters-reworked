@@ -74,9 +74,8 @@ async function main() {
   body += `
 # Random Encounters Reworked ${new_version_name}
 
-> **📩 Want email email/notifications when new releases are created?**
-> You can click the \`watch\` button at the top of the page and set a custom rule.
-> Or just star the repository to get the news on your homepage.
+> **📩 Want to get emails or notifications when new releases are created?**
+> You can click the \`watch\` button at the top of the page and set a custom rule, or just star the repository to get the news on your homepage.
 `;
 
   if (is_prerelease) {
