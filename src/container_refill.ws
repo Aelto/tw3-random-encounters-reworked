@@ -171,23 +171,26 @@ function RER_getLootTables(inGameConfigWrapper: CInGameConfigWrapper): array<RER
  * to tell if it should refill container that are not empty or not.
  */
 latent function RER_tryRefillContainer(master: CRandomEncounters, container: W3Container, loot_table: RER_LootTable, only_if_empty: bool): bool {
+  var loot_table_container: W3AnimatedContainer;
+
   if (only_if_empty && !container.IsEmpty()) {
     return false;
   }
 
   NLOG("container refilled with loot table: " + loot_table.table_name);
 
-  RER_addItemsFromLootTable(master, container.GetInventory(), loot_table.table_name);
+  loot_table_container = RER_createSourceContainerForLootTables(master);
+  RER_addItemsFromLootTable(loot_table_container, container.GetInventory(), loot_table.table_name);
   container.GetInventory().UpdateLoot();
   container.Enable(true);
+
+  loot_table_container.Destroy();
 
   return true;
 }
 
-latent function RER_addItemsFromLootTable(master: CRandomEncounters, target_inventory: CInventoryComponent, loot_table: name) {
+latent function RER_createSourceContainerForLootTables(master: CRandomEncounters): W3AnimatedContainer {
   var container: W3AnimatedContainer;
-  var inventory: CInventoryComponent;
-  var items: array<SItemUniqueId>;
   var template: CEntityTemplate;
   var position: Vector;
 
@@ -208,13 +211,17 @@ latent function RER_addItemsFromLootTable(master: CRandomEncounters, target_inve
     PM_DontPersist
   );
 
-  inventory = container.GetInventory();
+  return container;
+}
+
+latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContainer, target_inventory: CInventoryComponent, loot_table: name) {
+  var inventory: CInventoryComponent;
+
+  inventory = loot_table_container.GetInventory();
   inventory.RemoveAllItems();
   inventory.AddItemsFromLootDefinition(loot_table);
   inventory.UpdateLoot();
-  container.Enable(true);
+  loot_table_container.Enable(true);
 
   inventory.GiveAllItemsTo(target_inventory);
-
-  container.Destroy();
 }
