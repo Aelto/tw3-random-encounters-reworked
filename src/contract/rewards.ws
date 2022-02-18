@@ -28,6 +28,7 @@ function RER_contractRewardTypeToItemName(type: RER_ContractRewardType): name {
 }
 
 latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name) {
+  var loot_table_container: W3AnimatedContainer;
   var loot_tables: array<name>;
   var amount: int;
   var index: int;
@@ -75,8 +76,10 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
     case 'rer_token_gold':
       if (RER_playerUsesEnhancedEditionRedux()) {
         loot_tables.PushBack('sk30_treasure_chest'); // valuables
-        loot_tables.PushBack('cp14_chest'); // orens
         loot_tables.PushBack('Nest addon upgrade'); // valuables
+
+        // this loot table was removed because it is now missing in EE Redux
+        // loot_tables.PushBack('cp14_chest'); // orens
 
         amount = 2;
       }
@@ -121,6 +124,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
       break;
   }
 
+  loot_table_container = RER_createSourceContainerForLootTables(master);
   while (amount > 0) {
     index = RandRange(loot_tables.Size());
     amount -= 1;
@@ -129,8 +133,9 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
     Sleep(0.2);
 
-    RER_addItemsFromLootTable(master, inventory, loot_tables[index]);
+    RER_addItemsFromLootTable(loot_table_container, inventory, loot_tables[index]);
   }
+  loot_table_container.Destroy();
 }
 
 function RER_getLocalizedRewardType(type: RER_ContractRewardType): string {

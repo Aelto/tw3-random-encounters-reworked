@@ -458,20 +458,41 @@ abstract class RER_BestiaryEntry {
     optional composition_count: int): array<CEntity> {
     var bestiary_entry: RER_BestiaryEntry;
     var entities: array<CEntity>;
-    var min: int;
+    var max: int;
     var i: int;
 
     // composition groups are recursive, a spawned group causes a composition to
     // appear. But that composition can have its own composition.
     // We add a failsafe to avoid a recursive crash/stack-overflow.
-    if (creature == CreatureNONE || composition_count > 3) {
+    if (creature == CreatureNONE || composition_count > 0) {
       return entities;
     }
 
     bestiary_entry = master.bestiary.entries[creature];
-    // change to have 0, chance to have at least 1
-    min = RandRange(2);
-    count = Max(min, (int)(count / MaxF(1, bestiary_entry.ecosystem_delay_multiplier)));
+
+    // 75% to not spawn any composition
+    if (RandRange(100) < 75) {
+      return entities;
+    }
+
+    // at the moment `count` is the amount of creatures from the initial group
+    max = (int)(this.ecosystem_delay_multiplier * count / bestiary_entry.ecosystem_delay_multiplier);
+    count = Clamp(
+      // once we're sure compositions can spawn, we get a random value between
+      // the maximum number of allies and 80% of that number. The maximum number
+      // of allies is calculated from the original group' strength and the
+      // strength of the new allies.
+      RandRange(
+        max,
+        (int)(max * 0.8)
+      ),
+      // a maximum of 5 times more allies than in the original group
+      // this will not affect small creatures who often come in large groupes
+      // but will limit the amount of allies for creatures with a high strength.
+      // Like 15 harpies from 1 wyvern
+      count * 5,
+      0
+    );
 
     if (count <= 0) {
       return entities;
