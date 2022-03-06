@@ -319,4 +319,56 @@ statemachine class RER_ContractManager {
 
     storage.save();
   }
+
+  public function increaseReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier, optional reputation_gain: int) {
+    var current_reputation: int;
+
+    if (reputation_gain <= 0) {
+      reputation_gain = 1;
+    }
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+    this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
+  }
+
+  private function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
+    var current_reputation: RER_NoticeboardReputation;
+    var output: int;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
+
+      if (current_reputation.noticeboard_identifier != noticeboard) {
+        continue;
+      }
+
+      output = this.master.storages.contract.noticeboards_reputation[i].reputation;
+
+      break;
+    }
+
+    return output;
+  }
+
+  private function setNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier, value: int) {
+    var current_reputation: RER_NoticeboardReputation;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
+
+      if (current_reputation.noticeboard_identifier != noticeboard) {
+        continue;
+      }
+
+      this.master.storages.contract.noticeboards_reputation[i].reputation = value;
+
+      return;
+    }
+
+    this.master.storages.contract.noticeboards_reputation.PushBack(
+      RER_NoticeboardReputation(noticeboard, value)
+    );
+  }
 }

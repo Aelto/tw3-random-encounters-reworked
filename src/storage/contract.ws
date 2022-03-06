@@ -20,6 +20,8 @@ class RER_ContractStorage extends RER_BaseStorage {
   var ongoing_contract: RER_ContractRepresentation;
 
   var has_ongoing_contract: bool;
+
+  var noticeboards_reputation: array<RER_NoticeboardReputation>;
 }
 
 // an helper function to get contract storage

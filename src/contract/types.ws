@@ -152,3 +152,12 @@ class RER_ContractLocation extends SU_ArraySorterData {
     return this;
   }
 }
+
+/**
+ * Represents the reputation level for a given noticeboard
+ */
+struct RER_NoticeboardReputation {
+  var noticeboard_identifier: RER_NoticeboardIdentifier;
+
+  var reputation: int;
+}
