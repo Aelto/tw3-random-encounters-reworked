@@ -124,8 +124,13 @@ struct RER_ContractRepresentation {
   /**
    * the possible rewards the player can get from completing the contract.
    * This value is a flag and can contain multiple reward types
+   *
+   * IMPORTANT: should be RER_ContractRewardType, but since it acts as a flag
+   * the game doesn't know what to do when reloading data and so it sets 0.
+   *
+   * The int is then necessary.
    */
-  var reward_type: RER_ContractRewardType;
+  var reward_type: int;
 
   var region_name: string;
 
