@@ -19,7 +19,6 @@ statemachine class RER_BountyManager extends CEntity {
   public latent function retrieveBountyGroups() {
     var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
     var bounty: RER_Bounty;
-    var map_pin: SU_MapPin;
     var i, k: int;
 
     // there is no current bounty active in the world.
@@ -30,8 +29,6 @@ statemachine class RER_BountyManager extends CEntity {
     this.cached_bounty_group_positions = this.getAllBountyGroupPositions();
 
     bounty = this.getCurrentBountyCopy();
-
-    SU_removeCustomPinByTag("RER_bounty_target");
 
     for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
       // it was not spawned earlier so we skip it
@@ -52,34 +49,66 @@ statemachine class RER_BountyManager extends CEntity {
 
         this.currently_managed_groups.PushBack(new_managed_group);
       }
-
-
-      if (theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
-
-        map_pin = new SU_MapPin in thePlayer;
-        map_pin.tag = "RER_bounty_target";
-        map_pin.position = this.cached_bounty_group_positions[i];
-        map_pin.description = StrReplace(
-          GetLocStringByKey("rer_mappin_bounty_target_description"),
-          "{{creature_type}}",
-          getCreatureNameFromCreatureType(
-            this.master.bestiary,
-            bounty.random_data.groups[i]
-              .type
-          )
-        );
-        map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
-        map_pin.type = "MonsterQuest";
-        map_pin.radius = 100;
-        map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-        thePlayer.addCustomPin(map_pin);
-      }
     }
   }
 
+  /**
+   * Return whether a bounty group can be considered active, meaning it should
+   * spawn something when approached.
+   */
+  function isGroupActive(group: RER_BountyRandomMonsterGroupData): bool {
+    return group.was_picked
+        && !group.was_spawned
+        && !group.was_killed;
+  }
 
+  /**
+   * Remove all the current markers about bounties and place new ones using
+   * the cached bounty positions.
+   */
+  public function updateBountyMarkers() {
+    var map_pin: SU_MapPin;
+    var bounty: RER_Bounty;
+    var i: int;
+
+    bounty = this.getCurrentBountyCopy();
+    SU_removeCustomPinByTag("RER_bounty_target");
+
+    // no point in updating anything if the user settings changed and no
+    // longer allow bounty map markers.
+    if (!theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+
+      return;
+    }
+    
+    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
+      if (!this.isGroupActive(bounty.random_data.groups[i])) {
+        continue;
+      }
+
+      map_pin = new SU_MapPin in thePlayer;
+      map_pin.tag = "RER_bounty_target";
+      map_pin.position = this.cached_bounty_group_positions[i];
+      map_pin.description = StrReplace(
+        GetLocStringByKey("rer_mappin_bounty_target_description"),
+        "{{creature_type}}",
+        getCreatureNameFromCreatureType(
+          this.master.bestiary,
+          bounty.random_data.groups[i]
+            .type
+        )
+      );
+      map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
+      map_pin.type = "MonsterQuest";
+      map_pin.radius = 100;
+      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+
+      thePlayer.addCustomPin(map_pin);
+    }
+
+    SU_updateMinimapPins();
+  }
 
   public function getCurrentBountyCopy(): RER_Bounty {
     return this.master.storages.bounty.current_bounty;
@@ -715,7 +744,7 @@ state Processing in RER_BountyManager {
     for (i = 0; i < groups.Size(); i += 1) {
       // we only move the targets that were not spawned yet and only the markers
       // that are currently shown on the map.
-      if (!this.isGroupActive(groups[i])) {
+      if (!parent.isGroupActive(groups[i])) {
         continue;
       }
 
@@ -793,66 +822,7 @@ state Processing in RER_BountyManager {
         .bounty
         .save();
 
-    // updating markers now:
-    if (theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
-
-      current_group_index = 0;
-      custom_pins = thePlayer.customMapPins;
-      for (i = 0; i < custom_pins.Size(); i += 1) {
-        if (custom_pins[i].tag != "RER_bounty_target") {
-          continue;
-        }
-
-        // we reuse the new position variable here
-        if (this.getActiveBountyGroupPositionByIndex(current_group_index, new_position)) {
-          custom_pins[i].position = new_position;
-
-          current_group_index += 1;
-        }
-        // for some reason there are more pins in the array than we have bounty
-        // targets, we remove that extra pin.
-        else {
-          SU_removeCustomPinByIndex(i);
-        }
-      }
-    }
-
-    SU_updateMinimapPins();
-  }
-
-  function isGroupActive(group: RER_BountyRandomMonsterGroupData): bool {
-    return group.was_picked
-        && !group.was_spawned
-        && !group.was_killed;
-  }
-
-  // NOTE: this loops through the ACTIVE bounty groups, so an index of 2
-  // may not actually be the third in the array. It is the second ACTIVE bounty
-  // group.
-  //
-  function getActiveBountyGroupPositionByIndex(index: int, out group_position: Vector): bool {
-    var groups: array<RER_BountyRandomMonsterGroupData>;
-    var internal_index: int;
-    var i: int;
-
-    groups = parent.master.storages.bounty.current_bounty.random_data.groups;
-
-    for (i = 0; i < groups.Size(); i += 1) {
-      if (!this.isGroupActive(groups[i])) {
-        continue;
-      }
-
-      if (internal_index == index && parent.cached_bounty_group_positions.Size() > i) {
-        group_position = parent.cached_bounty_group_positions[i];
-
-        return true;
-      }
-
-      internal_index += 1;
-    }
-
-    return false;
+    parent.updateBountyMarkers();
   }
 
   latent function spawnNearbyBountyGroups() {

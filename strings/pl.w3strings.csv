@@ -1,10 +1,10 @@
 ;meta[language=pl]
 ; id      |key(hex)|key(str)| text
 ;
-; Changed in v2.6:
-;  - Anything below id: 2115018342 was added
-;  - id: 2115018277 was updated
-;
+; Changed in v2.7:
+;  - Anything below id: 2115018400 was added
+;  - id 2115018347 was deleted (all IDs after this line were decremented by 1)
+;  - id 2115018290 was updated
 ;
 2115018001|        |preset_value_rer_defaults|Domyślne
 2115018002|        |option_rer_custom_frequency_low_day|<font color="#ffd33d">Dzień:</font> minimalne opóźnienie (sekundy)
@@ -293,7 +293,7 @@
 2115018287|        |rer_mappin_bounty_master_description|Spotkaj się z brygadierem łowców nagród by sprzedać trofea i dowiedzieć się o nowych zleceniach
 2115018288|        |rer_mappin_bounty_target_title|Cel zlecenia
 2115018289|        |rer_mappin_bounty_target_description|Grupa stworzeń {{creature_type}} została zauważona w okolicy. Pozbądź się ich i zbierz ich trofea, by później odebrać nagrodę.
-2115018290|        |rer_mappin_regular_title|
+2115018290|        |rer_mappin_regular_title|Cel zlecenia
 2115018291|        |rer_mappin_regular_description|Ślady prowadzą do tego miejsca, coś interesującego musi być w okolicy.
 2115018292|        |rer_dialog_farewell|Powodzenia.
 2115018293|        |rer_dialog_start_bounty|Rozpocznij zlecenie łowcy nagród
@@ -358,54 +358,131 @@
 ;
 ; Thank you!
 2115018346|        |rer_horde_invasion_strength_title|Horda - {{creature_name}}
-2115018347|        |option_rer_horde_chance_with_bounties|Mnożnik szansy na spotkanie hordy w Zleceniu Łowcy Nagród <font size="11">(0 = wyłączony)</font>
-2115018348|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
-2115018349|        |panel_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
-2115018350|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere|Pospolite jedzenie<font color="#ffd33d">:</font> odblokowanie %
-2115018351|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere|Pospolity alkohol<font color="#ffd33d">:</font> odblokowanie %
-2115018352|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere|Pospolite złoto<font color="#ffd33d">:</font> odblokowanie %
-2115018353|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere|Łup z krasnoludów<font color="#ffd33d">:</font> odblokowanie %
-2115018354|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere|Łup z bandytów<font color="#ffd33d">:</font> odblokowanie %
-2115018355|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere|Pospolita skrzynia<font color="#ffd33d">:</font> odblokowanie %
-2115018356|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog|Zioła z Białego Sadu<font color="#ffd33d">:</font> odblokowanie %
-2115018357|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml|Zioła z Velen<font color="#ffd33d">:</font> odblokowanie %
-2115018358|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad|Zioła z Novigradu<font color="#ffd33d">:</font> odblokowanie %
-2115018359|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige|Zioła ze Skellige<font color="#ffd33d">:</font> odblokowanie %
-2115018360|        |option_rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere|Loch<font color="#ffd33d">:</font> odblokowanie %
-2115018361|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1|Skarb - jakość 1<font color="#ffd33d">:</font> odblokowanie %
-2115018362|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2|Skarb - jakość 2<font color="#ffd33d">:</font> odblokowanie %
-2115018363|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3|Skarb - jakość 3<font color="#ffd33d">:</font> odblokowanie %
-2115018364|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4|Skarb - jakość 4<font color="#ffd33d">:</font> odblokowanie %
-2115018365|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5|Skarb - jakość 5<font color="#ffd33d">:</font> odblokowanie %
-2115018366|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_runes|Unikatowe runy<font color="#ffd33d">:</font> odblokowanie %
-2115018367|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades|Unikatowe ulepszenia pancerza<font color="#ffd33d">:</font> odblokowanie %
-2115018368|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr|Unikatowe składniki<font color="#ffd33d">:</font> odblokowanie %
-2115018369|        |option_rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml|Bronie z Velen<font color="#ffd33d">:</font> odblokowanie %
-2115018370|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml|Unikatowe relikty z lochów w Velen<font color="#ffd33d">:</font> odblokowanie %
-2115018371|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige|Unikatowe relikty z lochów na Skellige<font color="#ffd33d">:</font> odblokowanie %
-2115018372|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords|Unikatowe miecze<font color="#ffd33d">:</font> odblokowanie %
-2115018373|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors|Unikatowe pancerze<font color="#ffd33d">:</font> odblokowanie %
-2115018374|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere|Pospolite jedzenie<font color="#ffd33d">:</font> szansa %
-2115018375|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere|Pospolity alkohol<font color="#ffd33d">:</font> szansa %
-2115018376|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere|Pospolite złoto<font color="#ffd33d">:</font> szansa %
-2115018377|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere|Łup z krasnoludów<font color="#ffd33d">:</font> szansa %
-2115018378|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere|Łup z bandytów<font color="#ffd33d">:</font> szansa %
-2115018379|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere|Pospolita skrzynia<font color="#ffd33d">:</font> szansa %
-2115018380|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog|Zioła z Białego Sadu<font color="#ffd33d">:</font> szansa %
-2115018381|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml|Zioła z Velen<font color="#ffd33d">:</font> szansa %
-2115018382|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad|Zioła z Novigradu<font color="#ffd33d">:</font> szansa %
-2115018383|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige|Zioła ze Skellige<font color="#ffd33d">:</font> szansa %
-2115018384|        |option_rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere|Loch<font color="#ffd33d">:</font> szansa %
-2115018385|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1|Skarb - jakość 1<font color="#ffd33d">:</font> szansa %
-2115018386|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2|Skarb - jakość 2<font color="#ffd33d">:</font> szansa %
-2115018387|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3|Skarb - jakość 3<font color="#ffd33d">:</font> szansa %
-2115018388|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4|Skarb - jakość 4<font color="#ffd33d">:</font> szansa %
-2115018389|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5|Skarb - jakość 5<font color="#ffd33d">:</font> szansa %
-2115018390|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_runes|Unikatowe runy<font color="#ffd33d">:</font> szansa %
-2115018391|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades|Unikatowe ulepszenia pancerza<font color="#ffd33d">:</font> szansa %
-2115018392|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr|Unikatowe składniki<font color="#ffd33d">:</font> szansa %
-2115018393|        |option_rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml|Bronie z Velen<font color="#ffd33d">:</font> szansa %
-2115018394|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml|Unikatowe relikty z lochów w Velen<font color="#ffd33d">:</font> szansa %
-2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unikatowe relikty z lochów na Skellige<font color="#ffd33d">:</font> szansa %
-2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unikatowe miecze<font color="#ffd33d">:</font> szansa %
-2115018397|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unikatowe pancerze<font color="#ffd33d">:</font> szansa %
+2115018347|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
+2115018348|        |panel_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
+2115018349|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere|Pospolite jedzenie<font color="#ffd33d">:</font> odblokowanie %
+2115018350|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere|Pospolity alkohol<font color="#ffd33d">:</font> odblokowanie %
+2115018351|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere|Pospolite złoto<font color="#ffd33d">:</font> odblokowanie %
+2115018352|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere|Łup z krasnoludów<font color="#ffd33d">:</font> odblokowanie %
+2115018353|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere|Łup z bandytów<font color="#ffd33d">:</font> odblokowanie %
+2115018354|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere|Pospolita skrzynia<font color="#ffd33d">:</font> odblokowanie %
+2115018355|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog|Zioła z Białego Sadu<font color="#ffd33d">:</font> odblokowanie %
+2115018356|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml|Zioła z Velen<font color="#ffd33d">:</font> odblokowanie %
+2115018357|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad|Zioła z Novigradu<font color="#ffd33d">:</font> odblokowanie %
+2115018358|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige|Zioła ze Skellige<font color="#ffd33d">:</font> odblokowanie %
+2115018359|        |option_rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere|Loch<font color="#ffd33d">:</font> odblokowanie %
+2115018360|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1|Skarb - jakość 1<font color="#ffd33d">:</font> odblokowanie %
+2115018361|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2|Skarb - jakość 2<font color="#ffd33d">:</font> odblokowanie %
+2115018362|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3|Skarb - jakość 3<font color="#ffd33d">:</font> odblokowanie %
+2115018363|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4|Skarb - jakość 4<font color="#ffd33d">:</font> odblokowanie %
+2115018364|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5|Skarb - jakość 5<font color="#ffd33d">:</font> odblokowanie %
+2115018365|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_runes|Unikatowe runy<font color="#ffd33d">:</font> odblokowanie %
+2115018366|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades|Unikatowe ulepszenia pancerza<font color="#ffd33d">:</font> odblokowanie %
+2115018367|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr|Unikatowe składniki<font color="#ffd33d">:</font> odblokowanie %
+2115018368|        |option_rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml|Bronie z Velen<font color="#ffd33d">:</font> odblokowanie %
+2115018369|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml|Unikatowe relikty z lochów w Velen<font color="#ffd33d">:</font> odblokowanie %
+2115018370|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige|Unikatowe relikty z lochów na Skellige<font color="#ffd33d">:</font> odblokowanie %
+2115018371|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords|Unikatowe miecze<font color="#ffd33d">:</font> odblokowanie %
+2115018372|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors|Unikatowe pancerze<font color="#ffd33d">:</font> odblokowanie %
+2115018373|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere|Pospolite jedzenie<font color="#ffd33d">:</font> szansa %
+2115018374|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere|Pospolity alkohol<font color="#ffd33d">:</font> szansa %
+2115018375|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere|Pospolite złoto<font color="#ffd33d">:</font> szansa %
+2115018376|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere|Łup z krasnoludów<font color="#ffd33d">:</font> szansa %
+2115018377|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere|Łup z bandytów<font color="#ffd33d">:</font> szansa %
+2115018378|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere|Pospolita skrzynia<font color="#ffd33d">:</font> szansa %
+2115018379|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog|Zioła z Białego Sadu<font color="#ffd33d">:</font> szansa %
+2115018380|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml|Zioła z Velen<font color="#ffd33d">:</font> szansa %
+2115018381|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad|Zioła z Novigradu<font color="#ffd33d">:</font> szansa %
+2115018382|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige|Zioła ze Skellige<font color="#ffd33d">:</font> szansa %
+2115018383|        |option_rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere|Loch<font color="#ffd33d">:</font> szansa %
+2115018384|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1|Skarb - jakość 1<font color="#ffd33d">:</font> szansa %
+2115018385|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2|Skarb - jakość 2<font color="#ffd33d">:</font> szansa %
+2115018386|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3|Skarb - jakość 3<font color="#ffd33d">:</font> szansa %
+2115018387|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4|Skarb - jakość 4<font color="#ffd33d">:</font> szansa %
+2115018388|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5|Skarb - jakość 5<font color="#ffd33d">:</font> szansa %
+2115018389|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_runes|Unikatowe runy<font color="#ffd33d">:</font> szansa %
+2115018390|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades|Unikatowe ulepszenia pancerza<font color="#ffd33d">:</font> szansa %
+2115018391|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr|Unikatowe składniki<font color="#ffd33d">:</font> szansa %
+2115018392|        |option_rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml|Bronie z Velen<font color="#ffd33d">:</font> szansa %
+2115018393|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml|Unikatowe relikty z lochów w Velen<font color="#ffd33d">:</font> szansa %
+2115018394|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unikatowe relikty z lochów na Skellige<font color="#ffd33d">:</font> szansa %
+2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unikatowe miecze<font color="#ffd33d">:</font> szansa %
+2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unikatowe pancerze<font color="#ffd33d">:</font> szansa %
+2115018397|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> wersja
+2115018398|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier
+2115018399|        |preset_value_rer_static_encounters_aeltoth|Aeltoth
+2115018400|        |preset_Mods_rer_name_rer_contracts_settings|System zleceń
+2115018401|        |panel_rer_contracts_settings|System zleceń
+2115018402|        |option_rer_hours_before_new_contracts|Odstęp między kontraktami w godzinach
+2115018403|        |option_rer_easy_nearby_contracts_number|Ilość łatwych i niedalekich zleceń
+2115018404|        |option_rer_hard_nearby_contracts_number|Ilość trudnych i niedalekich zleceń
+2115018405|        |option_rer_easy_far_contracts_number|Ilość łatwych i odległych zleceń
+2115018406|        |option_rer_hard_far_contracts_number|Ilość trudnych i odległych zleceń
+2115018407|        |option_rer_allow_learn_new_locations|Pozwól NLS na uczenie się nowych lokacji w czasie eksploracji
+2115018408|        |option_rer_contracts_generation_seed|Ziarno wyboru zlecenia
+2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Sznsa na gatunki:</font> Zwierzęta
+2115018410|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Istoty Przeklęte
+2115018411|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Drakonidy
+2115018412|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Istoty magiczne
+2115018413|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrydy
+2115018414|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insektoidy
+2115018415|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Trupojady
+2115018416|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogrowate
+2115018417|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relikty
+2115018418|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Upiory
+2115018419|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Wampiry
+2115018420|        |rer_species_beasts|Zwierzęta
+2115018421|        |rer_species_cursed|Istoty Przeklęte
+2115018422|        |rer_species_draconids|Drakonidy
+2115018423|        |rer_species_elementa|Istoty magiczne
+2115018424|        |rer_species_hybrids|Hybrydy
+2115018425|        |rer_species_insectoids|Insektoidy
+2115018426|        |rer_species_necrophages|Trupojady
+2115018427|        |rer_species_ogroids|Ogrowate
+2115018428|        |rer_species_relicts|Relikty
+2115018429|        |rer_species_specters|Upiory
+2115018430|        |rer_species_vampires|Wampiry
+2115018431|        |rer_distance_close|Niedalekie
+2115018432|        |rer_distance_far|Odległe
+; this line is the one displayed when starting a contract, for example:
+; - Close and easy Ogroids contract
+; - Far and hard Draconids contract
+; the {{distance}} will be replaced by either "far" or "close"
+; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
+; the {{species}} will be replaced by the species translated just above.
+2115018433|        |rer_contract_dialog_choice|{{distance}} i {{difficulty}} zlecenie na {{species}}
+2115018434|        |rer_cancel|Anuluj
+2115018435|        |rer_token_gear|Żeton na Rynsztunek
+2115018436|        |rer_token_gear_short|Rynsztunek
+2115018437|        |rer_token_gear_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na rynsztunek u Brygadiera Łowców Nagród.
+2115018438|        |rer_token_consumables|Żeton na Jedzenie
+2115018439|        |rer_token_consumables_short|Jedzenie
+2115018440|        |rer_token_consumables_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na jedzenie u Brygadiera Łowców Nagród.
+2115018441|        |rer_token_experience|Żeton na Doświadczenie
+2115018442|        |rer_token_experience_short|Doświadczenie
+2115018443|        |rer_token_experience_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na doświadzenie u Brygadiera Łowców Nagród.
+2115018444|        |rer_token_materials|Żeton na Materiały rzemieślnicze
+2115018445|        |rer_token_materials_short|Materiały rzemieślnicze
+2115018446|        |rer_token_materials_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na materiały rzemieślnicze u Brygadiera Łowców Nagród.
+2115018447|        |rer_token_gold|Żeton na Złoto
+2115018448|        |rer_token_gold_short|Złoto
+2115018449|        |rer_token_gold_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na złoto u Brygadiera Łowców Nagród.
+; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
+2115018450|        |rer_available_rewards|Nagrody dostępne z tej tablicy ogłoszeniowej: {{rewards_list}}
+; As it may be hard to read with all these {{}}, here is an example of what 
+; it should look like this once localized:
+; Gear (7 left)
+; {{reward_type}} are the `rer_token_type_short` lines you translated above.
+; {{tokens_amount}} is the number of tokens the player has in his inventory.
+2115018451|        |rer_token_trading_option|{{reward_type}} (żetony: {{tokens_amount}})
+2115018452|        |rer_token_trading_option_empty|Brak żetonów do wymiany
+2115018453|        |rer_trade_tokens|Wymień żetony
+2115018454|        |option_rer_mod_version|WERSJA <font color="#d73a49">(NIE ZMIENIAĆ!)</font>
+2115018455|        |rer_find_nest|Odnajdź gniazdo potworów: {{type}}
+2115018456|        |rer_find_nests|Odnajdź gniazda potworów: {{type}}
+2115018457|        |rer_survive_horde|Przetrwaj hordę potworów: {{type}}
+2115018458|        |rer_kill_target|Zabij wszystkie potwory: {{type}}
+2115018459|        |rer_contract_finished|Zlecenie zostało ukończone
+2115018460|        |rer_reward_bag|{{reward_type}} jako nagroda czeka w sakwie pod twoimi stopami
+2115018461|        |rer_contract_started|Zlecenie na {{species}} właśnie się rozpoczęło, przeszukaj obszar oznaczony na mapie
+2115018462|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Lowca

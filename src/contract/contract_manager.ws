@@ -306,6 +306,16 @@ statemachine class RER_ContractManager {
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
+    else {
+      NDEBUG(
+        "RER ERROR: the name of the token is not valid [" + token_name + "]." +
+        "You can report this issue to the author, preferably with a copy/screenshot of this message." +
+        "<br/>Additional information:" +
+        "<br/> - seed: " + storage.ongoing_contract.rng_seed +
+        "<br/> - reward type: " + storage.ongoing_contract.reward_type +
+        "<br/> - identifier: " + storage.ongoing_contract.identifier.identifier
+      );
+    }
 
     storage.save();
   }
