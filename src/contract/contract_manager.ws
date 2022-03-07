@@ -272,8 +272,10 @@ statemachine class RER_ContractManager {
   }
 
   public function completeCurrentContract() {
+    var rewards_increase_from_reputation: float;
     var storage: RER_ContractStorage;
     var rng: RandomNumberGenerator;
+    var current_reputation: int;
     var rewards_amount: int;
     var token_name: name;
 
@@ -297,10 +299,19 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
-    if (IsNameValid(token_name)) {
-      rewards_amount = 1
-                     * (1 + (int)(storage.ongoing_contract.difficulty == ContractDifficulty_HARD));
+    rewards_increase_from_reputation = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease'));
 
+    current_reputation = this.getNoticeboardReputation(
+      storage.ongoing_contract.noticeboard_identifier
+    );
+
+    rewards_amount = RoundF(
+      (int)storage.ongoing_contract.difficulty
+      * (1 + current_reputation)
+    );
+
+    if (IsNameValid(token_name)) {
       thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
       thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
       theSound.SoundEvent("gui_inventory_buy");
@@ -316,6 +327,11 @@ statemachine class RER_ContractManager {
         "<br/> - identifier: " + storage.ongoing_contract.identifier.identifier
       );
     }
+
+    this.increaseReputationForNoticeboard(
+      storage.ongoing_contract.noticeboard_identifier,
+      (int)storage.ongoing_contract.difficulty
+    );
 
     storage.save();
   }
@@ -339,7 +355,7 @@ statemachine class RER_ContractManager {
     for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
       current_reputation = this.master.storages.contract.noticeboards_reputation[i];
 
-      if (current_reputation.noticeboard_identifier != noticeboard) {
+      if (current_reputation.noticeboard_identifier.identifier != noticeboard.identifier) {
         continue;
       }
 
@@ -358,7 +374,7 @@ statemachine class RER_ContractManager {
     for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
       current_reputation = this.master.storages.contract.noticeboards_reputation[i];
 
-      if (current_reputation.noticeboard_identifier != noticeboard) {
+      if (current_reputation.noticeboard_identifier.identifier != noticeboard.identifier) {
         continue;
       }
 
@@ -370,5 +386,17 @@ statemachine class RER_ContractManager {
     this.master.storages.contract.noticeboards_reputation.PushBack(
       RER_NoticeboardReputation(noticeboard, value)
     );
+  }
+
+  public function hasRequiredReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier): bool {
+    var vanilla_contracts_requirement: int;
+    var current_reputation: int;
+
+    vanilla_contracts_requirement = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement'));
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    return current_reputation >= vanilla_contracts_requirement;
   }
 }

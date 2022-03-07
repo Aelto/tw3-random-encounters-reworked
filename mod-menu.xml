@@ -4790,6 +4790,9 @@
                 <Entry varId="RERspeciesChanceRelicts" value="50" />
                 <Entry varId="RERspeciesChanceSpecters" value="50" />
                 <Entry varId="RERspeciesChanceVampires" value="50" />
+
+                <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
+                <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="2" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -4815,6 +4818,10 @@
             <Var id="RERspeciesChanceRelicts" displayName="rer_species_chance_relicts" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceSpecters" displayName="rer_species_chance_specters" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceVampires" displayName="rer_species_chance_vampires" displayType="SLIDER;0;100;100"/>
+
+            <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
+            <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
+            <Var id="RERcontractsReputationSystemReputationRewardsIncrease" displayName="rer_contracts_reputation_system_reputation_rewards_increase" displayType="SLIDER;0;100;100"></Var>
         </VisibleVars>
     </Group>
 
