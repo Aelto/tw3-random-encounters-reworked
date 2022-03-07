@@ -95,7 +95,7 @@ state DialogChoice in RER_ContractManager {
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
         false, // is_far
-        false, // is_hard
+        ContractDifficulty_EASY, // difficulty
         random_species,
         generation_time
       );
@@ -126,7 +126,7 @@ state DialogChoice in RER_ContractManager {
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
         true, // is_far
-        false, // is_hard
+        ContractDifficulty_HARD, // difficulty
         random_species,
         generation_time
       );
@@ -155,7 +155,7 @@ state DialogChoice in RER_ContractManager {
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
         false, // is_far
-        true, // is_hard
+        ContractDifficulty_HARD, // difficulty
         random_species,
         generation_time
       );
@@ -184,7 +184,7 @@ state DialogChoice in RER_ContractManager {
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
         true, // is_far
-        true, // is_hard
+        ContractDifficulty_HARD, // difficulty
         random_species,
         generation_time
       );
@@ -302,7 +302,7 @@ state DialogChoice in RER_ContractManager {
     contract_data.identifier = parent.getUniqueIdFromContract(
       noticeboard_identifier,
       contract_data.distance == ContractDistance_FAR, // is_far
-      contract_data.difficulty == ContractDifficulty_HARD, // is_hard
+      contract_data.difficulty, // difficulty
       contract_data.species,
       generation_time
     );

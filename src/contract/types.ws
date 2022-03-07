@@ -45,7 +45,8 @@ enum RER_ContractDistance {
 
 enum RER_ContractDifficulty {
   ContractDifficulty_EASY = 0,
-  ContractDifficulty_HARD = 1
+  ContractDifficulty_MEDIUM = 1,
+  ContractDifficulty_HARD = 2
 }
 
 /**

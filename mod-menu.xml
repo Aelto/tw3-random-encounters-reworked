@@ -4800,8 +4800,10 @@
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
 
             <Var id="REReasyNearbyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="RERmediumNearbyContractsNumber" displayName="rer_medium_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERhardNearbyContractsNumber" displayName="rer_hard_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="REReasyFarContractsNumber" displayName="rer_easy_far_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="RERmediumFarContractsNumber" displayName="rer_medium_far_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERhardFarContractsNumber" displayName="rer_hard_far_contracts_number" displayType="SLIDER;0;5;5"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>

@@ -137,6 +137,9 @@ state Processing in RER_ContractManager {
     if (ongoing_contract.difficulty == ContractDifficulty_HARD) {
       impact_points = rng.nextRange(40, 25);
     }
+    else if (ongoing_contract.difficulty == ContractDifficulty_MEDIUM) {
+      impact_points = rng.nextRange(25, 10);
+    }
     else {
       impact_points = rng.nextRange(10, 5);
     }
@@ -326,7 +329,7 @@ state Processing in RER_ContractManager {
       .useSeed(true);
 
     enemy_count = RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier)
-      * (1 + (int)(ongoing_contract.difficulty == ContractDifficulty_HARD));
+      * (1 + (int)(ongoing_contract.difficulty));
 
     if (enemy_count < 3) {
       // the amount of enemies would be too low for it to be a good horde, in

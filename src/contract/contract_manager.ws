@@ -81,13 +81,13 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, is_far: bool, is_hard: bool, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, is_far: bool, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
     uuid += 100 + (int)is_far + "-";
-    uuid += 10 + (int)is_hard + "-";
+    uuid += 10 + (int)difficulty + "-";
     uuid += (int)species;
 
     return RER_ContractIdentifier(uuid);
@@ -116,7 +116,7 @@ statemachine class RER_ContractManager {
 
     NLOG("generateContract, reward_type = " + contract.reward_type);
 
-    if (data.difficulty == ContractDifficulty_EASY) {
+    if (data.difficulty == ContractDifficulty_EASY || data.difficulty == ContractDifficulty_MEDIUM) {
       if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_HORDE;
       }
@@ -307,7 +307,7 @@ statemachine class RER_ContractManager {
     );
 
     rewards_amount = RoundF(
-      (int)storage.ongoing_contract.difficulty
+      ((int)storage.ongoing_contract.difficulty + 1)
       * (1 + current_reputation)
     );
 
@@ -330,7 +330,7 @@ statemachine class RER_ContractManager {
 
     this.increaseReputationForNoticeboard(
       storage.ongoing_contract.noticeboard_identifier,
-      (int)storage.ongoing_contract.difficulty
+      (int)storage.ongoing_contract.difficulty + 1
     );
 
     storage.save();
