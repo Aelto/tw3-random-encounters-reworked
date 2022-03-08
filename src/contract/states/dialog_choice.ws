@@ -81,181 +81,233 @@ state DialogChoice in RER_ContractManager {
       'StartContractDifficultyEasyDistanceClose'
     ));
 
-    // close & easy
-    amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyNearbyContractsNumber'));
+    line = GetLocStringByKey("rer_current_reputation");
+    line = StrReplace(line, "{{reputation}}", parent.getNoticeboardReputation(noticeboard_identifier));
 
-    for (i = 0; i < amount_of_options; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
+    choices.PushBack(SSceneChoice(
+      upperCaseFirstLetter(line),
+      false,
+      true, // already choosen
+      true, // disabled
+      DialogAction_MONSTERCONTRACT,
+      'StartContractDifficultyEasyDistanceClose'
+    ));
 
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
-      line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_MEDIUM)) {
+      // close & easy
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyNearbyContractsNumber'));
 
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        false, // is_far
-        ContractDifficulty_EASY, // difficulty
-        random_species,
-        generation_time
-      );
+      for (i = 0; i < amount_of_options; i += 1) {
+        random_species = RER_getSeededRandomSpeciesType(rng);
 
-      NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
+        line = GetLocStringByKey("rer_contract_dialog_choice");
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
+        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
+        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
+        contract_identifier = parent.getUniqueIdFromContract(
+          noticeboard_identifier,
+          false, // is_far
+          ContractDifficulty_EASY, // difficulty
+          random_species,
+          generation_time
+        );
+
+        NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
+
+        choices.PushBack(SSceneChoice(
+          upperCaseFirstLetter(line),
+          false,
+          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+          false,
+          DialogAction_MONSTERCONTRACT,
+          'StartContractDifficultyEasyDistanceClose'
+        ));
+      }
+
+      // far & easy
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyFarContractsNumber'));
+
+      for (i = 0; i < amount_of_options; i += 1) {
+        random_species = RER_getSeededRandomSpeciesType(rng);
+
+        line = GetLocStringByKey("rer_contract_dialog_choice");
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
+        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
+        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+
+        contract_identifier = parent.getUniqueIdFromContract(
+          noticeboard_identifier,
+          true, // is_far
+          ContractDifficulty_EASY, // difficulty
+          random_species,
+          generation_time
+        );
+
+        choices.PushBack(SSceneChoice(
+          upperCaseFirstLetter(line),
+          false,
+          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+          false,
+          DialogAction_MONSTERCONTRACT,
+          'StartContractDifficultyEasyDistanceFar'
+        ));
+      }
+    }
+    else {
+      line = GetLocStringByKey("rer_complete_more_contracts");
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
         false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+        true, // already choosen
         false,
         DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyEasyDistanceClose'
+        'NotEnoughReputation'
+      ));
+    }
+    
+
+    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_MEDIUM)) {
+      // close & medium
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERmediumNearbyContractsNumber'));
+
+      for (i = 0; i < amount_of_options; i += 1) {
+        random_species = RER_getSeededRandomSpeciesType(rng);
+
+        line = GetLocStringByKey("rer_contract_dialog_choice");
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
+        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_medium")));
+        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+
+        contract_identifier = parent.getUniqueIdFromContract(
+          noticeboard_identifier,
+          false, // is_far
+          ContractDifficulty_MEDIUM, // difficulty
+          random_species,
+          generation_time
+        );
+
+        NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
+
+        choices.PushBack(SSceneChoice(
+          upperCaseFirstLetter(line),
+          false,
+          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+          false,
+          DialogAction_MONSTERCONTRACT,
+          'StartContractDifficultyMediumDistanceClose'
+        ));
+      }
+
+      // far & medium
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyFarContractsNumber'));
+
+      for (i = 0; i < amount_of_options; i += 1) {
+        random_species = RER_getSeededRandomSpeciesType(rng);
+
+        line = GetLocStringByKey("rer_contract_dialog_choice");
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
+        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_medium")));
+        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+
+        contract_identifier = parent.getUniqueIdFromContract(
+          noticeboard_identifier,
+          true, // is_far
+          ContractDifficulty_MEDIUM, // difficulty
+          random_species,
+          generation_time
+        );
+
+        choices.PushBack(SSceneChoice(
+          upperCaseFirstLetter(line),
+          false,
+          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+          false,
+          DialogAction_MONSTERCONTRACT,
+          'StartContractDifficultyMediumDistanceFar'
+        ));
+      }
+    }
+    else {
+      line = GetLocStringByKey("rer_complete_more_contracts");
+      choices.PushBack(SSceneChoice(
+        upperCaseFirstLetter(line),
+        false,
+        true, // already choosen
+        false,
+        DialogAction_MONSTERCONTRACT,
+        'NotEnoughReputation'
       ));
     }
 
-    // far & easy
-    amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyFarContractsNumber'));
+    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_HARD)) {
+      // close & hard
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERhardNearbyContractsNumber'));
 
-    for (i = 0; i < amount_of_options; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
+      for (i = 0; i < amount_of_options; i += 1) {
+        random_species = RER_getSeededRandomSpeciesType(rng);
 
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
-      line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+        line = GetLocStringByKey("rer_contract_dialog_choice");
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
+        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
+        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        true, // is_far
-        ContractDifficulty_EASY, // difficulty
-        random_species,
-        generation_time
-      );
+        contract_identifier = parent.getUniqueIdFromContract(
+          noticeboard_identifier,
+          false, // is_far
+          ContractDifficulty_HARD, // difficulty
+          random_species,
+          generation_time
+        );
 
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyEasyDistanceFar'
-      ));
+        choices.PushBack(SSceneChoice(
+          upperCaseFirstLetter(line),
+          false,
+          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+          false,
+          DialogAction_MONSTERCONTRACT,
+          'StartContractDifficultyHardDistanceClose'
+        ));
+      }
+
+      // far & hard
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERhardFarContractsNumber'));
+
+      for (i = 0; i < amount_of_options; i += 1) {
+        random_species = RER_getSeededRandomSpeciesType(rng);
+
+        line = GetLocStringByKey("rer_contract_dialog_choice");
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
+        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
+        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+
+        contract_identifier = parent.getUniqueIdFromContract(
+          noticeboard_identifier,
+          true, // is_far
+          ContractDifficulty_HARD, // difficulty
+          random_species,
+          generation_time
+        );
+
+        choices.PushBack(SSceneChoice(
+          upperCaseFirstLetter(line),
+          false,
+          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+          false,
+          DialogAction_MONSTERCONTRACT,
+          'StartContractDifficultyHardDistanceFar'
+        ));
+      }
     }
-
-    // close & medium
-    amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERmediumNearbyContractsNumber'));
-
-    for (i = 0; i < amount_of_options; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
-
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
-      line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_medium")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        false, // is_far
-        ContractDifficulty_MEDIUM, // difficulty
-        random_species,
-        generation_time
-      );
-
-      NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
-
+    else {
+      line = GetLocStringByKey("rer_complete_more_contracts");
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
         false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
+        true, // already choosen
         false,
         DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyMediumDistanceClose'
-      ));
-    }
-
-    // far & medium
-    amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyFarContractsNumber'));
-
-    for (i = 0; i < amount_of_options; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
-
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
-      line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_medium")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        true, // is_far
-        ContractDifficulty_MEDIUM, // difficulty
-        random_species,
-        generation_time
-      );
-
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyMediumDistanceFar'
-      ));
-    }
-
-    // close & hard
-    amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERhardNearbyContractsNumber'));
-
-    for (i = 0; i < amount_of_options; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
-
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
-      line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        false, // is_far
-        ContractDifficulty_HARD, // difficulty
-        random_species,
-        generation_time
-      );
-
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyHardDistanceClose'
-      ));
-    }
-
-    // far & hard
-    amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERhardFarContractsNumber'));
-
-    for (i = 0; i < amount_of_options; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
-
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
-      line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
-      line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        true, // is_far
-        ContractDifficulty_HARD, // difficulty
-        random_species,
-        generation_time
-      );
-
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyHardDistanceFar'
+        'NotEnoughReputation'
       ));
     }
 

@@ -399,4 +399,23 @@ statemachine class RER_ContractManager {
 
     return current_reputation >= vanilla_contracts_requirement;
   }
+
+  /**
+   * Returns whether the player has the needed reputation for the noticeboard
+   * and a contract of the given difficulty.
+   */
+  public function hasRequiredReputationForContractAtNoticeboard(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty): bool {
+    var vanilla_contracts_requirement: int;
+    var current_reputation: int;
+
+    vanilla_contracts_requirement = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement'));
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    // We use the requirement for the vanilla contracts multiplied by the difficulty.
+    // Since the difficulty starts at easy, which is equal to 0 this means easy contracts
+    // are always available, then it starts to ramp up at medium.
+    return current_reputation >= vanilla_contracts_requirement * (int)difficulty;
+  }
 }

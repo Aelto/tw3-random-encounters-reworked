@@ -1,6 +1,9 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
 ; 
+; Changed in v2.8:
+;  - Anything below id: 2115018462 was added
+;
 ; Changed in v2.7:
 ;  - Anything below id: 2115018400 was added
 ;  - id 2115018347 was deleted (all IDs after this line were decremented by 1)
@@ -491,3 +494,5 @@
 2115018460|        |rer_reward_bag|Your {{reward_type}} is waiting in the bag at your feet
 2115018461|        |rer_contract_started|{{species}} contract has started, search the marker on your map
 2115018462|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
+2115018463|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
+2115018464|        |rer_current_reputation|Current reputation for this noticeboard: {{reputation}}
