@@ -24,8 +24,10 @@
     <ul>
       <li>Real life hours before new contracts. Default: <span>1</span>.</li>
       <li>Number of nearby easy contract. Default: <span>1</span></li>
+      <li>Number of nearby medium contract. Default: <span>1</span></li>
       <li>Number of nearby hard contract. Default: <span>1</span></li>
       <li>Number of far easy contract. Default: <span>1</span></li>
+      <li>Number of far medium contract. Default: <span>1</span></li>
       <li>Number of far hard contract. Default: <span>1</span></li>
       <li>Allow RER to learn about new locations as you explore the world. Default: <span>true</span></li>
       <li>Contracts generation seed. Default: <span>0</span></li>
@@ -38,6 +40,9 @@
           <li> - Elemental contracts. Default: <span>10</span></li>
         </ul>
       </li>
+      <li>Reputation System enabled. Default: <span>true</span></li>
+      <li>Reputation required for vanilla contracts. Default: <span>2</span></li>
+      <li>Rewards bonus from reputation points. Default: <span>0.1</span> (10%)</li>
     </ul>
   </section>
 
@@ -51,10 +56,9 @@
     </p>
 
     <ul>
-      <li>First it will display the list of nearby easy contracts for a random monster species you can accept.</li>
-      <li>In second, the list of nearby hard contracts</li>
-      <li>In third, the list of far easy contracts</li>
-      <li>In third, the list of far hard contracts</li>
+      <li>It first displays the tokens you can hope to get from this noticeboard</li>
+      <li>Then it shows your <a href="#reputation">reputation</a> for this specific noticeboard</li>
+      <li>Finally it lists the available contracts and their different difficulties</li>
     </ul>
 
     <p>
@@ -147,6 +151,13 @@
       on the location where you started the contract. A poor Velen settlement does not
       have the same rewards as Novigrad for example.
     </p>
+
+    <p>
+      Depending on the difficulty of the contract you just completed, your reward may vary.
+      Harder contracts result in more tokens. Your <a href="#reputation">reputation</a> also
+      has an impact on how the locals will pay you. As you get known your rewards will tend
+      to increase.
+    </p>
   </section>
 
   <section>
@@ -170,6 +181,24 @@
       If needed, the mod menu exposes a slider that can be changed to use another
       seed. However this will follow the same logic, any player with the same seed
       will get the same contracts or the same amount of time spent in the playthrough.
+    </p>
+  </section>
+
+  <section id="reputation">
+    <h3>Reputation and vanilla contracts</h3>
+
+    <p>
+      The mod introduces a simple reputation system to the game, as you complete
+      contracts (from the mod) your reputation increases in the area. Each settlement
+      and its noticeboard has its reputation metter, having a high reputation in Novigrad
+      will not have an impact on other nearby settlements.
+    </p>
+
+    <p>
+      People will not accept jobs from you until you have grown your reputation, you must
+      first get known to be able to read the interesting offers. This accounts medium and hard
+      contracts from the mod but vanilla contracts as well. If you wish to complete quests in
+      the area you must first complete at least a few easy contracts from the noticeboard.
     </p>
   </section>
 </body>

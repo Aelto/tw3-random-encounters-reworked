@@ -4793,6 +4793,7 @@
 
                 <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
                 <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="2" />
+                <Entry varId="RERcontractsReputationSystemReputationRewardsIncrease" value="0.1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
