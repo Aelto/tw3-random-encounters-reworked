@@ -39,8 +39,9 @@ struct RER_GenerationTime {
 }
 
 enum RER_ContractDistance {
-  ContractDistance_CLOSE = 0,
-  ContractDistance_FAR = 1,
+  ContractDistance_NEARBY = 0,
+  ContractDistance_CLOSE = 1,
+  ContractDistance_FAR = 2,
 }
 
 enum RER_ContractDifficulty {

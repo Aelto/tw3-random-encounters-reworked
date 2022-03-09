@@ -81,12 +81,12 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, is_far: bool, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, distance: RER_ContractDistance, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
-    uuid += 100 + (int)is_far + "-";
+    uuid += 100 + (int)distance + "-";
     uuid += 10 + (int)difficulty + "-";
     uuid += (int)species;
 
@@ -147,7 +147,11 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    if (distance == ContractDistance_CLOSE) {
+    if (distance == ContractDistance_NEARBY) {
+      // the first 12.5%
+      index = (int)rng.nextRange(RoundF(quarter * 0.5));
+    }
+    else if (distance == ContractDistance_CLOSE) {
       // the first 25%
       index = (int)rng.nextRange(quarter, 0);
     }

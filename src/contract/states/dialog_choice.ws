@@ -95,21 +95,23 @@ state DialogChoice in RER_ContractManager {
       'StartContractDifficultyEasyDistanceClose'
     ));
 
-    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_MEDIUM)) {
-      // close & easy
+    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_EASY)) {
+      // easy,
+      // easy contracts are always NEARBY
+
       amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyNearbyContractsNumber'));
 
       for (i = 0; i < amount_of_options; i += 1) {
         random_species = RER_getSeededRandomSpeciesType(rng);
 
         line = GetLocStringByKey("rer_contract_dialog_choice");
-        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_close")));
+        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_nearby")));
         line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
         line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
 
         contract_identifier = parent.getUniqueIdFromContract(
           noticeboard_identifier,
-          false, // is_far
+          ContractDistance_NEARBY, // is_far
           ContractDifficulty_EASY, // difficulty
           random_species,
           generation_time
@@ -123,36 +125,7 @@ state DialogChoice in RER_ContractManager {
           parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
           false,
           DialogAction_MONSTERCONTRACT,
-          'StartContractDifficultyEasyDistanceClose'
-        ));
-      }
-
-      // far & easy
-      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyFarContractsNumber'));
-
-      for (i = 0; i < amount_of_options; i += 1) {
-        random_species = RER_getSeededRandomSpeciesType(rng);
-
-        line = GetLocStringByKey("rer_contract_dialog_choice");
-        line = StrReplace(line, "{{distance}}", StrLowerUTF(GetLocStringByKey("rer_distance_far")));
-        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
-        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-        contract_identifier = parent.getUniqueIdFromContract(
-          noticeboard_identifier,
-          true, // is_far
-          ContractDifficulty_EASY, // difficulty
-          random_species,
-          generation_time
-        );
-
-        choices.PushBack(SSceneChoice(
-          upperCaseFirstLetter(line),
-          false,
-          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-          false,
-          DialogAction_MONSTERCONTRACT,
-          'StartContractDifficultyEasyDistanceFar'
+          'StartContractDifficultyEasyDistanceNearby'
         ));
       }
     }
@@ -183,7 +156,7 @@ state DialogChoice in RER_ContractManager {
 
         contract_identifier = parent.getUniqueIdFromContract(
           noticeboard_identifier,
-          false, // is_far
+          ContractDistance_CLOSE, // is_far
           ContractDifficulty_MEDIUM, // difficulty
           random_species,
           generation_time
@@ -214,7 +187,7 @@ state DialogChoice in RER_ContractManager {
 
         contract_identifier = parent.getUniqueIdFromContract(
           noticeboard_identifier,
-          true, // is_far
+          ContractDistance_FAR, // is_far
           ContractDifficulty_MEDIUM, // difficulty
           random_species,
           generation_time
@@ -256,7 +229,7 @@ state DialogChoice in RER_ContractManager {
 
         contract_identifier = parent.getUniqueIdFromContract(
           noticeboard_identifier,
-          false, // is_far
+          ContractDistance_CLOSE, // is_far
           ContractDifficulty_HARD, // difficulty
           random_species,
           generation_time
@@ -285,7 +258,7 @@ state DialogChoice in RER_ContractManager {
 
         contract_identifier = parent.getUniqueIdFromContract(
           noticeboard_identifier,
-          true, // is_far
+          ContractDistance_FAR, // is_far
           ContractDifficulty_HARD, // difficulty
           random_species,
           generation_time
@@ -412,6 +385,9 @@ state DialogChoice in RER_ContractManager {
     if (StrContains(NameToString(response.playGoChunk), "DistanceFar")) {
       contract_data.distance = ContractDistance_FAR;
     }
+    else if (StrContains(NameToString(response.playGoChunk), "DistanceNearby")) {
+      contract_data.distance = ContractDistance_NEARBY;
+    }
     else {
       contract_data.distance = ContractDistance_CLOSE;
     }
@@ -419,7 +395,7 @@ state DialogChoice in RER_ContractManager {
     contract_data.noticeboard_identifier = noticeboard_identifier;
     contract_data.identifier = parent.getUniqueIdFromContract(
       noticeboard_identifier,
-      contract_data.distance == ContractDistance_FAR, // is_far
+      contract_data.distance,
       contract_data.difficulty, // difficulty
       contract_data.species,
       generation_time
