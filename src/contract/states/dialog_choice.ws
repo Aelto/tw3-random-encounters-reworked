@@ -11,6 +11,8 @@ state DialogChoice in RER_ContractManager {
     NLOG("RER_ContractManager - state DialogChoice");
 
     this.DialogChoice_main();
+
+    Sleep(0.25);
   }
 
   event OnLeaveState( nextStateName : name ) {
@@ -339,6 +341,7 @@ state DialogChoice in RER_ContractManager {
       }
 
       if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {
+        Sleep(0.25);
         parent.GotoState('Waiting');
         return;
       }

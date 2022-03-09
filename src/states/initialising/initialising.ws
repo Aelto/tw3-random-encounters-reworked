@@ -58,7 +58,11 @@ state Initialising in CRandomEncounters {
     }
 
     if (current_version < 2.08) {
-      // next version...
+      NLOG("[RER] The mod was updated to v2.8: the Contract System settings were reset to support the new reputation system");
+
+      // reset the contract tutorial value so it displays again
+      theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
 
       current_version = 2.08;
     }
