@@ -99,7 +99,7 @@ state DialogChoice in RER_ContractManager {
       // easy,
       // easy contracts are always NEARBY
 
-      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyNearbyContractsNumber'));
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyContractsNumber'));
 
       for (i = 0; i < amount_of_options; i += 1) {
         random_species = RER_getSeededRandomSpeciesType(rng);
@@ -175,7 +175,7 @@ state DialogChoice in RER_ContractManager {
       }
 
       // far & medium
-      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyFarContractsNumber'));
+      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERmediumFarContractsNumber'));
 
       for (i = 0; i < amount_of_options; i += 1) {
         random_species = RER_getSeededRandomSpeciesType(rng);

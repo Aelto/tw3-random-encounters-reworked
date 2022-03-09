@@ -4771,9 +4771,10 @@
                 <Entry varId="RERhoursBeforeNewContracts" value="1" />
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
-                <Entry varId="REReasyNearbyContractsNumber" value="1" />
+                <Entry varId="REReasyContractsNumber" value="1" />
+                <Entry varId="RERmediumNearbyContractsNumber" value="1" />
+                <Entry varId="RERmediumFarContractsNumber" value="1" />
                 <Entry varId="RERhardNearbyContractsNumber" value="1" />
-                <Entry varId="REReasyFarContractsNumber" value="1" />
                 <Entry varId="RERhardFarContractsNumber" value="1" />
 
                 <Entry varId="RERallowLearnNewLocations" value="1" />
@@ -4800,10 +4801,9 @@
             <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
 
-            <Var id="REReasyNearbyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="REReasyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERmediumNearbyContractsNumber" displayName="rer_medium_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERhardNearbyContractsNumber" displayName="rer_hard_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
-            <Var id="REReasyFarContractsNumber" displayName="rer_easy_far_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERmediumFarContractsNumber" displayName="rer_medium_far_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERhardFarContractsNumber" displayName="rer_hard_far_contracts_number" displayType="SLIDER;0;5;5"/>
 
