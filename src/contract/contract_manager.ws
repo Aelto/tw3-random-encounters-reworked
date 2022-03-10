@@ -149,7 +149,7 @@ statemachine class RER_ContractManager {
 
     if (distance == ContractDistance_NEARBY) {
       // the first 12.5%
-      index = (int)rng.nextRange(RoundF(quarter * 0.5));
+      index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
     }
     else if (distance == ContractDistance_CLOSE) {
       // the first 25%
@@ -306,6 +306,10 @@ statemachine class RER_ContractManager {
     rewards_increase_from_reputation = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease'));
 
+    // if the system is disabled, it will put this value to 0
+    rewards_increase_from_reputation *= (int)theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+
     current_reputation = this.getNoticeboardReputation(
       storage.ongoing_contract.noticeboard_identifier
     );
@@ -394,7 +398,15 @@ statemachine class RER_ContractManager {
 
   public function hasRequiredReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier): bool {
     var vanilla_contracts_requirement: int;
+    var reputation_system_enabled: bool;
     var current_reputation: int;
+
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+
+    if (!reputation_system_enabled) {
+      return true;
+    }
 
     vanilla_contracts_requirement = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement'));
@@ -410,7 +422,15 @@ statemachine class RER_ContractManager {
    */
   public function hasRequiredReputationForContractAtNoticeboard(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty): bool {
     var vanilla_contracts_requirement: int;
+    var reputation_system_enabled: bool;
     var current_reputation: int;
+
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+
+    if (!reputation_system_enabled) {
+      return true;
+    }
 
     vanilla_contracts_requirement = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement'));
