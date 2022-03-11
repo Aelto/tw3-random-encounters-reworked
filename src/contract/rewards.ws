@@ -27,8 +27,10 @@ function RER_contractRewardTypeToItemName(type: RER_ContractRewardType): name {
   return item_name;
 }
 
-latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name) {
+latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name): array<RER_LootTableItemResult> {
   var loot_table_container: W3AnimatedContainer;
+  var results: array<RER_LootTableItemResult>;
+  var output: array<RER_LootTableItemResult>;
   var loot_tables: array<name>;
   var amount: int;
   var index: int;
@@ -133,9 +135,16 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
     Sleep(0.2);
 
-    RER_addItemsFromLootTable(loot_table_container, inventory, loot_tables[index]);
+    results = RER_addItemsFromLootTable(loot_table_container, inventory, loot_tables[index]);
+
+    // re use the index variable here:
+    for (index = 0; index < results.Size(); index += 1) {
+      output.PushBack(results[index]);
+    }
   }
   loot_table_container.Destroy();
+
+  return output;
 }
 
 function RER_getLocalizedRewardType(type: RER_ContractRewardType): string {

@@ -214,8 +214,11 @@ latent function RER_createSourceContainerForLootTables(master: CRandomEncounters
   return container;
 }
 
-latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContainer, target_inventory: CInventoryComponent, loot_table: name) {
+latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContainer, target_inventory: CInventoryComponent, loot_table: name): array<RER_LootTableItemResult> {
+  var output: array<RER_LootTableItemResult>;
   var inventory: CInventoryComponent;
+  var items: array<SItemUniqueId>;
+  var i: int;
 
   inventory = loot_table_container.GetInventory();
   inventory.RemoveAllItems();
@@ -223,5 +226,20 @@ latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContai
   inventory.UpdateLoot();
   loot_table_container.Enable(true);
 
+  items = inventory.GetAllItems();
+  for (i = 0; i < items.Size(); i += 1) {
+    output.PushBack(RER_LootTableItemResult(
+      items[i],
+      inventory.GetItemQuantity(items[i])
+    ));
+  }
+
   inventory.GiveAllItemsTo(target_inventory);
+
+  return output;
+}
+
+struct RER_LootTableItemResult {
+  var item_id: SItemUniqueId;
+  var quantity: int;
 }
