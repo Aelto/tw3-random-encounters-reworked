@@ -303,12 +303,14 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
-    rewards_increase_from_reputation = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease'));
+    rewards_increase_from_reputation = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
+    );
 
     // if the system is disabled, it will put this value to 0
     rewards_increase_from_reputation *= (int)theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
 
     current_reputation = this.getNoticeboardReputation(
       storage.ongoing_contract.noticeboard_identifier
@@ -355,7 +357,7 @@ statemachine class RER_ContractManager {
     this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
   }
 
-  private function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
+  public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
     var current_reputation: RER_NoticeboardReputation;
     var output: int;
     var i: int;
@@ -402,14 +404,16 @@ statemachine class RER_ContractManager {
     var current_reputation: int;
 
     reputation_system_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
 
     if (!reputation_system_enabled) {
       return true;
     }
 
-    vanilla_contracts_requirement = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement'));
+    vanilla_contracts_requirement = StringToInt(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
+    );
 
     current_reputation = this.getNoticeboardReputation(noticeboard);
 
@@ -426,14 +430,16 @@ statemachine class RER_ContractManager {
     var current_reputation: int;
 
     reputation_system_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
 
     if (!reputation_system_enabled) {
       return true;
     }
 
-    vanilla_contracts_requirement = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement'));
+    vanilla_contracts_requirement = StringToInt(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
+    );
 
     current_reputation = this.getNoticeboardReputation(noticeboard);
 

@@ -226,7 +226,7 @@ latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContai
   inventory.UpdateLoot();
   loot_table_container.Enable(true);
 
-  items = inventory.GetAllItems();
+  inventory.GetAllItems(items);
   for (i = 0; i < items.Size(); i += 1) {
     output.PushBack(RER_LootTableItemResult(
       items[i],

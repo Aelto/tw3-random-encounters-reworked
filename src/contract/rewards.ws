@@ -46,7 +46,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
     thePlayer.DisplayItemRewardNotification('experience', index);
 
-    return;
+    return output;
   }
 
   amount = 1;

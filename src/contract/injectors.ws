@@ -48,7 +48,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     }
 
     reputation_system_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled'));
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
 
     identifier = master.contract_manager.getUniqueIdFromNoticeboard(board);
 
@@ -77,6 +77,8 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
 
   private function removeAllQuestErrands(out board: W3NoticeBoard) {
     var i: int;
+
+    NLOG("removeAllQuestErrands");
 
     i = board.activeErrands.Size();
     while (i >= 0) {

@@ -11,12 +11,6 @@ state DialogChoice in RER_ContractManager {
     NLOG("RER_ContractManager - state DialogChoice");
 
     this.DialogChoice_main();
-
-    Sleep(0.25);
-  }
-
-  event OnLeaveState( nextStateName : name ) {
-    this.camera.Stop();
   }
 
   private var menu_distance_value: float;
@@ -314,6 +308,7 @@ state DialogChoice in RER_ContractManager {
       }
 
       if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {
+        this.camera.Stop();
         Sleep(0.25);
         parent.GotoState('Waiting');
         return;
@@ -375,7 +370,7 @@ state DialogChoice in RER_ContractManager {
     if (StrContains(NameToString(response.playGoChunk), "DifficultyHard")) {
       contract_data.difficulty = ContractDifficulty_HARD;
     }
-    else if (StrContains(NameToString(response.playGoChunk)), "DifficultyMedium") {
+    else if (StrContains(NameToString(response.playGoChunk), "DifficultyMedium")) {
       contract_data.difficulty = ContractDifficulty_MEDIUM;
     }
     else {
@@ -413,6 +408,7 @@ state DialogChoice in RER_ContractManager {
     parent.master.storages.contract.save();
 
     theSound.SoundEvent("gui_ingame_quest_active");
+    this.camera.Stop();
 
     Sleep(1.5);
     NHUD(

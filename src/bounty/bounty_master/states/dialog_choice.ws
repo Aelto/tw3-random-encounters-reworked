@@ -231,7 +231,7 @@ state DialogChoice in RER_BountyMasterManager {
 
     inventory = thePlayer.GetInventory();
 
-    for (i = 0; i < items[i].Size(); i += 1) {
+    for (i = 0; i < items.Size(); i += 1) {
       current_result = items[i];
 
       message += "<br /> - " + current_result.quantity + "x " + inventory.GetItemName(current_result.item_id);

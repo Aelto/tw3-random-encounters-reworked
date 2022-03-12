@@ -7,7 +7,7 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodVersion" value="2.06" />
+                <Entry varId="RERmodVersion" value="2.08" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -4824,7 +4824,7 @@
 
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
             <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
-            <Var id="RERcontractsReputationSystemReputationRewardsIncrease" displayName="rer_contracts_reputation_system_reputation_rewards_increase" displayType="SLIDER;0;100;100"></Var>
+            <Var id="RERcontractsReputationSystemReputationRewardsIncrease" displayName="rer_contracts_reputation_system_reputation_rewards_increase" displayType="SLIDER;0;100;1000"></Var>
         </VisibleVars>
     </Group>
 
