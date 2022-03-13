@@ -83,13 +83,13 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
         // this loot table was removed because it is now missing in EE Redux
         // loot_tables.PushBack('cp14_chest'); // orens
 
-        amount = 2;
+        amount = 1;
       }
       else {
         loot_tables.PushBack('_generic gold_everywhere');
         loot_tables.PushBack('_valuables');
 
-        amount = 10;
+        amount = 8;
       }
 
       theSound.SoundEvent("gui_inventory_buy");

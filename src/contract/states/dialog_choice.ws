@@ -46,6 +46,7 @@ state DialogChoice in RER_ContractManager {
     var contract_identifier: RER_ContractIdentifier;
     var generation_time: RER_GenerationTime;
     var random_species: RER_SpeciesTypes;
+    var reputation_system_enabled: bool;
     var required_time_elapsed: float;
     var choices: array<SSceneChoice>;
     var rng: RandomNumberGenerator;
@@ -54,6 +55,8 @@ state DialogChoice in RER_ContractManager {
     var i: int;
 
     generation_time = parent.getGenerationTime(GameTimeHours(theGame.CalculateTimePlayed()));
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
     
     if (parent.isItTimeToRegenerateContracts(generation_time)) {
       parent.updateStorageGenerationTime(generation_time);
@@ -77,17 +80,19 @@ state DialogChoice in RER_ContractManager {
       'StartContractDifficultyEasyDistanceClose'
     ));
 
-    line = GetLocStringByKey("rer_current_reputation");
-    line = StrReplace(line, "{{reputation}}", parent.getNoticeboardReputation(noticeboard_identifier));
+    if (reputation_system_enabled) {
+      line = GetLocStringByKey("rer_current_reputation");
+      line = StrReplace(line, "{{reputation}}", parent.getNoticeboardReputation(noticeboard_identifier));
 
-    choices.PushBack(SSceneChoice(
-      upperCaseFirstLetter(line),
-      false,
-      true, // already choosen
-      true, // disabled
-      DialogAction_MONSTERCONTRACT,
-      'StartContractDifficultyEasyDistanceClose'
-    ));
+      choices.PushBack(SSceneChoice(
+        upperCaseFirstLetter(line),
+        false,
+        true, // already choosen
+        true, // disabled
+        DialogAction_MONSTERCONTRACT,
+        'StartContractDifficultyEasyDistanceClose'
+      ));
+    }
 
     if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_EASY)) {
       // easy,

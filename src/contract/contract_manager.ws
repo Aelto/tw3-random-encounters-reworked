@@ -57,6 +57,8 @@ statemachine class RER_ContractManager {
     var i: int;
 
     for (i = 0; i < this.master.storages.contract.completed_contracts.Size(); i += 1) {
+      NLOG("isContractInStorageCompletedContracts, " + this.master.storages.contract.completed_contracts[i].identifier + " == " + contract.identifier);
+
       if (this.master.storages.contract.completed_contracts[i].identifier == contract.identifier) {
         return true;
       }
@@ -103,6 +105,7 @@ statemachine class RER_ContractManager {
       .useSeed(true);
 
     contract.identifier = data.identifier;
+    contract.noticeboard_identifier = data.noticeboard_identifier;
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, data.distance, rng);
     contract.destination_radius = 100;
 
@@ -303,23 +306,20 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
-    rewards_increase_from_reputation = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
-    );
-
-    // if the system is disabled, it will put this value to 0
-    rewards_increase_from_reputation *= (int)theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
-
     current_reputation = this.getNoticeboardReputation(
       storage.ongoing_contract.noticeboard_identifier
     );
 
-    rewards_amount = RoundF(
-      ((int)storage.ongoing_contract.difficulty + 1)
-      * (1 + current_reputation)
-    );
+    rewards_amount = (int)storage.ongoing_contract.difficulty + 1;
+
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
+      rewards_increase_from_reputation = StringToFloat(
+        theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
+      );
+      
+      rewards_amount *= 1 + RoundF(current_reputation * rewards_increase_from_reputation);
+    }
 
     if (IsNameValid(token_name)) {
       thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
@@ -354,27 +354,26 @@ statemachine class RER_ContractManager {
     }
 
     current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    NLOG("increaseReputationForNoticeboard = " + noticeboard.identifier + ", current_reputation = " + current_reputation + " - " + (current_reputation + reputation_gain));
     this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
   }
 
   public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
     var current_reputation: RER_NoticeboardReputation;
-    var output: int;
     var i: int;
 
     for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
       current_reputation = this.master.storages.contract.noticeboards_reputation[i];
 
-      if (current_reputation.noticeboard_identifier.identifier != noticeboard.identifier) {
-        continue;
+      NLOG("getNoticeboardReputation, current_reputation.noticeboard_identifier.identifier = " + current_reputation.noticeboard_identifier.identifier + " reputation = " + current_reputation.reputation);
+
+      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
+        return current_reputation.reputation;
       }
-
-      output = this.master.storages.contract.noticeboards_reputation[i].reputation;
-
-      break;
     }
 
-    return output;
+    return 0;
   }
 
   private function setNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier, value: int) {
@@ -384,17 +383,19 @@ statemachine class RER_ContractManager {
     for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
       current_reputation = this.master.storages.contract.noticeboards_reputation[i];
 
-      if (current_reputation.noticeboard_identifier.identifier != noticeboard.identifier) {
-        continue;
+      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
+        this.master.storages.contract.noticeboards_reputation[i].reputation = value;
+        
+        return;
       }
-
-      this.master.storages.contract.noticeboards_reputation[i].reputation = value;
-
-      return;
     }
 
+    current_reputation = RER_NoticeboardReputation();
+    current_reputation.noticeboard_identifier = noticeboard;
+    current_reputation.reputation = value;
+
     this.master.storages.contract.noticeboards_reputation.PushBack(
-      RER_NoticeboardReputation(noticeboard, value)
+      current_reputation
     );
   }
 

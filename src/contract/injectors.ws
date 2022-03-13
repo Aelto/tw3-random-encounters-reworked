@@ -78,15 +78,18 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
   private function removeAllQuestErrands(out board: W3NoticeBoard) {
     var i: int;
 
-    NLOG("removeAllQuestErrands");
-
     i = board.activeErrands.Size();
     while (i >= 0) {
+      i -= 1;
+
+      NLOG("board.activeErrands[i].newQuestFact = " + board.activeErrands[i].newQuestFact);
+
       if (board.activeErrands[i].newQuestFact == "flaw") {
         continue;
       }
 
-      board.activeErrands.EraseFast(i);
+      board.activeErrands.EraseFast(i + 1);
+
     }
   }
 }

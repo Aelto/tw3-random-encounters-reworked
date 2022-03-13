@@ -25,7 +25,7 @@ class RER_BestiaryHumanPirate extends RER_BestiaryEntry {
     this.template_list.difficulty_factor.maximum_count_hard = 6;
 
   
-    this.ecosystem_delay_multiplier = 1.5;
+    this.ecosystem_delay_multiplier = 2.5;
 
     this.trophy_names.PushBack('modrer_human_trophy_low');
     this.trophy_names.PushBack('modrer_human_trophy_medium');

@@ -1,10 +1,20 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
+;
+; Tips for when i add spaces and : in front of lines. For example if you try to align
+; the : with the string "Reputation system:", you must count the characters in "Reputation system"
+; which is 17, then you mulitply by two and remove 1.
+; There is always some variation since not all letters have the same width, but that should
+; save you some time.
 ; 
 ; Changed in v2.8:
 ;  - Anything below id: 2115018462 was added
 ;  - id 2115018275 was updated (completely rewritten)
 ;  - id 2115018460 was updated, careful the key was changed too.
+;  - id 2115018403 was updated to add colors around the difficulty
+;  - id 2115018404 was updated to add colors around the difficulty
+;  - id 2115018405 was updated to add colors around the difficulty
+;  - id 2115018406 was updated to add colors around the difficulty
 ;
 ; Changed in v2.7:
 ;  - Anything below id: 2115018400 was added
@@ -424,10 +434,10 @@
 2115018400|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
 2115018401|        |panel_rer_contracts_settings|Contract system
 2115018402|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018403|        |option_rer_easy_nearby_contracts_number|Number of easy & nearby contracts
-2115018404|        |option_rer_hard_nearby_contracts_number|Number of hard & nearby contracts
-2115018405|        |option_rer_easy_far_contracts_number|Number of easy & far contracts
-2115018406|        |option_rer_hard_far_contracts_number|Number of hard & far contracts
+2115018403|        |option_rer_easy_nearby_contracts_number|Number of <font color="#30a14e">easy</font> & nearby contracts
+2115018404|        |option_rer_hard_nearby_contracts_number|Number of <font color="#c4432b">hard</font> & nearby contracts
+2115018405|        |option_rer_easy_far_contracts_number|Number of <font color="#30a14e">easy</font> & far contracts
+2115018406|        |option_rer_hard_far_contracts_number|Number of <font color="#c4432b">hard</font> & far contracts
 2115018407|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
 2115018408|        |option_rer_contracts_generation_seed|Contract generation seed
 2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
@@ -499,3 +509,8 @@
 2115018463|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
 2115018464|        |rer_current_reputation|Current reputation for this noticeboard: {{reputation}}
 2115018465|        |rer_distance_nearby|nearby
+2115018466|        |option_rer_medium_nearby_contracts_number|Number of <font color="#d4a72c">medium</font> & nearby contracts
+2115018467|        |option_rer_medium_far_contracts_number|Number of <font color="#d4a72c">medium</font> & far contracts
+2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Reputation system:</font> enabled
+2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for <font color="#d4a72c">medium</font & vanilla contracts
+2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point
