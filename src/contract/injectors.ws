@@ -57,7 +57,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     // contracts yet, we remove all of the quest contracts
     // before injecting our errand.
     if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForNoticeboard(identifier)) {
-      this.removeAllQuestErrands(board);
+      this.hideAllQuestErrands(board);
     }
 
     SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
@@ -75,21 +75,28 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     }
   }
 
-  private function removeAllQuestErrands(out board: W3NoticeBoard) {
+  private function hideAllQuestErrands(out board: W3NoticeBoard) {
+    var card: CDrawableComponent;
     var i: int;
 
-    i = board.activeErrands.Size();
-    while (i >= 0) {
-      i -= 1;
+    for (i = board.addedNotes.Size(); i >= 0; i -= 1) {
+      NLOG("board.addedNotes[i].newQuestFact = " + board.addedNotes[i].newQuestFact);
 
-      NLOG("board.activeErrands[i].newQuestFact = " + board.activeErrands[i].newQuestFact);
-
-      if (board.activeErrands[i].newQuestFact == "flaw") {
+      if (board.addedNotes[i].newQuestFact == "flaw") {
         continue;
       }
 
-      board.activeErrands.EraseFast(i + 1);
+      card = (CDrawableComponent)board.GetComponent(board.errandPositionName + board.addedNotes[i].errandPosition);
+      card.SetVisible( false );
 
+      // this one may not be necessary at the moment,
+      // hiding should be enough
+      // addedNotes [ i ].errandPosition = -1;
+
+      // removing from the active errands may not be necessary either.
+      // If done, make sure it's in its own loop since indices may not
+      // coincide.
+      // board.activeErrands.EraseFast(i);
     }
   }
 }
