@@ -5593,6 +5593,7 @@
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
+                <Entry varId="RERdelayLoadingStart" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
