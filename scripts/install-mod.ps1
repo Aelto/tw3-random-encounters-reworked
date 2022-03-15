@@ -184,40 +184,42 @@ write-host -ForegroundColor red "
                                                                   
 "
 
-echo ""
-write-host -ForegroundColor yellow "Please use the script merger to merge the scripts now."
-echo "A few exceptions that should not be merged are:"
-echo " - Conflict between Bootstrap and W3EE, if it happens leave it unmerged, bootstrap will load before."
-echo " - Conflict between CustomBossBar and W3EE, the installer will install the patch for you and so you are not supposed to merge it."
-echo " - Conflict between FriendlyHUD and the FHUD sharedutils patch, leave it unmerged."
-echo ""
+Start-Process "https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/#part-5"
 
-if (test-path ./mods/modW3EE) {
-  write-host -ForegroundColor yellow "Close the W3EE Merging Instructions image to continue..."
+# echo ""
+# write-host -ForegroundColor yellow "Please use the script merger to merge the scripts now."
+# echo "A few exceptions that should not be merged are:"
+# echo " - Conflict between Bootstrap and W3EE, if it happens leave it unmerged, bootstrap will load before."
+# echo " - Conflict between CustomBossBar and W3EE, the installer will install the patch for you and so you are not supposed to merge it."
+# echo " - Conflict between FriendlyHUD and the FHUD sharedutils patch, leave it unmerged."
+# echo ""
 
-  Add-Type -AssemblyName 'System.Windows.Forms'
-  $imageurl = "https://raw.githubusercontent.com/Aelto/tw3-random-encounters-reworked/master/docs/merging-instructions-ee.png"
-  $imagepath = "./mods/modRandomEncountersReworked/merging-instructions-ee.png"
+# if (test-path ./mods/modW3EE) {
+#   write-host -ForegroundColor yellow "Close the W3EE Merging Instructions image to continue..."
 
-  Invoke-WebRequest -Uri $imageurl -OutFile $imagepath
-  $file = (get-item $imagepath)
-  $img = [System.Drawing.Image]::Fromfile((get-item $file))
+#   Add-Type -AssemblyName 'System.Windows.Forms'
+#   $imageurl = "https://raw.githubusercontent.com/Aelto/tw3-random-encounters-reworked/master/docs/merging-instructions-ee.png"
+#   $imagepath = "./mods/modRandomEncountersReworked/merging-instructions-ee.png"
 
-  [System.Windows.Forms.Application]::EnableVisualStyles()
-  $form = new-object Windows.Forms.Form
-  $form.Text = "Random Encounters Reworked | W3EE Merging instructions"
-  $form.Width = $img.Size.Width / 1.3;
-  $form.Height =  $img.Size.Height / 1.3;
-  $pictureBox = new-object Windows.Forms.PictureBox
-  $pictureBox.Width =  $img.Size.Width / 1.3;
-  $pictureBox.Height =  $img.Size.Height / 1.3;
-  $pictureBox.SizeMode = 'Zoom';
+#   Invoke-WebRequest -Uri $imageurl -OutFile $imagepath
+#   $file = (get-item $imagepath)
+#   $img = [System.Drawing.Image]::Fromfile((get-item $file))
 
-  $pictureBox.Image = $img;
-  $form.controls.add($pictureBox)
-  $form.Add_Shown( { $form.Activate() } )
-  $form.ShowDialog()
-}
+#   [System.Windows.Forms.Application]::EnableVisualStyles()
+#   $form = new-object Windows.Forms.Form
+#   $form.Text = "Random Encounters Reworked | W3EE Merging instructions"
+#   $form.Width = $img.Size.Width / 1.3;
+#   $form.Height =  $img.Size.Height / 1.3;
+#   $pictureBox = new-object Windows.Forms.PictureBox
+#   $pictureBox.Width =  $img.Size.Width / 1.3;
+#   $pictureBox.Height =  $img.Size.Height / 1.3;
+#   $pictureBox.SizeMode = 'Zoom';
+
+#   $pictureBox.Image = $img;
+#   $form.controls.add($pictureBox)
+#   $form.Add_Shown( { $form.Activate() } )
+#   $form.ShowDialog()
+# }
 
 if ((test-path ./mods/modAbsoluteCamera31) -or (test-path ./mods/modW3EE)) {
   echo ""
@@ -242,3 +244,5 @@ echo "Have fun!"
 echo ""
 
 pause
+
+Start-Process "https://aelto.github.io/tw3-random-encounters-reworked/rer-bible/"
