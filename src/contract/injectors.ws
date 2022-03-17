@@ -79,24 +79,12 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     var card: CDrawableComponent;
     var i: int;
 
-    for (i = board.addedNotes.Size(); i >= 0; i -= 1) {
-      NLOG("board.addedNotes[i].newQuestFact = " + board.addedNotes[i].newQuestFact);
-
-      if (board.addedNotes[i].newQuestFact == "flaw") {
+    for (i = board.activeErrands.Size(); i >= 0; i -= 1) {
+      if (board.activeErrands[i].newQuestFact == "flaw") {
         continue;
       }
-
-      card = (CDrawableComponent)board.GetComponent(board.errandPositionName + board.addedNotes[i].errandPosition);
-      card.SetVisible( false );
-
-      // this one may not be necessary at the moment,
-      // hiding should be enough
-      // addedNotes [ i ].errandPosition = -1;
-
-      // removing from the active errands may not be necessary either.
-      // If done, make sure it's in its own loop since indices may not
-      // coincide.
-      // board.activeErrands.EraseFast(i);
+      
+      board.activeErrands.EraseFast(i);
     }
   }
 }
