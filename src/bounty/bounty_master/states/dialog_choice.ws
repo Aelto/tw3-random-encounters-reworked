@@ -228,28 +228,6 @@ state DialogChoice in RER_BountyMasterManager {
       thePlayer.GetInventory(),
       reward_name
     );
-
-    inventory = thePlayer.GetInventory();
-
-    for (i = 0; i < items.Size(); i += 1) {
-      current_result = items[i];
-
-      message += "<br /> - " + current_result.quantity + "x " + inventory.GetItemName(current_result.item_id);
-    }
-
-    message = StrReplace(
-      GetLocStringByKey("rer_reward_results"),
-      "{{items}}",
-      message
-    );
-
-    NDEBUG(
-      StrReplace(
-        message,
-        "{{reward_type}}",
-        StrLower(GetLocStringByKey(reward_name + "_short"))
-      )
-    );
   }
 
   function removeTrophyChoiceFromList(out choices: array<SSceneChoice>) {

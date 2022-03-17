@@ -503,7 +503,7 @@
 2115018457|        |rer_survive_horde|Survive the {{type}} horde
 2115018458|        |rer_kill_target|Kill the {{type}}
 2115018459|        |rer_contract_finished|The contract is over
-2115018460|        |rer_reward_results|You exchanged a {{reward_type}} for: {{item_names}}
+2115018460|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
 2115018461|        |rer_contract_started|{{species}} contract has started, search the marker on your map
 2115018462|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018463|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
