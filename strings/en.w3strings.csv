@@ -1,6 +1,21 @@
 ;meta[language=en]
 ; id      |key(hex)|key(str)| text
+;
+; Tips for when i add spaces and : in front of lines. For example if you try to align
+; the : with the string "Reputation system:", you must count the characters in "Reputation system"
+; which is 17, then you mulitply by two and remove 1.
+; There is always some variation since not all letters have the same width, but that should
+; save you some time.
 ; 
+; Changed in v2.8:
+;  - Anything below id: 2115018462 was added
+;  - id 2115018275 was updated (completely rewritten)
+;  - id 2115018460 was updated, careful the key was changed too.
+;  - id 2115018403 was updated to add colors around the difficulty
+;  - id 2115018404 was updated to add colors around the difficulty
+;  - id 2115018405 was updated to add colors around the difficulty
+;  - id 2115018406 was updated to add colors around the difficulty
+;
 ; Changed in v2.7:
 ;  - Anything below id: 2115018400 was added
 ;  - id 2115018347 was deleted (all IDs after this line were decremented by 1)
@@ -283,7 +298,7 @@
 2115018272|        |rer_tutorial_clue_title|RER Tutorial - Clue examined
 2115018273|        |rer_tutorial_clue_body|You just <font color="#CD7D03">examined</font> a track from the mod Random Encounters Reworked. When you examine a track Geralt will tell what monster it is from, and if you follow the trail you will eventually find the creature that left them. <br />  Almost all creatures from the mod leave tracks on the ground. But be aware that because RER uses voicelines from the game the creature you'll see may not always correspond exactly to what Geralt said. But you can be sure the family will always be the right one. For example Geralt never says NoonWraith and so it will say NightWraith instead, but it's still a wraith so it's ok.
 2115018274|        |rer_tutorial_contract_title|RER Tutorial - Monster contract
-2115018275|        |rer_tutorial_contract_body|A <font color="#CD7D03">Monster Contract</font> from the mod Random Encounters Reworked has just started. You may have noticed a camera scene was played and perhaps Geralt talking, from now on and if you want to progress through the monster contract you will have to follow the trails, the map markers the mod placed or where the camera scene guided you. <br/> A monster contract is randomly generated and is composed of small pre-built phases that are combined to form something that could look like a vanilla contract, with less details of-course as it is generated on the fly. <br />  You can control the amount of phases that are used to build the contract, or in other terms, its length with the <font color="#ffd33d">Longevity</font> slider you can find in the mod menu. One longevity point is roughly equivalent to 1 minute and 30 seconds of gameplay after you're used to the flow of the system. <br /><br />Some phases are pretty simple and ask you to simply follow a trail or examine the ground, while some others will get you in combat. The monster contract is an encounter where you must be prepared to fight and should be considered as hard, if not harder, than vanilla contracts. <br />  <br />  A monster contract lasts until Geralt says the line <font color="#CD7D03">`It's over`.</font> There are some cases where the mod is not able to find a suitable position or an error occured and the encounter will be shut down and Geralt will once again say the line. So whenever you hear  the line `It's over` don't look further because everything about the contract except the loot will soon disappear <br /><br />  Good luck, and if you encounter any bug, have a suggestion or feedback, feel free to contact me!  <br />  - Aeltoth
+2115018275|        |rer_tutorial_contract_body|<font color="#CD7D03">Monster Contracts</font> from the mod Random Encounters Reworked. The mod offers a way to start randomly generated contracts from any noticeboard in the game, it also introduces a reputation system tied to its contracts. With the default values, you won't be able to start vanilla contracts until you get enough reputation, and this for every noticeboard. After roughly two contracts you will unlock a higher difficulty tier for RER contracts but also the vanilla ones that were locked. You can continue to improve your reputation even after unlocking the medium contracts to unlock the final tier: hard contracts, which will offer a real challenge and increased rewards as well. On top of receiving more rewards from harder contracts, reputation also increases them.<br />For more information, please read the RER Bible.<br />  - Aeltoth
 2115018276|        |rer_tutorial_ecosystem_title|RER Tutorial - The ecosystem
 2115018277|        |rer_tutorial_ecosystem_body|You recently killed a creature and indirectly changed the <font color="#CD7D03">surrounding ecosystems</font>. The mod Random Encounters Reworked simulates a food chain that will permanently change the creatures you see (only creatures from the mod). Because you killed living creatures or bandits, the surrounding ecosystems changed a little and if you continue new species will come and some other will even migrate to new places. <br /><br />You can examine the surrounding ecosystem with the <font color="#CD7D03">Ecosystem Analyse</font> keybind, which will allow you to learn useful information about the species and their habits. To learn how to get the keybind, please refer to the in-depth install guide. <br /><br />If you do not like the feature you can change its settings in the <font color="#CD7D03">Ecosystem System</font> menu. As you kill creatures in a single region, the number of creatures will vary depending on your menu settings (by default it will increase): this is called the ecosystem strength. As the ecosystem strength changes the <font color="#ffd33d">Killing spree loot</font> reward system will unlock new loot table for the creatures and will progressively increase the drop rate of these loot tables. Refer to the RER-Bible to learn more.
 2115018278|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Noticeboard event
@@ -419,10 +434,10 @@
 2115018400|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
 2115018401|        |panel_rer_contracts_settings|Contract system
 2115018402|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018403|        |option_rer_easy_nearby_contracts_number|Number of easy & nearby contracts
-2115018404|        |option_rer_hard_nearby_contracts_number|Number of hard & nearby contracts
-2115018405|        |option_rer_easy_far_contracts_number|Number of easy & far contracts
-2115018406|        |option_rer_hard_far_contracts_number|Number of hard & far contracts
+2115018403|        |option_rer_easy_nearby_contracts_number|Number of <font color="#30a14e">easy</font> & nearby contracts
+2115018404|        |option_rer_hard_nearby_contracts_number|Number of <font color="#c4432b">hard</font> & nearby contracts
+2115018405|        |option_rer_easy_far_contracts_number|Number of <font color="#30a14e">easy</font> & far contracts
+2115018406|        |option_rer_hard_far_contracts_number|Number of <font color="#c4432b">hard</font> & far contracts
 2115018407|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
 2115018408|        |option_rer_contracts_generation_seed|Contract generation seed
 2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
@@ -488,6 +503,14 @@
 2115018457|        |rer_survive_horde|Survive the {{type}} horde
 2115018458|        |rer_kill_target|Kill the {{type}}
 2115018459|        |rer_contract_finished|The contract is over
-2115018460|        |rer_reward_bag|Your {{reward_type}} is waiting in the bag at your feet
+2115018460|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
 2115018461|        |rer_contract_started|{{species}} contract has started, search the marker on your map
 2115018462|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
+2115018463|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
+2115018464|        |rer_current_reputation|Current reputation for this noticeboard: {{reputation}}
+2115018465|        |rer_distance_nearby|nearby
+2115018466|        |option_rer_medium_nearby_contracts_number|Number of <font color="#d4a72c">medium</font> & nearby contracts
+2115018467|        |option_rer_medium_far_contracts_number|Number of <font color="#d4a72c">medium</font> & far contracts
+2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Reputation system:</font> enabled
+2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for <font color="#d4a72c">medium</font & vanilla contracts
+2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point

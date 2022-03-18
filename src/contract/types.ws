@@ -39,13 +39,15 @@ struct RER_GenerationTime {
 }
 
 enum RER_ContractDistance {
-  ContractDistance_CLOSE = 0,
-  ContractDistance_FAR = 1,
+  ContractDistance_NEARBY = 0,
+  ContractDistance_CLOSE = 1,
+  ContractDistance_FAR = 2,
 }
 
 enum RER_ContractDifficulty {
   ContractDifficulty_EASY = 0,
-  ContractDifficulty_HARD = 1
+  ContractDifficulty_MEDIUM = 1,
+  ContractDifficulty_HARD = 2
 }
 
 /**
@@ -124,8 +126,13 @@ struct RER_ContractRepresentation {
   /**
    * the possible rewards the player can get from completing the contract.
    * This value is a flag and can contain multiple reward types
+   *
+   * IMPORTANT: should be RER_ContractRewardType, but since it acts as a flag
+   * the game doesn't know what to do when reloading data and so it sets 0.
+   *
+   * The int is then necessary.
    */
-  var reward_type: RER_ContractRewardType;
+  var reward_type: int;
 
   var region_name: string;
 
@@ -146,4 +153,13 @@ class RER_ContractLocation extends SU_ArraySorterData {
 
     return this;
   }
+}
+
+/**
+ * Represents the reputation level for a given noticeboard
+ */
+struct RER_NoticeboardReputation {
+  var noticeboard_identifier: RER_NoticeboardIdentifier;
+
+  var reputation: int;
 }

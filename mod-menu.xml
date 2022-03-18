@@ -7,7 +7,7 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodVersion" value="2.06" />
+                <Entry varId="RERmodVersion" value="2.08" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -4771,9 +4771,10 @@
                 <Entry varId="RERhoursBeforeNewContracts" value="1" />
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
-                <Entry varId="REReasyNearbyContractsNumber" value="1" />
+                <Entry varId="REReasyContractsNumber" value="1" />
+                <Entry varId="RERmediumNearbyContractsNumber" value="1" />
+                <Entry varId="RERmediumFarContractsNumber" value="1" />
                 <Entry varId="RERhardNearbyContractsNumber" value="1" />
-                <Entry varId="REReasyFarContractsNumber" value="1" />
                 <Entry varId="RERhardFarContractsNumber" value="1" />
 
                 <Entry varId="RERallowLearnNewLocations" value="1" />
@@ -4790,21 +4791,26 @@
                 <Entry varId="RERspeciesChanceRelicts" value="50" />
                 <Entry varId="RERspeciesChanceSpecters" value="50" />
                 <Entry varId="RERspeciesChanceVampires" value="50" />
+
+                <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
+                <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="2" />
+                <Entry varId="RERcontractsReputationSystemReputationRewardsIncrease" value="0.05" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
             <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
 
-            <Var id="REReasyNearbyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="REReasyContractsNumber" displayName="rer_easy_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="RERmediumNearbyContractsNumber" displayName="rer_medium_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
+            <Var id="RERmediumFarContractsNumber" displayName="rer_medium_far_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERhardNearbyContractsNumber" displayName="rer_hard_nearby_contracts_number" displayType="SLIDER;0;5;5"/>
-            <Var id="REReasyFarContractsNumber" displayName="rer_easy_far_contracts_number" displayType="SLIDER;0;5;5"/>
             <Var id="RERhardFarContractsNumber" displayName="rer_hard_far_contracts_number" displayType="SLIDER;0;5;5"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
-            <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;1000"/>
+            <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
 
-            <Var id="RERspeciesChanceBeasts" displayName="rer_species_chance_beasts" displayType="SLIDER;0;100;100"/>
+            <!-- <Var id="RERspeciesChanceBeasts" displayName="rer_species_chance_beasts" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceCursed" displayName="rer_species_chance_cursed" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceDraconids" displayName="rer_species_chance_draconids" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceElementa" displayName="rer_species_chance_elementa" displayType="SLIDER;0;100;100"/>
@@ -4814,7 +4820,11 @@
             <Var id="RERspeciesChanceOgroids" displayName="rer_species_chance_ogroids" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceRelicts" displayName="rer_species_chance_relicts" displayType="SLIDER;0;100;100"/>
             <Var id="RERspeciesChanceSpecters" displayName="rer_species_chance_specters" displayType="SLIDER;0;100;100"/>
-            <Var id="RERspeciesChanceVampires" displayName="rer_species_chance_vampires" displayType="SLIDER;0;100;100"/>
+            <Var id="RERspeciesChanceVampires" displayName="rer_species_chance_vampires" displayType="SLIDER;0;100;100"/> -->
+
+            <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
+            <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
+            <Var id="RERcontractsReputationSystemReputationRewardsIncrease" displayName="rer_contracts_reputation_system_reputation_rewards_increase" displayType="SLIDER;0;100;1000"></Var>
         </VisibleVars>
     </Group>
 
@@ -5583,6 +5593,7 @@
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="0" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
+                <Entry varId="RERdelayLoadingStart" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>

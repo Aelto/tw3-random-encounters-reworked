@@ -57,6 +57,8 @@ statemachine class RER_ContractManager {
     var i: int;
 
     for (i = 0; i < this.master.storages.contract.completed_contracts.Size(); i += 1) {
+      NLOG("isContractInStorageCompletedContracts, " + this.master.storages.contract.completed_contracts[i].identifier + " == " + contract.identifier);
+
       if (this.master.storages.contract.completed_contracts[i].identifier == contract.identifier) {
         return true;
       }
@@ -81,13 +83,13 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, is_far: bool, is_hard: bool, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, distance: RER_ContractDistance, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
-    uuid += 100 + (int)is_far + "-";
-    uuid += 10 + (int)is_hard + "-";
+    uuid += 100 + (int)distance + "-";
+    uuid += 10 + (int)difficulty + "-";
     uuid += (int)species;
 
     return RER_ContractIdentifier(uuid);
@@ -103,6 +105,7 @@ statemachine class RER_ContractManager {
       .useSeed(true);
 
     contract.identifier = data.identifier;
+    contract.noticeboard_identifier = data.noticeboard_identifier;
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, data.distance, rng);
     contract.destination_radius = 100;
 
@@ -116,7 +119,7 @@ statemachine class RER_ContractManager {
 
     NLOG("generateContract, reward_type = " + contract.reward_type);
 
-    if (data.difficulty == ContractDifficulty_EASY) {
+    if (data.difficulty == ContractDifficulty_EASY || data.difficulty == ContractDifficulty_MEDIUM) {
       if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_HORDE;
       }
@@ -147,7 +150,11 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    if (distance == ContractDistance_CLOSE) {
+    if (distance == ContractDistance_NEARBY) {
+      // the first 12.5%
+      index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
+    }
+    else if (distance == ContractDistance_CLOSE) {
       // the first 25%
       index = (int)rng.nextRange(quarter, 0);
     }
@@ -272,8 +279,10 @@ statemachine class RER_ContractManager {
   }
 
   public function completeCurrentContract() {
+    var rewards_increase_from_reputation: float;
     var storage: RER_ContractStorage;
     var rng: RandomNumberGenerator;
+    var current_reputation: int;
     var rewards_amount: int;
     var token_name: name;
 
@@ -297,16 +306,147 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
-    if (IsNameValid(token_name)) {
-      rewards_amount = 1
-                     * (1 + (int)(storage.ongoing_contract.difficulty == ContractDifficulty_HARD));
+    current_reputation = this.getNoticeboardReputation(
+      storage.ongoing_contract.noticeboard_identifier
+    );
 
+    rewards_amount = (int)storage.ongoing_contract.difficulty + 1;
+
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
+      rewards_increase_from_reputation = StringToFloat(
+        theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
+      );
+      
+      rewards_amount *= 1 + RoundF(current_reputation * rewards_increase_from_reputation);
+    }
+
+    if (IsNameValid(token_name)) {
       thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
       thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
+    else {
+      NDEBUG(
+        "RER ERROR: the name of the token is not valid [" + token_name + "]." +
+        "You can report this issue to the author, preferably with a copy/screenshot of this message." +
+        "<br/>Additional information:" +
+        "<br/> - seed: " + storage.ongoing_contract.rng_seed +
+        "<br/> - reward type: " + storage.ongoing_contract.reward_type +
+        "<br/> - identifier: " + storage.ongoing_contract.identifier.identifier
+      );
+    }
+
+    this.increaseReputationForNoticeboard(
+      storage.ongoing_contract.noticeboard_identifier,
+      (int)storage.ongoing_contract.difficulty + 1
+    );
 
     storage.save();
+  }
+
+  public function increaseReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier, optional reputation_gain: int) {
+    var current_reputation: int;
+
+    if (reputation_gain <= 0) {
+      reputation_gain = 1;
+    }
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    NLOG("increaseReputationForNoticeboard = " + noticeboard.identifier + ", current_reputation = " + current_reputation + " - " + (current_reputation + reputation_gain));
+    this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
+  }
+
+  public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
+    var current_reputation: RER_NoticeboardReputation;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
+
+      NLOG("getNoticeboardReputation, current_reputation.noticeboard_identifier.identifier = " + current_reputation.noticeboard_identifier.identifier + " reputation = " + current_reputation.reputation);
+
+      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
+        return current_reputation.reputation;
+      }
+    }
+
+    return 0;
+  }
+
+  private function setNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier, value: int) {
+    var current_reputation: RER_NoticeboardReputation;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
+
+      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
+        this.master.storages.contract.noticeboards_reputation[i].reputation = value;
+        
+        return;
+      }
+    }
+
+    current_reputation = RER_NoticeboardReputation();
+    current_reputation.noticeboard_identifier = noticeboard;
+    current_reputation.reputation = value;
+
+    this.master.storages.contract.noticeboards_reputation.PushBack(
+      current_reputation
+    );
+  }
+
+  public function hasRequiredReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier): bool {
+    var vanilla_contracts_requirement: int;
+    var reputation_system_enabled: bool;
+    var current_reputation: int;
+
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+    if (!reputation_system_enabled) {
+      return true;
+    }
+
+    vanilla_contracts_requirement = StringToInt(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
+    );
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    return current_reputation >= vanilla_contracts_requirement;
+  }
+
+  /**
+   * Returns whether the player has the needed reputation for the noticeboard
+   * and a contract of the given difficulty.
+   */
+  public function hasRequiredReputationForContractAtNoticeboard(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty): bool {
+    var vanilla_contracts_requirement: int;
+    var reputation_system_enabled: bool;
+    var current_reputation: int;
+
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+    if (!reputation_system_enabled) {
+      return true;
+    }
+
+    vanilla_contracts_requirement = StringToInt(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
+    );
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    // We use the requirement for the vanilla contracts multiplied by the difficulty.
+    // Since the difficulty starts at easy, which is equal to 0 this means easy contracts
+    // are always available, then it starts to ramp up at medium.
+    return current_reputation >= vanilla_contracts_requirement * (int)difficulty;
   }
 }

@@ -207,12 +207,10 @@ state DialogChoice in RER_BountyMasterManager {
   }
 
   latent function addRewardToLootBag(reward_name: name) {
-    var tracedPosition, tracedNormal: Vector;
-    var entities: array<CGameplayEntity>;
-    var template: CEntityTemplate;
-    var bagtags: array<name>;
-    var bag: W3ActorRemains;
-    var bagPosition: Vector;
+    var current_result: RER_LootTableItemResult;
+    var items: array<RER_LootTableItemResult>;
+    var inventory: CInventoryComponent;
+    var message: string;
     var i: int;
 
     if (reward_name == 'rer_token_experience') {
@@ -222,64 +220,13 @@ state DialogChoice in RER_BountyMasterManager {
         reward_name
       );
 
-      NDEBUG(
-        StrReplace(
-          GetLocStringByKey("rer_reward_bag"),
-          "{{reward_type}}",
-          StrLower(GetLocStringByKey(reward_name + "_short"))
-        )
-      );
-
       return;
     }
 
-    FindGameplayEntitiesInRange(entities, thePlayer, 0.5, 100);
-
-    for (i = 0; i < entities.Size(); i += 1) {
-      bag = (W3ActorRemains)entities[i];
-
-      if (bag) {
-        break;
-      }
-    }
-
-    if (!bag) {
-      template = (CEntityTemplate)LoadResourceAsync("lootbag");
-      bagtags.PushBack('lootbag');
-
-      // Do raycast down from player position to check if he's in the air
-      bagPosition = thePlayer.GetWorldPosition();
-      if (theGame.GetWorld().StaticTrace(bagPosition, bagPosition + Vector(0.0f, 0.0f, -10.0f, 0.0f), tracedPosition, tracedNormal)) {
-        bagPosition = tracedPosition;
-      }
-
-      bag = (W3ActorRemains)theGame.CreateEntity(
-        template,
-        bagPosition,
-        thePlayer.GetWorldRotation(),
-        true,
-        false,
-        false,
-        PM_Persist,
-        bagtags
-      );
-    }
-
-    RER_applyLootFromContractTokenName(
+    items = RER_applyLootFromContractTokenName(
       parent.bounty_manager.master,
-      bag.GetInventory(),
+      thePlayer.GetInventory(),
       reward_name
-    );
-
-    bag.LootDropped();
-    bag.Enable(true);
-
-    NDEBUG(
-      StrReplace(
-        GetLocStringByKey("rer_reward_bag"),
-        "{{reward_type}}",
-        StrLower(GetLocStringByKey(reward_name + "_short"))
-      )
     );
   }
 

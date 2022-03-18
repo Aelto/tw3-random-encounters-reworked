@@ -11,6 +11,18 @@ exec function rercompletecontract() {
   rer_entity.contract_manager.completeCurrentContract();
 }
 
+exec function rerclearcontractstorage() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.storages.contract.completed_contracts.Clear();
+}
+
 exec function rergotobountymaster() {
   var rer_entity : CRandomEncounters;
 
