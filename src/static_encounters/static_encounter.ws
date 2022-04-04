@@ -14,6 +14,10 @@ class RER_StaticEncounter {
   var radius: float;
   default radius = 0.01;
 
+  public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    return this.bestiary_entry;
+  }
+
   public function isInRegion(region: string): bool {
     if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (region == "no_mans_land" || region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (region == "skellige" || region == "kaer_morhen")
@@ -154,4 +158,42 @@ class RER_StaticEncounter {
     return false;
   }
 
+}
+
+class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
+
+  /**
+   * override the function to return true whenever it finds a monster instead of
+   * a specific bestiary entry.
+   */
+  private function areThereEntitiesWithSameTemplate(entities: array<CGameplayEntity>): bool {
+    var hashed_name: string;
+    var actor: CActor;
+    var i: int;
+
+    for (i = 0; i < entities.Size(); i += 1) {
+      actor = (CActor)entities[i];
+
+      if (actor) {
+        if (actor.IsMonster()) {
+          return true;
+        }
+      }
+    }
+    
+    return false;
+  }
+
+  /**
+   * override the function to return a random entry based on the surrounding
+   * ecosystem.
+   */
+  public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    // TODO: should give a filter based on the creature size
+    return master.bestiary.getRandomEntryFromBestiary(
+      master,
+      EncounterType_HUNTINGGROUND,
+      RER_flag(RER_BREF_IGNORE_SETTLEMENT, true)
+    );
+  }
 }

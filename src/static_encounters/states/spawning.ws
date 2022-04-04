@@ -77,7 +77,7 @@ state Spawning in RER_StaticEncounterManager {
     composition = new CreatureHuntingGroundComposition in master;
 
     composition.init(master.settings);
-    composition.setBestiaryEntry(encounter.bestiary_entry)
+    composition.setBestiaryEntry(encounter.getBestiaryEntry(master))
       .setSpawnPosition(encounter.getSpawningPosition())
       .spawn(master);
 
