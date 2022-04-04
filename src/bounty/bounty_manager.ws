@@ -660,7 +660,8 @@ statemachine class RER_BountyManager extends CEntity {
                 groups[i].position_y
               )
             )
-          )
+          ),
+          this.master.addon_manager.addons_data.exception_areas
         )
       );
     }
@@ -805,7 +806,8 @@ state Processing in RER_BountyManager {
               groups[i].position_x,
               groups[i].position_y
             )
-          )
+          ),
+          parent.master.addon_manager.addons_data.exception_areas
         )
       );
 
