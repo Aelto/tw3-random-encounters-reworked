@@ -189,11 +189,40 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
    * ecosystem.
    */
   public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    var filter: RER_SpawnRollerFilter;
+
+    filter = (new RER_SpawnRollerFilter in this)
+      .init();
+
+    if (this.type == StaticEncounterType_SMALL) {
+      filter
+        .setOffsets(
+          constants.large_creature_begin,
+          constants.large_creature_max,
+          0 // creature outside the offset have 0% chance to appear
+        );
+    }
+    else {
+      filter
+        .setOffsets(
+          constants.large_creature_begin,
+          constants.large_creature_max,
+          0 // creature outside the offset have 0% chance to appear
+        );
+    }
+
     // TODO: should give a filter based on the creature size
     return master.bestiary.getRandomEntryFromBestiary(
       master,
       EncounterType_HUNTINGGROUND,
-      RER_flag(RER_BREF_IGNORE_SETTLEMENT, true)
+      RER_flag(RER_BREF_IGNORE_SETTLEMENT, true),
+      (new RER_SpawnRollerFilter in this)
+        .init()
+        .setOffsets(
+          constants.large_creature_begin,
+          constants.large_creature_max,
+          0 // creature outside the offset have 0% chance to appear
+        )
     );
   }
 }
