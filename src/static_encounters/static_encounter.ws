@@ -161,6 +161,19 @@ class RER_StaticEncounter {
 }
 
 class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
+  /**
+   * Controls whether this static encounter can spawn its creatures even if
+   * there are other creatures in the area.
+   * true: can spawn
+   * false: cannot spawn
+   */
+  private var can_overlap_with_others: bool;
+
+  public function init(can_overlap_with_others: bool): RER_PlaceholderStaticEncounter {
+    this.can_overlap_with_others = can_overlap_with_others;
+
+    return this;
+  }
 
   /**
    * override the function to return true whenever it finds a monster instead of
@@ -170,6 +183,10 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
     var hashed_name: string;
     var actor: CActor;
     var i: int;
+
+    if (this.can_overlap_with_others) {
+      return false;
+    }
 
     for (i = 0; i < entities.Size(); i += 1) {
       actor = (CActor)entities[i];
@@ -211,18 +228,11 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
         );
     }
 
-    // TODO: should give a filter based on the creature size
     return master.bestiary.getRandomEntryFromBestiary(
       master,
       EncounterType_HUNTINGGROUND,
       RER_flag(RER_BREF_IGNORE_SETTLEMENT, true),
-      (new RER_SpawnRollerFilter in this)
-        .init()
-        .setOffsets(
-          constants.large_creature_begin,
-          constants.large_creature_max,
-          0 // creature outside the offset have 0% chance to appear
-        )
+      filter
     );
   }
 }
