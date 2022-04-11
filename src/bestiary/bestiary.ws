@@ -216,14 +216,18 @@ class RER_Bestiary {
   }
 
   public function getCreatureTypeFromEntity(entity: CEntity): CreatureType {
-    var type: CreatureType;
     var hashed_name: string;
-    var i: int;
 
     hashed_name = entity.GetReadableName();
 
+    return this.getCreatureTypeFromReadableName(hashed_name);
+  }
+
+  public function getCreatureTypeFromReadableName(readable_name: String): CreatureType {
+    var i: int;
+
     for (i = 0; i < CreatureMAX; i += 1) {
-      if (this.entries[i].isCreatureHashedNameFromEntry(hashed_name)) {
+      if (this.entries[i].isCreatureHashedNameFromEntry(readable_name)) {
         return i;
       }
     }
