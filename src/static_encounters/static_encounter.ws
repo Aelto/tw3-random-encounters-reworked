@@ -14,6 +14,10 @@ class RER_StaticEncounter {
   var radius: float;
   default radius = 0.01;
 
+  public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    return this.bestiary_entry;
+  }
+
   public function isInRegion(region: string): bool {
     if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (region == "no_mans_land" || region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (region == "skellige" || region == "kaer_morhen")
@@ -51,7 +55,7 @@ class RER_StaticEncounter {
 
     // first if the player is too far
     radius = this.radius * this.radius;
-    if (VecDistanceSquared(player_position, this.position) > max_distance * max_distance) {
+      if (VecDistanceSquared(player_position, this.position) > max_distance * max_distance) {
       return false;
     }
 

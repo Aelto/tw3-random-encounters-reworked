@@ -1,10 +1,30 @@
 ;meta[language=pl]
 ; id      |key(hex)|key(str)| text
 ;
+; Tips for when i add spaces and : in front of lines. For example if you try to align
+; the : with the string "Reputation system:", you must count the characters in "Reputation system"
+; which is 17, then you mulitply by two and remove 1.
+; There is always some variation since not all letters have the same width, but that should
+; save you some time.
+; 
+; Changed in v2.8:
+;  - Anything below id: 2115018462 was added
+;  - id 2115018275 was updated (completely rewritten)
+;  - id 2115018460 was updated, careful the key was changed too.
+;  - id 2115018403 was updated to add colors around the difficulty
+;  - id 2115018404 was updated to add colors around the difficulty
+;  - id 2115018405 was updated to add colors around the difficulty
+;  - id 2115018406 was updated to add colors around the difficulty
+;
 ; Changed in v2.7:
 ;  - Anything below id: 2115018400 was added
 ;  - id 2115018347 was deleted (all IDs after this line were decremented by 1)
 ;  - id 2115018290 was updated
+;
+; Changed in v2.6:
+;  - Anything below id: 2115018342 was added
+;  - id: 2115018277 was updated
+;
 ;
 2115018001|        |preset_value_rer_defaults|Domyślne
 2115018002|        |option_rer_custom_frequency_low_day|<font color="#ffd33d">Dzień:</font> minimalne opóźnienie (sekundy)
@@ -278,9 +298,9 @@
 2115018272|        |rer_tutorial_clue_title|Samouczek NLS - badanie śladów
 2115018273|        |rer_tutorial_clue_body|Właśnie <font color="#CD7D03">zbadałeś ślad</font> z modyfikacji Nowe Losowe Starcia. Kiedy zbadasz ślad Geralt powie, do którego stworzenia on należy i jeśli będziesz za nim dalej podążać odnajdziesz stworzenie, które je zostawiło. <br />  Prawie wszystkie potwory z modyfikacji pozostawiają ślady na ziemi. Miej jednak na uwadze, że modyfikacja używa linii dialogowych z gry i potwór jaki zobaczysz może nie zawsze być tym którego wspomni Geralt. Zawsze jednak możesz być pewien, że potwór przynajmniej należy do poprawnej kategorii. Przykładowo: Geralt nigdy nie mówi o Południcy, więc w zamian wspomni o Północnicy, lecz to jest wciąż upiór, więc błąd nie jest taki poważny.
 2115018274|        |rer_tutorial_contract_title|Samouczek NLS - zlecenie na potwory
-2115018275|        |rer_tutorial_contract_body|<font color="#CD7D03">Zlecenie na potwory</font> z modyfikacji NLS właśnie się rozpoczęło. Możliwe, że zauważyłeś jak odegrana zostaje prosta cutscenka i Geralt zastanawia się nad przyjęciem zlecenia. Od tego momentu jeśli chcesz ukończyć wiedźminskie zlecenie będziesz musiał podążać za śladami, znacznikiem na mapie jaki ustawiła modyfikacja lub gdzie skierowała cię kamera. <br/> Zlecenie na potwory jest losowo generowane i jest złożone z małych wcześniej utworzonych faz, które są połączone, by uformować coś co wygląda jak zadanie zlecenia z podstawowej gry, z oczywistą mniejszą ilością szczegółów i jest generowane na bieżąco. <br />  Możesz kontrolować ilość faz jakie zostają użyte do zbudowania zlecenia, innymi słowy jego długość używając suwaka <font color="#ffd33d">Trwałości</font>, który możesz znaleźć w menu modyfikacji. Jeden punkt trwałości jest równy ok. 1:30 minuty po tym jak już przyzwyczaisz się do działania systemu. <br /><br />Niektóre fazy są dość proste i wymagają tylko podążania za wytyczoną ścieżką lub zbadania śladu, gdy inne wymagają brania udziału w walce. Zlecenie wiedźminskie to starcie, gdzie musisz być przygotowany do walki i powinno być traktowane jako trudne, a niekiedy trudniejsze niż zlecenia z podstawowej gry. <br />  <br />  Zlecenie trwa dopóki Geralt nie wypowie coś pokroju <font color="#CD7D03">`To koniec`.</font> Są przypadki, gdzie modyfikacja nie jest w stanie znaleźć odpowiedniej pozycji lub nastąpił błąd i starcie zostanie przerwane, a Geralt wypowie wspomniane wcześniej zdanie. Więc, gdy kiedykolwiek usłyszysz od Geralta `To koniec` nie szukaj nic dalej, bo wszystko, co należy do zlecenia oprócz łupu niedługo zniknie <br /><br />  Powodzenia, i jeśli napotkasz jakikolwiek bug lub masz jakąś sugestię odnośnie modyfikacji, nie krępuj się ze mną skontaktować!  <br />  - Aeltoth
+2115018275|        |rer_tutorial_contract_body|<font color="#CD7D03">Zlecenia na potwory</font> z modyfikacji Nowe Losowe Starcia. Mod daje możliwość podjęcia losowo generowanych zleceń z każdej tablicy ogłoszeń w grze, wprowadza również system reputacji powiązany z tymi zleceniami. Z domyślnymi ustawieniami nie będziesz w stanie rozpocząć zwykłych zleceń z gry dopóki twoja reputacja nie będzie wystarczająco wysoka. To dotyczy każdej tablicy ogłoszeniowej. Po około dwóch zleceniach NLS odblokujesz możliwość wykonywania zleceń z podstawki gry jak również zlecenia NLS o wyższym stopniu trudności. Możesz kontynuować usprawniać swoją reputację nawet po odblokowaniu średnich zleceń po to, by odblokować ich ostatni stopień: zlecenia trudne, które oferują prawdziwe wyzwanie jak i lepsze nagrody. Nagroda wzrasta nie tylko wraz z poziomem trudności zleceniach ale też twoim poziomem reputacji.<br />Więcej informacji dotyczących kontraktów NLS możesz znaleźć w biblii NLS (RER Bible).<br />  - Aeltoth
 2115018276|        |rer_tutorial_ecosystem_title|Samouczek NLS - ekosystem
-2115018277|        |rer_tutorial_ecosystem_body|Właśnie zabiłeś stworzenie i pośrednio przyczyniłeś się do zmiany <font color="#CD7D03">pobliskich ekosystemów</font>. Mod Nowe Losowe Starcia symuluje łańcuch pokarmowy, który na stałe zmieni stworzenia jakie spotykasz (tylko te z modyfikacji). Ponieważ zabiłeś żywe stworzenie lub bandytę, pobliskie ekosystemy nieco się zmienił i z biegiem czasu pojawią się w nim nowe gatunki, a inne nawet przeniosą się do odrębnych miejsc. <br /><br />Możesz zbadać pobliski ekosystem używając przycisku dla <font color="#CD7D03">Analizy Ekosystemu</font>, który pozwoli na zdobycie przydatnych informacji o gatunkach i ich miejsach występowania. Aby dowiedzieć się o tym jak ustawić ten przycisk, proszę się skierować do szczegółowej instrukcji instalacji. <br /><br />Jeśli ta funkcjonalność tobie nie odpowiada możesz zmienić jej ustawienia w menu <font color="#CD7D03">Systemu Ekosystemu</font>. Wraz z zabijaniem stworzeń w danym regionie, ich liczba będzie się zmieniać w zależności od ustawień w menu (domyślnie będzie się zwiększać): jest to tzw. siła ekosystemu. Kiedy siła ekosystemu będzie się zmieniać, system nagród w postaci <font color="#ffd33d">Łupu Szału Zabijania</font> odblokuje nowy zestaw łupu za stworzenia i stopniowo będzie zwiększać szansę na otrzymanie tego zestawu. Po więcej informacji proszę skierować się do Biblii NLS. 
+2115018277|        |rer_tutorial_ecosystem_body|Właśnie zabiłeś stworzenie i pośrednio przyczyniłeś się do zmiany <font color="#CD7D03">pobliskich ekosystemów</font>. Mod Nowe Losowe Starcia symuluje łańcuch pokarmowy, który na stałe zmieni stworzenia jakie spotykasz (tylko te z modyfikacji). Ponieważ zabiłeś żywe stworzenie lub bandytę, pobliskie ekosystemy nieco się zmienił i z biegiem czasu pojawią się w nim nowe gatunki, a inne nawet przeniosą się do odrębnych miejsc. <br /><br />Możesz zbadać pobliski ekosystem używając przycisku dla <font color="#CD7D03">Analizy Ekosystemu</font>, który pozwoli na zdobycie przydatnych informacji o gatunkach i ich miejsach występowania. Aby dowiedzieć się o tym jak ustawić ten przycisk, proszę się skierować do szczegółowej instrukcji instalacji. <br /><br />Jeśli ta funkcjonalność tobie nie odpowiada możesz zmienić jej ustawienia w menu <font color="#CD7D03">Systemu Ekosystemu</font>. Wraz z zabijaniem stworzeń w danym regionie, ich liczba będzie się zmieniać w zależności od ustawień w menu (domyślnie będzie się zwiększać): jest to tzw. siła ekosystemu. Kiedy siła ekosystemu będzie się zmieniać, system nagród w postaci <font color="#ffd33d">Łupu Szału Zabijania</font> odblokuje nowy zestaw łupu za stworzenia i stopniowo będzie zwiększać szansę na otrzymanie tego zestawu. Po więcej informacji proszę skierować się do Biblii NLS (RER Bible). 
 2115018278|        |rer_tutorial_noticeboard_event_title|Samouczek NLS - tablica ogłoszeniowa
 2115018279|        |rer_tutorial_noticeboard_event_body|<font color="#CD7D03">Zdarzenie Tablicy Ogłoszeniowej</font> modyfikacji Nowe Losowe Starcia właśnie się rozpoczęło. Kiedy zamkniesz onko Geralt wypowie kilka kwestii. Po tym modyfikacja poczeka aż opuścisz wieś lub miasto, w którym obecnie się znajdujesz i gdy już będziesz wystarczająco daleko rozpocznie się <font color="#CD7D03">zlecenie wiedźminskie</font> zależne od ścieżki, którą się poruszałeś.
 2115018280|        |rer_tutorial_rewards_title|Samouczek NLS - nagrody
@@ -414,10 +434,10 @@
 2115018400|        |preset_Mods_rer_name_rer_contracts_settings|System zleceń
 2115018401|        |panel_rer_contracts_settings|System zleceń
 2115018402|        |option_rer_hours_before_new_contracts|Odstęp między kontraktami w godzinach
-2115018403|        |option_rer_easy_nearby_contracts_number|Ilość łatwych i niedalekich zleceń
-2115018404|        |option_rer_hard_nearby_contracts_number|Ilość trudnych i niedalekich zleceń
-2115018405|        |option_rer_easy_far_contracts_number|Ilość łatwych i odległych zleceń
-2115018406|        |option_rer_hard_far_contracts_number|Ilość trudnych i odległych zleceń
+2115018403|        |option_rer_easy_nearby_contracts_number|Ilość <font color="#30a14e">łatwych</font> i niedalekich zleceń
+2115018404|        |option_rer_hard_nearby_contracts_number|Ilość <font color="#c4432b">trudnych</font> i niedalekich zleceń
+2115018405|        |option_rer_easy_far_contracts_number|Ilość <font color="#30a14e">łatwych</font> i odległych zleceń
+2115018406|        |option_rer_hard_far_contracts_number|Ilość <font color="#c4432b">trudnych</font> i odległych zleceń
 2115018407|        |option_rer_allow_learn_new_locations|Pozwól NLS na uczenie się nowych lokacji w czasie eksploracji
 2115018408|        |option_rer_contracts_generation_seed|Ziarno wyboru zlecenia
 2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Sznsa na gatunki:</font> Zwierzęta
@@ -483,6 +503,14 @@
 2115018457|        |rer_survive_horde|Przetrwaj hordę potworów: {{type}}
 2115018458|        |rer_kill_target|Zabij wszystkie potwory: {{type}}
 2115018459|        |rer_contract_finished|Zlecenie zostało ukończone
-2115018460|        |rer_reward_bag|{{reward_type}} jako nagroda czeka w sakwie pod twoimi stopami
+2115018460|        |rer_reward_results|Żeton na {{reward_type}} został wymieniony na: {{item_names}}
 2115018461|        |rer_contract_started|Zlecenie na {{species}} właśnie się rozpoczęło, przeszukaj obszar oznaczony na mapie
-2115018462|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Lowca
+2115018462|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Łowca
+2115018463|        |rer_complete_more_contracts|Zablokowane: wykonaj więcej zleceń by zwiększyć swoją reputację
+2115018464|        |rer_current_reputation|Obecna reputacja dla tej tablicy ogłoszeniowej: {{reputation}}
+2115018465|        |rer_distance_nearby|Niedalekie
+2115018466|        |option_rer_medium_nearby_contracts_number|Ilość <font color="#d4a72c">średnich</font> i niedalekich zleceń
+2115018467|        |option_rer_medium_far_contracts_number|Ilość <font color="#d4a72c">średnich</font> i odległych zleceń
+2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">System reputacji:</font> włączony
+2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Wymagana reputacja dla <font color="#d4a72c">średnich</font> zleceń i tych z podstawki gry
+2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Bonus do nagrody za każdy punkt reputacji
