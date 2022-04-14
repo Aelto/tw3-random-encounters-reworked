@@ -17,8 +17,6 @@ state Loading in CRandomEncounters {
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
 
     parent.static_encounter_manager.init(parent);
-    RER_registerStaticEncountersLucOliver(parent);
-    RER_registerStaticEncountersAeltoth(parent);
 
     RER_addNoticeboardInjectors();
 

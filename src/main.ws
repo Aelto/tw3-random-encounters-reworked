@@ -117,6 +117,15 @@ statemachine class CRandomEncounters extends CEntity {
       .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());
   }
 
+  public function getPlaythroughSeed(): int {
+    if (this.storages.general.playthrough_seed == 0) {
+      this.storages.general.playthrough_seed = RandRange(1000000, 0);
+      this.storages.general.save();
+    }
+    
+    return this.storages.general.playthrough_seed;
+  }
+
   //#region OutOfCombat action
   private var out_of_combat_requests: array<OutOfCombatRequest>;
 

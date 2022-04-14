@@ -55,7 +55,7 @@ class RER_StaticEncounter {
 
     // first if the player is too far
     radius = this.radius * this.radius;
-    if (VecDistanceSquared(player_position, this.position) > max_distance * max_distance) {
+      if (VecDistanceSquared(player_position, this.position) > max_distance * max_distance) {
       return false;
     }
 

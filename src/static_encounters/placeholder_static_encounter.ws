@@ -17,7 +17,7 @@ enum RER_PlaceholderStaticEncounterType {
 }
 
 class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
-  public var type: RER_PlaceholderStaticEncounterType;
+  public var placeholder_type: RER_PlaceholderStaticEncounterType;
 
   public var picked_creature_type: CreatureType;
   default picked_creature_type = CreatureNONE;
@@ -30,8 +30,12 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
    */
   private var ignore_creature_check: bool;
 
-  public function init(ignore_creature_check: bool): RER_PlaceholderStaticEncounter {
+  public function init(ignore_creature_check: bool, position: Vector, radius: float, type: RER_StaticEncounterType): RER_PlaceholderStaticEncounter {
     this.ignore_creature_check = ignore_creature_check;
+    this.position = position;
+    this.type = type;
+    this.region_constraint = RER_RegionConstraint_NONE;
+    this
 
     return this;
   }
@@ -75,7 +79,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
     filter = (new RER_SpawnRollerFilter in this)
       .init();
 
-    if (this.type == StaticEncounterType_SMALL) {
+    if (this.placeholder_type == StaticEncounterType_SMALL) {
       filter
         .setOffsets(
           constants.large_creature_begin,
@@ -92,7 +96,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
         );
     }
 
-    if (this.type == RER_PSET_LearnFromEcosystem) {
+    if (this.placeholder_type == RER_PSET_LearnFromEcosystem) {
       return master.bestiary.getRandomEntryFromBestiary(
         master,
         EncounterType_HUNTINGGROUND,
@@ -100,7 +104,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
         filter
       );
     }
-    else if (this.type == RER_PSET_CopyNearbyCreature) {
+    else if (this.placeholder_type == RER_PSET_CopyNearbyCreature) {
       // this placeholder static encounter has not yet found an entity to copy 
       if (this.picked_creature_type == CreatureNONE) {
         this.picked_creature_type = this.findRandomNearbyHostileCreatureType(master);
@@ -168,4 +172,14 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
 
     return possible_types[i];
   }
+}
+
+function RER_placeholderStaticEncounterCanSpawnAtPosition(position: Vector, rng: RandomNumberGenerator, playthrough_seed: int): bool {
+  var seed: int;
+
+  rng
+    .useSeed(true)
+    .setSeed(playthrough_seed + position.X + position.Y + position.Z);
+
+  return rng.nextRange(100, 0) > 50;
 }

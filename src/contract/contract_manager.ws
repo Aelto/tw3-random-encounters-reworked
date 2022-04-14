@@ -180,12 +180,12 @@ statemachine class RER_ContractManager {
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
-    for (i = 0; i < this.master.static_encounter_manager.lucolivier_encounters.Size(); i += 1) {
-      if (!this.master.static_encounter_manager.lucolivier_encounters[i].isInRegion(current_region)) {
+    for (i = 0; i < this.master.static_encounter_manager.static_encounters.Size(); i += 1) {
+      if (!this.master.static_encounter_manager.static_encounters[i].isInRegion(current_region)) {
         continue;
       }
 
-      current_position = this.master.static_encounter_manager.lucolivier_encounters[i].position;
+      current_position = this.master.static_encounter_manager.static_encounters[i].position;
       current_distance = VecDistanceSquared2D(starting_point, current_position);
 
       sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
