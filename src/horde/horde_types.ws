@@ -13,6 +13,9 @@ class RER_HordeRequest {
   // the entities spawned for that request
   var entities: array<CEntity>;
 
+  var spawning_flags: RER_BestiaryEntrySpawnFlag;
+  default spawning_flags = RER_BESF_NO_PERSIST;
+
   public function init() {
     var i: int;
 

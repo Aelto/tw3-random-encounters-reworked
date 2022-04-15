@@ -345,6 +345,9 @@ state Processing in RER_ContractManager {
       ongoing_contract.creature_type,
       enemy_count
     );
+    request.spawning_flags = RER_flag(RER_BESF_NO_ECOSYSTEM_EFFECT, true)
+                           | RER_flag(RER_BESF_NO_PERSIST, true)
+                           | RER_flag(RER_BESF_NO_BESTIARY_FEATURE, true);
 
     parent.master.horde_manager.sendRequest(request);
 
