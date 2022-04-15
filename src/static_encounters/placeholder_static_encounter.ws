@@ -30,12 +30,13 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
    */
   private var ignore_creature_check: bool;
 
-  public function init(ignore_creature_check: bool, position: Vector, radius: float, type: RER_StaticEncounterType): RER_PlaceholderStaticEncounter {
+  public function init(ignore_creature_check: bool, position: Vector, radius: float, type: RER_StaticEncounterType, placeholder_type: RER_PlaceholderStaticEncounterType): RER_PlaceholderStaticEncounter {
     this.ignore_creature_check = ignore_creature_check;
     this.position = position;
     this.type = type;
+    this.radius = radius;
     this.region_constraint = RER_RegionConstraint_NONE;
-    this
+    this.placeholder_type = placeholder_type;
 
     return this;
   }
