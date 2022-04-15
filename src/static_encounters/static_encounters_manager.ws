@@ -15,7 +15,9 @@ statemachine class RER_StaticEncounterManager {
   }
 
   public function getOrStorePlaceholderStaticEncounterForPosition(position: Vector): RER_PlaceholderStaticEncounter {
+    var placeholder_type: RER_PlaceholderStaticEncounterType;
     var new_placeholder: RER_PlaceholderStaticEncounter;
+    var size: RER_StaticEncounterType;
     var i: int;
 
     for (i = 0; i < this.master.storages.general.placeholder_static_encounters.Size(); i += 1) {
@@ -26,12 +28,27 @@ statemachine class RER_StaticEncounterManager {
       return this.master.storages.general.placeholder_static_encounters[i];
     }
 
+    size = StaticEncounterType_SMALL;
+
+    // a 20% chance to be a large creature
+    if (RandRange(100, 0) < 20) {
+      size = StaticEncounterType_LARGE;
+    }
+
+    placeholder_type = RER_PSET_LearnFromEcosystem;
+
+    // a 50% chance to be a copy placeholder
+    if (RandRange(100, 0) < 50) {
+      placeholder_type = RER_PSET_CopyNearbyCreature;
+    }
+
     new_placeholder = (new RER_PlaceholderStaticEncounter in this.master)
-      // todo: add all the necessary parameters for PSE
       .init(
         false
         position,
-
+        20, // by default a 20 meters radius
+        size
+        placeholder_type
       );
 
     this.master.storages.general.placeholder_static_encounters.PushBack(new_placeholder);

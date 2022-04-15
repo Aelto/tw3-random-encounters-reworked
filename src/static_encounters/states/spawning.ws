@@ -89,6 +89,14 @@ state Spawning in RER_StaticEncounterManager {
       }
 
       placeholder_static_encounter = parent.getOrStorePlaceholderStaticEncounterForPosition(current_position);
+
+      // TODO #66: get the parameters in this function to be able to call trySpawnStaticEncounter
+      this.trySpawnStaticEncounter(
+        master,
+
+      );
+
+      placeholder_
     }
   }
 
