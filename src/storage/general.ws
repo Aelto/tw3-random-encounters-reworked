@@ -8,7 +8,7 @@ class RER_GeneralStorage extends RER_BaseStorage {
 
     var playthrough_seed: int;
 
-    placeholder_static_encounters: array<RER_PlaceholderStaticEncounter>;
+    var placeholder_static_encounters: array<RER_PlaceholderStaticEncounter>;
 }
 
 // an helper function to get ecosystem storage

@@ -91,17 +91,18 @@ state Spawning in RER_StaticEncounterManager {
       placeholder_static_encounter = parent.getOrStorePlaceholderStaticEncounterForPosition(current_position);
 
       // TODO #66: get the parameters in this function to be able to call trySpawnStaticEncounter
-      this.trySpawnStaticEncounter(
-        master,
+      // this.trySpawnStaticEncounter(
+      //   master,
 
-      );
+      // );
 
-      placeholder_
+      // placeholder_
     }
   }
 
   private function getNearbyPointOfInterests(player_position: Vector, max_distance: float): array<Vector> {
     var point_of_interests: array<SEntityMapPinInfo>;
+    var entities: array<CGameplayEntity>;
     var current_position: Vector;
     var current_distance: float;
     var output: array<Vector>;
@@ -126,8 +127,8 @@ state Spawning in RER_StaticEncounterManager {
     point_of_interests = getPointOfInterests();
 
     for (i = 0; i < point_of_interests.Size(); i += 1) {
-      current_position = mappins[i].entityPosition;
-      current_distance = VecDistanceSquared2D(starting_point, current_position);
+      current_position = point_of_interests[i].entityPosition;
+      current_distance = VecDistanceSquared2D(player_position, current_position);
 
       if (current_distance > max_distance) {
         continue;

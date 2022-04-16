@@ -75,12 +75,15 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
    * it may run some additional functions.
    */
   public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    var constants: RER_ConstantCreatureTypes;
     var filter: RER_SpawnRollerFilter;
+    var output: RER_BestiaryEntry;
 
+    constants = RER_ConstantCreatureTypes();
     filter = (new RER_SpawnRollerFilter in this)
       .init();
 
-    if (this.placeholder_type == StaticEncounterType_SMALL) {
+    if (this.type == StaticEncounterType_SMALL) {
       filter
         .setOffsets(
           constants.large_creature_begin,
@@ -98,12 +101,14 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
     }
 
     if (this.placeholder_type == RER_PSET_LearnFromEcosystem) {
-      return master.bestiary.getRandomEntryFromBestiary(
+      output = master.bestiary.getRandomEntryFromBestiary(
         master,
         EncounterType_HUNTINGGROUND,
         RER_flag(RER_BREF_IGNORE_SETTLEMENT, true),
         filter
       );
+
+      return output;
     }
     else if (this.placeholder_type == RER_PSET_CopyNearbyCreature) {
       // this placeholder static encounter has not yet found an entity to copy 
@@ -114,15 +119,19 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
       // if it's still none then we default back to
       // the LearnFromEcosystem behavior
       if (this.picked_creature_type == CreatureNONE) {
-        return master.bestiary.getRandomEntryFromBestiary(
+        output = master.bestiary.getRandomEntryFromBestiary(
           master,
           EncounterType_HUNTINGGROUND,
           RER_flag(RER_BREF_IGNORE_SETTLEMENT, true),
           filter
         );
+
+        return output;
       }
 
-      return master.bestiary.getEntry(this.picked_creature_type);
+      output = master.bestiary.getEntry(master, this.picked_creature_type);
+
+      return output;
     }
 
     NDEBUG("RER warning: RER_PlaceholderStaticEncounter::getBestiaryEntry(), returning RER_BestiaryEntryNull.");
@@ -180,7 +189,7 @@ function RER_placeholderStaticEncounterCanSpawnAtPosition(position: Vector, rng:
 
   rng
     .useSeed(true)
-    .setSeed(playthrough_seed + position.X + position.Y + position.Z);
+    .setSeed((int)(playthrough_seed + position.X + position.Y + position.Z));
 
   return rng.nextRange(100, 0) > 50;
 }

@@ -4,7 +4,7 @@ statemachine class RER_StaticEncounterManager {
 
   var static_encounters: array<RER_StaticEncounter>;
 
-  public function init(master: CRandomEncounters) {
+  public latent function init(master: CRandomEncounters) {
     this.master = master;
 
     this.registerStaticEncounters();
@@ -44,15 +44,15 @@ statemachine class RER_StaticEncounterManager {
 
     new_placeholder = (new RER_PlaceholderStaticEncounter in this.master)
       .init(
-        false
+        false,
         position,
         20, // by default a 20 meters radius
-        size
+        size,
         placeholder_type
       );
 
     this.master.storages.general.placeholder_static_encounters.PushBack(new_placeholder);
-    this.master.storages.general.placeholder_static_encounters.save();
+    this.master.storages.general.save();
 
     return new_placeholder;
   }
@@ -66,9 +66,11 @@ statemachine class RER_StaticEncounterManager {
   private latent function registerStaticEncounters() {
     var used_version: StaticEncountersVariant;
 
-    used_version = (StaticEncountersVariant)theGame
+    used_version = StringToInt(
+      theGame
       .GetInGameConfigWrapper()
-      .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion');
+      .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion')
+    );
 
     if (used_version == StaticEncountersVariant_LUCOLIVIER) {
       RER_registerStaticEncountersLucOliver(this.master);
@@ -98,7 +100,7 @@ latent function RER_registerStaticEncounter(master: CRandomEncounters, type: Cre
 
   master
     .static_encounter_manager
-    .registerStaticEncounter(master, new_static_encounter, version);
+    .registerStaticEncounter(master, new_static_encounter);
 }
 
 latent function RER_registerPlaceholderStaticEncounter(master: CRandomEncounters, placeholder_type: RER_PlaceholderStaticEncounterType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType) {
@@ -112,7 +114,7 @@ latent function RER_registerPlaceholderStaticEncounter(master: CRandomEncounters
 
   master
     .static_encounter_manager
-    .registerStaticEncounter(master, new_static_encounter, version);
+    .registerStaticEncounter(master, new_static_encounter);
 }
 
 latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters) {
