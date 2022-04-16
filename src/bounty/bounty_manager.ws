@@ -4,114 +4,10 @@ statemachine class RER_BountyManager extends CEntity {
   var master: CRandomEncounters;
   var bounty_master_manager: RER_BountyMasterManager;
 
-  // the list of hunting grounds for the current bounty.
-  var currently_managed_groups: array<RandomEncountersReworkedHuntingGroundEntity>;
-
-  // uses the group indices for the position indices
-  var cached_bounty_group_positions: array<Vector>;
-
   public function init(master: CRandomEncounters) {
     this.master = master;
     this.bounty_master_manager = new RER_BountyMasterManager in this;
     this.GotoState('Processing');
-  }
-
-  public latent function retrieveBountyGroups() {
-    var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
-    var bounty: RER_Bounty;
-    var i, k: int;
-
-    // there is no current bounty active in the world.
-    if (!this.master.storages.bounty.current_bounty.is_active) {
-      return;
-    }
-
-    this.cached_bounty_group_positions = this.getAllBountyGroupPositions();
-
-    bounty = this.getCurrentBountyCopy();
-
-    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
-      // it was not spawned earlier so we skip it
-      if (!bounty.random_data.groups[i].was_picked) {
-        continue;
-      }
-
-      // it was already killed so we skip it too
-      if (bounty.random_data.groups[i].was_killed) {
-        continue;
-      }
-
-      if (bounty.random_data.groups[i].was_spawned) {
-        // now if the group was spawned earlier and was not killed,
-        // we create a new hunting group there with the bounty entities around the
-        // point.
-        new_managed_group = retrieveBountyGroup(bounty.random_data.groups[i], i);
-
-        this.currently_managed_groups.PushBack(new_managed_group);
-      }
-    }
-  }
-
-  /**
-   * Return whether a bounty group can be considered active, meaning it should
-   * spawn something when approached.
-   */
-  function isGroupActive(group: RER_BountyRandomMonsterGroupData): bool {
-    return group.was_picked
-        && !group.was_spawned
-        && !group.was_killed;
-  }
-
-  /**
-   * Remove all the current markers about bounties and place new ones using
-   * the cached bounty positions.
-   */
-  public function updateBountyMarkers() {
-    var map_pin: SU_MapPin;
-    var bounty: RER_Bounty;
-    var i: int;
-
-    bounty = this.getCurrentBountyCopy();
-    SU_removeCustomPinByTag("RER_bounty_target");
-
-    // no point in updating anything if the user settings changed and no
-    // longer allow bounty map markers.
-    if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
-
-      return;
-    }
-    
-    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
-      if (!this.isGroupActive(bounty.random_data.groups[i])) {
-        continue;
-      }
-
-      map_pin = new SU_MapPin in thePlayer;
-      map_pin.tag = "RER_bounty_target";
-      map_pin.position = this.cached_bounty_group_positions[i];
-      map_pin.description = StrReplace(
-        GetLocStringByKey("rer_mappin_bounty_target_description"),
-        "{{creature_type}}",
-        getCreatureNameFromCreatureType(
-          this.master.bestiary,
-          bounty.random_data.groups[i]
-            .type
-        )
-      );
-      map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
-      map_pin.type = "MonsterQuest";
-      map_pin.radius = 100;
-      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-      thePlayer.addCustomPin(map_pin);
-    }
-
-    SU_updateMinimapPins();
-  }
-
-  public function getCurrentBountyCopy(): RER_Bounty {
-    return this.master.storages.bounty.current_bounty;
   }
 
   //#region bounty settings & constants
@@ -145,17 +41,12 @@ statemachine class RER_BountyManager extends CEntity {
 
   //#endregion bounty settings & constants
 
-
   //#region bounty creation
 
   // create a new bounty struct with all the data we need to know about the new
   // bounty.
-  public latent function getNewBounty(seed: int): RER_Bounty {
+  private latent function getNewBounty(seed: int): RER_Bounty {
     var bounty: RER_Bounty;
-
-    // if (seed <= 0) {
-    //   seed = RandRange(this.getMaximumSeed());
-    // }
 
     bounty = RER_Bounty();
     bounty.seed = seed;
@@ -165,14 +56,18 @@ statemachine class RER_BountyManager extends CEntity {
     return bounty;
   }
 
-  public latent function generateRandomDataForBounty(seed: int): RER_BountyRandomData {
+  private latent function generateRandomDataForBounty(seed: int): RER_BountyRandomData {
     var current_group_data: RER_BountyRandomMonsterGroupData;
+    var point_of_interests_positions: array<Vector>;
     var current_bestiary_entry: RER_BestiaryEntry;
+    var main_bestiary_entry: RER_BestiaryEntry;
+    var creature_type: CreatureType;
     var rng: RandomNumberGenerator;
     var data: RER_BountyRandomData;
     var number_of_groups: int;
     var constants: RER_ConstantCreatureTypes;
     var i: int;
+    var k: int;
 
     constants = RER_ConstantCreatureTypes();
 
@@ -184,23 +79,82 @@ statemachine class RER_BountyManager extends CEntity {
     data = RER_BountyRandomData();
     number_of_groups = this.getNumberOfGroupsForSeed(rng, seed);
 
-    NLOG("number of groups = " + number_of_groups);
+    NLOG("generateRandomDataForBounty(), number of groups = " + number_of_groups);
 
+    // 0.
+    // prepare the data we'll need while generating stuff
+    
+    // get a sorted list of the different POIs in the game
+    point_of_interests_positions = this.master.contract_manager.getClosestDestinationPoints(thePlayer.GetWorldPosition());
+
+    // bounties are composed of 1 main target and multiple side targets.
+    // The main target is a large monster, something supposedly hard to kill,
+    // while the side targets are small creatures.
+    
+    // 1.
+    // we start by adding the main group
+    current_group_data = RER_BountyRandomMonsterGroupData();
+
+    if (seed == 0) {
+      main_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
+        this.master,
+        EncounterType_CONTRACT,
+        RER_BREF_IGNORE_BIOMES | RER_BREF_IGNORE_SETTLEMENT | RER_BREF_IGNORE_BESTIARY,
+        (new RER_SpawnRollerFilter in this)
+          .init()
+          .setOffsets(
+            constants.large_creature_begin,
+            constants.large_creature_max,
+            0 // creature outside the offset have 0% chance to appear
+          )
+      );
+
+      current_group_data.type = main_bestiary_entry.type;
+    }
+    else {
+      current_group_data.type = (int)(rng.next() * (int)CreatureMAX);
+      
+      main_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
+    }
+
+    current_group_data.count = Max(1,
+        rollDifficultyFactorWithRng(
+          main_bestiary_entry.template_list.difficulty_factor,
+          this.master.settings.selectedDifficulty,
+          this.master.settings.enemy_count_multiplier
+          * main_bestiary_entry.creature_type_multiplier
+          // double the amount of creatures at level 100
+          * (1 + this.getDifficultyForSeed(seed) * 0.01),
+          rng
+        )
+      );
+
+    k = (int)rng.nextRange(point_of_interests_positions.Size(), 0);
+    current_group_data.position = point_of_interests_positions[k];
+
+    data.main_group = current_group_data;
+
+    // 2.
+    // we generate the side groups
     for (i = 0; i < number_of_groups; i += 1) {
       current_group_data = RER_BountyRandomMonsterGroupData();
 
       if (seed == 0) {
-        current_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
+        creature_type = main_bestiary_entry.getRandomCompositionCreature(
           this.master,
           EncounterType_CONTRACT,
-          RER_BREF_IGNORE_BIOMES | RER_BREF_IGNORE_SETTLEMENT,
           (new RER_SpawnRollerFilter in this)
             .init()
             .setOffsets(
-              constants.large_creature_begin,
-              constants.large_creature_max,
-              0.1 // creature outside the offset have -90% chance to appear
+              constants.small_creature_begin_no_humans,
+              constants.small_creature_max,
+              0 // creature outside the offset have 0% chance to appear
             )
+        );
+
+        current_bestiary_entry = this.master.bestiary.getEntry(
+          this.master,
+          creature_type
         );
 
         current_group_data.type = current_bestiary_entry.type;
@@ -210,102 +164,43 @@ statemachine class RER_BountyManager extends CEntity {
         
         current_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
       }
-      
+
       current_group_data.count = Max(1,
-        rollDifficultyFactorWithRng(
-          current_bestiary_entry.template_list.difficulty_factor,
-          this.master.settings.selectedDifficulty,
-          this.master.settings.enemy_count_multiplier
-          * current_bestiary_entry.creature_type_multiplier
-          // double the amount of creatures at level 100
-          * (1 + this.getDifficultyForSeed(seed) * 0.01),
-          rng
-        )
-      );
+          rollDifficultyFactorWithRng(
+            current_bestiary_entry.template_list.difficulty_factor,
+            this.master.settings.selectedDifficulty,
+            this.master.settings.enemy_count_multiplier
+            * current_bestiary_entry.creature_type_multiplier
+            // double the amount of creatures at level 100
+            * (1 + this.getDifficultyForSeed(seed) * 0.01),
+            rng
+          )
+        );
 
-      current_group_data.position_x = rng.next();
-      current_group_data.position_y = rng.next();
-      current_group_data.translation_heading = rng.nextRange(360, 0);
+      k = (int)rng.nextRange(point_of_interests_positions.Size(), 0);
+      current_group_data.position = point_of_interests_positions[k];
 
-      data.groups.PushBack(current_group_data);
+      data.side_groups.PushBack(current_group_data);
     }
 
     return data;
   }
-
   //#endregion bounty creation
 
 
   //#region bounty workflow
-
-  // create the new bounty from the bounty struct that contains all the data about
-  // the bounty.
-  // NOTE: it kills every existing bounty creatures already in the world before
-  // creating new ones, in order to cancel the previous bounty if it existed.
-  public latent function startBounty(bounty: RER_Bounty) {
-    var entities: array<CEntity>;
-    var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
-    var i: int;
-
-    theGame.GetEntitiesByTag('RER_BountyEntity', entities);
-
-    SU_removeCustomPinByTag("RER_bounty_target");
-
-    for (i = 0; i < entities.Size(); i += 1) {
-      ((CNewNPC)entities[i]).Kill('Bounty');
-    }
-
-    NLOG("killed " + entities.Size() + " entities");
-
-    if (entities.Size() > 0) {
-      NLOG("waiting 10 seconds");
-
-      // to give time to the HuntingGround to notify the manager
-      Sleep(10);
-    }
-
-    this.currently_managed_groups.Clear();
-    
-    this.master.storages.bounty.current_bounty = bounty;
-
-    NLOG("starting bounty with " + bounty.random_data.groups.Size() + " groups");
-
-    SU_removeCustomPinByTag("RER_bounty_target");
+  public latent function startBounty(seed: int) {
+    this.master.storages.bounty.current_bounty = this.getNewBounty(seed);
 
     this.master
         .storages
         .bounty
         .save();
 
-    this.cached_bounty_group_positions = this.getAllBountyGroupPositions();
-
-    NLOG("starting bounty with " + this.master.storages.bounty.current_bounty.random_data.groups.Size() + " groups");
-
-    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size() && i < 4; i += 1) {
-      this.progressThroughCurrentBounty();
-    }
-
-    // for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size(); i += 1) {
-    //   new_managed_group = this.spawnBountyGroup(
-    //     this.master.storages.bounty.current_bounty.random_data.groups[i],
-    //     i
-    //   );
-
-    //   this.currently_managed_groups.PushBack(new_managed_group);
-
-    //   // don't spawn more than 5 groups at the start.
-    //   // The rest of the groups are spawned the player progresses through the bounty.
-    //   if (i >= 4) {
-    //     break;
-    //   }
-    // }
-
-    theSound.SoundEvent( 'gui_enchanting_socket_add' );
+    theSound.SoundEvent("gui_ingame_quest_active");
 
     Sleep(0.2);
-
     RER_tutorialTryShowBounty();
-
     Sleep(0.5);
 
     RER_openPopup(
@@ -313,203 +208,243 @@ statemachine class RER_BountyManager extends CEntity {
       this.getInformationMessageAboutCurrentBounty()
     );
 
-    SU_updateMinimapPins();
+    this.displayMarkersForCurrentBounty();
+  }
 
-    NLOG("bounty started");
+  public function endBounty() {
+    var message: string;
+    var new_level: int;
+    var bonus: int;
+
+    this.abandonBounty();
+
+    bonus = this.getNumberOfSideGroupsKilled();
+    new_level = this.increaseBountyLevel(bonus);
+
+    message = GetLocStringByKey("rer_bounty_finished_notification");
+    message = StrReplace(
+      message,
+      "{{side_groups_killed}}",
+      bonus
+    );
+    message = StrReplace(
+      message,
+      "{{bounty_level}}",
+      new_level
+    );
+
+    NDEBUG(message);
+  }
+
+  public function abandonBounty() {
+    this.master.storages.bounty.current_bounty.is_active = false;
+    this.master.storages.bounty.save();
+
+    this.displayMarkersForCurrentBounty();
+  }
+
+  public function displayMarkersForCurrentBounty() {
+    var map_pin: SU_MapPin;
+    var i: int;
+
+    SU_removeCustomPinByTag("RER_bounty_target");
+
+    if (!isBountyActive()) {
+      return;
+    }
+
+    if (!theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+      return;
+    }
+
+    map_pin = new SU_MapPin in this;
+    map_pin.tag = "RER_bounty_target";
+    map_pin.position = this.master.storages.bounty.current_bounty.random_data.main_group.position;
+    map_pin.description = StrReplace(
+      GetLocStringByKey("rer_mappin_bounty_main_target_description"),
+      "{{creature_type}}",
+      getCreatureNameFromCreatureType(
+        this.master.bestiary,
+        this.master
+          .storages
+          .bounty
+          .current_bounty
+          .random_data
+          .main_group
+          .type
+      )
+    );
+    map_pin.label = GetLocStringByKey("rer_mappin_bounty_main_target_title");
+    map_pin.type = "MonsterQuest";
+    map_pin.radius = 100;
+    map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+    map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
+
+    thePlayer.addCustomPin(map_pin);
+
+    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
+      map_pin = new SU_MapPin in this;
+      map_pin.tag = "RER_bounty_target";
+      map_pin.position = this.master.storages.bounty.current_bounty.random_data.side_groups[i].position;
+      map_pin.description = StrReplace(
+        GetLocStringByKey("rer_mappin_bounty_side_target_description"),
+        "{{creature_type}}",
+        getCreatureNameFromCreatureType(
+          this.master.bestiary,
+          this.master
+            .storages
+            .bounty
+            .current_bounty
+            .random_data
+            .side_groups[i]
+            .type
+        )
+      );
+      map_pin.label = GetLocStringByKey("rer_mappin_bounty_side_target_title");
+      map_pin.type = "MonsterQuest";
+      map_pin.radius = 50;
+      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
+
+      thePlayer.addCustomPin(map_pin);
+    }
+
+    SU_updateMinimapPins();
+  }
+
+  public function isBountyActive(): bool {
+    return this.master.storages.bounty.current_bounty.is_active;
+  }
+
+  public function isMainGroupDead(): bool {
+    if (!this.isBountyActive()) {
+      NDEBUG("RER warning: isMainGroupDead() was called but no active bounty was found.");
+      
+      return false;
+    }
+
+    return this.master.storages.bounty.current_bounty.random_data.main_group.was_killed;
+  }
+
+  public function getNumberOfSideGroupsKilled(): int {
+    var count: int;
+    var i: int;
+
+    if (!this.isBountyActive()) {
+      NDEBUG("RER warning: getNumberOfSideGroupsKilled() was called but no active bounty was found.");
+
+      return 0;
+    }
+
+    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
+      count += (int)this.master.storages.bounty.current_bounty.random_data.side_groups[i].was_killed;
+    }
+
+    return count;
+  }
+
+  public function notifyMainGroupKilled() {
+    this.displayMarkersForCurrentBounty();
+
+    if (!this.isBountyActive()) {
+      NDEBUG("RER warning: notifyMainGroupKilled() was called but no active bounty was found.");
+    }
+
+    this.endBounty();
+  }
+
+  public function notifySideGroupKilled(index: int) {
+    this.displayMarkersForCurrentBounty();
+
+    if (!this.isBountyActive()) {
+      NDEBUG("RER warning: notifySideGroupKilled(" + index + ") was called but no active bounty was found.");
+
+      return;
+    }
+
+    if (index >= this.master.storages.bounty.current_bounty.random_data.side_groups.Size()) {
+      NDEBUG(
+        "RER warning: out of bound index, notifySideGroupKilled("
+        + index
+        + ") but there are only "
+        + this.master.storages.bounty.current_bounty.random_data.side_groups.Size()
+        + " side groups"
+      );
+
+
+      return;
+    }
+
+    this.master.storages.bounty.current_bounty.random_data.side_groups[index].was_killed = true;
+    this.master.storages.bounty.save();
+
+    thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_bounty_side_target_killed"));
   }
 
   public function getInformationMessageAboutCurrentBounty(): string {
     var group: RER_BountyRandomMonsterGroupData;
+    var segment: string;
     var message: string;
     var i: int;
 
-    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.groups.Size(); i += 1) {
-      group = this.master.storages.bounty.current_bounty.random_data.groups[i];
-      message += " - " + group.count + " ";
-      message += " " + getCreatureNameFromCreatureType(this.master.bestiary, group.type) + "<br />";
+    if (!this.isBountyActive()) {
+      NDEBUG("RER warning: getInformationMessageAboutCurrentBounty() was called but no active bounty was found");
+
+      return "";
     }
 
-    return StrReplace(
-      GetLocStringByKey("rer_bounty_start_popup"),
-      "{{creature_listing}}",
-      message
+    message = GetLocStringByKey("rer_bounty_start_popup");
+
+    // 1.
+    // first the main target
+    message = StrReplace(
+      message,
+      "{{main_creature_listing}}",
+      " - " + getCreatureNameFromCreatureType(
+        this.master.bestiary,
+        this.master.storages.bounty.current_bounty.random_data.main_group.type
+      )
     );
-  }
 
-  public latent function progressThroughCurrentBounty() {
-    var current_seed: int;
-    var random_group: RER_BountyRandomMonsterGroupData;
-    var random_group_index: int;
-    var map_pin: SU_MapPin;
-    var position: Vector;
+    // 2
+    // then the side targets
+    for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
+      group = this.master.storages.bounty.current_bounty.random_data.side_groups[i];
 
-    if (!this.master.storages.bounty.current_bounty.is_active) {
-      return;
+      segment += " - " + getCreatureNameFromCreatureType(this.master.bestiary, group.type) + "<br />";
     }
 
-    // if the player has killed enough groups then we consider the bounty finished
-    if (!this.hasAnyGroupToKillYet(this.master.storages.bounty.current_bounty)) {
-      NLOG("progress - no more groups to kill in the bounty, bounty is finished");
+    message = StrReplace(
+      message,
+      "{{side_creature_listing}}",
+      segment
+    );
 
-      // we increase the bounty level for the player
-      this.increaseBountyLevel();
-
-      // set the bounty as no longer active
-      this.master
-        .storages
-        .bounty
-        .current_bounty
-        .is_active = false;
-
-      // save the changes
-      this.master
-        .storages
-        .bounty
-        .save();
-
-      NDEBUG(
-        StrReplace(
-          GetLocStringByKey("rer_bounty_finished_notification"),
-          "{{bounty_level}}",
-          RER_yellowFont(this.master.storages.bounty.bounty_level)
-        )
-      );
-
-      return;
-    }
-
-    // there is still a group to pick
-    if (this.getRandomGroupToPick(this.master.storages.bounty.current_bounty, random_group, random_group_index)) {
-      position = this.cached_bounty_group_positions[random_group_index];
-
-      if (theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
-
-        map_pin = new SU_MapPin in thePlayer;
-        map_pin.tag = "RER_bounty_target";
-        map_pin.position = position;
-        map_pin.description = StrReplace(
-          GetLocStringByKey("rer_mappin_bounty_target_description"),
-          "{{creature_type}}",
-          getCreatureNameFromCreatureType(
-            this.master.bestiary,
-            this.master
-              .storages
-              .bounty
-              .current_bounty
-              .random_data
-              .groups[random_group_index]
-              .type
-          )
-        );
-        map_pin.label = GetLocStringByKey("rer_mappin_bounty_target_title");
-        map_pin.type = "MonsterQuest";
-        map_pin.radius = 100;
-        map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-        map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
-          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
-
-        thePlayer.addCustomPin(map_pin);
-      }
-
-      this.master
-        .storages
-        .bounty
-        .current_bounty
-        .random_data
-        .groups[random_group_index].was_picked = true;
-
-      this.master
-        .storages
-        .bounty
-        .save();
-    }
-  }
-
-  public function hasAnyGroupToKillYet(bounty: RER_Bounty): bool {
-    var i: int;
-
-    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
-      if (!bounty.random_data.groups[i].was_killed) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  public latent function notifyHuntingGroundKilled(group_index: int) {
-    this.master
-      .storages
-      .bounty
-      .current_bounty
-      .random_data
-      .groups[group_index]
-      .was_killed = true;
-
-    this.master
-        .storages
-        .bounty
-        .save();
-
-
-    this.progressThroughCurrentBounty();
-
-    (new RER_RandomDialogBuilder in thePlayer).start()
-    .then(2)
-    .either(new REROL_alright_whats_next in thePlayer, false, 1)
-    .either(new REROL_thats_my_next_destination in thePlayer, false, 1)
-    .play();
-  }
-
-  // returns false if it could not find any more group to spawn in the supplied bounty.
-  public function getRandomGroupToSpawn(bounty: RER_Bounty, out group_data: RER_BountyRandomMonsterGroupData, out group_index: int): bool {
-    var i: int;
-
-    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
-      if (!bounty.random_data.groups[i].was_spawned) {
-        group_data = bounty.random_data.groups[i];
-        group_index = i;
-        
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  // returns false if it could not find any more group to pick in the supplied bounty.
-  public function getRandomGroupToPick(bounty: RER_Bounty, out group_data: RER_BountyRandomMonsterGroupData, out group_index: int): bool {
-    var i: int;
-
-    for (i = 0; i < bounty.random_data.groups.Size(); i += 1) {
-      if (!bounty.random_data.groups[i].was_picked) {
-        group_data = bounty.random_data.groups[i];
-        group_index = i;
-        
-        return true;
-      }
-    }
-
-    return false;
+    return message;
   }
 
   //#endregion bounty workflow
 
 
-  //#region bounty spawn & retrieve
-
+  //#region bounty spawn
   public latent function spawnBountyGroup(group_data: RER_BountyRandomMonsterGroupData, group_index: int): RandomEncountersReworkedHuntingGroundEntity {
-    var bestiary_entry: RER_BestiaryEntry;
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var current_group: RER_BountyRandomMonsterGroupData;
+    var side_bestiary_entry: RER_BestiaryEntry;
     var rer_entity_template: CEntityTemplate;
+    var bestiary_entry: RER_BestiaryEntry;
+    var side_entities: array<CEntity>;
     var entities: array<CEntity>;
-    var position: Vector;
     var player_position: Vector;
+    var position: Vector;
     var i: int;
 
+    NLOG("spawnBountyGroup()" + group_index);
+
     bestiary_entry = this.master.bestiary.entries[group_data.type];
-    position = this.cached_bounty_group_positions[group_index];
 
     // to get it closer to the real ground position. It works because bounty
     // groups are spawned only when the player gets close.
@@ -517,10 +452,6 @@ statemachine class RER_BountyManager extends CEntity {
       player_position = thePlayer.GetWorldPosition();
       position.Z = player_position.Z;
     }
-
-    // we remove the pin because the hunting ground will create one and the
-    // getGroundPosition will probably slightly move the point away.
-    SU_removeCustomPinByPosition(position);
 
     if (!getGroundPosition(position, 2, 50) || position.Z <= 0) {
       if (!getRandomPositionBehindCamera(position, 50)) {
@@ -534,9 +465,39 @@ statemachine class RER_BountyManager extends CEntity {
       group_data.count,
       , // density
       EncounterType_CONTRACT,
-      RER_BESF_NO_BESTIARY_FEATURE,
+      RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
       'RandomEncountersReworked_BountyCreature'
     );
+
+    // group index -1 is a way to identify the main group
+    // in that case we add 1 of each side group killed into the main group
+    if (group_index < 0) {
+      for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
+        current_group = this.master.storages.bounty.current_bounty.random_data.side_groups[i];
+
+        if (current_group.was_killed) {
+          continue;
+        }
+
+        side_bestiary_entry = this.master
+          .bestiary
+          .getEntry(this.master, group_data.type);
+
+        side_entities = bestiary_entry.spawn(
+          this.master,
+          position,
+          1, // only 1 creature
+          , // density
+          EncounterType_CONTRACT,
+          RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
+          'RandomEncountersReworked_BountyCreature'
+        );
+
+        if (side_entities.Size() > 0) {
+          entities.PushBack(side_entities[0]);
+        }
+      }
+    }
 
     NLOG("bounty group " + group_index + " spawned " + entities.Size() + " entities at " + VecToString(position));
 
@@ -556,14 +517,6 @@ statemachine class RER_BountyManager extends CEntity {
     }
 
     this.master
-      .storages
-      .bounty
-      .current_bounty
-      .random_data
-      .groups[group_index]
-      .was_spawned = true;
-
-    this.master
         .storages
         .bounty
         .save();
@@ -571,105 +524,7 @@ statemachine class RER_BountyManager extends CEntity {
     return rer_entity;
   }
 
-  public latent function retrieveBountyGroup(group_data: RER_BountyRandomMonsterGroupData, group_index: int): RandomEncountersReworkedHuntingGroundEntity {
-    var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
-    var rer_entity_template: CEntityTemplate;
-    var entities: array<CGameplayEntity>;
-    var filtered_entities: array<CEntity>;
-    var position: Vector;
-    var original_position: Vector;
-    var i: int;
-
-    position = this.cached_bounty_group_positions[group_index];
-    original_position = position;
-    
-    rer_entity_template = (CEntityTemplate)LoadResourceAsync(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
-      true
-    );
-
-    FindGameplayEntitiesInRange(
-      entities,
-      rer_entity,
-      100, // radius
-      50, // max number of entities
-      'RandomEncountersReworked_BountyCreature', // tag
-      FLAG_ExcludePlayer,
-      thePlayer, // target
-      'CEntity'
-    );
-
-    for (i = 0; i < entities.Size(); i += 1) {
-      if (entities[i].HasTag('RER_controlled')) {
-        continue;
-      }
-
-      entities[i].AddTag('RER_controlled');
-      filtered_entities.PushBack((CEntity)entities[i]);
-    }
-
-    // to better place the marker, set the position to the first creature found
-    // but we still move the position a bit closer to the marker to avoid
-    // the case where the creature, over many reloads, slowly moves away from
-    // the marker up to the point where it's not found anymore.
-    if (entities.Size() > 0) {
-      position = entities[0].GetWorldPosition();
-      position = VecInterpolate(
-        position,
-        original_position,
-        0.05
-      );
-
-      // then we find a safe spot in the position if possible. We don't really
-      // care if it succeeds or not.
-      if (!getGroundPosition(position, 5, 10)) {
-        NLOG("retrieveBountyGroup, could not find a safe ground position.");
-      }
-    }
-
-    rer_entity = (RandomEncountersReworkedHuntingGroundEntity)theGame.CreateEntity(
-      rer_entity_template,
-      position,
-      thePlayer.GetWorldRotation()
-    );
-
-    rer_entity.activateBountyMode(this, group_index);
-    rer_entity.startEncounter(this.master, filtered_entities, this.master.bestiary.entries[group_data.type]);
-
-    return rer_entity;
-  }
-
   //#endregion bounty spawn & retrieve
-
-
-  //#region coordinates
-  public function getAllBountyGroupPositions(): array<Vector> {
-    var groups: array<RER_BountyRandomMonsterGroupData>;
-    var positions: array<Vector>;
-    var i: int;
-
-    groups = this.master.storages.bounty.current_bounty.random_data.groups;
-
-    for (i = 0; i < groups.Size(); i += 1) {
-      positions.PushBack(
-        SUH_getSafeCoordinatesFromPoint(
-          SUH_moveCoordinatesAwayFromSafeAreas(
-            SUH_moveCoordinatesInsideValidAreas(
-              SUH_getCoordinatesFromPercentValues(
-                groups[i].position_x,
-                groups[i].position_y
-              )
-            ),
-            this.master.addon_manager.addons_data.exception_areas
-          ),
-        )
-      );
-    }
-
-    return positions;
-  }
-
-  //#endregion coordinates
 
   // return the maximum progress the bounty will have for this seed. Each progress
   // level is a group of creatures.
@@ -677,9 +532,9 @@ statemachine class RER_BountyManager extends CEntity {
     var min: int;
     var max: int;
 
-    min = 3;
-    // for every 20 levels bounties have a chance to get 1 more group
-    max = 2 + (int)(this.getDifficultyForSeed(seed) * 0.05) + min;
+    min = 1;
+    // for every 10 levels bounties have a chance to get 1 more group
+    max = 2 + (int)(this.getDifficultyForSeed(seed) * 0.1) + min;
 
     NLOG("getNumberOfGroupsForSeed(" + seed + ") - " + RandNoiseF(seed, max, min) + " " + max);
 
@@ -689,7 +544,9 @@ statemachine class RER_BountyManager extends CEntity {
     return (int)rng.nextRange(max, min);
   }
 
-  public function increaseBountyLevel() {
+  public function increaseBountyLevel(optional multiplier: int): int {
+    multiplier = Max(1, multiplier);
+
     this.master
       .storages
       .bounty
@@ -699,6 +556,11 @@ statemachine class RER_BountyManager extends CEntity {
       .storages
       .bounty
       .save();
+
+    return this.master
+      .storages
+      .bounty
+      .bounty_level;
   }
 }
 
@@ -715,158 +577,81 @@ state Processing in RER_BountyManager {
 
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
+    parent.displayMarkersForCurrentBounty();
     this.spawnNearbyBountyGroups();
 
     while (true) {
       Sleep(10);
 
       // no active bounty, do nothing
-      if (!parent.master.storages.bounty.current_bounty.is_active) {
+      if (!parent.isBountyActive()) {
         continue;
       }
 
-      this.moveBountyTargets();
       this.spawnNearbyBountyGroups();
     }
-
-  }
-
-  function moveBountyTargets() {
-    var groups: array<RER_BountyRandomMonsterGroupData>;
-    var gametime_delta_multiplier: float;
-    var custom_pins: array<SU_MapPin>;
-    var current_translation: Vector;
-    var current_group_index: int;
-    var new_position: Vector;
-    var pin: SU_MapPin;
-    var i: int;
-
-    groups = parent.master.storages.bounty.current_bounty.random_data.groups;
-    for (i = 0; i < groups.Size(); i += 1) {
-      // we only move the targets that were not spawned yet and only the markers
-      // that are currently shown on the map.
-      if (!parent.isGroupActive(groups[i])) {
-        continue;
-      }
-
-      // randomly change the current translation heading up to a maximum of 5
-      // degrees.
-      groups[i].translation_heading = AngleNormalize(
-        groups[i].translation_heading + RandRangeF(10) - 5
-      );
-
-      current_translation = VecConeRand(
-        groups[i].translation_heading,
-        15, // angle
-        0, // min range
-        0.0005 // max range
-      );
-
-      // y at 1 is the top of the map
-      // x at 1 is the right of the map
-      // heading at 0 is the 
-
-      // we mutate the original coordinates
-      groups[i].position_x += current_translation.X;
-      groups[i].position_y += current_translation.Y;
-
-      if (groups[i].position_x <= 0.05) {
-        groups[i].position_x = 0.06;
-
-        // 270 degrees is the right
-        groups[i].translation_heading = 270;
-      }
-
-      if (groups[i].position_x >= 0.95) {
-        groups[i].position_x = 0.94;
-
-        // 90 degrees is the left
-        groups[i].translation_heading = 90;
-      }
-
-      // y below zero is the top of the map
-      if (groups[i].position_y <= 0.05) {
-        groups[i].position_y = 0.06;
-
-        // 0 degrees is the top of the map
-        groups[i].translation_heading = 0;
-      }
-
-      if (groups[i].position_y >= 0.95) {
-        groups[i].position_y = 0.94;
-
-        // 180 degrees is the bottom of the map
-        groups[i].translation_heading = 180;
-      }
-
-      new_position = SUH_getSafeCoordinatesFromPoint(
-        SUH_moveCoordinatesAwayFromSafeAreas(
-          SUH_moveCoordinatesInsideValidAreas(
-            SUH_getCoordinatesFromPercentValues(
-              groups[i].position_x,
-              groups[i].position_y
-            )
-          ),
-          parent.master.addon_manager.addons_data.exception_areas
-        )
-      );
-
-      parent.master.storages.bounty.current_bounty.random_data.groups[i].position_x = groups[i].position_x;
-      parent.master.storages.bounty.current_bounty.random_data.groups[i].position_y = groups[i].position_y;
-      parent.master.storages.bounty.current_bounty.random_data.groups[i].translation_heading = groups[i].translation_heading;
-      // parent.cached_bounty_group_positions[i] = new_position;
-    }
-
-    parent.cached_bounty_group_positions = parent.getAllBountyGroupPositions();
-    
-    parent.master
-        .storages
-        .bounty
-        .save();
-
-    parent.updateBountyMarkers();
   }
 
   latent function spawnNearbyBountyGroups() {
-    var i: int;
     var groups: array<RER_BountyRandomMonsterGroupData>;
-    var position: Vector;
-    var distance_from_player: float;
-    var max_distance: float;
-    var new_managed_group: RandomEncountersReworkedHuntingGroundEntity;
     var player_position: Vector;
+    var i: int;
 
-    groups = parent.master.storages.bounty.current_bounty.random_data.groups;
-    max_distance = 100 * 100;
+    if (!parent.isBountyActive()) {
+      NDEBUG("RER warning: spawnNearbyBountyGroups() was called but no active bounty was found");
+
+      return;
+    }
+
     player_position = thePlayer.GetWorldPosition();
 
+    // 1.
+    // we start by checking for the main group
+    this.trySpawnBountyGroup(
+      parent.master.storages.bounty.current_bounty.random_data.main_group,
+      100,
+      player_position,
+      -1 // -1 is a special case to identify the main group
+    );
+
+
+    groups = parent.master.storages.bounty.current_bounty.random_data.side_groups;
+
     for (i = 0; i < groups.Size(); i += 1) {
-      if (!groups[i].was_picked || groups[i].was_spawned) {
+      if (!groups[i].was_killed) {
         continue;
       }
 
-      // here, we know the group we currently have was picked and was not spawned
-      position = parent.cached_bounty_group_positions[i];
-
-      position.Z = player_position.Z;
-
-      distance_from_player = VecDistanceSquared(
+      // here, we know the group we currently have was not killed
+      this.trySpawnBountyGroup(
+        groups[i],
+        50,
         player_position,
-        position
-      );
-
-      // the player is too far from the group, we'll wait for him to get closer
-      // before spawning it
-      if (distance_from_player > max_distance) {
-        continue;
-      }
-
-      new_managed_group = parent.spawnBountyGroup(
-        parent.master.storages.bounty.current_bounty.random_data.groups[i],
         i
       );
-
-      parent.currently_managed_groups.PushBack(new_managed_group);
     }
+  }
+
+  latent function trySpawnBountyGroup(group: RER_BountyRandomMonsterGroupData, radius: float, player_position: Vector, index: int) {
+    var distance_from_player: float;
+    var max_distance: float;
+    var position: Vector;
+
+    max_distance = radius * radius;
+    position = group.position;
+    position.Z = player_position.Z;
+
+    distance_from_player = VecDistanceSquared(
+      player_position,
+      position
+    );
+
+    if (distance_from_player > max_distance) {
+      return;
+    }
+
+    parent.spawnBountyGroup(group, index);
+    theGame.SaveGame( SGT_QuickSave, -1 );
+    theSound.SoundEvent("gui_ingame_new_journal");
   }
 }

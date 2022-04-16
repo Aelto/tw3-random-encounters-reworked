@@ -9,6 +9,11 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
   var min_level_allowed: int;
   var level: int;
 
+  if (RER_playerUsesEnhancedEditionRedux()) {
+    // every 3 hours of gameplay is equal to 1 level in vanilla
+    return GameTimeHours(theGame.CalculateTimePlayed()) / 3;
+  }
+
   player_level = thePlayer.GetLevel();
 
   // if for some reason the user set the max lower than the min value

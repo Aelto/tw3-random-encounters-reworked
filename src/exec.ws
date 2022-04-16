@@ -202,7 +202,7 @@ exec function rerkillbountymaster() {
   }
 }
 
-exec function rerchallenge(optional seed: int) {
+exec function rerbounty(optional seed: int) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;
 
@@ -542,13 +542,9 @@ state RunChallengeMode in RER_ExecRunner {
   }
 
   entry function RunChallengeMode_main() {
-    var bounty: RER_Bounty;
-
-    bounty = parent.master.bounty_manager.getNewBounty(parent.seed);
-
     parent.master
       .bounty_manager
-      .startBounty(bounty);
+      .startBounty(parent.seed);
 
     NDEBUG("A bounty was created with the seed " + RER_yellowFont(parent.seed));
   }

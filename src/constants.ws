@@ -64,6 +64,9 @@ struct RER_ConstantCreatureTypes {
   var small_creature_begin: CreatureType;
   default small_creature_begin = CreatureHUMAN;
 
+  var small_creature_begin_no_humans: CreatureType;
+  default small_creature_begin_no_humans = CreatureARACHAS;
+
   var small_creature_max: CreatureType;
   default small_creature_max = CreatureDRACOLIZARD;
 

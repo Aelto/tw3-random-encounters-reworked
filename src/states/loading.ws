@@ -69,10 +69,6 @@ state Loading in CRandomEncounters {
       entity.RemoveTag('RER_controlled');
     }
 
-    // this function adds the `RER_controlled` tag to the creatures who have the
-    // `RER_BountyEntity` tag. Hence the if case below that checks for the tag.
-    parent.bounty_manager.retrieveBountyGroups();
-
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
       true

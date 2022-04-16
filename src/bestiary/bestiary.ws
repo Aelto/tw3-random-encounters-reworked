@@ -78,7 +78,7 @@ class RER_Bestiary {
 
     // when the option "Only known bestiary creatures" is ON
     // we remove every unknown creatures from the spawning pool
-    if (master.settings.only_known_bestiary_creatures) {
+    if (master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BREF_IGNORE_BESTIARY)) {
       manager = theGame.GetJournalManager();
 
       for (i = 0; i < CreatureMAX; i += 1) {
@@ -313,5 +313,6 @@ class RER_Bestiary {
 enum RER_BestiaryRandomBestiaryEntryFlag {
   RER_BREF_NONE = 0,
   RER_BREF_IGNORE_SETTLEMENT = 1,
-  RER_BREF_IGNORE_BIOMES = 2
+  RER_BREF_IGNORE_BIOMES = 2,
+  RER_BREF_IGNORE_BESTIARY = 4
 };
