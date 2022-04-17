@@ -39,7 +39,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
   if (item == 'rer_token_experience') {
     // re-use the index variable here
-    index =  thePlayer.GetLevel() * 10;
+    index =  RER_getPlayerLevel() * 10;
 
     GetWitcherPlayer()
     .AddPoints(EExperiencePoint, index, true);

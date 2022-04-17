@@ -210,7 +210,7 @@ abstract class RER_BestiaryEntry {
           // more noticeable at lower levels.
           if (master.settings.dynamic_creatures_size) {
             scale = (getRandomLevelBasedOnSettings(master.settings) + 50.0f)
-                  / (thePlayer.GetLevel() + 50.0);
+                  / (RER_getPlayerLevel() + 50.0);
 
             NLOG("scale = " + scale);
 

@@ -34,7 +34,7 @@ statemachine class RER_BountyMasterManager {
     ) % valid_positions.Size(); // the % is just in case
 
     if (position_index < 0 || position_index > valid_positions.Size() - 1) {
-      position_index = (int)RandNoiseF(thePlayer.GetLevel(), valid_positions.Size() - 1) % valid_positions.Size();
+      position_index = (int)RandNoiseF(RER_getPlayerLevel(), valid_positions.Size() - 1) % valid_positions.Size();
     }
 
     if (position_index < 0 || position_index > valid_positions.Size() - 1) {
