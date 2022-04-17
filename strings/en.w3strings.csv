@@ -313,7 +313,7 @@
 2115018282|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
 2115018283|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)
 2115018284|        |rer_unknown|Unknown
-2115018285|        |rer_bounty_start_popup|The following creatures were seen and have bounties on their heads,<br /><br />Main target, required to claim the reward:<br />{{main_creature_listing}}<br /><br />Optional side targets<br />:{{side_creature_listing}}<br />Whoever brings their trophies to the bounty master will get a sizable reward
+2115018285|        |rer_bounty_start_popup|The following creatures were seen and have bounties on their heads,<br /><br />Main target, required to claim the reward:<br />{{main_creature_listing}}<br /><br />Optional side targets:<br />{{side_creature_listing}}<br />Whoever brings their trophies to the bounty master will get a sizable reward
 2115018286|        |rer_mappin_bounty_master_title|Bounty master
 2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
 2115018288|        |rer_mappin_bounty_main_target_title|Bounty main target

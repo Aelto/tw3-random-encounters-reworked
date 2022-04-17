@@ -128,6 +128,31 @@ exec function rergetpincoord() {
   NLOG("pincoords x: " + CeilF(x) + " y: " + CeilF(y));
 }
 
+exec function rertptopin() {
+  var id: int;
+  var index: int;
+  var x: float;
+  var y: float;
+  var type: int;
+  var area: int;
+
+  theGame.GetCommonMapManager().GetIdOfFirstUser1MapPin(id);
+
+  theGame.GetCommonMapManager()
+  .GetUserMapPinByIndex(
+    theGame.GetCommonMapManager().GetUserMapPinIndexById(
+      id
+    ),
+    id,
+    area,
+    x,
+    y,
+    type
+  );
+
+  thePlayer.DebugTeleportToPin(x, y);
+}
+
 exec function rerabandonbounty() {
   var rer_entity : CRandomEncounters;
 
