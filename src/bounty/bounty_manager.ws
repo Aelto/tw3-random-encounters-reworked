@@ -105,7 +105,10 @@ statemachine class RER_BountyManager extends CEntity {
           .setOffsets(
             constants.large_creature_begin,
             constants.large_creature_max,
-            0 // creature outside the offset have 0% chance to appear
+            // creature outside the offset have 1% chance to appear
+            // 1% and not 0% to avoid crashes if all creatures to be disabled
+            // in the settings.
+            0.01
           )
       );
 
@@ -148,7 +151,10 @@ statemachine class RER_BountyManager extends CEntity {
             .setOffsets(
               constants.small_creature_begin_no_humans,
               constants.small_creature_max,
-              0 // creature outside the offset have 0% chance to appear
+              // creature outside the offset have 1% chance to appear
+              // 1% and not 0% to avoid crashes if all creatures to be disabled
+              // in the settings.
+              0.01
             )
         );
 
