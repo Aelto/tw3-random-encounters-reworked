@@ -74,6 +74,10 @@ state Initialising in CRandomEncounters {
       // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
       config.ApplyGroupPreset('RERcontracts', 0);
 
+      // disable any active bounty from before v2.9 since it won't be compatible
+      // anymore.
+      parent.storages.bounty.current_bounty.is_active = false;
+
       current_version = 2.09;
     }
 

@@ -225,15 +225,17 @@ statemachine class RER_BountyManager extends CEntity {
     message = StrReplace(
       message,
       "{{side_groups_killed}}",
-      bonus
+      RER_yellowFont(bonus)
     );
     message = StrReplace(
       message,
       "{{bounty_level}}",
-      new_level
+      RER_yellowFont(new_level)
     );
 
     NDEBUG(message);
+
+    theSound.SoundEvent("gui_inventory_buy");
   }
 
   public function abandonBounty() {
@@ -488,6 +490,8 @@ state Processing in RER_BountyManager {
     while (true) {
       // no active bounty, do nothing
       if (!parent.isBountyActive()) {
+        Sleep(20);
+
         continue;
       }
 
@@ -660,6 +664,8 @@ state Processing in RER_BountyManager {
         .storages
         .bounty
         .save();
+
+    theSound.SoundEvent("gui_journal_track_quest");
 
     return rer_entity;
   }
