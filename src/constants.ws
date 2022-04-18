@@ -10,7 +10,7 @@ struct RER_Constants {
    * the Initialising state.
    */
   var version: float;
-  default version = 2.08;
+  default version = 2.09;
 }
 
 // used to define influences the

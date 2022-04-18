@@ -484,17 +484,16 @@ state Processing in RER_BountyManager {
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     parent.displayMarkersForCurrentBounty();
-    this.spawnNearbyBountyGroups();
 
     while (true) {
-      Sleep(10);
-
       // no active bounty, do nothing
       if (!parent.isBountyActive()) {
         continue;
       }
 
       this.spawnNearbyBountyGroups();
+
+      Sleep(10);
     }
   }
 

@@ -57,15 +57,25 @@ state Initialising in CRandomEncounters {
       current_version = 2.07;
     }
 
-    // if (current_version < 2.08) {
-    //   NDEBUG("[RER] The mod was updated to v2.8: the Contract System settings were reset to support the new reputation system");
+    if (current_version < 2.08) {
+      NDEBUG("[RER] The mod was updated to v2.8: the Contract System settings were reset to support the new reputation system");
 
-    //   // reset the contract tutorial value so it displays again
-    //   // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
-    //   config.ApplyGroupPreset('RERcontracts', 0);
+      // reset the contract tutorial value so it displays again
+      // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
+      config.ApplyGroupPreset('RERcontracts', 0);
 
-    //   current_version = 2.08;
-    // }
+      current_version = 2.08;
+    }
+
+    if (current_version < 2.09) {
+      NDEBUG("[RER] The mod was updated to v2.9: the Contract System settings were reset to support updated distance settings");
+
+      // reset the contract tutorial value so it displays again
+      // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
+      config.ApplyGroupPreset('RERcontracts', 0);
+
+      current_version = 2.09;
+    }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();

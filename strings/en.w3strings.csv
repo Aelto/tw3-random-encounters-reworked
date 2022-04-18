@@ -11,6 +11,13 @@
 ;  - id 2115018288 was updated, the string as well as the key
 ;  - id 2115018289 was updated, the string as well as the key
 ;  - id 2115018297 was updated
+;  - id 2115018403 was updated, the string as well as the key
+;  - id 2115018404 was updated, the string as well as the key
+;  - id 2115018405 was updated, the string as well as the key
+;  - id 2115018406 was updated, the string as well as the key
+;  - id 2115018466 was updated, the string as well as the key
+;  - id 2115018467 was updated, the string as well as the key
+;  - id 2115018433 was updated,
 ;
 ; Changed in v2.8:
 ;  - Anything below id: 2115018462 was added
@@ -299,7 +306,7 @@
 2115018268|        |rer_tutorial_ambush_title|RER Tutorial - Ambushed
 2115018269|        |rer_tutorial_ambush_body|You are being <font color="#CD7D03">Ambushed</font> by monsters or bandits from the mod Random Encounters Reworked. Fight in an attempt to survive the ambush you will be rewarded by trophies and crowns.<br /><br />If you don't like being ambushed, you can change the amount of ambushes created by the mod and also control exactly what kind of creature you will see from them in the <font color='#CD7D03'>Encounter System</font> menu and the sub-menus for ambushes.
 2115018270|        |rer_tutorial_bounty_title|RER Tutorial - Bounty hunting
-2115018271|        |rer_tutorial_bounty_body|A <font color="#CD7D03">Bounty hunt</font> from the mod Random Encounters Reworked has just started. A bounty is pretty simple, important groups of creatures are marked on your map. You have to kill every marked groups to finish the bounty, and as you progress through the bounty new marked groups may appear. The bounty continues until there is no more groups to kill.<br /><br />Everything you see during bounties like the markers and their positions, the creatures that compose the bounties, and how many markers and overall creatures are determined by the seed (the number) that you picked in the seed selector window. Two bounties with the same seed will result in the exact same encounter. But don't worry, there is an almost infinite number of seeds. If you're indecisive about the seed, picking a seed of 0 will make a completely random bounty for you.<br />Higher seeds result in more difficult bounties. And as you complete bounties you unlock more seeds and thus more difficult bounties. <br /><br />You may have found bounty notices when killing wild creatures before. These notices are just there to tell you about the bounty master, you can sell them without any hesitation.<br /><br />You should know that if you use the mod Friendly HUD, the map markers also appear as 3D markers which is really useful.
+2115018271|        |rer_tutorial_bounty_body|A <font color="#CD7D03">Bounty hunt</font> from the mod Random Encounters Reworked has just started. Bounties consist of one main target and multiple side targets. Your main goal is always to slay the main target, side targets can be skipped if necessary. However you should know that each side target killed increases your rewards by 100%, but also slightly increase the difficulty of the fight against the main target.
 2115018272|        |rer_tutorial_clue_title|RER Tutorial - Clue examined
 2115018273|        |rer_tutorial_clue_body|You just <font color="#CD7D03">examined</font> a track from the mod Random Encounters Reworked. When you examine a track Geralt will tell what monster it is from, and if you follow the trail you will eventually find the creature that left them. <br />  Almost all creatures from the mod leave tracks on the ground. But be aware that because RER uses voicelines from the game the creature you'll see may not always correspond exactly to what Geralt said. But you can be sure the family will always be the right one. For example Geralt never says NoonWraith and so it will say NightWraith instead, but it's still a wraith so it's ok.
 2115018274|        |rer_tutorial_contract_title|RER Tutorial - Monster contract
@@ -307,7 +314,7 @@
 2115018276|        |rer_tutorial_ecosystem_title|RER Tutorial - The ecosystem
 2115018277|        |rer_tutorial_ecosystem_body|You recently killed a creature and indirectly changed the <font color="#CD7D03">surrounding ecosystems</font>. The mod Random Encounters Reworked simulates a food chain that will permanently change the creatures you see (only creatures from the mod). Because you killed living creatures or bandits, the surrounding ecosystems changed a little and if you continue new species will come and some other will even migrate to new places. <br /><br />You can examine the surrounding ecosystem with the <font color="#CD7D03">Ecosystem Analyse</font> keybind, which will allow you to learn useful information about the species and their habits. To learn how to get the keybind, please refer to the in-depth install guide. <br /><br />If you do not like the feature you can change its settings in the <font color="#CD7D03">Ecosystem System</font> menu. As you kill creatures in a single region, the number of creatures will vary depending on your menu settings (by default it will increase): this is called the ecosystem strength. As the ecosystem strength changes the <font color="#ffd33d">Killing spree loot</font> reward system will unlock new loot table for the creatures and will progressively increase the drop rate of these loot tables. Refer to the RER-Bible to learn more.
 2115018278|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Noticeboard event
-2115018279|        |rer_tutorial_noticeboard_event_body|A <font color="#CD7D03">Noticeboard Event</font> from the mod Random Encounters Reworked has just started. When you'll close the window Geralt will say a few lines, after that the mod will wait for you to leave the settlement or the city you're in, and once you're far enough a <font color="#CD7D03">Monster Contract</font> will start based on the path you walked.
+2115018279|        |rer_tutorial_noticeboard_event_body|You have picked a <font color="#CD7D03">contract notice</font> from the mod Random Encounters Reworked. When you'll close the window you will see dialogue options to select the difficulty of the contract as well as information about the noticeboard. These rewards vary per noticeboard and region, but stay the same for the entire playthrough.
 2115018280|        |rer_tutorial_rewards_title|RER Tutorial - Rewards
 2115018281|        |rer_tutorial_rewards_body|You just found a <font color="#CD7D03">Trophy<font/> from the mod Random Encounters Reworked. These trophies were created only to reward Geralt for the creatures he hunts and do not have any purpose but to be sold.<br />Creatures from the mod also drop a few crowns for the same purpose. If you do not like the rewards or would like to change how many you find you can do so in the <font color="#CD7D03">Rewards System<font/> menu specifically made for it.
 2115018282|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
@@ -439,10 +446,10 @@
 2115018400|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
 2115018401|        |panel_rer_contracts_settings|Contract system
 2115018402|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018403|        |option_rer_easy_nearby_contracts_number|Number of <font color="#30a14e">easy</font> & nearby contracts
-2115018404|        |option_rer_hard_nearby_contracts_number|Number of <font color="#c4432b">hard</font> & nearby contracts
-2115018405|        |option_rer_easy_far_contracts_number|Number of <font color="#30a14e">easy</font> & far contracts
-2115018406|        |option_rer_hard_far_contracts_number|Number of <font color="#c4432b">hard</font> & far contracts
+2115018403|        |option_rer_easy_contracts_number|Number of <font color="#30a14e">easy</font> contracts
+2115018404|        |option_rer_hard_nearby_contracts_number|UNUSED
+2115018405|        |option_rer_easy_contracts_number|Number of <font color="#30a14e">easy</font> contracts
+2115018406|        |option_rer_hard_far_contracts_number|UNUSED
 2115018407|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
 2115018408|        |option_rer_contracts_generation_seed|Contract generation seed
 2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
@@ -467,15 +474,15 @@
 2115018428|        |rer_species_relicts|Relicts
 2115018429|        |rer_species_specters|Specters
 2115018430|        |rer_species_vampires|Vampires
-2115018431|        |rer_distance_close|close
-2115018432|        |rer_distance_far|far
+2115018431|        |rer_distance_close|UNUSED
+2115018432|        |rer_distance_far|UNUSED
 ; this line is the one displayed when starting a contract, for example:
 ; - Close and easy Ogroids contract
 ; - Far and hard Draconids contract
 ; the {{distance}} will be replaced by either "far" or "close"
 ; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
 ; the {{species}} will be replaced by the species translated just above.
-2115018433|        |rer_contract_dialog_choice|{{distance}} & {{difficulty}} {{species}} contract
+2115018433|        |rer_contract_dialog_choice|{{difficulty}} {{species}} contract
 2115018434|        |rer_cancel|Cancel
 2115018435|        |rer_token_gear|Token of gratitude - Gear
 2115018436|        |rer_token_gear_short|Gear
@@ -513,9 +520,9 @@
 2115018462|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018463|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
 2115018464|        |rer_current_reputation|Current reputation for this noticeboard: {{reputation}}
-2115018465|        |rer_distance_nearby|nearby
-2115018466|        |option_rer_medium_nearby_contracts_number|Number of <font color="#d4a72c">medium</font> & nearby contracts
-2115018467|        |option_rer_medium_far_contracts_number|Number of <font color="#d4a72c">medium</font> & far contracts
+2115018465|        |rer_distance_nearby|UNUSED
+2115018466|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
+2115018467|        |option_rer_medium_far_contracts_number|UNUSED
 2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Reputation system:</font> enabled
 2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for <font color="#d4a72c">medium</font & vanilla contracts
 2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point

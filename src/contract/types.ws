@@ -38,12 +38,6 @@ struct RER_GenerationTime {
   var time: float;
 }
 
-enum RER_ContractDistance {
-  ContractDistance_NEARBY = 0,
-  ContractDistance_CLOSE = 1,
-  ContractDistance_FAR = 2,
-}
-
 enum RER_ContractDifficulty {
   ContractDifficulty_EASY = 0,
   ContractDifficulty_MEDIUM = 1,
@@ -60,8 +54,6 @@ struct RER_ContractGenerationData {
    * the position of the noticeboard when the contract was accepted
    */
   var starting_point: Vector;
-
-  var distance: RER_ContractDistance;
 
   var difficulty: RER_ContractDifficulty;
 

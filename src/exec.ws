@@ -162,10 +162,9 @@ exec function rerabandonbounty() {
     return;
   }
 
-  rer_entity.storages.bounty.current_bounty.is_active = false;
-  rer_entity.storages.bounty.save();
+  rer_entity.bounty_manager.abandonBounty();
 
-  NDEBUG("The bounty was removed, you can safely remove the markers.");
+  NDEBUG("The bounty was removed.");
 }
 
 // gpc for GetPlayerCoordinates

@@ -83,14 +83,13 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, distance: RER_ContractDistance, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
-    uuid += 100 + (int)distance + "-";
-    uuid += 10 + (int)difficulty + "-";
-    uuid += (int)species;
+    uuid += 100 + (int)difficulty + "-";
+    uuid += 10 + (int)species;
 
     return RER_ContractIdentifier(uuid);
   }
@@ -106,7 +105,7 @@ statemachine class RER_ContractManager {
 
     contract.identifier = data.identifier;
     contract.noticeboard_identifier = data.noticeboard_identifier;
-    contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, data.distance, rng);
+    contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, rng);
     contract.destination_radius = 100;
 
     bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
@@ -134,7 +133,7 @@ statemachine class RER_ContractManager {
     return contract;
   }
 
-  public function getRandomDestinationAroundPoint(starting_point: Vector, distance: RER_ContractDistance, rng: RandomNumberGenerator): Vector {
+  public function getRandomDestinationAroundPoint(starting_point: Vector, rng: RandomNumberGenerator): Vector {
     var closest_points: array<Vector>;
     var quarter: int;
     var half: int;
@@ -150,18 +149,12 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    if (distance == ContractDistance_NEARBY) {
-      // the first 12.5%
-      index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
-    }
-    else if (distance == ContractDistance_CLOSE) {
-      // the first 25%
-      index = (int)rng.nextRange(quarter, 0);
-    }
-    else {
-      // between 25% and 50%
-      index = (int)rng.nextRange(quarter * 2, quarter);
-    }
+    // the first 12.5%
+    index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
+    // the first 25%
+    // index = (int)rng.nextRange(quarter, 0);
+    // between 25% and 50%
+    // index = (int)rng.nextRange(quarter * 2, quarter);
 
     NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size );
 
