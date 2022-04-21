@@ -184,6 +184,7 @@ abstract class RER_BestiaryEntry {
     // targets. It does so by cheking the tag of the creatures.
     if (encounter_type == EncounterType_CONTRACT) {
       tags_array.PushBack('ContractTarget');
+      tags_array.PushBack('MonsterHuntTarget');
     }
 
     for (i = 0; i < creatures_templates.templates.Size(); i += 1) {
