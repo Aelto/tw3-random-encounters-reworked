@@ -134,6 +134,7 @@ statemachine class RER_BountyManager extends CEntity {
 
     k = (int)rng.nextRange(point_of_interests_positions.Size(), 0);
     current_group_data.position = point_of_interests_positions[k];
+    point_of_interests_positions.EraseFast(k);
 
     data.main_group = current_group_data;
 
@@ -185,6 +186,7 @@ statemachine class RER_BountyManager extends CEntity {
 
       k = (int)rng.nextRange(point_of_interests_positions.Size(), 0);
       current_group_data.position = point_of_interests_positions[k];
+      point_of_interests_positions.EraseFast(k);
 
       data.side_groups.PushBack(current_group_data);
     }
