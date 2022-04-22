@@ -96,7 +96,7 @@ state DialogChoice in RER_ContractManager {
       amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyContractsNumber'));
 
       for (i = 0; i < amount_of_options; i += 1) {
-        random_species = RER_getSeededRandomSpeciesType(rng);
+        random_species = RER_getSeededRandomEasySpeciesType(rng);
 
         line = GetLocStringByKey("rer_contract_dialog_choice");
         line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));

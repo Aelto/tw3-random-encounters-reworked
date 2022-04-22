@@ -1,15 +1,15 @@
 
 enum RER_SpeciesTypes {
   SpeciesTypes_BEASTS = 0,
-  SpeciesTypes_CURSED = 1,
-  SpeciesTypes_DRACONIDS = 2,
-  SpeciesTypes_ELEMENTA = 3,
-  SpeciesTypes_HYBRIDS = 4,
-  SpeciesTypes_INSECTOIDS = 5,
-  SpeciesTypes_NECROPHAGES = 6,
-  SpeciesTypes_OGROIDS = 7,
-  SpeciesTypes_RELICTS = 8,
-  SpeciesTypes_SPECTERS = 9,
+  SpeciesTypes_INSECTOIDS = 1,
+  SpeciesTypes_NECROPHAGES = 2,
+  SpeciesTypes_OGROIDS = 3,
+  SpeciesTypes_SPECTERS = 4,
+  SpeciesTypes_CURSED = 5,
+  SpeciesTypes_DRACONIDS = 6,
+  SpeciesTypes_ELEMENTA = 7,
+  SpeciesTypes_HYBRIDS = 8,
+  SpeciesTypes_RELICTS = 9,
   SpeciesTypes_VAMPIRES = 10,
 
   SpeciesTypes_MAX = 11,
@@ -24,6 +24,20 @@ function RER_getSeededRandomSpeciesType(rng: RandomNumberGenerator): RER_Species
   var max: float;
 
   max = ((float)((int)SpeciesTypes_MAX));
+
+  return (RER_SpeciesTypes)RoundF(rng.nextRange(max, 0));
+}
+
+function RER_getSeededRandomEasySpeciesType(rng: RandomNumberGenerator): RER_SpeciesTypes {
+  var max: float;
+
+  // exclude specters for EE users
+  if (RER_playerUsesEnhancedEditionRedux()) {
+    max = ((float)((int)SpeciesTypes_SPECTERS));
+  }
+  else {
+    max = ((float)((int)SpeciesTypes_CURSED));
+  }
 
   return (RER_SpeciesTypes)RoundF(rng.nextRange(max, 0));
 }
