@@ -64,7 +64,7 @@ state Spawning in RER_StaticEncounterManager {
     return true;
   }
 
-  private latent function spawnPlaceholderStaticEncounters(master: CRandomEncounters, max_distance: float, player_position: Vector) {
+  private latent function spawnPlaceholderStaticEncounters(master: CRandomEncounters, max_distance: float, player_position: Vector, max_distance: float, small_chance: float, large_chance: float) {
     var placeholder_static_encounter: RER_PlaceholderStaticEncounter;
     var rng: RandomNumberGenerator;
     var positions: array<Vector>;
@@ -74,6 +74,8 @@ state Spawning in RER_StaticEncounterManager {
 
     positions = this.getNearbyPointOfInterests(player_position, max_distance);
     rng = new RandomNumberGenerator in this;
+
+    NLOG("spawnPlaceholderStaticEncounters(), found " + positions.Size() + " available point of interests for placeholder static encounters");
 
     for (i = 0; i < positions.Size(); i += 1) {
       current_position = positions[i];
@@ -88,16 +90,23 @@ state Spawning in RER_StaticEncounterManager {
         continue;
       }
 
+      NLOG("spawnPlaceholderStaticEncounters(), placeholder static encounter can spawn at " + VecToString(current_position));
+
       placeholder_static_encounter = parent.getOrStorePlaceholderStaticEncounterForPosition(current_position);
 
-      // TODO #66: get the parameters in this function to be able to call trySpawnStaticEncounter
-      // this.trySpawnStaticEncounter(
-      //   master,
-
-      // );
-
-      // placeholder_
+      this.trySpawnStaticEncounter(
+        master,
+        placeholder_static_encounter,
+        player_position,
+        max_distance,
+        small_chance,
+        large_chance
+      );
     }
+
+    // we now save the storage where placeholders are stored since they may
+    // have copied a creature from their surrounding
+    parent.master.storages.general.save();
   }
 
   private function getNearbyPointOfInterests(player_position: Vector, max_distance: float): array<Vector> {
@@ -110,8 +119,8 @@ state Spawning in RER_StaticEncounterManager {
 
     // We also fetch entities with a custom tag to support
     // custom point of interests. This can prove useful in
-    // new maps from mod who may want to add support for RER
-    // contracts
+    // new maps from mods that may want to add support for RER
+    // placeholders
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,

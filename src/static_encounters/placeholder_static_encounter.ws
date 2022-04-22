@@ -191,5 +191,5 @@ function RER_placeholderStaticEncounterCanSpawnAtPosition(position: Vector, rng:
     .useSeed(true)
     .setSeed((int)(playthrough_seed + position.X + position.Y + position.Z));
 
-  return rng.nextRange(100, 0) > 50;
+  return rng.nextRange(100, 0) > 20;
 }
