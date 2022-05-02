@@ -105,18 +105,16 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   }
 
   event OnFireHit(source: CGameplayEntity) {
-    if (source != thePlayer || wasExploded) {
+    if (wasExploded) {
       return false;
     }
 
-    if (!this.HasTag('WasDestroyed')) {
-      GetEncounter();
+    GetEncounter();
 
-      wasExploded = true;
-      airDmg = false;
+    wasExploded = true;
+    airDmg = false;
 
-      this.GotoState('Explosion');
-    }
+    this.GotoState('Explosion');
   }
   event OnAardHit(sign: W3AardProjectile) {}
 	
