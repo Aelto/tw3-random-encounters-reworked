@@ -33,17 +33,10 @@ class RER_StaticEncounter {
     return true;
   }
 
-  public function canSpawn(player_position: Vector, small_chance: float, large_chance: float, max_distance: float): bool {
+  public function canSpawn(player_position: Vector, small_chance: float, large_chance: float, max_distance: float, current_region: string): bool {
     var entities: array<CGameplayEntity>;
-    var current_region: string;
     var radius: float;
     var i: int;
-
-    if (isPlayerBusy()) {
-      return false;
-    }
-
-    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
     if (!this.isInRegion(current_region)) {
       return false;

@@ -14,11 +14,18 @@ state Spawning in RER_StaticEncounterManager {
 
   public latent function spawnStaticEncounters(master: CRandomEncounters) {
     var player_position: Vector;
+    var current_region: string;
     var max_distance: float;
     var large_chance: float;
     var small_chance: float;
     var has_spawned: bool;
     var i: int;
+
+    if (isPlayerBusy()) {
+      return;
+    }
+
+    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
     max_distance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'minSpawnDistance'))
                  + StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'spawnDiameter'));
@@ -35,7 +42,8 @@ state Spawning in RER_StaticEncounterManager {
         player_position,
         max_distance,
         small_chance,
-        large_chance
+        large_chance,
+        current_region
       );
 
       SleepOneFrame();
@@ -49,14 +57,15 @@ state Spawning in RER_StaticEncounterManager {
       player_position,
       max_distance,
       small_chance,
-      large_chance
+      large_chance,
+      current_region
     );
   }
 
-  private latent function trySpawnStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter, player_position: Vector, max_distance: float, small_chance: float, large_chance: float): bool {
+  private latent function trySpawnStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter, player_position: Vector, max_distance: float, small_chance: float, large_chance: float, current_region: string): bool {
     var composition: CreatureHuntingGroundComposition;
 
-    if (!encounter.canSpawn(player_position, small_chance, large_chance, max_distance)) {
+    if (!encounter.canSpawn(player_position, small_chance, large_chance, max_distance, current_region)) {
       return false;
     }
 
@@ -70,7 +79,7 @@ state Spawning in RER_StaticEncounterManager {
     return true;
   }
 
-  private latent function spawnPlaceholderStaticEncounters(master: CRandomEncounters, player_position: Vector, max_distance: float, small_chance: float, large_chance: float) {
+  private latent function spawnPlaceholderStaticEncounters(master: CRandomEncounters, player_position: Vector, max_distance: float, small_chance: float, large_chance: float, current_region: string) {
     var placeholder_static_encounter: RER_PlaceholderStaticEncounter;
     var rng: RandomNumberGenerator;
     var positions: array<Vector>;
@@ -84,6 +93,8 @@ state Spawning in RER_StaticEncounterManager {
     NLOG("spawnPlaceholderStaticEncounters(), found " + positions.Size() + " available point of interests for placeholder static encounters");
 
     for (i = 0; i < positions.Size(); i += 1) {
+      SleepOneFrame();
+
       current_position = positions[i];
 
       can_spawn = RER_placeholderStaticEncounterCanSpawnAtPosition(
@@ -106,7 +117,8 @@ state Spawning in RER_StaticEncounterManager {
         player_position,
         max_distance,
         small_chance,
-        large_chance
+        large_chance,
+        current_region
       );
     }
 
