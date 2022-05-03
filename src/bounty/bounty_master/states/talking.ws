@@ -45,7 +45,7 @@ state Talking in RER_BountyMasterManager {
       }
     }
 
-    { // graden dialogs
+    if (false) { // graden dialogs
       shorten_conversation = theGame.GetInGameConfigWrapper()
         .GetVarValue('RERoptionalFeatures', 'RERshortenBountyMasterConversation');
 
