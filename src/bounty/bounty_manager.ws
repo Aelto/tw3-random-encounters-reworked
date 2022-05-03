@@ -102,6 +102,12 @@ statemachine class RER_BountyManager extends CEntity {
         RER_BREF_IGNORE_BIOMES | RER_BREF_IGNORE_SETTLEMENT | RER_BREF_IGNORE_BESTIARY,
         (new RER_SpawnRollerFilter in this)
           .init()
+          // we multiply everyone by 100, so that 0.01 * 100 = 1
+          // since the resulting creature chances are integers, 50 * 0.01 results
+          // in 0 and would cause a crash. This will instead multiply everyone
+          // by 100 and leave the creatures we don't want to their initial tiny
+          // values.
+          .multiplyEveryone(100)
           .setOffsets(
             constants.large_creature_begin,
             constants.large_creature_max,
@@ -149,6 +155,7 @@ statemachine class RER_BountyManager extends CEntity {
           EncounterType_CONTRACT,
           (new RER_SpawnRollerFilter in this)
             .init()
+            .multiplyEveryone(100)
             .setOffsets(
               constants.small_creature_begin_no_humans,
               constants.small_creature_max,
