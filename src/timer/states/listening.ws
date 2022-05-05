@@ -17,7 +17,7 @@ state ListeningForEvents in RER_EventsManager {
 
     // LogChannel('modRandomEncounters', "RER_EventsManager - State ListeningForEvents - listening started");
 
-    if (!parent.master.settings.is_enabled) {
+    if (!parent.master.settings.is_enabled || !RER_modPowerIsEventSystemEnabled()) {
       parent.GotoState('Waiting');
     }
 

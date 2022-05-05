@@ -58,6 +58,10 @@ statemachine class RER_StaticEncounterManager {
   }
 
   public latent function startSpawning() {
+    if (!RER_modPowerIsStaticEncounterSystemEnabled()) {
+      return;
+    }
+
     if (this.GetCurrentStateName() != 'Spawning') {
       this.GotoState('Spawning');
     }
