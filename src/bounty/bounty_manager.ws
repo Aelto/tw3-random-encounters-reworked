@@ -468,22 +468,51 @@ statemachine class RER_BountyManager extends CEntity {
   }
 
   public function increaseBountyLevel(optional multiplier: int): int {
+    var i: int;
+
     multiplier = Max(1, multiplier);
 
     this.master
       .storages
       .bounty
-      .bounty_level += 1;
+      .bounty_level += multiplier;
 
     this.master
       .storages
       .bounty
       .save();
 
+    for (i = this.master.storages.bounty.bounty_level - multiplier; i < this.master.storages.bounty.bounty_level; i += 1) {
+      this.giveBountyLevelupItemToPlayer(i);
+    }
+
     return this.master
       .storages
       .bounty
       .bounty_level;
+  }
+
+  public function giveBountyLevelupItemToPlayer(bounty_level: int) {
+    var possible_items: array<name>;
+    var index: int;
+
+    possible_items.PushBack('Dwimeryte ingot');
+    possible_items.PushBack('Meteorite ingot');
+    possible_items.PushBack('Silver ingot');
+    possible_items.PushBack('Steel ingot');
+    possible_items.PushBack('Orichalcum ingot');
+    possible_items.PushBack('Dwimeryte enriched ingot');
+    possible_items.PushBack('Iron ingot');
+    possible_items.PushBack('Glowing ingot');
+    possible_items.PushBack('Copper ingot');
+    possible_items.PushBack('Green gold ingot');
+    possible_items.PushBack('Dark iron ingot');
+    possible_items.PushBack('Meteorite silver ingot');
+    possible_items.PushBack('Dark steel ingot');
+
+    index = RandRange(possible_items.Size());
+
+    thePlayer.inv.AddAnItem(possible_items[index], 2 + (int)(bounty_level / 50));
   }
 }
 
@@ -497,7 +526,6 @@ state Processing in RER_BountyManager {
   }
 
   entry function Processing_main() {
-
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     parent.displayMarkersForCurrentBounty();
