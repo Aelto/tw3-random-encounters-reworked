@@ -29,7 +29,10 @@ state Waiting in CRandomEncounters {
     NLOG("ecosystem_frequency_multiplier = " + parent.ecosystem_frequency_multiplier);
 
     while (parent.ticks_before_spawn >= 0) {
-      ticks = 5 * parent.ecosystem_frequency_multiplier;
+      ticks = 5
+            * parent.ecosystem_frequency_multiplier
+            // the speed at which encounters are spawned scales with the mod power
+            * RER_getModPower();
 
       parent.ticks_before_spawn -= ticks;
       time_before_updating_frequency_multiplier -= ticks;
