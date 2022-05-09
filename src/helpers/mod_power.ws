@@ -10,19 +10,25 @@
  * the cap value of 1.
  */
 function RER_getModPower(): float {
-  return ClampF(
+  var power: float;
+
+  power = ClampF(
     GameTimeHours(theGame.CalculateTimePlayed()) / 10,
 
     0, // minimum of 0,
     1, // maximum of 1
   );
+
+  NLOG("RER_getModPower(): power = " + power);
+
+  return power;
 }
 
 /**
  * return if there is enough mod power for the encounter system to be
  * enabled.
  */
-functon RER_modPowerIsEncounterSystemEnabled(): bool {
+function RER_modPowerIsEncounterSystemEnabled(): bool {
   return RER_getModPower() >= 0.1;
 }
 

@@ -5604,6 +5604,8 @@
 
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
 
+            <Var id="RERarachnophobiaMode" displayName="rer_arachnophobia_mode" displayType="TOGGLE"></Var>
+
         </VisibleVars>
     </Group>
 
