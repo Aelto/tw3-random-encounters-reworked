@@ -10,10 +10,13 @@
  * the cap value of 1.
  */
 function RER_getModPower(): float {
+  var game_time: GameTime;
   var power: float;
 
+  game_time = theGame.CalculateTimePlayed();
+
   power = ClampF(
-    GameTimeHours(theGame.CalculateTimePlayed()) / 10,
+    (float)(GameTimeDays(game_time) * 24 + GameTimeHours(game_time)) / 10.0,
 
     0, // minimum of 0,
     1, // maximum of 1
