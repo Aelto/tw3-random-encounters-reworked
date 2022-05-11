@@ -30,6 +30,8 @@ statemachine class CRandomEncounters extends CEntity {
   var contract_manager: RER_ContractManager;
   var addon_manager: RER_AddonManager;
 
+  var boot_time: float;
+
   var ticks_before_spawn: float;
   
   var ecosystem_frequency_multiplier: float;
@@ -66,8 +68,17 @@ statemachine class CRandomEncounters extends CEntity {
       contract_manager = new RER_ContractManager in this;
       addon_manager = new RER_AddonManager in this;
 
+      this.boot_time = theGame.GetEngineTimeAsSeconds();
+
       this.GotoState('Initialising');
     }
+  }
+
+  /**
+   * return if the mod was booted less than 30 seconds ago.
+   */
+  public function hasJustBooted(): bool {
+    theGame.GetEngineTimeAsSeconds() - this.boot_time <= 30;
   }
 
   event OnRefreshSettings(action: SInputAction) {

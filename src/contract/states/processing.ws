@@ -73,7 +73,10 @@ state Processing in RER_ContractManager {
       Sleep(10);
     }
 
-    theGame.SaveGame( SGT_QuickSave, -1 );
+    if (!parent.master.hasJustBooted()) {
+      theGame.SaveGame( SGT_QuickSave, -1 );
+    }
+
     theSound.SoundEvent("gui_ingame_new_journal");
   }
 

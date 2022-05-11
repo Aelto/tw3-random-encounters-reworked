@@ -611,7 +611,11 @@ state Processing in RER_BountyManager {
     }
 
     this.spawnBountyGroup(group, index);
-    theGame.SaveGame( SGT_QuickSave, -1 );
+
+    if (!parent.master.hasJustBooted()) {
+      theGame.SaveGame( SGT_QuickSave, -1 );
+    }
+
     theSound.SoundEvent("gui_ingame_new_journal");
   }
 
