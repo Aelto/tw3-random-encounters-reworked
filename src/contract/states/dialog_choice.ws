@@ -49,6 +49,8 @@ state DialogChoice in RER_ContractManager {
     var required_time_elapsed: float;
     var choices: array<SSceneChoice>;
     var rng: RandomNumberGenerator;
+    var bestiary_rng: RandomNumberGenerator;
+	  var bestiary_entry: RER_BestiaryEntry;
     var amount_of_options: int;
     var line: string;
     var i: int;
@@ -97,16 +99,21 @@ state DialogChoice in RER_ContractManager {
     for (i = 0; i < 3; i += 1) {
       random_species = RER_getSeededRandomSpeciesType(rng);
 
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{difficulty}}", "(" + selected_difficulty.value + ")");
-      line = StrReplace(line, "{{species}}", upperCaseFirstLetter(RER_getSpeciesLocalizedString(random_species)));
-
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
         selected_difficulty,
         random_species,
         generation_time
       );
+
+      bestiary_rng.setSeed(RER_identifierToInt(contract_identifier.identifier));
+      bestiary_rng.next();
+      bestiary_rng.setSeed((int)bestiary_rng.previous_number + bestiary_rng.seed);
+      bestiary_entry = parent.master.bestiary.getRandomEntryFromSpeciesType(random_species, bestiary_rng);
+
+      line = GetLocStringByKey("rer_contract_dialog_choice");
+      line = StrReplace(line, "{{difficulty}}", "(" + selected_difficulty.value + ")");
+      line = StrReplace(line, "{{species}}", upperCaseFirstLetter(getCreatureNameFromCreatureType(parent.master.bestiary, bestiary_entry.type)));
 
       NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
 
