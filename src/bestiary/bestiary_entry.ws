@@ -274,6 +274,13 @@ abstract class RER_BestiaryEntry {
         npc = (CNewNPC)created_entities[i];
 
         npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
+
+        // past 30% damage reduction monsters get debuffs immunity
+        if (damage_modifier.damage_received_modifier < 0.7) {
+          ((CActor)npc).AddBuffImmunity(EET_Knockdown, 'RandomEncountersReworked', false);
+          ((CActor)npc).AddBuffImmunity(EET_HeavyKnockdown, 'RandomEncountersReworked', false);
+          ((CActor)npc).AddBuffImmunity(EET_KnockdownTypeApplicator, 'RandomEncountersReworked', false);
+        }
       }
     }
 
