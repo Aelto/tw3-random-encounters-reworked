@@ -253,7 +253,7 @@
 2115018214|        |panel_rer_optional_features_settings|Optional features
 2115018215|        |panel_rer_encounters_settings|Encounter system
 2115018216|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features
-2115018217|        |option_rer_monster_contract_longevity|<font color="#ffd33d">Longevity</font>
+2115018217|        |option_rer_monster_contract_longevity|UNUSED
 2115018218|        |panel_creature_type_multiplier|Creature type multiplier
 2115018219|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
 2115018220|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>
@@ -446,9 +446,9 @@
 2115018400|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
 2115018401|        |panel_rer_contracts_settings|Contract system
 2115018402|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018403|        |option_rer_easy_contracts_number|Number of <font color="#30a14e">easy</font> contracts
+2115018403|        |option_rer_easy_contracts_number|UNUSED
 2115018404|        |option_rer_hard_nearby_contracts_number|UNUSED
-2115018405|        |option_rer_hard_contracts_number|Number of <font color="#c4432b">hard</font> contracts
+2115018405|        |option_rer_hard_contracts_number|UNUSED
 2115018406|        |option_rer_hard_far_contracts_number|UNUSED
 2115018407|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
 2115018408|        |option_rer_contracts_generation_seed|Contract generation seed
