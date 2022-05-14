@@ -89,15 +89,15 @@ state Processing in RER_ContractManager {
     ongoing_contract = parent.master.storages.contract.ongoing_contract;
 
 
-    if (ongoing_contract.event_type == ContractEventType_NEST) {
-      this.createNestEncounterAndWaitForEnd(ongoing_contract);
-    }
-    else if (ongoing_contract.event_type == ContractEventType_HORDE) {
-      this.sendHordeRequestAndWaitForEnd(ongoing_contract);
-    }
-    else if (ongoing_contract.event_type == ContractEventType_BOSS) {
-      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
-    }
+    // if (ongoing_contract.event_type == ContractEventType_NEST) {
+    //  this.createNestEncounterAndWaitForEnd(ongoing_contract);
+    // }
+    // else if (ongoing_contract.event_type == ContractEventType_HORDE) {
+    //   this.sendHordeRequestAndWaitForEnd(ongoing_contract);
+    // }
+    // else if (ongoing_contract.event_type == ContractEventType_BOSS) {
+    this.createHuntingGroundAndWaitForEnd(ongoing_contract);
+    // }
   }
 
   latent function createHuntingGroundAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
@@ -139,22 +139,15 @@ state Processing in RER_ContractManager {
       getGroundPosition(position, 1, 20);
     }
 
-    if (ongoing_contract.difficulty == ContractDifficulty_HARD) {
-      impact_points = rng.nextRange(40, 25);
-    }
-    else if (ongoing_contract.difficulty == ContractDifficulty_MEDIUM) {
-      impact_points = rng.nextRange(25, 10);
-    }
-    else {
-      impact_points = rng.nextRange(10, 5);
-    }
-
-    NLOG("bossfight contract, difficulty = " + ongoing_contract.difficulty + " impact points = " + impact_points);
+    impact_points = rng.nextRange(
+      ongoing_contract.difficulty.value + 2,
+      ongoing_contract.difficulty.value - 2
+    );
 
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      Max(RoundF(impact_points / bestiary_entry.ecosystem_delay_multiplier), 1),
+      , //count
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
@@ -165,35 +158,9 @@ state Processing in RER_ContractManager {
     );
 
     impact_points -= bestiary_entry.ecosystem_delay_multiplier * entities.Size();
-    while (impact_points > 0) {
-      composition_type = bestiary_entry.getStrongestCompositionCreature(
-        parent.master,
-        impact_points
-      );
 
-      if (composition_type == CreatureNONE) {
-        break;
-      }
-
-      composition_entry = parent.master.bestiary.getEntry(parent.master, composition_type);
-      composition_entities = composition_entry.spawn(
-        parent.master,
-        position,
-        1,
-        , // density
-        EncounterType_CONTRACT,
-        RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
-        'RandomEncountersReworked_ContractCreature',
-        // a high number to make sure there is no composition as we'll spawn them
-        // manually.
-        10000
-      );
-
-      for (i = 0; i < composition_entities.Size(); i += 1) {
-        entities.PushBack(composition_entities[i]);
-
-        impact_points -= composition_entry.ecosystem_delay_multiplier;
-      }
+    if (impact_points > 0) {
+      // TODO: add buffs to the entities.
     }
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
@@ -244,12 +211,8 @@ state Processing in RER_ContractManager {
       return;
     }
 
-    if (ongoing_contract.difficulty == ContractDifficulty_EASY) {
-      i = 1;
-    }
-    else {
-      i = RoundF(rng.nextRange(3, 1));
-    }
+    // amount of nests:
+    i = RoundF(rng.nextRange(1 + ongoing_contract.difficulty.value / 20, 1));
 
     while (i > 0) {
       i -= 1;
@@ -333,11 +296,7 @@ state Processing in RER_ContractManager {
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
-    enemy_count = (int)(
-      RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier)
-      * (1 + (int)(ongoing_contract.difficulty))
-      * 0.75
-    );
+    enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
 
     if (enemy_count < 3) {
       // the amount of enemies would be too low for it to be a good horde, in

@@ -21,6 +21,7 @@
  */
 statemachine class RER_ContractManager {
   var master: CRandomEncounters;
+  var selected_difficulty: RER_ContractDifficulty;
 
   function init(_master: CRandomEncounters) {
     this.master = _master;
@@ -28,7 +29,13 @@ statemachine class RER_ContractManager {
     this.GotoState('Waiting');
   }
 
-  function pickedContractNoticeFromNoticeboard(errand_name: string) {
+  public function pickedContractNoticeFromNoticeboard(errand_name: string) {
+    this.GotoState('DifficultySelection');
+  }
+
+  public function contractHaggleDifficultySelected(difficulty: RER_ContractDifficulty) {
+    this.selected_difficulty = difficulty;
+
     this.GotoState('DialogChoice');
   }
 
@@ -83,12 +90,12 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: int, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
-    uuid += 100 + (int)difficulty + "-";
+    uuid += 100 + (int)difficulty.value + "-";
     uuid += 10 + (int)species;
 
     return RER_ContractIdentifier(uuid);
@@ -118,11 +125,13 @@ statemachine class RER_ContractManager {
 
     NLOG("generateContract, reward_type = " + contract.reward_type);
 
-    if (data.difficulty == ContractDifficulty_EASY || data.difficulty == ContractDifficulty_MEDIUM) {
+    // TODO: once the PR that allows us to get the creature type right here is
+    // merged, replace the difficulty check with a creature strength check.
+    if (data.difficulty.value < 9) {
       if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_HORDE;
       }
-      else {
+      else if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_NEST;
       }
     }
@@ -311,7 +320,8 @@ statemachine class RER_ContractManager {
       storage.ongoing_contract.noticeboard_identifier
     );
 
-    rewards_amount = (int)storage.ongoing_contract.difficulty + 1;
+    // TODO: #109 scale accordingly
+    rewards_amount = storage.ongoing_contract.difficulty.value + 1;
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
       rewards_increase_from_reputation = StringToFloat(
@@ -339,9 +349,10 @@ statemachine class RER_ContractManager {
       );
     }
 
+    // TODO: #109 increase only if in the upper 50% range
     this.increaseReputationForNoticeboard(
       storage.ongoing_contract.noticeboard_identifier,
-      (int)storage.ongoing_contract.difficulty + 1
+      storage.ongoing_contract.difficulty.value + 1
     );
 
     storage.save();
@@ -422,32 +433,25 @@ statemachine class RER_ContractManager {
     return current_reputation >= vanilla_contracts_requirement;
   }
 
-  /**
-   * Returns whether the player has the needed reputation for the noticeboard
-   * and a contract of the given difficulty.
-   */
-  public function hasRequiredReputationForContractAtNoticeboard(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty): bool {
-    var vanilla_contracts_requirement: int;
-    var reputation_system_enabled: bool;
-    var current_reputation: int;
+  public function getNearbyNoticeboard(): W3NoticeBoard {
+    var entities: array<CGameplayEntity>;
+    var board: W3NoticeBoard;
+    var i: int;
 
-    reputation_system_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
-
-    if (!reputation_system_enabled) {
-      return true;
-    }
-
-    vanilla_contracts_requirement = StringToInt(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      20, // range, 
+      1, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'W3NoticeBoard'
     );
 
-    current_reputation = this.getNoticeboardReputation(noticeboard);
+    // bold move here, if there are no noticeboard nearby the game will crash.
+    board = (W3NoticeBoard)entities[0];
 
-    // We use the requirement for the vanilla contracts multiplied by the difficulty.
-    // Since the difficulty starts at easy, which is equal to 0 this means easy contracts
-    // are always available, then it starts to ramp up at medium.
-    return current_reputation >= vanilla_contracts_requirement * (int)difficulty;
+    return board;
   }
 }
