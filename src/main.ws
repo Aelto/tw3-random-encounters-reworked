@@ -78,7 +78,7 @@ statemachine class CRandomEncounters extends CEntity {
    * return if the mod was booted less than 30 seconds ago.
    */
   public function hasJustBooted(): bool {
-    theGame.GetEngineTimeAsSeconds() - this.boot_time <= 30;
+    return theGame.GetEngineTimeAsSeconds() - this.boot_time <= 30;
   }
 
   event OnRefreshSettings(action: SInputAction) {
