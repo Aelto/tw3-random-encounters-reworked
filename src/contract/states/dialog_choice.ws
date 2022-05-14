@@ -95,7 +95,7 @@ state DialogChoice in RER_ContractManager {
     }
 
     for (i = 0; i < 3; i += 1) {
-      random_species = RER_getSeededRandomEasySpeciesType(rng);
+      random_species = RER_getSeededRandomSpeciesType(rng);
 
       line = GetLocStringByKey("rer_contract_dialog_choice");
       line = StrReplace(line, "{{difficulty}}", "(" + selected_difficulty.value + ")");
