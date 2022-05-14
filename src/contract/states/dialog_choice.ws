@@ -342,8 +342,8 @@ state DialogChoice in RER_ContractManager {
       StrReplace(
         GetLocStringByKey('rer_contract_started'),
         "{{species}}",
-        RER_getSpeciesLocalizedString(contract_data.species)
-      ) + StrReplace(" ({{type}})", "{{type}}", bestiary_entry.type)
+        getCreatureNameFromCreatureType(parent.master.bestiary, bestiary_entry.type)
+      )
     );
 
     parent.GotoState('Processing');
