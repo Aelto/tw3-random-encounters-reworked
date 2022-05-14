@@ -103,7 +103,6 @@ statemachine class RER_ContractManager {
     rng = (new RandomNumberGenerator in this).setSeed(data.rng_seed)
       .useSeed(true);
 
-	NLOG("cm seed: " + rng.seed);
 	bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
 
 

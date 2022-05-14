@@ -324,7 +324,7 @@ state DialogChoice in RER_ContractManager {
     rng.setSeed(RER_identifierToInt(contract_data.identifier.identifier));
     rng.next();
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
-	NLOG("dialog seed: " + rng.seed);
+    rng.setSeed(contract_data.rng_seed)
     bestiary_entry = parent.master.bestiary.getRandomEntryFromSpeciesType(contract_data.species, rng);
 
     contract_data.region_name = SUH_getCurrentRegion();
