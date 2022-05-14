@@ -102,6 +102,7 @@ state Processing in RER_ContractManager {
 
   latent function createHuntingGroundAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var damage_modifier: SU_BaseDamageModifier;
     var rer_entity_template: CEntityTemplate;
     var composition_entities: array<CEntity>;
     var composition_entry: RER_BestiaryEntry;
@@ -111,6 +112,7 @@ state Processing in RER_ContractManager {
     var entities: array<CEntity>;
     var impact_points: float;
     var position: Vector;
+    var npc: CNewNPC;
     var i: int;
     
     bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
@@ -160,8 +162,35 @@ state Processing in RER_ContractManager {
     impact_points -= bestiary_entry.ecosystem_delay_multiplier * entities.Size();
 
     if (impact_points > 0) {
-      // TODO: add buffs to the entities.
+      damage_modifier = new SU_BaseDamageModifier in parent;
+      damage_modifier.damage_received_modifier = 1;
+      damage_modifier.damage_dealt_modifier = 1;
+
+      while (impact_points > 0) {
+        // TODO: add buffs to the entities.
+        
+        if (rng.next() > 0.5) {
+          damage_modifier.damage_dealt_modifier += 0.1;
+        }
+        else {
+          // so here we add 15% more damage received, but below...
+          damage_modifier.damage_received_modifier += 0.15;
+        }
+        impact_points -= 1;
+      }
+
+      // ... then we do a 1 / x so bring back the value in the [0;1] range, so a
+      // what was a 2 (which meant a 200% increase) is now a 50% modifier,
+      // effectively half the damage.
+      damage_modifier.damage_received_modifier = 1 / damage_modifier.damage_received_modifier;
+
+      for (i = 0; i < entities.Size(); i += 1) {
+        npc = (CNewNPC)entities[i];
+
+        npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
+      }
     }
+
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
