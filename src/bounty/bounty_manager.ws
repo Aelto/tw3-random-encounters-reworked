@@ -623,6 +623,7 @@ state Processing in RER_BountyManager {
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
     var current_group: RER_BountyRandomMonsterGroupData;
     var side_bestiary_entry: RER_BestiaryEntry;
+    var damage_modifier: SU_BaseDamageModifier;
     var rer_entity_template: CEntityTemplate;
     var bestiary_entry: RER_BestiaryEntry;
     var side_entities: array<CEntity>;
@@ -650,6 +651,10 @@ state Processing in RER_BountyManager {
       NLOG("spawnBountyGroup, could not find a safe ground position. Defaulting to marker position");
     }
 
+    damage_modifier = new SU_BaseDamageModifier in parent;
+    damage_modifier.damage_received_modifier = 0.7;
+    damage_modifier.damage_dealt_modifier = 1.05;
+
     entities = bestiary_entry.spawn(
       parent.master,
       position,
@@ -657,7 +662,8 @@ state Processing in RER_BountyManager {
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
-      'RandomEncountersReworked_BountyCreature'
+      'RandomEncountersReworked_BountyCreature',,
+      damage_modifier
     );
 
     // group index -1 is a way to identify the main group
@@ -681,7 +687,8 @@ state Processing in RER_BountyManager {
           , // density
           EncounterType_CONTRACT,
           RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
-          'RandomEncountersReworked_BountyCreature'
+          'RandomEncountersReworked_BountyCreature',,
+          damage_modifier
         );
 
         if (side_entities.Size() > 0) {

@@ -4771,11 +4771,6 @@
                 <Entry varId="RERhoursBeforeNewContracts" value="1" />
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
-                <Entry varId="REReasyContractsNumber" value="1" />
-                <Entry varId="RERmediumContractsNumber" value="1" />
-                <Entry varId="RERhardContractsNumber" value="1" />
-
-
                 <Entry varId="RERallowLearnNewLocations" value="1" />
                 <Entry varId="RERcontractsGenerationSeed" value="0" />
 
@@ -4787,10 +4782,6 @@
         <VisibleVars>
             <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
-
-            <Var id="REReasyContractsNumber" displayName="rer_easy_contracts_number" displayType="SLIDER;0;5;5"/>
-            <Var id="RERmediumContractsNumber" displayName="rer_medium_contracts_number" displayType="SLIDER;0;5;5"/>
-            <Var id="RERhardContractsNumber" displayName="rer_hard_contracts_number" displayType="SLIDER;0;5;5"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
             <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
