@@ -149,7 +149,7 @@ state Processing in RER_ContractManager {
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      , //count
+      bestiary_entry.template_list.difficulty_factor.maximum_count_medium, //count
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
