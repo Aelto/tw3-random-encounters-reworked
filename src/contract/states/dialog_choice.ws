@@ -50,7 +50,7 @@ state DialogChoice in RER_ContractManager {
     var choices: array<SSceneChoice>;
     var rng: RandomNumberGenerator;
     var bestiary_rng: RandomNumberGenerator;
-	  var bestiary_entry: RER_BestiaryEntry;
+    var bestiary_entry: RER_BestiaryEntry;
     var amount_of_options: int;
     var line: string;
     var i: int;
