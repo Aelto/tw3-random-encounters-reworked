@@ -113,7 +113,8 @@ abstract class RER_BestiaryEntry {
     optional encounter_type: EncounterType,
     optional flags: RER_BestiaryEntrySpawnFlag,
     optional custom_tag: name,
-    optional composition_count: int
+    optional composition_count: int,
+    optional damage_modifier: SU_BaseDamageModifier
   ): array<CEntity> {
     
     var creatures_templates: EnemyTemplateList;
@@ -128,6 +129,7 @@ abstract class RER_BestiaryEntry {
     var persistance: EPersistanceMode;
     var composition_type: CreatureType;
     var composition_entities: array<CEntity>;
+    var npc: CNewNPC;
     var i: int;
     var j: int;
 
@@ -263,6 +265,21 @@ abstract class RER_BestiaryEntry {
           created_entities.PushBack(created_entity);
 
           group_positions_index += 1;
+        }
+      }
+    }
+
+    if (damage_modifier) {
+      for (i = 0; i < created_entities.Size(); i += 1) {
+        npc = (CNewNPC)created_entities[i];
+
+        npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
+
+        // past 30% damage reduction monsters get debuffs immunity
+        if (damage_modifier.damage_received_modifier < 0.7) {
+          ((CActor)npc).AddBuffImmunity(EET_Knockdown, 'RandomEncountersReworked', false);
+          ((CActor)npc).AddBuffImmunity(EET_HeavyKnockdown, 'RandomEncountersReworked', false);
+          ((CActor)npc).AddBuffImmunity(EET_KnockdownTypeApplicator, 'RandomEncountersReworked', false);
         }
       }
     }

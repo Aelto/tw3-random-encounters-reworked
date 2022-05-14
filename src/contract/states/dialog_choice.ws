@@ -27,7 +27,7 @@ state DialogChoice in RER_ContractManager {
     Sleep(0.1);
 
     this.camera = SU_getStaticCamera();
-    noticeboard = this.getNearbyNoticeboard();
+    noticeboard = parent.getNearbyNoticeboard();
     
     this.camera.teleportAndLookAt(
       noticeboard.GetWorldPosition() + VecFromHeading(noticeboard.GetHeading()) * 2 + Vector(0, 0, 1.5),
@@ -41,6 +41,7 @@ state DialogChoice in RER_ContractManager {
 
   private latent function DialogChoice_prepareAndDisplayDialogueChoices() {
     var noticeboard_identifier: RER_NoticeboardIdentifier;
+    var selected_difficulty: RER_ContractDifficulty;
     var contract_identifier: RER_ContractIdentifier;
     var generation_time: RER_GenerationTime;
     var random_species: RER_SpeciesTypes;
@@ -60,8 +61,9 @@ state DialogChoice in RER_ContractManager {
       parent.updateStorageGenerationTime(generation_time);
     }
 
-    noticeboard_identifier = parent.getUniqueIdFromNoticeboard(this.getNearbyNoticeboard());
-    rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time);
+    noticeboard_identifier = parent.getUniqueIdFromNoticeboard(parent.getNearbyNoticeboard());
+    selected_difficulty = parent.selected_difficulty;
+    rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
 
     line = GetLocStringByKey("rer_available_rewards");
     line = StrReplace(line, "{{rewards_list}}", RER_getLocalizedRewardTypesFromFlag(
@@ -92,125 +94,29 @@ state DialogChoice in RER_ContractManager {
       ));
     }
 
-    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_EASY)) {
-      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'REReasyContractsNumber'));
+    for (i = 0; i < 3; i += 1) {
+      random_species = RER_getSeededRandomSpeciesType(rng);
 
-      for (i = 0; i < amount_of_options; i += 1) {
-        random_species = RER_getSeededRandomEasySpeciesType(rng);
+      line = GetLocStringByKey("rer_contract_dialog_choice");
+      line = StrReplace(line, "{{difficulty}}", "(" + selected_difficulty.value + ")");
+      line = StrReplace(line, "{{species}}", upperCaseFirstLetter(RER_getSpeciesLocalizedString(random_species)));
 
-        line = GetLocStringByKey("rer_contract_dialog_choice");
-        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_easy")));
-        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
+      contract_identifier = parent.getUniqueIdFromContract(
+        noticeboard_identifier,
+        selected_difficulty,
+        random_species,
+        generation_time
+      );
 
-        contract_identifier = parent.getUniqueIdFromContract(
-          noticeboard_identifier,
-          ContractDifficulty_EASY, // difficulty
-          random_species,
-          generation_time
-        );
+      NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
 
-        NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
-
-        choices.PushBack(SSceneChoice(
-          upperCaseFirstLetter(line),
-          false,
-          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-          false,
-          DialogAction_MONSTERCONTRACT,
-          'StartContractDifficultyEasy'
-        ));
-      }
-    }
-    else {
-      line = GetLocStringByKey("rer_complete_more_contracts");
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
         false,
-        true, // already choosen
+        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
         false,
         DialogAction_MONSTERCONTRACT,
-        'NotEnoughReputation'
-      ));
-    }
-    
-
-    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_MEDIUM)) {
-      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERmediumContractsNumber'));
-
-      for (i = 0; i < amount_of_options; i += 1) {
-        random_species = RER_getSeededRandomSpeciesType(rng);
-
-        line = GetLocStringByKey("rer_contract_dialog_choice");
-        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_medium")));
-        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-        contract_identifier = parent.getUniqueIdFromContract(
-          noticeboard_identifier,
-          ContractDifficulty_MEDIUM, // difficulty
-          random_species,
-          generation_time
-        );
-
-        NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
-
-        choices.PushBack(SSceneChoice(
-          upperCaseFirstLetter(line),
-          false,
-          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-          false,
-          DialogAction_MONSTERCONTRACT,
-          'StartContractDifficultyMedium'
-        ));
-      }
-    }
-    else {
-      line = GetLocStringByKey("rer_complete_more_contracts");
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        true, // already choosen
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'NotEnoughReputation'
-      ));
-    }
-
-    if (parent.hasRequiredReputationForContractAtNoticeboard(noticeboard_identifier, ContractDifficulty_HARD)) {
-      amount_of_options = StringToInt(theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERhardContractsNumber'));
-
-      for (i = 0; i < amount_of_options; i += 1) {
-        random_species = RER_getSeededRandomSpeciesType(rng);
-
-        line = GetLocStringByKey("rer_contract_dialog_choice");
-        line = StrReplace(line, "{{difficulty}}", StrLowerUTF(GetLocStringByKey("preset_value_rer_hard")));
-        line = StrReplace(line, "{{species}}", StrLowerUTF(RER_getSpeciesLocalizedString(random_species)));
-
-        contract_identifier = parent.getUniqueIdFromContract(
-          noticeboard_identifier,
-          ContractDifficulty_HARD, // difficulty
-          random_species,
-          generation_time
-        );
-
-        choices.PushBack(SSceneChoice(
-          upperCaseFirstLetter(line),
-          false,
-          parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
-          false,
-          DialogAction_MONSTERCONTRACT,
-          'StartContractDifficultyHard'
-        ));
-      }
-    }
-    else {
-      line = GetLocStringByKey("rer_complete_more_contracts");
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        true, // already choosen
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'NotEnoughReputation'
+        'StartContractDifficultyEasy'
       ));
     }
 
@@ -223,10 +129,10 @@ state DialogChoice in RER_ContractManager {
       'Cancel'
     ));
 
-    this.displayDialogChoices(choices, noticeboard_identifier, generation_time, rng);
+    this.displayDialogChoices(choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
   }
 
-  latent function displayDialogChoices(choices: array<SSceneChoice>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, rng: RandomNumberGenerator) {
+  latent function displayDialogChoices(choices: array<SSceneChoice>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
     var response: SSceneChoice;
 
     // while on gamepad, the interact input is directly sent in the dialog choice
@@ -248,33 +154,11 @@ state DialogChoice in RER_ContractManager {
         return;
       }
 
-      this.acceptContract(response, noticeboard_identifier, generation_time, rng);  
+      this.acceptContract(response, noticeboard_identifier, generation_time, difficulty, rng);  
     }
   }
 
-  function getNearbyNoticeboard(): W3NoticeBoard {
-    var entities: array<CGameplayEntity>;
-    var board: W3NoticeBoard;
-    var i: int;
-
-    FindGameplayEntitiesInRange(
-      entities,
-      thePlayer,
-      20, // range, 
-      1, // max results
-      , // tag: optional value
-      FLAG_ExcludePlayer,
-      , // optional value
-      'W3NoticeBoard'
-    );
-
-    // bold move here, if there are no noticeboard nearby the game will crash.
-    board = (W3NoticeBoard)entities[0];
-
-    return board;
-  }
-
-  function getRandomNumberGenerator(noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime): RandomNumberGenerator {
+  function getRandomNumberGenerator(noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty): RandomNumberGenerator {
     var rng: RandomNumberGenerator;
     var menu_seed: float;
 
@@ -285,36 +169,27 @@ state DialogChoice in RER_ContractManager {
     rng = new RandomNumberGenerator in this;
 
     return rng
-      .setSeed((int)(menu_seed + RER_identifierToInt(noticeboard_identifier.identifier) + generation_time.time))
+      .setSeed((int)(menu_seed + RER_identifierToInt(noticeboard_identifier.identifier) + generation_time.time + difficulty.value))
       .useSeed(true);
   }
 
-  latent function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, rng: RandomNumberGenerator) {
+  latent function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
     var nearby_noticeboard: W3NoticeBoard;
 
-    nearby_noticeboard = this.getNearbyNoticeboard();
+    nearby_noticeboard = parent.getNearbyNoticeboard();
 
     // here we'll do a bit of an ugly hack:
     // to get the data we displayed in the choice we will extract the localized
     // text from the strings and do according to that.
     contract_data = RER_ContractGenerationData();
     contract_data.species = RER_getSpeciesFromLocalizedString(response.description);
+    contract_data.difficulty = difficulty;
     
-    if (StrContains(NameToString(response.playGoChunk), "DifficultyHard")) {
-      contract_data.difficulty = ContractDifficulty_HARD;
-    }
-    else if (StrContains(NameToString(response.playGoChunk), "DifficultyMedium")) {
-      contract_data.difficulty = ContractDifficulty_MEDIUM;
-    }
-    else {
-      contract_data.difficulty = ContractDifficulty_EASY;
-    }
-
     contract_data.noticeboard_identifier = noticeboard_identifier;
     contract_data.identifier = parent.getUniqueIdFromContract(
       noticeboard_identifier,
-      contract_data.difficulty, // difficulty
+      contract_data.difficulty,
       contract_data.species,
       generation_time
     );
