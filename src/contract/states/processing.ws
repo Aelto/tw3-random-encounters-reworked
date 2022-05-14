@@ -122,7 +122,7 @@ state Processing in RER_ContractManager {
     for (i = 0; i < 15; i += 1) {
       rng.next();
       position = ongoing_contract.destination_point
-        + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius * 0.5 + 5, 5);
+        + VecRingRandStatic((int)rng.previous_number, 5, ongoing_contract.destination_radius * 0.5 + 5);
 
       // try to see if the position is valid. If it returns true then it means
       // it found a valid position.
@@ -249,7 +249,7 @@ state Processing in RER_ContractManager {
       for (k = 0; k < 15; k += 1) {
         rng.next();
         position = ongoing_contract.destination_point
-          + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+          + VecRingRandStatic((int)rng.previous_number, 5, ongoing_contract.destination_radius);
 
         FixZAxis(position);
 
