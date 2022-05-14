@@ -170,7 +170,7 @@ state Processing in RER_ContractManager {
         // TODO: add buffs to the entities.
         
         if (rng.next() > 0.5) {
-          damage_modifier.damage_dealt_modifier += 0.1;
+          damage_modifier.damage_dealt_modifier += 0.01;
         }
         else {
           // so here we add 15% more damage received, but below...
