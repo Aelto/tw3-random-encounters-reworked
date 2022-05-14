@@ -106,6 +106,7 @@ state DialogChoice in RER_ContractManager {
         generation_time
       );
 
+      bestiary_rng = new RandomNumberGenerator in parent;
       bestiary_rng.setSeed(RER_identifierToInt(contract_identifier.identifier));
       bestiary_rng.next();
       bestiary_rng.setSeed((int)bestiary_rng.previous_number + bestiary_rng.seed);
