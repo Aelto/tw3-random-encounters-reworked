@@ -349,11 +349,14 @@ statemachine class RER_ContractManager {
       );
     }
 
-    // TODO: #109 increase only if in the upper 50% range
-    this.increaseReputationForNoticeboard(
-      storage.ongoing_contract.noticeboard_identifier,
-      storage.ongoing_contract.difficulty.value + 1
-    );
+    // increase the reputation for this noticeboard only if the contract difficulty
+    // is in the upper 50% of the available difficulties for this board:
+    if (storage.ongoing_contract.difficulty.value >= this.getMaximumDifficultyForReputation(current_reputation) * 0.5) {
+      this.increaseReputationForNoticeboard(
+        storage.ongoing_contract.noticeboard_identifier,
+        RoundF(storage.ongoing_contract.difficulty.value * 0.1) + 1
+      );
+    }
 
     storage.save();
   }
@@ -431,6 +434,14 @@ statemachine class RER_ContractManager {
     current_reputation = this.getNoticeboardReputation(noticeboard);
 
     return current_reputation >= vanilla_contracts_requirement;
+  }
+
+  public function getMaximumDifficultyForReputation(reputation: int): int {
+    return Clamp(
+      10 + reputation * 5,
+      0,
+      50
+    );
   }
 
   public function getNearbyNoticeboard(): W3NoticeBoard {

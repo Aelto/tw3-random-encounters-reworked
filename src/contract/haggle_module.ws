@@ -26,7 +26,7 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
 		data.BlurBackground = false;
 
     data.minValue = 0;
-		data.maxValue = 10 + noticeboard_reputation * 5;
+		data.maxValue = contract_manager.getMaximumDifficultyForReputation(noticeboard_reputation);
     data.currentValue = RoundF(data.maxValue / 2);
 
     theGame.RequestMenu('PopupMenu', data);
