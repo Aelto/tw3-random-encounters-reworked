@@ -292,7 +292,7 @@ state DialogChoice in RER_ContractManager {
   latent function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
     var creature_t: RER_ContractRepresentation;
-	var bestiary_entry: RER_BestiaryEntry;
+    var bestiary_entry: RER_BestiaryEntry;
     var nearby_noticeboard: W3NoticeBoard;
 
     nearby_noticeboard = this.getNearbyNoticeboard();
