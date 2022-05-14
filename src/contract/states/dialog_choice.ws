@@ -291,6 +291,8 @@ state DialogChoice in RER_ContractManager {
 
   latent function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
+    var creature_t: RER_ContractRepresentation;
+	var bestiary_entry: RER_BestiaryEntry;
     var nearby_noticeboard: W3NoticeBoard;
 
     nearby_noticeboard = this.getNearbyNoticeboard();
@@ -322,6 +324,8 @@ state DialogChoice in RER_ContractManager {
     rng.setSeed(RER_identifierToInt(contract_data.identifier.identifier));
     rng.next();
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
+	NLOG("dialog seed: " + rng.seed);
+    bestiary_entry = parent.master.bestiary.getRandomEntryFromSpeciesType(contract_data.species, rng);
 
     contract_data.region_name = SUH_getCurrentRegion();
     contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
@@ -339,7 +343,7 @@ state DialogChoice in RER_ContractManager {
         GetLocStringByKey('rer_contract_started'),
         "{{species}}",
         RER_getSpeciesLocalizedString(contract_data.species)
-      )
+      ) + StrReplace(" ({{type}})", "{{type}}", bestiary_entry.type)
     );
 
     parent.GotoState('Processing');

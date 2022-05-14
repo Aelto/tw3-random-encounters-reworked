@@ -99,17 +99,20 @@ statemachine class RER_ContractManager {
     var bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
 
-    contract = RER_ContractRepresentation();
+	contract = RER_ContractRepresentation();
     rng = (new RandomNumberGenerator in this).setSeed(data.rng_seed)
       .useSeed(true);
+
+	NLOG("cm seed: " + rng.seed);
+	bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
+
 
     contract.identifier = data.identifier;
     contract.noticeboard_identifier = data.noticeboard_identifier;
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, rng);
     contract.destination_radius = 100;
 
-    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
-    contract.creature_type = bestiary_entry.type;
+	contract.creature_type = bestiary_entry.type;
     contract.difficulty = data.difficulty;
     contract.region_name = data.region_name;
     contract.rng_seed = data.rng_seed;
@@ -149,20 +152,12 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    if (SUH_getCurrentRegion() == "prolog_village") {
-      // white orchard doesn't have enough POIs to pick only a portion of them,
-      // instead we pick all of them:
-      index = (int)rng.nextRange(size, 0);
-    }
-    else {
-      // the first 12.5%
-      index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
-
-      // the first 25%
-      // index = (int)rng.nextRange(quarter, 0);
-      // between 25% and 50%
-      // index = (int)rng.nextRange(quarter * 2, quarter);
-    }
+    // the first 12.5%
+    index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
+    // the first 25%
+    // index = (int)rng.nextRange(quarter, 0);
+    // between 25% and 50%
+    // index = (int)rng.nextRange(quarter * 2, quarter);
 
     NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size );
 
@@ -318,7 +313,7 @@ statemachine class RER_ContractManager {
         theGame.GetInGameConfigWrapper()
         .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
       );
-      
+
       rewards_amount *= 1 + RoundF(current_reputation * rewards_increase_from_reputation);
     }
 
@@ -386,7 +381,7 @@ statemachine class RER_ContractManager {
 
       if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
         this.master.storages.contract.noticeboards_reputation[i].reputation = value;
-        
+
         return;
       }
     }
