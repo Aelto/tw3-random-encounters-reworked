@@ -48,6 +48,7 @@ state DialogChoice in RER_ContractManager {
     var reputation_system_enabled: bool;
     var required_time_elapsed: float;
     var choices: array<SSceneChoice>;
+    var species_choices: array<RER_SpeciesTypes>;
     var rng: RandomNumberGenerator;
     var bestiary_rng: RandomNumberGenerator;
     var bestiary_entry: RER_BestiaryEntry;
@@ -98,6 +99,7 @@ state DialogChoice in RER_ContractManager {
 
     for (i = 0; i < 3; i += 1) {
       random_species = RER_getSeededRandomSpeciesType(rng);
+      species_choices.PushBack(random_species);
 
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
@@ -137,11 +139,14 @@ state DialogChoice in RER_ContractManager {
       'Cancel'
     ));
 
-    this.displayDialogChoices(choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
+    this.displayDialogChoices(choices, species_choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
   }
 
-  latent function displayDialogChoices(choices: array<SSceneChoice>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
+  latent function displayDialogChoices(choices: array<SSceneChoice>, species_choices: array<RER_SpeciesTypes>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
     var response: SSceneChoice;
+    var species: RER_SpeciesTypes;
+    var species_found: bool;
+    var i: int;
 
     // while on gamepad, the interact input is directly sent in the dialog choice
     // it is safer to wait a bit before capturing the input.
@@ -162,7 +167,22 @@ state DialogChoice in RER_ContractManager {
         return;
       }
 
-      this.acceptContract(response, noticeboard_identifier, generation_time, difficulty, rng);  
+      species_found = false;
+      for (i = 0; i < 3; i += 1) {
+        NLOG("Response description: " + response.description);
+        if (choices[i + 2].description == response.description) {
+          species = species_choices[i];
+          NLOG("SPECIES FOUND: " + species);
+          species_found = true;
+          break;
+        }
+      }
+
+      if (species_found == false) {
+        NDEBUG("Unable to find species!");
+      }
+
+      this.acceptContract(species, noticeboard_identifier, generation_time, difficulty, rng);
     }
   }
 
@@ -181,7 +201,7 @@ state DialogChoice in RER_ContractManager {
       .useSeed(true);
   }
 
-  latent function acceptContract(response: SSceneChoice, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
+  latent function acceptContract(species: RER_SpeciesTypes, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
     var creature_t: RER_ContractRepresentation;
     var bestiary_entry: RER_BestiaryEntry;
@@ -189,11 +209,8 @@ state DialogChoice in RER_ContractManager {
 
     nearby_noticeboard = parent.getNearbyNoticeboard();
 
-    // here we'll do a bit of an ugly hack:
-    // to get the data we displayed in the choice we will extract the localized
-    // text from the strings and do according to that.
     contract_data = RER_ContractGenerationData();
-    contract_data.species = RER_getSpeciesFromLocalizedString(response.description);
+    contract_data.species = species;
     contract_data.difficulty = difficulty;
     
     contract_data.noticeboard_identifier = noticeboard_identifier;
