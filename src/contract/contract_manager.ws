@@ -99,11 +99,11 @@ statemachine class RER_ContractManager {
     var bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
 
-	contract = RER_ContractRepresentation();
+    contract = RER_ContractRepresentation();
     rng = (new RandomNumberGenerator in this).setSeed(data.rng_seed)
       .useSeed(true);
 
-	bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
+    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
 
 
     contract.identifier = data.identifier;
@@ -111,7 +111,7 @@ statemachine class RER_ContractManager {
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, rng);
     contract.destination_radius = 100;
 
-	contract.creature_type = bestiary_entry.type;
+    contract.creature_type = bestiary_entry.type;
     contract.difficulty = data.difficulty;
     contract.region_name = data.region_name;
     contract.rng_seed = data.rng_seed;
