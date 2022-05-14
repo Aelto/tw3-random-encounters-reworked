@@ -6,6 +6,11 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
   function DialogueSliderDataPopupResult(value: float, optional isItemReward: bool) {
     super.DialogueSliderDataPopupResult(0,false);
 
+    theGame.CloseMenu('PopupMenu');
+    theInput.SetContext(thePlayer.GetExplorationInputContext());
+    theGame.SetIsDialogOrCutscenePlaying(false);
+    theGame.GetGuiManager().RequestMouseCursor(false);
+
     this.contract_manager.contractHaggleDifficultySelected(RER_ContractDifficulty((int)value));
   }
 

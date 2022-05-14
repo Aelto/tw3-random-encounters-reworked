@@ -16,6 +16,11 @@ state DifficultySelection in RER_ContractManager {
     var noticeboard_identifier: RER_NoticeboardIdentifier;
     var haggle_module_dialog: RER_ContractModuleDialog;
 
+    theGame.CloseMenu('NoticeBoardMenu');
+    theInput.SetContext(thePlayer.GetExplorationInputContext());
+    theGame.SetIsDialogOrCutscenePlaying(false);
+    theGame.GetGuiManager().RequestMouseCursor(false);
+
     noticeboard_identifier = parent.getUniqueIdFromNoticeboard(parent.getNearbyNoticeboard());
 
     haggle_module_dialog = new RER_ContractModuleDialog in parent;
