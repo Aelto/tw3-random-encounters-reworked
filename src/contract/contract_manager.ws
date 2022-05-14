@@ -151,12 +151,19 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    // the first 12.5%
-    index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
-    // the first 25%
-    // index = (int)rng.nextRange(quarter, 0);
-    // between 25% and 50%
-    // index = (int)rng.nextRange(quarter * 2, quarter);
+    if (SUH_getCurrentRegion() == "prolog_village") {
+      // white orchard doesn't have enough POIs to pick only a portion of them,
+      // instead we pick all of them:
+      index = (int)rng.nextRange(size, 0);
+    }
+    else {
+      // the first 12.5%
+      index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
+      // the first 25%
+      // index = (int)rng.nextRange(quarter, 0);
+      // between 25% and 50%
+      // index = (int)rng.nextRange(quarter * 2, quarter);
+    }
 
     NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size );
 
