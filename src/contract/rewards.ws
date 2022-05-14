@@ -310,3 +310,19 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
 
   return allowed_reward;
 }
+
+function RER_getRandomJewelName(rng: RandomNumberGenerator): name {
+  var names: array<name>;
+  var output: name;
+
+  names.PushBack('Ruby');
+  names.PushBack('Amber');
+  names.PushBack('Amethyst');
+  names.PushBack('Diamond');
+  names.PushBack('Emerald');
+  names.PushBack('Sapphire');
+
+  output = names[(int)rng.nextRange(names.Size(), 0)];
+
+  return output;
+}

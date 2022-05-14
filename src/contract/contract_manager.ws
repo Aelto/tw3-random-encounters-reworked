@@ -294,6 +294,7 @@ statemachine class RER_ContractManager {
     var rng: RandomNumberGenerator;
     var current_reputation: int;
     var rewards_amount: int;
+    var current_amount: int;
     var token_name: name;
 
     storage = this.master.storages.contract;
@@ -321,7 +322,7 @@ statemachine class RER_ContractManager {
     );
 
     // TODO: #109 scale accordingly
-    rewards_amount = storage.ongoing_contract.difficulty.value + 1;
+    rewards_amount = 3;
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
       rewards_increase_from_reputation = StringToFloat(
@@ -329,12 +330,31 @@ statemachine class RER_ContractManager {
         .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
       );
       
-      rewards_amount *= 1 + RoundF(current_reputation * rewards_increase_from_reputation);
+      rewards_amount += RoundF(storage.ongoing_contract.difficulty.value * 0.1 * (1 + rewards_increase_from_reputation));
     }
 
     if (IsNameValid(token_name)) {
+
+      // 50% chance to get either 1 token, or the rewards_amount - 1, which is
+      // boosted by the reputation and difficulty
+      if (rng.next() > 0.5) {
+        current_amount = 1;
+      }
+      else {
+        current_amount = rewards_amount - 1;
+      }
+
+      thePlayer.GetInventory().AddAnItem(token_name, current_amount);
+      thePlayer.DisplayItemRewardNotification(token_name, current_amount);
+
+      // then we give what's left as jewels:
+      rewards_amount -= current_amount;
+
+      token_name = RER_getRandomJewelName(rng);
+
       thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
       thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
+
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
