@@ -110,12 +110,14 @@ statemachine class RER_ContractManager {
     rng = (new RandomNumberGenerator in this).setSeed(data.rng_seed)
       .useSeed(true);
 
+    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
+
+
     contract.identifier = data.identifier;
     contract.noticeboard_identifier = data.noticeboard_identifier;
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, rng);
     contract.destination_radius = 100;
 
-    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
     contract.creature_type = bestiary_entry.type;
     contract.difficulty = data.difficulty;
     contract.region_name = data.region_name;
@@ -166,7 +168,6 @@ statemachine class RER_ContractManager {
     else {
       // the first 12.5%
       index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
-
       // the first 25%
       // index = (int)rng.nextRange(quarter, 0);
       // between 25% and 50%
@@ -420,7 +421,7 @@ statemachine class RER_ContractManager {
 
       if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
         this.master.storages.contract.noticeboards_reputation[i].reputation = value;
-        
+
         return;
       }
     }
