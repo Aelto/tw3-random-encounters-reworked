@@ -169,10 +169,10 @@ state DialogChoice in RER_ContractManager {
 
       species_found = false;
       for (i = 0; i < 3; i += 1) {
-        NLOG("Response description: " + response.description);
-        if (choices[i + 2].description == response.description) {
+		// get the choices starting at 4th from last until 2nd to last, as the last
+		// is the exit choice
+        if (choices[choices.Size() - 4 + i].description == response.description) {
           species = species_choices[i];
-          NLOG("SPECIES FOUND: " + species);
           species_found = true;
           break;
         }
