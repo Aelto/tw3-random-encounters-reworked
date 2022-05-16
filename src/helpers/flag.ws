@@ -1,4 +1,7 @@
 
+/**
+ * Return whether or not the given value can be found in the given flag
+ */
 function RER_flagEnabled(flag: int, value: int): bool {
   return (flag & value) != 0;
 }

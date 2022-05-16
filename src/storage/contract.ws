@@ -1,5 +1,5 @@
 
-// in this class you will find all persistent data about the ecosystem the mod
+// in this class you will find all persistent data about the contracts the mod
 // stores in the user save files.
 class RER_ContractStorage extends RER_BaseStorage {
   default id = 'RandomEncountersReworked';
@@ -20,6 +20,8 @@ class RER_ContractStorage extends RER_BaseStorage {
   var ongoing_contract: RER_ContractRepresentation;
 
   var has_ongoing_contract: bool;
+
+  var noticeboards_reputation: array<RER_NoticeboardReputation>;
 }
 
 // an helper function to get contract storage

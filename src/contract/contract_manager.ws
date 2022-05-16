@@ -21,6 +21,7 @@
  */
 statemachine class RER_ContractManager {
   var master: CRandomEncounters;
+  var selected_difficulty: RER_ContractDifficulty;
 
   function init(_master: CRandomEncounters) {
     this.master = _master;
@@ -28,7 +29,13 @@ statemachine class RER_ContractManager {
     this.GotoState('Waiting');
   }
 
-  function pickedContractNoticeFromNoticeboard(errand_name: string) {
+  public function pickedContractNoticeFromNoticeboard(errand_name: string) {
+    this.GotoState('DifficultySelection');
+  }
+
+  public function contractHaggleDifficultySelected(difficulty: RER_ContractDifficulty) {
+    this.selected_difficulty = difficulty;
+
     this.GotoState('DialogChoice');
   }
 
@@ -57,6 +64,8 @@ statemachine class RER_ContractManager {
     var i: int;
 
     for (i = 0; i < this.master.storages.contract.completed_contracts.Size(); i += 1) {
+      NLOG("isContractInStorageCompletedContracts, " + this.master.storages.contract.completed_contracts[i].identifier + " == " + contract.identifier);
+
       if (this.master.storages.contract.completed_contracts[i].identifier == contract.identifier) {
         return true;
       }
@@ -81,14 +90,13 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, is_far: bool, is_hard: bool, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
-    uuid += 100 + (int)is_far + "-";
-    uuid += 10 + (int)is_hard + "-";
-    uuid += (int)species;
+    uuid += 100 + (int)difficulty.value + "-";
+    uuid += 10 + (int)species;
 
     return RER_ContractIdentifier(uuid);
   }
@@ -102,11 +110,14 @@ statemachine class RER_ContractManager {
     rng = (new RandomNumberGenerator in this).setSeed(data.rng_seed)
       .useSeed(true);
 
+    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
+
+
     contract.identifier = data.identifier;
-    contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, data.distance, rng);
+    contract.noticeboard_identifier = data.noticeboard_identifier;
+    contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, rng);
     contract.destination_radius = 100;
 
-    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
     contract.creature_type = bestiary_entry.type;
     contract.difficulty = data.difficulty;
     contract.region_name = data.region_name;
@@ -116,11 +127,13 @@ statemachine class RER_ContractManager {
 
     NLOG("generateContract, reward_type = " + contract.reward_type);
 
-    if (data.difficulty == ContractDifficulty_EASY) {
+    // TODO: once the PR that allows us to get the creature type right here is
+    // merged, replace the difficulty check with a creature strength check.
+    if (data.difficulty.value < 9) {
       if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_HORDE;
       }
-      else {
+      else if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_NEST;
       }
     }
@@ -131,7 +144,7 @@ statemachine class RER_ContractManager {
     return contract;
   }
 
-  public function getRandomDestinationAroundPoint(starting_point: Vector, distance: RER_ContractDistance, rng: RandomNumberGenerator): Vector {
+  public function getRandomDestinationAroundPoint(starting_point: Vector, rng: RandomNumberGenerator): Vector {
     var closest_points: array<Vector>;
     var quarter: int;
     var half: int;
@@ -147,13 +160,18 @@ statemachine class RER_ContractManager {
       NDEBUG("ERROR: no available location for contract was found");
     }
 
-    if (distance == ContractDistance_CLOSE) {
-      // the first 25%
-      index = (int)rng.nextRange(quarter, 0);
+    if (SUH_getCurrentRegion() == "prolog_village") {
+      // white orchard doesn't have enough POIs to pick only a portion of them,
+      // instead we pick all of them:
+      index = (int)rng.nextRange(size, 0);
     }
     else {
+      // the first 12.5%
+      index = (int)rng.nextRange(RoundF(quarter * 0.5), 0);
+      // the first 25%
+      // index = (int)rng.nextRange(quarter, 0);
       // between 25% and 50%
-      index = (int)rng.nextRange(quarter * 2, quarter);
+      // index = (int)rng.nextRange(quarter * 2, quarter);
     }
 
     NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size );
@@ -173,12 +191,12 @@ statemachine class RER_ContractManager {
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
-    for (i = 0; i < this.master.static_encounter_manager.lucolivier_encounters.Size(); i += 1) {
-      if (!this.master.static_encounter_manager.lucolivier_encounters[i].isInRegion(current_region)) {
+    for (i = 0; i < this.master.static_encounter_manager.static_encounters.Size(); i += 1) {
+      if (!this.master.static_encounter_manager.static_encounters[i].isInRegion(current_region)) {
         continue;
       }
 
-      current_position = this.master.static_encounter_manager.lucolivier_encounters[i].position;
+      current_position = this.master.static_encounter_manager.static_encounters[i].position;
       current_distance = VecDistanceSquared2D(starting_point, current_position);
 
       sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
@@ -272,9 +290,12 @@ statemachine class RER_ContractManager {
   }
 
   public function completeCurrentContract() {
+    var rewards_increase_from_reputation: float;
     var storage: RER_ContractStorage;
     var rng: RandomNumberGenerator;
+    var current_reputation: int;
     var rewards_amount: int;
+    var current_amount: int;
     var token_name: name;
 
     storage = this.master.storages.contract;
@@ -297,16 +318,172 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
+    current_reputation = this.getNoticeboardReputation(
+      storage.ongoing_contract.noticeboard_identifier
+    );
+
+    // TODO: #109 scale accordingly
+    rewards_amount = 3;
+
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
+      rewards_increase_from_reputation = StringToFloat(
+        theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
+      );
+      
+      rewards_amount += RoundF(storage.ongoing_contract.difficulty.value * 0.1 * (1 + rewards_increase_from_reputation));
+    }
+
     if (IsNameValid(token_name)) {
-      rewards_amount = 1
-                     * (1 + (int)(storage.ongoing_contract.difficulty == ContractDifficulty_HARD));
+
+      // 50% chance to get either 1 token, or the rewards_amount - 1, which is
+      // boosted by the reputation and difficulty
+      if (rng.next() > 0.5) {
+        current_amount = 1;
+      }
+      else {
+        current_amount = rewards_amount - 1;
+      }
+
+      thePlayer.GetInventory().AddAnItem(token_name, current_amount);
+      thePlayer.DisplayItemRewardNotification(token_name, current_amount);
+
+      // then we give what's left as jewels:
+      rewards_amount -= current_amount;
+
+      token_name = RER_getRandomJewelName(rng);
 
       thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
       thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
+
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
+    else {
+      NDEBUG(
+        "RER ERROR: the name of the token is not valid [" + token_name + "]." +
+        "You can report this issue to the author, preferably with a copy/screenshot of this message." +
+        "<br/>Additional information:" +
+        "<br/> - seed: " + storage.ongoing_contract.rng_seed +
+        "<br/> - reward type: " + storage.ongoing_contract.reward_type +
+        "<br/> - identifier: " + storage.ongoing_contract.identifier.identifier
+      );
+    }
+
+    // increase the reputation for this noticeboard only if the contract difficulty
+    // is in the upper 50% of the available difficulties for this board:
+    if (storage.ongoing_contract.difficulty.value >= this.getMaximumDifficultyForReputation(current_reputation) * 0.5) {
+      this.increaseReputationForNoticeboard(
+        storage.ongoing_contract.noticeboard_identifier,
+        RoundF(storage.ongoing_contract.difficulty.value * 0.1) + 1
+      );
+    }
 
     storage.save();
+  }
+
+  public function increaseReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier, optional reputation_gain: int) {
+    var current_reputation: int;
+
+    if (reputation_gain <= 0) {
+      reputation_gain = 1;
+    }
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    NLOG("increaseReputationForNoticeboard = " + noticeboard.identifier + ", current_reputation = " + current_reputation + " - " + (current_reputation + reputation_gain));
+    this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
+  }
+
+  public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
+    var current_reputation: RER_NoticeboardReputation;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
+
+      NLOG("getNoticeboardReputation, current_reputation.noticeboard_identifier.identifier = " + current_reputation.noticeboard_identifier.identifier + " reputation = " + current_reputation.reputation);
+
+      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
+        return current_reputation.reputation;
+      }
+    }
+
+    return 0;
+  }
+
+  private function setNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier, value: int) {
+    var current_reputation: RER_NoticeboardReputation;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
+
+      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
+        this.master.storages.contract.noticeboards_reputation[i].reputation = value;
+
+        return;
+      }
+    }
+
+    current_reputation = RER_NoticeboardReputation();
+    current_reputation.noticeboard_identifier = noticeboard;
+    current_reputation.reputation = value;
+
+    this.master.storages.contract.noticeboards_reputation.PushBack(
+      current_reputation
+    );
+  }
+
+  public function hasRequiredReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier): bool {
+    var vanilla_contracts_requirement: int;
+    var reputation_system_enabled: bool;
+    var current_reputation: int;
+
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+    if (!reputation_system_enabled) {
+      return true;
+    }
+
+    vanilla_contracts_requirement = StringToInt(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
+    );
+
+    current_reputation = this.getNoticeboardReputation(noticeboard);
+
+    return current_reputation >= vanilla_contracts_requirement;
+  }
+
+  public function getMaximumDifficultyForReputation(reputation: int): int {
+    return Clamp(
+      10 + reputation * 5,
+      0,
+      50
+    );
+  }
+
+  public function getNearbyNoticeboard(): W3NoticeBoard {
+    var entities: array<CGameplayEntity>;
+    var board: W3NoticeBoard;
+    var i: int;
+
+    FindGameplayEntitiesInRange(
+      entities,
+      thePlayer,
+      20, // range, 
+      1, // max results
+      , // tag: optional value
+      FLAG_ExcludePlayer,
+      , // optional value
+      'W3NoticeBoard'
+    );
+
+    // bold move here, if there are no noticeboard nearby the game will crash.
+    board = (W3NoticeBoard)entities[0];
+
+    return board;
   }
 }

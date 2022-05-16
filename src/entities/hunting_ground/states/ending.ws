@@ -9,11 +9,22 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
   }
 
   entry function Ending_main() {
-    if (parent.is_bounty) {
-      parent.bounty_manager.notifyHuntingGroundKilled(parent.bounty_group_index);
+    var distance_from_player: float;
 
-      RER_removePinsInAreaAndWithTag("RER_bounty_target", parent.GetWorldPosition(), 100);
-      SU_updateMinimapPins();
+    distance_from_player = VecDistanceSquared2D(
+      thePlayer.GetWorldPosition(),
+      parent.GetWorldPosition()
+    );
+
+    // the distance check could cause issues if the player lures monsters outside
+    // the radius and kill them there.
+    if (parent.is_bounty && distance_from_player < 150 * 150) {
+      if (parent.bounty_group_index < 0) {
+        parent.bounty_manager.notifyMainGroupKilled();
+      }
+      else {
+        parent.bounty_manager.notifySideGroupKilled(parent.bounty_group_index);
+      }
     }
 
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {

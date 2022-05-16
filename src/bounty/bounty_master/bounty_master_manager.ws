@@ -22,6 +22,10 @@ statemachine class RER_BountyMasterManager {
     var template_path: string;
     var map_pin: SU_MapPin;
 
+    if (!RER_modPowerIsBountySystemEnabled()) {
+      return;
+    }
+
     this.bounty_master_entity = theGame.GetEntityByTag('RER_bounty_master');
 
     template_path = "quests\secondary_npcs\graden.w2ent";
@@ -34,7 +38,7 @@ statemachine class RER_BountyMasterManager {
     ) % valid_positions.Size(); // the % is just in case
 
     if (position_index < 0 || position_index > valid_positions.Size() - 1) {
-      position_index = (int)RandNoiseF(thePlayer.GetLevel(), valid_positions.Size() - 1) % valid_positions.Size();
+      position_index = (int)RandNoiseF(RER_getPlayerLevel(), valid_positions.Size() - 1) % valid_positions.Size();
     }
 
     if (position_index < 0 || position_index > valid_positions.Size() - 1) {

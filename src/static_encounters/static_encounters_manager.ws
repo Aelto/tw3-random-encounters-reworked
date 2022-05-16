@@ -2,33 +2,87 @@
 statemachine class RER_StaticEncounterManager {
   var master: CRandomEncounters;
 
-  var aeltoth_encounters: array<RER_StaticEncounter>;
-  var lucolivier_encounters: array<RER_StaticEncounter>;
+  var static_encounters: array<RER_StaticEncounter>;
 
-  var used_version: StaticEncountersVariant;
-
-  var already_spawned_registered_encounters: bool;
-  default already_spawned_registered_encounters = false;
-
-  public function init(master: CRandomEncounters) {
+  public latent function init(master: CRandomEncounters) {
     this.master = master;
+
+    this.registerStaticEncounters();
   }
 
-  public function registerStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter, version: StaticEncountersVariant) {
-    if (version == StaticEncountersVariant_LUCOLIVIER) {
-      this.lucolivier_encounters.PushBack(encounter);
+  public function registerStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter) {
+    this.static_encounters.PushBack(encounter);
+  }
+
+  public function getOrStorePlaceholderStaticEncounterForPosition(position: Vector): RER_PlaceholderStaticEncounter {
+    var placeholder_type: RER_PlaceholderStaticEncounterType;
+    var new_placeholder: RER_PlaceholderStaticEncounter;
+    var size: RER_StaticEncounterType;
+    var i: int;
+
+    for (i = 0; i < this.master.storages.general.placeholder_static_encounters.Size(); i += 1) {
+      if (this.master.storages.general.placeholder_static_encounters[i].position.X != position.X || this.master.storages.general.placeholder_static_encounters[i].position.Y != position.Y) {
+        continue;
+      }
+
+      return this.master.storages.general.placeholder_static_encounters[i];
     }
-    else {
-      this.aeltoth_encounters.PushBack(encounter);
+
+    size = StaticEncounterType_SMALL;
+
+    // a 20% chance to be a large creature
+    if (RandRange(100, 0) < 20) {
+      size = StaticEncounterType_LARGE;
     }
+
+    placeholder_type = RER_PSET_LearnFromEcosystem;
+
+    // a 50% chance to be a copy placeholder
+    if (RandRange(100, 0) < 50) {
+      placeholder_type = RER_PSET_CopyNearbyCreature;
+    }
+
+    new_placeholder = (new RER_PlaceholderStaticEncounter in this.master)
+      .init(
+        false,
+        position,
+        20, // by default a 20 meters radius
+        size,
+        placeholder_type
+      );
+
+    this.master.storages.general.placeholder_static_encounters.PushBack(new_placeholder);
+    this.master.storages.general.save();
+
+    return new_placeholder;
   }
 
   public latent function startSpawning() {
+    if (!RER_modPowerIsStaticEncounterSystemEnabled()) {
+      return;
+    }
+
     if (this.GetCurrentStateName() != 'Spawning') {
       this.GotoState('Spawning');
     }
   }
 
+  private latent function registerStaticEncounters() {
+    var used_version: StaticEncountersVariant;
+
+    used_version = StringToInt(
+      theGame
+      .GetInGameConfigWrapper()
+      .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion')
+    );
+
+    if (used_version == StaticEncountersVariant_LUCOLIVIER) {
+      RER_registerStaticEncountersLucOliver(this.master);
+    }
+    else {
+      RER_registerStaticEncountersAeltoth(this.master);
+    }
+  }
 }
 
 
@@ -38,7 +92,7 @@ enum RER_StaticEncounterType {
   StaticEncounterType_LARGE = 1,
 }
 
-latent function RER_registerStaticEncounter(master: CRandomEncounters, type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType, version: StaticEncountersVariant) {
+latent function RER_registerStaticEncounter(master: CRandomEncounters, type: CreatureType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType) {
   var new_static_encounter: RER_StaticEncounter;
 
   new_static_encounter = new RER_StaticEncounter in master;
@@ -50,7 +104,21 @@ latent function RER_registerStaticEncounter(master: CRandomEncounters, type: Cre
 
   master
     .static_encounter_manager
-    .registerStaticEncounter(master, new_static_encounter, version);
+    .registerStaticEncounter(master, new_static_encounter);
+}
+
+latent function RER_registerPlaceholderStaticEncounter(master: CRandomEncounters, placeholder_type: RER_PlaceholderStaticEncounterType, position: Vector, constraint: RER_RegionConstraint, radius: float, encounter_type: RER_StaticEncounterType) {
+  var new_static_encounter: RER_PlaceholderStaticEncounter;
+
+  new_static_encounter = new RER_PlaceholderStaticEncounter in master;
+  new_static_encounter.position = position;
+  new_static_encounter.region_constraint = constraint;
+  new_static_encounter.radius = radius;
+  new_static_encounter.type = encounter_type;
+
+  master
+    .static_encounter_manager
+    .registerStaticEncounter(master, new_static_encounter);
 }
 
 latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters) {
@@ -61,8 +129,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-417, 246, -0.1),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // White Orchard Burned house
@@ -72,8 +139,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-165, -104, 6.6),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // White Orchard Ghoul near power
@@ -83,8 +149,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-92, -330, 32),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard By Well
@@ -94,8 +159,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(32, -269, 13.3),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard near pond
@@ -105,8 +169,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(120, -220, 0.5),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard near stones in forest
@@ -116,8 +179,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(92, -138, 4.2),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard near fields
@@ -127,8 +189,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(137, 38, 1.1),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard Near thy graveyard
@@ -138,8 +199,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-78, 295, 4),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard horpse corpse
@@ -149,8 +209,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(73, 285, 8.3),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard field with nothing
@@ -160,8 +219,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(142, 326, 14.4),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard GATE
@@ -171,8 +229,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(406, 211, 15.2),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // White Orchard Waterfall
@@ -182,8 +239,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(421, 191, -0.3),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // White Orchard Bonus
@@ -193,8 +249,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(311, 49, 0.2),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // A random swamp in velen
@@ -204,8 +259,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(360, -375, 0),
     RER_RegionConstraint_ONLY_VELEN,
     50,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // A burnt house near the water
@@ -215,8 +269,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(620, -477, 0.9),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Abandonned field
@@ -226,8 +279,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(796, 490, 13.4),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // entrace to wyvern cave
@@ -237,8 +289,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1889, 47, 41.8),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Troll's swamp
@@ -248,8 +299,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1487, 1132, -0.3),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Haunted forest
@@ -259,8 +309,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(235, 1509, 19),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Beach, near good troll
@@ -270,8 +319,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(103, 892, 7.7),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Basilisk place
@@ -281,8 +329,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-90, 1487, 9.3),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // A abandonned house with skeletons 
@@ -292,8 +339,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1060, -305, 6),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Harpy location
@@ -303,8 +349,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-98, 603, 11.1),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // a flat surface in the mountain near the swamp
@@ -314,8 +359,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1329, -326, 50),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near Graveyard, 
@@ -325,8 +369,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-218, 380, 15.4),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // a beach in novigrad
@@ -336,8 +379,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(375, 1963, 1),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // a random lost village
@@ -347,8 +389,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1995, -643, 0),
     RER_RegionConstraint_ONLY_VELEN,
     25,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // people hanged on a tree
@@ -358,8 +399,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-447, -77, 10),
     RER_RegionConstraint_ONLY_VELEN,
     15,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Forest with insects
@@ -369,8 +409,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(512, 1232, 11.3),
     RER_RegionConstraint_ONLY_VELEN,
     25,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // A pond near boat
@@ -380,8 +419,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-450, -440, 0),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // NORTH near endregas
@@ -391,8 +429,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(797, 2318, 7),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Abandonned ilse
@@ -402,8 +439,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(529, -117, -7.9),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // South of crow's perch
@@ -413,8 +449,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(161, -108, 5.4),
     RER_RegionConstraint_ONLY_VELEN,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Middle of nowhere
@@ -424,8 +459,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(667, 150, 4.5),
     RER_RegionConstraint_ONLY_VELEN,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Unused Pong
@@ -435,8 +469,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1335, 524, 5.3),
     RER_RegionConstraint_ONLY_VELEN,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // rotfiend nest
@@ -446,8 +479,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(350, 980, 1.5),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Mage House
@@ -457,8 +489,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2430, 977, 39.4),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Road to Lurtch
@@ -468,8 +499,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1055, -1, 48.2),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Contract mine
@@ -479,8 +509,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(748, 902, 2.4),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Near Toderas
@@ -490,8 +519,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1627, -11, 13.2),
     RER_RegionConstraint_ONLY_VELEN,
     15,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Near horse cadavar
@@ -501,8 +529,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1462, -850, 29.5),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // in forest
@@ -512,8 +539,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-92, 31, 10.3),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Field with people
@@ -523,8 +549,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(625, 1403, 1.8),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Near Wyvern castle
@@ -534,8 +559,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-255, 863, 30.8),
     RER_RegionConstraint_ONLY_VELEN,
     15,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near thy swamp
@@ -545,8 +569,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1070, -638, 0.4),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Leshen Forest
@@ -556,8 +579,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1268, -166, 58.4),
     RER_RegionConstraint_ONLY_VELEN,
     30,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // South Velen
@@ -567,8 +589,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-162, -1117, 16.4),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Haunted treasure
@@ -578,8 +599,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-213, -971, 7.8),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Very lost treasure
@@ -589,8 +609,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(634, -909, 9.1),
     RER_RegionConstraint_ONLY_VELEN,
     15,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Near a Grave
@@ -600,8 +619,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(191, -1271, 3.3),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near the city with ghouls
@@ -611,8 +629,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1570, 1375, 3.3),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near forest near city
@@ -622,8 +639,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1178, 2117, 1.7),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // empty field
@@ -633,8 +649,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1529, 1928, 5.7),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // empty field
@@ -644,8 +659,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2070, 925, 0.1),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // a grotto in the middle of skellige
@@ -655,8 +669,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(671, 689, 81),
     RER_RegionConstraint_ONLY_SKELLIGE,
     40,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // a tomb in the middle of skellige
@@ -666,8 +679,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(589, 127, 40.1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Road west of blandare
@@ -677,8 +689,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(436, 67, 37.7),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Cyclops road
@@ -688,8 +699,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(517, 429, 55.4),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near Troll cave
@@ -699,8 +709,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(430, 361, 44.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // House with skeleton
@@ -710,8 +719,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(751, -149, 31.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // in Forest sawmill
@@ -721,8 +729,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(866, 168, 66),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Elemental place
@@ -732,8 +739,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1171, 187, 89.1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Forest exist
@@ -743,8 +749,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(901, 328, 86.7),
     RER_RegionConstraint_ONLY_SKELLIGE,
     15,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Vamp lair
@@ -754,8 +759,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(713, 482, 146.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Bridge to Eldberg
@@ -765,8 +769,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-791, 210, 10.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Forest Between Cities
@@ -776,8 +779,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-415, -244, 42.3),
     RER_RegionConstraint_ONLY_SKELLIGE,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Leshen Forest
@@ -787,8 +789,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-107, -223, 49),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near Crypt
@@ -798,8 +799,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(93, 373, 18.4),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Open Field
@@ -809,8 +809,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(313, -467, 10.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // North Castle
@@ -820,8 +819,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(390, 738, 106.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Whale graves
@@ -831,8 +829,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1024, 712, 1.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Abandonned Village
@@ -842,8 +839,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1231, 27, 2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Road to dream Cave
@@ -853,8 +849,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-56, -1228, 5.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Left of Urialla
@@ -864,8 +859,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1278, 1980, 29.50),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Right of Urialla
@@ -875,8 +869,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1600, 1873, 5.7),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Ulfedinn place
@@ -886,8 +879,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-12, -514, 66),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Cyclop place
@@ -897,8 +889,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-608, -617, 5.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Mountain
@@ -908,8 +899,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(107, -686, 90.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // destroyed forest
@@ -919,8 +909,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(995, -146, 18.4),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // destroyed forest beach
@@ -930,8 +919,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1116, -283, 1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
 
@@ -942,8 +930,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1416, 1510, 24.3),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // spikeroog south beah
@@ -953,8 +940,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1925, 1045, 7.7),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // spikeroog Neach near treasure
@@ -964,8 +950,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1534, 1176, 7.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Faroe Left
@@ -975,8 +960,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1679, -1805, 8.8),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Faroe near wolves
@@ -986,8 +970,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1998, -1990, 12.9),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Hindarsal carrefour
@@ -997,8 +980,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2509, 154, 21.3),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Hindarsal carrefour
@@ -1008,8 +990,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2238, 85, 48.3),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Hindarsal Beach
@@ -1019,8 +1000,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2603,-196, 8.1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Hindarsal Road
@@ -1030,8 +1010,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2711,-26, 30.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Hindarsal carrefour
@@ -1041,8 +1020,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2853, 50, 40.1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Anti-Religion island
@@ -1052,8 +1030,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(353, 1559, 8.5),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Island of sirens
@@ -1063,8 +1040,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(148, 2097, 7.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Island with corpses
@@ -1074,8 +1050,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-508, 2115, 6.6),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Island with Bags
@@ -1085,8 +1060,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-954, 1967, 7.2),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Island with Chest
@@ -1096,8 +1070,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-833, 2049, 1.3),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Island south
@@ -1107,8 +1080,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-218, -1962, 7.5),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Island  with bear corpse
@@ -1118,8 +1090,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1770, -1898, 35.5),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Island  with bear corpse Beach
@@ -1129,8 +1100,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1781, -1998, 1.4),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Island  with Cyclop
@@ -1140,8 +1110,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-2603, 1599, 25.1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Golem place
@@ -1151,8 +1120,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1664, 2560, 40.5),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Corpse 
@@ -1162,8 +1130,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1536, 2612, 27.4),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Jade small deport
@@ -1173,8 +1140,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1249, 2534, 11,6),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Haunted forest
@@ -1184,8 +1150,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2716, 1725, 30.5),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Gryphon feeding
@@ -1195,8 +1160,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2570, 1585, 53.7),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Road to Brunwich
@@ -1206,8 +1170,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2055, 2331, 20.2),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // River of house
@@ -1217,8 +1180,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(2305, 1996, 25.3),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Slyzard nest
@@ -1228,8 +1190,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1087, -853, 45),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     15,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Ruin near Hanse
@@ -1239,8 +1200,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(777, -681, 41.8),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Empty road north
@@ -1250,8 +1210,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-829, 4, 4.4),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Echinops nest
@@ -1261,8 +1220,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-180, -816, 18.3),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Slyzard and chest
@@ -1272,8 +1230,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(1055, -601, 80),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Echinops nest
@@ -1283,8 +1240,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(127, -1492, 5.7),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Haunted House
@@ -1294,8 +1250,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(525, -1833, 71.4),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Empty Pound
@@ -1305,8 +1260,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-228, -1788, 43.4),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // mountain near Goylat
@@ -1316,8 +1270,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-10, -363, 31.7),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Wraith Beach
@@ -1327,8 +1280,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-446, -279, 1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Wraith Beach
@@ -1338,8 +1290,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-446, -269, 1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near Emerald Lake
@@ -1349,8 +1300,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-853, -739, 61.1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Forest between village
@@ -1360,8 +1310,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1206, -938, 116.6),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Ruin of prison
@@ -1371,8 +1320,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1195, -841, 117.2),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Clear Field
@@ -1382,8 +1330,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-868, -466, 57),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Near Town
@@ -1393,8 +1340,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1000, -266, 14.1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // House with rotfiend
@@ -1404,8 +1350,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-746, -74, 0),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Cavern
@@ -1415,8 +1360,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-780, -228, 6.7),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Pond Near Carrefour
@@ -1426,8 +1370,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-853, -739, 61.1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Horse corpse
@@ -1437,8 +1380,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-229, 375, 8.3),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // North of Plegmund bridge
@@ -1448,8 +1390,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-472, 5, 1.6),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Pond Near shealmar
@@ -1459,8 +1400,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-380, 192, 0),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // South of occupied Town
@@ -1470,8 +1410,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-339, 480, 1.5),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Carrefour in north of map
@@ -1481,8 +1420,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-57, 481, 13.8),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // North of Plegmund bridge
@@ -1492,8 +1430,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(164, 224, 1.5),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Abandonned storage
@@ -1503,8 +1440,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-106, -184, 23.4),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Basilisk Place
@@ -1514,8 +1450,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-69, -65, 10),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Trolls
@@ -1525,8 +1460,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(281, -13, 0.5),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Respawn Barghest
@@ -1536,8 +1470,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(49, -817, 6.3),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Centipede love shaelmars
@@ -1547,8 +1480,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(200, -742, 0.3),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Pond Near graves
@@ -1558,8 +1490,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(531, -264, 12.1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Grave with Alp
@@ -1569,8 +1500,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(439, -215, 1.1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Echinops nest
@@ -1580,8 +1510,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(273, -2136, 63.3),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Near Werewolf Cave
@@ -1591,8 +1520,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(678, -69, 7.1),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Centipede Nest
@@ -1602,8 +1530,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(-1, -1989, 78.8),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_SMALL
   );
 
   // Super Random
@@ -1613,8 +1540,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(473, -1559, 26.4),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Vampires place
@@ -1624,8 +1550,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(732, -1603, 14.3),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Vampires place
@@ -1635,8 +1560,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(736, -1601, 13.9),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Vampires place
@@ -1646,8 +1570,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(736, -1393, 13),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 
   // Vampires place
@@ -1657,8 +1580,7 @@ latent function RER_registerStaticEncountersLucOliver(master: CRandomEncounters)
     Vector(728, -1596, 13.9),
     RER_RegionConstraint_ONLY_TOUSSAINT,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_LUCOLIVIER
+    StaticEncounterType_LARGE
   );
 }
 
@@ -1671,8 +1593,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(360, -375, 0),
     RER_RegionConstraint_ONLY_VELEN,
     50,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // A burnt house near the water
@@ -1682,8 +1603,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(620, -477, 0.9),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // A forest near water
@@ -1693,8 +1613,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(730, -500, 11),
     RER_RegionConstraint_ONLY_VELEN,
     50,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // A abandonned house with skeletons and hanged people in the forest
@@ -1704,8 +1623,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1060, -305, 6),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a mountain near the swamp
@@ -1715,8 +1633,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1310, -373, 22),
     RER_RegionConstraint_ONLY_VELEN,
     50,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a flat surface in the mountain near the swamp
@@ -1726,8 +1643,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1329, -326, 43),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // abandonned human camp
@@ -1737,8 +1653,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(990, -189, 15),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a ruined castle near a swamp
@@ -1748,8 +1663,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1060, 1057, 7),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // mountains with lots of harpies
@@ -1759,8 +1673,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-200, 795, 31),
     RER_RegionConstraint_ONLY_VELEN,
     25,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // castle with vanilla wyvern
@@ -1770,8 +1683,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-286, 920, 14),
     RER_RegionConstraint_ONLY_VELEN,
     25,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // castle basilisk from ciri scene
@@ -1781,8 +1693,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-240, 565, 11),
     RER_RegionConstraint_ONLY_VELEN,
     50,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // burning pyre full of human corpses
@@ -1792,8 +1703,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(530, 956, 1),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // burning pyre full of human corpses
@@ -1803,8 +1713,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(530, 956, 1),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // forest full of endregas
@@ -1814,8 +1723,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(567, 1246, 9),
     RER_RegionConstraint_ONLY_VELEN,
     15,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // forest full of endregas
@@ -1825,8 +1733,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(604, 1200, 12),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a beach in novigrad
@@ -1836,8 +1743,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(375, 1963, 1),
     RER_RegionConstraint_ONLY_VELEN,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // rotfiend nest
@@ -1847,8 +1753,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(350, 980, 1.5),
     RER_RegionConstraint_ONLY_VELEN,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // rotfiend nest
@@ -1858,8 +1763,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(350, 980, 1.5),
     RER_RegionConstraint_ONLY_VELEN,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // abandoned village near the swamp with blood everywhere
@@ -1869,8 +1773,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(638, -644, 2.5),
     RER_RegionConstraint_ONLY_VELEN,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // White Orchard: ghouls in the cemetery
@@ -1880,8 +1783,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-24, 284, 1.5),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // White Orchard: Devil by the well
@@ -1891,8 +1793,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(22, -264, 13),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // White Orchard: Devil by the well, lake nearby
@@ -1902,8 +1803,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(117, -208, -0.7),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // White Orchard: An autel, somewhere in the forest
@@ -1913,8 +1813,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(88, -136, 4.25),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     5,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // White Orchard: Wall with a gate, near the map limit
@@ -1924,8 +1823,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(400, 208, 15),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // White Orchard: Battle field, with lots of corpses
@@ -1935,8 +1833,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(552, 186, 20),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // White Orchard: Endregas near a tree behind the mill
@@ -1946,8 +1843,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(138, 348, 14),
     RER_RegionConstraint_ONLY_WHITEORCHARD,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // skellige, wraiths on a house near a lake
@@ -1957,8 +1853,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(378, 173, 22),
     RER_RegionConstraint_ONLY_SKELLIGE,
     15,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a random, lost village
@@ -1968,8 +1863,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1995, -643, 0),
     RER_RegionConstraint_ONLY_VELEN,
     25,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // people hanged on a tree
@@ -1979,8 +1873,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-447, -77, 10),
     RER_RegionConstraint_ONLY_VELEN,
     15,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // near a water body where a cockatrice is in vanilla
@@ -1990,8 +1883,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-90, -848, 6),
     RER_RegionConstraint_ONLY_VELEN,
     40,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a big gcave
@@ -2001,8 +1893,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1956, 32, 43),
     RER_RegionConstraint_ONLY_VELEN,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // cave where the two ladies want to cut the nails of the dead
@@ -2012,8 +1903,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(58, 487, 10.45),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // entrance of the cave where the two ladies want to cut the nails of
@@ -2024,8 +1914,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(140, 393, 23),
     RER_RegionConstraint_ONLY_SKELLIGE,
     5,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a guarded treasure with a forktail
@@ -2035,8 +1924,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(11, 237, 39),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a big stone where there is sometimes a cyclop in vanilla
@@ -2046,8 +1934,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(420, 188, 64),
     RER_RegionConstraint_ONLY_SKELLIGE,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a beach near kaer trolde
@@ -2057,8 +1944,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(88, 167, 0),
     RER_RegionConstraint_ONLY_SKELLIGE,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a mountain with lots of harpies
@@ -2068,8 +1954,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(645, 320, 87),
     RER_RegionConstraint_ONLY_SKELLIGE,
     50,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a mountain peak
@@ -2079,8 +1964,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(737, 560, 155),
     RER_RegionConstraint_ONLY_SKELLIGE,
     30,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a beach with broken boats
@@ -2090,8 +1974,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(1064, 570, 1),
     RER_RegionConstraint_ONLY_SKELLIGE,
     50,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a beach with broken boats
@@ -2101,8 +1984,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(978, 720, 18),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a grotto in the middle of skellige
@@ -2112,8 +1994,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(671, 689, 81),
     RER_RegionConstraint_ONLY_SKELLIGE,
     40,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a forest north east of skellige
@@ -2123,8 +2004,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(546, 591, 63),
     RER_RegionConstraint_ONLY_SKELLIGE,
     55,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a small lake near a forest
@@ -2134,8 +2014,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(426, 377, 44),
     RER_RegionConstraint_ONLY_SKELLIGE,
     20,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // lake south of skellige
@@ -2145,8 +2024,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-99, -525, 63),
     RER_RegionConstraint_ONLY_SKELLIGE,
     40,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // lake south of skellige
@@ -2156,8 +2034,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-99, -525, 63),
     RER_RegionConstraint_ONLY_SKELLIGE,
     40,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // lake south of skellige
@@ -2167,8 +2044,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-99, -525, 63),
     RER_RegionConstraint_ONLY_SKELLIGE,
     60,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // ruins south of skellige, near a lage
@@ -2178,8 +2054,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-10, -517, 66),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a forest south of skellige
@@ -2189,8 +2064,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-450, -512, 38),
     RER_RegionConstraint_ONLY_SKELLIGE,
     60,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a tomb in the middle of skellige
@@ -2200,8 +2074,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(588, 142, 35),
     RER_RegionConstraint_ONLY_SKELLIGE,
     10,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // abandoned house with skeleton
@@ -2211,8 +2084,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(750, -149, 31),
     RER_RegionConstraint_ONLY_SKELLIGE,
     4,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // abandoned house with skeleton
@@ -2222,8 +2094,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(792, -529, 78),
     RER_RegionConstraint_ONLY_SKELLIGE,
     4,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // siren nest
@@ -2233,8 +2104,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(387, -1161, 0),
     RER_RegionConstraint_ONLY_SKELLIGE,
     20,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // random road
@@ -2244,8 +2114,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(432, -3, 34),
     RER_RegionConstraint_ONLY_SKELLIGE,
     100,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // a place where this is already a cyclop
@@ -2255,8 +2124,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-624, -617, 5),
     RER_RegionConstraint_ONLY_SKELLIGE,
     100,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
   // a treasure near the water
@@ -2266,8 +2134,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-1489, 1248, 0),
     RER_RegionConstraint_ONLY_SKELLIGE,
     30,
-    StaticEncounterType_SMALL,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_SMALL
   );
 
   // an isolated beach
@@ -2277,8 +2144,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     Vector(-1536, 1175, 0),
     RER_RegionConstraint_ONLY_SKELLIGE,
     30,
-    StaticEncounterType_LARGE,
-    StaticEncountersVariant_AELTOTH
+    StaticEncounterType_LARGE
   );
 
 

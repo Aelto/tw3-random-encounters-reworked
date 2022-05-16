@@ -28,6 +28,8 @@ state Processing in RER_ContractManager {
       return;
     }
 
+    RER_tutorialTryShowNoticeboard();
+
     ongoing_contract = parent.master.storages.contract.ongoing_contract;
 
     SU_removeCustomPinByTag("RER_contract_target");
@@ -71,7 +73,10 @@ state Processing in RER_ContractManager {
       Sleep(10);
     }
 
-    theGame.SaveGame( SGT_QuickSave, -1 );
+    if (!parent.master.hasJustBooted()) {
+      theGame.SaveGame( SGT_QuickSave, -1 );
+    }
+
     theSound.SoundEvent("gui_ingame_new_journal");
   }
 
@@ -84,19 +89,20 @@ state Processing in RER_ContractManager {
     ongoing_contract = parent.master.storages.contract.ongoing_contract;
 
 
-    if (ongoing_contract.event_type == ContractEventType_NEST) {
-      this.createNestEncounterAndWaitForEnd(ongoing_contract);
-    }
-    else if (ongoing_contract.event_type == ContractEventType_HORDE) {
-      this.sendHordeRequestAndWaitForEnd(ongoing_contract);
-    }
-    else if (ongoing_contract.event_type == ContractEventType_BOSS) {
-      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
-    }
+    // if (ongoing_contract.event_type == ContractEventType_NEST) {
+    //  this.createNestEncounterAndWaitForEnd(ongoing_contract);
+    // }
+    // else if (ongoing_contract.event_type == ContractEventType_HORDE) {
+    //   this.sendHordeRequestAndWaitForEnd(ongoing_contract);
+    // }
+    // else if (ongoing_contract.event_type == ContractEventType_BOSS) {
+    this.createHuntingGroundAndWaitForEnd(ongoing_contract);
+    // }
   }
 
   latent function createHuntingGroundAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var damage_modifier: SU_BaseDamageModifier;
     var rer_entity_template: CEntityTemplate;
     var composition_entities: array<CEntity>;
     var composition_entry: RER_BestiaryEntry;
@@ -106,6 +112,7 @@ state Processing in RER_ContractManager {
     var entities: array<CEntity>;
     var impact_points: float;
     var position: Vector;
+    var npc: CNewNPC;
     var i: int;
     
     bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
@@ -115,7 +122,7 @@ state Processing in RER_ContractManager {
     for (i = 0; i < 15; i += 1) {
       rng.next();
       position = ongoing_contract.destination_point
-        + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+        + VecRingRandStatic((int)rng.previous_number, 5, ongoing_contract.destination_radius * 0.5 + 5);
 
       // try to see if the position is valid. If it returns true then it means
       // it found a valid position.
@@ -134,19 +141,15 @@ state Processing in RER_ContractManager {
       getGroundPosition(position, 1, 20);
     }
 
-    if (ongoing_contract.difficulty == ContractDifficulty_HARD) {
-      impact_points = rng.nextRange(40, 25);
-    }
-    else {
-      impact_points = rng.nextRange(10, 5);
-    }
-
-    NLOG("bossfight contract, difficulty = " + ongoing_contract.difficulty + " impact points = " + impact_points);
+    impact_points = rng.nextRange(
+      ongoing_contract.difficulty.value + 2,
+      ongoing_contract.difficulty.value - 2
+    );
 
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      Max(RoundF(impact_points / bestiary_entry.ecosystem_delay_multiplier), 1),
+      bestiary_entry.template_list.difficulty_factor.maximum_count_medium, //count
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
@@ -157,36 +160,37 @@ state Processing in RER_ContractManager {
     );
 
     impact_points -= bestiary_entry.ecosystem_delay_multiplier * entities.Size();
-    while (impact_points > 0) {
-      composition_type = bestiary_entry.getStrongestCompositionCreature(
-        parent.master,
-        impact_points
-      );
 
-      if (composition_type == CreatureNONE) {
-        break;
+    if (impact_points > 0) {
+      damage_modifier = new SU_BaseDamageModifier in parent;
+      damage_modifier.damage_received_modifier = 1;
+      damage_modifier.damage_dealt_modifier = 1;
+
+      while (impact_points > 0) {
+        // TODO: add buffs to the entities.
+        
+        if (rng.next() > 0.5) {
+          damage_modifier.damage_dealt_modifier += 0.01;
+        }
+        else {
+          // so here we add 15% more damage received, but below...
+          damage_modifier.damage_received_modifier += 0.15;
+        }
+        impact_points -= 1;
       }
 
-      composition_entry = parent.master.bestiary.getEntry(parent.master, composition_type);
-      composition_entities = composition_entry.spawn(
-        parent.master,
-        position,
-        1,
-        , // density
-        EncounterType_CONTRACT,
-        RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
-        'RandomEncountersReworked_ContractCreature',
-        // a high number to make sure there is no composition as we'll spawn them
-        // manually.
-        10000
-      );
+      // ... then we do a 1 / x so bring back the value in the [0;1] range, so a
+      // what was a 2 (which meant a 200% increase) is now a 50% modifier,
+      // effectively half the damage.
+      damage_modifier.damage_received_modifier = 1 / damage_modifier.damage_received_modifier;
 
-      for (i = 0; i < composition_entities.Size(); i += 1) {
-        entities.PushBack(composition_entities[i]);
+      for (i = 0; i < entities.Size(); i += 1) {
+        npc = (CNewNPC)entities[i];
 
-        impact_points -= composition_entry.ecosystem_delay_multiplier;
+        npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
       }
     }
+
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
@@ -236,12 +240,8 @@ state Processing in RER_ContractManager {
       return;
     }
 
-    if (ongoing_contract.difficulty == ContractDifficulty_EASY) {
-      i = 1;
-    }
-    else {
-      i = RoundF(rng.nextRange(3, 1));
-    }
+    // amount of nests:
+    i = RoundF(rng.nextRange(1 + ongoing_contract.difficulty.value / 20, 1));
 
     while (i > 0) {
       i -= 1;
@@ -249,7 +249,7 @@ state Processing in RER_ContractManager {
       for (k = 0; k < 15; k += 1) {
         rng.next();
         position = ongoing_contract.destination_point
-          + VecRingRandStatic((int)rng.previous_number, ongoing_contract.destination_radius, 5);
+          + VecRingRandStatic((int)rng.previous_number, 5, ongoing_contract.destination_radius);
 
         FixZAxis(position);
 
@@ -325,8 +325,7 @@ state Processing in RER_ContractManager {
     rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
-    enemy_count = RoundF(rng.nextRange(20, 0) / bestiary_entry.ecosystem_delay_multiplier)
-      * (1 + (int)(ongoing_contract.difficulty == ContractDifficulty_HARD));
+    enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
 
     if (enemy_count < 3) {
       // the amount of enemies would be too low for it to be a good horde, in
@@ -342,6 +341,9 @@ state Processing in RER_ContractManager {
       ongoing_contract.creature_type,
       enemy_count
     );
+    request.spawning_flags = RER_flag(RER_BESF_NO_ECOSYSTEM_EFFECT, true)
+                           | RER_flag(RER_BESF_NO_PERSIST, true)
+                           | RER_flag(RER_BESF_NO_BESTIARY_FEATURE, true);
 
     parent.master.horde_manager.sendRequest(request);
 

@@ -29,13 +29,39 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
   default tag = "RER_ContractErrandInjector";
   
   public function run(out board: W3NoticeBoard) {
+    var identifier: RER_NoticeboardIdentifier;
+    var reputation_system_enabled: bool;
+    var master: CRandomEncounters;
     var can_inject_errand: bool;
 
     can_inject_errand = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERnoticeboardErrands');
 
-    if (can_inject_errand) {
-      SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
+    if (!can_inject_errand || !RER_modPowerIsContractSystemEnabled()) {
+      return;
+    }
+
+    if (!getRandomEncounters(master)) {
+      NLOG("ERROR: could not get the RER entity for RER_ContractErrandInjector.");
+
+      return;
+    }
+
+    reputation_system_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+    identifier = master.contract_manager.getUniqueIdFromNoticeboard(board);
+
+    // if the reputation system is enabled but the player
+    // does not meet the requirement to see the vanilla
+    // contracts yet, we remove all of the quest contracts
+    // before injecting our errand.
+    if (!SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1")) {
+      return;
+    }
+
+    if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForNoticeboard(identifier)) {
+      this.hideAllQuestErrands(board);
     }
   }
 
@@ -48,6 +74,19 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
 
     if (getRandomEncounters(rer_entity)) {
       rer_entity.contract_manager.pickedContractNoticeFromNoticeboard(errand_name);
+    }
+  }
+
+  private function hideAllQuestErrands(out board: W3NoticeBoard) {
+    var card: CDrawableComponent;
+    var i: int;
+
+    for (i = board.activeErrands.Size(); i >= 0; i -= 1) {
+      if (board.activeErrands[i].newQuestFact == "flaw" || board.activeErrands[i].newQuestFact == "injected_errand") {
+        continue;
+      }
+      
+      board.activeErrands.EraseFast(i);
     }
   }
 }

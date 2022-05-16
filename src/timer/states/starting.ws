@@ -30,7 +30,8 @@ state Starting in RER_EventsManager {
       .GetVarValue('RERevents', 'eventSystemICD')
     );
 
-    parent.chance_scale = parent.delay / parent.internal_cooldown;
+    // the chance_scale also scales with the mod power
+    parent.chance_scale = parent.delay / parent.internal_cooldown * RER_getModPower();
 
     LogChannel('modRandomEncounters', "RER_EventsManager - chance_scale = " + parent.chance_scale + ", delay =" + parent.delay);
     

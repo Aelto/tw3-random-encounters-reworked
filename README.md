@@ -24,3 +24,9 @@
 
 # Questions?
 If you have questions about the mod, what it offers and how to tweak the settings, the [Random Encounters Reworked Bible](https://aelto.github.io/tw3-random-encounters-reworked/rer-bible/) was made for that
+
+# Contributing
+
+## Add-ons
+If you wish to make an add-on for the mod to modify its behaviour at runtime,
+please refer to the [addons documentation](/docs/guides/addons.md)

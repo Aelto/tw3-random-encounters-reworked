@@ -3,7 +3,7 @@ class CRandomEncounterInitializer extends CEntityMod {
   default modName = 'Random Encounters Reworked';
   default modAuthor = "Aeltoth";
   default modUrl = "http://www.nexusmods.com/witcher3/mods/5018";
-  default modVersion = '2.7';
+  default modVersion = '2.9';
 
   default logLevel = MLOG_DEBUG;
 
@@ -29,6 +29,8 @@ statemachine class CRandomEncounters extends CEntity {
   var horde_manager: RER_HordeManager;
   var contract_manager: RER_ContractManager;
   var addon_manager: RER_AddonManager;
+
+  var boot_time: float;
 
   var ticks_before_spawn: float;
   
@@ -66,8 +68,17 @@ statemachine class CRandomEncounters extends CEntity {
       contract_manager = new RER_ContractManager in this;
       addon_manager = new RER_AddonManager in this;
 
+      this.boot_time = theGame.GetEngineTimeAsSeconds();
+
       this.GotoState('Initialising');
     }
+  }
+
+  /**
+   * return if the mod was booted less than 30 seconds ago.
+   */
+  public function hasJustBooted(): bool {
+    return theGame.GetEngineTimeAsSeconds() - this.boot_time <= 30;
   }
 
   event OnRefreshSettings(action: SInputAction) {
@@ -115,6 +126,15 @@ statemachine class CRandomEncounters extends CEntity {
   public function refreshEcosystemFrequencyMultiplier() {
     this.ecosystem_frequency_multiplier = this.ecosystem_manager
       .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());
+  }
+
+  public function getPlaythroughSeed(): int {
+    if (this.storages.general.playthrough_seed == 0) {
+      this.storages.general.playthrough_seed = RandRange(1000000, 0);
+      this.storages.general.save();
+    }
+    
+    return this.storages.general.playthrough_seed;
   }
 
   //#region OutOfCombat action

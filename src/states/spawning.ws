@@ -28,6 +28,9 @@ state Spawning in CRandomEncounters {
        // first if RER is disabled, any spawn should be cancelled
        !parent.settings.is_enabled
 
+       // or if there is not enough mod power to enable the system
+    || !RER_modPowerIsEncounterSystemEnabled()
+
        // then, if the spawn is not forced we check if the player
        // is in a place where a spawn in accepted.
     || !this.is_spawn_forced

@@ -33,17 +33,21 @@
       <li>
         <a href="#part-4">4.</a> install any patch for the overhauls you may use
       </li>
+
+      <li>
+        <a href="#part-5">5.</a> merging instructions for known conflicts
+      </li>
     </ul>
 
     <hr />
     <ul>
       <li>
-        <a href="#part-5">5.</a> <span>OPTIONAL:</span> you can also install keybinds if you want to trigger events by using your keyboard
+        <a href="#part-6">6.</a> <span>OPTIONAL:</span> you can also install keybinds if you want to trigger events by using your keyboard
         <ul>
-          <li><a href="#part-5-1">5.1.</a> trigger an encounter</li>
-          <li><a href="#part-5-2">5.2.</a> reload the settings</li>
-          <li><a href="#part-5-3">5.3.</a> toggle RER</li>
-          <li><a href="#part-5-4">5.4.</a> analyse the surrounding ecosystem</li>
+          <li><a href="#part-6-1">6.1.</a> trigger an encounter</li>
+          <li><a href="#part-6-2">6.2.</a> reload the settings</li>
+          <li><a href="#part-6-3">6.3.</a> toggle RER</li>
+          <li><a href="#part-6-4">6.4.</a> analyse the surrounding ecosystem</li>
         </ul>
       </li>
     </ul>
@@ -230,12 +234,157 @@
   </section>
 
   <section id="part-5">
+    <h2>Merging instructions</h2>
+    <blockquote class="info">
+      Some patches may simplify your merging process, here are a few
+    </blockquote>
+
+    <details>
+      <summary>Enhanced Edition</summary>
+      <blockquote>
+        Since EE comes with FHUD bundled-in it is necessary you also look at the
+        Friendly HUD section below.
+      </blockquote>
+
+      <div>
+        <h3>Files to merge</h3>
+        <div>
+          All of them will merge automatically, the names of the files in the merger are blue.
+        </div>
+        <ul>
+          <li>
+            <span>engine\component.ws</span>
+            <ul>
+              <li>mod_sharedutils_npcInteraction</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>engine\persistentEntity.ws</span>
+            <ul>
+              <li>mod_sharedutils_npcInteraction</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\hud\modules\hudModuleDialog.ws</span>
+            <ul>
+              <li>mod_sharedutils_dialogChoices</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\hud\modules\hudModuleMinimap2.ws</span>
+            <ul>
+              <li>mod_sharedutils_mappins</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\menus\mapMenu.ws</span>
+            <ul>
+              <li>mod_sharedutils_mappins</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\player\r4Player.ws</span>
+            <ul>
+              <li>mod_sharedutils_mappins</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Files <b>NOT</b> to merge</h3>
+        You do not need to merge these mods, however you <b>MUST</b> ensure they
+        are loaded before W3EE. 
+
+        <ul>
+          <li>
+            <span>game\areaTypes.ws</span>
+            <ul>
+              <li>modBootstrap</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\hud\modules\hudModuleBossFocus.ws</span>
+            <ul>
+              <li>mod_sharedutils_custombossbar</li>
+              <li>modW3EE</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Friendly HUD</summary>
+
+      <div>
+        <ul>
+          <li>
+            <span>playerInput.ws</span>
+            <ul>
+              <li>modFriendlyHUD</li>
+              <li>mod_sharedutils_npcInteraction</li>
+            </ul>
+          </li>
+        </ul>
+
+        If a conflict between the two appears (the name of the file is in red),
+        you should merge the files and wait until you are shown the conflict between
+        the two given mods.
+        
+        <img src="npc_interaction_fhud_conflict.png" alt="image showing the kdiff3 between sharedutils and FHUD">
+        <i>hold left click on the image to zoom</i>
+      </div>
+
+      <div>
+        On the two top right panels you should see one panel
+        for <span>sharedutils</span> and one for <span>Friendly HUD</span>. To
+        confirm which panel is which mod you should read the comments in the code,
+        the lines starting with <span>//</span>.
+      </div>
+
+      <div>
+        Once you know which side is FHUD and which side is sharedutils, using the
+        <span>B</span> and <span>C</span> letters on the top menu, you should first
+        pick the sharedutils one and in second the FHUD one.
+        <br>
+        Refer to the screenshot to see the expected result in the bottom panel.
+      </div>
+
+      <hr>
+
+      <div>
+        <blockquote>Only if you used the FHUD patch (incompatible with W3EE)</blockquote>
+        <ul>
+          <li>
+            <span>fhudscripts/modMarker.ws</span>
+            <ul>
+              <li>modFriendlyHUD</li>
+              <li>mod000_sharedutilsmappinsfhudpatch</li>
+            </ul>
+          </li>
+        </ul>
+
+        Do no merge it, but make sure it is loaded before FHUD.
+      </div>
+    </details> 
+  </section>
+
+
+  <section id="part-6">
     <h2>Adding the keyboard keybinds</h2>
     <blockquote class="info">
       What each keybind does and how to add them to your game
     </blockquote>
 
-    <div id="part-5-1">
+    <div id="part-6-1">
       <h3>Keybind - Trigger an encounter</h3>
 
       <div>
@@ -257,7 +406,7 @@
       </div>
     </div>
 
-    <div id="part-5-2">
+    <div id="part-6-2">
       <h3>Keybind - Reload the settings</h3>
 
       <div>
@@ -279,7 +428,7 @@
       </div>
     </div>
 
-    <div id="part-5-3">
+    <div id="part-6-3">
       <h3>Keybind - Toggle Random Encounters Reworked</h3>
 
       <div>
@@ -301,7 +450,7 @@
       </div>
     </div>
 
-    <div id="part-5-4">
+    <div id="part-6-4">
       <h3>Keybind - Analyse surrounding ecosystem</h3>
 
       <div>

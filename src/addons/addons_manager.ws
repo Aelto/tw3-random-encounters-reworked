@@ -15,6 +15,12 @@ statemachine class RER_AddonManager {
    */
   var processed_states: array<name>;
 
+  /**
+   * custom data officially supported by RER, it contains data we know may
+   * potentially be injected into the mod and so we support it directly.
+   */
+  var addons_data: RER_AddonsData;
+
   public function init(master: CRandomEncounters) {
     this.master = master;
     this.GotoState('Loading');

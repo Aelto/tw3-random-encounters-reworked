@@ -11,6 +11,18 @@ exec function rercompletecontract() {
   rer_entity.contract_manager.completeCurrentContract();
 }
 
+exec function rerclearcontractstorage() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.storages.contract.completed_contracts.Clear();
+}
+
 exec function rergotobountymaster() {
   var rer_entity : CRandomEncounters;
 
@@ -116,6 +128,31 @@ exec function rergetpincoord() {
   NLOG("pincoords x: " + CeilF(x) + " y: " + CeilF(y));
 }
 
+exec function rertptopin() {
+  var id: int;
+  var index: int;
+  var x: float;
+  var y: float;
+  var type: int;
+  var area: int;
+
+  theGame.GetCommonMapManager().GetIdOfFirstUser1MapPin(id);
+
+  theGame.GetCommonMapManager()
+  .GetUserMapPinByIndex(
+    theGame.GetCommonMapManager().GetUserMapPinIndexById(
+      id
+    ),
+    id,
+    area,
+    x,
+    y,
+    type
+  );
+
+  thePlayer.DebugTeleportToPin(x, y);
+}
+
 exec function rerabandonbounty() {
   var rer_entity : CRandomEncounters;
 
@@ -125,10 +162,9 @@ exec function rerabandonbounty() {
     return;
   }
 
-  rer_entity.storages.bounty.current_bounty.is_active = false;
-  rer_entity.storages.bounty.save();
+  rer_entity.bounty_manager.abandonBounty();
 
-  NDEBUG("The bounty was removed, you can safely remove the markers.");
+  NDEBUG("The bounty was removed.");
 }
 
 // gpc for GetPlayerCoordinates
@@ -190,7 +226,7 @@ exec function rerkillbountymaster() {
   }
 }
 
-exec function rerchallenge(optional seed: int) {
+exec function rerbounty(optional seed: int) {
   var rer_entity : CRandomEncounters;
   var exec_runner: RER_ExecRunner;
 
@@ -530,13 +566,9 @@ state RunChallengeMode in RER_ExecRunner {
   }
 
   entry function RunChallengeMode_main() {
-    var bounty: RER_Bounty;
-
-    bounty = parent.master.bounty_manager.getNewBounty(parent.seed);
-
     parent.master
       .bounty_manager
-      .startBounty(bounty);
+      .startBounty(parent.seed);
 
     NDEBUG("A bounty was created with the seed " + RER_yellowFont(parent.seed));
   }

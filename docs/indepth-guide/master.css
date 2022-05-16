@@ -62,3 +62,39 @@ section {
   margin-left: -40px;
   padding-left: 40px;
 }
+
+details + details {
+  margin-top: 1em;
+}
+
+details > *:not(summary) {
+  margin: 0 2em 0 2em;
+}
+
+details > *:not(summary) + *:not(summary) {
+  margin-top: 1em;
+}
+
+details[open] {
+  outline: solid 1px rgba(20, 20, 20, 0.1);
+  padding: .2em;
+}
+
+img, iframe {
+  max-width: 100%;
+  margin: 2em 0;
+  border-radius: 3px;
+  box-shadow: 0 6px 24px 2px rgb(0 0 0 / 30%);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img:active {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-width: 90%;
+  transform: translate(-50%, -50%);
+  max-height: 90%;
+}

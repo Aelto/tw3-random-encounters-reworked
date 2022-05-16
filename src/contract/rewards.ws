@@ -27,8 +27,10 @@ function RER_contractRewardTypeToItemName(type: RER_ContractRewardType): name {
   return item_name;
 }
 
-latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name) {
+latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name): array<RER_LootTableItemResult> {
   var loot_table_container: W3AnimatedContainer;
+  var results: array<RER_LootTableItemResult>;
+  var output: array<RER_LootTableItemResult>;
   var loot_tables: array<name>;
   var amount: int;
   var index: int;
@@ -37,14 +39,14 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
   if (item == 'rer_token_experience') {
     // re-use the index variable here
-    index =  thePlayer.GetLevel() * 10;
+    index =  RER_getPlayerLevel() * 10;
 
     GetWitcherPlayer()
     .AddPoints(EExperiencePoint, index, true);
 
     thePlayer.DisplayItemRewardNotification('experience', index);
 
-    return;
+    return output;
   }
 
   amount = 1;
@@ -81,13 +83,13 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
         // this loot table was removed because it is now missing in EE Redux
         // loot_tables.PushBack('cp14_chest'); // orens
 
-        amount = 2;
+        amount = 1;
       }
       else {
         loot_tables.PushBack('_generic gold_everywhere');
         loot_tables.PushBack('_valuables');
 
-        amount = 10;
+        amount = 8;
       }
 
       theSound.SoundEvent("gui_inventory_buy");
@@ -133,9 +135,16 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
     Sleep(0.2);
 
-    RER_addItemsFromLootTable(loot_table_container, inventory, loot_tables[index]);
+    results = RER_addItemsFromLootTable(loot_table_container, inventory, loot_tables[index]);
+
+    // re use the index variable here:
+    for (index = 0; index < results.Size(); index += 1) {
+      output.PushBack(results[index]);
+    }
   }
   loot_table_container.Destroy();
+
+  return output;
 }
 
 function RER_getLocalizedRewardType(type: RER_ContractRewardType): string {
@@ -300,4 +309,20 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
   NLOG("RER_getRandomAllowedRewardType, allowed_reward = " + allowed_reward);
 
   return allowed_reward;
+}
+
+function RER_getRandomJewelName(rng: RandomNumberGenerator): name {
+  var names: array<name>;
+  var output: name;
+
+  names.PushBack('Ruby');
+  names.PushBack('Amber');
+  names.PushBack('Amethyst');
+  names.PushBack('Diamond');
+  names.PushBack('Emerald');
+  names.PushBack('Sapphire');
+
+  output = names[(int)rng.nextRange(names.Size(), 0)];
+
+  return output;
 }

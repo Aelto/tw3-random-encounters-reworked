@@ -131,7 +131,7 @@ state Processing in RER_HordeManager {
         position,
         count,,
         EncounterType_CONTRACT,
-        RER_BESF_NO_PERSIST
+        request.spawning_flags
       );
 
     for (i = 0; i < entities.Size(); i += 1) {

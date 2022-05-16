@@ -17,8 +17,6 @@ state Loading in CRandomEncounters {
     parent.bounty_manager.bounty_master_manager.init(parent.bounty_manager);
 
     parent.static_encounter_manager.init(parent);
-    RER_registerStaticEncountersLucOliver(parent);
-    RER_registerStaticEncountersAeltoth(parent);
 
     RER_addNoticeboardInjectors();
 
@@ -70,10 +68,6 @@ state Loading in CRandomEncounters {
       ((CNewNPC)entity).SetLevel(getRandomLevelBasedOnSettings(parent.settings));
       entity.RemoveTag('RER_controlled');
     }
-
-    // this function adds the `RER_controlled` tag to the creatures who have the
-    // `RER_BountyEntity` tag. Hence the if case below that checks for the tag.
-    parent.bounty_manager.retrieveBountyGroups();
 
     rer_entity_template = (CEntityTemplate)LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",

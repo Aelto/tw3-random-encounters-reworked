@@ -31,12 +31,6 @@
 - Geralt choice: Let's go back
 
 
-# rer contracts
-at start, pick a random NPC nearby and tell the player to go talk to him.
-
-update sharedutils to cancel the vanilla interaction event, and when interacted with,
-display a custom haggle/ask more info/accept/deny; list of choices.
-
 # functions
  - `GetSubmergeDepth` to check if a movingagentcomponent is under water.
  - `ActionMoveAwayFromNode` could be used to get the path from inside a settlement to outside by using an invisible entity and telling it to move away from the player
@@ -46,3 +40,7 @@ display a custom haggle/ask more info/accept/deny; list of choices.
  - `CBTTaskGesturesManager` for the gestures during dialogue
   - `SignalGameplayEvent('GesticulatingActor');` could be used to trigger the manager
  - `DisplayPortalConfirmationPopup` can be used to dispay Yes/No popups
+
+# bounties
+
+bounties do not spawn creatures even when entering the target area. Must look at why
