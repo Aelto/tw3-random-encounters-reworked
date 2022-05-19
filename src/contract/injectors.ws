@@ -37,7 +37,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     can_inject_errand = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERnoticeboardErrands');
 
-    if (!can_inject_errand) {
+    if (!can_inject_errand || !RER_modPowerIsContractSystemEnabled()) {
       return;
     }
 
@@ -56,11 +56,13 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     // does not meet the requirement to see the vanilla
     // contracts yet, we remove all of the quest contracts
     // before injecting our errand.
+    if (!SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1")) {
+      return;
+    }
+
     if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForNoticeboard(identifier)) {
       this.hideAllQuestErrands(board);
     }
-
-    SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1");
   }
 
   public function accepted(out board: W3NoticeBoard, errand_name: string) {
@@ -80,7 +82,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     var i: int;
 
     for (i = board.activeErrands.Size(); i >= 0; i -= 1) {
-      if (board.activeErrands[i].newQuestFact == "flaw") {
+      if (board.activeErrands[i].newQuestFact == "flaw" || board.activeErrands[i].newQuestFact == "injected_errand") {
         continue;
       }
       

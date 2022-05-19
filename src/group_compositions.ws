@@ -153,7 +153,7 @@ abstract class CompositionSpawner {
 
     this.bestiary_entry = this.getBestiaryEntry(master);
 
-    if (!this.getInitialPosition(this.initial_position)) {
+    if (!this.getInitialPosition(this.initial_position, master)) {
       LogChannel('modRandomEncounters', "could not find proper spawning position");
 
       return;
@@ -217,7 +217,7 @@ abstract class CompositionSpawner {
     return this._bestiary_entry;
   }
 
-  protected function getInitialPosition(out initial_position: Vector): bool {
+  protected function getInitialPosition(out initial_position: Vector, master: CRandomEncounters): bool {
     var attempt: bool;
 
     if (this.spawn_position_force) {
@@ -233,7 +233,10 @@ abstract class CompositionSpawner {
       10
     );
 
-    initial_position = SUH_moveCoordinatesAwayFromSafeAreas(initial_position);
+    initial_position = SUH_moveCoordinatesAwayFromSafeAreas(
+      initial_position,
+      master.addon_manager.addons_data.exception_areas
+    );
 
     return attempt;
   }

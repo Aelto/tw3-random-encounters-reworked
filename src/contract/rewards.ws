@@ -39,7 +39,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
 
   if (item == 'rer_token_experience') {
     // re-use the index variable here
-    index =  thePlayer.GetLevel() * 10;
+    index =  RER_getPlayerLevel() * 10;
 
     GetWitcherPlayer()
     .AddPoints(EExperiencePoint, index, true);
@@ -309,4 +309,20 @@ function RER_getRandomAllowedRewardType(contract_manager: RER_ContractManager, n
   NLOG("RER_getRandomAllowedRewardType, allowed_reward = " + allowed_reward);
 
   return allowed_reward;
+}
+
+function RER_getRandomJewelName(rng: RandomNumberGenerator): name {
+  var names: array<name>;
+  var output: name;
+
+  names.PushBack('Ruby');
+  names.PushBack('Amber');
+  names.PushBack('Amethyst');
+  names.PushBack('Diamond');
+  names.PushBack('Emerald');
+  names.PushBack('Sapphire');
+
+  output = names[(int)rng.nextRange(names.Size(), 0)];
+
+  return output;
 }

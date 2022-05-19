@@ -10,7 +10,7 @@ struct RER_Constants {
    * the Initialising state.
    */
   var version: float;
-  default version = 2.08;
+  default version = 2.09;
 }
 
 // used to define influences the
@@ -63,6 +63,9 @@ struct RER_ConstantInfluences {
 struct RER_ConstantCreatureTypes {
   var small_creature_begin: CreatureType;
   default small_creature_begin = CreatureHUMAN;
+
+  var small_creature_begin_no_humans: CreatureType;
+  default small_creature_begin_no_humans = CreatureARACHAS;
 
   var small_creature_max: CreatureType;
   default small_creature_max = CreatureDRACOLIZARD;

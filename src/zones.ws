@@ -12,6 +12,7 @@ class CModRExtra {
   public function getCustomZone(pos : Vector) : EREZone {
     var zone : EREZone;
     var currentArea : string;
+    var distance: float;
      
     zone = REZ_UNDEF;
     currentArea = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
@@ -69,6 +70,30 @@ class CModRExtra {
       {
         zone = REZ_SWAMP;
       }
+
+      // painted world mansion
+      distance = VecDistanceSquared2D(pos, Vector(3075, 3281.1, 23.08));
+      if (distance < 200 * 200) {
+        return REZ_NOSPAWN;
+      }
+
+      // painted world mansion, in snow
+      distance = VecDistanceSquared2D(pos, Vector(2828.8, 3346.5, 23.5));
+      if (distance < 200 * 200) {
+        return REZ_NOSPAWN;
+      }
+
+      // painted world mansion, in snow
+      distance = VecDistanceSquared2D(pos, Vector(2828.8, 3346.5, 23.5));
+      if (distance < 200 * 200) {
+        return REZ_NOSPAWN;
+      }
+
+      // GoD world
+      distance = VecDistanceSquared2D(pos, Vector(3624, -326, 16.25));
+      if (distance < 200 * 200) {
+        return REZ_NOSPAWN;
+      }
     }
     else if (currentArea == "skellige")
     {
@@ -99,7 +124,7 @@ class CModRExtra {
     else if (currentArea == "wyzima_castle" || currentArea == "island_of_mist" || currentArea == "spiral")
     {
       zone = REZ_NOSPAWN;
-    } 
+    }
   
     return zone; 
   }

@@ -251,10 +251,17 @@ class RER_SpawnRollerFilter {
   }
 
   public function removeEveryone(): RER_SpawnRollerFilter {
+    return this.multiplyEveryone(0);
+  }
+
+  /**
+   * multiply all multipliers by the given number.
+   */
+  public function multiplyEveryone(multiplier: float): RER_SpawnRollerFilter {
     var i: int;
 
     for (i = 0; i < CreatureMAX; i += 1) {
-      this.multipliers[i] = 0;
+      this.multipliers[i] *= multiplier;
     }
 
     return this;

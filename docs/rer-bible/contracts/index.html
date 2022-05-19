@@ -23,22 +23,8 @@
 
     <ul>
       <li>Real life hours before new contracts. Default: <span>1</span>.</li>
-      <li>Number of easy contracts. Default: <span>1</span></li>
-      <li>Number of nearby medium contracts. Default: <span>1</span></li>
-      <li>Number of nearby hard contracts. Default: <span>1</span></li>
-      <li>Number of far medium contracts. Default: <span>1</span></li>
-      <li>Number of far hard contracts. Default: <span>1</span></li>
       <li>Allow RER to learn about new locations as you explore the world. Default: <span>true</span></li>
       <li>Contracts generation seed. Default: <span>0</span></li>
-      <li>Chances for:
-        <ul>
-          <li> - Ogroid contracts. Default: <span>10</span></li>
-          <li> - Draconid contracts. Default: <span>10</span></li>
-          <li> - Specter contracts. Default: <span>10</span></li>
-          <li> - Necrophage contracts. Default: <span>10</span></li>
-          <li> - Elemental contracts. Default: <span>10</span></li>
-        </ul>
-      </li>
       <li>Reputation System enabled. Default: <span>true</span></li>
       <li>Reputation required for vanilla contracts. Default: <span>2</span></li>
       <li>Rewards bonus from reputation points. Default: <span>0.1</span> (10%)</li>
@@ -49,15 +35,14 @@
     <h3>Starting a contract</h3>
 
     <p>
-      RER displays only one (1) errand on the noticeboard. This errand, once picked,
-      will tell the mod to display a dialogue menu with different options. These options
-      will depend on the values you set in the menu.
+      RER displays only one errand on the noticeboard. This errand, once picked,
+      will first display a difficulty selector, then a dialogue menu with different options.
     </p>
 
     <ul>
       <li>It first displays the tokens you can hope to get from this noticeboard</li>
       <li>Then it shows your <a href="#reputation">reputation</a> for this specific noticeboard</li>
-      <li>Finally it lists the available contracts and their different difficulties</li>
+      <li>Finally it lists the available contracts</li>
     </ul>
 
     <p>
@@ -68,8 +53,8 @@
 
     <p>
       Once you picked the contract of your choice, RER will then pick among the list
-      of known and discovered locations in the world based on the distance of the contract.
-      Reach the location and the contract will start.
+      of known and discovered locations in the world. Reach the location and the
+      contract will start.
     </p>
   </section>
 
@@ -91,41 +76,18 @@
 
     <p>
       When a contract is picked, the mod will then have the ability to pick locations
-      from the hand-made locations but also the discovered locations for a greater
+      from the hand-placed locations but also the discovered locations for a greater
       variety.
     </p>
   </section>
 
   <section>
-    <h3>The hunting phase</h3>
+    <h3>The difficulty of the contracts</h3>
 
     <p>
-      Once the location reached and depending on the disance and the difficulty of the contract,
-      you will face different kinds of situations:
-      <ul>
-        <li>Monsters nests</li>
-        <li>Hordes of monsters</li>
-        <li>A boss fight</li>
-      </ul>
-    </p>
-
-    <p>
-      The objective is never really far away from the location of the contract, but will
-      often require some searching to find it.
-    </p>
-  </section>
-
-  <section>
-    <h3>The distance & difficulty of contracts</h3>
-
-    <p>
-      The distance of a contract decides if the picked location you have to reach
-      will be around the noticeboard or if it will be around a neighbooring settlement or isle.
-    </p>
-
-    <p>
-      The difficulty of the contract decides the risks to encounter a challenging creature
-      during the completion of the encounter.
+      The difficulty of the contracts you play directly controls the strength of
+      the creatures you will see during them. Creatures are given bonus armour as
+      well as bonus damage to artificially increase the difficulty.
     </p>
   </section>
 
@@ -133,7 +95,7 @@
     <h3>Completing contracts and rewards</h3>
 
     <p>
-      Every time you will complete a contract, you will earn a token of gratitude
+      Every time you will complete a contract, you will earn tokens of gratitude
       from the locals that you will be able to trade for valuables to the bounty master.
       For each token the trader will offer various types of rewards:
       <ul>
@@ -152,6 +114,11 @@
     </p>
 
     <p>
+      On top of getting tokens that you can later trade, you may also get jewels
+      which you can sell for raw gold.
+    </p>
+
+    <p>
       Depending on the difficulty of the contract you just completed, your reward may vary.
       Harder contracts result in more tokens. Your <a href="#reputation">reputation</a> also
       has an impact on how the locals will pay you. As you get known your rewards will tend
@@ -159,7 +126,7 @@
     </p>
   </section>
 
-  <section>
+  <!-- <section>
     <h3>Waiting for new contracts</h3>
 
     <p>
@@ -181,10 +148,10 @@
       seed. However this will follow the same logic, any player with the same seed
       will get the same contracts or the same amount of time spent in the playthrough.
     </p>
-  </section>
+  </section> -->
 
   <section id="reputation">
-    <h3>Reputation and vanilla contracts</h3>
+    <h3><a class="paragraph-link" href="#reputation">§</a>Reputation and vanilla contracts</h3>
 
     <p>
       The mod introduces a simple reputation system to the game, as you complete

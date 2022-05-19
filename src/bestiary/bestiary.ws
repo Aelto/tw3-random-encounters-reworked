@@ -78,7 +78,7 @@ class RER_Bestiary {
 
     // when the option "Only known bestiary creatures" is ON
     // we remove every unknown creatures from the spawning pool
-    if (master.settings.only_known_bestiary_creatures) {
+    if (master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BREF_IGNORE_BESTIARY)) {
       manager = theGame.GetJournalManager();
 
       for (i = 0; i < CreatureMAX; i += 1) {
@@ -216,14 +216,18 @@ class RER_Bestiary {
   }
 
   public function getCreatureTypeFromEntity(entity: CEntity): CreatureType {
-    var type: CreatureType;
     var hashed_name: string;
-    var i: int;
 
     hashed_name = entity.GetReadableName();
 
+    return this.getCreatureTypeFromReadableName(hashed_name);
+  }
+
+  public function getCreatureTypeFromReadableName(readable_name: String): CreatureType {
+    var i: int;
+
     for (i = 0; i < CreatureMAX; i += 1) {
-      if (this.entries[i].isCreatureHashedNameFromEntry(hashed_name)) {
+      if (this.entries[i].isCreatureHashedNameFromEntry(readable_name)) {
         return i;
       }
     }
@@ -309,5 +313,6 @@ class RER_Bestiary {
 enum RER_BestiaryRandomBestiaryEntryFlag {
   RER_BREF_NONE = 0,
   RER_BREF_IGNORE_SETTLEMENT = 1,
-  RER_BREF_IGNORE_BIOMES = 2
+  RER_BREF_IGNORE_BIOMES = 2,
+  RER_BREF_IGNORE_BESTIARY = 4
 };

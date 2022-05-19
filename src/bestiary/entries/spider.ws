@@ -2,6 +2,8 @@
 class RER_BestiarySpider extends RER_BestiaryEntry {
   public function init() {
     var influences: RER_ConstantInfluences;
+    var is_arachnophobia_mode_enabled: bool;
+
     influences = RER_ConstantInfluences();
 
     this.type = CreatureSPIDER;
@@ -9,20 +11,62 @@ class RER_BestiarySpider extends RER_BestiaryEntry {
     this.menu_name = 'Spiders';
     this.localized_name = 'option_rer_spider';
 
-    
+    is_arachnophobia_mode_enabled = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERarachnophobiaMode');
 
-  this.template_list.templates.PushBack(
-    makeEnemyTemplate(
-      "dlc\ep1\data\characters\npc_entities\monsters\black_spider.w2ent",,,
-      "gameplay\journal\bestiary\bestiarycrabspider.journal"
-    )
-  );
-  this.template_list.templates.PushBack(
-    makeEnemyTemplate(
-      "dlc\ep1\data\characters\npc_entities\monsters\black_spider_large.w2ent",2,,
-      "gameplay\journal\bestiary\bestiarycrabspider.journal"
-    )
-  );
+    if (is_arachnophobia_mode_enabled) {
+      this.template_list.templates.PushBack(
+          makeEnemyTemplate(
+            "characters\npc_entities\monsters\nekker_lvl1.w2ent",,,
+            "gameplay\journal\bestiary\nekker.journal"
+          )
+        );
+        this.template_list.templates.PushBack(
+          makeEnemyTemplate(
+            "characters\npc_entities\monsters\nekker_lvl2.w2ent",,,
+            "gameplay\journal\bestiary\nekker.journal"
+          )
+        );
+        this.template_list.templates.PushBack(
+          makeEnemyTemplate(
+            "characters\npc_entities\monsters\nekker_lvl2_customize.w2ent",,,
+            "gameplay\journal\bestiary\nekker.journal"
+          )
+        );
+        this.template_list.templates.PushBack(
+          makeEnemyTemplate(
+            "characters\npc_entities\monsters\nekker_lvl3_customize.w2ent",,,
+            "gameplay\journal\bestiary\nekker.journal"
+          )
+        );
+        this.template_list.templates.PushBack(
+          makeEnemyTemplate(
+            "characters\npc_entities\monsters\nekker_lvl3__warrior.w2ent", 2,,
+            "gameplay\journal\bestiary\nekker.journal"
+          )
+        );
+
+        this.template_list.templates.PushBack(
+          makeEnemyTemplate(
+            "characters\npc_entities\monsters\nekker_mh__warrior.w2ent", 1,,
+            "gameplay\journal\bestiary\bestiarymonsterhuntmh202.journal"
+          )
+        );
+    }
+    else {
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "dlc\ep1\data\characters\npc_entities\monsters\black_spider.w2ent",,,
+          "gameplay\journal\bestiary\bestiarycrabspider.journal"
+        )
+      );
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "dlc\ep1\data\characters\npc_entities\monsters\black_spider_large.w2ent",2,,
+          "gameplay\journal\bestiary\bestiarycrabspider.journal"
+        )
+      );
+    }
 
     this.template_list.difficulty_factor.minimum_count_easy = 2;
     this.template_list.difficulty_factor.maximum_count_easy = 3;

@@ -14,6 +14,10 @@ class RER_StaticEncounter {
   var radius: float;
   default radius = 0.01;
 
+  public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
+    return this.bestiary_entry;
+  }
+
   public function isInRegion(region: string): bool {
     if (this.region_constraint == RER_RegionConstraint_NO_VELEN && (region == "no_mans_land" || region == "novigrad")
     ||  this.region_constraint == RER_RegionConstraint_NO_SKELLIGE && (region == "skellige" || region == "kaer_morhen")
@@ -29,17 +33,10 @@ class RER_StaticEncounter {
     return true;
   }
 
-  public function canSpawn(player_position: Vector, small_chance: float, large_chance: float, max_distance: float): bool {
+  public function canSpawn(player_position: Vector, small_chance: float, large_chance: float, max_distance: float, current_region: string): bool {
     var entities: array<CGameplayEntity>;
-    var current_region: string;
     var radius: float;
     var i: int;
-
-    if (isPlayerBusy()) {
-      return false;
-    }
-
-    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
     if (!this.isInRegion(current_region)) {
       return false;
@@ -51,7 +48,7 @@ class RER_StaticEncounter {
 
     // first if the player is too far
     radius = this.radius * this.radius;
-    if (VecDistanceSquared(player_position, this.position) > max_distance * max_distance) {
+      if (VecDistanceSquared(player_position, this.position) > max_distance * max_distance) {
       return false;
     }
 

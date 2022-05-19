@@ -221,12 +221,12 @@ Start-Process "https://aelto.github.io/tw3-random-encounters-reworked/indepth-gu
 #   $form.ShowDialog()
 # }
 
-if ((test-path ./mods/modAbsoluteCamera31) -or (test-path ./mods/modW3EE)) {
+if ((test-path ./mods/modImmersiveCam) -or (test-path ./mods/modW3EE)) {
   echo ""
-  write-warning "It seems you have Absolute Camera installed."
-  echo "Before loading your save, please go in RER's optional features menu and enable the Absolute Camera compatibility"
+  write-warning "It seems you have Immersive Camera installed."
+  echo "Before loading your save, please go in RER's optional features menu and enable the Immersive Camera compatibility"
   echo ""
-  echo "Note that if you have Enhanced Edition, EE has a version of Absolute Camera bundled in."
+  echo "Note that if you have Enhanced Edition, EE has a version of Immersive Camera bundled in."
 }
 
 if (test-path ./mods/modBootstrap/content/scripts/game/player/player.ws) {

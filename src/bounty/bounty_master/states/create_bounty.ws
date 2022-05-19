@@ -8,13 +8,7 @@ state CreateBounty in RER_BountyMasterManager {
   }
 
   entry function CreateBounty_main() {
-    var bounty: RER_Bounty;
-
-    bounty = parent.bounty_manager.getNewBounty(parent.picked_seed);
-
-    parent.bounty_manager
-      .startBounty(bounty);
-
-      parent.GotoState('Waiting');
+    parent.bounty_manager.startBounty(parent.picked_seed);
+    parent.GotoState('Waiting');
   }
 }
