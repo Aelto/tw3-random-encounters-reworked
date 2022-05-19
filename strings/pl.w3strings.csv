@@ -529,5 +529,6 @@
 2115018471|        |rer_mappin_bounty_side_target_title|Poboczny cel zlecenia
 2115018472|        |rer_mappin_bounty_side_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i zwiększ tym samym swoją nagrodę.
 2115018473|        |rer_bounty_side_target_killed|Cel poboczny zlecenia zabity, nagroda została zwiększona
-2115018474|        |rer_arachnophobia_mode|Tryb przyjazny dla arachnofobów
+2115018474|        |option_rer_arachnophobia_mode|Tryb przyjazny dla arachnofobów
 2115018475|        |rer_difficulty|Poziom trudności
+2115018476|        |rer_bounty_start_popup_title|Informacje o zleceniu
