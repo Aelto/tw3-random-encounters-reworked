@@ -6,7 +6,19 @@
 ; which is 17, then you mulitply by two and remove 1.
 ; There is always some variation since not all letters have the same width, but that should
 ; save you some time.
-; 
+;
+; Changed in v2.9:
+;  - id 2115018288 was updated, the string as well as the key
+;  - id 2115018289 was updated, the string as well as the key
+;  - id 2115018297 was updated
+;  - id 2115018403 was updated, the string as well as the key
+;  - id 2115018404 was updated, the string as well as the key
+;  - id 2115018405 was updated, the string as well as the key
+;  - id 2115018406 was updated, the string as well as the key
+;  - id 2115018466 was updated, the string as well as the key
+;  - id 2115018467 was updated, the string as well as the key
+;  - id 2115018433 was updated,
+;
 ; Changed in v2.8:
 ;  - Anything below id: 2115018462 was added
 ;  - id 2115018275 was updated (completely rewritten)
@@ -241,7 +253,7 @@
 2115018214|        |panel_rer_optional_features_settings|Funkcje opcjonalne
 2115018215|        |panel_rer_encounters_settings|System starć
 2115018216|        |preset_Mods_rer_name_rer_optional_features_settings|Funkcje opcjonalne
-2115018217|        |option_rer_monster_contract_longevity|<font color="#ffd33d">Trwałość</font>
+2115018217|        |option_rer_monster_contract_longevity|NIEUŻYWANE
 2115018218|        |panel_creature_type_multiplier|Mnożnik typu potwora
 2115018219|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Mnożnik typu potwora
 2115018220|        |option_rer_crowns_ambush|<font color="#ffd33d">Z zasadzek</font>
@@ -294,7 +306,7 @@
 2115018268|        |rer_tutorial_ambush_title|Samouczek NLS - zasadzki
 2115018269|        |rer_tutorial_ambush_body|Wpadłeś w <font color="#CD7D03">Zasadzkę</font> potworów lub bandytów z modyfikacji Nowe Losowe Starcia. Przetrwaj ten atak, a zostaniesz nagrodzony trofeami i garścią koron.<br /><br />Jeżeli tego typu losowe starcia ci nie odpowiadają, możesz zmienić ilość generowanych zasadzek oraz kontrolować jakiego typu stworzenia będziesz mógł w nich spotkać w menu <font color='#CD7D03'>Systemu zasadzek</font> oraz sub-menu dla zasadzek.
 2115018270|        |rer_tutorial_bounty_title|Samouczek NLS - zlecenia łowcy nagród
-2115018271|        |rer_tutorial_bounty_body|<font color="#CD7D03">Zlecenie łowcy nagród</font> z modyfikacji Nowe Losowe Starcia właśnie się rozpoczęło. Zlecenie jest dość proste - ważne grupa potworów są oznaczone na twojej mapie. Musisz pokonać wszystkie z grup aby ukończyć zlecenie. W trakcie wykonywania zlecenia nowe oznaczone grupy mogą pojawić się na mapie. Zlecenie łowcy nagród trwa do momentu pokonania zgładzenia wszystkich grup.<br /><br />Wszystko co zobaczysz w trakcie zleceń jak wskaźniki na mapie, ich pozycje, potwory jakie wchodzą w skład zleceń oraz ogólna ilość znaczników i potworów są zależne od ziarna (numer) jakie wybrałeś w oknie wyboru ziarna. Dwa zlecenia z tym samym ziarnem będą skutkować dokładnie takimi samymi starciami. Nie martw się, istnieje niemal nieskończona ilość ziaren. Jeśli nie jesteś pewien co do jego wyboru, wybór ziarna o numerze 0 wygeneruje zupełnie losowe zlecenie łowcy nagród.<br />Ziarna o większym numerze skutkują bardziej wymagającymi zleceniami. W miarę wykonywania zleceń będziesz odblokowywać więcej ziaren i tym samym trudniejsze zlecenia. <br /><br />Możliwe, że już wcześniej zabijając potwory na swojej drodze znalazłeś ogłoszenia dla łowców nagród. Te ogłoszenia są tam tylko, by przypomnieć ci o brygadierze łowców nagród, możesz je bez przeszkód sprzedać.<br /><br />Jeśli również używasz modyfikacji Przyjazny HUD (Friendly HUD), znaczniki również pojawiają się jako znaczniki 3D na ekranie, co jest bardzo pomocne.
+2115018271|        |rer_tutorial_bounty_body|<font color="#CD7D03">Zlecenie łowcy nagród</font> z modyfikacji Nowe Losowe Starcia właśnie się rozpoczęło. Zlecenia składają się z jednego celu głównego i wielu celów pobocznych. Twój główny cel to zawsze pozbycie się celu głównego, cele poboczne nie są wymagane. Każdy zabity cel poboczne zwiększa jednak nagrodę o 100% i jednocześnie zwiększa nieco poziom trudności walki z celem głównym.
 2115018272|        |rer_tutorial_clue_title|Samouczek NLS - badanie śladów
 2115018273|        |rer_tutorial_clue_body|Właśnie <font color="#CD7D03">zbadałeś ślad</font> z modyfikacji Nowe Losowe Starcia. Kiedy zbadasz ślad Geralt powie, do którego stworzenia on należy i jeśli będziesz za nim dalej podążać odnajdziesz stworzenie, które je zostawiło. <br />  Prawie wszystkie potwory z modyfikacji pozostawiają ślady na ziemi. Miej jednak na uwadze, że modyfikacja używa linii dialogowych z gry i potwór jaki zobaczysz może nie zawsze być tym którego wspomni Geralt. Zawsze jednak możesz być pewien, że potwór przynajmniej należy do poprawnej kategorii. Przykładowo: Geralt nigdy nie mówi o Południcy, więc w zamian wspomni o Północnicy, lecz to jest wciąż upiór, więc błąd nie jest taki poważny.
 2115018274|        |rer_tutorial_contract_title|Samouczek NLS - zlecenie na potwory
@@ -302,17 +314,17 @@
 2115018276|        |rer_tutorial_ecosystem_title|Samouczek NLS - ekosystem
 2115018277|        |rer_tutorial_ecosystem_body|Właśnie zabiłeś stworzenie i pośrednio przyczyniłeś się do zmiany <font color="#CD7D03">pobliskich ekosystemów</font>. Mod Nowe Losowe Starcia symuluje łańcuch pokarmowy, który na stałe zmieni stworzenia jakie spotykasz (tylko te z modyfikacji). Ponieważ zabiłeś żywe stworzenie lub bandytę, pobliskie ekosystemy nieco się zmienił i z biegiem czasu pojawią się w nim nowe gatunki, a inne nawet przeniosą się do odrębnych miejsc. <br /><br />Możesz zbadać pobliski ekosystem używając przycisku dla <font color="#CD7D03">Analizy Ekosystemu</font>, który pozwoli na zdobycie przydatnych informacji o gatunkach i ich miejsach występowania. Aby dowiedzieć się o tym jak ustawić ten przycisk, proszę się skierować do szczegółowej instrukcji instalacji. <br /><br />Jeśli ta funkcjonalność tobie nie odpowiada możesz zmienić jej ustawienia w menu <font color="#CD7D03">Systemu Ekosystemu</font>. Wraz z zabijaniem stworzeń w danym regionie, ich liczba będzie się zmieniać w zależności od ustawień w menu (domyślnie będzie się zwiększać): jest to tzw. siła ekosystemu. Kiedy siła ekosystemu będzie się zmieniać, system nagród w postaci <font color="#ffd33d">Łupu Szału Zabijania</font> odblokuje nowy zestaw łupu za stworzenia i stopniowo będzie zwiększać szansę na otrzymanie tego zestawu. Po więcej informacji proszę skierować się do Biblii NLS (RER Bible). 
 2115018278|        |rer_tutorial_noticeboard_event_title|Samouczek NLS - tablica ogłoszeniowa
-2115018279|        |rer_tutorial_noticeboard_event_body|<font color="#CD7D03">Zdarzenie Tablicy Ogłoszeniowej</font> modyfikacji Nowe Losowe Starcia właśnie się rozpoczęło. Kiedy zamkniesz onko Geralt wypowie kilka kwestii. Po tym modyfikacja poczeka aż opuścisz wieś lub miasto, w którym obecnie się znajdujesz i gdy już będziesz wystarczająco daleko rozpocznie się <font color="#CD7D03">zlecenie wiedźminskie</font> zależne od ścieżki, którą się poruszałeś.
+2115018279|        |rer_tutorial_noticeboard_event_body|Właśnie wziąłeś <font color="#CD7D03">ogłoszenie dotyczące zlecenia wiedźminskiego</font> modyfikacji Nowe Losowe Starcia. Kiedy zamkniesz okno pojawi się opcja dialogowa do wyboru poziomu trudności zlecenia jak i informacja dotycząca tablicy. Nagrody różnią się w zależności od tablicy i regionu, ale pozostają takie same przez cały czas gry.
 2115018280|        |rer_tutorial_rewards_title|Samouczek NLS - nagrody
 2115018281|        |rer_tutorial_rewards_body|Właśnie odnalazłeś <font color="#CD7D03">trofeum<font/> z modyfikacji Nowe Losowe Starcia. Te trofea zostały stworzone tylko by nagradzać Geralta za potwory, na które poluje i nie mają żadnego innego użyku oprócz tego, by dało się je sprzedać.<br />Stworzenia z modyfikacji również mogą pozostawiać po sobie garść koron dla tego samego celu. Jeśli nagrody ci nie odpowiadają albo chciałbyś zmienić jak dużo ich możesz znaleźć możesz to zrobić w menu <font color="#CD7D03">Systemu Nagród<font/> specjalnie do tego stworzonego.
 2115018282|        |option_rer_settlement_delay_multiplier|Mnożnik opóźnienia będąc w osadzie (1 = bez zmian, 2 = dwa razy dłuższe)
 2115018283|        |option_rer_dynamic_creatures_size|Dynamiczna wielkość stworzeń (skaluje wielkość stworzeń modyfikacji bazując na ich poziomie)
 2115018284|        |rer_unknown|Nieznane
-2115018285|        |rer_bounty_start_popup|Następujące stworzenia zostały zauważone i obecnie jest wystawiona na nie nagroda: <br />{{creature_listing}}</br />Ktokolwiek przyniesie ich trofea do brygadiera łowców nagród dostanie sowitą nagrodę.
+2115018285|        |rer_bounty_start_popup|Następujące stworzenia, na które jest wystawiona nagroda, zostały zauważone w okolicy.<br /><br />Cel główny wymagany do uzyskania nagrody:<br />{{main_creature_listing}}<br /><br />Opcjonalne cele poboczne:<br />{{side_creature_listing}}<br />Ktokolwiek przyniesie ich trofea do brygadiera łowców nagród zostanie sowicie wynagrodzony.
 2115018286|        |rer_mappin_bounty_master_title|Brygadier Łowców Nagród
 2115018287|        |rer_mappin_bounty_master_description|Spotkaj się z brygadierem łowców nagród by sprzedać trofea i dowiedzieć się o nowych zleceniach
-2115018288|        |rer_mappin_bounty_target_title|Cel zlecenia
-2115018289|        |rer_mappin_bounty_target_description|Grupa stworzeń {{creature_type}} została zauważona w okolicy. Pozbądź się ich i zbierz ich trofea, by później odebrać nagrodę.
+2115018288|        |rer_mappin_bounty_main_target_title|Główny cel zlecenia
+2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i odbierz nagrodę z wystawionego na nie zlecenia.
 2115018290|        |rer_mappin_regular_title|Cel zlecenia
 2115018291|        |rer_mappin_regular_description|Ślady prowadzą do tego miejsca, coś interesującego musi być w okolicy.
 2115018292|        |rer_dialog_farewell|Powodzenia.
@@ -320,7 +332,7 @@
 2115018294|        |rer_dialog_start_bounty_no_conversation|Rozpocznij zlecenie łowcy nagród (pomiń dialog)
 2115018295|        |rer_dialog_sell_trophies|Sprzedaj trofea ({{crowns_amount}})
 2115018296|        |rer_bounty_master_trophies_bought_notification|Brygadier łowców nagród kupił twoje trofea za {{crowns_amount}} koron
-2115018297|        |rer_bounty_finished_notification|Zlecenie łowcy nagród zakończone, obecnie posiadasz {{bounty_level}} poziom łowcy nagród
+2115018297|        |rer_bounty_finished_notification|Zlecenie łowcy nagród zakończone. {{side_groups_killed}} bonusowych punktów za cele poboczne, obecnie posiadasz {{bounty_level}} poziom łowcy nagród
 2115018298|        |option_rer_tutorial_started|Pierwsze uruchomienie
 2115018299|        |rer_tutorial_started_title|Samouczek NLS - pierwsze uruchomienie
 2115018300|        |rer_tutorial_started_body|Właśnie zainstalowałes modyfikację <font color="#CD7D03">Nowe Losowe Starcia (NLS)<font color="#CD7D03">. Jeśli samemu nie ustawiłeś domyślych ustawień zostało to zrobione za ciebie. Oznacza to, że <font color="#CD7D03">NLS jest w pełni sprawne<font color="#CD7D03"> i możesz już być na drodze, by zabić trochę potworów!<br /><br />Już nigdy więcej nie zobaczysz tego okna o ile nie zresetujesz ustawień.<br />Modyfikacja będzie wciąż wyświetlać samouczki w miarę odkrywania jej funkcjonalności. Jeśli są one tobie niepotrzebne, choć ja (Aeltoth) mocno zalecam by je pozostawić, możesz udać się do menu Samouczków i je wyłączyć.
@@ -434,10 +446,10 @@
 2115018400|        |preset_Mods_rer_name_rer_contracts_settings|System zleceń
 2115018401|        |panel_rer_contracts_settings|System zleceń
 2115018402|        |option_rer_hours_before_new_contracts|Odstęp między kontraktami w godzinach
-2115018403|        |option_rer_easy_nearby_contracts_number|Ilość <font color="#30a14e">łatwych</font> i niedalekich zleceń
-2115018404|        |option_rer_hard_nearby_contracts_number|Ilość <font color="#c4432b">trudnych</font> i niedalekich zleceń
-2115018405|        |option_rer_easy_far_contracts_number|Ilość <font color="#30a14e">łatwych</font> i odległych zleceń
-2115018406|        |option_rer_hard_far_contracts_number|Ilość <font color="#c4432b">trudnych</font> i odległych zleceń
+2115018403|        |option_rer_easy_contracts_number|NIEUŻYWANE
+2115018404|        |option_rer_hard_nearby_contracts_number|NIEUŻYWANE
+2115018405|        |option_rer_hard_contracts_number|NIEUŻYWANE
+2115018406|        |option_rer_hard_far_contracts_number|NIEUŻYWANE
 2115018407|        |option_rer_allow_learn_new_locations|Pozwól NLS na uczenie się nowych lokacji w czasie eksploracji
 2115018408|        |option_rer_contracts_generation_seed|Ziarno wyboru zlecenia
 2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Sznsa na gatunki:</font> Zwierzęta
@@ -462,15 +474,15 @@
 2115018428|        |rer_species_relicts|Relikty
 2115018429|        |rer_species_specters|Upiory
 2115018430|        |rer_species_vampires|Wampiry
-2115018431|        |rer_distance_close|Niedalekie
-2115018432|        |rer_distance_far|Odległe
+2115018431|        |rer_distance_close|NIEUŻYWANE
+2115018432|        |rer_distance_far|NIEUŻYWANE
 ; this line is the one displayed when starting a contract, for example:
 ; - Close and easy Ogroids contract
 ; - Far and hard Draconids contract
 ; the {{distance}} will be replaced by either "far" or "close"
 ; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
 ; the {{species}} will be replaced by the species translated just above.
-2115018433|        |rer_contract_dialog_choice|{{distance}} i {{difficulty}} zlecenie na {{species}}
+2115018433|        |rer_contract_dialog_choice|{{difficulty}} zlecenie na {{species}}
 2115018434|        |rer_cancel|Anuluj
 2115018435|        |rer_token_gear|Żeton na Rynsztunek
 2115018436|        |rer_token_gear_short|Rynsztunek
@@ -508,9 +520,15 @@
 2115018462|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Łowca
 2115018463|        |rer_complete_more_contracts|Zablokowane: wykonaj więcej zleceń by zwiększyć swoją reputację
 2115018464|        |rer_current_reputation|Obecna reputacja dla tej tablicy ogłoszeniowej: {{reputation}}
-2115018465|        |rer_distance_nearby|Niedalekie
-2115018466|        |option_rer_medium_nearby_contracts_number|Ilość <font color="#d4a72c">średnich</font> i niedalekich zleceń
-2115018467|        |option_rer_medium_far_contracts_number|Ilość <font color="#d4a72c">średnich</font> i odległych zleceń
+2115018465|        |rer_distance_nearby|NIEUŻYWANE
+2115018466|        |option_rer_medium_contracts_number|Ilość <font color="#d4a72c">przeciętnych</font> zleceń
+2115018467|        |option_rer_medium_far_contracts_number|NIEUŻYWANE
 2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">System reputacji:</font> włączony
 2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Wymagana reputacja dla <font color="#d4a72c">średnich</font> zleceń i tych z podstawki gry
 2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Bonus do nagrody za każdy punkt reputacji
+2115018471|        |rer_mappin_bounty_side_target_title|Poboczny cel zlecenia
+2115018472|        |rer_mappin_bounty_side_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i zwiększ tym samym swoją nagrodę.
+2115018473|        |rer_bounty_side_target_killed|Cel poboczny zlecenia zabity, nagroda została zwiększona
+2115018474|        |option_rer_arachnophobia_mode|Tryb przyjazny dla arachnofobów
+2115018475|        |rer_difficulty|Poziom trudności
+2115018476|        |rer_bounty_start_popup_title|Informacje o zleceniu
