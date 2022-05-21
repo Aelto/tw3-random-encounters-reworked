@@ -167,8 +167,6 @@ state Processing in RER_ContractManager {
       damage_modifier.damage_dealt_modifier = 1;
 
       while (impact_points > 0) {
-        // TODO: add buffs to the entities.
-        
         if (rng.next() > 0.5) {
           damage_modifier.damage_dealt_modifier += 0.01;
         }

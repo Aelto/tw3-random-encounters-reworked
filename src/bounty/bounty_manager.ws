@@ -219,7 +219,7 @@ statemachine class RER_BountyManager extends CEntity {
     Sleep(0.5);
 
     RER_openPopup(
-      "Bounty information",
+      GetLocStringByKey("rer_bounty_start_popup_title"),
       this.getInformationMessageAboutCurrentBounty()
     );
 
