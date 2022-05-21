@@ -211,12 +211,12 @@ state DialogChoice in RER_ContractManager {
 
     contract_data = RER_ContractGenerationData();
     contract_data.species = species;
-    contract_data.difficulty = difficulty;
+    contract_data.difficulty_level = difficulty;
     
     contract_data.noticeboard_identifier = noticeboard_identifier;
     contract_data.identifier = parent.getUniqueIdFromContract(
       noticeboard_identifier,
-      contract_data.difficulty,
+      contract_data.difficulty_level,
       contract_data.species,
       generation_time
     );
@@ -230,7 +230,7 @@ state DialogChoice in RER_ContractManager {
     contract_data.region_name = SUH_getCurrentRegion();
     contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
 
-    parent.master.storages.contract.ongoing_contract = parent.generateContract(contract_data);
+    parent.master.storages.contract.active_contract = parent.generateContract(contract_data);
     parent.master.storages.contract.has_ongoing_contract = true;
     parent.master.storages.contract.save();
 
