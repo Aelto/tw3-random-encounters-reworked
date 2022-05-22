@@ -62,7 +62,7 @@ struct RER_ContractGenerationData {
    */
   var starting_point: Vector;
 
-  var difficulty: RER_ContractDifficulty;
+  var difficulty_level: RER_ContractDifficulty;
 
   var species: RER_SpeciesTypes;
 
