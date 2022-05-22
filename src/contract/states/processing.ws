@@ -18,7 +18,7 @@ state Processing in RER_ContractManager {
   }
 
   latent function waitForPlayerToReachDestination() {
-    var active_contract: RER_ContractRepresentation;
+    var ongoing_contract: RER_ContractRepresentation;
     var has_added_pins: bool;
     var map_pin: SU_MapPin;
 
@@ -30,17 +30,17 @@ state Processing in RER_ContractManager {
 
     RER_tutorialTryShowNoticeboard();
 
-    active_contract = parent.master.storages.contract.active_contract;
+    ongoing_contract = parent.master.storages.contract.ongoing_contract;
 
     SU_removeCustomPinByTag("RER_contract_target");
 
     map_pin = new SU_MapPin in parent;
     map_pin.tag = "RER_contract_target";
-    map_pin.position = active_contract.destination_point;
+    map_pin.position = ongoing_contract.destination_point;
     map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
     map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
     map_pin.type = "MonsterQuest";
-    map_pin.radius = active_contract.destination_radius;
+    map_pin.radius = ongoing_contract.destination_radius;
     map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
     map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
@@ -58,15 +58,15 @@ state Processing in RER_ContractManager {
         return;
       }
 
-      active_contract = parent.master.storages.contract.active_contract;
+      ongoing_contract = parent.master.storages.contract.ongoing_contract;
 
       // this part is pretty much useless since the storage is unique per region
       // meaning you get only the contract for the current region.
-      if (!SUH_isPlayerInRegion(active_contract.region_name)) {
+      if (!SUH_isPlayerInRegion(ongoing_contract.region_name)) {
         parent.GotoState('Waiting');
       }
 
-      if (VecDistanceSquared2D(active_contract.destination_point, thePlayer.GetWorldPosition()) <= active_contract.destination_radius * active_contract.destination_radius) {
+      if (VecDistanceSquared2D(ongoing_contract.destination_point, thePlayer.GetWorldPosition()) <= ongoing_contract.destination_radius * ongoing_contract.destination_radius) {
         break;
       }
 
@@ -81,26 +81,26 @@ state Processing in RER_ContractManager {
   }
 
   latent function waitForPlayerToFinishContract() {
-    var active_contract: RER_ContractRepresentation;
+    var ongoing_contract: RER_ContractRepresentation;
     if (!parent.master.storages.contract.has_ongoing_contract) {
       return;
     }
 
-    active_contract = parent.master.storages.contract.active_contract;
+    ongoing_contract = parent.master.storages.contract.ongoing_contract;
 
 
-    // if (active_contract.event_type == ContractEventType_NEST) {
-    //  this.createNestEncounterAndWaitForEnd(active_contract);
+    // if (ongoing_contract.event_type == ContractEventType_NEST) {
+    //  this.createNestEncounterAndWaitForEnd(ongoing_contract);
     // }
-    // else if (active_contract.event_type == ContractEventType_HORDE) {
-    //   this.sendHordeRequestAndWaitForEnd(active_contract);
+    // else if (ongoing_contract.event_type == ContractEventType_HORDE) {
+    //   this.sendHordeRequestAndWaitForEnd(ongoing_contract);
     // }
-    // else if (active_contract.event_type == ContractEventType_BOSS) {
-    this.createHuntingGroundAndWaitForEnd(active_contract);
+    // else if (ongoing_contract.event_type == ContractEventType_BOSS) {
+    this.createHuntingGroundAndWaitForEnd(ongoing_contract);
     // }
   }
 
-  latent function createHuntingGroundAndWaitForEnd(active_contract: RER_ContractRepresentation) {
+  latent function createHuntingGroundAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
     var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
     var damage_modifier: SU_BaseDamageModifier;
     var rer_entity_template: CEntityTemplate;
@@ -115,14 +115,14 @@ state Processing in RER_ContractManager {
     var npc: CNewNPC;
     var i: int;
     
-    bestiary_entry = parent.master.bestiary.getEntry(parent.master, active_contract.creature_type);
-    rng = (new RandomNumberGenerator in this).setSeed(active_contract.rng_seed)
+    bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
+    rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
     for (i = 0; i < 15; i += 1) {
       rng.next();
-      position = active_contract.destination_point
-        + VecRingRandStatic((int)rng.previous_number, 5, active_contract.destination_radius * 0.5 + 5);
+      position = ongoing_contract.destination_point
+        + VecRingRandStatic((int)rng.previous_number, 5, ongoing_contract.destination_radius * 0.5 + 5);
 
       // try to see if the position is valid. If it returns true then it means
       // it found a valid position.
@@ -142,8 +142,8 @@ state Processing in RER_ContractManager {
     }
 
     impact_points = rng.nextRange(
-      active_contract.difficulty_level.value + 2,
-      active_contract.difficulty_level.value - 2
+      ongoing_contract.difficulty.value + 2,
+      ongoing_contract.difficulty.value - 2
     );
 
     entities = bestiary_entry.spawn(
@@ -203,7 +203,7 @@ state Processing in RER_ContractManager {
       StrReplace(
         GetLocStringByKeyExt("rer_kill_target"),
         "{{type}}",
-        getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+        getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
       )
     );
 
@@ -214,7 +214,7 @@ state Processing in RER_ContractManager {
     rer_entity.clean();
   }
 
-  latent function createNestEncounterAndWaitForEnd(active_contract: RER_ContractRepresentation) {
+  latent function createNestEncounterAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
     var current_template: CEntityTemplate;
     var nests: array<RER_MonsterNest>;
     var are_all_nests_destroyed: bool;
@@ -225,29 +225,29 @@ state Processing in RER_ContractManager {
     var i: int;
     var k: int;
 
-    rng = (new RandomNumberGenerator in this).setSeed(active_contract.rng_seed)
+    rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
     path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
 
-    if (!RER_isCreatureTypeAllowedForNest(active_contract.creature_type)) {
+    if (!RER_isCreatureTypeAllowedForNest(ongoing_contract.creature_type)) {
       // the monster doesn't fit a nest, in that case we spawn a boss fight
       // instead.
-      this.createHuntingGroundAndWaitForEnd(active_contract);
+      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
 
       return;
     }
 
     // amount of nests:
-    i = RoundF(rng.nextRange(1 + active_contract.difficulty_level.value / 20, 1));
+    i = RoundF(rng.nextRange(1 + ongoing_contract.difficulty.value / 20, 1));
 
     while (i > 0) {
       i -= 1;
 
       for (k = 0; k < 15; k += 1) {
         rng.next();
-        position = active_contract.destination_point
-          + VecRingRandStatic((int)rng.previous_number, 5, active_contract.destination_radius);
+        position = ongoing_contract.destination_point
+          + VecRingRandStatic((int)rng.previous_number, 5, ongoing_contract.destination_radius);
 
         FixZAxis(position);
 
@@ -276,7 +276,7 @@ state Processing in RER_ContractManager {
         PM_DontPersist
       );
 
-      nest.bestiary_entry = parent.master.bestiary.entries[active_contract.creature_type];
+      nest.bestiary_entry = parent.master.bestiary.entries[ongoing_contract.creature_type];
       nest.forced_bestiary_entry = true;
       nest.startEncounter(parent.master);
 
@@ -288,7 +288,7 @@ state Processing in RER_ContractManager {
         StrReplace(
           GetLocStringByKeyExt("rer_find_nest"),
           "{{type}}",
-          getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+          getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
         )
       );
     }
@@ -297,7 +297,7 @@ state Processing in RER_ContractManager {
         StrReplace(
           GetLocStringByKeyExt("rer_find_nests"),
           "{{type}}",
-          getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+          getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
         )
       );
     }
@@ -313,14 +313,14 @@ state Processing in RER_ContractManager {
     } while (!are_all_nests_destroyed);
   }
 
-  latent function sendHordeRequestAndWaitForEnd(active_contract: RER_ContractRepresentation) {
+  latent function sendHordeRequestAndWaitForEnd(ongoing_contract: RER_ContractRepresentation) {
     var request: RER_HordeRequest;
     var bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
     var enemy_count: int;
 
-    bestiary_entry = parent.master.bestiary.getEntry(parent.master, active_contract.creature_type);
-    rng = (new RandomNumberGenerator in this).setSeed(active_contract.rng_seed)
+    bestiary_entry = parent.master.bestiary.getEntry(parent.master, ongoing_contract.creature_type);
+    rng = (new RandomNumberGenerator in this).setSeed(ongoing_contract.rng_seed)
       .useSeed(true);
 
     enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
@@ -328,7 +328,7 @@ state Processing in RER_ContractManager {
     if (enemy_count < 3) {
       // the amount of enemies would be too low for it to be a good horde, in
       // that case we spawn a bossfight instead
-      this.createHuntingGroundAndWaitForEnd(active_contract);
+      this.createHuntingGroundAndWaitForEnd(ongoing_contract);
 
       return;
     }
@@ -336,7 +336,7 @@ state Processing in RER_ContractManager {
     request = new RER_HordeRequest in parent;
     request.init();
     request.setCreatureCounter(
-      active_contract.creature_type,
+      ongoing_contract.creature_type,
       enemy_count
     );
     request.spawning_flags = RER_flag(RER_BESF_NO_ECOSYSTEM_EFFECT, true)
@@ -355,7 +355,7 @@ state Processing in RER_ContractManager {
       StrReplace(
         GetLocStringByKeyExt("rer_survive_horde"),
         "{{type}}",
-        getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+        getCreatureNameFromCreatureType(parent.master.bestiary, ongoing_contract.creature_type)
       )
     );
 

@@ -17,7 +17,7 @@ class RER_ContractStorage extends RER_BaseStorage {
    */
   var completed_contracts: array<RER_ContractIdentifier>;
 
-  var active_contract: RER_ContractRepresentation;
+  var ongoing_contract: RER_ContractRepresentation;
 
   var has_ongoing_contract: bool;
 

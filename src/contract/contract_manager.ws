@@ -119,7 +119,7 @@ statemachine class RER_ContractManager {
     contract.destination_radius = 100;
 
     contract.creature_type = bestiary_entry.type;
-    contract.difficulty_level = data.difficulty_level;
+    contract.difficulty = data.difficulty;
     contract.region_name = data.region_name;
     contract.rng_seed = data.rng_seed;
     contract.reward_type = RER_getAllowedContractRewardsMaskFromRegion()
@@ -129,7 +129,7 @@ statemachine class RER_ContractManager {
 
     // TODO: once the PR that allows us to get the creature type right here is
     // merged, replace the difficulty check with a creature strength check.
-    if (data.difficulty_level.value < 9) {
+    if (data.difficulty.value < 9) {
       if (rng.nextRange(10, 0) < 5) {
         contract.event_type = ContractEventType_HORDE;
       }
@@ -304,22 +304,22 @@ statemachine class RER_ContractManager {
       return;
     }
 
-    NLOG("completeCurrentContract, uuid = " + storage.active_contract.identifier.identifier);
+    NLOG("completeCurrentContract, uuid = " + storage.ongoing_contract.identifier.identifier);
 
-    storage.completed_contracts.PushBack(storage.active_contract.identifier);
+    storage.completed_contracts.PushBack(storage.ongoing_contract.identifier);
     storage.has_ongoing_contract = false;
 
-    rng = (new RandomNumberGenerator in this).setSeed(storage.active_contract.rng_seed)
+    rng = (new RandomNumberGenerator in this).setSeed(storage.ongoing_contract.rng_seed)
       .useSeed(true);
 
     token_name = RER_contractRewardTypeToItemName(
-      RER_getRandomContractRewardTypeFromFlag(storage.active_contract.reward_type, rng)
+      RER_getRandomContractRewardTypeFromFlag(storage.ongoing_contract.reward_type, rng)
     );
 
-    NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.active_contract.reward_type);
+    NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.ongoing_contract.reward_type);
 
     current_reputation = this.getNoticeboardReputation(
-      storage.active_contract.noticeboard_identifier
+      storage.ongoing_contract.noticeboard_identifier
     );
 
     // TODO: #109 scale accordingly
@@ -331,7 +331,7 @@ statemachine class RER_ContractManager {
         .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
       );
       
-      rewards_amount += RoundF(storage.active_contract.difficulty_level.value * 0.1 * (1 + rewards_increase_from_reputation));
+      rewards_amount += RoundF(storage.ongoing_contract.difficulty.value * 0.1 * (1 + rewards_increase_from_reputation));
     }
 
     if (IsNameValid(token_name)) {
@@ -364,18 +364,18 @@ statemachine class RER_ContractManager {
         "RER ERROR: the name of the token is not valid [" + token_name + "]." +
         "You can report this issue to the author, preferably with a copy/screenshot of this message." +
         "<br/>Additional information:" +
-        "<br/> - seed: " + storage.active_contract.rng_seed +
-        "<br/> - reward type: " + storage.active_contract.reward_type +
-        "<br/> - identifier: " + storage.active_contract.identifier.identifier
+        "<br/> - seed: " + storage.ongoing_contract.rng_seed +
+        "<br/> - reward type: " + storage.ongoing_contract.reward_type +
+        "<br/> - identifier: " + storage.ongoing_contract.identifier.identifier
       );
     }
 
     // increase the reputation for this noticeboard only if the contract difficulty
     // is in the upper 50% of the available difficulties for this board:
-    if (storage.active_contract.difficulty_level.value >= this.getMaximumDifficultyForReputation(current_reputation) * 0.5) {
+    if (storage.ongoing_contract.difficulty.value >= this.getMaximumDifficultyForReputation(current_reputation) * 0.5) {
       this.increaseReputationForNoticeboard(
-        storage.active_contract.noticeboard_identifier,
-        RoundF(storage.active_contract.difficulty_level.value * 0.1) + 1
+        storage.ongoing_contract.noticeboard_identifier,
+        RoundF(storage.ongoing_contract.difficulty.value * 0.1) + 1
       );
     }
 
