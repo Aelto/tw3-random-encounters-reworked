@@ -11,7 +11,7 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
     theGame.SetIsDialogOrCutscenePlaying(false);
     theGame.GetGuiManager().RequestMouseCursor(false);
 
-    this.contract_manager.contractHaggleDifficultySelected(RER_ContractDifficulty((int)value));
+    this.contract_manager.contractHaggleDifficultySelected(RER_ContractDifficultyLevel((int)value));
   }
 
   function openDifficultySelectorWindow(contract_manager: RER_ContractManager, noticeboard: RER_NoticeboardIdentifier) {

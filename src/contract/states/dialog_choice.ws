@@ -41,7 +41,7 @@ state DialogChoice in RER_ContractManager {
 
   private latent function DialogChoice_prepareAndDisplayDialogueChoices() {
     var noticeboard_identifier: RER_NoticeboardIdentifier;
-    var selected_difficulty: RER_ContractDifficulty;
+    var selected_difficulty: RER_ContractDifficultyLevel;
     var contract_identifier: RER_ContractIdentifier;
     var generation_time: RER_GenerationTime;
     var random_species: RER_SpeciesTypes;
@@ -142,7 +142,7 @@ state DialogChoice in RER_ContractManager {
     this.displayDialogChoices(choices, species_choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
   }
 
-  latent function displayDialogChoices(choices: array<SSceneChoice>, species_choices: array<RER_SpeciesTypes>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
+  latent function displayDialogChoices(choices: array<SSceneChoice>, species_choices: array<RER_SpeciesTypes>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
     var response: SSceneChoice;
     var species: RER_SpeciesTypes;
     var species_found: bool;
@@ -186,7 +186,7 @@ state DialogChoice in RER_ContractManager {
     }
   }
 
-  function getRandomNumberGenerator(noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty): RandomNumberGenerator {
+  function getRandomNumberGenerator(noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel): RandomNumberGenerator {
     var rng: RandomNumberGenerator;
     var menu_seed: float;
 
@@ -201,7 +201,7 @@ state DialogChoice in RER_ContractManager {
       .useSeed(true);
   }
 
-  latent function acceptContract(species: RER_SpeciesTypes, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficulty, rng: RandomNumberGenerator) {
+  latent function acceptContract(species: RER_SpeciesTypes, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
     var creature_t: RER_ContractRepresentation;
     var bestiary_entry: RER_BestiaryEntry;

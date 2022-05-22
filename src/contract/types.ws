@@ -39,6 +39,16 @@ struct RER_GenerationTime {
 }
 
 /**
+ * This enum is not used anymore but if removed causes a crash for people having
+ * old contracts in their storage.
+ */
+enum RER_ContractDifficulty {
+  ContractDifficulty_EASY = 0,
+  ContractDifficulty_MEDIUM = 1,
+  ContractDifficulty_HARD = 2
+}
+
+/**
  * Represents the difficulty of a contract,
  * 0-5 should be very easy,
  * 5-10 -> easy
@@ -47,7 +57,7 @@ struct RER_GenerationTime {
  * 20-25 -> very hard
  * 25-50 -> seriously challenging
  */
-struct RER_ContractDifficulty {
+struct RER_ContractDifficultyLevel {
   var value: int;
 }
 
@@ -62,7 +72,9 @@ struct RER_ContractGenerationData {
    */
   var starting_point: Vector;
 
-  var difficulty_level: RER_ContractDifficulty;
+  var difficulty: RER_ContractDifficulty;
+
+  var difficulty_level: RER_ContractDifficultyLevel;
 
   var species: RER_SpeciesTypes;
 
@@ -114,7 +126,7 @@ struct RER_ContractRepresentation {
    */
   var event_type: RER_ContractEventType;
 
-  var difficulty_level: RER_ContractDifficulty;
+  var difficulty_level: RER_ContractDifficultyLevel;
 
   var creature_type: CreatureType;
 

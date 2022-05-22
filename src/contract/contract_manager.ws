@@ -21,7 +21,7 @@
  */
 statemachine class RER_ContractManager {
   var master: CRandomEncounters;
-  var selected_difficulty: RER_ContractDifficulty;
+  var selected_difficulty: RER_ContractDifficultyLevel;
 
   function init(_master: CRandomEncounters) {
     this.master = _master;
@@ -33,7 +33,7 @@ statemachine class RER_ContractManager {
     this.GotoState('DifficultySelection');
   }
 
-  public function contractHaggleDifficultySelected(difficulty: RER_ContractDifficulty) {
+  public function contractHaggleDifficultySelected(difficulty: RER_ContractDifficultyLevel) {
     this.selected_difficulty = difficulty;
 
     this.GotoState('DialogChoice');
@@ -90,7 +90,7 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficulty, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficultyLevel, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
