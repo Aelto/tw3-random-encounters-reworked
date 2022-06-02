@@ -42,6 +42,27 @@ function RER_getSeededRandomEasySpeciesType(rng: RandomNumberGenerator): RER_Spe
   return (RER_SpeciesTypes)RoundF(rng.nextRange(max, 0));
 }
 
+function RER_getSeededRandomCreatureType(master: CRandomEncounters, difficulty_level: RER_ContractDifficultyLevel, rng: RandomNumberGenerator): CreatureType {
+  var creature_types: array<CreatureType>;
+  var bestiary_entry: RER_BestiaryEntry;
+  var maxmimum_strength: float;
+  var i: int;
+  
+  master.spawn_roller.reset();
+
+  maxmimum_strength = MaxF(difficulty_level.value, 5);
+
+  for (i = 0; i < CreatureMAX; i += 1) {
+    bestiary_entry = master.bestiary.getEntry(master, i);
+
+    if (bestiary_entry.ecosystem_delay_multiplier < maxmimum_strength) {
+      creature_types.PushBack(i);
+    }
+  }
+
+  return creature_types[(int)rng.nextRange(creature_types.Size(), 0)];
+}
+
 function RER_getSpeciesLocalizedString(species: RER_SpeciesTypes): string {
   var output: string;
   

@@ -76,7 +76,7 @@ struct RER_ContractGenerationData {
 
   var difficulty_level: RER_ContractDifficultyLevel;
 
-  var species: RER_SpeciesTypes;
+  var creature_type: CreatureType;
 
   var identifier: RER_ContractIdentifier;
 

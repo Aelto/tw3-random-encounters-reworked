@@ -90,35 +90,31 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficultyLevel, species: RER_SpeciesTypes, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficultyLevel, creature_type: CreatureType, generation_time: RER_GenerationTime): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
     uuid += 100 + (int)difficulty.value + "-";
-    uuid += 10 + (int)species;
+    uuid += 10 + (int)creature_type;
 
     return RER_ContractIdentifier(uuid);
   }
 
   public function generateContract(data: RER_ContractGenerationData): RER_ContractRepresentation {
     var contract: RER_ContractRepresentation;
-    var bestiary_entry: RER_BestiaryEntry;
     var rng: RandomNumberGenerator;
 
     contract = RER_ContractRepresentation();
     rng = (new RandomNumberGenerator in this).setSeed(data.rng_seed)
       .useSeed(true);
 
-    bestiary_entry = this.master.bestiary.getRandomEntryFromSpeciesType(data.species, rng);
-
-
     contract.identifier = data.identifier;
     contract.noticeboard_identifier = data.noticeboard_identifier;
     contract.destination_point = this.getRandomDestinationAroundPoint(data.starting_point, rng);
     contract.destination_radius = 100;
 
-    contract.creature_type = bestiary_entry.type;
+    contract.creature_type = data.creature_type;
     contract.difficulty_level = data.difficulty_level;
     contract.region_name = data.region_name;
     contract.rng_seed = data.rng_seed;

@@ -44,13 +44,12 @@ state DialogChoice in RER_ContractManager {
     var selected_difficulty: RER_ContractDifficultyLevel;
     var contract_identifier: RER_ContractIdentifier;
     var generation_time: RER_GenerationTime;
-    var random_species: RER_SpeciesTypes;
+    var random_creature_type: CreatureType;
     var reputation_system_enabled: bool;
     var required_time_elapsed: float;
     var choices: array<SSceneChoice>;
-    var species_choices: array<RER_SpeciesTypes>;
+    var creature_type_choices: array<CreatureType>;
     var rng: RandomNumberGenerator;
-    var bestiary_rng: RandomNumberGenerator;
     var bestiary_entry: RER_BestiaryEntry;
     var amount_of_options: int;
     var line: string;
@@ -98,25 +97,19 @@ state DialogChoice in RER_ContractManager {
     }
 
     for (i = 0; i < 3; i += 1) {
-      random_species = RER_getSeededRandomSpeciesType(rng);
-      species_choices.PushBack(random_species);
+      random_creature_type = RER_getSeededRandomCreatureType(parent.master, selected_difficulty, rng);
+      creature_type_choices.PushBack(random_creature_type);
 
       contract_identifier = parent.getUniqueIdFromContract(
         noticeboard_identifier,
         selected_difficulty,
-        random_species,
+        random_creature_type,
         generation_time
       );
 
-      bestiary_rng = new RandomNumberGenerator in parent;
-      bestiary_rng.setSeed(RER_identifierToInt(contract_identifier.identifier));
-      bestiary_rng.next();
-      bestiary_rng.setSeed((int)bestiary_rng.previous_number + bestiary_rng.seed);
-      bestiary_entry = parent.master.bestiary.getRandomEntryFromSpeciesType(random_species, bestiary_rng);
-
       line = GetLocStringByKey("rer_contract_dialog_choice");
       line = StrReplace(line, "{{difficulty}}", "(" + selected_difficulty.value + ")");
-      line = StrReplace(line, "{{species}}", upperCaseFirstLetter(getCreatureNameFromCreatureType(parent.master.bestiary, bestiary_entry.type)));
+      line = StrReplace(line, "{{species}}", upperCaseFirstLetter(getCreatureNameFromCreatureType(parent.master.bestiary, random_creature_type)));
 
       NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
 
@@ -139,13 +132,12 @@ state DialogChoice in RER_ContractManager {
       'Cancel'
     ));
 
-    this.displayDialogChoices(choices, species_choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
+    this.displayDialogChoices(choices, creature_type_choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
   }
 
-  latent function displayDialogChoices(choices: array<SSceneChoice>, species_choices: array<RER_SpeciesTypes>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
+  latent function displayDialogChoices(choices: array<SSceneChoice>, creature_type_choices: array<CreatureType>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
+    var creature_type: CreatureType;
     var response: SSceneChoice;
-    var species: RER_SpeciesTypes;
-    var species_found: bool;
     var i: int;
 
     // while on gamepad, the interact input is directly sent in the dialog choice
@@ -167,22 +159,21 @@ state DialogChoice in RER_ContractManager {
         return;
       }
 
-      species_found = false;
       for (i = 0; i < 3; i += 1) {
 		// get the choices starting at 4th from last until 2nd to last, as the last
 		// is the exit choice
         if (choices[choices.Size() - 4 + i].description == response.description) {
-          species = species_choices[i];
-          species_found = true;
+          creature_type = creature_type_choices[i];
+
           break;
         }
       }
 
-      if (species_found == false) {
-        NDEBUG("Unable to find species!");
+      if (i > 3) {
+        NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
       }
 
-      this.acceptContract(species, noticeboard_identifier, generation_time, difficulty, rng);
+      this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulty, rng);
     }
   }
 
@@ -201,7 +192,7 @@ state DialogChoice in RER_ContractManager {
       .useSeed(true);
   }
 
-  latent function acceptContract(species: RER_SpeciesTypes, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
+  latent function acceptContract(creature_type: CreatureType, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
     var contract_data: RER_ContractGenerationData;
     var creature_t: RER_ContractRepresentation;
     var bestiary_entry: RER_BestiaryEntry;
@@ -210,14 +201,14 @@ state DialogChoice in RER_ContractManager {
     nearby_noticeboard = parent.getNearbyNoticeboard();
 
     contract_data = RER_ContractGenerationData();
-    contract_data.species = species;
+    contract_data.creature_type = creature_type;
     contract_data.difficulty_level = difficulty;
     
     contract_data.noticeboard_identifier = noticeboard_identifier;
     contract_data.identifier = parent.getUniqueIdFromContract(
       noticeboard_identifier,
       contract_data.difficulty_level,
-      contract_data.species,
+      creature_type,
       generation_time
     );
 
@@ -225,7 +216,6 @@ state DialogChoice in RER_ContractManager {
     rng.next();
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
     rng.setSeed(contract_data.rng_seed);
-    bestiary_entry = parent.master.bestiary.getRandomEntryFromSpeciesType(contract_data.species, rng);
 
     contract_data.region_name = SUH_getCurrentRegion();
     contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
@@ -242,7 +232,7 @@ state DialogChoice in RER_ContractManager {
       StrReplace(
         GetLocStringByKey('rer_contract_started'),
         "{{species}}",
-        getCreatureNameFromCreatureType(parent.master.bestiary, bestiary_entry.type)
+        getCreatureNameFromCreatureType(parent.master.bestiary, creature_type)
       )
     );
 
