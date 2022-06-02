@@ -400,13 +400,17 @@ abstract class RER_BestiaryEntry {
 
   // Returns a random friendly creature if there is any. Otherwise returns
   // CreatureNONE.
-  public latent function getRandomCompositionCreature(master: CRandomEncounters, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter): CreatureType {
+  public latent function getRandomCompositionCreature(master: CRandomEncounters, encounter_type: EncounterType, optional filter: RER_SpawnRollerFilter, optional flags: RER_BestiaryRandomBestiaryEntryFlag): CreatureType {
     var creatures_preferences: RER_CreaturePreferences;
     var spawn_roll: SpawnRoller_Roll;
     var manager : CWitcherJournalManager;
     var can_spawn_creature: bool;
     var influences: RER_ConstantInfluences;
     var i: int;
+
+    if (this.possible_compositions.Size() <= 0) {
+      return CreatureNONE;
+    }
 
     master.spawn_roller.reset();
 
@@ -422,7 +426,7 @@ abstract class RER_BestiaryEntry {
 
     // when the option "Only known bestiary creatures" is ON
     // we remove every unknown creatures from the spawning pool
-    if (master.settings.only_known_bestiary_creatures) {
+    if (master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BREF_IGNORE_BESTIARY)) {
       manager = theGame.GetJournalManager();
 
       for (i = 0; i < CreatureMAX; i += 1) {

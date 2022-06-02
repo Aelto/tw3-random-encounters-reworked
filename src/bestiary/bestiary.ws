@@ -19,6 +19,10 @@ class RER_Bestiary {
   }
 
   public function getEntry(master: CRandomEncounters, type: CreatureType): RER_BestiaryEntry {
+    if (type == CreatureNONE) {
+      return new RER_BestiaryEntryNull in master;
+    }
+
     if (type == CreatureHUMAN) {
       return this.human_entries[master.rExtra.getRandomHumanTypeByCurrentArea()];
     }

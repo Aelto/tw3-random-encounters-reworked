@@ -163,7 +163,8 @@ statemachine class RER_BountyManager extends CEntity {
               // 1% and not 0% to avoid crashes if all creatures to be disabled
               // in the settings.
               0.01
-            )
+            ),
+          RER_flag(RER_BREF_IGNORE_BESTIARY, true)
         );
 
         current_bestiary_entry = this.master.bestiary.getEntry(
@@ -175,8 +176,15 @@ statemachine class RER_BountyManager extends CEntity {
       }
       else {
         current_group_data.type = (int)(rng.next() * (int)CreatureMAX);
-        
-        current_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
+
+        current_bestiary_entry = this.master.bestiary.getEntry(
+          this.master,
+          current_group_data.type
+        );
+      }
+
+      if (current_bestiary_entry.isNull()) {
+        continue;
       }
 
       current_group_data.count = Max(1,
