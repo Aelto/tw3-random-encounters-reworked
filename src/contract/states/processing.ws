@@ -110,9 +110,12 @@ state Processing in RER_ContractManager {
     var composition_type: CreatureType;
     var rng: RandomNumberGenerator;
     var entities: array<CEntity>;
+    var buff_multiplier: float;
     var impact_points: float;
     var position: Vector;
+    var enemy_count: int;
     var npc: CNewNPC;
+    var sign: int;
     var i: int;
     
     bestiary_entry = parent.master.bestiary.getEntry(parent.master, active_contract.creature_type);
@@ -141,9 +144,24 @@ state Processing in RER_ContractManager {
       getGroundPosition(position, 1, 20);
     }
 
+    // difficulty at: 0 -> -12
+    // difficulty at: 5 -> -9.641093696776737
+    // difficulty at: 10 -> -7.843840781892263
+    // difficulty at: 15 -> -5.673283124552092
+    // difficulty at: 20 -> -2.853749133448721
+    // difficulty at: 25 -> 0.8860217785568807
+    // difficulty at: 30 -> 5.880702100547879
+    // difficulty at: 35 -> 12.56555507018184
+    // difficulty at: 40 -> 21.51503803312785
+    // difficulty at: 45 -> 33.4907957141713
+    // difficulty at: 50 -> 49.50410100552187
+    //
+    // tweak the last number to control how low it can go in the negatives.
+    // Lower the number the higher it starts.
+    impact_points = ExpF(active_contract.difficulty_level.value * 0.055) * LogF(active_contract.difficulty_level.value + 1) - 12;
     impact_points = rng.nextRange(
-      active_contract.difficulty_level.value + 2,
-      active_contract.difficulty_level.value - 2
+      impact_points + 2,
+      impact_points - 2
     );
 
     entities = bestiary_entry.spawn(
@@ -159,28 +177,41 @@ state Processing in RER_ContractManager {
       10000
     );
 
-    impact_points -= bestiary_entry.ecosystem_delay_multiplier * entities.Size();
+    enemy_count = entities.Size();
+    impact_points -= bestiary_entry.ecosystem_delay_multiplier * enemy_count;
 
     if (impact_points > 0) {
+      buff_multiplier = 1.01;
+      sign = -1;
+    }
+    else {
+      buff_multiplier = 0.99;
+      sign = 1;
+    }
+
+    impact_points = RoundF(impact_points);
+    if (impact_points != 0) {
       damage_modifier = new SU_BaseDamageModifier in parent;
       damage_modifier.damage_received_modifier = 1;
       damage_modifier.damage_dealt_modifier = 1;
 
-      while (impact_points > 0) {
-        if (rng.next() > 0.5) {
-          damage_modifier.damage_dealt_modifier += 0.01;
+      while (impact_points != 0) {
+        // the higher the amount of enemies, the higher the chances of them
+        // getting a damage boost. Smaller enemies often deal less damages,
+        // so it is perfectly safe to give them more damage boosts than large
+        // monsters who already inflict big hits.
+        if (rng.next() < 0.2 + (enemy_count * 0.1)) {
+          damage_modifier.damage_dealt_modifier *= PowF(buff_multiplier, 1);
         }
         else {
-          // so here we add 15% more damage received, but below...
-          damage_modifier.damage_received_modifier += 0.15;
+          // so here we add 10% more damage received, but below...
+          damage_modifier.damage_received_modifier *= PowF(buff_multiplier, 10);
         }
-        impact_points -= 1;
-      }
 
-      // ... then we do a 1 / x so bring back the value in the [0;1] range, so a
-      // what was a 2 (which meant a 200% increase) is now a 50% modifier,
-      // effectively half the damage.
-      damage_modifier.damage_received_modifier = 1 / damage_modifier.damage_received_modifier;
+        NLOG("impact_points = " + impact_points + " damage_received_modifier = " + damage_modifier.damage_received_modifier + ", damage_dealt_modifier = " + damage_modifier.damage_dealt_modifier);
+
+        impact_points = RoundF(impact_points + sign);
+      }
 
       for (i = 0; i < entities.Size(); i += 1) {
         npc = (CNewNPC)entities[i];
