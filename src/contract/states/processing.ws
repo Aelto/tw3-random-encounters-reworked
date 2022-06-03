@@ -205,7 +205,7 @@ state Processing in RER_ContractManager {
         }
         else {
           // so here we add 10% more damage received, but below...
-          damage_modifier.damage_received_modifier *= PowF(buff_multiplier, 10);
+          damage_modifier.damage_received_modifier *= PowF(2 - buff_multiplier, 10);
         }
 
         NLOG("impact_points = " + impact_points + " damage_received_modifier = " + damage_modifier.damage_received_modifier + ", damage_dealt_modifier = " + damage_modifier.damage_dealt_modifier);
