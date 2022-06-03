@@ -22,6 +22,9 @@
   - [The video guide (manual install)](https://www.youtube.com/watch?v=QBLdV3T2IKs)
   - [The in-depth guide (manual install)](https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/)
 
+# Uninstalling
+ - [The in-depth guide](https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/#part-7)
+
 # Questions?
 If you have questions about the mod, what it offers and how to tweak the settings, the [Random Encounters Reworked Bible](https://aelto.github.io/tw3-random-encounters-reworked/rer-bible/) was made for that
 
