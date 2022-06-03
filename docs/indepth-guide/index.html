@@ -51,6 +51,11 @@
         </ul>
       </li>
     </ul>
+
+    <hr />
+    <ul>
+      <li><a href="#part-7">7.</a> Uninstalling Random Encounters Reworked</li>
+    </ul>
   </section>
 
   <section id="part-1">
@@ -236,7 +241,7 @@
   <section id="part-5">
     <h2>Merging instructions</h2>
     <blockquote class="info">
-      Some patches may simplify your merging process, here are a few
+      Merging instructions for known conflicts
     </blockquote>
 
     <details>
@@ -487,6 +492,112 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section id="part-7">
+    <h2>Uninstalling Random Encounters Reworked</h2>
+
+    <details>
+      <summary>Before removing RER</summary>
+
+      <div>
+        Run the commands:
+        <ul class="spaced">
+          <li><span>rercompletecontract</span></li>
+          <li><span>rerabandonbounties</span></li>
+          <li><span>reruninstall</span></li>
+        </ul>
+
+        Then <b>save your game</b>
+      </div>
+    </details>
+
+    <details>
+      <summary>Removing RER files</summary>
+
+      <ul class="spaced">
+        <li>
+          In your <span>Mods</span> folder:
+          <ul>
+            <li>Remove all folders whose names start with <span>mod_sharedutils</span></li> (the amount of sharedutils mods may vary depending on the version)
+            <li>Remove the <span>modRandomEncountersReworked</span> folder</li>
+          </ul>
+        </li>
+        <li>
+          In your <span>DLC</span> folder:
+          <ul>
+            <li>Remove <span>dlcsharedutils</span></li>
+            <li>Remove <span>dlcModRandomEncountersReworked</span></li>
+          </ul>
+        </li>
+        <li>
+          In your <span>bin/config/r4game/user_config_matrix/pc</span> folder:
+          <ul>
+            <li>Remove <span>modRandomEncountersReworked.xml</span></li>
+          </ul>
+        </li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Removing community patches and shared dependencies</summary>
+
+      <div>
+        The following mods are shared dependencies. RER uses them but other could
+        also need them, which means you may still need them after uninstalling RER.
+      </div>
+
+      <section>
+        <h3>Boostrap</h3>
+
+        <div>
+          It is sometimes needed by lightning mods, or other mods that need to
+          always run in the background. Remove it if you're sure it is not needed
+          anymore.
+        </div>
+
+        <ul class="spaced">
+          <li>
+            In your <span>Mods</span> folder:
+            <ul>
+              <li>Remove <span>mobBootstrap</span></li>
+              <li>Remove <span>modBootstrap-registry</span></li>
+            </ul>
+          </li>
+          <li>
+            In your <span>DLC</span> folder:
+            <ul>
+              <li>Remove <span>dlcBootstrap</span></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Community Patch - Base</h3>
+
+        <div>
+          This patch is often needed by big overhauls like Ghost Mode.
+        </div>
+
+        <ul>
+          <li>
+            In your <span>Mods</span> folder:
+            <ul>
+              <li>Remove <span>mod0000___CompilationTrigger</span> if you have any (RER's installer doesn't add it)</li>
+            </ul>
+          </li>
+        </ul>
+
+        Then head to the <a href="https://www.nexusmods.com/witcher3/mods/3652?tab=files">Community Patch - Base</a>'s files
+        tab, in the optional section get the vanilla scripts that correspond to your version. Refer to the "Uninstallation"
+        section of this mod to understand how to restore the vanilla scripts.
+      </section>
+
+      <p>
+        Once all this is done, you can finally remerge your scripts.
+      </p>
+    </details> 
   </section>
 </body>
 </html>

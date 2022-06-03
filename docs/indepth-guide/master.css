@@ -98,3 +98,7 @@ img:active {
   transform: translate(-50%, -50%);
   max-height: 90%;
 }
+
+ul.spaced li {
+  margin-top: .4em;
+}
