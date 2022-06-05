@@ -96,13 +96,14 @@ statemachine class RER_ContractManager {
     return RER_NoticeboardIdentifier(uuid);
   }
 
-  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficultyLevel, creature_type: CreatureType, generation_time: RER_GenerationTime): RER_ContractIdentifier {
+  public function getUniqueIdFromContract(noticeboard: RER_NoticeboardIdentifier, difficulty: RER_ContractDifficultyLevel, creature_type: CreatureType, generation_time: RER_GenerationTime, optional index: int): RER_ContractIdentifier {
     var uuid: string;
 
     uuid += noticeboard.identifier + "-";
     uuid += RoundF(generation_time.time) + "-";
     uuid += 100 + (int)difficulty.value + "-";
-    uuid += 10 + (int)creature_type;
+    uuid += 10 + (int)creature_type + "-";
+    uuid += IntToString(index);
 
     return RER_ContractIdentifier(uuid);
   }

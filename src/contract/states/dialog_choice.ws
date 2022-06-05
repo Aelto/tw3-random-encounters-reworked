@@ -104,7 +104,8 @@ state DialogChoice in RER_ContractManager {
         noticeboard_identifier,
         selected_difficulty,
         random_creature_type,
-        generation_time
+        generation_time,
+        i
       );
 
       line = GetLocStringByKey("rer_contract_dialog_choice");
@@ -160,8 +161,8 @@ state DialogChoice in RER_ContractManager {
       }
 
       for (i = 0; i < 3; i += 1) {
-		// get the choices starting at 4th from last until 2nd to last, as the last
-		// is the exit choice
+        // get the choices starting at 4th from last until 2nd to last, as the last
+        // is the exit choice
         if (choices[choices.Size() - 4 + i].description == response.description) {
           creature_type = creature_type_choices[i];
 
@@ -173,7 +174,7 @@ state DialogChoice in RER_ContractManager {
         NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
       }
 
-      this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulty, rng);
+      this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulty, rng, i);
     }
   }
 
@@ -192,7 +193,7 @@ state DialogChoice in RER_ContractManager {
       .useSeed(true);
   }
 
-  latent function acceptContract(creature_type: CreatureType, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
+  latent function acceptContract(creature_type: CreatureType, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator, index: int) {
     var contract_data: RER_ContractGenerationData;
     var creature_t: RER_ContractRepresentation;
     var bestiary_entry: RER_BestiaryEntry;
@@ -209,12 +210,15 @@ state DialogChoice in RER_ContractManager {
       noticeboard_identifier,
       contract_data.difficulty_level,
       creature_type,
-      generation_time
+      generation_time,
+      index
     );
 
     rng.setSeed(RER_identifierToInt(contract_data.identifier.identifier));
     rng.next();
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
+
+    NLOG("acceptContract(), contract_data.identifier.identifier = " + contract_data.identifier.identifier + " contract_data.rng_seed = " + contract_data.rng_seed);
 
     contract_data.region_name = SUH_getCurrentRegion();
     contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
