@@ -153,6 +153,10 @@ abstract class CompositionSpawner {
 
     this.bestiary_entry = this.getBestiaryEntry(master);
 
+    if (this.bestiary_entry.isNull()) {
+      return;
+    }
+
     if (!this.getInitialPosition(this.initial_position, master)) {
       LogChannel('modRandomEncounters', "could not find proper spawning position");
 
