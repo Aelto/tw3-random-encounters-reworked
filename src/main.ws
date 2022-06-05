@@ -38,10 +38,17 @@ statemachine class CRandomEncounters extends CEntity {
 
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;
+    var is_enabled: bool;
 
     LogChannel('modRandomEncounters', "RandomEncounter spawned");
 
     theGame.GetEntitiesByTag('RandomEncounterTag', ents);
+
+    is_enabled = theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
+
+    if (!is_enabled) {
+      return false;
+    }
 
     if (ents.Size() > 1) {
       this.Destroy();
