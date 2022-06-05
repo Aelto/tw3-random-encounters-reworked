@@ -47,6 +47,12 @@ statemachine class RER_ContractManager {
       .GetVarValue('RERcontracts', 'RERhoursBeforeNewContracts')
     );
 
+    // special scenario, 0 means it will generate new contracts every time the
+    // board is opened.
+    if (required_time_elapsed <= 0) {
+      return RER_GenerationTime(RoundF(RandF() * 1000 - 500));
+    }
+
     return RER_GenerationTime(time / required_time_elapsed);
   }
 
