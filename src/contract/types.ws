@@ -21,7 +21,14 @@ function RER_identifierToInt(identifier: string): int {
   segment = identifier;
 
   while (StrLen(segment) > 0) {
-    sub = StrBeforeFirst(segment, "-");
+    if (StrFindFirst(segment, "-") >= 0) {
+      sub = StrBeforeFirst(segment, "-");
+    }
+    // if it's the last element
+    else {
+      sub = segment;
+    }
+
     output += StringToInt(sub);
 
     // the +1 is there to exclude the "-"
