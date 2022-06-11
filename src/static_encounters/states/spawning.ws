@@ -57,14 +57,14 @@ state Spawning in RER_StaticEncounterManager {
     // every time the spawning triggers, we loop over the nearby POIs and we spawn
     // any new placeholder static encounter. They are then added to the persistent
     // storage and finally they are manually triggered
-    this.spawnPlaceholderStaticEncounters(
-      master,
-      player_position,
-      max_distance,
-      small_chance,
-      large_chance,
-      current_region
-    );
+    // this.spawnPlaceholderStaticEncounters(
+    //   master,
+    //   player_position,
+    //   max_distance,
+    //   small_chance,
+    //   large_chance,
+    //   current_region
+    // );
   }
 
   private latent function trySpawnStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter, player_position: Vector, max_distance: float, small_chance: float, large_chance: float, current_region: string): bool {
