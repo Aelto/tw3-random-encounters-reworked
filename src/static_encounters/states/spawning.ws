@@ -33,6 +33,11 @@ state Spawning in RER_StaticEncounterManager {
     small_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterSmallSpawnChance'));
     large_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterLargeSpawnChance'));
 
+    // cancel if both options are set to 0
+    if (small_chance + large_chance <= 0) {
+      return;
+    }
+
     player_position = thePlayer.GetWorldPosition();
 
     for (i = 0; i < parent.static_encounters.Size(); i += 1) {
