@@ -23,13 +23,6 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
       )
     );
 
-    this.template_list.templates.PushBack(
-      makeEnemyTemplate(
-        "characters\npc_entities\monsters\ice_giant.w2ent",,,
-        "gameplay\journal\bestiary\icegiant.journal"
-      )
-    );
-
       this.template_list.difficulty_factor.minimum_count_easy = 1;
       this.template_list.difficulty_factor.maximum_count_easy = 1;
       this.template_list.difficulty_factor.minimum_count_medium = 1;
