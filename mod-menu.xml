@@ -7,7 +7,7 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodVersion" value="2.08" />
+                <Entry varId="RERmodVersion" value="2.10" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
