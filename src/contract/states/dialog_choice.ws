@@ -51,6 +51,7 @@ state DialogChoice in RER_ContractManager {
     var creature_type_choices: array<CreatureType>;
     var rng: RandomNumberGenerator;
     var bestiary_entry: RER_BestiaryEntry;
+    var can_select_difficulty: bool;
     var amount_of_options: int;
     var line: string;
     var i: int;
@@ -58,6 +59,8 @@ state DialogChoice in RER_ContractManager {
     generation_time = parent.getGenerationTime(GameTimeHours(theGame.CalculateTimePlayed()));
     reputation_system_enabled = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+    can_select_difficulty = parent.canSelectContractDifficulty();
     
     if (parent.isItTimeToRegenerateContracts(generation_time)) {
       parent.updateStorageGenerationTime(generation_time);
@@ -97,6 +100,19 @@ state DialogChoice in RER_ContractManager {
     }
 
     for (i = 0; i < 3; i += 1) {
+      if (!can_select_difficulty) {
+        selected_difficulty = RER_ContractDifficultyLevel(
+            (int)rng.nextRange(
+            parent.getMaximumDifficultyForReputation(
+              parent.getNoticeboardReputation(noticeboard_identifier)
+            ),
+            0
+          )
+        );
+
+        rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
+      }
+
       random_creature_type = RER_getSeededRandomCreatureType(parent.master, selected_difficulty, rng);
       creature_type_choices.PushBack(random_creature_type);
 

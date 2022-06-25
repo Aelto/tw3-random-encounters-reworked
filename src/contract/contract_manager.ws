@@ -511,4 +511,9 @@ statemachine class RER_ContractManager {
 
     return board;
   }
+
+  public function canSelectContractDifficulty(): bool {
+    return theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERallowSelectDifficulty');
+  }
 }

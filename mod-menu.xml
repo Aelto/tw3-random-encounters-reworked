@@ -4784,6 +4784,7 @@
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
+            <Var id="RERallowSelectDifficulty" displayName="rer_allow_select_difficulty" displayType="TOGGLE"></Var>
             <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
 
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>

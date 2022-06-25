@@ -23,6 +23,19 @@ state DifficultySelection in RER_ContractManager {
 
     noticeboard_identifier = parent.getUniqueIdFromNoticeboard(parent.getNearbyNoticeboard());
 
+    if (!parent.canSelectContractDifficulty()) {
+      // the player cannot select the difficulty, go straight to the next state.
+      parent.contractHaggleDifficultySelected(
+        RER_ContractDifficultyLevel(
+          parent.getMaximumDifficultyForReputation(
+            parent.getNoticeboardReputation(noticeboard_identifier)
+          )
+        )
+      );
+
+      return;
+    }
+
     haggle_module_dialog = new RER_ContractModuleDialog in parent;
     haggle_module_dialog.openDifficultySelectorWindow(parent, noticeboard_identifier);
   }
