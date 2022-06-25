@@ -27,15 +27,15 @@ function RER_contractRewardTypeToItemName(type: RER_ContractRewardType): name {
   return item_name;
 }
 
-latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name): array<RER_LootTableItemResult> {
-  var loot_table_container: W3AnimatedContainer;
+latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, loot_table_container: W3AnimatedContainer, item: name, optional count: int): array<RER_LootTableItemResult> {
   var results: array<RER_LootTableItemResult>;
   var output: array<RER_LootTableItemResult>;
   var loot_tables: array<name>;
   var amount: int;
   var index: int;
 
-  thePlayer.GetInventory().RemoveItemByName(item, 1);
+  count = Max(1, count);
+  inventory.RemoveItemByName(item, count);
 
   if (item == 'rer_token_experience') {
     // re-use the index variable here
@@ -126,7 +126,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
       break;
   }
 
-  loot_table_container = RER_createSourceContainerForLootTables(master);
+  amount *= count;
   while (amount > 0) {
     index = RandRange(loot_tables.Size());
     amount -= 1;
@@ -142,7 +142,6 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
       output.PushBack(results[index]);
     }
   }
-  loot_table_container.Destroy();
 
   return output;
 }

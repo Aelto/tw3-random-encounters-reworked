@@ -236,6 +236,12 @@ latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContai
 
   inventory.GiveAllItemsTo(target_inventory);
 
+    // remove tags:
+  target_inventory.ManageItemsTag(items, theGame.params.TAG_DONT_SHOW, false);
+  target_inventory.ManageItemsTag(items, 'NoDrop', false);
+  target_inventory.ManageItemsTag(items, 'EncumbranceOff', false);
+  target_inventory.ManageItemsTag(items, 'NoUse', false);
+
   return output;
 }
 
