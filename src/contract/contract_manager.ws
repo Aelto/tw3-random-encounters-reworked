@@ -465,7 +465,29 @@ statemachine class RER_ContractManager {
       10 + reputation * 5,
       0,
       50
-    );
+    ) + reputation;
+  }
+
+  public function getImpactPointsForDifficulty(difficulty: RER_ContractDifficultyLevel): float {
+    // difficulty at 0 = -12.000000
+    // difficulty at 10 = -7.843841
+    // difficulty at 20 = -2.853748
+    // difficulty at 40 = 21.515038
+    // difficulty at 50 = 49.504101
+    // difficulty at 60 = 72.304886
+    // difficulty at 80 = 116.740753
+    // difficulty at 99 = 158.036987
+    //
+    // tweak the last number to control how low it can go in the negatives.
+    // Lower the number the higher it starts.
+    //
+    // Cap the level to 50 in the exponential function to avoid crazy numbers
+    // at higher levels
+    return ExpF(Min(difficulty.value, 50) * 0.055)
+         * LogF(difficulty.value + 1)
+         // add a linear function for levels above 50
+         + Max(0, difficulty.value - 50) * 2
+         - 12;
   }
 
   public function getNearbyNoticeboard(): W3NoticeBoard {

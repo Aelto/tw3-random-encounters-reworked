@@ -144,21 +144,7 @@ state Processing in RER_ContractManager {
       getGroundPosition(position, 1, 20);
     }
 
-    // difficulty at: 0 -> -12
-    // difficulty at: 5 -> -9.641093696776737
-    // difficulty at: 10 -> -7.843840781892263
-    // difficulty at: 15 -> -5.673283124552092
-    // difficulty at: 20 -> -2.853749133448721
-    // difficulty at: 25 -> 0.8860217785568807
-    // difficulty at: 30 -> 5.880702100547879
-    // difficulty at: 35 -> 12.56555507018184
-    // difficulty at: 40 -> 21.51503803312785
-    // difficulty at: 45 -> 33.4907957141713
-    // difficulty at: 50 -> 49.50410100552187
-    //
-    // tweak the last number to control how low it can go in the negatives.
-    // Lower the number the higher it starts.
-    impact_points = ExpF(active_contract.difficulty_level.value * 0.055) * LogF(active_contract.difficulty_level.value + 1) - 12;
+    impact_points = parent.getImpactPointsForDifficulty(active_contract.difficulty_level);
     impact_points = rng.nextRange(
       impact_points + 2,
       impact_points - 2
