@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<redxml>
+  <definitions>
+    <loot_definitions>
+
+      <loot name="rer_materials" player_level_min="0" player_level_max="0" quantity_min="2" quantity_max="6"  chance="100">
+        <loot_entry name="Bear fat" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Raw meat" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Bear pelt" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="White bear pelt" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous brain" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous blood" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous bone" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous claw" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous ear" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous eye" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous hair" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous heart" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous liver" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous saliva" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous tongue" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous tooth" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Berserker pelt" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Dog tallow" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Wolf liver" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Wolf pelt" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="White wolf pelt" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Arachas eyes" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Arachas venom" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Chitin scale" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Arachas mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Cyclops eye" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Old bear skin" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Infused shard" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Orens" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous hide" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Czart hide" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Czart mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous egg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph yrden lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Dragon scales" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Skull" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Lesser mutagen red" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Basilisk plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Basilisk venom" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Basilisk mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Cockatrice egg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Cockatrice maw" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous feather" player_level_min="0" player_level_max="0" quantity_min="3" quantity_max="5" chance="100" respawn_time="0" />
+				<loot_entry name="Cockatrice mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Forktail mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Forktail plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Wyvern egg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Wyvern plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Wyvern mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Shell" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Seashell" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Drowner brain" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Drowned dead tongue" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Lesser mutagen blue" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Water essence" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Endriag embryo" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Endriag heart" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph aard lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Venom extract" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Endriag chitin plates" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Lesser mutagen green" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Dao mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Elemental essence" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph quen lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Fifth essence" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Fiend eye" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="mh107_fiend_dung" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Fiend mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Fogling teeth" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Fogling 1 mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Gargoyle heart" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Gargoyle dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune stribog lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune morana lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Ghoul blood" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Alghoul bone marrow" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Gold ruby ring" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Alghoul claw" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Rotten meat" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Deer hide" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Monstrous essence" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune zoria lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Infused crystal" player_level_min="20" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Golem heart" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Infused dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune dazhbog greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune stribog greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Grave Hag ear" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Hag teeth" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Rune triglav greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Grave Hag mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Water Hag teeth" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Ducal water" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Ribleaf" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Water Hag mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Gryphon egg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Gryphon feathers" player_level_min="0" player_level_max="0" quantity_min="3" quantity_max="5" chance="100" respawn_time="0" />
+				<loot_entry name="Gryphon mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Volcanic Gryphon mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Amber dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Harpy egg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Harpy feathers" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Harpy talon" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Erynie eye" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Ekimma epidermis" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Vampire saliva" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Vampire fang" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Ekimma mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Katakan mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Leshy resin" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Fiber" player_level_min="0" player_level_max="0" quantity_min="3" quantity_max="5" chance="100" respawn_time="0" />
+				<loot_entry name="Timber" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Leshy mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Hardened timber" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Ancient Leshy mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Necrophage skin" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nekker heart" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nekker blood" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nekker claw" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nekker eye" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Crystalized essence" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nekker warrior liver" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nekker Warrior mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rotfiend blood" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Greater Rotfiend blood" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Siren vocal cords" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Lamia lock of hair" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Lamia mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Perfume" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Flowers" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Succubus mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Troll skin" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Troll mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Cave Troll liver" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Werewolf saliva" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Werewolf pelt" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Werewolf mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph axii lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune dazhbog lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Voodoo doll" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Calcium equum" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Rune triglav lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune svarog lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Wolfsbane" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Powdered pearl" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Wraith essence" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Wraith mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Specter dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Amethyst dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="2" chance="100" respawn_time="0" />
+				<loot_entry name="Emerald dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nightwraith mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Nightwraith dark essence" player_level_min="0" player_level_max="0" quantity_min="2" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Nightwraiths hair" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Lunar shards" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Noonwraith light essence" player_level_min="0" player_level_max="0" quantity_min="2" quantity_max="3" chance="100" respawn_time="0" />
+				<loot_entry name="Noonwraith mutagen" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Sapphire dust" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Sulfur" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Phosphorus" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Runestone lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune devana lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune veles lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune perun lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune elemental lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph infusion lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph igni lesser" player_level_min="13" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune devana greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune zoria greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune morana greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune svarog greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune veles greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune perun greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Rune elemental greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph aard greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph axii greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph igni greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph quen greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Glyph yrden greater" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" respawn_time="0" />
+				<loot_entry name="Bison Grass" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Arenaria" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="White myrtle" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Cortinarius" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Blowbill" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Celandine" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Mistletoe" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Honeysuckle" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Mandrake root" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Allspice root" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Beggartick blossoms" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Fools parsley leaves" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Moleyarrow" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Longrube" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Nostrix" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Balisse fruit" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Berbercane fruit" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Ginatia petals" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Hellebore petals" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Bryonia" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Ranogrin" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Hornwort" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Pringrape" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Bloodmoss" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Sewant mushrooms" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Hop umbels" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Pigskin puffball" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Verbena" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Han" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Crows eye" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Ergot seeds" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Green mold" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Alcohest" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Dwarven spirit" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Alchemical paste" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Saltpetre" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Stammelfords dust" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Alchemists powder" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Optima mater" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Quicksilver solution" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Wine stone" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+      </loot>
+
+			<loot name="rer_gear" player_level_min="0" player_level_max="0" quantity_min="2" quantity_max="2"  chance="100">
+				<loot_entry name="Voodoo doll" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Oathbreaker armor" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Shadaal armor" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Shiadhal armor" player_level_min="25" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Thyssen armor" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Zireael armor" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Addandeith" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Aerondight" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Anathema" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Anth" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Arainne" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Azurewrath" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Bladeofys" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Bloodsword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Breathofthenorth" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Deargdeith" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Deithwen" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Fate" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gynvael" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gynvaelaedd" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Harpy" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Havcaaren" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Loathen" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Moonblade" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Naevdeseidhe" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Negotiator" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Reachofthedamned" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Roseofaelirenn" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Tlareg" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Torzirael" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Virgin" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Weeper" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Zerrikanterment" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Abarad" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Angivare" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Arbitrator" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Ardaenye" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Ashrune" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Barbersurgeon" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Beannshie" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Blackunicorn" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Bloedeaedd" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Caerme" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Caroline" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Cleaver" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dancer" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Daystar" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Deireadh" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Devine" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dyaebl" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Forgottenvransword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gloryofthenorth" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gwestog" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gwyhyr" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Harvall" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Headtaker" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Inis" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Karabela" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Longclaw" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Lune" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Mourner" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Princessxenthiasword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Robustswordofdolblathanna" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Torlara" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Ultimatum" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Vynbleidd" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Wolf" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="armor_repair_kit_3" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="2" chance="100" />
+				<loot_entry name="weapon_repair_kit_3" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="2" chance="100" />
+				<loot_entry name="Pants 02" player_level_min="3" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Glyph quen lesser" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Crossbow 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gloves 01 q2" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Wine stone" player_level_min="0" player_level_max="100" quantity_min="2" quantity_max="2" chance="100" />
+				<loot_entry name="Blunt Bolt Legendary" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="5" chance="100" />
+				<loot_entry name="Blunt Bolt" player_level_min="0" player_level_max="100" quantity_min="20" quantity_max="20" chance="100" />
+				<loot_entry name="Child doll" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Sea shell" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Candy" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Split Bolt" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="No Mans Land sword 3" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gloves 02" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Ruby" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Bear fat" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="2" chance="100" />
+				<loot_entry name="Dog tallow" player_level_min="0" player_level_max="100" quantity_min="0" quantity_max="1" chance="100" />
+				<loot_entry name="Vampires vol 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Bottled water" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rotten meat" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Fishing rod" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Fishing net" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Wire rope" player_level_min="0" player_level_max="100" quantity_min="0" quantity_max="1" chance="100" />
+				<loot_entry name="Pearl" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rune svarog lesser" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Hardened timber" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver plate" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver ore" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="5" chance="100" />
+				<loot_entry name="W_Axe02" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver mineral" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="5" chance="100" />
+				<loot_entry name="Saltpetre" player_level_min="0" player_level_max="100" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Horse Blinder 3" player_level_min="25" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="gwint_card_fire_elemental" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Butter Bandalura" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Nilfgaardian sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Explosive Bolt" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Medium armor 11" player_level_min="30" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Coal" player_level_min="0" player_level_max="100" quantity_min="3" quantity_max="3" chance="100" />
+				<loot_entry name="Timber" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="3" chance="100" />
+				<loot_entry name="Twine" player_level_min="0" player_level_max="100" quantity_min="0" quantity_max="1" chance="100" />
+				<loot_entry name="No Mans Land sword 1 q2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Novigraadan sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="No Mans Land sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Tracking Bolt" player_level_min="0" player_level_max="100" quantity_min="0" quantity_max="10" chance="100" />
+				<loot_entry name="Novigraadan sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver amber necklace" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Bait Bolt" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Pants 03" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Inquisitor sword 2 schematic" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Inquisitor sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Split Bolt Legendary" player_level_min="0" player_level_max="100" quantity_min="10" quantity_max="10" chance="100" />
+				<loot_entry name="Broadhead Bolt Legendary" player_level_min="0" player_level_max="100" quantity_min="20" quantity_max="20" chance="100" />
+				<loot_entry name="Viziman Champion" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="5" chance="100" />
+				<loot_entry name="Leather straps" player_level_min="0" player_level_max="100" quantity_min="50" quantity_max="50" chance="100" />
+				<loot_entry name="Explosive Bolt schematic" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rose of memories" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Deer hide" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="2" chance="100" />
+				<loot_entry name="Rope" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 01 q2" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Leather" player_level_min="0" player_level_max="100" quantity_min="5" quantity_max="5" chance="100" />
+				<loot_entry name="Novigraadan sword 3" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver sword 4" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="No Mans Land sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Inquisitor sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Skellige sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Elven silver sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rusty Skellige sword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dwarven sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rusty Novigraadan sword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Skellige sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rusty No Mans Land sword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dwarven sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Crossbow 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Scoiatael sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver sword 2" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Rusty Nilfgaardian sword" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver sword 3" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Elven silver sword 1" player_level_min="0" player_level_max="100" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 1" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 1v2" player_level_min="2" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 1v3" player_level_min="4" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 1v4" player_level_min="8" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 2" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 2v2" player_level_min="12" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 2v3" player_level_min="14" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 2v4" player_level_min="16" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 3" player_level_min="18" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 3v2" player_level_min="20" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 3v3" player_level_min="23" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 3v4" player_level_min="26" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Saddle 4" player_level_min="30" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Blinder 1" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Blinder 2" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Bag 1" player_level_min="6" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Bag 2" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Horse Bag 3" player_level_min="25" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 02" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 03" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 04" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 06" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 07" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 08" player_level_min="20" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Light armor 09" player_level_min="30" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 02" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 03" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 04" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 05" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 07" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Medium armor 10" player_level_min="30" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy armor 01" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy armor 02" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy armor 03" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy armor 04" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy armor 05" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Pants 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Pants 01 q2" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy pants 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy pants 02" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy pants 03" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 02" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 03" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 04" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 05" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 06" player_level_min="20" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Boots 07" player_level_min="30" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 02" player_level_min="5" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 03" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 04" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 05" player_level_min="20" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 06" player_level_min="20" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 07" player_level_min="25" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy boots 08" player_level_min="30" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gloves 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gloves 03" player_level_min="10" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy gloves 01" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy gloves 02" player_level_min="8" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy gloves 03" player_level_min="15" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Heavy gloves 04" player_level_min="25" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Steel plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dark steel plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Meteorite silver plate" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+      </loot>
+
+			<loot name="rer_gold" player_level_min="0" player_level_max="0" quantity_min="2" quantity_max="6"  chance="100">
+        <loot_entry name="Crowns" player_level_min="0" player_level_max="0" quantity_min="7" quantity_max="23" chance="100" />
+				<loot_entry name="Florens" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="20" chance="100" />
+				<loot_entry name="Orens" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="20" chance="100" />
+				<loot_entry name="Pearl" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Black pearl" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Diamond" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Amethyst" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Amber" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Emerald" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Ruby" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Sapphire" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold ruby ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold pearl necklace" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold sapphire ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold sapphire necklace" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold diamond ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold diamond necklace" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gold candelabra" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Golden mug" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Golden platter" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Golden casket" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver amber ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver sapphire ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver emerald ring" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver emerald necklace" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver amber necklace" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver ruby necklace" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver mug" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver platter" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver casket" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Silver plate" player_level_min="1" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+      </loot>
+
+			<loot name="rer_consumables" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="8"  chance="100">
+        <loot_entry name="Bottled water" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Empty bottle" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="5" chance="100" />
+				<loot_entry name="Bread" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="10" chance="100" />
+				<loot_entry name="Onion" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Baked potato" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="10" chance="100" />
+				<loot_entry name="Mandrake cordial" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Cherry Cordial" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Mahakam Spirit" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Nilfgaardian Lemon" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Baked apple" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="10" chance="100" />
+				<loot_entry name="Chicken" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Chicken leg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dried fruit" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Dried fruit and nuts" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Gutted fish" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Mutton leg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Pepper" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Pork" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Raw meat" player_level_min="0" player_level_max="0" quantity_min="2" quantity_max="4" chance="100" />
+				<loot_entry name="Bun" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Chips" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Chicken sandwich" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Fried fish" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Apple" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Dumpling" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="10" chance="100" />
+				<loot_entry name="Egg" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="20" chance="100" />
+				<loot_entry name="Fish" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Mushroom" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Potatoes" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Apple juice" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Cows milk" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Kaedwenian Stout" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Coal" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="15" chance="100" />
+				<loot_entry name="Silk" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="15" chance="100" />
+				<loot_entry name="Twine" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="15" chance="100" />
+				<loot_entry name="Timber" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="15" chance="100" />
+				<loot_entry name="Oil" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Wire" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Crows eye" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Ergot seeds" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Green mold" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Flowers" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="5" chance="100" />
+				<loot_entry name="Redanian Herbal" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Grilled chicken sandwich" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Grilled pork" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Ham sandwich" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Mutton curry" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Roasted chicken" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Roasted chicken leg" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Fried meat" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Goats milk" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Raspberry juice" player_level_min="0" player_level_max="0" quantity_min="1" quantity_max="1" chance="100" />
+				<loot_entry name="Temerian Rye" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Viziman Champion" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Redanian Lager" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Rivian Kriek" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Fisstech" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Glamarye" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="7" chance="100" />
+				<loot_entry name="Dijkstra Dry" player_level_min="0" player_level_max="0" quantity_min="5" quantity_max="10" chance="100" />
+				<loot_entry name="Erveluce" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Alcohest" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+				<loot_entry name="Dwarven spirit" player_level_min="0" player_level_max="0" quantity_min="4" quantity_max="5" chance="100" />
+      </loot>
+
+    </loot_definitions>
+  </definitions>  
+</redxml>

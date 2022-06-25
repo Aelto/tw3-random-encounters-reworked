@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <W3Mod xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <LastOpenedFiles />
+  <LastOpenedFiles>
+    <string>D:\dev\github\tw3-random-encounters-reworked\modRandomEncountersReworked\files\Mod\Cooked\dlc\modtemplates\randomencounterreworkeddlc\data\container_all_loottables.w2ent</string>
+  </LastOpenedFiles>
   <Name>modRandomEncountersReworked</Name>
   <Version>0.62</Version>
 </W3Mod>

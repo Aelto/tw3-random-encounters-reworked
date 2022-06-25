@@ -25,6 +25,7 @@ state Loading in RER_MonsterNest {
     // add custom loot to the nest, it uses the killing spree loot.
     entities.PushBack((CEntity)parent);
     RER_addKillingSpreeCustomLootToEntities(
+      parent.master,
       entities,
       parent.master.settings.killing_spree_loot_tables,
       1.5

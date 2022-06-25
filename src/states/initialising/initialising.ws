@@ -81,6 +81,15 @@ state Initialising in CRandomEncounters {
       current_version = 2.09;
     }
 
+    if (current_version < 2.10) {
+      NDEBUG("[RER] The mod was updated to v2.10: the Killing Spree & Container Refill settings were reset");
+
+      config.ApplyGroupPreset('RERkillingSpreeCustomLoot', 0);
+      config.ApplyGroupPreset('RERcontainerRefill', 0);
+
+      current_version = 2.10;
+    }
+
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }

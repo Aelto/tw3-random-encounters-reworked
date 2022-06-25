@@ -300,6 +300,7 @@ abstract class RER_BestiaryEntry {
     }
 
     RER_addKillingSpreeCustomLootToEntities(
+      master,
       created_entities,
       master.settings.killing_spree_loot_tables,
       master.ecosystem_frequency_multiplier
