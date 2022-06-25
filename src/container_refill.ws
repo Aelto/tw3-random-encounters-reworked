@@ -135,10 +135,30 @@ struct RER_LootTable {
 function RER_getLootTables(inGameConfigWrapper: CInGameConfigWrapper): array<RER_LootTable> {
   var loot_tables: array<RER_LootTable>;
 
-  loot_tables.PushBack(RER_LootTable('rer_gold', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTableGold'))));
-  loot_tables.PushBack(RER_LootTable('rer_gear', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTableGear'))));
-  loot_tables.PushBack(RER_LootTable('rer_consumables', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTableConsumables'))));
-  loot_tables.PushBack(RER_LootTable('rer_materials', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTableMaterials'))));
+  loot_tables.PushBack(RER_LootTable('_generic food_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_food_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_generic alco_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_alco_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_generic gold_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_gold_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_loot dwarven body_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__loot_dwarven_body_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_loot badit body_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__loot_badit_body_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_generic chest_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__generic_chest_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_prolog', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_prolog'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_nml', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_nml'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_novigrad', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_novigrad'))));
+  loot_tables.PushBack(RER_LootTable('_herbalist area_skelige', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__herbalist_area_skelige'))));
+  loot_tables.PushBack(RER_LootTable('_dungeon_everywhere', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__dungeon_everywhere'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q1', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q1'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q2', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q2'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q3', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q3'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q4', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q4'))));
+  loot_tables.PushBack(RER_LootTable('_treasure_q5', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__treasure_q5'))));
+  loot_tables.PushBack(RER_LootTable('_unique_runes', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_runes'))));
+  loot_tables.PushBack(RER_LootTable('_unique_armorupgrades', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_armorupgrades'))));
+  loot_tables.PushBack(RER_LootTable('_unique_ingr', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_ingr'))));
+  loot_tables.PushBack(RER_LootTable('_weapons_nml', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__weapons_nml'))));
+  loot_tables.PushBack(RER_LootTable('_unique_weapons_epic_dungeon_nml', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__unique_weapons_epic_dungeon_nml'))));
+  loot_tables.PushBack(RER_LootTable('_uniqe_weapons_epic_dungeon_skelige', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__uniqe_weapons_epic_dungeon_skelige'))));
+  loot_tables.PushBack(RER_LootTable('_loot_monster_treasure_uniq_swords', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__loot_monster_treasure_uniq_swords'))));
+  loot_tables.PushBack(RER_LootTable('_uniq_armors', StringToInt(inGameConfigWrapper.GetVarValue('RERcontainerRefill', 'RERlootTable__uniq_armors'))));
 
   return loot_tables;
 }
@@ -215,12 +235,6 @@ latent function RER_addItemsFromLootTable(loot_table_container: W3AnimatedContai
   }
 
   inventory.GiveAllItemsTo(target_inventory);
-
-  // remove tags:
-  target_inventory.ManageItemsTag(items, theGame.params.TAG_DONT_SHOW, false);
-  target_inventory.ManageItemsTag(items, 'NoDrop', false);
-  target_inventory.ManageItemsTag(items, 'EncumbranceOff', false);
-  target_inventory.ManageItemsTag(items, 'NoUse', false);
 
   return output;
 }

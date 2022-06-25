@@ -27,14 +27,15 @@ function RER_contractRewardTypeToItemName(type: RER_ContractRewardType): name {
   return item_name;
 }
 
-latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, loot_table_container: W3AnimatedContainer, item: name, optional amount: int): array<RER_LootTableItemResult> {
+latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, inventory: CInventoryComponent, item: name): array<RER_LootTableItemResult> {
+  var loot_table_container: W3AnimatedContainer;
   var results: array<RER_LootTableItemResult>;
   var output: array<RER_LootTableItemResult>;
-  var loot_table: name;
+  var loot_tables: array<name>;
+  var amount: int;
   var index: int;
 
-  amount = Max(1, amount);
-  inventory.RemoveItemByName(item, amount);
+  thePlayer.GetInventory().RemoveItemByName(item, 1);
 
   if (item == 'rer_token_experience') {
     // re-use the index variable here
@@ -48,44 +49,100 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
     return output;
   }
 
+  amount = 1;
+
   switch (item) {
     case 'rer_token_gear':
-      loot_table = 'rer_gear';
+      loot_tables.PushBack('_weapons_nml');
+      loot_tables.PushBack('_unique_weapons_epic_dungeon_nml');
+      loot_tables.PushBack('_uniqe_weapons_epic_dungeon_skelige');
+      loot_tables.PushBack('_loot_monster_treasure_uniq_swords');
+      loot_tables.PushBack('_uniq_armors');
 
       theSound.SoundEvent("gui_inventory_weapon_attach");
       break;
     
     case 'rer_token_consumables':
-      loot_table = 'rer_consumables';
+      loot_tables.PushBack('_generic food_everywhere');
+      loot_tables.PushBack('_generic alco_everywhere');
+      loot_tables.PushBack('q401_cooking_container');
+      loot_tables.PushBack('sq301_container_fancy_food');
+      loot_tables.PushBack('sq301_container_drinks_only');
+      loot_tables.PushBack('sq301_container_countryside_food');
+      loot_tables.PushBack('sq301_container_countryside_drinks');
 
+      amount = 5;
       theSound.SoundEvent("gui_pick_up_herbs");
       break;
     
     case 'rer_token_gold':
-      loot_table = 'rer_gold';
+      if (RER_playerUsesEnhancedEditionRedux()) {
+        loot_tables.PushBack('sk30_treasure_chest'); // valuables
+        loot_tables.PushBack('Nest addon upgrade'); // valuables
+
+        // this loot table was removed because it is now missing in EE Redux
+        // loot_tables.PushBack('cp14_chest'); // orens
+
+        amount = 1;
+      }
+      else {
+        loot_tables.PushBack('_generic gold_everywhere');
+        loot_tables.PushBack('_valuables');
+
+        amount = 8;
+      }
 
       theSound.SoundEvent("gui_inventory_buy");
       break;
     
     case 'rer_token_materials':
-      loot_table = 'rer_materials';
+      loot_tables.PushBack('Siren Nest');
+      loot_tables.PushBack('Rotfiend Nest');
+      loot_tables.PushBack('Nekker Nest');
+      loot_tables.PushBack('Harpy Nest');
+      loot_tables.PushBack('Ghoul Nest');
+      loot_tables.PushBack('Endriaga Nest');
+      loot_tables.PushBack('Drowner Nest');
+      loot_tables.PushBack('Draconide Nest');
+      loot_tables.PushBack('Ghoul Nest');
+      loot_tables.PushBack('Ghoul Nest');
+      loot_tables.PushBack('Ghoul Nest');
+      loot_tables.PushBack('q401_trial_additional_ingredients_container');
+
+      if (!RER_playerUsesEnhancedEditionRedux()) {
+        loot_tables.PushBack('_dungeon_everywhere');
+        loot_tables.PushBack('_treasure_q1');
+        loot_tables.PushBack('_treasure_q2');
+        loot_tables.PushBack('_treasure_q3');
+        loot_tables.PushBack('_treasure_q4');
+        loot_tables.PushBack('_treasure_q5');
+        loot_tables.PushBack('_unique_armorupgrades');
+        loot_tables.PushBack('_unique_ingr');
+      }
+
+      amount = 5;
 
       theSound.SoundEvent("gui_inventory_potion_attach");
       break;
   }
 
+  loot_table_container = RER_createSourceContainerForLootTables(master);
   while (amount > 0) {
+    index = RandRange(loot_tables.Size());
     amount -= 1;
+
+    NLOG("RER_applyLootFromContractTokenName =" + index + ", " + loot_tables[index]);
 
     Sleep(0.2);
 
-    results = RER_addItemsFromLootTable(loot_table_container, inventory, loot_table);
+    results = RER_addItemsFromLootTable(loot_table_container, inventory, loot_tables[index]);
 
     // re use the index variable here:
     for (index = 0; index < results.Size(); index += 1) {
       output.PushBack(results[index]);
     }
   }
+  loot_table_container.Destroy();
 
   return output;
 }

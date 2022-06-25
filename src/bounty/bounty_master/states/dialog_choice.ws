@@ -159,16 +159,6 @@ state DialogChoice in RER_BountyMasterManager {
           'CloseDialog'
         ));
       }
-      else {
-        choices.PushBack(SSceneChoice(
-          GetLocStringByKey('rer_trade_all_tokens'),
-          true,
-          false,
-          false,
-          DialogAction_SHOPPING,
-          'TradeAllTokens'
-        ));
-      }
 
       choices.PushBack(SSceneChoice(
         GetLocStringByKey('rer_cancel'),
@@ -186,13 +176,7 @@ state DialogChoice in RER_BountyMasterManager {
         return;
       }
 
-      if (response.playGoChunk == 'TradeAllTokens') {
-        tradeAllTokens();
-
-        return;
-      }
-
-      this.addRewardToLootBag(response.playGoChunk, thePlayer.GetInventory());
+      this.addRewardToLootBag(response.playGoChunk);
     }
   }
 
@@ -222,75 +206,28 @@ state DialogChoice in RER_BountyMasterManager {
     ));
   }
 
-  latent function tradeAllTokens() {
-    var loot_table_container: W3AnimatedContainer;
-    var inventories: array<CInventoryComponent>;
-    var possibles_token_names: array<name>;
-    var inventory: CInventoryComponent;
-    var quantity: int;
-    var i: int;
-    var k: int;
-
-    loot_table_container = RER_createSourceContainerForLootTables(parent.bounty_manager.master);
-    possibles_token_names.PushBack(RER_contractRewardTypeToItemName(ContractRewardType_GEAR));
-    possibles_token_names.PushBack(RER_contractRewardTypeToItemName(ContractRewardType_CONSUMABLES));
-    possibles_token_names.PushBack(RER_contractRewardTypeToItemName(ContractRewardType_EXPERIENCE));
-    possibles_token_names.PushBack(RER_contractRewardTypeToItemName(ContractRewardType_GOLD));
-    possibles_token_names.PushBack(RER_contractRewardTypeToItemName(ContractRewardType_MATERIALS));
-
-    // first the player's inventory
-    inventories.PushBack(thePlayer.GetInventory());
-    inventories.PushBack(GetWitcherPlayer().GetHorseManager().GetInventoryComponent());
-
-    for (i = 0; i < inventories.Size(); i += 1) {
-      inventory = inventories[i];
-
-      for (k = 0; k < possibles_token_names.Size(); k += 1) {
-        quantity = inventory.GetItemQuantityByName(possibles_token_names[k]);
-
-        RER_applyLootFromContractTokenName(
-          parent.bounty_manager.master,
-          inventory,
-          loot_table_container,
-          possibles_token_names[k],
-          quantity
-        );
-      }
-    }
-
-    loot_table_container.Destroy();
-  }
-
-  latent function addRewardToLootBag(reward_name: name, inventory: CInventoryComponent) {
-    var loot_table_container: W3AnimatedContainer;
+  latent function addRewardToLootBag(reward_name: name) {
     var current_result: RER_LootTableItemResult;
     var items: array<RER_LootTableItemResult>;
+    var inventory: CInventoryComponent;
     var message: string;
     var i: int;
-
-    loot_table_container = RER_createSourceContainerForLootTables(parent.bounty_manager.master);
 
     if (reward_name == 'rer_token_experience') {
       RER_applyLootFromContractTokenName(
         parent.bounty_manager.master,
         NULL,
-        loot_table_container,
         reward_name
       );
-
-      loot_table_container.Destroy();
 
       return;
     }
 
     items = RER_applyLootFromContractTokenName(
       parent.bounty_manager.master,
-      inventory,
-      loot_table_container,
+      thePlayer.GetInventory(),
       reward_name
     );
-
-    loot_table_container.Destroy();
   }
 
   function removeTrophyChoiceFromList(out choices: array<SSceneChoice>) {

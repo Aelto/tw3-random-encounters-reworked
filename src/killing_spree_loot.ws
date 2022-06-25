@@ -1,6 +1,6 @@
 
 // The ecosystem strength is a value that goes from 0 to 1, and 1 means 100%
-latent function RER_addKillingSpreeCustomLootToEntities(master: CRandomEncounters, entities: array<CEntity>, loot_tables: array<RER_KillingSpreeLootTable>, ecosystem_strength: float) {
+function RER_addKillingSpreeCustomLootToEntities(entities: array<CEntity>, loot_tables: array<RER_KillingSpreeLootTable>, ecosystem_strength: float) {
   var table: RER_KillingSpreeLootTable;
   var entity: CEntity;
   var i: int;
@@ -33,26 +33,17 @@ latent function RER_addKillingSpreeCustomLootToEntities(master: CRandomEncounter
 
     for (k = 0; k < entities.Size(); k += 1) {
       if (RandRange(100) <= table.droprate * (1 + ecosystem_strength)) {
-        RER_addLootTableToEntity(master, entities[i], table);
+        RER_addLootTableToEntity(entities[i], table);
       }
     }
   }
 }
 
-latent function RER_addLootTableToEntity(master: CRandomEncounters, entity: CEntity, loot_table: RER_KillingSpreeLootTable) {
-  var loot_table_container: W3AnimatedContainer;
-
+function RER_addLootTableToEntity(entity: CEntity, loot_table: RER_KillingSpreeLootTable) {
   NLOG("loot table applied to entity: " + loot_table.table_name);
 
-  loot_table_container = RER_createSourceContainerForLootTables(master);
-
-  RER_addItemsFromLootTable(
-    loot_table_container,
-    ((CGameplayEntity)entity).GetInventory(),
-    loot_table.table_name
-  );
-
-  loot_table_container.Destroy();
+  ((CGameplayEntity)entity).GetInventory().AddItemsFromLootDefinition(loot_table.table_name);
+  ((CGameplayEntity)entity).GetInventory().UpdateLoot();
 }
 
 
@@ -78,35 +69,196 @@ function RER_getKillingSpreeLootTables(inGameConfigWrapper: CInGameConfigWrapper
 
   loot_tables.PushBack(
     RER_makeKillingSpreeLootTable(
-      'rer_gold',
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock_gold')),
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate_gold'))
+      '_generic food_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__generic_food_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__generic_food_everywhere'))
     )
   );
 
   loot_tables.PushBack(
     RER_makeKillingSpreeLootTable(
-      'rer_gear',
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock_gear')),
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate_gear'))
+      '_generic alco_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__generic_alco_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__generic_alco_everywhere'))
     )
   );
 
   loot_tables.PushBack(
     RER_makeKillingSpreeLootTable(
-      'rer_consumables',
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock_consumables')),
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate_consumables'))
+      '_generic gold_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__generic_gold_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__generic_gold_everywhere'))
     )
   );
 
   loot_tables.PushBack(
     RER_makeKillingSpreeLootTable(
-      'rer_materials',
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock_materials')),
-      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate_materials'))
+      '_loot dwarven body_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__loot_dwarven_body_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__loot_dwarven_body_everywhere'))
     )
   );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_loot badit body_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__loot_badit_body_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__loot_badit_body_everywhere'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_generic chest_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__generic_chest_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__generic_chest_everywhere'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_herbalist area_prolog',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__herbalist_area_prolog')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__herbalist_area_prolog'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_herbalist area_nml',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__herbalist_area_nml')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__herbalist_area_nml'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_herbalist area_novigrad',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__herbalist_area_novigrad')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__herbalist_area_novigrad'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_herbalist area_skelige',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__herbalist_area_skelige')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__herbalist_area_skelige'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_dungeon_everywhere',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__dungeon_everywhere')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__dungeon_everywhere'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_treasure_q1',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__treasure_q1')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__treasure_q1'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_treasure_q2',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__treasure_q2')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__treasure_q2'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_treasure_q3',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__treasure_q3')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__treasure_q3'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_treasure_q4',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__treasure_q4')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__treasure_q4'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_treasure_q5',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__treasure_q5')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__treasure_q5'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_unique_runes',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__unique_runes')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__unique_runes'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_unique_armorupgrades',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__unique_armorupgrades')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__unique_armorupgrades'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_unique_ingr',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__unique_ingr')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__unique_ingr'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_weapons_nml',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__weapons_nml')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__weapons_nml'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_unique_weapons_epic_dungeon_nml',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__unique_weapons_epic_dungeon_nml')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__unique_weapons_epic_dungeon_nml'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_uniqe_weapons_epic_dungeon_skelige',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__uniqe_weapons_epic_dungeon_skelige')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__uniqe_weapons_epic_dungeon_skelige'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_loot_monster_treasure_uniq_swords',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__loot_monster_treasure_uniq_swords')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__loot_monster_treasure_uniq_swords'))
+    )
+  );
+
+  loot_tables.PushBack(
+    RER_makeKillingSpreeLootTable(
+      '_uniq_armors',
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_unlock__uniq_armors')),
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERkillingSpreeCustomLoot', 'RERlootTable_droprate__uniq_armors'))
+    )
+  );
+
 
   return loot_tables;
 }
