@@ -25,6 +25,10 @@ state Spawning in RER_StaticEncounterManager {
       return;
     }
 
+    // WARNING: if you remove this sleep call the game crashes, at the moment of
+    // writing this comment i have literally no idea of why it would crash.
+    Sleep(10);
+
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
     max_distance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'minSpawnDistance'))

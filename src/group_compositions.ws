@@ -176,6 +176,10 @@ abstract class CompositionSpawner {
       this.encounter_type
     );
 
+    if (this.created_entities.Size() <= 0) {
+      return;
+    }
+
     for (i = 0; i < this.created_entities.Size(); i += 1) {
       this.forEachEntity(
         this.created_entities[i]
