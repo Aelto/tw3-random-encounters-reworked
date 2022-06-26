@@ -42,6 +42,7 @@ state DialogChoice in RER_ContractManager {
   private latent function DialogChoice_prepareAndDisplayDialogueChoices() {
     var noticeboard_identifier: RER_NoticeboardIdentifier;
     var selected_difficulty: RER_ContractDifficultyLevel;
+    var difficulties: array<RER_ContractDifficultyLevel>;
     var contract_identifier: RER_ContractIdentifier;
     var generation_time: RER_GenerationTime;
     var random_creature_type: CreatureType;
@@ -113,6 +114,8 @@ state DialogChoice in RER_ContractManager {
         rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
       }
 
+      difficulties.PushBack(selected_difficulty);
+
       random_creature_type = RER_getSeededRandomCreatureType(parent.master, selected_difficulty, rng);
       creature_type_choices.PushBack(random_creature_type);
 
@@ -149,10 +152,17 @@ state DialogChoice in RER_ContractManager {
       'Cancel'
     ));
 
-    this.displayDialogChoices(choices, creature_type_choices, noticeboard_identifier, generation_time, selected_difficulty, rng);
+    this.displayDialogChoices(choices, creature_type_choices, noticeboard_identifier, generation_time, difficulties, rng);
   }
 
-  latent function displayDialogChoices(choices: array<SSceneChoice>, creature_type_choices: array<CreatureType>, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator) {
+  latent function displayDialogChoices(
+    choices: array<SSceneChoice>,
+    creature_type_choices: array<CreatureType>,
+    noticeboard_identifier: RER_NoticeboardIdentifier,
+    generation_time: RER_GenerationTime,
+    difficulties: array<RER_ContractDifficultyLevel>,
+    rng: RandomNumberGenerator
+  ) {
     var creature_type: CreatureType;
     var response: SSceneChoice;
     var i: int;
@@ -179,6 +189,11 @@ state DialogChoice in RER_ContractManager {
       for (i = 0; i < 3; i += 1) {
         // get the choices starting at 4th from last until 2nd to last, as the last
         // is the exit choice
+        // EDIT: it works because the number of contracts is hardcoded at 3 at
+        // the moment.
+        // EDIT 2: this code is overly complex, why use .Size() and minus 4
+        // instead of simply adding + 2 to `i` since we know there is always
+        // 2 info message before it starts listing the contracts.
         if (choices[choices.Size() - 4 + i].description == response.description) {
           creature_type = creature_type_choices[i];
 
@@ -190,11 +205,15 @@ state DialogChoice in RER_ContractManager {
         NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
       }
 
-      this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulty, rng, i);
+      this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulties[i], rng, i);
     }
   }
 
-  function getRandomNumberGenerator(noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel): RandomNumberGenerator {
+  function getRandomNumberGenerator(
+    noticeboard_identifier: RER_NoticeboardIdentifier,
+    generation_time: RER_GenerationTime,
+    difficulty: RER_ContractDifficultyLevel
+  ): RandomNumberGenerator {
     var rng: RandomNumberGenerator;
     var menu_seed: float;
 
@@ -209,7 +228,14 @@ state DialogChoice in RER_ContractManager {
       .useSeed(true);
   }
 
-  latent function acceptContract(creature_type: CreatureType, noticeboard_identifier: RER_NoticeboardIdentifier, generation_time: RER_GenerationTime, difficulty: RER_ContractDifficultyLevel, rng: RandomNumberGenerator, index: int) {
+  latent function acceptContract(
+    creature_type: CreatureType,
+    noticeboard_identifier: RER_NoticeboardIdentifier,
+    generation_time: RER_GenerationTime,
+    difficulty: RER_ContractDifficultyLevel,
+    rng: RandomNumberGenerator,
+    index: int
+  ) {
     var contract_data: RER_ContractGenerationData;
     var creature_t: RER_ContractRepresentation;
     var bestiary_entry: RER_BestiaryEntry;
@@ -235,6 +261,7 @@ state DialogChoice in RER_ContractManager {
     contract_data.rng_seed = (int)rng.previous_number + rng.seed;
 
     NLOG("acceptContract(), contract_data.identifier.identifier = " + contract_data.identifier.identifier + " contract_data.rng_seed = " + contract_data.rng_seed);
+    NLOG("acceptContract(), difficulty = " + contract_data.difficulty_level.value);
 
     contract_data.region_name = SUH_getCurrentRegion();
     contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
