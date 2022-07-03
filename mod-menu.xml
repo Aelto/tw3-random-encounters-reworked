@@ -4772,6 +4772,8 @@
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
                 <Entry varId="RERallowLearnNewLocations" value="1" />
+                <Entry varId="RERallowSelectDifficulty" value="0" />
+                <Entry varId="RERallowIncreasedEnemyCount" value="1" />
                 <Entry varId="RERcontractsGenerationSeed" value="0" />
 
                 <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
@@ -4785,6 +4787,7 @@
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
             <Var id="RERallowSelectDifficulty" displayName="rer_allow_select_difficulty" displayType="TOGGLE"></Var>
+            <Var id="RERallowIncreasedEnemyCount" displayName="rer_allow_increased_enemy_count" displayType="TOGGLE"></Var>
             <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
 
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>

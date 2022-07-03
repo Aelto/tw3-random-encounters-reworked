@@ -150,6 +150,20 @@ state Processing in RER_ContractManager {
       impact_points - 2
     );
 
+    enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium
+                
+
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERallowIncreasedEnemyCount')) {
+      // caps at 25, which is enough for a shaelmaar
+      enemy_count += (int)MinF(impact_points * 0.25, 25);
+      impact_points *= 0.75;
+
+      // then we take again 5% of the impact points for the enemy count but this
+      // time with no cap at all.
+      enemy_count += (int)(impact_points * 0.05);
+      impact_points *= 0.95;
+    }
+
     entities = bestiary_entry.spawn(
       parent.master,
       position,
