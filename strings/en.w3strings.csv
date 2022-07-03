@@ -524,7 +524,7 @@
 2115018466|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
 2115018467|        |option_rer_medium_far_contracts_number|UNUSED
 2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Reputation system:</font> enabled
-2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for <font color="#d4a72c">medium</font & vanilla contracts
+2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for vanilla contracts
 2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point
 2115018471|        |rer_mappin_bounty_side_target_title|Bounty side target
 2115018472|        |rer_mappin_bounty_side_target_description|A group of {{creature_type}} was seen in the area. Kill them and increase your rewards.
@@ -533,4 +533,4 @@
 2115018475|        |rer_difficulty|Difficulty
 2115018476|        |rer_bounty_start_popup_title|Bounty information
 2115018477|        |rer_trade_all_tokens|Trade all tokens
-2115018478|        |rer_allow_select_difficulty|Allow selecting contracts difficulty
+2115018478|        |option_rer_allow_select_difficulty|Allow selecting contracts difficulty
