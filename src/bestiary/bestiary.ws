@@ -2,6 +2,7 @@
 class RER_Bestiary {
   var entries: array<RER_BestiaryEntry>;
   var human_entries: array<RER_BestiaryEntry>;
+  var constants: RER_ConstantCreatureTypes;
 
   public function loadSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
@@ -16,6 +17,8 @@ class RER_Bestiary {
     for (i = 0; i < this.human_entries.Size(); i += 1) {
       this.human_entries[i].loadSettings(inGameConfigWrapper);
     }
+
+    this.constants = RER_ConstantCreatureTypes();
   }
 
   public function getEntry(master: CRandomEncounters, type: CreatureType): RER_BestiaryEntry {
@@ -261,6 +264,14 @@ class RER_Bestiary {
     index = (int)rng.nextRange(entries.Size(), 0);
 
     return entries[index];
+  }
+
+  public function isCreatureLarge(creature_type: CreatureType): bool {
+    return creature_type >= this.constants.large_creature_begin;
+  }
+
+  public function isCreatureSmall(creature_type: CreatureType): bool {
+    return !this.isCreatureLarge(creature_type);
   }
 
 

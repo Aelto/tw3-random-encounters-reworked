@@ -199,6 +199,33 @@ state Processing in RER_ContractManager {
         impact_points = RoundF(impact_points + sign);
       }
 
+      // set a minimum of 5% damage received modifier, for higher level contracts
+      // it can easily reach 0% due to float precision.
+      damage_modifier.damage_received_modifier = Max(0.05, damage_modifier.damage_received_modifier);
+
+      // don't tweak the buffs for small creatures because they're already pretty
+      // weak by default.
+      if (parent.master.bestiary.isCreatureLarge(active_contract.creature_type)) {
+        // to better balance the damage modifiers on large group of enemies, the
+        // more enemies there is the lower the buffs are. It's like we spread
+        // the buffs over the enemies basically.
+        damage_modifier.damage_received_modifier = PowF(
+          damage_modifier.damage_received_modifier,
+          PowF(
+            0.95, // a 5% weaker buff per enemy
+            enemy_count
+          )
+        );
+
+        damage_modifier.damage_dealt_modifier = PowF(
+          damage_modifier.damage_received_modifier,
+          PowF(
+            0.95, // a 5% weaker buff per enemy
+            enemy_count
+          )
+        );
+      }
+
       for (i = 0; i < entities.Size(); i += 1) {
         npc = (CNewNPC)entities[i];
 
