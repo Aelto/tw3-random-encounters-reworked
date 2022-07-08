@@ -221,8 +221,8 @@ state Processing in RER_ContractManager {
           damage_modifier.damage_dealt_modifier *= PowF(buff_multiplier, 1);
         }
         else {
-          // so here we add 10% more damage received, but below...
-          damage_modifier.damage_received_modifier *= PowF(2 - buff_multiplier, 10);
+          // so here we add 7.5% more damage received
+          damage_modifier.damage_received_modifier *= PowF(2 - buff_multiplier, 7.5);
         }
 
         NLOG("impact_points = " + impact_points + " damage_received_modifier = " + damage_modifier.damage_received_modifier + ", damage_dealt_modifier = " + damage_modifier.damage_dealt_modifier);
@@ -251,12 +251,15 @@ state Processing in RER_ContractManager {
 
         damage_modifier.damage_dealt_modifier = PowF(
           damage_modifier.damage_received_modifier,
+          damage_modifier.damage_dealt_modifier,
           PowF(
             0.95, // a 5% weaker buff per enemy
             enemy_count
           )
         );
       }
+
+      NLOG("damage_received_modifier = " + damage_modifier.damage_received_modifier + ", damage_dealt_modifier = " + damage_modifier.damage_dealt_modifier);
 
       for (i = 0; i < entities.Size(); i += 1) {
         npc = (CNewNPC)entities[i];
