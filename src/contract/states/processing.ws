@@ -233,6 +233,7 @@ state Processing in RER_ContractManager {
       // set a minimum of 5% damage received modifier, for higher level contracts
       // it can easily reach 0% due to float precision.
       damage_modifier.damage_received_modifier = Max(0.05, damage_modifier.damage_received_modifier);
+      damage_modifier.damage_received_modifier = MaxF(0.05, damage_modifier.damage_received_modifier);
 
       // don't tweak the buffs for small creatures because they're already pretty
       // weak by default.
