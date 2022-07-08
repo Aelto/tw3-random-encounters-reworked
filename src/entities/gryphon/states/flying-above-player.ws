@@ -48,6 +48,7 @@ state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
     ((CActor)this.bait).EnableDynamicCollisions(false);
     ((CActor)this.bait).EnableStaticCollisions(false);
     ((CActor)this.bait).SetImmortalityMode(AIM_Immortal, AIC_Default);
+    ((CActor)this.bait).AddBuffImmunity_AllNegative('RandomEncountersReworked', false);
 
     this.ai_behavior_flight = new CAIFlightIdleFreeRoam in this;
 

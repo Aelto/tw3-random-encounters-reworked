@@ -24,6 +24,7 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
     ((CActor)parent.bait_entity).EnableDynamicCollisions(false);
     ((CActor)parent.bait_entity).EnableStaticCollisions(false);
     ((CActor)parent.bait_entity).SetImmortalityMode(AIM_Immortal, AIC_Default);
+    ((CActor)parent.bait_entity).AddBuffImmunity_AllNegative('RandomEncountersReworked', false);
 
     parent.GotoState('Wandering');
   }

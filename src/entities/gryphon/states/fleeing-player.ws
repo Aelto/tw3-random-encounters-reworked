@@ -66,6 +66,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     ((CActor)this.bait).EnableDynamicCollisions(false);
     ((CActor)this.bait).EnableStaticCollisions(false);
     ((CActor)this.bait).SetImmortalityMode(AIM_Immortal, AIC_Default);
+    ((CActor)this.bait).AddBuffImmunity_AllNegative('RandomEncountersReworked', false);
 
     parent.this_newnpc.SetUnstoppable(true);
 
