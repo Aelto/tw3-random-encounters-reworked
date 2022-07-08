@@ -150,10 +150,14 @@ state Processing in RER_ContractManager {
       impact_points - 2
     );
 
-    enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium
-                
+    // enemy_count temporarily holds the amount of bonus enemies
+    enemy_count = 0;  
+
+    NLOG("impact points = " + impact_points);
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERallowIncreasedEnemyCount')) {
+      NLOG("RERallowIncreasedEnemyCount = true");
+
       // caps at 25, which is enough for a shaelmaar
       enemy_count += (int)MinF(impact_points * 0.25, 25);
       impact_points *= 0.75;
@@ -162,12 +166,20 @@ state Processing in RER_ContractManager {
       // time with no cap at all.
       enemy_count += (int)(impact_points * 0.05);
       impact_points *= 0.95;
+
+      enemy_count = (int)((float)enemy_count / bestiary_entry.ecosystem_delay_multiplier);
+
+      NLOG("RERallowIncreasedEnemyCount = true, new enemy_count = " + enemy_count + " new impact points = " + impact_points);
     }
 
     entities = bestiary_entry.spawn(
       parent.master,
       position,
-      bestiary_entry.template_list.difficulty_factor.maximum_count_medium, //count
+      bestiary_entry.template_list.difficulty_factor.maximum_count_medium
+        + Min(
+          enemy_count,
+          bestiary_entry.template_list.difficulty_factor.maximum_count_medium
+        ), //count
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
@@ -178,7 +190,12 @@ state Processing in RER_ContractManager {
     );
 
     enemy_count = entities.Size();
-    impact_points -= bestiary_entry.ecosystem_delay_multiplier * enemy_count;
+    // here we make sure to use the medium count rather than the `enemy_count`
+    // since it would include the bonus entities from the impact points and
+    // the cost of these entities were already substracted from the impact_points
+    // variable earlier.
+    impact_points -= bestiary_entry.ecosystem_delay_multiplier
+                   * bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
 
     if (impact_points > 0) {
       buff_multiplier = 1.01;
