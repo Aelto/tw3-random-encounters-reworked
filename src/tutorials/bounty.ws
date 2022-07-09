@@ -5,12 +5,12 @@ function RER_tutorialTryShowBounty(): bool {
     return false;
   }
 
-  if (!RER_openPopup(
+  RER_toggleHUD();
+  NTUTO(
     GetLocStringByKey("rer_tutorial_bounty_title"),
     GetLocStringByKey("rer_tutorial_bounty_body")
-  )) {
-    return false;
-  }
+  );
+  RER_toggleHUD();
 
   theGame
     .GetInGameConfigWrapper()

@@ -5,12 +5,13 @@ function RER_tutorialTryShowContract(): bool {
     return false;
   }
 
-  if (!RER_openPopup(
+  RER_toggleHUD();
+  NTUTO(
     GetLocStringByKey("rer_tutorial_contract_title"),
     GetLocStringByKey("rer_tutorial_contract_body")
-  )) {
-    return false;
-  }
+  );
+  RER_toggleHUD();
+
 
   theGame
     .GetInGameConfigWrapper()

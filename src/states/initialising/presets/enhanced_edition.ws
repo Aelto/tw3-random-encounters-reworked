@@ -71,10 +71,10 @@ state EnhancedEdition in RER_PresetManager {
     this.wrapperMultiplyFloatValue(wrapper, 'RERevents', 'eventFightNoise', 0.8);
     this.wrapperMultiplyFloatValue(wrapper, 'RERevents', 'eventMeditationAmbush', 0.8);
 
-    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsAmbush', 0.1);
-    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsHunt', 0.1);
-    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsContract', 0.5);
-    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsHuntingGround', 0.1);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsAmbush', 1);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsHunt', 1);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsContract', 1);
+    this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterCrowns', 'RERcrownsHuntingGround', 1);
 
     this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 0.5);
 

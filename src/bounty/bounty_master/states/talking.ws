@@ -8,6 +8,8 @@ state Talking in RER_BountyMasterManager {
   }
 
   entry function Talking_main() {
+    RER_tutorialTryShowBountyMaster();
+
     this.runConversation();
     parent.GotoState('Waiting');
   }

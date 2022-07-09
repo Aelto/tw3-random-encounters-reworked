@@ -494,6 +494,8 @@ statemachine class RER_BountyManager extends CEntity {
       this.giveBountyLevelupItemToPlayer(i);
     }
 
+    RER_tutorialTryShowBountyLevel();
+
     return this.master
       .storages
       .bounty

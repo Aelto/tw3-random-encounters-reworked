@@ -5,12 +5,12 @@ function RER_tutorialTryShowEcosystem(): bool {
     return false;
   }
 
-  if (!RER_openPopup(
+  RER_toggleHUD();
+  NTUTO(
     GetLocStringByKey("rer_tutorial_ecosystem_title"),
     GetLocStringByKey("rer_tutorial_ecosystem_body")
-  )) {
-    return false;
-  }
+  );
+  RER_toggleHUD();
 
   theGame
     .GetInGameConfigWrapper()

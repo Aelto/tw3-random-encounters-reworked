@@ -5,12 +5,12 @@ function RER_tutorialTryShowClue(): bool {
     return false;
   }
 
-  if (!RER_openPopup(
+  RER_toggleHUD();
+  NTUTO(
     GetLocStringByKey("rer_tutorial_clue_title"),
     GetLocStringByKey("rer_tutorial_clue_body")
-  )) {
-    return false;
-  }
+  );
+  RER_toggleHUD();
 
   theGame
     .GetInGameConfigWrapper()
