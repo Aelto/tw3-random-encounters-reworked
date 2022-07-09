@@ -88,7 +88,7 @@ state DialogChoice in RER_ContractManager {
 
     if (reputation_system_enabled) {
       line = GetLocStringByKey("rer_current_reputation");
-      line = StrReplace(line, "{{reputation}}", parent.getNoticeboardReputation(noticeboard_identifier));
+      line = StrReplace(line, "{{reputation}}", "" + parent.getNoticeboardReputation(noticeboard_identifier) + " (+" + ((int)parent.getGlobalReputation()) + ")");
 
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
