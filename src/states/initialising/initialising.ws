@@ -81,6 +81,12 @@ state Initialising in CRandomEncounters {
       current_version = 2.09;
     }
 
+    if (current_version < 2.11) {
+      NDEBUG("[RER] The mod was updated to v2.10");
+
+      current_version = 2.10;
+    }
+
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }

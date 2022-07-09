@@ -7,7 +7,7 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodVersion" value="2.10" />
+                <Entry varId="RERmodVersion" value="2.11" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5613,6 +5613,8 @@
                 <Entry varId="RERtutorialTrophy" value="1" />
                 <Entry varId="RERtutorialEcosystem" value="1" />
                 <Entry varId="RERtutorialStarted" value="1" />
+                <Entry varId="RERtutorialBountyMaster" value="1" />
+                <Entry varId="RERtutorialBountyLevel" value="1" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -5624,6 +5626,8 @@
             <Var id="RERtutorialTrophy" displayName="rer_tutorial_trophy" displayType="TOGGLE"></Var>
             <Var id="RERtutorialEcosystem" displayName="rer_tutorial_ecosystem" displayType="TOGGLE"></Var>
             <Var id="RERtutorialStarted" displayName="rer_tutorial_started" displayType="TOGGLE"></Var>
+            <Var id="RERtutorialBountyMaster" displayName="rer_tutorial_bounty_master" displayType="TOGGLE"></Var>
+            <Var id="RERtutorialBountyLevel" displayName="rer_tutorial_bounty_level" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
 
