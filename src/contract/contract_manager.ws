@@ -325,8 +325,7 @@ statemachine class RER_ContractManager {
       storage.active_contract.noticeboard_identifier
     );
 
-    // TODO: #109 scale accordingly
-    rewards_amount = 3;
+    rewards_amount = 1;
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
       rewards_increase_from_reputation = StringToFloat(
@@ -334,7 +333,7 @@ statemachine class RER_ContractManager {
         .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
       );
       
-      rewards_amount += RoundF(storage.active_contract.difficulty_level.value * 0.1 * (1 + rewards_increase_from_reputation));
+      rewards_amount += RoundF(storage.active_contract.difficulty_level.value * 0.05 * (1 + rewards_increase_from_reputation));
     }
 
     if (IsNameValid(token_name)) {
@@ -378,7 +377,11 @@ statemachine class RER_ContractManager {
     if (storage.active_contract.difficulty_level.value >= this.getMaximumDifficultyForReputation(current_reputation) * 0.5) {
       this.increaseReputationForNoticeboard(
         storage.active_contract.noticeboard_identifier,
-        RoundF(storage.active_contract.difficulty_level.value * 0.1) + 1
+        1
+      );
+
+      this.increaseGlobalReputation(
+        0.25
       );
     }
 
@@ -398,6 +401,10 @@ statemachine class RER_ContractManager {
     this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
   }
 
+  private function increaseGlobalReputation(reputation_gain: float) {
+    this.master.storages.contract.global_reputation += reputation_gain;
+  }
+
   public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
     var current_reputation: RER_NoticeboardReputation;
     var i: int;
@@ -408,11 +415,15 @@ statemachine class RER_ContractManager {
       NLOG("getNoticeboardReputation, current_reputation.noticeboard_identifier.identifier = " + current_reputation.noticeboard_identifier.identifier + " reputation = " + current_reputation.reputation);
 
       if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
-        return current_reputation.reputation;
+        return current_reputation.reputation + (int)this.getGlobalReputation();
       }
     }
 
-    return 0;
+    return 0 + (int)this.getGlobalReputation();
+  }
+
+  public function getGlobalReputation(): float {
+    return this.master.storages.contract.global_reputation;
   }
 
   private function setNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier, value: int) {
