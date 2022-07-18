@@ -82,7 +82,7 @@ state Initialising in CRandomEncounters {
     }
 
     if (current_version < 2.11) {
-      NDEBUG("[RER] The mod was updated to v2.10");
+      NDEBUG("[RER] The mod was updated to v2.11");
 
       current_version = 2.10;
     }

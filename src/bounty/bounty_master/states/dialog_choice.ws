@@ -228,6 +228,7 @@ state DialogChoice in RER_BountyMasterManager {
     var possibles_token_names: array<name>;
     var inventory: CInventoryComponent;
     var quantity: int;
+    var price: int;
     var i: int;
     var k: int;
 
@@ -248,13 +249,20 @@ state DialogChoice in RER_BountyMasterManager {
       for (k = 0; k < possibles_token_names.Size(); k += 1) {
         quantity = inventory.GetItemQuantityByName(possibles_token_names[k]);
 
-        RER_applyLootFromContractTokenName(
-          parent.bounty_manager.master,
-          inventory,
-          loot_table_container,
-          possibles_token_names[k],
-          quantity
-        );
+        price = theGame.GetDefinitionsManager().GetItemPrice(possibles_token_names[k])
+              * quantity;
+
+        inventory.AddMoney(price);
+        inventory.RemoveItemByName(possibles_token_names[k], quantity);
+
+        // temporarily disabled
+        // RER_applyLootFromContractTokenName(
+        //   parent.bounty_manager.master,
+        //   inventory,
+        //   loot_table_container,
+        //   possibles_token_names[k],
+        //   quantity
+        // );
       }
     }
 
