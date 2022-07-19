@@ -39,14 +39,16 @@ statemachine class CRandomEncounters extends CEntity {
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var ents: array<CEntity>;
     var is_enabled: bool;
+    var version: float;
 
     LogChannel('modRandomEncounters', "RandomEncounter spawned");
 
     theGame.GetEntitiesByTag('RandomEncounterTag', ents);
 
     is_enabled = theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
+    version = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodVersion'));
 
-    if (!is_enabled) {
+    if (!is_enabled && version >= 0) {
       return false;
     }
 
