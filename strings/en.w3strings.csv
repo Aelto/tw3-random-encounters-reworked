@@ -536,9 +536,9 @@
 2115018478|        |option_rer_allow_select_difficulty|Allow selecting contracts difficulty
 2115018479|        |option_rer_allow_increased_enemy_count|Allow increased enemy count
 2115018480|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
-2115018481|        |option_rer_bounty_level|Bounty level
-2115018482|        |rer_bounty_level_title|RER Tutorial - Bounty level
-2115018483|        |rer_bounty_level_body|Once you have finished a bounty your <font color="#CD7D03">bounty level</font> may increase, each region has its own bounty level. Whenever you increase your bounty level you will receive an item, this item will increase in rarity with your bounty level
-2115018482|        |option_rer_bounty_master|Bounty master
-2115018483|        |rer_bounty_master_title|RER Tutorial - Bounty master
-2115018484|        |rer_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
+2115018481|        |option_rer_tutorial_bounty_level|Bounty level
+2115018482|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
+2115018483|        |rer_tutorial_bounty_level_body|Once you have finished a bounty your <font color="#CD7D03">bounty level</font> may increase, each region has its own bounty level. Whenever you increase your bounty level you will receive an item, this item will increase in rarity with your bounty level
+2115018482|        |option_rer_tutorial_bounty_master|Bounty master
+2115018483|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
+2115018484|        |rer_tutorial_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
