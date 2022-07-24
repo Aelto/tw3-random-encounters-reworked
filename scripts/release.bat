@@ -6,6 +6,7 @@
 call variables.cmd
 call bundle.bat
 call encode-csv-strings.bat
+call compile.bat
 
 rmdir "%modpath%\release" /s /q
 mkdir "%modpath%\release"
@@ -13,7 +14,7 @@ mkdir "%modpath%\release"
 REM XCOPY "%modpath%\src\" "%modpath%\release\mods\%modname%\content\scripts\rer_local\" /e /s /y
 
 mkdir "%modpath%\release\mods\%modname%\content\scripts\local\
-> "%modpath%\release\mods\%modname%\content\scripts\local\rer_scripts.min.ws" (for /r "%modpath%\src\" %%F in (*.ws) do @type "%%F")
+> "%modpath%\release\mods\%modname%\content\scripts\local\rer_scripts.min.ws" (for /r "%modpath%\dist\" %%F in (*.ws) do @type "%%F")
 XCOPY "%modpath%\strings\" "%modpath%\release\mods\%modname%\content\" /e /s /y
 XCOPY "%modpath%\%modname%\packed\" "%modpath%\release\dlc\dlc%modname%\" /e /s /y
 XCOPY "%modpath%\shared-utils\shared-utils\packed\" "%modpath%\release\dlc\dlcsharedutils\" /e /s /y

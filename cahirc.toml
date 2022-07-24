@@ -1,0 +1,11 @@
+[package]
+name = "tw3-random-encounters-reworked" 
+
+# the source directory that contains your `.wss` files
+src = "src" 
+
+# the output directory where the compiler will emit the `.ws` code.
+# WARNING: the directory is cleared at the start of every compilation
+dist = "dist" 
+
+[dependencies]

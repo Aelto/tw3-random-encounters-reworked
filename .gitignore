@@ -9,3 +9,4 @@ docs/skellige-valid-points-bounties.psd
 *.zip
 .old
 *.exe
+dist
