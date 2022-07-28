@@ -246,6 +246,10 @@ state DialogChoice in RER_BountyMasterManager {
       for token_name: name in possibles_token_names {
         quantity = inventory.GetItemQuantityByName(token_name);
 
+        if (quantity <= 0) {
+          continue;
+        }
+
         RER_applyLootFromContractTokenName(
           parent.bounty_manager.master,
           inventory,
