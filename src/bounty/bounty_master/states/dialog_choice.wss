@@ -26,16 +26,16 @@ state DialogChoice in RER_BountyMasterManager {
       'StartBounty'
     ));
 
-    if (has_completed_a_bounty) {
-      choices.PushBack(SSceneChoice(
-        GetLocStringByKey("rer_dialog_start_bounty_no_conversation"),
-        true,
-        false,
-        false,
-        DialogAction_MONSTERCONTRACT,
-        'StartBountySkipConversation'
-      ));
-    }
+    // if (has_completed_a_bounty) {
+    //   choices.PushBack(SSceneChoice(
+    //     GetLocStringByKey("rer_dialog_start_bounty_no_conversation"),
+    //     true,
+    //     false,
+    //     false,
+    //     DialogAction_MONSTERCONTRACT,
+    //     'StartBountySkipConversation'
+    //   ));
+    // }
 
     crowns_from_trophies = this.convertTrophiesIntoCrowns(true);
 
