@@ -492,11 +492,7 @@ statemachine class RER_ContractManager {
   }
 
   public function getMaximumDifficultyForReputation(reputation: int): int {
-    return Clamp(
-      10 + reputation * 1,
-      0,
-      50
-    ) + reputation;
+    return 3 + reputation;
   }
 
   public function getImpactPointsForDifficulty(difficulty: RER_ContractDifficultyLevel): float {
