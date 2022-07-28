@@ -4768,7 +4768,7 @@
     <Group id="RERcontracts" displayName="Mods.rer_name.rer_contracts_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERhoursBeforeNewContracts" value="1" />
+                <Entry varId="RERhoursBeforeNewContracts" value="2" />
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
                 <Entry varId="RERallowLearnNewLocations" value="1" />
