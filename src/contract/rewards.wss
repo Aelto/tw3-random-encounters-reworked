@@ -74,10 +74,9 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
   }
 
   while (count > 0) {
-    index = RandRange(loot_tables.Size());
     count -= 1;
 
-    NLOG("RER_applyLootFromContractTokenName =" + index + ", " + loot_tables[index]);
+    NLOG("RER_applyLootFromContractTokenName, category = " + category);
 
     master.loot_manager.rollAndGiveItemsTo(
       inventory,

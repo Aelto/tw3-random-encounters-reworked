@@ -42,7 +42,7 @@ function RER_getSeededRandomEasySpeciesType(rng: RandomNumberGenerator): RER_Spe
   return RoundF(rng.nextRange(max, 0)) as RER_SpeciesTypes;
 }
 
-function RER_getSeededRandomCreatureType(master: CRandomEncounters, difficulty_level: RER_ContractDifficultyLevel, rng: RandomNumberGenerator): CreatureType {
+latent function RER_getSeededRandomCreatureType(master: CRandomEncounters, difficulty_level: RER_ContractDifficultyLevel, rng: RandomNumberGenerator): CreatureType {
   var creature_types: array<CreatureType>;
   var bestiary_entry: RER_BestiaryEntry;
   var maxmimum_strength: float;
@@ -52,8 +52,21 @@ function RER_getSeededRandomCreatureType(master: CRandomEncounters, difficulty_l
 
   maxmimum_strength = MaxF(difficulty_level.value, 5);
 
+  var manager : CWitcherJournalManager;
+  if (master.settings.only_known_bestiary_creatures) {
+    manager = theGame.GetJournalManager();
+  }
+
   for (i = 0; i < CreatureMAX; i += 1) {
     bestiary_entry = master.bestiary.getEntry(master, i);
+
+    if (master.settings.only_known_bestiary_creatures) {
+      var can_spawn_creature: bool = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
+
+      if (!can_spawn_creature) {
+        continue;
+      }
+    }
 
     if (bestiary_entry.ecosystem_delay_multiplier < maxmimum_strength) {
       creature_types.PushBack(i);
