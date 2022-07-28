@@ -60,9 +60,27 @@ statemachine class RER_ContractManager {
     return this.master.storages.contract.last_generation_time.time != generation_time.time;
   }
 
+  public function hasCompletedContractSinceLastGeneration(): bool {
+    return this.master.storages.contract.completed_contracts.Size() > 0;
+  }
+
   public function updateStorageGenerationTime(generation_time: RER_GenerationTime) {
     this.master.storages.contract.last_generation_time = generation_time;
     this.master.storages.contract.completed_contracts.Clear();
+    this.master.storages.contract.save();
+  }
+
+  public function decreaseReputation() {
+    this.master.storages.contract.global_reputation *= 0.95;
+
+    var i: int;
+    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
+      var current_reputation: float = this.master.storages.contract.noticeboards_reputation[i].reputation;
+      var new_reputation: float = current_reputation * 0.95;
+
+      this.master.storages.contract.noticeboards_reputation[i].reputation = new_reputation;      
+    }
+
     this.master.storages.contract.save();
   }
 

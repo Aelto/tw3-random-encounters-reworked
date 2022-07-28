@@ -179,5 +179,5 @@ class RER_ContractLocation extends SU_ArraySorterData {
 struct RER_NoticeboardReputation {
   var noticeboard_identifier: RER_NoticeboardIdentifier;
 
-  var reputation: int;
+  var reputation: float;
 }

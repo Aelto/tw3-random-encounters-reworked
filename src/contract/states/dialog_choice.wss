@@ -66,6 +66,10 @@ state DialogChoice in RER_ContractManager {
     can_select_difficulty = parent.canSelectContractDifficulty();
     
     if (parent.isItTimeToRegenerateContracts(generation_time)) {
+      if (!parent.hasCompletedContractSinceLastGeneration()) {
+        parent.decreaseReputation();
+      }
+
       parent.updateStorageGenerationTime(generation_time);
     }
 
