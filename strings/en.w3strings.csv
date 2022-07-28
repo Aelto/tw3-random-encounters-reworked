@@ -7,6 +7,10 @@
 ; There is always some variation since not all letters have the same width, but that should
 ; save you some time.
 ;
+; Changed in v2.12:
+;  - changes are too vast to list here  unfortunately, i would recommend looking at 
+;    the changelog on github and finding the link to the diff between v2.11 to v2.12.
+;
 ; Changed in v2.9:
 ;  - id 2115018288 was updated, the string as well as the key
 ;  - id 2115018289 was updated, the string as well as the key
@@ -312,7 +316,7 @@
 2115018274|        |rer_tutorial_contract_title|RER Tutorial - Monster contract
 2115018275|        |rer_tutorial_contract_body|You have just picked up a <font color="#CD7D03">custom contract</font> notice that can be distinguished by the poster of the notice always being <font color="#CD7D03">A. Letoth</font>. When you close this tutorial a menu will appear showing the following:<br />- The type of tokens you can acquire from this noticeboard<br />- Your current reputation<br />- The contracts available<br />Note that these factors are unique to each noticeboard in the game<br />You may have also noticed that the notices used to trigger all the contracts in the vanilla game are absent. This is because RER uses a special <font color="#CD7D03">reputation system</font> whereby Geralt must earn reputation from completing RER contracts so that the populace know there’s a witcher in the area and will put up the vanilla contracts. The reputation system also controls the type of RER contracts you can receive starting with easy and working up to hard contracts.<br/><br/>If you do not like this system you can disable it in the Contracts System menu
 2115018276|        |rer_tutorial_ecosystem_title|RER Tutorial - The ecosystem
-2115018277|        |rer_tutorial_ecosystem_body|Your recent killing of a creature has indirectly changed the surrounding <font color="#CD7D03">ecosystem</font>. RER stimulates a food chain which changes the creatures you encounter. Whenever you kill creatures the ecosystem changes and if you continue to kill new species can turn up and some can even migrate to other regions. You can examine the ecosystem using the Ecosystem Analysis keybind which can tell you useful info about the creatures and their habitats. This keybind is not set up by default so if you would like to use it refer to the in depth installation guide.<br /><br />If you do not like this feature you can change its effects or disable it outright in the Ecosystem menu
+2115018277|        |rer_tutorial_ecosystem_body|Your recent killing of a creature has indirectly changed the surrounding <font color="#CD7D03">ecosystem</font>. RER simulates a food chain which changes the creatures you encounter. Whenever you kill creatures the ecosystem changes and if you continue to kill new species can turn up and some can even migrate to other regions. You can examine the ecosystem using the Ecosystem Analysis keybind which can tell you useful info about the creatures and their habitats. This keybind is not set up by default so if you would like to use it refer to the in depth installation guide.<br /><br />If you do not like this feature you can change its effects or disable it outright in the Ecosystem menu
 2115018278|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Noticeboard event
 2115018279|        |rer_tutorial_noticeboard_event_body|You have picked a <font color="#CD7D03">contract notice</font> from the mod Random Encounters Reworked. When you'll close the window you will see dialogue options to select the difficulty of the contract as well as information about the noticeboard. These rewards vary per noticeboard and region, but stay the same for the entire playthrough.
 2115018280|        |rer_tutorial_rewards_title|RER Tutorial - Rewards
@@ -347,198 +351,158 @@
 2115018305|        |rer_dialog_preset_vanilla|[RER preset] Vanilla/Default
 2115018306|        |preset_Mods_rer_name_rer_rewards_settings_rer_container_refill_settings|Container refill
 2115018307|        |panel_rer_container_refill_settings|Container refill
-2115018308|        |option_rer_container_refill_trigger_chance|Chance to trigger on encounter end (%)
+2115018308|        |option_rer_container_refill_chance_multiplier|General loot, chance multiplier
 2115018309|        |option_rer_container_refill_only_empty_containers|Only empty containers
 2115018310|        |option_rer_container_refill_radius|Radius
 2115018311|        |option_rer_container_refill_number_of_containers|Number of containers per trigger
-2115018312|        |option_rer_container_refill_loot_table__generic_food_everywhere|<font color="#ffd33d"> - </font> Generic food
-2115018313|        |option_rer_container_refill_loot_table__generic_alco_everywhere|<font color="#ffd33d"> - </font> Generic alcohol
-2115018314|        |option_rer_container_refill_loot_table__generic_gold_everywhere|<font color="#ffd33d"> - </font> Generic gold
-2115018315|        |option_rer_container_refill_loot_table__loot_dwarven_body_everywhere|<font color="#ffd33d"> - </font> Dwarven loot
-2115018316|        |option_rer_container_refill_loot_table__loot_badit_body_everywhere|<font color="#ffd33d"> - </font> Bandit loot
-2115018317|        |option_rer_container_refill_loot_table__generic_chest_everywhere|<font color="#ffd33d"> - </font> Generic chest
-2115018318|        |option_rer_container_refill_loot_table__herbalist_area_prolog|<font color="#ffd33d"> - </font> White Orchard herbs
-2115018319|        |option_rer_container_refill_loot_table__herbalist_area_nml|<font color="#ffd33d"> - </font> Velen herbs
-2115018320|        |option_rer_container_refill_loot_table__herbalist_area_novigrad|<font color="#ffd33d"> - </font> Novigrad herbs
-2115018321|        |option_rer_container_refill_loot_table__herbalist_area_skelige|<font color="#ffd33d"> - </font> Skellige herbs
-2115018322|        |option_rer_container_refill_loot_table__dungeon_everywhere|<font color="#ffd33d"> - </font> Dungeon
-2115018323|        |option_rer_container_refill_loot_table__treasure_q1|<font color="#ffd33d"> - </font> Treasure quality 1
-2115018324|        |option_rer_container_refill_loot_table__treasure_q2|<font color="#ffd33d"> - </font> Treasure quality 2
-2115018325|        |option_rer_container_refill_loot_table__treasure_q3|<font color="#ffd33d"> - </font> Treasure quality 3
-2115018326|        |option_rer_container_refill_loot_table__treasure_q4|<font color="#ffd33d"> - </font> Treasure quality 4
-2115018327|        |option_rer_container_refill_loot_table__treasure_q5|<font color="#ffd33d"> - </font> Treasure quality 5
-2115018328|        |option_rer_container_refill_loot_table__unique_runes|<font color="#ffd33d"> - </font> Unique runes
-2115018329|        |option_rer_container_refill_loot_table__unique_armorupgrades|<font color="#ffd33d"> - </font> Unique armor upgrades
-2115018330|        |option_rer_container_refill_loot_table__unique_ingr|<font color="#ffd33d"> - </font> Unique ingredients
-2115018331|        |option_rer_container_refill_loot_table__weapons_nml|<font color="#ffd33d"> - </font> Velen weapons
-2115018332|        |option_rer_container_refill_loot_table__unique_weapons_epic_dungeon_nml|<font color="#ffd33d"> - </font> Unique Velen dungeon relics
-2115018333|        |option_rer_container_refill_loot_table__uniqe_weapons_epic_dungeon_skelige|<font color="#ffd33d"> - </font> Unique Skellige dungeon relics
-2115018334|        |option_rer_container_refill_loot_table__loot_monster_treasure_uniq_swords|<font color="#ffd33d"> - </font> Unique swords
-2115018335|        |option_rer_container_refill_loot_table__uniq_armors|<font color="#ffd33d"> - </font> Unique armors
-2115018336|        |option_rer_noticeboard_errands|Noticeboard errands to start RER contracts
-2115018337|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Day & Night:</font> Additional delay (in seconds) per player level
-2115018338|        |rer_noticeboard_errand_1|Looking for a witcher
-2115018339|        |rer_noticeboard_errand_1_text|Anyone knows how to read, read this, and read it careful, so that it's known far and wide, or at least throughout the whole village.<br /><br />I was out in the field, hunting for something to eat when i heard the growl. There's a beast that feeds on men, you cannot walk within ten spans of the evil and hope to escape alive. It's thus keeping us from hunting and harvesting our crops, meaning famine and misery await us if nothing changes.<br />I spied some odd tracks and couldn't for the life of me figure out what left them, even though I've many a hunt under my belt. You know me, I'm not one to make a fuss, but I can't help but reckon they bode ill and we all should be on guard<br /><br />if you've the courage and skill, slay the monster for us, and your efforts will surely be rewarded.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
-2115018340|        |option_rer_minimap_marker_bounty_master|Minimap markers <font color="#ffd33d">-</font> Bounty Master
-2115018341|        |option_rer_minimap_marker_bounties|Minimap markers <font color="#ffd33d">-</font> Bounties
-2115018342|        |option_rer_minimap_marker_generic_objectives|Minimap markers <font color="#ffd33d">-</font> Generic objectives
-2115018343|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Day & Night:</font> Effects of kills on delays <font size="11">(+100%: faster, -100%: slower)</font>
-2115018344|        |rer_noticeboard_errand_2|Looking for an experience hunter
-2115018345|        |rer_noticeboard_errand_2_text|To Whom It May Concern:<br /><br />Let it hereby be known that whoever kills the monsters that's wove their nests near our lands and have taken to killing both men and beasts, will be given a sizable reward. Kill enough beasts, and you'll become famed throughout the lands, and your purse'll be heavy with gold.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018312|        |option_rer_noticeboard_errands|Noticeboard errands to start RER contracts
+2115018313|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Day & Night:</font> Additional delay (in seconds) per player level
+2115018314|        |rer_noticeboard_errand_1|Looking for a witcher
+2115018315|        |rer_noticeboard_errand_1_text|Anyone knows how to read, read this, and read it careful, so that it's known far and wide, or at least throughout the whole village.<br /><br />I was out in the field, hunting for something to eat when i heard the growl. There's a beast that feeds on men, you cannot walk within ten spans of the evil and hope to escape alive. It's thus keeping us from hunting and harvesting our crops, meaning famine and misery await us if nothing changes.<br />I spied some odd tracks and couldn't for the life of me figure out what left them, even though I've many a hunt under my belt. You know me, I'm not one to make a fuss, but I can't help but reckon they bode ill and we all should be on guard<br /><br />if you've the courage and skill, slay the monster for us, and your efforts will surely be rewarded.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018316|        |option_rer_minimap_marker_bounty_master|Minimap markers <font color="#ffd33d">-</font> Bounty Master
+2115018317|        |option_rer_minimap_marker_bounties|Minimap markers <font color="#ffd33d">-</font> Bounties
+2115018318|        |option_rer_minimap_marker_generic_objectives|Minimap markers <font color="#ffd33d">-</font> Generic objectives
+2115018319|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Day & Night:</font> Effects of kills on delays <font size="11">(+100%: faster, -100%: slower)</font>
+2115018320|        |rer_noticeboard_errand_2|Looking for an experience hunter
+2115018321|        |rer_noticeboard_errand_2_text|To Whom It May Concern:<br /><br />Let it hereby be known that whoever kills the monsters that's wove their nests near our lands and have taken to killing both men and beasts, will be given a sizable reward. Kill enough beasts, and you'll become famed throughout the lands, and your purse'll be heavy with gold.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
 ; Do not translate the "{{creature_name}}", this will be replaced with the actual
 ; creature name dynamically.
 ;
 ; Thank you!
-2115018346|        |rer_horde_invasion_strength_title|{{creature_name}} strength
-2115018347|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Killing spree loot
-2115018348|        |panel_rer_killing_spree_custom_loot_settings|Killing spree loot
-2115018349|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere|Generic food<font color="#ffd33d">:</font> unlock %
-2115018350|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere|Generic alcohol<font color="#ffd33d">:</font> unlock %
-2115018351|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere|Generic gold<font color="#ffd33d">:</font> unlock %
-2115018352|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere|Dwarven loot<font color="#ffd33d">:</font> unlock %
-2115018353|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere|Bandit loot<font color="#ffd33d">:</font> unlock %
-2115018354|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere|Generic chest<font color="#ffd33d">:</font> unlock %
-2115018355|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog|White Orchard herbs<font color="#ffd33d">:</font> unlock %
-2115018356|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml|Velen herbs<font color="#ffd33d">:</font> unlock %
-2115018357|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad|Novigrad herbs<font color="#ffd33d">:</font> unlock %
-2115018358|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige|Skellige herbs<font color="#ffd33d">:</font> unlock %
-2115018359|        |option_rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere|Dungeon<font color="#ffd33d">:</font> unlock %
-2115018360|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1|Treasure quality 1<font color="#ffd33d">:</font> unlock %
-2115018361|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2|Treasure quality 2<font color="#ffd33d">:</font> unlock %
-2115018362|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3|Treasure quality 3<font color="#ffd33d">:</font> unlock %
-2115018363|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4|Treasure quality 4<font color="#ffd33d">:</font> unlock %
-2115018364|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5|Treasure quality 5<font color="#ffd33d">:</font> unlock %
-2115018365|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_runes|Unique runes<font color="#ffd33d">:</font> unlock %
-2115018366|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades|Unique armor upgrades<font color="#ffd33d">:</font> unlock %
-2115018367|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr|Unique ingredients<font color="#ffd33d">:</font> unlock %
-2115018368|        |option_rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml|Velen weapons<font color="#ffd33d">:</font> unlock %
-2115018369|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml|Unique Velen dungeon relics<font color="#ffd33d">:</font> unlock %
-2115018370|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> unlock %
-2115018371|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> unlock %
-2115018372|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> unlock %
-2115018373|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere|Generic food<font color="#ffd33d">:</font> droprate %
-2115018374|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere|Generic alcohol<font color="#ffd33d">:</font> droprate %
-2115018375|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere|Generic gold<font color="#ffd33d">:</font> droprate %
-2115018376|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere|Dwarven loot<font color="#ffd33d">:</font> droprate %
-2115018377|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere|Bandit loot<font color="#ffd33d">:</font> droprate %
-2115018378|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere|Generic chest<font color="#ffd33d">:</font> droprate %
-2115018379|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog|White Orchard herbs<font color="#ffd33d">:</font> droprate %
-2115018380|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml|Velen herbs<font color="#ffd33d">:</font> droprate %
-2115018381|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad|Novigrad herbs<font color="#ffd33d">:</font> droprate %
-2115018382|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige|Skellige herbs<font color="#ffd33d">:</font> droprate %
-2115018383|        |option_rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere|Dungeon<font color="#ffd33d">:</font> droprate %
-2115018384|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1|Treasure quality 1<font color="#ffd33d">:</font> droprate %
-2115018385|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2|Treasure quality 2<font color="#ffd33d">:</font> droprate %
-2115018386|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3|Treasure quality 3<font color="#ffd33d">:</font> droprate %
-2115018387|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4|Treasure quality 4<font color="#ffd33d">:</font> droprate %
-2115018388|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5|Treasure quality 5<font color="#ffd33d">:</font> droprate %
-2115018389|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_runes|Unique runes<font color="#ffd33d">:</font> droprate %
-2115018390|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades|Unique armor upgrades<font color="#ffd33d">:</font> droprate %
-2115018391|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr|Unique ingredients<font color="#ffd33d">:</font> droprate %
-2115018392|        |option_rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml|Velen weapons<font color="#ffd33d">:</font> droprate %
-2115018393|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml|Unique Velen dungeon relics<font color="#ffd33d">:</font> droprate %
-2115018394|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unique Skellige dungeon relics<font color="#ffd33d">:</font> droprate %
-2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unique swords<font color="#ffd33d">:</font> droprate %
-2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unique armors<font color="#ffd33d">:</font> droprate %
-2115018397|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> version
-2115018398|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
-2115018399|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'
-2115018400|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
-2115018401|        |panel_rer_contracts_settings|Contract system
-2115018402|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018403|        |option_rer_easy_contracts_number|UNUSED
-2115018404|        |option_rer_hard_nearby_contracts_number|UNUSED
-2115018405|        |option_rer_hard_contracts_number|UNUSED
-2115018406|        |option_rer_hard_far_contracts_number|UNUSED
-2115018407|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
-2115018408|        |option_rer_contracts_generation_seed|Contract generation seed
-2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
-2115018410|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Cursed Ones
-2115018411|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Draconids
-2115018412|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Elementa
-2115018413|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrids
-2115018414|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insectoids
-2115018415|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Necrophages
-2115018416|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogroids
-2115018417|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relicts
-2115018418|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Specters
-2115018419|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Vampires
-2115018420|        |rer_species_beasts|Beasts
-2115018421|        |rer_species_cursed|Cursed Ones
-2115018422|        |rer_species_draconids|Draconids
-2115018423|        |rer_species_elementa|Elementa
-2115018424|        |rer_species_hybrids|Hybrids
-2115018425|        |rer_species_insectoids|Insectoids
-2115018426|        |rer_species_necrophages|Necrophages
-2115018427|        |rer_species_ogroids|Ogroids
-2115018428|        |rer_species_relicts|Relicts
-2115018429|        |rer_species_specters|Specters
-2115018430|        |rer_species_vampires|Vampires
-2115018431|        |rer_distance_close|UNUSED
-2115018432|        |rer_distance_far|UNUSED
+2115018322|        |rer_horde_invasion_strength_title|{{creature_name}} strength
+2115018323|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Killing spree loot
+2115018324|        |panel_rer_killing_spree_custom_loot_settings|Killing spree loot
+2115018325|        |option_rer_killing_spree_chance_increase_per_impact_point|Loot increase per ecosystem impact point
+2115018325|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> version
+2115018326|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
+2115018327|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'
+2115018328|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
+2115018329|        |panel_rer_contracts_settings|Contract system
+2115018330|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
+2115018331|        |option_rer_easy_contracts_number|UNUSED
+2115018332|        |option_rer_hard_nearby_contracts_number|UNUSED
+2115018333|        |option_rer_hard_contracts_number|UNUSED
+2115018334|        |option_rer_hard_far_contracts_number|UNUSED
+2115018335|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
+2115018336|        |option_rer_contracts_generation_seed|Contract generation seed
+2115018337|        |option_rer_species_chance_beasts|<font color="#ffd33d">Species chance:</font> Beasts
+2115018338|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Cursed Ones
+2115018339|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Draconids
+2115018340|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Elementa
+2115018341|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrids
+2115018342|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insectoids
+2115018343|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Necrophages
+2115018344|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogroids
+2115018345|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relicts
+2115018346|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Specters
+2115018347|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Vampires
+2115018348|        |rer_species_beasts|Beasts
+2115018349|        |rer_species_cursed|Cursed Ones
+2115018350|        |rer_species_draconids|Draconids
+2115018351|        |rer_species_elementa|Elementa
+2115018352|        |rer_species_hybrids|Hybrids
+2115018353|        |rer_species_insectoids|Insectoids
+2115018354|        |rer_species_necrophages|Necrophages
+2115018355|        |rer_species_ogroids|Ogroids
+2115018356|        |rer_species_relicts|Relicts
+2115018357|        |rer_species_specters|Specters
+2115018358|        |rer_species_vampires|Vampires
+2115018359|        |rer_distance_close|UNUSED
+2115018360|        |rer_distance_far|UNUSED
 ; this line is the one displayed when starting a contract, for example:
 ; - Close and easy Ogroids contract
 ; - Far and hard Draconids contract
 ; the {{distance}} will be replaced by either "far" or "close"
 ; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
 ; the {{species}} will be replaced by the species translated just above.
-2115018433|        |rer_contract_dialog_choice|{{difficulty}} {{species}} contract
-2115018434|        |rer_cancel|Cancel
-2115018435|        |rer_token_gear|Token of gratitude - Gear
-2115018436|        |rer_token_gear_short|Gear
-2115018437|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
-2115018438|        |rer_token_consumables|Token of gratitude - Consumables
-2115018439|        |rer_token_consumables_short|Consumables
-2115018440|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
-2115018441|        |rer_token_experience|Token of gratitude - Experience
-2115018442|        |rer_token_experience_short|Experience
-2115018443|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
-2115018444|        |rer_token_materials|Token of gratitude - Materials
-2115018445|        |rer_token_materials_short|Materials
-2115018446|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
-2115018447|        |rer_token_gold|Token of gratitude - Gold
-2115018448|        |rer_token_gold_short|Gold
-2115018449|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
+2115018361|        |rer_contract_dialog_choice|{{difficulty}} {{species}} contract
+2115018362|        |rer_cancel|Cancel
+2115018363|        |rer_token_gear|Token of gratitude - Gear
+2115018364|        |rer_token_gear_short|Gear
+2115018365|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
+2115018366|        |rer_token_consumables|Token of gratitude - Consumables
+2115018367|        |rer_token_consumables_short|Consumables
+2115018368|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
+2115018369|        |rer_token_experience|Token of gratitude - Experience
+2115018370|        |rer_token_experience_short|Experience
+2115018371|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
+2115018372|        |rer_token_materials|Token of gratitude - Materials
+2115018373|        |rer_token_materials_short|Materials
+2115018374|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
+2115018375|        |rer_token_gold|Token of gratitude - Gold
+2115018376|        |rer_token_gold_short|Gold
+2115018377|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
 ; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
-2115018450|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
+2115018378|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
 ; As it may be hard to read with all these {{}}, here is an example of what 
 ; it should look like this once localized:
 ; Gear (7 left)
 ; {{reward_type}} are the `rer_token_type_short` lines you translated above.
 ; {{tokens_amount}} is the number of tokens the player has in his inventory.
-2115018451|        |rer_token_trading_option|{{reward_type}} ({{tokens_amount}} left)
-2115018452|        |rer_token_trading_option_empty|No tokens to trade
-2115018453|        |rer_trade_tokens|Trade tokens of gratitude
-2115018454|        |option_rer_mod_version|MOD VERSION <font color="#d73a49">(DO NOT EDIT)</font>
-2115018455|        |rer_find_nest|Find the {{type}} nest
-2115018456|        |rer_find_nests|Find the {{type}} nests
-2115018457|        |rer_survive_horde|Survive the {{type}} horde
-2115018458|        |rer_kill_target|Kill the {{type}}
-2115018459|        |rer_contract_finished|The contract is over
-2115018460|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
-2115018461|        |rer_contract_started|{{species}} contract has started, search the marker on your map
-2115018462|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
-2115018463|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
-2115018464|        |rer_current_reputation|Current reputation for this noticeboard: {{reputation}}
-2115018465|        |rer_distance_nearby|UNUSED
-2115018466|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
-2115018467|        |option_rer_medium_far_contracts_number|UNUSED
-2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Reputation system:</font> enabled
-2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for vanilla contracts
-2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point
-2115018471|        |rer_mappin_bounty_side_target_title|Bounty side target
-2115018472|        |rer_mappin_bounty_side_target_description|A group of {{creature_type}} was seen in the area. Kill them and increase your rewards.
-2115018473|        |rer_bounty_side_target_killed|Bounty side target killed, rewards increased
-2115018474|        |option_rer_arachnophobia_mode|Arachnophobia friendly mode
-2115018475|        |rer_difficulty|Difficulty
-2115018476|        |rer_bounty_start_popup_title|Bounty information
-2115018477|        |rer_trade_all_tokens|Trade all tokens
-2115018478|        |option_rer_allow_select_difficulty|Allow selecting contracts difficulty
-2115018479|        |option_rer_allow_increased_enemy_count|Allow increased enemy count
-2115018480|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
-2115018481|        |option_rer_tutorial_bounty_level|Bounty level
-2115018482|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
-2115018483|        |rer_tutorial_bounty_level_body|Once you have finished a bounty your <font color="#CD7D03">bounty level</font> may increase, each region has its own bounty level. Whenever you increase your bounty level you will receive an item, this item will increase in rarity with your bounty level
-2115018482|        |option_rer_tutorial_bounty_master|Bounty master
-2115018483|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
-2115018484|        |rer_tutorial_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
+2115018379|        |rer_token_trading_option|{{reward_type}} ({{tokens_amount}} left)
+2115018380|        |rer_token_trading_option_empty|No tokens to trade
+2115018381|        |rer_trade_tokens|Trade tokens of gratitude
+2115018382|        |option_rer_mod_version|MOD VERSION <font color="#d73a49">(DO NOT EDIT)</font>
+2115018383|        |rer_find_nest|Find the {{type}} nest
+2115018384|        |rer_find_nests|Find the {{type}} nests
+2115018385|        |rer_survive_horde|Survive the {{type}} horde
+2115018386|        |rer_kill_target|Kill the {{type}}
+2115018387|        |rer_contract_finished|The contract is over
+2115018388|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
+2115018389|        |rer_contract_started|{{species}} contract has started, search the marker on your map
+2115018390|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
+2115018391|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
+2115018392|        |rer_current_reputation|Current reputation for this noticeboard: {{reputation}}
+2115018393|        |rer_distance_nearby|UNUSED
+2115018394|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
+2115018395|        |option_rer_medium_far_contracts_number|UNUSED
+2115018396|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Reputation system:</font> enabled
+2115018397|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for vanilla contracts
+2115018398|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point
+2115018399|        |rer_mappin_bounty_side_target_title|Bounty side target
+2115018400|        |rer_mappin_bounty_side_target_description|A group of {{creature_type}} was seen in the area. Kill them and increase your rewards.
+2115018401|        |rer_bounty_side_target_killed|Bounty side target killed, rewards increased
+2115018402|        |option_rer_arachnophobia_mode|Arachnophobia friendly mode
+2115018403|        |rer_difficulty|Difficulty
+2115018404|        |rer_bounty_start_popup_title|Bounty information
+2115018405|        |rer_trade_all_tokens|Trade all tokens
+2115018406|        |option_rer_allow_select_difficulty|Allow selecting contracts difficulty
+2115018407|        |option_rer_allow_increased_enemy_count|Allow increased enemy count
+2115018408|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
+2115018409|        |option_rer_tutorial_bounty_level|Bounty level
+2115018410|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
+2115018411|        |rer_tutorial_bounty_level_body|Once you have finished a bounty your <font color="#CD7D03">bounty level</font> may increase, each region has its own bounty level. Whenever you increase your bounty level you will receive an item, this item will increase in rarity with your bounty level
+2115018410|        |option_rer_tutorial_bounty_master|Bounty master
+2115018411|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
+2115018412|        |rer_tutorial_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
+2115018413|        |preset_Mods_rer_name_rer_rewards_settings_rer_rewards_general_settings|General rewards settings
+2115018414|        |panel_rer_rewards_general_settings|General rewards settings
+2115018415|        |option_rer_loot_global_chance_multiplier|<font color="#ffd33d">Global chance multiplier</font>
+2115018416|        |option_rer_loot_gear_ratio|<font color="#28a745">               Gear:</font> ratio
+2115018417|        |option_rer_loot_gear_rolls_amount|<font color="#28a745">                       :</font> number of rolls
+2115018418|        |option_rer_loot_gear_items_per_proc|<font color="#28a745">                       :</font> items per successful roll
+2115018419|        |option_rer_loot_gear_common_chance|<font color="#28a745">                       :</font> common rarity chance
+2115018420|        |option_rer_loot_gear_uncommon_chance|<font color="#28a745">                       :</font> uncommon rarity chance
+2115018421|        |option_rer_loot_gear_rare_chance|<font color="#28a745">                       :</font> rare rarity chance
+2115018422|        |option_rer_loot_gear_exotic_chance|<font color="#28a745">                       :</font> exotic rarity chance
+2115018423|        |option_rer_loot_materials_ratio|<font color="#b392f0">       Materials:</font>
+2115018424|        |option_rer_loot_materials_rolls_amount|<font color="#b392f0">                       :</font> number of rolls
+2115018425|        |option_rer_loot_materials_items_per_proc|<font color="#b392f0">                       :</font> items per successful roll
+2115018426|        |option_rer_loot_materials_common_chance|<font color="#b392f0">                       :</font> common rarity chance
+2115018427|        |option_rer_loot_materials_uncommon_chance|<font color="#b392f0">                       :</font> uncommon rarity chance
+2115018428|        |option_rer_loot_materials_rare_chance|<font color="#b392f0">                       :</font> rare rarity chance
+2115018429|        |option_rer_loot_materials_exotic_chance|<font color="#b392f0">                       :</font> exotic rarity chance
+2115018430|        |option_rer_loot_consumables_ratio|<font color="#ffffff">Consumables:</font> ratio
+2115018431|        |option_rer_loot_consumables_rolls_amount|<font color="#ffffff">                       :</font> number of rolls
+2115018432|        |option_rer_loot_consumables_items_per_proc|<font color="#ffffff">                       :</font> items per successful roll
+2115018433|        |option_rer_loot_consumables_common_chance|<font color="#ffffff">                       :</font> common rarity chance
+2115018434|        |option_rer_loot_consumables_uncommon_chance|<font color="#ffffff">                       :</font> uncommon rarity chance
+2115018435|        |option_rer_loot_consumables_rare_chance|<font color="#ffffff">                       :</font> rare rarity chance
+2115018436|        |option_rer_loot_consumables_exotic_chance|<font color="#ffffff">                       :</font> exotic rarity chance
+2115018437|        |option_rer_loot_valuables_ratio|<font color="#ffd33d">       Valuables:</font> ratio
+2115018438|        |option_rer_loot_valuables_rolls_amount|<font color="#ffd33d">                       :</font> number of rolls
+2115018439|        |option_rer_loot_valuables_items_per_proc|<font color="#ffd33d">                       :</font> items per successful roll
+2115018440|        |option_rer_loot_valuables_common_chance|<font color="#ffd33d">                       :</font> common rarity chance
+2115018441|        |option_rer_loot_valuables_uncommon_chance|<font color="#ffd33d">                       :</font> uncommon rarity chance
+2115018442|        |option_rer_loot_valuables_rare_chance|<font color="#ffd33d">                       :</font> rare rarity chance
+2115018443|        |option_rer_loot_valuables_exotic_chance| <font color="#ffd33d">                       :</font> exotic rarity chance

@@ -23,7 +23,16 @@ statemachine class RER_AddonManager {
 
   public function init(master: CRandomEncounters) {
     this.master = master;
+    this.addons_data = new RER_AddonsData in this;
     this.GotoState('Loading');
+  }
+
+  public function registerAddon(addon: RER_BaseAddon) {
+    this.addons_data.addons.PushBack(addon);
+  }
+
+  public function getRegisteredAddons(): array<RER_BaseAddon> {
+    return this.addons_data.addons;
   }
 }
 

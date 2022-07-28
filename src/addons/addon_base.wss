@@ -6,4 +6,18 @@
  * If you want it to run through the whole session you can also push it to the
  * RER_AddonsData.addons array so the garbage collector does not delete it.
  */
-abstract class RER_BaseAddon {}
+abstract class RER_BaseAddon {
+
+  /**
+   * Every loot that is added to the loot manager so that it can be used in all
+   * the rewards of the mod, this function is called on every addon registered
+   * and if any of the addons return false, then the item will not be added.
+   *
+   * The fourth parameter is the origin, a name you can used to identify the
+   * items your addon added.
+   */
+  public function canAddLoot(category: RER_LootCategory, rarity: RER_LootRarity, item_name: name, optional origin: name): bool {
+    return true;
+  }
+
+}

@@ -1,0 +1,17 @@
+
+#define function state(state_name, parent_class, code) {
+  #pragma find function 
+  #pragma replace function state_name_
+
+state state_name in parent_class {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    LogChannel('parent_class', "Entering state state_name");
+
+    this.state_name_main();
+  }
+
+  code
+}
+
+};

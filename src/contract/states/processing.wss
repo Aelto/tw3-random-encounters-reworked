@@ -28,8 +28,6 @@ state Processing in RER_ContractManager {
       return;
     }
 
-    RER_tutorialTryShowNoticeboard();
-
     active_contract = parent.master.storages.contract.active_contract;
 
     SU_removeCustomPinByTag("RER_contract_target");

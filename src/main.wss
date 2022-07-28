@@ -29,6 +29,7 @@ statemachine class CRandomEncounters extends CEntity {
   var horde_manager: RER_HordeManager;
   var contract_manager: RER_ContractManager;
   var addon_manager: RER_AddonManager;
+  var loot_manager: RER_LootManager;
 
   var boot_time: float;
 
@@ -76,6 +77,7 @@ statemachine class CRandomEncounters extends CEntity {
       horde_manager = new RER_HordeManager in this;
       contract_manager = new RER_ContractManager in this;
       addon_manager = new RER_AddonManager in this;
+      loot_manager = new RER_LootManager in this;
 
       this.boot_time = theGame.GetEngineTimeAsSeconds();
 

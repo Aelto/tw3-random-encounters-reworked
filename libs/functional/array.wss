@@ -1,0 +1,54 @@
+
+function map<I, O>(arr: array<I>, predicate: fn(child: I): O): array<O> {
+  var output: array<O>;
+  var i: int;
+
+  output.Grow(arr.Size());
+
+  for (i = 0; i < arr.Size(); i += 1) {
+    output[i] = predicate.call(arr[i]);
+  }
+
+  return output;
+}
+
+function filter<I>(arr: array<I>, predicate: fn(child: I): bool): array<I> {
+  var output: array<I>;
+  var i: int;
+
+  for (i = 0; i < arr.Size(); i += 1) {
+    var can_insert: bool = predicate.call(arr[i]);
+
+    if (can_insert) {
+      output.PushBack(arr[i]);
+    }
+  }
+
+  return output;
+}
+
+// the main difference between this macro and the regular generic is that this
+// one is inlined and allows use of local variables (closures are not yet available)
+//
+// This macro mutates the array.
+#define function filter(list, code) {
+  var i: int;
+
+  for (i = 0; i < list.Size(); i += 1) {
+    if (!code) {
+      list.Erase(i);
+      i -= 1;
+    }
+  }
+};
+
+#define function pipe2(a, b) {
+  b(a)
+};
+
+#define function pipe3(a, b, c) {
+  c(pipe2!(
+    a,
+    b
+  ))
+};

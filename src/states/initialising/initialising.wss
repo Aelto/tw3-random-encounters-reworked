@@ -32,6 +32,7 @@ state Initialising in CRandomEncounters {
     parent.bounty_manager.init(parent);
     parent.horde_manager.init(parent);
     parent.contract_manager.init(parent);
+    parent.loot_manager.init(parent);
 
     RER_tutorialTryShowStarted();
     
@@ -84,7 +85,37 @@ state Initialising in CRandomEncounters {
     if (current_version < 2.11) {
       NDEBUG("[RER] The mod was updated to v2.11");
 
-      current_version = 2.10;
+      current_version = 2.11;
+    }
+
+    if (current_version < 2.12) {
+      var message: string;
+
+      message += "You just updated the Random Encounters Reworked mod to the v2.12, the loot update.<br/><br/>";
+      message += "All of your reward settings were reset following the update. ";
+      message += "To simplify and streamline the loot coming from the mod, all of the old rewards were removed and replaced ";
+      message += "with a central and generic system. This system called the Loot Manager offers four loot categories:";
+      message += "<br/> - Gear";
+      message += "<br/> - Materials";
+      message += "<br/> - Consumables";
+      message += "<br/> - Valuables";
+      message += "<br/>And for each category it offers four loot rarities: ";
+      message += "<br/> - Common";
+      message += "<br/> - Uncommon";
+      message += "<br/> - Rare";
+      message += "<br/> - Exotic";
+      message += "<br/><br/>Now every time RER wants to add loot to something, it sends a call to the loot manager which will ";
+      message += "give it a list of items based on the settings you set in the menu, and this for every feature in the mod.";
+
+      NTUTO("RER v2.12 - The loot update", message);
+
+      config.ApplyGroupPreset('RERrewardsGeneral', 0);
+      config.ApplyGroupPreset('RERcontainerRefill', 0);
+      config.ApplyGroupPreset('RERkillingSpreeCustomLoot', 0);
+      config.ApplyGroupPreset('RERmonsterTrophies', 0);
+      config.ApplyGroupPreset('RERcontracts', 0);
+
+      current_version = 2.12;
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);

@@ -353,10 +353,12 @@ statemachine class RER_ContractManager {
       // then we give what's left as jewels:
       rewards_amount -= current_amount;
 
-      token_name = RER_getRandomJewelName(rng);
-
-      thePlayer.GetInventory().AddAnItem(token_name, rewards_amount);
-      thePlayer.DisplayItemRewardNotification(token_name, rewards_amount);
+      this.master.loot_manager.rollAndGiveItemsTo(
+        thePlayer.GetInventory(),
+        current_amount * 0.1,
+        , // rng
+        LootCategory_Valuables
+      );
 
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
@@ -473,7 +475,7 @@ statemachine class RER_ContractManager {
 
   public function getMaximumDifficultyForReputation(reputation: int): int {
     return Clamp(
-      10 + reputation * 5,
+      10 + reputation * 1,
       0,
       50
     ) + reputation;

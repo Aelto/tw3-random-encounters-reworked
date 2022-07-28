@@ -7,7 +7,7 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
-                <Entry varId="RERmodVersion" value="2.11" />
+                <Entry varId="RERmodVersion" value="2.12" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -4777,7 +4777,7 @@
                 <Entry varId="RERcontractsGenerationSeed" value="0" />
 
                 <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
-                <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="2" />
+                <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="0" />
                 <Entry varId="RERcontractsReputationSystemReputationRewardsIncrease" value="0.05" />
             </Preset>
         </PresetsArray>
@@ -4799,264 +4799,132 @@
     <Group id="RERrewards" displayName="Mods.rer_name.rer_rewards_settings">
     </Group>
 
+    <Group id="RERrewardsGeneral" displayName="Mods.rer_name.rer_rewards_settings.rer_rewards_general_settings">
+        <PresetsArray>
+            <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="RERlootGlobalChanceMultiplier" value="1" />
+
+                <Entry varId="RERlootGearRatio" value="10" />
+                <Entry varId="RERlootGearRollsAmount" value="1" />
+                <Entry varId="RERlootGearItemsPerProc" value="1" />
+                <Entry varId="RERlootGearRarityChanceCommon" value="50" />
+                <Entry varId="RERlootGearRarityChanceUncommon" value="25" />
+                <Entry varId="RERlootGearRarityChanceRare" value="10" />
+                <Entry varId="RERlootGearRarityChanceExotic" value="5" />
+
+                <Entry varId="RERlootMaterialsRatio" value="40" />
+                <Entry varId="RERlootMaterialsRollsAmount" value="2" />
+                <Entry varId="RERlootMaterialsItemsPerProc" value="1" />
+                <Entry varId="RERlootMaterialsRarityChanceCommon" value="80" />
+                <Entry varId="RERlootMaterialsRarityChanceUncommon" value="50" />
+                <Entry varId="RERlootMaterialsRarityChanceRare" value="20" />
+                <Entry varId="RERlootMaterialsRarityChanceExotic" value="10" />
+
+                <Entry varId="RERlootConsumablesRatio" value="40" />
+                <Entry varId="RERlootConsumablesRollsAmount" value="1" />
+                <Entry varId="RERlootConsumablesItemsPerProc" value="1" />
+                <Entry varId="RERlootConsumablesRarityChanceCommon" value="60" />
+                <Entry varId="RERlootConsumablesRarityChanceUncommon" value="40" />
+                <Entry varId="RERlootConsumablesRarityChanceRare" value="20" />
+                <Entry varId="RERlootConsumablesRarityChanceExotic" value="10" />
+
+                <Entry varId="RERlootValuablesRatio" value="10" />
+                <Entry varId="RERlootValuablesRollsAmount" value="1" />
+                <Entry varId="RERlootValuablesItemsPerProc" value="1" />
+                <Entry varId="RERlootValuablesRarityChanceCommon" value="30" />
+                <Entry varId="RERlootValuablesRarityChanceUncommon" value="15" />
+                <Entry varId="RERlootValuablesRarityChanceRare" value="10" />
+                <Entry varId="RERlootValuablesRarityChanceExotic" value="5" />
+            </Preset>
+            <Preset id="1" displayName="rer_high">
+                <Entry varId="RERlootGlobalChanceMultiplier" value="1.5" />
+            </Preset>
+            <Preset id="2" displayName="rer_low">
+                <Entry varId="RERlootGlobalChanceMultiplier" value="0.5" />
+            </Preset>
+            <Preset id="3" displayName="rer_everything_off" >
+                <Entry varId="RERlootGearRatio" value="0" />
+                <Entry varId="RERlootMaterialsRatio" value="0" />
+                <Entry varId="RERlootConsumablesRatio" value="0" />
+                <Entry varId="RERlootValuablesRatio" value="0" />
+            </Preset>
+        </PresetsArray>
+        <VisibleVars>
+            <Var id="RERlootGlobalChanceMultiplier" displayName="rer_loot_global_chance_multiplier" displayType="SLIDER;0;10;100" />
+
+            <Var id="RERlootGearRatio" displayName="rer_loot_gear_ratio" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootGearRollsAmount" displayName="rer_loot_gear_rolls_amount" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootGearItemsPerProc" displayName="rer_loot_gear_items_per_proc" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootGearRarityChanceCommon" displayName="rer_loot_gear_common_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootGearRarityChanceUncommon" displayName="rer_loot_gear_uncommon_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootGearRarityChanceRare" displayName="rer_loot_gear_rare_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootGearRarityChanceExotic" displayName="rer_loot_gear_exotic_chance" displayType="SLIDER;0;100;100" />
+
+            <Var id="RERlootMaterialsRatio" displayName="rer_loot_materials_ratio" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootMaterialsRollsAmount" displayName="rer_loot_materials_rolls_amount" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootMaterialsItemsPerProc" displayName="rer_loot_materials_items_per_proc" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootMaterialsRarityChanceCommon" displayName="rer_loot_materials_common_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootMaterialsRarityChanceUncommon" displayName="rer_loot_materials_uncommon_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootMaterialsRarityChanceRare" displayName="rer_loot_materials_rare_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootMaterialsRarityChanceExotic" displayName="rer_loot_materials_exotic_chance" displayType="SLIDER;0;100;100" />
+
+            <Var id="RERlootConsumablesRatio" displayName="rer_loot_consumables_ratio" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootConsumablesRollsAmount" displayName="rer_loot_consumables_rolls_amount" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootConsumablesItemsPerProc" displayName="rer_loot_consumables_items_per_proc" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootConsumablesRarityChanceCommon" displayName="rer_loot_consumables_common_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootConsumablesRarityChanceUncommon" displayName="rer_loot_consumables_uncommon_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootConsumablesRarityChanceRare" displayName="rer_loot_consumables_rare_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootConsumablesRarityChanceExotic" displayName="rer_loot_consumables_exotic_chance" displayType="SLIDER;0;100;100" />
+
+            <Var id="RERlootValuablesRatio" displayName="rer_loot_valuables_ratio" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootValuablesRollsAmount" displayName="rer_loot_valuables_rolls_amount" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootValuablesItemsPerProc" displayName="rer_loot_valuables_items_per_proc" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootValuablesRarityChanceCommon" displayName="rer_loot_valuables_common_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootValuablesRarityChanceUncommon" displayName="rer_loot_valuables_uncommon_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootValuablesRarityChanceRare" displayName="rer_loot_valuables_rare_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERlootValuablesRarityChanceExotic" displayName="rer_loot_valuables_exotic_chance" displayType="SLIDER;0;100;100" />
+        </VisibleVars>
+    </Group>
+
     <Group id="RERcontainerRefill" displayName="Mods.rer_name.rer_rewards_settings.rer_container_refill_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERcontainerRefillTriggerChance" value="100" />
+                <Entry varId="RERcontainerRefillChanceMultiplier" value="1" />
                 <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
                 <Entry varId="RERcontainerRefillRadius" value="1000" />
                 <Entry varId="RERcontainerRefillNumberOfContainers" value="1" />
-
-                <Entry varId="RERlootTable__generic_food_everywhere" value="15" />
-                <Entry varId="RERlootTable__generic_alco_everywhere" value="15" />
-                <Entry varId="RERlootTable__generic_gold_everywhere" value="15" />
-                <Entry varId="RERlootTable__loot_dwarven_body_everywhere" value="15" />
-                <Entry varId="RERlootTable__loot_badit_body_everywhere" value="15" />
-                <Entry varId="RERlootTable__generic_chest_everywhere" value="15" />
-                <Entry varId="RERlootTable__herbalist_area_prolog" value="20" />
-                <Entry varId="RERlootTable__herbalist_area_nml" value="20" />
-                <Entry varId="RERlootTable__herbalist_area_novigrad" value="20" />
-                <Entry varId="RERlootTable__herbalist_area_skelige" value="20" />
-                <Entry varId="RERlootTable__dungeon_everywhere" value="5" />
-                <Entry varId="RERlootTable__treasure_q1" value="5" />
-                <Entry varId="RERlootTable__treasure_q2" value="4" />
-                <Entry varId="RERlootTable__treasure_q3" value="3" />
-                <Entry varId="RERlootTable__treasure_q4" value="2" />
-                <Entry varId="RERlootTable__treasure_q5" value="1" />
-                <Entry varId="RERlootTable__unique_runes" value="5" />
-                <Entry varId="RERlootTable__unique_armorupgrades" value="5" />
-                <Entry varId="RERlootTable__unique_ingr" value="10" />
-                <Entry varId="RERlootTable__weapons_nml" value="5" />
-                <Entry varId="RERlootTable__unique_weapons_epic_dungeon_nml" value="1" />
-                <Entry varId="RERlootTable__uniqe_weapons_epic_dungeon_skelige" value="1" />
-                <Entry varId="RERlootTable__loot_monster_treasure_uniq_swords" value="1" />
-                <Entry varId="RERlootTable__uniq_armors" value="5" />
             </Preset>
 
             <Preset id="1" displayName="rer_everything_off" >
-                <Entry varId="RERcontainerRefillTriggerChance" value="0" />
+                <Entry varId="RERcontainerRefillChanceMultiplier" value="0" />
             </Preset>
 
             <Preset id="2" displayName="rer_high" >
-                <Entry varId="RERcontainerRefillTriggerChance" value="100" />
+                <Entry varId="RERcontainerRefillChanceMultiplier" value="1.5" />
                 <Entry varId="RERcontainerRefillOnlyEmptyContainers" value="1" />
                 <Entry varId="RERcontainerRefillNumberOfContainers" value="2" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
-            <Var id="RERcontainerRefillTriggerChance" displayName="rer_container_refill_trigger_chance" displayType="SLIDER;0;100;100" />
+            <Var id="RERcontainerRefillChanceMultiplier" displayName="rer_container_refill_chance_multiplier" displayType="SLIDER;0;10;1000" />
             <Var id="RERcontainerRefillOnlyEmptyContainers" displayName="rer_container_refill_only_empty_containers" displayType="TOGGLE" />
             <Var id="RERcontainerRefillRadius" displayName="rer_container_refill_radius" displayType="SLIDER;0;1000;1000" />
             <Var id="RERcontainerRefillNumberOfContainers" displayName="rer_container_refill_number_of_containers" displayType="SLIDER;0;10;10" />
-
-            <Var id="RERlootTable__generic_food_everywhere" displayName="rer_container_refill_loot_table__generic_food_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__generic_alco_everywhere" displayName="rer_container_refill_loot_table__generic_alco_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__generic_gold_everywhere" displayName="rer_container_refill_loot_table__generic_gold_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__loot_dwarven_body_everywhere" displayName="rer_container_refill_loot_table__loot_dwarven_body_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__loot_badit_body_everywhere" displayName="rer_container_refill_loot_table__loot_badit_body_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__generic_chest_everywhere" displayName="rer_container_refill_loot_table__generic_chest_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__herbalist_area_prolog" displayName="rer_container_refill_loot_table__herbalist_area_prolog" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__herbalist_area_nml" displayName="rer_container_refill_loot_table__herbalist_area_nml" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__herbalist_area_novigrad" displayName="rer_container_refill_loot_table__herbalist_area_novigrad" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__herbalist_area_skelige" displayName="rer_container_refill_loot_table__herbalist_area_skelige" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__dungeon_everywhere" displayName="rer_container_refill_loot_table__dungeon_everywhere" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__treasure_q1" displayName="rer_container_refill_loot_table__treasure_q1" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__treasure_q2" displayName="rer_container_refill_loot_table__treasure_q2" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__treasure_q3" displayName="rer_container_refill_loot_table__treasure_q3" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__treasure_q4" displayName="rer_container_refill_loot_table__treasure_q4" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__treasure_q5" displayName="rer_container_refill_loot_table__treasure_q5" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__unique_runes" displayName="rer_container_refill_loot_table__unique_runes" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__unique_armorupgrades" displayName="rer_container_refill_loot_table__unique_armorupgrades" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__unique_ingr" displayName="rer_container_refill_loot_table__unique_ingr" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__weapons_nml" displayName="rer_container_refill_loot_table__weapons_nml" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__unique_weapons_epic_dungeon_nml" displayName="rer_container_refill_loot_table__unique_weapons_epic_dungeon_nml" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__uniqe_weapons_epic_dungeon_skelige" displayName="rer_container_refill_loot_table__uniqe_weapons_epic_dungeon_skelige" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__loot_monster_treasure_uniq_swords" displayName="rer_container_refill_loot_table__loot_monster_treasure_uniq_swords" displayType="SLIDER;0;100;100" />
-            <Var id="RERlootTable__uniq_armors" displayName="rer_container_refill_loot_table__uniq_armors" displayType="SLIDER;0;100;100" />
         </VisibleVars>
     </Group>
 
     <Group id="RERkillingSpreeCustomLoot" displayName="Mods.rer_name.rer_rewards_settings.rer_killing_spree_custom_loot_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERlootTable_unlock__generic_food_everywhere" value="5" />
-                <Entry varId="RERlootTable_unlock__generic_alco_everywhere" value="5" />
-                <Entry varId="RERlootTable_unlock__generic_gold_everywhere" value="5" />
-                <Entry varId="RERlootTable_unlock__loot_dwarven_body_everywhere" value="10" />
-                <Entry varId="RERlootTable_unlock__loot_badit_body_everywhere" value="10" />
-                <Entry varId="RERlootTable_unlock__generic_chest_everywhere" value="10" />
-                <Entry varId="RERlootTable_unlock__herbalist_area_prolog" value="5" />
-                <Entry varId="RERlootTable_unlock__herbalist_area_nml" value="5" />
-                <Entry varId="RERlootTable_unlock__herbalist_area_novigrad" value="10" />
-                <Entry varId="RERlootTable_unlock__herbalist_area_skelige" value="10" />
-                <Entry varId="RERlootTable_unlock__dungeon_everywhere" value="25" />
-                <Entry varId="RERlootTable_unlock__treasure_q1" value="35" />
-                <Entry varId="RERlootTable_unlock__treasure_q2" value="40" />
-                <Entry varId="RERlootTable_unlock__treasure_q3" value="45" />
-                <Entry varId="RERlootTable_unlock__treasure_q4" value="50" />
-                <Entry varId="RERlootTable_unlock__treasure_q5" value="55" />
-                <Entry varId="RERlootTable_unlock__unique_runes" value="55" />
-                <Entry varId="RERlootTable_unlock__unique_armorupgrades" value="55" />
-                <Entry varId="RERlootTable_unlock__unique_ingr" value="20" />
-                <Entry varId="RERlootTable_unlock__weapons_nml" value="35" />
-                <Entry varId="RERlootTable_unlock__unique_weapons_epic_dungeon_nml" value="80" />
-                <Entry varId="RERlootTable_unlock__uniqe_weapons_epic_dungeon_skelige" value="80" />
-                <Entry varId="RERlootTable_unlock__loot_monster_treasure_uniq_swords" value="80" />
-                <Entry varId="RERlootTable_unlock__uniq_armors" value="80" />
-
-                <Entry varId="RERlootTable_droprate__generic_food_everywhere" value="8" />
-                <Entry varId="RERlootTable_droprate__generic_alco_everywhere" value="5" />
-                <Entry varId="RERlootTable_droprate__generic_gold_everywhere" value="10" />
-                <Entry varId="RERlootTable_droprate__loot_dwarven_body_everywhere" value="5" />
-                <Entry varId="RERlootTable_droprate__loot_badit_body_everywhere" value="5" />
-                <Entry varId="RERlootTable_droprate__generic_chest_everywhere" value="5" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_prolog" value="10" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_nml" value="9" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_novigrad" value="8" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_skelige" value="7" />
-                <Entry varId="RERlootTable_droprate__dungeon_everywhere" value="5" />
-                <Entry varId="RERlootTable_droprate__treasure_q1" value="5" />
-                <Entry varId="RERlootTable_droprate__treasure_q2" value="4" />
-                <Entry varId="RERlootTable_droprate__treasure_q3" value="3" />
-                <Entry varId="RERlootTable_droprate__treasure_q4" value="2" />
-                <Entry varId="RERlootTable_droprate__treasure_q5" value="1" />
-                <Entry varId="RERlootTable_droprate__unique_runes" value="5" />
-                <Entry varId="RERlootTable_droprate__unique_armorupgrades" value="5" />
-                <Entry varId="RERlootTable_droprate__unique_ingr" value="10" />
-                <Entry varId="RERlootTable_droprate__weapons_nml" value="5" />
-                <Entry varId="RERlootTable_droprate__unique_weapons_epic_dungeon_nml" value="5" />
-                <Entry varId="RERlootTable_droprate__uniqe_weapons_epic_dungeon_skelige" value="5" />
-                <Entry varId="RERlootTable_droprate__loot_monster_treasure_uniq_swords" value="5" />
-                <Entry varId="RERlootTable_droprate__uniq_armors" value="5" />
+                <Entry varId="RERkillingSpreeChanceIncreasePerImpactPoint" value="0.25" />
             </Preset>
 
             <Preset id="1" displayName="rer_everything_off" >
-                <Entry varId="RERlootTable_droprate__generic_food_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__generic_alco_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__generic_gold_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__loot_dwarven_body_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__loot_badit_body_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__generic_chest_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_prolog" value="0" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_nml" value="0" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_novigrad" value="0" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_skelige" value="0" />
-                <Entry varId="RERlootTable_droprate__dungeon_everywhere" value="0" />
-                <Entry varId="RERlootTable_droprate__treasure_q1" value="0" />
-                <Entry varId="RERlootTable_droprate__treasure_q2" value="0" />
-                <Entry varId="RERlootTable_droprate__treasure_q3" value="0" />
-                <Entry varId="RERlootTable_droprate__treasure_q4" value="0" />
-                <Entry varId="RERlootTable_droprate__treasure_q5" value="0" />
-                <Entry varId="RERlootTable_droprate__unique_runes" value="0" />
-                <Entry varId="RERlootTable_droprate__unique_armorupgrades" value="0" />
-                <Entry varId="RERlootTable_droprate__unique_ingr" value="0" />
-                <Entry varId="RERlootTable_droprate__weapons_nml" value="0" />
-                <Entry varId="RERlootTable_droprate__unique_weapons_epic_dungeon_nml" value="0" />
-                <Entry varId="RERlootTable_droprate__uniqe_weapons_epic_dungeon_skelige" value="0" />
-                <Entry varId="RERlootTable_droprate__loot_monster_treasure_uniq_swords" value="0" />
-                <Entry varId="RERlootTable_droprate__uniq_armors" value="0" />
-            </Preset>
-
-            <Preset id="2" displayName="rer_high" >
-                <Entry varId="RERlootTable_droprate__generic_food_everywhere" value="16" />
-                <Entry varId="RERlootTable_droprate__generic_alco_everywhere" value="10" />
-                <Entry varId="RERlootTable_droprate__generic_gold_everywhere" value="20" />
-                <Entry varId="RERlootTable_droprate__loot_dwarven_body_everywhere" value="10" />
-                <Entry varId="RERlootTable_droprate__loot_badit_body_everywhere" value="10" />
-                <Entry varId="RERlootTable_droprate__generic_chest_everywhere" value="10" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_prolog" value="20" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_nml" value="18" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_novigrad" value="16" />
-                <Entry varId="RERlootTable_droprate__herbalist_area_skelige" value="14" />
-                <Entry varId="RERlootTable_droprate__dungeon_everywhere" value="10" />
-                <Entry varId="RERlootTable_droprate__treasure_q1" value="10" />
-                <Entry varId="RERlootTable_droprate__treasure_q2" value="8" />
-                <Entry varId="RERlootTable_droprate__treasure_q3" value="6" />
-                <Entry varId="RERlootTable_droprate__treasure_q4" value="4" />
-                <Entry varId="RERlootTable_droprate__treasure_q5" value="2" />
-                <Entry varId="RERlootTable_droprate__unique_runes" value="10" />
-                <Entry varId="RERlootTable_droprate__unique_armorupgrades" value="10" />
-                <Entry varId="RERlootTable_droprate__unique_ingr" value="20" />
-                <Entry varId="RERlootTable_droprate__weapons_nml" value="10" />
-                <Entry varId="RERlootTable_droprate__unique_weapons_epic_dungeon_nml" value="10" />
-                <Entry varId="RERlootTable_droprate__uniqe_weapons_epic_dungeon_skelige" value="10" />
-                <Entry varId="RERlootTable_droprate__loot_monster_treasure_uniq_swords" value="10" />
-                <Entry varId="RERlootTable_droprate__uniq_armors" value="10" />
+                <Entry varId="RERkillingSpreeChanceIncreasePerImpactPoint" value="0" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
-            <Var id="RERlootTable_unlock__generic_food_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__generic_food_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere" displayType="SLIDER;0;100;100" />
-
-            <Var id="RERlootTable_unlock__generic_alco_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__generic_alco_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__generic_gold_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__generic_gold_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__loot_dwarven_body_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__loot_dwarven_body_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__loot_badit_body_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__loot_badit_body_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__generic_chest_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__generic_chest_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__herbalist_area_prolog" displayName="rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__herbalist_area_prolog" displayName="rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__herbalist_area_nml" displayName="rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__herbalist_area_nml" displayName="rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__herbalist_area_novigrad" displayName="rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__herbalist_area_novigrad" displayName="rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__herbalist_area_skelige" displayName="rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__herbalist_area_skelige" displayName="rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__dungeon_everywhere" displayName="rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__dungeon_everywhere" displayName="rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__treasure_q1" displayName="rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__treasure_q1" displayName="rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__treasure_q2" displayName="rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__treasure_q2" displayName="rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__treasure_q3" displayName="rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__treasure_q3" displayName="rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__treasure_q4" displayName="rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__treasure_q4" displayName="rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__treasure_q5" displayName="rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__treasure_q5" displayName="rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__unique_runes" displayName="rer_killing_spree_custom_loot_unlock_loot_table__unique_runes" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__unique_runes" displayName="rer_killing_spree_custom_loot_droprate_loot_table__unique_runes" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__unique_armorupgrades" displayName="rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__unique_armorupgrades" displayName="rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__unique_ingr" displayName="rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__unique_ingr" displayName="rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__weapons_nml" displayName="rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__weapons_nml" displayName="rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__unique_weapons_epic_dungeon_nml" displayName="rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__unique_weapons_epic_dungeon_nml" displayName="rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__uniqe_weapons_epic_dungeon_skelige" displayName="rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__uniqe_weapons_epic_dungeon_skelige" displayName="rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__loot_monster_treasure_uniq_swords" displayName="rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__loot_monster_treasure_uniq_swords" displayName="rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords" displayType="SLIDER;0;100;100" />
-            
-            <Var id="RERlootTable_unlock__uniq_armors" displayName="rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors" displayType="SLIDER;0;100;1000" />
-            <Var id="RERlootTable_droprate__uniq_armors" displayName="rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors" displayType="SLIDER;0;100;100" />
-            
+            <Var id="RERkillingSpreeChanceIncreasePerImpactPoint" displayName="rer_killing_spree_chance_increase_per_impact_point" displayType="SLIDER;0;100;1000" />
         </VisibleVars>
     </Group>
 
@@ -5208,11 +5076,11 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERtrophiesPrices" value="0" />
-                <Entry varId="RERtrophiesAmbush" value="0" />
-                <Entry varId="RERtrophiesHunt" value="0" />
+                <Entry varId="RERtrophiesAmbush" value="1" />
+                <Entry varId="RERtrophiesHunt" value="1" />
                 <Entry varId="RERtrophiesContract" value="1" />
-                <Entry varId="RERtrophiesHuntingGround" value="0" />
-                <Entry varId="RERtrophyMasterBuyingPrice" value="55" />
+                <Entry varId="RERtrophiesHuntingGround" value="1" />
+                <Entry varId="RERtrophyMasterBuyingPrice" value="50" />
 
                 <Entry varId="Hags"                    value="100"     />
                 <Entry varId="Foglets"                value="100"     />

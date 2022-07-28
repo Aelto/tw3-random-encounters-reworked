@@ -1,0 +1,21 @@
+
+
+
+enum RER_LootCategory {
+  LootCategory_None = 0,
+  LootCategory_Gear = 1,
+  LootCategory_Materials = 2,
+  LootCategory_Consumables = 3,
+  LootCategory_Valuables = 4
+}
+
+enum RER_LootRarity {
+  LootRarity_Common = 0,
+  LootRarity_Uncommon = 1,
+  LootRarity_Rare = 2,
+  LootRarity_Exotic = 3
+}
+
+#define const RER_Loot = array<name>;
+#define const RER_LootByRarity = array<RER_Loot!>;
+#define const RER_LootByCategory = array<RER_LootByRarity!>;

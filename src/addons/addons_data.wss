@@ -3,7 +3,8 @@ class RER_AddonsData {
 
   /**
    * Array of an abstract class so add-ons can push their statemachine if they
-   * need them to avoid the garbage collection.
+   * need them to avoid the garbage collection or if they want to react to
+   * different events emitted by RER.
    */
   var addons: array<RER_BaseAddon>;
 

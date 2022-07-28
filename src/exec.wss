@@ -1,4 +1,21 @@
 
+exec function rerloot(optional category: RER_LootCategory) {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.loot_manager.rollAndGiveItemsTo(
+    thePlayer.GetInventory(),
+    1.0,
+    , // rng
+    category
+  );
+}
+
 exec function reruninstall() {
   var entities: array<CEntity>;
   var i: int;

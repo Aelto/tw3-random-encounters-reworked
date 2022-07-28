@@ -3,14 +3,20 @@
 // that you can instantiate  //
 ///////////////////////////////
 
+#define const DEBUG;
+
+#ifdef DEBUG {
+  #define const DEBUG_LOOT;
+};
+
 struct RER_Constants {
 
   /**
    * If you update that number, remember to maybe add an update function in
-   * the Initialising state.
+   * the Initialising state. And also the default value in the menu
    */
   var version: float;
-  default version = 2.11;
+  default version = 2.12;
 }
 
 // used to define influences the

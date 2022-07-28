@@ -23,6 +23,8 @@ state DialogChoice in RER_ContractManager {
   private latent function startNoticeboardCutscene() {
     var noticeboard: W3NoticeBoard;
 
+    RER_tutorialTryShowNoticeboard();
+
     REROL_mhm();
     Sleep(0.1);
 
