@@ -383,7 +383,7 @@ statemachine class RER_ContractManager {
       );
 
       this.increaseGlobalReputation(
-        0.25
+        0.5
       );
     }
 
