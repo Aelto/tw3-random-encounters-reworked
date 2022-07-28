@@ -189,7 +189,7 @@ statemachine class RER_LootManager {
   }
 
   public function rollAndGiveItemsTo(inventory: CInventoryComponent, multiplier: float, optional rng: RandomNumberGenerator, optional category: RER_LootCategory) {
-    var item_names: array<name> = this.roll(multiplier, rng);
+    var item_names: array<name> = this.roll(multiplier, rng, category);
 
     #ifdef DEBUG_LOOT {
       var message: string = "rollAndGiveItemsTo(), Received items:";
