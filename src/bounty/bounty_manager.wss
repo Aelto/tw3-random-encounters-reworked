@@ -503,26 +503,10 @@ statemachine class RER_BountyManager extends CEntity {
   }
 
   public function giveBountyLevelupItemToPlayer(bounty_level: int) {
-    var possible_items: array<name>;
-    var index: int;
-
-    possible_items.PushBack('Dwimeryte ingot');
-    possible_items.PushBack('Meteorite ingot');
-    possible_items.PushBack('Silver ingot');
-    possible_items.PushBack('Steel ingot');
-    possible_items.PushBack('Orichalcum ingot');
-    possible_items.PushBack('Dwimeryte enriched ingot');
-    possible_items.PushBack('Iron ingot');
-    possible_items.PushBack('Glowing ingot');
-    possible_items.PushBack('Copper ingot');
-    possible_items.PushBack('Green gold ingot');
-    possible_items.PushBack('Dark iron ingot');
-    possible_items.PushBack('Meteorite silver ingot');
-    possible_items.PushBack('Dark steel ingot');
-
-    index = RandRange(possible_items.Size());
-
-    thePlayer.inv.AddAnItem(possible_items[index], 2 + (bounty_level / 50) as int);
+    this.master.loot_manager.rollAndGiveItemsTo(
+      thePlayer.GetInventory(),
+      1 + (bounty_level as float) * 0.02
+    );
   }
 }
 
