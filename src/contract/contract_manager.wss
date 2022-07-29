@@ -514,7 +514,7 @@ statemachine class RER_ContractManager {
          * LogF(difficulty.value + 1)
          // add a linear function for levels above 50
          + Max(0, difficulty.value - 50) * 2
-         - 12;
+         - 0; // used to -12 to give maluses to early contracts
   }
 
   public function getNearbyNoticeboard(): W3NoticeBoard {
