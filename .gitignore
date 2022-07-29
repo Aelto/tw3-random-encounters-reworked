@@ -10,3 +10,4 @@ docs/skellige-valid-points-bounties.psd
 .old
 *.exe
 dist
+.vscode
