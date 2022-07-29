@@ -1,5 +1,7 @@
 # Random Encounters Reworked
 
+![ambushed tutorial](./docs/ambushed.png)
+
 <div align="center">
   <div><a href="https://www.youtube.com/watch?v=p8T9XQW95pg">contracts</a> ---------------------- <a href="https://www.youtube.com/watch?v=BxBP95s">bounties</a> ---------------------- <a href="https://www.youtube.com/watch?v=5uWC3I-crjI">events</a></div>
   <a href="https://www.youtube.com/watch?v=p8T9XQW95pg"><img src="docs/noticeboard-square-small-yt.png"></a>
