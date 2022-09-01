@@ -31,8 +31,7 @@ state Spawning in RER_StaticEncounterManager {
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
-    max_distance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'minSpawnDistance'))
-                 + StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'spawnDiameter'));
+    max_distance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
 
     small_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterSmallSpawnChance'));
     large_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterLargeSpawnChance'));
