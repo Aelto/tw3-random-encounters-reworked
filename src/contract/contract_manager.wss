@@ -392,18 +392,14 @@ statemachine class RER_ContractManager {
       );
     }
 
-    // increase the reputation for this noticeboard only if the contract difficulty
-    // is in the upper 50% of the available difficulties for this board:
-    if (storage.active_contract.difficulty_level.value >= this.getMaximumDifficultyForReputation(current_reputation) * 0.5) {
-      this.increaseReputationForNoticeboard(
-        storage.active_contract.noticeboard_identifier,
-        1
-      );
+    this.increaseReputationForNoticeboard(
+      storage.active_contract.noticeboard_identifier,
+      1
+    );
 
-      this.increaseGlobalReputation(
-        0.5
-      );
-    }
+    this.increaseGlobalReputation(
+      0.5
+    );
 
     storage.save();
   }
