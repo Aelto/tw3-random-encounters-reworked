@@ -161,7 +161,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
       (current_entity as CActor)
           .GetMovingAgentComponent()
-          .SetGameplayMoveDirection(0.0f);
+          .SetGameplayMoveDirection(0.0);
     }
   }
 }

@@ -50,14 +50,14 @@ latent function flyTo(npc: CNewNPC, destination_point: Vector, destination_radiu
     else { // should_land = false
       npc.SetBehaviorVariable( 'GroundContact', 0.0 );
       npc.SetBehaviorVariable( 'DistanceFromGround', 0.0 );
-      npc.SetBehaviorVariable( 'FlySpeed', 0.0f );
+      npc.SetBehaviorVariable( 'FlySpeed', 0.0 );
       
     }
 
     UsePathFinding(npcPos, destination_point, 2.0);
     CalculateBehaviorVariables(npc, destination_point, full_distance);
 
-    Sleep(0.1f);
+    Sleep(0.1);
 
     if (VecDistance(npcPos, destination_point) < 10) {
       should_land = true;
@@ -99,7 +99,7 @@ function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance:
     flySpeed = 2.f;
   }
 
-  turnSpeedScale = 2.75f;
+  turnSpeedScale = 2.75;
 
   // Calculate Pitch
   flyPitch = Rad2Deg( AcosF( VecDot( VecNormalize( npcToDestVector ), VecNormalize( npcToDestVector2 ) ) ) );
@@ -143,23 +143,23 @@ function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance:
   // If going forward
   if( flyYaw > -0.5 && flyYaw < 0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + npc.GetWorldForward(), collision, normal ) )
   {
-    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Forward", collision + Vector(0,0,0.4f), true, 0, Color( 255, 255, 0 ), true, 1 );
-    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8f, 0.5f, 0.6f, true, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Forward", collision + Vector(0,0,0.4), true, 0, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8, 0.5, 0.6, true, Color( 255, 255, 0 ), true, 1 );
     flyYaw = -1;
   }
   // If turning right
   if( flyYaw < -0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + npc.GetWorldRight(), collision, normal ) )
   {
     flyYaw  = 1;			
-    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Right", collision + Vector(0,0,0.4f), true, 0, Color( 255, 255, 0 ), true, 1 );
-    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8f, 0.5f, 0.6f, true, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Right", collision + Vector(0,0,0.4), true, 0, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8, 0.5, 0.6, true, Color( 255, 255, 0 ), true, 1 );
   }
   // If turning left
   else if ( flyYaw > 0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + ( npc.GetWorldRight() * -1 ) , collision, normal ) )
   {
     flyYaw  = -1;
-    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Left", collision + Vector(0,0,0.4f), true, 0, Color( 255, 255, 0 ), true, 1 );
-    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8f, 0.5f, 0.6f, true, Color( 255, 255, 0 ), true, 1 );			
+    //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Left", collision + Vector(0,0,0.4), true, 0, Color( 255, 255, 0 ), true, 1 );
+    //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8, 0.5, 0.6, true, Color( 255, 255, 0 ), true, 1 );			
   }
   
   

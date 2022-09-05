@@ -170,7 +170,7 @@ statemachine class CRandomEncounters extends CEntity {
       this.out_of_combat_requests.PushBack(request);
 
       this.RemoveTimer('waitOutOfCombatTimer');
-      this.AddTimer('waitOutOfCombatTimer', 0.1f, true);
+      this.AddTimer('waitOutOfCombatTimer', 0.1, true);
     }
 
     // to return if something was added

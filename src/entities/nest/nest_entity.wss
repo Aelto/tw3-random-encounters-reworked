@@ -91,7 +91,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     this.l_enginetime = theGame.GetEngineTimeAsSeconds();
 
     // the player did not talk in the last 60 seconds
-    if (l_enginetime > this.voicesetTime + 60.0f) {
+    if (l_enginetime > this.voicesetTime + 60.0) {
       this.voicesetTime = this.l_enginetime;
       this.voicesetPlayed = true;
       this.GotoState('Talking');

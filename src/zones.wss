@@ -267,7 +267,7 @@ class CModRExtra {
         FixZAxis(newPos);
         waterDepth = world.GetWaterDepth(newPos, true);
 
-        if (waterDepth > 1.0f && waterDepth != 10000.0) {
+        if (waterDepth > 1.0 && waterDepth != 10000.0) {
           return true;
         }
       }
@@ -298,7 +298,7 @@ class CModRExtra {
         FixZAxis(newPos);
         waterDepth = world.GetWaterDepth(newPos, true);
 
-        if (waterDepth > 0 && waterDepth < 1.5f) {
+        if (waterDepth > 0 && waterDepth < 1.5) {
           wetTerrainQuantity += 1;
         }
         else {

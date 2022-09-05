@@ -36,15 +36,15 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     animation_slot = new CAIPlayAnimationSlotAction in this;
     this.animation_slot.OnCreated();
     this.animation_slot.animName = 'monster_gryphon_special_attack_tearing_up_loop';
-    this.animation_slot.blendInTime = 1.0f;
-    this.animation_slot.blendOutTime = 1.0f;  
+    this.animation_slot.blendInTime = 1.0;
+    this.animation_slot.blendOutTime = 1.0;  
     this.animation_slot.slotName = 'NPC_ANIM_SLOT';
 
     this.animation_slot_idle = new CAIPlayAnimationSlotAction in this;
 		this.animation_slot_idle.OnCreated();
 		this.animation_slot_idle.animName = 'monster_gryphon_idle';	
-		this.animation_slot_idle.blendInTime = 1.0f;
-		this.animation_slot_idle.blendOutTime = 1.0f;	
+		this.animation_slot_idle.blendInTime = 1.0;
+		this.animation_slot_idle.blendOutTime = 1.0;	
 		this.animation_slot_idle.slotName = 'NPC_ANIM_SLOT';
 
     this.this_actor.SetTemporaryAttitudeGroup( 'q104_avallach_friendly_to_all', AGP_Default );

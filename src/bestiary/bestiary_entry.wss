@@ -82,7 +82,7 @@ abstract class RER_BestiaryEntry {
     this.chances_day[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundDay', this.menu_name));
     this.chances_night[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundNight', this.menu_name));
     this.creature_type_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', this.menu_name));
-    this.crowns_percentage = StringToFloat(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', this.menu_name)) / 100.0f;
+    this.crowns_percentage = StringToFloat(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', this.menu_name)) / 100.0;
 
     for (i = 0; i < this.template_list.templates.Size(); i += 1) {
       this.template_hashes.PushBack(
@@ -212,7 +212,7 @@ abstract class RER_BestiaryEntry {
           // doesn't end up 400% bigger. It will also make the difference in height
           // more noticeable at lower levels.
           if (master.settings.dynamic_creatures_size) {
-            scale = (getRandomLevelBasedOnSettings(master.settings) + 50.0f)
+            scale = (getRandomLevelBasedOnSettings(master.settings) + 50.0)
                   / (RER_getPlayerLevel() + 50.0);
 
             NLOG("scale = " + scale);

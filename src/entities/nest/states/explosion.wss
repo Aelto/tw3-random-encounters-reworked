@@ -90,7 +90,7 @@ state Explosion in RER_MonsterNest {
 			parent.PlayEffect('explosion');
 		}
 
-		GCameraShake(0.5, true, parent.GetWorldPosition(), 1.0f);
+		GCameraShake(0.5, true, parent.GetWorldPosition(), 1.0);
 
 		//Stopping Deploy effect 
 		parent.StopEffect('deploy');
