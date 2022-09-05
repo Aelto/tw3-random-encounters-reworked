@@ -1286,12 +1286,12 @@ class REROL_damien_we_await_only_you extends RER_DialogData {
   default dialog_id = 1162270;
 }
 
-// Damien: Why do you wait?! Save them!
+// Damien: Why do you wait? Save them
 class REROL_damien_why_do_you_wait_save_them extends RER_DialogData {
   default dialog_id = 1207814;
 }
 
-// Damien: Onward, witcher!
+// Damien: Onward, witcher
 class REROL_damien_onward_witcher extends RER_DialogData {
   default dialog_id = 1207812;
 }
@@ -1306,7 +1306,7 @@ class REROL_damien_do_you_have_a_plan extends RER_DialogData {
   default dialog_id = 1181615;
 }
 
-// Damien: Make haste! Time is of the essence…
+// Damien: Make haste Time is of the essence…
 class REROL_damien_make_haste extends RER_DialogData {
   default dialog_id = 1170938;
 }
@@ -1496,7 +1496,7 @@ class REROL_view_from_there_spectacular extends RER_DialogData {
   default dialog_id = 533975;
 }
 
-// Troll_1: Offsod! Or yous throw in soup!
+// Troll_1: Offsod Or yous throw in soup
 class REROL_offsod_or_throw_in_soup extends RER_DialogData {
   default dialog_id = 1073877;
 }
@@ -1521,7 +1521,7 @@ class REROL_exactly_why_you_wham_them extends RER_DialogData {
   default dialog_id = 380703;
 }
 
-// Troll_1: Man? Wham-a-wham go man! So wham go troll, too!"
+// Troll_1: Man? Wham-a-wham go man So wham go troll, too"
 class REROL_man_go_an_wham_go_troll extends RER_DialogData {
   default dialog_id = 380697;
 }
@@ -1557,17 +1557,17 @@ class REROL_ready_to_go_now extends RER_DialogData {
 }
 
 //#region Von Gratz
-// Von Gratz: Witcher?!
+// Von Gratz: Witcher?
 class REROL_vongratz_witcher extends RER_DialogData {
   default dialog_id = 1039956;
 }
 
-// Von Gratz: Hey! Help! Help!
+// Von Gratz: Hey Help Help
 class REROL_vongratz_hey_help_help extends RER_DialogData {
   default dialog_id = 1039958;
 }
 
-// Von Gratz: Geralt!
+// Von Gratz: Geralt
 class REROL_vongratz_geralt extends RER_DialogData {
   default dialog_id = 1039962;
 }
