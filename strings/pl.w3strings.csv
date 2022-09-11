@@ -7,6 +7,10 @@
 ; There is always some variation since not all letters have the same width, but that should
 ; save you some time.
 ;
+; Changed in v2.12:
+;  - changes are too vast to list here  unfortunately, i would recommend looking at 
+;    the changelog on github and finding the link to the diff between v2.11 to v2.12.
+;
 ; Changed in v2.9:
 ;  - id 2115018288 was updated, the string as well as the key
 ;  - id 2115018289 was updated, the string as well as the key
@@ -304,19 +308,19 @@
 2115018266|        |option_rer_ignore_seed_selector_window|Pomiń okno wyboru ziarna zlecenia łowcy nagród
 2115018267|        |option_rer_delay_loading_start|Opóźnij załadowanie modyfikacji (kompatybilność z Bootstrap Hooked)
 2115018268|        |rer_tutorial_ambush_title|Samouczek NLS - zasadzki
-2115018269|        |rer_tutorial_ambush_body|Wpadłeś w <font color="#CD7D03">Zasadzkę</font> potworów lub bandytów z modyfikacji Nowe Losowe Starcia. Przetrwaj ten atak, a zostaniesz nagrodzony trofeami i garścią koron.<br /><br />Jeżeli tego typu losowe starcia ci nie odpowiadają, możesz zmienić ilość generowanych zasadzek oraz kontrolować jakiego typu stworzenia będziesz mógł w nich spotkać w menu <font color='#CD7D03'>Systemu zasadzek</font> oraz sub-menu dla zasadzek.
+2115018269|        |rer_tutorial_ambush_body|Wpadłeś w <font color="#CD7D03">zasadzkę</font>. Wrogowie zmierzają w twoim kierunku i musisz stawić im czoła. Możesz uciekać, ale oni będą cię śledzić dopóki ich nie pokonasz. Gdy wreszcie się z nimi rozliczysz zostaniesz wynagrodzony garścią koron i trofeami. Jeśli wolisz nie wpadać w zasadzki albo życzysz sobie, by były one mniej lub bardziej wymagające możesz zmienić ustawienia w zakładce Zasadzki w menu System Starć.
 2115018270|        |rer_tutorial_bounty_title|Samouczek NLS - zlecenia łowcy nagród
-2115018271|        |rer_tutorial_bounty_body|<font color="#CD7D03">Zlecenie łowcy nagród</font> z modyfikacji Nowe Losowe Starcia właśnie się rozpoczęło. Zlecenia składają się z jednego celu głównego i wielu celów pobocznych. Twój główny cel to zawsze pozbycie się celu głównego, cele poboczne nie są wymagane. Każdy zabity cel poboczne zwiększa jednak nagrodę o 100% i jednocześnie zwiększa nieco poziom trudności walki z celem głównym.
+2115018271|        |rer_tutorial_bounty_body|Rozpocząłeś <font color="#CD7D03">zlecenie łowcy nagród</font>. Zlecenia te składają się z jednego głównego celu i losowej ilości celów pobocznych. Pojawiają się one najczęściej w pobliżu znaczników na mapie. Podstawowym zadaniem jest zawsze zabicie celu głównego, cele poboczne mogą zostać pominięte, ale jeśli zdecydujesz się pokonać również ich twoja nagroda wzrośnie o 100% za każdy zabity cel poboczny. To jednak ma również skutek uboczny w postaci zwiększenia poziomu trudności walki z celem głównym.
 2115018272|        |rer_tutorial_clue_title|Samouczek NLS - badanie śladów
-2115018273|        |rer_tutorial_clue_body|Właśnie <font color="#CD7D03">zbadałeś ślad</font> z modyfikacji Nowe Losowe Starcia. Kiedy zbadasz ślad Geralt powie, do którego stworzenia on należy i jeśli będziesz za nim dalej podążać odnajdziesz stworzenie, które je zostawiło. <br />  Prawie wszystkie potwory z modyfikacji pozostawiają ślady na ziemi. Miej jednak na uwadze, że modyfikacja używa linii dialogowych z gry i potwór jaki zobaczysz może nie zawsze być tym którego wspomni Geralt. Zawsze jednak możesz być pewien, że potwór przynajmniej należy do poprawnej kategorii. Przykładowo: Geralt nigdy nie mówi o Południcy, więc w zamian wspomni o Północnicy, lecz to jest wciąż upiór, więc błąd nie jest taki poważny.
+2115018273|        |rer_tutorial_clue_body|Właśnie <font color="#CD7D03">zbadałeś ślad</font> pozostawiony przez jakieś stworzenie. W czasie analizowania Geralt skomentuje typ stworzenia. Podążanie za śladami doprowadzi cię do stworzenia, które je zostawiło. Miej jednak na uwadze, że NLS używa linii dialogowych już istniejących w grze, dlatego niektóre stworzenia mogą zostać niepoprawnie zidentyfikowane. Rodzaj, do którego należy to stworzenie powinien jednak zawsze być poprawny. Na przykład Geralt może odnaleźć ślady po Południcy, ale dlatego że nie istnieją dla tego potwora linie dialogowe skomentuje, że to Północnica. Są to różne potwory, lecz oba należą do tego samego rodzaju - upiorów.
 2115018274|        |rer_tutorial_contract_title|Samouczek NLS - zlecenie na potwory
-2115018275|        |rer_tutorial_contract_body|<font color="#CD7D03">Zlecenia na potwory</font> z modyfikacji Nowe Losowe Starcia. Mod daje możliwość podjęcia losowo generowanych zleceń z każdej tablicy ogłoszeń w grze, wprowadza również system reputacji powiązany z tymi zleceniami. Z domyślnymi ustawieniami nie będziesz w stanie rozpocząć zwykłych zleceń z gry dopóki twoja reputacja nie będzie wystarczająco wysoka. To dotyczy każdej tablicy ogłoszeniowej. Po około dwóch zleceniach NLS odblokujesz możliwość wykonywania zleceń z podstawki gry jak również zlecenia NLS o wyższym stopniu trudności. Możesz kontynuować usprawniać swoją reputację nawet po odblokowaniu średnich zleceń po to, by odblokować ich ostatni stopień: zlecenia trudne, które oferują prawdziwe wyzwanie jak i lepsze nagrody. Nagroda wzrasta nie tylko wraz z poziomem trudności zleceniach ale też twoim poziomem reputacji.<br />Więcej informacji dotyczących kontraktów NLS możesz znaleźć w biblii NLS (RER Bible).<br />  - Aeltoth
+2115018275|        |rer_tutorial_contract_body|Zebrałeś <font color="#CD7D03">niestandardowe zlecenie na potwora</font>, które można rozpoznać po autorze zlecenia, którym zawsze jest <font color="#CD7D03">A. Letoth</font>. Gdy zamkniesz ten samouczek pojawi się następujące menu:<br />- Typ żetonów jakie możesz otrzymać z tej tablicy ogłoszeń<br />- Twoja obecna reputacja<br />- Dostępne zlecenia<br />Pamiętaj, że te własności są unikatowe dla każdej tablicy ogłoszeniowej w grze.<br />Mogłeś również zauważyć, że ogłoszenia które normalnie rozpoczynają zlecenia z podstawki gry są nieobecne. Jest tak dlatego, że NLS używa specjalnego <font color="#CD7D03">systemu reputacji</font> gdzie Geralt musi najpierw zbudować sobie reputację ukańczając zlecenia NLS, by ludność wiedziała, że w pobliżu jest wiedźmin i dopiero wtedy wywieszą te zwykłe ogłoszenia. System reputacji również kontroluje typ zleceń NLS jakie możesz otrzymać począwszy od łatwych i kończąc na trudnych zleceniach.<br/><br/>Jeśli nie lubisz tego systemu możesz go wyłączyć w menu System Zleceń.
 2115018276|        |rer_tutorial_ecosystem_title|Samouczek NLS - ekosystem
-2115018277|        |rer_tutorial_ecosystem_body|Właśnie zabiłeś stworzenie i pośrednio przyczyniłeś się do zmiany <font color="#CD7D03">pobliskich ekosystemów</font>. Mod Nowe Losowe Starcia symuluje łańcuch pokarmowy, który na stałe zmieni stworzenia jakie spotykasz (tylko te z modyfikacji). Ponieważ zabiłeś żywe stworzenie lub bandytę, pobliskie ekosystemy nieco się zmienił i z biegiem czasu pojawią się w nim nowe gatunki, a inne nawet przeniosą się do odrębnych miejsc. <br /><br />Możesz zbadać pobliski ekosystem używając przycisku dla <font color="#CD7D03">Analizy Ekosystemu</font>, który pozwoli na zdobycie przydatnych informacji o gatunkach i ich miejsach występowania. Aby dowiedzieć się o tym jak ustawić ten przycisk, proszę się skierować do szczegółowej instrukcji instalacji. <br /><br />Jeśli ta funkcjonalność tobie nie odpowiada możesz zmienić jej ustawienia w menu <font color="#CD7D03">Systemu Ekosystemu</font>. Wraz z zabijaniem stworzeń w danym regionie, ich liczba będzie się zmieniać w zależności od ustawień w menu (domyślnie będzie się zwiększać): jest to tzw. siła ekosystemu. Kiedy siła ekosystemu będzie się zmieniać, system nagród w postaci <font color="#ffd33d">Łupu Szału Zabijania</font> odblokuje nowy zestaw łupu za stworzenia i stopniowo będzie zwiększać szansę na otrzymanie tego zestawu. Po więcej informacji proszę skierować się do Biblii NLS (RER Bible). 
+2115018277|        |rer_tutorial_ecosystem_body|Twoje ostatnie zabójstwo popełnione na stworzeniu z okolicy pośrednio przyczyniło się do zmiany pobliskiego <font color="#CD7D03">ekosystemu</font>. NLS symuluje łańcuch pokarmowy, który zmienia stworzenia jakie spotykasz na swojej drodze. Kiedykolwiek ingerujesz w ten łańcuch, ekosystem się zmienia i jeśli będziesz to kontynuować nowe gatunki mogą się pojawić, a inne mogą nawet przemieścić się do odmiennych regionów. Możesz zbadać ekosystem używając przycisku Analizy Ekosystemu, który może ci przekazać pożyteczne informacje o stworzeniach i ich siedliskach. Ten przycisk nie jest domyślnie ustawiony, więc jeśli chcesz go użyć udaj się do dokładnej instrukcji instalacji.<br /><br />Jeśli nie lubisz tej funkcji możesz zmienić jej efekty lub ją kompletnie wyłączyć w menu Ekosystemu.
 2115018278|        |rer_tutorial_noticeboard_event_title|Samouczek NLS - tablica ogłoszeniowa
 2115018279|        |rer_tutorial_noticeboard_event_body|Właśnie wziąłeś <font color="#CD7D03">ogłoszenie dotyczące zlecenia wiedźminskiego</font> modyfikacji Nowe Losowe Starcia. Kiedy zamkniesz okno pojawi się opcja dialogowa do wyboru poziomu trudności zlecenia jak i informacja dotycząca tablicy. Nagrody różnią się w zależności od tablicy i regionu, ale pozostają takie same przez cały czas gry.
 2115018280|        |rer_tutorial_rewards_title|Samouczek NLS - nagrody
-2115018281|        |rer_tutorial_rewards_body|Właśnie odnalazłeś <font color="#CD7D03">trofeum<font/> z modyfikacji Nowe Losowe Starcia. Te trofea zostały stworzone tylko by nagradzać Geralta za potwory, na które poluje i nie mają żadnego innego użyku oprócz tego, by dało się je sprzedać.<br />Stworzenia z modyfikacji również mogą pozostawiać po sobie garść koron dla tego samego celu. Jeśli nagrody ci nie odpowiadają albo chciałbyś zmienić jak dużo ich możesz znaleźć możesz to zrobić w menu <font color="#CD7D03">Systemu Nagród<font/> specjalnie do tego stworzonego.
+2115018281|        |rer_tutorial_rewards_body|Właśnie zebrałeś <font color="#CD7D03">trofeum</font>. Nie spełniają one żadnej roli poza możliwością sprzedania ich, ale to komu je sprzedasz ma znaczenie, jeśli chcesz zmaksymalizować zysk.<br /><br />Jeśli nie lubisz tych nagród i chciałbyś je zmienić to możesz to zrobić w menu Systemu Nagród.
 2115018282|        |option_rer_settlement_delay_multiplier|Mnożnik opóźnienia będąc w osadzie (1 = bez zmian, 2 = dwa razy dłuższe)
 2115018283|        |option_rer_dynamic_creatures_size|Dynamiczna wielkość stworzeń (skaluje wielkość stworzeń modyfikacji bazując na ich poziomie)
 2115018284|        |rer_unknown|Nieznane
@@ -335,7 +339,7 @@
 2115018297|        |rer_bounty_finished_notification|Zlecenie łowcy nagród zakończone. {{side_groups_killed}} bonusowych punktów za cele poboczne, obecnie posiadasz {{bounty_level}} poziom łowcy nagród
 2115018298|        |option_rer_tutorial_started|Pierwsze uruchomienie
 2115018299|        |rer_tutorial_started_title|Samouczek NLS - pierwsze uruchomienie
-2115018300|        |rer_tutorial_started_body|Właśnie zainstalowałes modyfikację <font color="#CD7D03">Nowe Losowe Starcia (NLS)<font color="#CD7D03">. Jeśli samemu nie ustawiłeś domyślych ustawień zostało to zrobione za ciebie. Oznacza to, że <font color="#CD7D03">NLS jest w pełni sprawne<font color="#CD7D03"> i możesz już być na drodze, by zabić trochę potworów!<br /><br />Już nigdy więcej nie zobaczysz tego okna o ile nie zresetujesz ustawień.<br />Modyfikacja będzie wciąż wyświetlać samouczki w miarę odkrywania jej funkcjonalności. Jeśli są one tobie niepotrzebne, choć ja (Aeltoth) mocno zalecam by je pozostawić, możesz udać się do menu Samouczków i je wyłączyć.
+2115018300|        |rer_tutorial_started_body|Witaj w modyfikacji <font color="#CD7D03">Nowe Losowe Starcia</font>!<br />Powiadomienia takie jak to pojawią się kiedy zdarzy się coś ważnego związanego z tym modem, by wyjaśnić o co chodzi. Na ten moment modyfikacja nie będzie zauważalnie aktywna z konkretnego powodu: by pozwolić użytkownikom do zaadaptowania się do niej i nie zostać przytłoczonym modyfikacja ukaże swoje elementy w przebiegu 10 godzin. Do tego momentu użytkownicy powinni być dobrze zapoznani z mechanikami jakie mod oferuje.<br /><br />Jeśli potrzebujesz przypomnienia o tym jak pewne zdarzenie lub funkcja działa możesz włączyć samouczek ponownie w menu modyfikacji, co spowoduje, że pojawi się on znów przy określonej okazji.
 2115018301|        |rer_noticeboard_errand_0|Poszukiwany jest wiedźmin
 ; to translators:
 ; the end is not a typo but simply a random name formed with the letters of Aeltoth, my nickname,
@@ -347,188 +351,158 @@
 2115018305|        |rer_dialog_preset_vanilla|[Ustawienie NLS] Vanilla/Domyślne
 2115018306|        |preset_Mods_rer_name_rer_rewards_settings_rer_container_refill_settings|Uzupełnianie pojemników
 2115018307|        |panel_rer_container_refill_settings|Uzupełnianie pojemników
-2115018308|        |option_rer_container_refill_trigger_chance|Szansa przy zakończeniu starciu (%)
+2115018308|        |option_rer_container_refill_chance_multiplier|Mnożnik szansy na ogólny łup
 2115018309|        |option_rer_container_refill_only_empty_containers|Tylko puste pojemniki
 2115018310|        |option_rer_container_refill_radius|Zasięg
 2115018311|        |option_rer_container_refill_number_of_containers|Ilość pojemników na każde wywołanie
-2115018312|        |option_rer_container_refill_loot_table__generic_food_everywhere|<font color="#ffd33d"> - </font> Pospolite jedzenie
-2115018313|        |option_rer_container_refill_loot_table__generic_alco_everywhere|<font color="#ffd33d"> - </font> Pospolity alkohol
-2115018314|        |option_rer_container_refill_loot_table__generic_gold_everywhere|<font color="#ffd33d"> - </font> Pospolite złoto
-2115018315|        |option_rer_container_refill_loot_table__loot_dwarven_body_everywhere|<font color="#ffd33d"> - </font> Łup z krasnoludów
-2115018316|        |option_rer_container_refill_loot_table__loot_badit_body_everywhere|<font color="#ffd33d"> - </font> Łup z bandytów
-2115018317|        |option_rer_container_refill_loot_table__generic_chest_everywhere|<font color="#ffd33d"> - </font> Pospolita skrzynia
-2115018318|        |option_rer_container_refill_loot_table__herbalist_area_prolog|<font color="#ffd33d"> - </font> Zioła z Białego Sadu
-2115018319|        |option_rer_container_refill_loot_table__herbalist_area_nml|<font color="#ffd33d"> - </font> Zioła z Velen
-2115018320|        |option_rer_container_refill_loot_table__herbalist_area_novigrad|<font color="#ffd33d"> - </font> Zioła z Novigradu
-2115018321|        |option_rer_container_refill_loot_table__herbalist_area_skelige|<font color="#ffd33d"> - </font> Zioła ze Skellige
-2115018322|        |option_rer_container_refill_loot_table__dungeon_everywhere|<font color="#ffd33d"> - </font> Loch
-2115018323|        |option_rer_container_refill_loot_table__treasure_q1|<font color="#ffd33d"> - </font> Skarb - jakość 1
-2115018324|        |option_rer_container_refill_loot_table__treasure_q2|<font color="#ffd33d"> - </font> Skarb - jakość 2
-2115018325|        |option_rer_container_refill_loot_table__treasure_q3|<font color="#ffd33d"> - </font> Skarb - jakość 3
-2115018326|        |option_rer_container_refill_loot_table__treasure_q4|<font color="#ffd33d"> - </font> Skarb - jakość 4
-2115018327|        |option_rer_container_refill_loot_table__treasure_q5|<font color="#ffd33d"> - </font> Skarb - jakość 5
-2115018328|        |option_rer_container_refill_loot_table__unique_runes|<font color="#ffd33d"> - </font> Unikatowe runy
-2115018329|        |option_rer_container_refill_loot_table__unique_armorupgrades|<font color="#ffd33d"> - </font> Unikatowe ulepszenia pancerza
-2115018330|        |option_rer_container_refill_loot_table__unique_ingr|<font color="#ffd33d"> - </font> Unikatowe składniki
-2115018331|        |option_rer_container_refill_loot_table__weapons_nml|<font color="#ffd33d"> - </font> Bronie z Velen
-2115018332|        |option_rer_container_refill_loot_table__unique_weapons_epic_dungeon_nml|<font color="#ffd33d"> - </font> Unikatowe relikty z lochów w Velen
-2115018333|        |option_rer_container_refill_loot_table__uniqe_weapons_epic_dungeon_skelige|<font color="#ffd33d"> - </font> Unikatowe relikty z lochów na Skellige
-2115018334|        |option_rer_container_refill_loot_table__loot_monster_treasure_uniq_swords|<font color="#ffd33d"> - </font> Unikatowe miecze
-2115018335|        |option_rer_container_refill_loot_table__uniq_armors|<font color="#ffd33d"> - </font> Unikatowe pancerze
-2115018336|        |option_rer_noticeboard_errands|Ogłoszenia z tablicy do rozpoczęcia zleceń NLS
-2115018337|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Dzień i Noc:</font> Dodatkowe opóźnienie (w sekundach) na poziom gracza
-2115018338|        |rer_noticeboard_errand_1|Poszukiwany jest wiedźmin
-2115018339|        |rer_noticeboard_errand_1_text|Kto czytać umie, niech i to przeczyta, i to dokładnie, co by o tym wszędzie było wiadomo, a przynajmniej w naszej wsi.<br /><br />W lesie byłem co by jaką zwierzynę na obiad upolować, aż tu nagle jakie wycie słyszę. Tam jakieś zło żyje co się ludźmi żywi, a kto na mniej niż 10 łokci do tego podejdzie z życiem się już może żegnać. Licho nie daje ludziom ani polować ani w polu pracować, a to przecie tylko kwestia czasu jak głód i nędza przyjdzie jak nic z tym nie będzie zrobione.<br />Jakieś dziwne ślady żem ostatnio wytropił, ale jak boga kocham nie wiem co je zostawiło, choć już wiele polowań za sobą mam. Mówcie sobie co chcecie, ale to zły omen jest i wszyscy teraz na siebie uważać powinni.<br /><br />Jeśliś dobry we władaniu mieczem i odwagi ci nie brak, zabij dla nas tego potwora, a twoje wysiłki z pewnością zostaną wynagrodzone.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
-2115018340|        |option_rer_minimap_marker_bounty_master|Znaczniki na minimapie <font color="#ffd33d">-</font> Brygadier Łowców Nagród
-2115018341|        |option_rer_minimap_marker_bounties|Znaczniki na minimapie <font color="#ffd33d">-</font> Zlecenia łowcy nagród
-2115018342|        |option_rer_minimap_marker_generic_objectives|Znaczniki na minimapie <font color="#ffd33d">-</font> Zadania ogólne
-2115018343|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Dzień i Noc:</font> Wpływ zabójstw na opóźnienia <font size="11">(+100%: szybszy, -100%: wolniejszy)</font>
-2115018344|        |rer_noticeboard_errand_2|Poszukiwany doświadczony łowca
-2115018345|        |rer_noticeboard_errand_2_text|Do wszystkich zainteresowanych:<br /><br />Niech wiadomym będzie, że kto ubije bestie, które uwiły gniazda nieopodal naszych ziem i mordują zarówno ludzi jak i inne potwory, zostanie sowicie wynagrodzony. Wybij monstra, a imię twe będzie sławione na świecie i sakwa twa będzie ciężka od złota.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018312|        |option_rer_noticeboard_errands|Ogłoszenia z tablicy do rozpoczęcia zleceń NLS
+2115018313|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Dzień i Noc:</font> Dodatkowe opóźnienie (w sekundach) na poziom gracza
+2115018314|        |rer_noticeboard_errand_1|Poszukiwany jest wiedźmin
+2115018315|        |rer_noticeboard_errand_1_text|Kto czytać umie, niech i to przeczyta, i to dokładnie, co by o tym wszędzie było wiadomo, a przynajmniej w naszej wsi.<br /><br />W lesie byłem co by jaką zwierzynę na obiad upolować, aż tu nagle jakie wycie słyszę. Tam jakieś zło żyje co się ludźmi żywi, a kto na mniej niż 10 łokci do tego podejdzie z życiem się już może żegnać. Licho nie daje ludziom ani polować ani w polu pracować, a to przecie tylko kwestia czasu jak głód i nędza przyjdzie jak nic z tym nie będzie zrobione.<br />Jakieś dziwne ślady żem ostatnio wytropił, ale jak boga kocham nie wiem co je zostawiło, choć już wiele polowań za sobą mam. Mówcie sobie co chcecie, ale to zły omen jest i wszyscy teraz na siebie uważać powinni.<br /><br />Jeśliś dobry we władaniu mieczem i odwagi ci nie brak, zabij dla nas tego potwora, a twoje wysiłki z pewnością zostaną wynagrodzone.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018316|        |option_rer_minimap_marker_bounty_master|Znaczniki na minimapie <font color="#ffd33d">-</font> Brygadier Łowców Nagród
+2115018317|        |option_rer_minimap_marker_bounties|Znaczniki na minimapie <font color="#ffd33d">-</font> Zlecenia łowcy nagród
+2115018318|        |option_rer_minimap_marker_generic_objectives|Znaczniki na minimapie <font color="#ffd33d">-</font> Zadania ogólne
+2115018319|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Dzień i Noc:</font> Wpływ zabójstw na opóźnienia <font size="11">(+100%: szybszy, -100%: wolniejszy)</font>
+2115018320|        |rer_noticeboard_errand_2|Poszukiwany doświadczony łowca
+2115018321|        |rer_noticeboard_errand_2_text|Do wszystkich zainteresowanych:<br /><br />Niech wiadomym będzie, że kto ubije bestie, które uwiły gniazda nieopodal naszych ziem i mordują zarówno ludzi jak i inne potwory, zostanie sowicie wynagrodzony. Wybij monstra, a imię twe będzie sławione na świecie i sakwa twa będzie ciężka od złota.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
 ; Do not translate the "{{creature_name}}", this will be replaced with the actual
 ; creature name dynamically.
 ;
 ; Thank you!
-2115018346|        |rer_horde_invasion_strength_title|Horda - {{creature_name}}
-2115018347|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
-2115018348|        |panel_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
-2115018349|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_food_everywhere|Pospolite jedzenie<font color="#ffd33d">:</font> odblokowanie %
-2115018350|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_alco_everywhere|Pospolity alkohol<font color="#ffd33d">:</font> odblokowanie %
-2115018351|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_gold_everywhere|Pospolite złoto<font color="#ffd33d">:</font> odblokowanie %
-2115018352|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_dwarven_body_everywhere|Łup z krasnoludów<font color="#ffd33d">:</font> odblokowanie %
-2115018353|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_badit_body_everywhere|Łup z bandytów<font color="#ffd33d">:</font> odblokowanie %
-2115018354|        |option_rer_killing_spree_custom_loot_unlock_loot_table__generic_chest_everywhere|Pospolita skrzynia<font color="#ffd33d">:</font> odblokowanie %
-2115018355|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_prolog|Zioła z Białego Sadu<font color="#ffd33d">:</font> odblokowanie %
-2115018356|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_nml|Zioła z Velen<font color="#ffd33d">:</font> odblokowanie %
-2115018357|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_novigrad|Zioła z Novigradu<font color="#ffd33d">:</font> odblokowanie %
-2115018358|        |option_rer_killing_spree_custom_loot_unlock_loot_table__herbalist_area_skelige|Zioła ze Skellige<font color="#ffd33d">:</font> odblokowanie %
-2115018359|        |option_rer_killing_spree_custom_loot_unlock_loot_table__dungeon_everywhere|Loch<font color="#ffd33d">:</font> odblokowanie %
-2115018360|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q1|Skarb - jakość 1<font color="#ffd33d">:</font> odblokowanie %
-2115018361|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q2|Skarb - jakość 2<font color="#ffd33d">:</font> odblokowanie %
-2115018362|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q3|Skarb - jakość 3<font color="#ffd33d">:</font> odblokowanie %
-2115018363|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q4|Skarb - jakość 4<font color="#ffd33d">:</font> odblokowanie %
-2115018364|        |option_rer_killing_spree_custom_loot_unlock_loot_table__treasure_q5|Skarb - jakość 5<font color="#ffd33d">:</font> odblokowanie %
-2115018365|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_runes|Unikatowe runy<font color="#ffd33d">:</font> odblokowanie %
-2115018366|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_armorupgrades|Unikatowe ulepszenia pancerza<font color="#ffd33d">:</font> odblokowanie %
-2115018367|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_ingr|Unikatowe składniki<font color="#ffd33d">:</font> odblokowanie %
-2115018368|        |option_rer_killing_spree_custom_loot_unlock_loot_table__weapons_nml|Bronie z Velen<font color="#ffd33d">:</font> odblokowanie %
-2115018369|        |option_rer_killing_spree_custom_loot_unlock_loot_table__unique_weapons_epic_dungeon_nml|Unikatowe relikty z lochów w Velen<font color="#ffd33d">:</font> odblokowanie %
-2115018370|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniqe_weapons_epic_dungeon_skelige|Unikatowe relikty z lochów na Skellige<font color="#ffd33d">:</font> odblokowanie %
-2115018371|        |option_rer_killing_spree_custom_loot_unlock_loot_table__loot_monster_treasure_uniq_swords|Unikatowe miecze<font color="#ffd33d">:</font> odblokowanie %
-2115018372|        |option_rer_killing_spree_custom_loot_unlock_loot_table__uniq_armors|Unikatowe pancerze<font color="#ffd33d">:</font> odblokowanie %
-2115018373|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_food_everywhere|Pospolite jedzenie<font color="#ffd33d">:</font> szansa %
-2115018374|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_alco_everywhere|Pospolity alkohol<font color="#ffd33d">:</font> szansa %
-2115018375|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_gold_everywhere|Pospolite złoto<font color="#ffd33d">:</font> szansa %
-2115018376|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_dwarven_body_everywhere|Łup z krasnoludów<font color="#ffd33d">:</font> szansa %
-2115018377|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_badit_body_everywhere|Łup z bandytów<font color="#ffd33d">:</font> szansa %
-2115018378|        |option_rer_killing_spree_custom_loot_droprate_loot_table__generic_chest_everywhere|Pospolita skrzynia<font color="#ffd33d">:</font> szansa %
-2115018379|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_prolog|Zioła z Białego Sadu<font color="#ffd33d">:</font> szansa %
-2115018380|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_nml|Zioła z Velen<font color="#ffd33d">:</font> szansa %
-2115018381|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_novigrad|Zioła z Novigradu<font color="#ffd33d">:</font> szansa %
-2115018382|        |option_rer_killing_spree_custom_loot_droprate_loot_table__herbalist_area_skelige|Zioła ze Skellige<font color="#ffd33d">:</font> szansa %
-2115018383|        |option_rer_killing_spree_custom_loot_droprate_loot_table__dungeon_everywhere|Loch<font color="#ffd33d">:</font> szansa %
-2115018384|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q1|Skarb - jakość 1<font color="#ffd33d">:</font> szansa %
-2115018385|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q2|Skarb - jakość 2<font color="#ffd33d">:</font> szansa %
-2115018386|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q3|Skarb - jakość 3<font color="#ffd33d">:</font> szansa %
-2115018387|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q4|Skarb - jakość 4<font color="#ffd33d">:</font> szansa %
-2115018388|        |option_rer_killing_spree_custom_loot_droprate_loot_table__treasure_q5|Skarb - jakość 5<font color="#ffd33d">:</font> szansa %
-2115018389|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_runes|Unikatowe runy<font color="#ffd33d">:</font> szansa %
-2115018390|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_armorupgrades|Unikatowe ulepszenia pancerza<font color="#ffd33d">:</font> szansa %
-2115018391|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_ingr|Unikatowe składniki<font color="#ffd33d">:</font> szansa %
-2115018392|        |option_rer_killing_spree_custom_loot_droprate_loot_table__weapons_nml|Bronie z Velen<font color="#ffd33d">:</font> szansa %
-2115018393|        |option_rer_killing_spree_custom_loot_droprate_loot_table__unique_weapons_epic_dungeon_nml|Unikatowe relikty z lochów w Velen<font color="#ffd33d">:</font> szansa %
-2115018394|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniqe_weapons_epic_dungeon_skelige|Unikatowe relikty z lochów na Skellige<font color="#ffd33d">:</font> szansa %
-2115018395|        |option_rer_killing_spree_custom_loot_droprate_loot_table__loot_monster_treasure_uniq_swords|Unikatowe miecze<font color="#ffd33d">:</font> szansa %
-2115018396|        |option_rer_killing_spree_custom_loot_droprate_loot_table__uniq_armors|Unikatowe pancerze<font color="#ffd33d">:</font> szansa %
-2115018397|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> wersja
-2115018398|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier
-2115018399|        |preset_value_rer_static_encounters_aeltoth|Aeltoth
-2115018400|        |preset_Mods_rer_name_rer_contracts_settings|System zleceń
-2115018401|        |panel_rer_contracts_settings|System zleceń
-2115018402|        |option_rer_hours_before_new_contracts|Odstęp między kontraktami w godzinach
-2115018403|        |option_rer_easy_contracts_number|NIEUŻYWANE
-2115018404|        |option_rer_hard_nearby_contracts_number|NIEUŻYWANE
-2115018405|        |option_rer_hard_contracts_number|NIEUŻYWANE
-2115018406|        |option_rer_hard_far_contracts_number|NIEUŻYWANE
-2115018407|        |option_rer_allow_learn_new_locations|Pozwól NLS na uczenie się nowych lokacji w czasie eksploracji
-2115018408|        |option_rer_contracts_generation_seed|Ziarno wyboru zlecenia
-2115018409|        |option_rer_species_chance_beasts|<font color="#ffd33d">Sznsa na gatunki:</font> Zwierzęta
-2115018410|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Istoty Przeklęte
-2115018411|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Drakonidy
-2115018412|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Istoty magiczne
-2115018413|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrydy
-2115018414|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insektoidy
-2115018415|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Trupojady
-2115018416|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogrowate
-2115018417|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relikty
-2115018418|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Upiory
-2115018419|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Wampiry
-2115018420|        |rer_species_beasts|Zwierzęta
-2115018421|        |rer_species_cursed|Istoty Przeklęte
-2115018422|        |rer_species_draconids|Drakonidy
-2115018423|        |rer_species_elementa|Istoty magiczne
-2115018424|        |rer_species_hybrids|Hybrydy
-2115018425|        |rer_species_insectoids|Insektoidy
-2115018426|        |rer_species_necrophages|Trupojady
-2115018427|        |rer_species_ogroids|Ogrowate
-2115018428|        |rer_species_relicts|Relikty
-2115018429|        |rer_species_specters|Upiory
-2115018430|        |rer_species_vampires|Wampiry
-2115018431|        |rer_distance_close|NIEUŻYWANE
-2115018432|        |rer_distance_far|NIEUŻYWANE
+2115018322|        |rer_horde_invasion_strength_title|Horda - {{creature_name}}
+2115018323|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
+2115018324|        |panel_rer_killing_spree_custom_loot_settings|Łup Szału Zabijania
+2115018325|        |option_rer_killing_spree_chance_increase_per_impact_point|Wzrost łupu na punkt wpływu na ekosystem
+2115018326|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> wersja
+2115018327|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier
+2115018328|        |preset_value_rer_static_encounters_aeltoth|Aeltoth
+2115018329|        |preset_Mods_rer_name_rer_contracts_settings|System zleceń
+2115018330|        |panel_rer_contracts_settings|System zleceń
+2115018331|        |option_rer_hours_before_new_contracts|Odstęp między kontraktami w godzinach
+2115018332|        |option_rer_easy_contracts_number|NIEUŻYWANE
+2115018333|        |option_rer_hard_nearby_contracts_number|NIEUŻYWANE
+2115018334|        |option_rer_hard_contracts_number|NIEUŻYWANE
+2115018335|        |option_rer_hard_far_contracts_number|NIEUŻYWANE
+2115018336|        |option_rer_allow_learn_new_locations|Pozwól NLS na uczenie się nowych lokacji w czasie eksploracji
+2115018337|        |option_rer_contracts_generation_seed|Ziarno wyboru zlecenia
+2115018338|        |option_rer_species_chance_beasts|<font color="#ffd33d">Sznsa na gatunki:</font> Zwierzęta
+2115018339|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Istoty Przeklęte
+2115018340|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Drakonidy
+2115018341|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Istoty magiczne
+2115018342|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Hybrydy
+2115018343|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insektoidy
+2115018344|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Trupojady
+2115018345|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogrowate
+2115018346|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relikty
+2115018347|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Upiory
+2115018348|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Wampiry
+2115018349|        |rer_species_beasts|Zwierzęta
+2115018350|        |rer_species_cursed|Istoty Przeklęte
+2115018351|        |rer_species_draconids|Drakonidy
+2115018352|        |rer_species_elementa|Istoty magiczne
+2115018353|        |rer_species_hybrids|Hybrydy
+2115018354|        |rer_species_insectoids|Insektoidy
+2115018355|        |rer_species_necrophages|Trupojady
+2115018356|        |rer_species_ogroids|Ogrowate
+2115018357|        |rer_species_relicts|Relikty
+2115018358|        |rer_species_specters|Upiory
+2115018359|        |rer_species_vampires|Wampiry
+2115018360|        |rer_distance_close|NIEUŻYWANE
+2115018361|        |rer_distance_far|NIEUŻYWANE
 ; this line is the one displayed when starting a contract, for example:
 ; - Close and easy Ogroids contract
 ; - Far and hard Draconids contract
 ; the {{distance}} will be replaced by either "far" or "close"
 ; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
 ; the {{species}} will be replaced by the species translated just above.
-2115018433|        |rer_contract_dialog_choice|{{difficulty}} zlecenie na {{species}}
-2115018434|        |rer_cancel|Anuluj
-2115018435|        |rer_token_gear|Żeton na Rynsztunek
-2115018436|        |rer_token_gear_short|Rynsztunek
-2115018437|        |rer_token_gear_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na rynsztunek u Brygadiera Łowców Nagród.
-2115018438|        |rer_token_consumables|Żeton na Jedzenie
-2115018439|        |rer_token_consumables_short|Jedzenie
-2115018440|        |rer_token_consumables_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na jedzenie u Brygadiera Łowców Nagród.
-2115018441|        |rer_token_experience|Żeton na Doświadczenie
-2115018442|        |rer_token_experience_short|Doświadczenie
-2115018443|        |rer_token_experience_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na doświadzenie u Brygadiera Łowców Nagród.
-2115018444|        |rer_token_materials|Żeton na Materiały rzemieślnicze
-2115018445|        |rer_token_materials_short|Materiały rzemieślnicze
-2115018446|        |rer_token_materials_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na materiały rzemieślnicze u Brygadiera Łowców Nagród.
-2115018447|        |rer_token_gold|Żeton na Złoto
-2115018448|        |rer_token_gold_short|Złoto
-2115018449|        |rer_token_gold_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na złoto u Brygadiera Łowców Nagród.
+2115018362|        |rer_contract_dialog_choice|{{difficulty}} zlecenie na {{species}}
+2115018363|        |rer_cancel|Anuluj
+2115018364|        |rer_token_gear|Żeton na Rynsztunek
+2115018365|        |rer_token_gear_short|Rynsztunek
+2115018366|        |rer_token_gear_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na rynsztunek u Brygadiera Łowców Nagród.
+2115018367|        |rer_token_consumables|Żeton na Jedzenie
+2115018368|        |rer_token_consumables_short|Jedzenie
+2115018369|        |rer_token_consumables_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na jedzenie u Brygadiera Łowców Nagród.
+2115018370|        |rer_token_experience|Żeton na Doświadczenie
+2115018371|        |rer_token_experience_short|Doświadczenie
+2115018372|        |rer_token_experience_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na doświadzenie u Brygadiera Łowców Nagród.
+2115018373|        |rer_token_materials|Żeton na Materiały rzemieślnicze
+2115018374|        |rer_token_materials_short|Materiały rzemieślnicze
+2115018375|        |rer_token_materials_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na materiały rzemieślnicze u Brygadiera Łowców Nagród.
+2115018376|        |rer_token_gold|Żeton na Złoto
+2115018377|        |rer_token_gold_short|Złoto
+2115018378|        |rer_token_gold_description|Ten żeton jako dowód wdzięczności otrzymany ze zleceń ukończonych po całym świecie może zostać wymieniony na złoto u Brygadiera Łowców Nagród.
 ; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
-2115018450|        |rer_available_rewards|Nagrody dostępne z tej tablicy ogłoszeniowej: {{rewards_list}}
+2115018379|        |rer_available_rewards|Nagrody dostępne z tej tablicy ogłoszeniowej: {{rewards_list}}
 ; As it may be hard to read with all these {{}}, here is an example of what 
 ; it should look like this once localized:
 ; Gear (7 left)
 ; {{reward_type}} are the `rer_token_type_short` lines you translated above.
 ; {{tokens_amount}} is the number of tokens the player has in his inventory.
-2115018451|        |rer_token_trading_option|{{reward_type}} (żetony: {{tokens_amount}})
-2115018452|        |rer_token_trading_option_empty|Brak żetonów do wymiany
-2115018453|        |rer_trade_tokens|Wymień żetony
-2115018454|        |option_rer_mod_version|WERSJA <font color="#d73a49">(NIE ZMIENIAĆ!)</font>
-2115018455|        |rer_find_nest|Odnajdź gniazdo potworów: {{type}}
-2115018456|        |rer_find_nests|Odnajdź gniazda potworów: {{type}}
-2115018457|        |rer_survive_horde|Przetrwaj hordę potworów: {{type}}
-2115018458|        |rer_kill_target|Zabij wszystkie potwory: {{type}}
-2115018459|        |rer_contract_finished|Zlecenie zostało ukończone
-2115018460|        |rer_reward_results|Żeton na {{reward_type}} został wymieniony na: {{item_names}}
-2115018461|        |rer_contract_started|Zlecenie na {{species}} właśnie się rozpoczęło, przeszukaj obszar oznaczony na mapie
-2115018462|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Łowca
-2115018463|        |rer_complete_more_contracts|Zablokowane: wykonaj więcej zleceń by zwiększyć swoją reputację
-2115018464|        |rer_current_reputation|Obecna reputacja dla tej tablicy ogłoszeniowej: {{reputation}}
-2115018465|        |rer_distance_nearby|NIEUŻYWANE
-2115018466|        |option_rer_medium_contracts_number|Ilość <font color="#d4a72c">przeciętnych</font> zleceń
-2115018467|        |option_rer_medium_far_contracts_number|NIEUŻYWANE
-2115018468|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">System reputacji:</font> włączony
-2115018469|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Wymagana reputacja dla <font color="#d4a72c">średnich</font> zleceń i tych z podstawki gry
-2115018470|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Bonus do nagrody za każdy punkt reputacji
-2115018471|        |rer_mappin_bounty_side_target_title|Poboczny cel zlecenia
-2115018472|        |rer_mappin_bounty_side_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i zwiększ tym samym swoją nagrodę.
-2115018473|        |rer_bounty_side_target_killed|Cel poboczny zlecenia zabity, nagroda została zwiększona
-2115018474|        |option_rer_arachnophobia_mode|Tryb przyjazny dla arachnofobów
-2115018475|        |rer_difficulty|Poziom trudności
-2115018476|        |rer_bounty_start_popup_title|Informacje o zleceniu
+2115018380|        |rer_token_trading_option|{{reward_type}} (żetony: {{tokens_amount}})
+2115018381|        |rer_token_trading_option_empty|Brak żetonów do wymiany
+2115018382|        |rer_trade_tokens|Wymień żetony
+2115018383|        |option_rer_mod_version|WERSJA <font color="#d73a49">(NIE ZMIENIAĆ!)</font>
+2115018384|        |rer_find_nest|Odnajdź gniazdo potworów: {{type}}
+2115018385|        |rer_find_nests|Odnajdź gniazda potworów: {{type}}
+2115018386|        |rer_survive_horde|Przetrwaj hordę potworów: {{type}}
+2115018387|        |rer_kill_target|Zabij wszystkie potwory: {{type}}
+2115018388|        |rer_contract_finished|Zlecenie zostało ukończone
+2115018389|        |rer_reward_results|Żeton na {{reward_type}} został wymieniony na: {{item_names}}
+2115018390|        |rer_contract_started|Zlecenie na {{species}} właśnie się rozpoczęło, przeszukaj obszar oznaczony na mapie
+2115018391|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Łowca
+2115018392|        |rer_complete_more_contracts|Zablokowane: wykonaj więcej zleceń by zwiększyć swoją reputację
+2115018393|        |rer_current_reputation|Obecna reputacja dla tej tablicy ogłoszeniowej: {{reputation}}
+2115018394|        |rer_distance_nearby|NIEUŻYWANE
+2115018395|        |option_rer_medium_contracts_number|Ilość <font color="#d4a72c">przeciętnych</font> zleceń
+2115018396|        |option_rer_medium_far_contracts_number|NIEUŻYWANE
+2115018397|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">System reputacji:</font> włączony
+2115018398|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Wymagana reputacja dla zleceń z podstawki gry
+2115018399|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Bonus do nagrody za każdy punkt reputacji
+2115018400|        |rer_mappin_bounty_side_target_title|Poboczny cel zlecenia
+2115018401|        |rer_mappin_bounty_side_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i zwiększ tym samym swoją nagrodę.
+2115018402|        |rer_bounty_side_target_killed|Cel poboczny zlecenia zabity, nagroda została zwiększona
+2115018403|        |option_rer_arachnophobia_mode|Tryb przyjazny dla arachnofobów
+2115018404|        |rer_difficulty|Poziom trudności
+2115018405|        |rer_bounty_start_popup_title|Informacje o zleceniu
+2115018406|        |rer_trade_all_tokens|Wymień wszystkie żetony
+2115018407|        |option_rer_allow_select_difficulty|Zezwalaj na wybór poziomu trudności zleceń
+2115018408|        |option_rer_allow_increased_enemy_count|Zezwalaj na zwiększoną ilość wrogów
+2115018409|        |option_dlc_sharedutils|MOD: Nowe Losowe Starcia - Shared Utilities
+2115018410|        |option_rer_tutorial_bounty_level|Ranga zleceń łowcy nagród
+2115018411|        |rer_tutorial_bounty_level_title|Samouczek NLS - Ranga zleceń łowcy nagród
+2115018410|        |rer_tutorial_bounty_level_body|Kiedy już ukończysz zlecenie łowcy nagród twoja <font color="#CD7D03">ranga zleceń</font> ma okazję się podnieść, każdy region ma oddzielną rangę zleceń. Za każdym razem gdy podniesies rangę zleceń otrzymasz przedmiot, rzadkość tego przedmiotu wzrasta wraz z rangą zleceń.
+2115018411|        |option_rer_tutorial_bounty_master|Brygadier Łowców Nagród
+2115018412|        |rer_tutorial_bounty_master_title|Samouczek NLS - Brygadier Łowców Nagród
+2115018413|        |rer_tutorial_bounty_master_body|Trafiłeś na <font color="#CD7D03">Brygadiera Łowców Nagród</font>, postać która jest w stanie ci zaoferować zlecenia łowcy nagród. Podróżuje po całym świecei, więc może zostać odnaleziony w każdym regionie. Dodatkowo może on poruszać się wewnątrz tych właśnie regionów. By go odnaleźć otwórz mapę i poszukaj żółtego wykrzyknika otoczonego przez białe koło.
+2115018414|        |preset_Mods_rer_name_rer_rewards_settings_rer_rewards_general_settings|Ustawienia ogólnego łupu
+2115018415|        |panel_rer_rewards_general_settings|Ustawienia ogólnego łupu
+2115018416|        |option_rer_loot_global_chance_multiplier|<font color="#ffd33d">Globalny mnożnik szansy</font>
+2115018417|        |option_rer_loot_gear_ratio|<font color="#28a745">               Rynsztunek:</font> współczynnik
+2115018418|        |option_rer_loot_gear_rolls_amount|<font color="#28a745">                       :</font> ilość losowań
+2115018419|        |option_rer_loot_gear_items_per_proc|<font color="#28a745">                       :</font> ilość przedmiotów na udane losowanie
+2115018420|        |option_rer_loot_gear_common_chance|<font color="#28a745">                       :</font> szansa na pospolite
+2115018421|        |option_rer_loot_gear_uncommon_chance|<font color="#28a745">                       :</font> szansa na niepospolite
+2115018422|        |option_rer_loot_gear_rare_chance|<font color="#28a745">                       :</font> szansa na rzadkie
+2115018423|        |option_rer_loot_gear_exotic_chance|<font color="#28a745">                       :</font> szansa na egzotyczne
+2115018424|        |option_rer_loot_materials_ratio|<font color="#b392f0">       Rzemiosło:</font> współczynnik
+2115018425|        |option_rer_loot_materials_rolls_amount|<font color="#b392f0">                       :</font> ilość losowań
+2115018426|        |option_rer_loot_materials_items_per_proc|<font color="#b392f0">                       :</font> ilość przedmiotów na udane losowanie
+2115018427|        |option_rer_loot_materials_common_chance|<font color="#b392f0">                       :</font> szansa na pospolite
+2115018428|        |option_rer_loot_materials_uncommon_chance|<font color="#b392f0">                       :</font> szansa na niepospolite
+2115018429|        |option_rer_loot_materials_rare_chance|<font color="#b392f0">                       :</font> szansa na rzadkie
+2115018430|        |option_rer_loot_materials_exotic_chance|<font color="#b392f0">                       :</font> szansa na egzotyczne
+2115018431|        |option_rer_loot_consumables_ratio|<font color="#ffffff">Jadalne:</font> współczynnik
+2115018432|        |option_rer_loot_consumables_rolls_amount|<font color="#ffffff">                       :</font> ilość losowań
+2115018433|        |option_rer_loot_consumables_items_per_proc|<font color="#ffffff">                       :</font> ilość przedmiotów na udane losowanie
+2115018434|        |option_rer_loot_consumables_common_chance|<font color="#ffffff">                       :</font> szansa na pospolite
+2115018435|        |option_rer_loot_consumables_uncommon_chance|<font color="#ffffff">                       :</font> szansa na niepospolite
+2115018436|        |option_rer_loot_consumables_rare_chance|<font color="#ffffff">                       :</font> szansa na rzadkie
+2115018437|        |option_rer_loot_consumables_exotic_chance|<font color="#ffffff">                       :</font> szansa na egzotyczne
+2115018438|        |option_rer_loot_valuables_ratio|<font color="#ffd33d">       Kosztowności:</font> współczynnik
+2115018439|        |option_rer_loot_valuables_rolls_amount|<font color="#ffd33d">                       :</font> ilość losowań
+2115018440|        |option_rer_loot_valuables_items_per_proc|<font color="#ffd33d">                       :</font> ilość przedmiotów na udane losowanie
+2115018441|        |option_rer_loot_valuables_common_chance|<font color="#ffd33d">                       :</font> szansa na pospolite
+2115018442|        |option_rer_loot_valuables_uncommon_chance|<font color="#ffd33d">                       :</font> szansa na niepospolite
+2115018443|        |option_rer_loot_valuables_rare_chance|<font color="#ffd33d">                       :</font> szansa na rzadkie
+2115018444|        |option_rer_loot_valuables_exotic_chance| <font color="#ffd33d">                       :</font> szansa na egzotyczne
