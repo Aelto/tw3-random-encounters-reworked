@@ -1,8 +1,4 @@
 
-exec function rertest() {
-  NDEBUG("" + ((536 as float) % (24 as float)));
-}
-
 exec function rerloot(optional category: RER_LootCategory) {
   var rer_entity : CRandomEncounters;
 
