@@ -21,14 +21,38 @@ statemachine class RER_BountyMasterManager {
     var position_index: int;
     var template_path: string;
     var map_pin: SU_MapPin;
-
+    var current_region: string = SUH_getCurrentRegion(); //New Bounty Masters
     if (!RER_modPowerIsBountySystemEnabled()) {
       return;
     }
 
     this.bounty_master_entity = theGame.GetEntityByTag('RER_bounty_master');
 
-    template_path = "quests\secondary_npcs\graden.w2ent";
+    //Ferroxius - New Bounty Masters BEGIN
+    if (current_region == "no_mans_land") {
+      template_path = "gameplay\community\community_npcs\prologue\regular\temerian_merchant.w2ent";
+    }
+
+    else if (current_region == "skellige") {
+      template_path = "gameplay\community\community_npcs\skellige\regular\skellige_merchant.w2ent";
+    }
+
+    else if (current_region == "bob") {
+      template_path = "dlc\bob\data\gameplay\community\community_npcs\craftsmen\merchant.w2ent";
+    }
+  
+    else if (current_region == "prolog_village") {
+      template_path = "gameplay\community\community_npcs\prologue\regular\nilfgaardian_noble.w2ent";
+    }
+
+    else if (current_region == "kaer_morhen") {
+      template_path = "dlc\ep1\community\community_npcs\gustfields_hunter.w2ent";
+    }
+
+    else {
+      return;
+    }
+    //Ferroxius - New Bounty Masters END
 
     // every hour of playtime it changes the index in the valid positions
     valid_positions = this.getBountyMasterValidPositions();
