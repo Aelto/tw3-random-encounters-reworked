@@ -97,10 +97,6 @@ state DialogChoice in RER_BountyMasterManager {
           .dialog(new REROL_farewell in thePlayer, true)
           .play();
 
-        (new RER_RandomDialogBuilder in thePlayer).start()
-          .dialog(new REROL_graden_eternal_fire_protect_you in thePlayer, true)
-          .play(parent.bounty_master_entity as CActor);
-
         parent.GotoState('Waiting');
         return;
       }
