@@ -102,7 +102,7 @@ state DialogChoice in RER_BountyMasterManager {
       }
 
       if (response.playGoChunk == 'StartBounty') {
-        parent.GotoState('Talking');
+        parent.GotoState('SeedSelection');
         return;
       }
 
