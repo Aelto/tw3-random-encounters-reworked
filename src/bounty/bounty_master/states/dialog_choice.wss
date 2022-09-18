@@ -1,4 +1,8 @@
 state DialogChoice in RER_BountyMasterManager {
+  private var cameras: array<SU_StaticCamera>;
+  private var current_camera_index: int;
+  private var camera_time_counter: float;
+
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
@@ -7,11 +11,40 @@ state DialogChoice in RER_BountyMasterManager {
     this.DialogChoice_main();
   }
 
+  private latent function pushCameras() {
+    var camera_0: SU_StaticCamera = SU_getStaticCamera();
+    this.cameras.PushBack(camera_0);
+
+    var camera_1: SU_StaticCamera = SU_getStaticCamera();
+    this.cameras.PushBack(camera_1);
+  }
+
+  private function getCurrentCamera(): SU_StaticCamera {
+    return this.cameras[this.current_camera_index];
+  }
+
+  private latent function swapCamera() {
+    if (this.current_camera_index == 0) {
+      this.current_camera_index = 1;
+    }
+    else {
+      this.current_camera_index = 0;
+    }
+
+    var camera: SU_StaticCamera = SU_getStaticCamera();
+    camera.activationDuration = 20;
+    camera.deactivationDuration = 2;
+
+    this.cameras[this.current_camera_index] = camera;
+  }
+
   entry function DialogChoice_main() {
     var choices: array<SSceneChoice>;
     var has_completed_a_bounty: bool;
     var crowns_from_trophies: int;
     var trophy_line: string;
+
+    this.pushCameras();
 
     has_completed_a_bounty = parent.bounty_manager.master.storages.bounty.bounty_level > 0;
 
@@ -25,17 +58,6 @@ state DialogChoice in RER_BountyMasterManager {
       DialogAction_MONSTERCONTRACT,
       'StartBounty'
     ));
-
-    // if (has_completed_a_bounty) {
-    //   choices.PushBack(SSceneChoice(
-    //     GetLocStringByKey("rer_dialog_start_bounty_no_conversation"),
-    //     true,
-    //     false,
-    //     false,
-    //     DialogAction_MONSTERCONTRACT,
-    //     'StartBountySkipConversation'
-    //   ));
-    // }
 
     crowns_from_trophies = this.convertTrophiesIntoCrowns(true);
 
@@ -88,8 +110,10 @@ state DialogChoice in RER_BountyMasterManager {
     // it is safer to wait a bit before capturing the input.
     Sleep(0.25);
 
+    this.swapCameraAndStartNewCamera();
+
     while (true) {
-      response = SU_setDialogChoicesAndWaitForResponse(choices);
+      response = this.waitForResponseAndPlayCameraScene(choices);
       SU_closeDialogChoiceInterface();
 
       if (response.playGoChunk == 'CloseDialog') {
@@ -124,6 +148,60 @@ state DialogChoice in RER_BountyMasterManager {
         this.removeTrophyChoiceFromList(choices);
       }
     }
+  }
+
+  latent function waitForResponseAndPlayCameraScene(choices: array<SSceneChoice>): SSceneChoice {
+    var dialogue_module: CR4HudModuleDialog;
+    var last_frame_time: float;
+
+    last_frame_time = theGame.GetEngineTimeAsSeconds();
+    dialogue_module = SU_setDialogChoices(choices);
+    while (true) {
+      SleepOneFrame();
+
+      var current_frame_time: float = theGame.GetEngineTimeAsSeconds();
+      var delta: float = current_frame_time - last_frame_time;
+      last_frame_time = current_frame_time;
+
+      this.camera_time_counter -= delta;
+
+      if (this.camera_time_counter <= 0) {
+        this.camera_time_counter = 20;
+
+        this.swapCameraAndStartNewCamera();
+      }
+
+      if (SU_isDialogChoiceCurrentlyPlaying(dialogue_module)) {
+        continue;
+      }
+
+      return SU_getLastAcceptedChoiceAndFlushDialog(dialogue_module);
+    }
+  }
+
+  latent function swapCameraAndStartNewCamera() {
+    var player_position: Vector = thePlayer.GetWorldPosition();
+    var bounty_master_position: Vector = parent
+      .bounty_master_entity
+      .GetWorldPosition();
+
+    var heading: float = VecHeading(player_position - bounty_master_position);
+    var camera_position: Vector = player_position + VecConeRand(
+      heading,
+      100,
+      1.5, // min radius
+      3, // max radius
+    ) + Vector(0, 0, RandRangeF(1.5, 3));
+
+    this.swapCamera();
+    var current_camera: SU_StaticCamera = this.getCurrentCamera();
+    var mean_position: Vector = (player_position + bounty_master_position) / 2 + Vector(0, 0, 2);
+    current_camera.teleportAndLookAt(
+      camera_position,
+      mean_position
+    );
+
+    current_camera.start();
   }
 
   latent function displayTokenTradingDialogChoice() {
@@ -175,7 +253,7 @@ state DialogChoice in RER_BountyMasterManager {
         'CloseDialog'
       ));
 
-      response = SU_setDialogChoicesAndWaitForResponse(choices);
+      response = this.waitForResponseAndPlayCameraScene(choices);
       SU_closeDialogChoiceInterface();
 
       if (response.playGoChunk == 'CloseDialog') {
@@ -350,5 +428,13 @@ state DialogChoice in RER_BountyMasterManager {
     );
 
     parent.bounty_master_entity.Teleport(parent.bounty_master_entity.GetWorldPosition());
+  }
+
+  event OnLeaveState( nextStateName : name ) {
+    var camera: SU_StaticCamera = this.getCurrentCamera();
+
+    camera.Stop();
+
+    super.OnLeaveState(nextStateName);
   }
 }
