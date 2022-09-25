@@ -31,6 +31,13 @@
 If you have questions about the mod, what it offers and how to tweak the settings, the [Random Encounters Reworked Bible](https://aelto.github.io/tw3-random-encounters-reworked/rer-bible/) was made for that
 
 # Contributing
+## To the mod itself
+I would gladly accept PRs for Random Encounters Reworked. If you have suggestions or ideas you would like to implement yourself please submit an issue or a PR so we can discuss about it (to ensure it follows the vision i have for the mod) then feel free to submit code.
+
+ - The mod's source code is now written in the `cahirc` language, [a homemade language](https://github.com/Aelto/tw3-cahirc-language) i made myself to make our lives easier. In general, most vanilla witcherscript you could write will successfuly compile with `cahirc` as well. Read its documentation for more information.
+ - The source code for the mod is in `/src`
+ - Various utility scripts can be found in the `scripts` folder, for example a simple `install` script to quickly drop all the source code into the mods folder in your game.
+ - Most of the edits in the vanilla code are in the form of shared utilities, which can be found at a different repository: [`tw3-sharedutils`](https://github.com/Aelto/tw3-shared-utils). This helps ensure the vanilla edits RER introduces are kept to a minimum and are well thought.
 
 ## Add-ons
 If you wish to make an add-on for the mod to modify its behaviour at runtime,
