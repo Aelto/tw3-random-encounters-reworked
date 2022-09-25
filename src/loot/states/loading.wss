@@ -96,7 +96,6 @@ state Loading in RER_LootManager {
     parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'Skellige Casual Suit 01');
     parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'Skellige Casual Suit 02');
     parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'sq108_heavy_armor');
-    parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'Wild Hunt armor 01');
     parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'Wild Hunt sword 1');
     parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'Wild Hunt sword 2');
     parent.addLoot(LootCategory_Gear, LootRarity_Uncommon, 'Wild Hunt sword 3');
