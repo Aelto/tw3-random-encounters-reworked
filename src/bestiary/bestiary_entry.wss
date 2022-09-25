@@ -538,6 +538,10 @@ abstract class RER_BestiaryEntry {
 
     return entities;
   }
+
+  public function toLocalizedName(): string {
+    return GetLocStringByKey(this.localized_name);
+  }
 }
 
 class RER_BestiaryEntryNull extends RER_BestiaryEntry {

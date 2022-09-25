@@ -56,47 +56,14 @@ statemachine class RER_BountyManager extends CEntity {
     return bounty;
   }
 
-  private latent function generateRandomDataForBounty(seed: int): RER_BountyRandomData {
-    var current_group_data: RER_BountyRandomMonsterGroupData;
-    var point_of_interests_positions: array<Vector>;
-    var current_bestiary_entry: RER_BestiaryEntry;
-    var main_bestiary_entry: RER_BestiaryEntry;
-    var creature_type: CreatureType;
-    var rng: RandomNumberGenerator;
-    var data: RER_BountyRandomData;
-    var number_of_groups: int;
+  public latent function getBountyBestiaryEntry(rng: RandomNumberGenerator, seed: int): RER_BestiaryEntry {
     var constants: RER_ConstantCreatureTypes;
-    var i: int;
-    var k: int;
+    var output: RER_BestiaryEntry;
 
     constants = RER_ConstantCreatureTypes();
 
-    // the seed 0 means the bounty will be completely random and won't use the
-    // seed in the RNG
-    rng = (new RandomNumberGenerator in this).setSeed(seed)
-      .useSeed(seed != 0);
-
-    data = RER_BountyRandomData();
-    number_of_groups = this.getNumberOfGroupsForSeed(rng, seed);
-
-    NLOG("generateRandomDataForBounty(), number of groups = " + number_of_groups);
-
-    // 0.
-    // prepare the data we'll need while generating stuff
-    
-    // get a sorted list of the different POIs in the game
-    point_of_interests_positions = this.master.contract_manager.getClosestDestinationPoints(thePlayer.GetWorldPosition());
-
-    // bounties are composed of 1 main target and multiple side targets.
-    // The main target is a large monster, something supposedly hard to kill,
-    // while the side targets are small creatures.
-    
-    // 1.
-    // we start by adding the main group
-    current_group_data = RER_BountyRandomMonsterGroupData();
-
     if (seed == 0) {
-      main_bestiary_entry = this.master.bestiary.getRandomEntryFromBestiary(
+      output = this.master.bestiary.getRandomEntryFromBestiary(
         this.master,
         EncounterType_CONTRACT,
         RER_BREF_IGNORE_BIOMES | RER_BREF_IGNORE_SETTLEMENT | RER_BREF_IGNORE_BESTIARY,
@@ -118,14 +85,59 @@ statemachine class RER_BountyManager extends CEntity {
           )
       );
 
-      current_group_data.type = main_bestiary_entry.type;
-    }
-    else {
-      current_group_data.type = (rng.next() * (CreatureMAX as int)) as int;
-      
-      main_bestiary_entry = this.master.bestiary.entries[current_group_data.type];
+      return output;
     }
 
+    var creature_type: CreatureType;
+
+    creature_type = (rng.next() * (CreatureMAX as int)) as int;
+    output = this.master.bestiary.getEntry(this.master, creature_type);
+
+    return output;
+  }
+
+  private latent function generateRandomDataForBounty(seed: int): RER_BountyRandomData {
+    var current_group_data: RER_BountyRandomMonsterGroupData;
+    var point_of_interests_positions: array<Vector>;
+    var current_bestiary_entry: RER_BestiaryEntry;
+    var main_bestiary_entry: RER_BestiaryEntry;
+    var creature_type: CreatureType;
+    var rng: RandomNumberGenerator;
+    var data: RER_BountyRandomData;
+    var number_of_groups: int;
+    var constants: RER_ConstantCreatureTypes;
+    var i: int;
+    var k: int;
+
+    constants = RER_ConstantCreatureTypes();
+
+    // the seed 0 means the bounty will be completely random and won't use the
+    // seed in the RNG
+    rng = (new RandomNumberGenerator in this).setSeed(seed)
+      .useSeed(seed != 0);
+
+    main_bestiary_entry = this.getBountyBestiaryEntry(rng, seed);
+
+    data = RER_BountyRandomData();
+    number_of_groups = this.getNumberOfGroupsForSeed(rng, seed);
+
+    NLOG("generateRandomDataForBounty(), number of groups = " + number_of_groups);
+
+    // 0.
+    // prepare the data we'll need while generating stuff
+    
+    // get a sorted list of the different POIs in the game
+    point_of_interests_positions = this.master.contract_manager.getClosestDestinationPoints(thePlayer.GetWorldPosition());
+
+    // bounties are composed of 1 main target and multiple side targets.
+    // The main target is a large monster, something supposedly hard to kill,
+    // while the side targets are small creatures.
+    
+    // 1.
+    // we start by adding the main group
+    current_group_data = RER_BountyRandomMonsterGroupData();
+
+    current_group_data.type = main_bestiary_entry.type;
     current_group_data.count = Max(1,
         rollDifficultyFactorWithRng(
           main_bestiary_entry.template_list.difficulty_factor,

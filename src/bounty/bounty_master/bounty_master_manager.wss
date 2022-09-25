@@ -21,10 +21,12 @@ statemachine class RER_BountyMasterManager {
     var position_index: int;
     var template_path: string;
     var map_pin: SU_MapPin;
-    var current_region: string = SUH_getCurrentRegion(); //New Bounty Masters
+
     if (!RER_modPowerIsBountySystemEnabled()) {
       return;
     }
+
+    var current_region: string = SUH_getCurrentRegion();
 
     this.bounty_master_entity = theGame.GetEntityByTag('RER_bounty_master');
 
@@ -47,10 +49,6 @@ statemachine class RER_BountyMasterManager {
 
     else if (current_region == "kaer_morhen") {
       template_path = "dlc\ep1\community\community_npcs\gustfields_hunter.w2ent";
-    }
-
-    else {
-      return;
     }
     //Ferroxius - New Bounty Masters END
 
