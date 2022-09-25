@@ -41,31 +41,20 @@ class RER_BountyModuleDialog extends CR4HudModuleDialog {
   
 }
 
-statemachine class RER_SeedSelectorBettingSliderData extends BettingSliderData {
+class RER_SeedSelectorBettingSliderData extends BettingSliderData {
   var bounty_master_manager: RER_BountyMasterManager;
-  var rng: RandomNumberGenerator;
-
-  // is set to true if the message title should be updated but the statemachine
-  // is already in the updating state.
-  var pending_update: bool;
-  var l_flashObject: CScriptedFlashObject;
-
 
   public function GetGFxData(parentFlashValueStorage: CScriptedFlashValueStorage): CScriptedFlashObject {
-    this.l_flashObject = super.GetGFxData(parentFlashValueStorage);
-     this.l_flashObject.SetMemberFlashInt(
+    var l_flashObject: CScriptedFlashObject;
+
+    l_flashObject = super.GetGFxData(parentFlashValueStorage);
+     l_flashObject.SetMemberFlashInt(
       "playerMoney",
       bounty_master_manager.bounty_manager.getMaximumSeed()
     );
-    this.l_flashObject.SetMemberFlashBool("displayMoneyIcon", false);
+    l_flashObject.SetMemberFlashBool("displayMoneyIcon", false);
 
-    this.rng = new RandomNumberGenerator in this;
-
-    if (this.GetCurrentStateName() != 'UpdatingTitle') {
-      this.GotoState('UpdatingTitle');
-    }
-
-    return this.l_flashObject;
+    return l_flashObject;
   }
 
   public function  OnUserFeedback(KeyCode:string): void {
@@ -73,75 +62,5 @@ statemachine class RER_SeedSelectorBettingSliderData extends BettingSliderData {
       dialogueRef.DialogueSliderDataPopupResult( currentValue );
       ClosePopup();
     }
-  }
-
-  public function OnShown() {
-    super.OnShown();
-
-    if (this.GetCurrentStateName() != 'UpdatingTitle') {
-      this.GotoState('UpdatingTitle');
-    }
-  }
-
-  public function OnClosing() {
-    super.OnClosing();
-
-    this.GotoState('Waiting');
-  }
-}
-
-state UpdatingTitle in RER_SeedSelectorBettingSliderData {
-  event OnEnterState(previous_state_name: name) {
-    super.OnEnterState(previous_state_name);
-    LogChannel('RER_SeedSelectorBettingSliderData', "Entering state UpdatingTitle");
-
-    this.UpdatingTitle_start();
-  }
-
-  entry function UpdatingTitle_start() {
-    var previous_value: int;
-
-    while (true) {
-      if (parent.currentValue != previous_value) {
-        this.setMessageTitleForSeed(parent.currentValue);
-        previous_value = parent.currentValue;
-      }
-
-      Sleep(0.5);
-    }
-
-    parent.GotoState('Waiting');
-  }
-
-  latent function setMessageTitleForSeed(seed: int) {
-    parent.rng.setSeed(seed)
-        .useSeed(seed != 0);
-
-      var bestiary_entry: RER_BestiaryEntry = parent.bounty_master_manager
-        .bounty_manager
-        .getBountyBestiaryEntry(parent.rng, seed);
-
-      this.setMessageForSpeciesAndLevel(
-        bestiary_entry.toLocalizedName(),
-        (parent.currentValue / parent.bounty_master_manager.bounty_manager.getSeedDifficultyStep()) as int
-      );
-  }
-
-  function setMessageForSpeciesAndLevel(species: string, level: int) {
-    var message: string = GetLocStringByKey("rer_bounty_betting_slider_dynamic_title");
-
-    message = StrReplace(
-      message,
-      "{{bounty_level}}",
-      level
-    );
-
-    message = StrReplace(
-      message,
-      "{{creature_type}}",
-      species
-    );
-
-    parent.l_flashObject.SetMemberFlashString("TextTitle", message);
   }
 }
