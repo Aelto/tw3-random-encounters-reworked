@@ -1,0 +1,9 @@
+function RER_toggleDebug(value: bool) {
+  var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+  if (value) {
+    config.ActivateScriptTag('RER_Debug');
+  } else {
+    config.DeactivateScriptTag('RER_Debug');
+  }
+}

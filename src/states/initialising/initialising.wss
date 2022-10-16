@@ -40,6 +40,14 @@ state Initialising in CRandomEncounters {
       .ecosystem
       .ecosystem_areas.Size());
 
+    #ifdef DEBUG {
+      RER_toggleDebug(true);
+    };
+
+    #ifndef DEBUG {
+      RER_toggleDebug(false);
+    };
+
     parent.GotoState('Loading');
   }
 

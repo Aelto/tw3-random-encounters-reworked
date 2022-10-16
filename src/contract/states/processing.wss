@@ -282,8 +282,25 @@ state Processing in RER_ContractManager {
       )
     );
 
-    while (rer_entity.GetCurrentStateName() != 'Ending') {
-      Sleep(1);
+    var i: int;
+    var already_decreased_reputation: bool = false;
+    while (true) {
+      i += 1;
+
+      if (!thePlayer.IsAlive() && !already_decreased_reputation) {
+        this.increaseReputationLossBuffer();
+        already_decreased_reputation = true;
+      }
+
+      if (i > 60) {
+        i = 0;
+
+        if (rer_entity.GetCurrentStateName() == 'Ending') {
+          break;
+        }
+      }
+
+      SleepOneFrame();
     }
 
     rer_entity.clean();
@@ -436,6 +453,25 @@ state Processing in RER_ContractManager {
 
     while (parent.master.horde_manager.GetCurrentStateName() == 'Processing') {
       Sleep(1);
+    }
+  }
+
+  private function increaseReputationLossBuffer() {
+    var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    var current_value: int = StringToInt(
+      config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer')
+    );
+
+    // the reputation loss is capped at 2 deaths
+    if (current_value < 2) {
+      config.SetVarValue(
+        'RERcontracts',
+        'RERcontractsDeathReputationLossBuffer',
+        current_value + 1
+      );
+
+      theGame.SaveUserSettings();
     }
   }
 }

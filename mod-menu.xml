@@ -4793,6 +4793,12 @@
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
             <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
             <Var id="RERcontractsReputationSystemReputationRewardsIncrease" displayName="rer_contracts_reputation_system_reputation_rewards_increase" displayType="SLIDER;0;100;1000"></Var>
+
+            <!--
+                on death, increase this slider value by one. Next time a noticeboard
+                is visited the buffer is flushed and the reputation loss is applied.
+                -->
+            <Var id="RERcontractsDeathReputationLossBuffer" displayName="rer_contract_death_reputation_loss_buffer" displayType="SLIDER;0;100;1000" visibilityCondition="RER_Debug"></Var>
         </VisibleVars>
     </Group>
 

@@ -70,7 +70,7 @@ statemachine class RER_ContractManager {
     this.master.storages.contract.save();
   }
 
-  public function decreaseReputation() {
+  public function decreaseReputationFromInactivity() {
     this.master.storages.contract.global_reputation *= 0.95;
 
     var i: int;
@@ -419,6 +419,22 @@ statemachine class RER_ContractManager {
 
   private function increaseGlobalReputation(reputation_gain: float) {
     this.master.storages.contract.global_reputation += reputation_gain;
+  }
+
+  /**
+   * decrease both the noticeboard & global reputation by the given [positive_loss]
+   * @param noticeboard 
+   * @param positive_loss 
+   */
+  public function decreaseReputation(noticeboard: RER_NoticeboardIdentifier, positive_loss: int) {
+    if (positive_loss < 0) {
+      positive_loss *= -1;
+    }
+
+    var current_reputation: int = this.getNoticeboardReputation(noticeboard);
+
+    this.setNoticeboardReputation(noticeboard, current_reputation - positive_loss);
+    this.master.storages.contract.global_reputation -= positive_loss * 0.5;
   }
 
   public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
