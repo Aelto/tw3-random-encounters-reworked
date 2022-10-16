@@ -67,7 +67,7 @@ state DialogChoice in RER_ContractManager {
     
     if (parent.isItTimeToRegenerateContracts(generation_time)) {
       if (!parent.hasCompletedContractSinceLastGeneration()) {
-        parent.decreaseReputation();
+        parent.decreaseReputationFromInactivity();
       }
 
       parent.updateStorageGenerationTime(generation_time);
@@ -76,6 +76,8 @@ state DialogChoice in RER_ContractManager {
     noticeboard_identifier = parent.getUniqueIdFromNoticeboard(parent.getNearbyNoticeboard());
     selected_difficulty = parent.selected_difficulty;
     rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
+
+    this.applyReputationLossBuffer(noticeboard_identifier);
 
     line = GetLocStringByKey("rer_available_rewards");
     line = StrReplace(line, "{{rewards_list}}", RER_getLocalizedRewardTypesFromFlag(
@@ -289,5 +291,31 @@ state DialogChoice in RER_ContractManager {
     );
 
     parent.GotoState('Processing');
+  }
+
+  private latent function applyReputationLossBuffer(noticeboard: RER_NoticeboardIdentifier) {
+    var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    var current_value: int = StringToInt(
+      config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer')
+    );
+
+    if (current_value <= 0) {
+      return;
+    }
+
+    config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer', 0);
+    theGame.SaveUserSettings();
+    parent.decreaseReputation(noticeboard, current_value);
+
+    NHUD(
+      StrReplace(
+        GetLocStringByKey('rer_reputation_loss_message'),
+        "{{number}}",
+        current_value
+      )
+    );
+
+    Sleep(2);
   }
 }

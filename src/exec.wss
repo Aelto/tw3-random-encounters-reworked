@@ -1,4 +1,8 @@
 
+exec function rerdebug(value: bool) {
+  RER_toggleDebug(value);
+}
+
 exec function rerloot(optional category: RER_LootCategory) {
   var rer_entity : CRandomEncounters;
 
