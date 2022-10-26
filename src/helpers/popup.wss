@@ -34,6 +34,10 @@ function RER_openPopup(title: string, message: string): bool {
   popup_data.ScreenPosX = 1100.0 / 1920.0;
   popup_data.ScreenPosY = 155.0 / 1080.0;
 
+  if (RER_playerUsesVladimirUI()) {
+    popup_data.ScreenPosX = 400 / 1920.0;
+  }
+
   theGame.RequestMenu('PopupMenu', popup_data);
 
   return true;
