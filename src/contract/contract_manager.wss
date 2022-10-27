@@ -71,17 +71,10 @@ statemachine class RER_ContractManager {
   }
 
   public function decreaseReputationFromInactivity() {
-    this.master.storages.contract.global_reputation *= 0.95;
+    var current_reputation: float = RER_getContractReputationFactValue();
+    var reputation_loss: float = current_reputation * -0.05;
 
-    var i: int;
-    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
-      var current_reputation: float = this.master.storages.contract.noticeboards_reputation[i].reputation;
-      var new_reputation: float = current_reputation * 0.95;
-
-      this.master.storages.contract.noticeboards_reputation[i].reputation = new_reputation;      
-    }
-
-    this.master.storages.contract.save();
+    RER_addContractReputationFactValue(reputation_loss as int);
   }
 
   public function isContractInStorageCompletedContracts(contract: RER_ContractIdentifier): bool {
@@ -339,10 +332,7 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.active_contract.reward_type);
 
-    current_reputation = this.getNoticeboardReputation(
-      storage.active_contract.noticeboard_identifier
-    );
-
+    current_reputation = RER_getContractReputationFactValue();
     rewards_amount = 1;
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
@@ -392,96 +382,12 @@ statemachine class RER_ContractManager {
       );
     }
 
-    this.increaseReputationForNoticeboard(
-      storage.active_contract.noticeboard_identifier,
-      1
-    );
-
-    this.increaseGlobalReputation(
-      0.5
-    );
+    RER_addContractReputationFactValue(1);
 
     storage.save();
   }
 
-  public function increaseReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier, optional reputation_gain: int) {
-    var current_reputation: int;
-
-    if (reputation_gain <= 0) {
-      reputation_gain = 1;
-    }
-
-    current_reputation = this.getNoticeboardReputation(noticeboard);
-
-    NLOG("increaseReputationForNoticeboard = " + noticeboard.identifier + ", current_reputation = " + current_reputation + " - " + (current_reputation + reputation_gain));
-    this.setNoticeboardReputation(noticeboard, current_reputation + reputation_gain);
-  }
-
-  private function increaseGlobalReputation(reputation_gain: float) {
-    this.master.storages.contract.global_reputation += reputation_gain;
-  }
-
-  /**
-   * decrease both the noticeboard & global reputation by the given [positive_loss]
-   * @param noticeboard 
-   * @param positive_loss 
-   */
-  public function decreaseReputation(noticeboard: RER_NoticeboardIdentifier, positive_loss: int) {
-    if (positive_loss < 0) {
-      positive_loss *= -1;
-    }
-
-    var current_reputation: int = this.getNoticeboardReputation(noticeboard);
-
-    this.setNoticeboardReputation(noticeboard, current_reputation - positive_loss);
-    this.master.storages.contract.global_reputation -= positive_loss * 0.5;
-  }
-
-  public function getNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier): int {
-    var current_reputation: RER_NoticeboardReputation;
-    var i: int;
-
-    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
-      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
-
-      NLOG("getNoticeboardReputation, current_reputation.noticeboard_identifier.identifier = " + current_reputation.noticeboard_identifier.identifier + " reputation = " + current_reputation.reputation);
-
-      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
-        return current_reputation.reputation + this.getGlobalReputation() as int;
-      }
-    }
-
-    return 0 + this.getGlobalReputation() as int;
-  }
-
-  public function getGlobalReputation(): float {
-    return this.master.storages.contract.global_reputation;
-  }
-
-  private function setNoticeboardReputation(noticeboard: RER_NoticeboardIdentifier, value: int) {
-    var current_reputation: RER_NoticeboardReputation;
-    var i: int;
-
-    for (i = 0; i < this.master.storages.contract.noticeboards_reputation.Size(); i += 1) {
-      current_reputation = this.master.storages.contract.noticeboards_reputation[i];
-
-      if (current_reputation.noticeboard_identifier.identifier == noticeboard.identifier) {
-        this.master.storages.contract.noticeboards_reputation[i].reputation = value;
-
-        return;
-      }
-    }
-
-    current_reputation = RER_NoticeboardReputation();
-    current_reputation.noticeboard_identifier = noticeboard;
-    current_reputation.reputation = value;
-
-    this.master.storages.contract.noticeboards_reputation.PushBack(
-      current_reputation
-    );
-  }
-
-  public function hasRequiredReputationForNoticeboard(noticeboard: RER_NoticeboardIdentifier): bool {
+  public function hasRequiredReputationForVanillaContracts(): bool {
     var vanilla_contracts_requirement: int;
     var reputation_system_enabled: bool;
     var current_reputation: int;
@@ -498,7 +404,7 @@ statemachine class RER_ContractManager {
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemVanillaContractsRequirement')
     );
 
-    current_reputation = this.getNoticeboardReputation(noticeboard);
+    current_reputation = RER_getContractReputationFactValue();
 
     return current_reputation >= vanilla_contracts_requirement;
   }

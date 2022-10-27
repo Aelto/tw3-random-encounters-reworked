@@ -1,0 +1,14 @@
+
+#define const RER_CONTRACT_REPUTATION_FACT_ID = "rer_contract_reputation_fact_id";
+
+function RER_getContractReputationFactValue(): int {
+  return FactsQueryLatestValue(RER_CONTRACT_REPUTATION_FACT_ID!);
+}
+
+function RER_setContractReputationFactValue(value: int) {
+  FactsSet(RER_CONTRACT_REPUTATION_FACT_ID!, value);
+}
+
+function RER_addContractReputationFactValue(gain: int) {
+  RER_setContractReputationFactValue(RER_getContractReputationFactValue() + gain);
+}

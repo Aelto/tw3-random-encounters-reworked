@@ -96,7 +96,7 @@ state DialogChoice in RER_ContractManager {
 
     if (reputation_system_enabled) {
       line = GetLocStringByKey("rer_current_reputation");
-      line = StrReplace(line, "{{reputation}}", "" + parent.getNoticeboardReputation(noticeboard_identifier) + " (+" + (parent.getGlobalReputation() as int) + ")");
+      line = StrReplace(line, "{{reputation}}", "" + RER_getContractReputationFactValue());
 
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
@@ -113,7 +113,7 @@ state DialogChoice in RER_ContractManager {
         selected_difficulty = RER_ContractDifficultyLevel(
           rng.nextRange(
             parent.getMaximumDifficultyForReputation(
-              parent.getNoticeboardReputation(noticeboard_identifier)
+              RER_getContractReputationFactValue()
             ),
             0
           ) as int
@@ -306,7 +306,7 @@ state DialogChoice in RER_ContractManager {
 
     config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer', 0);
     theGame.SaveUserSettings();
-    parent.decreaseReputation(noticeboard, current_value);
+    RER_addContractReputationFactValue(current_value * -1);
 
     NHUD(
       StrReplace(

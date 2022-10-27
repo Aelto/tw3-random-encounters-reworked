@@ -1,3 +1,8 @@
+exec function rersetcontractreputation(value: int) {
+  NDEBUG("last value: " + RER_getContractReputationFactValue());
+
+  RER_setContractReputationFactValue(value);
+}
 
 exec function rerdebug(value: bool) {
   RER_toggleDebug(value);

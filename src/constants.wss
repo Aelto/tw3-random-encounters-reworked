@@ -3,7 +3,7 @@
 // that you can instantiate  //
 ///////////////////////////////
 
-#define const DEBUG;
+#define const NOT_DEBUG;
 
 #ifdef DEBUG {
   #define const DEBUG_LOOT;
