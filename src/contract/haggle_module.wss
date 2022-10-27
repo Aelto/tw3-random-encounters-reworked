@@ -20,7 +20,7 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
 
     this.contract_manager = contract_manager;
 
-    noticeboard_reputation = contract_manager.getNoticeboardReputation(noticeboard);
+    noticeboard_reputation = RER_getContractReputationFactValue();
 
     data = new BettingSliderData in this;
     data.ScreenPosX = 0.62;

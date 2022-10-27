@@ -17,7 +17,10 @@ state DialogChoice in RER_ContractManager {
 
   entry function DialogChoice_main() {
     this.startNoticeboardCutscene();
-    this.DialogChoice_prepareAndDisplayDialogueChoices();
+
+    while (true) {
+      this.DialogChoice_prepareAndDisplayDialogueChoices();
+    }
   }
 
   private latent function startNoticeboardCutscene() {
@@ -77,7 +80,7 @@ state DialogChoice in RER_ContractManager {
     selected_difficulty = parent.selected_difficulty;
     rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
 
-    this.applyReputationLossBuffer(noticeboard_identifier);
+    this.applyReputationLossBuffer();
 
     line = GetLocStringByKey("rer_available_rewards");
     line = StrReplace(line, "{{rewards_list}}", RER_getLocalizedRewardTypesFromFlag(
@@ -91,20 +94,20 @@ state DialogChoice in RER_ContractManager {
       true, // already choosen
       true, // disabled
       DialogAction_MONSTERCONTRACT,
-      'StartContractDifficultyEasyDistanceClose'
+      ''
     ));
 
     if (reputation_system_enabled) {
       line = GetLocStringByKey("rer_current_reputation");
-      line = StrReplace(line, "{{reputation}}", "" + parent.getNoticeboardReputation(noticeboard_identifier) + " (+" + (parent.getGlobalReputation() as int) + ")");
+      line = StrReplace(line, "{{reputation}}", "" + RER_getContractReputationFactValue());
 
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
         false,
-        true, // already choosen
-        true, // disabled
+        false, // already choosen
+        false, // disabled
         DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyEasyDistanceClose'
+        'SpendReputation'
       ));
     }
 
@@ -113,7 +116,7 @@ state DialogChoice in RER_ContractManager {
         selected_difficulty = RER_ContractDifficultyLevel(
           rng.nextRange(
             parent.getMaximumDifficultyForReputation(
-              parent.getNoticeboardReputation(noticeboard_identifier)
+              RER_getContractReputationFactValue()
             ),
             0
           ) as int
@@ -179,42 +182,58 @@ state DialogChoice in RER_ContractManager {
     // it is safer to wait a bit before capturing the input.
     Sleep(0.25);
 
-    while (true) {
-      response = SU_setDialogChoicesAndWaitForResponse(choices);
-      SU_closeDialogChoiceInterface();
+    response = SU_setDialogChoicesAndWaitForResponse(choices);
+    SU_closeDialogChoiceInterface();
 
-      if (response.previouslyChoosen) {
-        continue;
-      }
-
-      if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {
-        this.camera.Stop();
-        Sleep(0.25);
-        parent.GotoState('Waiting');
-        return;
-      }
-
-      for (i = 0; i < 3; i += 1) {
-        // get the choices starting at 4th from last until 2nd to last, as the last
-        // is the exit choice
-        // EDIT: it works because the number of contracts is hardcoded at 3 at
-        // the moment.
-        // EDIT 2: this code is overly complex, why use .Size() and minus 4
-        // instead of simply adding + 2 to `i` since we know there is always
-        // 2 info message before it starts listing the contracts.
-        if (choices[choices.Size() - 4 + i].description == response.description) {
-          creature_type = creature_type_choices[i];
-
-          break;
-        }
-      }
-
-      if (i > 3) {
-        NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
-      }
-
-      this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulties[i], rng, i);
+    if (response.previouslyChoosen) {
+      continue;
     }
+
+    if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {
+      this.camera.Stop();
+      Sleep(0.25);
+      parent.GotoState('Waiting');
+      return;
+    }
+
+    if (response.playGoChunk == 'SpendReputation') {
+      RER_addContractReputationFactValue(-3);
+      parent.master.loot_manager.rollAndGiveItemsTo(
+        thePlayer.GetInventory(),
+        1,
+      );
+
+      NDEBUG(StrReplace(
+        GetLocStringByKey('rer_reputation_spent_message'),
+        "{{number}}",
+        3
+      ));
+
+      Sleep(0.5);
+
+      return;
+    }
+
+    for (i = 0; i < 3; i += 1) {
+      // get the choices starting at 4th from last until 2nd to last, as the last
+      // is the exit choice
+      // EDIT: it works because the number of contracts is hardcoded at 3 at
+      // the moment.
+      // EDIT 2: this code is overly complex, why use .Size() and minus 4
+      // instead of simply adding + 2 to `i` since we know there is always
+      // 2 info message before it starts listing the contracts.
+      if (choices[choices.Size() - 4 + i].description == response.description) {
+        creature_type = creature_type_choices[i];
+
+        break;
+      }
+    }
+
+    if (i > 3) {
+      NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
+    }
+
+    this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulties[i], rng, i);
   }
 
   function getRandomNumberGenerator(
@@ -293,7 +312,7 @@ state DialogChoice in RER_ContractManager {
     parent.GotoState('Processing');
   }
 
-  private latent function applyReputationLossBuffer(noticeboard: RER_NoticeboardIdentifier) {
+  private latent function applyReputationLossBuffer() {
     var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
     var current_value: int = StringToInt(
@@ -306,7 +325,7 @@ state DialogChoice in RER_ContractManager {
 
     config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer', 0);
     theGame.SaveUserSettings();
-    parent.decreaseReputation(noticeboard, current_value);
+    RER_addContractReputationFactValue(current_value * -1);
 
     NHUD(
       StrReplace(

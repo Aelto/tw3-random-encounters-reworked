@@ -28,7 +28,7 @@ state DifficultySelection in RER_ContractManager {
       parent.contractHaggleDifficultySelected(
         RER_ContractDifficultyLevel(
           parent.getMaximumDifficultyForReputation(
-            parent.getNoticeboardReputation(noticeboard_identifier)
+            RER_getContractReputationFactValue()
           )
         )
       );

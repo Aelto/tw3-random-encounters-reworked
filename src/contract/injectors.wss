@@ -60,7 +60,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
       return;
     }
 
-    if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForNoticeboard(identifier)) {
+    if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForVanillaContracts()) {
       this.hideAllQuestErrands(board);
     }
   }
