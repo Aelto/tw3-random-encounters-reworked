@@ -12,3 +12,7 @@ function RER_setContractReputationFactValue(value: int) {
 function RER_addContractReputationFactValue(gain: int) {
   RER_setContractReputationFactValue(RER_getContractReputationFactValue() + gain);
 }
+
+function RER_removeContractReputationFact() {
+  FactsRemove(RER_CONTRACT_REPUTATION_FACT_ID!);
+}

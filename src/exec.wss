@@ -42,6 +42,10 @@ exec function reruninstall() {
   for (i = 0; i < entities.Size(); i += 1) {
     (entities[i] as CNewNPC).Destroy();
   }
+
+  RER_removeContractReputationFact();
+
+  NDEBUG("RER Uninstall finished.");
 }
 
 exec function rercompletecontract() {
