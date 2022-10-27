@@ -363,7 +363,7 @@ statemachine class RER_ContractManager {
 
       this.master.loot_manager.rollAndGiveItemsTo(
         thePlayer.GetInventory(),
-        current_amount * 0.1,
+        rewards_amount * 0.1,
         , // rng
         LootCategory_Valuables
       );
