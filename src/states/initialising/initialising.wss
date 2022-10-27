@@ -126,6 +126,17 @@ state Initialising in CRandomEncounters {
       current_version = 2.12;
     }
 
+    if (current_version < 2.13) {
+      config.ApplyGroupPreset('RERmonsterTrophies', 0);
+
+      if (RER_playerUsesEnhancedEditionRedux()) {
+        config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 30);
+      }
+
+
+      current_bounty = 2.13
+    }
+
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }
