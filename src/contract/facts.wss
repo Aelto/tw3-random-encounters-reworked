@@ -6,7 +6,7 @@ function RER_getContractReputationFactValue(): int {
 }
 
 function RER_setContractReputationFactValue(value: int) {
-  FactsSet(RER_CONTRACT_REPUTATION_FACT_ID!, value);
+  FactsSet(RER_CONTRACT_REPUTATION_FACT_ID!, Max(value, 0));
 }
 
 function RER_addContractReputationFactValue(gain: int) {
