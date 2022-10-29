@@ -186,7 +186,7 @@ state DialogChoice in RER_ContractManager {
     SU_closeDialogChoiceInterface();
 
     if (response.previouslyChoosen) {
-      continue;
+      return;
     }
 
     if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {

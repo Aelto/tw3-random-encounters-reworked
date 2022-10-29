@@ -134,7 +134,7 @@ state Initialising in CRandomEncounters {
       }
 
 
-      current_bounty = 2.13
+      current_version = 2.13;
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
