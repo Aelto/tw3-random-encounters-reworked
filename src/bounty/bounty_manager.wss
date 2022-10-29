@@ -252,7 +252,16 @@ statemachine class RER_BountyManager extends CEntity {
     var bonus: int;
 
     bonus = this.getNumberOfSideGroupsKilled();
-    new_level = this.increaseBountyLevel(bonus);
+    new_level = this.increaseBountyLevel();
+
+    // bonus groups grant additional rewards based on the new bounty level.
+    if (bonus > 0) {
+      RER_giveItemForLevelUnknown(
+        this.master,
+        thePlayer.GetInventory(),
+        new_level * bonus,
+      );
+    }
 
     this.abandonBounty();
 
@@ -515,9 +524,10 @@ statemachine class RER_BountyManager extends CEntity {
   }
 
   public function giveBountyLevelupItemToPlayer(bounty_level: int) {
-    this.master.loot_manager.rollAndGiveItemsTo(
+    RER_giveItemForBountyLevelAndCurrentRegion(
+      this.master,
       thePlayer.GetInventory(),
-      1 + (bounty_level as float) * 0.02
+      bounty_level
     );
   }
 }

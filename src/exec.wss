@@ -4,6 +4,22 @@ exec function rersetcontractreputation(value: int) {
   RER_setContractReputationFactValue(value);
 }
 
+exec function rergetbountyreward(level: int) {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  RER_giveItemForBountyLevelAndCurrentRegion(
+    rer_entity,
+    thePlayer.GetInventory(),
+    level
+  );
+}
+
 exec function rerdebug(value: bool) {
   RER_toggleDebug(value);
 }
