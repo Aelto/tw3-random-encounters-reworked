@@ -4,6 +4,18 @@ exec function rersetcontractreputation(value: int) {
   RER_setContractReputationFactValue(value);
 }
 
+exec function rerresetbountylevel() {
+  var rer_entity : CRandomEncounters;
+
+  if (!getRandomEncounters(rer_entity)) {
+    NDEBUG("No entity found with tag <RandomEncounterTag>");
+    
+    return;
+  }
+
+  rer_entity.bounty_manager.resetBountyLevel();
+}
+
 exec function rergetbountyreward(level: int) {
   var rer_entity : CRandomEncounters;
 
