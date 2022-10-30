@@ -197,11 +197,14 @@ state DialogChoice in RER_ContractManager {
     }
 
     if (response.playGoChunk == 'SpendReputation') {
+      if (RER_getContractReputationFactValue() > 2) {
+        parent.master.loot_manager.rollAndGiveItemsTo(
+          thePlayer.GetInventory(),
+          1,
+        );
+      }
+
       RER_addContractReputationFactValue(-3);
-      parent.master.loot_manager.rollAndGiveItemsTo(
-        thePlayer.GetInventory(),
-        1,
-      );
 
       NDEBUG(StrReplace(
         GetLocStringByKey('rer_reputation_spent_message'),
