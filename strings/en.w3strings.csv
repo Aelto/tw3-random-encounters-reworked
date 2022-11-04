@@ -214,7 +214,7 @@
 2115018165|        |option_rer_mod_enabled|<font color="#28a745">MOD ENABLED</font>
 2115018166|        |option_rer_disabled|RandomEncounters Reworked disabled
 2115018167|        |option_rer_event_bloodnecrophages_chance|Event % chance - blood attracts necrophages
-2115018168|        |option_rer_event_bodiesnecrophages_chance|Event % chance - remains attracts necrophages
+2115018168|        |option_rer_event_bodiesnecrophages_chance|Event % chance - remains attract necrophages
 2115018169|        |option_rer_event_entersswamp_chance|Event % chance - enters swamp ambush
 2115018170|        |option_rer_event_fightnoise_chance|Event % chance - fight noise ambush
 2115018171|        |option_rer_event_fillcreaturesgroup_chance|Event % chance - fill creatures group
@@ -308,30 +308,30 @@
 2115018261|        |panel_hud_dialogue_title_bet_rer|Bounty seed selector
 2115018262|        |option_rer_trophy_master_buying_price|Trophy buying price from bounty master (%)
 2115018263|        |rer_bounty_notice|Bounty notice
-2115018264|        |rer_bounty_notice_description|The bounty master is looking for a Witcher, monsters to be killed. Come see him to start bounties and sell your trophies
-2115018265|        |item_desc_trophy|A monster trophy, the bounty master will probably buy it at a better price.
+2115018264|        |rer_bounty_notice_description|The bounty master is looking for a witcher, as there are monsters to be killed. Come see him to start bounties and sell your trophies
+2115018265|        |item_desc_trophy|A monster trophy. The bounty master will probably buy it at a better price.
 2115018266|        |option_rer_ignore_seed_selector_window|Skip bounty seed selector window
 2115018267|        |option_rer_delay_loading_start|Delay RER loading start (Bootstrap Hooked compatibility)
 2115018268|        |rer_tutorial_ambush_title|RER Tutorial - Ambushed
-2115018269|        |rer_tutorial_ambush_body|You have just been <font color="#CD7D03">ambushed</font>. Enemies are now moving towards you and you must fight them, you can run away but they will follow you until you defeat them. Once you defeat them you will be rewarded with crowns and trophies. If you do not like being ambushed or wish to change it to be more or less challenging you can change the settings in the Ambushes submenu in the Encounter System Menu
+2115018269|        |rer_tutorial_ambush_body|You have just been <font color="#CD7D03">ambushed</font>. Enemies are now moving towards you and you must fight them. You can run away but they will follow you until you defeat them. Once you do it, you will be rewarded with crowns and trophies. If you do not like being ambushed or wish to change it to be more or less challenging you can change the settings in the Ambushes submenu in the Encounter System Menu.
 2115018270|        |rer_tutorial_bounty_title|RER Tutorial - Bounty hunting
-2115018271|        |rer_tutorial_bounty_body|You have just started a <font color="#CD7D03">bounty</font>. Bounties consist of one main target and a random number of side targets, they will typically spawn at points of interest around the region. The main goal is always to kill the main target, the side targets can be skipped but if you go out of your way to kill them you increase your reward by 100% for every side target killed. This does also however have a side effect of increasing the difficulty of the fight against the main target.
+2115018271|        |rer_tutorial_bounty_body|You have just started a <font color="#CD7D03">bounty</font>. Bounties consist of one main target and a random number of side targets. They will typically spawn at points of interest around the region. The main goal is always to kill the main target. The side targets can be skipped, but if you go out of your way to kill them you increase your reward by 100% for every side target killed. This does also, however, have a side effect of increasing the difficulty of the fight against the main target.
 2115018272|        |rer_tutorial_clue_title|RER Tutorial - Clue examined
-2115018273|        |rer_tutorial_clue_body|You have just <font color="#CD7D03">examined a track</font> left behind by a creature. When examined Geralt will comment on what monster it is and following the trail will lead you to the creature that created them. Do keep in mind however that because RER uses vanilla voicelines some creatures may be incorrectly identified, however the family that creature belongs to will always be correct. For instance Geralt might find the tracks of a noonwraith but because there are no voicelines for it he says it’s a nightwraith. They are different creatures but are in the same family of “wraiths”
+2115018273|        |rer_tutorial_clue_body|You have just <font color="#CD7D03">examined a track</font> left behind by a creature. When examined, Geralt will comment on what monster it is and following the trail will lead you to the creature that created it. Do keep in mind, however, that because RER uses vanilla voicelines, some creatures may be incorrectly identified. However, the family that the creature belongs to will always be correct. For instance, Geralt might find the tracks of a noonwraith, but because there are no voicelines for it he says it’s a nightwraith. They are different creatures, but are in the same family of “wraiths”.
 2115018274|        |rer_tutorial_contract_title|RER Tutorial - Monster contract
-2115018275|        |rer_tutorial_contract_body|You have just picked up a <font color="#CD7D03">custom contract</font> notice that can be distinguished by the poster of the notice always being <font color="#CD7D03">A. Letoth</font>. When you close this tutorial a menu will appear showing the following:<br />- The type of tokens you can acquire from this noticeboard<br />- Your current reputation<br />- The contracts available<br />Note that these factors are unique to each noticeboard in the game<br />You may have also noticed that the notices used to trigger all the contracts in the vanilla game are absent. This is because RER uses a special <font color="#CD7D03">reputation system</font> whereby Geralt must earn reputation from completing RER contracts so that the populace know there’s a witcher in the area and will put up the vanilla contracts. The reputation system also controls the type of RER contracts you can receive starting with easy and working up to hard contracts.<br/><br/>If you do not like this system you can disable it in the Contracts System menu
+2115018275|        |rer_tutorial_contract_body|You have just picked up a <font color="#CD7D03">custom contract</font> notice that can be distinguished by the poster of the notice always being <font color="#CD7D03">A. Letoth</font>. When you close this tutorial, a menu will appear showing the following:<br />- The type of tokens you can acquire from this noticeboard<br />- Your current reputation<br />- The contracts available<br />Note that these factors are unique to each noticeboard in the game<br />You may have also noticed that the notices used to trigger all the contracts in the vanilla game are absent. This is because RER uses a special <font color="#CD7D03">reputation system</font> whereby Geralt must earn reputation from completing RER contracts so that the populace know there’s a witcher in the area and will put up the vanilla contracts. The reputation system also controls the type of RER contracts you can receive, starting with easy and working up to hard contracts.<br/><br/>If you do not like this system you can disable it in the Contracts System menu.
 2115018276|        |rer_tutorial_ecosystem_title|RER Tutorial - The ecosystem
-2115018277|        |rer_tutorial_ecosystem_body|Your recent killing of a creature has indirectly changed the surrounding <font color="#CD7D03">ecosystem</font>. RER simulates a food chain which changes the creatures you encounter. Whenever you kill creatures the ecosystem changes and if you continue to kill new species can turn up and some can even migrate to other regions. You can examine the ecosystem using the Ecosystem Analysis keybind which can tell you useful info about the creatures and their habitats. This keybind is not set up by default so if you would like to use it refer to the in depth installation guide.<br /><br />If you do not like this feature you can change its effects or disable it outright in the Ecosystem menu
+2115018277|        |rer_tutorial_ecosystem_body|Your recent killing of a creature has indirectly changed the surrounding <font color="#CD7D03">ecosystem</font>. RER simulates a food chain which changes the creatures you encounter. Whenever you kill creatures, the ecosystem changes. And if you continue to kill, new species can turn up and some can even migrate to other regions. You can examine the ecosystem using the Ecosystem Analysis keybind which can tell you useful info about the creatures and their habitats. This keybind is not set up by default, so if you would like to use it refer to the in depth installation guide.<br /><br />If you do not like this feature you can change its effects or disable it altogether in the Ecosystem menu.
 2115018278|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Noticeboard event
-2115018279|        |rer_tutorial_noticeboard_event_body|You have picked a <font color="#CD7D03">contract notice</font> from the mod Random Encounters Reworked. When you'll close the window you will see dialogue options to select the difficulty of the contract as well as information about the noticeboard. These rewards vary per noticeboard and region, but stay the same for the entire playthrough.
+2115018279|        |rer_tutorial_noticeboard_event_body|You have picked a <font color="#CD7D03">contract notice</font> from the mod Random Encounters Reworked. When you close the window, you will see dialogue options to select the difficulty of the contract, as well as information about the noticeboard. These rewards vary per noticeboard and region, but stay the same for the entire playthrough.
 2115018280|        |rer_tutorial_rewards_title|RER Tutorial - Rewards
-2115018281|        |rer_tutorial_rewards_body|You just collected a <font color="#CD7D03">trophy</font>. These do not serve any purpose outside of being sold for coin but who you sell them to does matter if you wish to maximise profit.<br /><br />If you do not like the rewards and wish to change them then you can do so in the Rewards System menu
+2115018281|        |rer_tutorial_rewards_body|You just collected a <font color="#CD7D03">trophy</font>. These do not serve any purpose outside of being sold for coin, but who you sell them to does matter if you wish to maximise profit.<br /><br />If you do not like the rewards and wish to change them, then you can do so in the Rewards System menu.
 2115018282|        |option_rer_settlement_delay_multiplier|Delay multiplier when in settlements (1 = no change, 2 = twice longer)
 2115018283|        |option_rer_dynamic_creatures_size|Dynamic creatures size (scales RER creatures based on their level)
 2115018284|        |rer_unknown|Unknown
-2115018285|        |rer_bounty_start_popup|The following creatures were seen and have bounties on their heads,<br /><br />Main target, required to claim the reward:<br />{{main_creature_listing}}<br /><br />Optional side targets:<br />{{side_creature_listing}}<br />Whoever brings their trophies to the bounty master will get a sizable reward
+2115018285|        |rer_bounty_start_popup|The following creatures were seen and have bounties on their heads,<br /><br />Main target, required to claim the reward:<br />{{main_creature_listing}}<br /><br />Optional side targets:<br />{{side_creature_listing}}<br />Whoever brings their trophies to the bounty master will get a sizable reward.
 2115018286|        |rer_mappin_bounty_master_title|Bounty master
-2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about the new bounties
+2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about new bounties.
 2115018288|        |rer_mappin_bounty_main_target_title|Bounty main target
 2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} were seen in the area. Kill them and collect the bounty reward.
 2115018290|        |rer_mappin_regular_title|Contract target
@@ -341,10 +341,10 @@
 2115018294|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
 2115018295|        |rer_dialog_sell_trophies|Sell trophies ({{crowns_amount}})
 2115018296|        |rer_bounty_master_trophies_bought_notification|The bounty master bought your trophies for {{crowns_amount}} crowns
-2115018297|        |rer_bounty_finished_notification|Bounty finished. {{side_groups_killed}} bonus points from side groups killed, you now have a bounty level of {{bounty_level}}
+2115018297|        |rer_bounty_finished_notification|Bounty finished. {{side_groups_killed}} bonus points from side groups killed. You now have a bounty level of {{bounty_level}}.
 2115018298|        |option_rer_tutorial_started|First launch
 2115018299|        |rer_tutorial_started_title|RER Tutorial - First launch
-2115018300|        |rer_tutorial_started_body|Welcome to <font color="#CD7D03">Random Encounters Reworked</font>!<br />Popups similar to this one will appear whenever something important related to the mod happens in order to explain what is happening. For now Random Encounters Reworked will not be noticeably active and this is on purpose. To allow users to adapt to the mod and not be bombarded the mod will introduce parts of itself over the course of 10 hours, by then users should be well acquainted with how the mod works.<br /><br />If you need reminding about how a certain event or feature works you can re-enable the tutorial in the mod menu so that when you encounter that event or feature again the popup will also appear again
+2115018300|        |rer_tutorial_started_body|Welcome to <font color="#CD7D03">Random Encounters Reworked</font>!<br />Popups similar to this one will appear whenever something important related to the mod happens in order to explain what is happening. For now, Random Encounters Reworked will not be noticeably active and this is on purpose. To allow users to adapt to the mod and not be bombarded, the mod will introduce parts of itself over the course of 10 hours. By then, users should be well acquainted with how the mod works.<br /><br />If you need reminding about how a certain event or feature works you can re-enable the tutorial in the mod menu so that when you encounter that event or feature again the popup will also appear again.
 2115018301|        |rer_noticeboard_errand_0|Looking for a witcher
 ; to translators:
 ; the end is not a typo but simply a random name formed with the letters of Aeltoth, my nickname,
@@ -363,13 +363,13 @@
 2115018312|        |option_rer_noticeboard_errands|Noticeboard errands to start RER contracts
 2115018313|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Day & Night:</font> Additional delay (in seconds) per player level
 2115018314|        |rer_noticeboard_errand_1|Looking for a witcher
-2115018315|        |rer_noticeboard_errand_1_text|Anyone knows how to read, read this, and read it careful, so that it's known far and wide, or at least throughout the whole village.<br /><br />I was out in the field, hunting for something to eat when i heard the growl. There's a beast that feeds on men, you cannot walk within ten spans of the evil and hope to escape alive. It's thus keeping us from hunting and harvesting our crops, meaning famine and misery await us if nothing changes.<br />I spied some odd tracks and couldn't for the life of me figure out what left them, even though I've many a hunt under my belt. You know me, I'm not one to make a fuss, but I can't help but reckon they bode ill and we all should be on guard<br /><br />if you've the courage and skill, slay the monster for us, and your efforts will surely be rewarded.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018315|        |rer_noticeboard_errand_1_text|Anyone who knows how to read, read this. And read it carefully, so that it's known far and wide, or at least throughout the whole village.<br /><br />I was out in the field, hunting for something to eat when I heard the growl. There's a beast that feeds on men. You cannot walk within ten spans of the evil and hope to escape alive. It's thus keeping us from hunting and harvesting our crops, meaning famine and misery await us if nothing changes.<br /><br />I spied some odd tracks and couldn't for the life of me figure out what left them, even though I've many a hunt under my belt. You know me, I'm not one to make a fuss, but I can't help but reckon they bode ill and we all should be on guard.<br /><br />If you've the courage and skill, slay the monster for us, and your efforts will surely be rewarded.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
 2115018316|        |option_rer_minimap_marker_bounty_master|Minimap markers <font color="#ffd33d">-</font> Bounty Master
 2115018317|        |option_rer_minimap_marker_bounties|Minimap markers <font color="#ffd33d">-</font> Bounties
 2115018318|        |option_rer_minimap_marker_generic_objectives|Minimap markers <font color="#ffd33d">-</font> Generic objectives
 2115018319|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Day & Night:</font> Effects of kills on delays <font size="11">(+100%: faster, -100%: slower)</font>
-2115018320|        |rer_noticeboard_errand_2|Looking for an experience hunter
-2115018321|        |rer_noticeboard_errand_2_text|To Whom It May Concern:<br /><br />Let it hereby be known that whoever kills the monsters that's wove their nests near our lands and have taken to killing both men and beasts, will be given a sizable reward. Kill enough beasts, and you'll become famed throughout the lands, and your purse'll be heavy with gold.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018320|        |rer_noticeboard_errand_2|Looking for an experienced hunter
+2115018321|        |rer_noticeboard_errand_2_text|To Whom It May Concern:<br /><br />Let it hereby be known that whoever kills the monsters that's woven their nests near our lands and have taken to killing both men and beasts, will be given a sizable reward. Kill enough beasts, and you'll become famed throughout the lands, and your purse'll be heavy with gold.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
 ; Do not translate the "{{creature_name}}", this will be replaced with the actual
 ; creature name dynamically.
 ;
@@ -424,19 +424,19 @@
 2115018363|        |rer_cancel|Cancel
 2115018364|        |rer_token_gear|Token of gratitude - Gear
 2115018365|        |rer_token_gear_short|Gear
-2115018366|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gear.
+2115018366|        |rer_token_gear_description|This token of gratitude, obtained from your contracts all across the world, can be traded to the bounty master in exchange of gear.
 2115018367|        |rer_token_consumables|Token of gratitude - Consumables
 2115018368|        |rer_token_consumables_short|Consumables
-2115018369|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of consumables.
+2115018369|        |rer_token_consumables_description|This token of gratitude, obtained from your contracts all across the world, can be traded to the bounty master in exchange of consumables.
 2115018370|        |rer_token_experience|Token of gratitude - Experience
 2115018371|        |rer_token_experience_short|Experience
-2115018372|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of experience.
+2115018372|        |rer_token_experience_description|This token of gratitude, obtained from your contracts all across the world, can be traded to the bounty master in exchange of experience.
 2115018373|        |rer_token_materials|Token of gratitude - Materials
 2115018374|        |rer_token_materials_short|Materials
-2115018375|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of materials.
+2115018375|        |rer_token_materials_description|This token of gratitude, obtained from your contracts all across the world, can be traded to the bounty master in exchange of materials.
 2115018376|        |rer_token_gold|Token of gratitude - Gold
 2115018377|        |rer_token_gold_short|Gold
-2115018378|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the word, can be traded to the bounty master in exchange of gold.
+2115018378|        |rer_token_gold_description|This token of gratitude, obtained from your contracts all across the world, can be traded to the bounty master in exchange of gold.
 ; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
 2115018379|        |rer_available_rewards|Available rewards from this noticeboard: {{rewards_list}}
 ; As it may be hard to read with all these {{}}, here is an example of what 
@@ -454,7 +454,7 @@
 2115018387|        |rer_kill_target|Kill the {{type}}
 2115018388|        |rer_contract_finished|The contract is over
 2115018389|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
-2115018390|        |rer_contract_started|{{species}} contract has started, search the marker on your map
+2115018390|        |rer_contract_started|{{species}} contract has started. Search the marker on your map.
 2115018391|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018392|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
 2115018393|        |rer_current_reputation|Spend reputation (current: {{reputation}})
@@ -476,10 +476,10 @@
 2115018409|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
 2115018410|        |option_rer_tutorial_bounty_level|Bounty level
 2115018411|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
-2115018412|        |rer_tutorial_bounty_level_body|Once you have finished a bounty your <font color="#CD7D03">bounty level</font> may increase, each region has its own bounty level. Whenever you increase your bounty level you will receive an item, this item will increase in rarity with your bounty level
+2115018412|        |rer_tutorial_bounty_level_body|Once you have finished a bounty, your <font color="#CD7D03">bounty level</font> may increase. Each region has its own bounty level. Whenever you increase your bounty level, you will receive an item. This item will increase in rarity with your bounty level.
 2115018411|        |option_rer_tutorial_bounty_master|Bounty master
 2115018412|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
-2115018413|        |rer_tutorial_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
+2115018413|        |rer_tutorial_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However, he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
 2115018414|        |preset_Mods_rer_name_rer_rewards_settings_rer_rewards_general_settings|General rewards settings
 2115018415|        |panel_rer_rewards_general_settings|General rewards settings
 2115018416|        |option_rer_loot_global_chance_multiplier|<font color="#ffd33d">Global chance multiplier</font>
@@ -511,5 +511,5 @@
 2115018442|        |option_rer_loot_valuables_uncommon_chance|<font color="#ffd33d">                       :</font> uncommon rarity chance
 2115018443|        |option_rer_loot_valuables_rare_chance|<font color="#ffd33d">                       :</font> rare rarity chance
 2115018444|        |option_rer_loot_valuables_exotic_chance| <font color="#ffd33d">                       :</font> exotic rarity chance
-2115018445|        |rer_reputation_loss_message|News of your failure during the contract has spread throughout the region. Your reputation has fallen by {{number}} points
+2115018445|        |rer_reputation_loss_message|News of your failure during the contract has spread throughout the region. Your reputation has fallen by {{number}} points.
 2115018446|        |rer_reputation_spent_message|{{number}} reputation points were exchanged for loot
