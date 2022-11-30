@@ -11,6 +11,7 @@
 ;  - id 2115018393 was updated
 ;  - id 2115018445 was added
 ;  - id 2115018446 was added
+;  - id 2115018297 was updated
 ;
 ; Changed in v2.12:
 ;  - changes are too vast to list here  unfortunately, i would recommend looking at 
@@ -341,7 +342,7 @@
 2115018294|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
 2115018295|        |rer_dialog_sell_trophies|Sell trophies ({{crowns_amount}})
 2115018296|        |rer_bounty_master_trophies_bought_notification|The bounty master bought your trophies for {{crowns_amount}} crowns
-2115018297|        |rer_bounty_finished_notification|Bounty finished. {{side_groups_killed}} bonus points from side groups killed, you now have a bounty level of {{bounty_level}}
+2115018297|        |rer_bounty_finished_notification|Bounty finished. {{side_groups_killed}} bonus rewards from side groups killed, you now have a bounty level of {{bounty_level}}
 2115018298|        |option_rer_tutorial_started|First launch
 2115018299|        |rer_tutorial_started_title|RER Tutorial - First launch
 2115018300|        |rer_tutorial_started_body|Welcome to <font color="#CD7D03">Random Encounters Reworked</font>!<br />Popups similar to this one will appear whenever something important related to the mod happens in order to explain what is happening. For now Random Encounters Reworked will not be noticeably active and this is on purpose. To allow users to adapt to the mod and not be bombarded the mod will introduce parts of itself over the course of 10 hours, by then users should be well acquainted with how the mod works.<br /><br />If you need reminding about how a certain event or feature works you can re-enable the tutorial in the mod menu so that when you encounter that event or feature again the popup will also appear again
@@ -477,8 +478,6 @@
 2115018410|        |option_rer_tutorial_bounty_level|Bounty level
 2115018411|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
 2115018412|        |rer_tutorial_bounty_level_body|Once you have finished a bounty your <font color="#CD7D03">bounty level</font> may increase, each region has its own bounty level. Whenever you increase your bounty level you will receive an item, this item will increase in rarity with your bounty level
-2115018411|        |option_rer_tutorial_bounty_master|Bounty master
-2115018412|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
 2115018413|        |rer_tutorial_bounty_master_body|You have found the <font color="#CD7D03">Bounty master</font>, a character that can give you bounties. He travels all around the world so he can be found in every region. However he does also move within those regions. To find him look on your map and search for a yellow exclamation mark surrounded by a white circle.
 2115018414|        |preset_Mods_rer_name_rer_rewards_settings_rer_rewards_general_settings|General rewards settings
 2115018415|        |panel_rer_rewards_general_settings|General rewards settings
@@ -513,3 +512,5 @@
 2115018444|        |option_rer_loot_valuables_exotic_chance| <font color="#ffd33d">                       :</font> exotic rarity chance
 2115018445|        |rer_reputation_loss_message|News of your failure during the contract has spread throughout the region. Your reputation has fallen by {{number}} points
 2115018446|        |rer_reputation_spent_message|{{number}} reputation points were exchanged for loot
+2115018447|        |option_rer_tutorial_bounty_master|Bounty master
+2115018448|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
