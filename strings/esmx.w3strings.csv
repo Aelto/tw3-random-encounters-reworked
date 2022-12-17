@@ -1,0 +1,517 @@
+;meta[language=en]
+; id      |key(hex)|key(str)| text
+;
+; Tips for when i add spaces and : in front of lines. For example if you try to align
+; the : with the string "Reputation system:", you must count the characters in "Reputation system"
+; which is 17, then you mulitply by two and remove 1.
+; There is always some variation since not all letters have the same width, but that should
+; save you some time.
+;
+; Changed in v2.13:
+;  - id 2115018393 was updated
+;  - id 2115018445 was added
+;  - id 2115018446 was added
+;  - id 2115018297 was updated
+;
+; Changed in v2.12:
+;  - changes are too vast to list here  unfortunately, i would recommend looking at
+;    the changelog on github and finding the link to the diff between v2.11 to v2.12.
+;
+; Changed in v2.9:
+;  - id 2115018288 was updated, the string as well as the key
+;  - id 2115018289 was updated, the string as well as the key
+;  - id 2115018297 was updated
+;  - id 2115018403 was updated, the string as well as the key
+;  - id 2115018404 was updated, the string as well as the key
+;  - id 2115018405 was updated, the string as well as the key
+;  - id 2115018406 was updated, the string as well as the key
+;  - id 2115018466 was updated, the string as well as the key
+;  - id 2115018467 was updated, the string as well as the key
+;  - id 2115018433 was updated,
+;
+; Changed in v2.8:
+;  - Anything below id: 2115018462 was added
+;  - id 2115018275 was updated (completely rewritten)
+;  - id 2115018460 was updated, careful the key was changed too.
+;  - id 2115018403 was updated to add colors around the difficulty
+;  - id 2115018404 was updated to add colors around the difficulty
+;  - id 2115018405 was updated to add colors around the difficulty
+;  - id 2115018406 was updated to add colors around the difficulty
+;
+; Changed in v2.7:
+;  - Anything below id: 2115018400 was added
+;  - id 2115018347 was deleted (all IDs after this line were decremented by 1)
+;  - id 2115018290 was updated
+;
+; Changed in v2.6:
+;  - Anything below id: 2115018342 was added
+;  - id: 2115018277 was updated
+;
+;
+2115018001|        |preset_value_rer_defaults|Por Defecto
+2115018002|        |option_rer_custom_frequency_low_day|<font color="#ffd33d">                       Día:</font> retraso mínimo (en segundos)
+2115018003|        |option_rer_custom_frequency_high_day|<font color="#ffd33d">                             :</font> retraso máximo (en segundos)
+2115018004|        |option_rer_custom_frequency_low_night|<font color="#b392f0">                    Noche:</font> retraso mínimo (en segundos)
+2115018005|        |option_rer_custom_frequency_hight_night|<font color="#b392f0">                             :</font> retraso máximo (en segundos)
+2115018006|        |preset_value_rer_low|Bajo
+2115018007|        |preset_value_rer_medium|Medio
+2115018008|        |preset_value_rer_high|Alto
+2115018009|        |panel_Mods|Mods
+2115018010|        |panel_rer_name|Random Encounters Reworked
+2115018011|        |panel_rer_main_settings|Ajustes Principales
+2115018012|        |option_rer_city_spawn|Habilitar la aparición en Asentamientos
+2115018013|        |preset_value_rer_select_yes|Sí
+2115018014|        |preset_value_rer_select_no|No
+2115018015|        |option_rer_difficulty|Dificultad de los Encuentros (afecta sobre todo al número de enemigos)
+2115018016|        |preset_value_rer_easy|Fácil
+2115018017|        |preset_value_rer_medium|Medio
+2115018018|        |preset_value_rer_hard|Difícil
+2115018019|        |preset_value_rer_random|Aleatorio
+2115018020|        |option_rer_enemy_count_multiplier|<font color="#ffd33d">Multiplicador global</font>
+2115018021|        |option_rer_monster_hunt_ratio_day|<font color="#ffd33d">Frecuencia</font>
+2115018022|        |panel_rer_encounter_type|Tipos de Encuentro
+2115018023|        |panel_rer_creature_frequency|Frecuencias de Criaturas
+2115018024|        |panel_rer_creatures_ratios|Ratios de Criaturas
+2115018025|        |panel_ambush_day_settings|Emboscada de Día
+2115018026|        |panel_ambush_night_settings|Emboscada de Noche
+2115018027|        |preset_value_rer_everything_off|Todo APAGADO
+2115018028|        |preset_value_rer_everything_on|Todo ENCENDIDO
+2115018029|        |option_rer_leshen|Leshens
+2115018030|        |option_rer_werewolf|Hombres Lobo
+2115018031|        |option_rer_cyclop|Cíclopes
+2115018032|        |option_rer_arachas|Arachas
+2115018033|        |option_rer_fiend|Demonibestias
+2115018034|        |option_rer_chort|Chorts
+2115018035|        |option_rer_vampire|Vampiros
+2115018036|        |option_rer_bear|Osos
+2115018037|        |option_rer_skelligebear|Osos de Skellige
+2115018038|        |option_rer_golem|Golems
+2115018039|        |option_rer_elemental|Elementales
+2115018040|        |option_rer_nightwraith|Aparición nocturna
+2115018041|        |option_rer_noonwraith|Damas del mediodía
+2115018042|        |option_rer_troll|Trolls
+2115018043|        |option_rer_skelligetroll|Trolls de Skellige
+2115018044|        |option_rer_hag|Brujas del agua/Brujas sepulcral
+2115018045|        |option_rer_harpy|Arpías
+2115018046|        |option_rer_fogling|Boiras
+2115018047|        |option_rer_endrega|Endriagos
+2115018048|        |option_rer_ghoul|Ghuls
+2115018049|        |option_rer_alghoul|Alghuls
+2115018050|        |option_rer_nekker|Nekkers
+2115018051|        |option_rer_drowner|Sumergidos
+2115018052|        |option_rer_rotfiend|Demonios podridos
+2115018053|        |option_rer_wolf|Lobos
+2115018054|        |option_rer_skelligewolf|Lobos de Skellige
+2115018055|        |option_rer_wraith|Apariciones
+2115018056|        |option_rer_spider|Arañas
+2115018057|        |option_rer_boar|Jabalíes
+2115018058|        |option_rer_higher_vampire|Vampiros supremos
+2115018059|        |option_rer_bruxa|Lamias
+2115018060|        |option_rer_fleder|Fleders
+2115018061|        |option_rer_garkain|Garkains
+2115018062|        |option_rer_scurver|Espinosos
+2115018063|        |option_rer_giant|Gigantes
+2115018064|        |option_rer_skeleton|Esqueletos
+2115018065|        |option_rer_barghest|Barghests
+2115018066|        |option_rer_echinops|Arquespores
+2115018067|        |option_rer_centipede|Ciempiés gigantes
+2115018068|        |option_rer_kikimore|Kikimoras
+2115018069|        |option_rer_panther|Panteras
+2115018070|        |option_rer_shaelmaar|Shaelmaars
+2115018071|        |option_rer_wight|Criaturas
+2115018072|        |option_rer_human|Bandidos
+2115018073|        |option_rer_wildhunt|Cacería Salvaje
+2115018074|        |option_rer_gryphon|Grifos
+2115018075|        |option_rer_cockatrice|Gallotrices
+2115018076|        |option_rer_wyvern|Wyvernos
+2115018077|        |option_rer_forktail|Colihendidos
+2115018078|        |option_rer_basilisk|Basiliscos
+2115018079|        |option_rer_katakan|Katakans
+2115018080|        |option_rer_ekimmara|Ekimmaras
+2115018081|        |option_rer_siren|Sirenas
+2115018082|        |option_rer_berserker|Berserkers
+2115018083|        |option_rer_dracolizard|Eslizones
+2115018084|        |option_rer_gargoyle|Gárgolas
+2115018085|        |preset_Mods_rer_name_rer_main_settings|Ajustes principales
+2115018086|        |preset_Mods_rer_name_rer_creature_frequency|Frecuencias de Criaturas
+2115018087|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_ambush_day_settings|Emboscada de Día
+2115018088|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_ambush_night_settings|Emboscada de Noche
+2115018089|        |option_rer_geralt_comments|Activar los comentarios de Geralt
+2115018090|        |option_rer_enabled|<font color="#28a745">MOD HABILITADO</font>
+2115018091|        |option_rer_hide_notifications|Ocultar Notificaciones de RER
+2115018092|        |option_rer_enable_encounters_loot|Habilitar botín de Encuentros
+2115018093|        |preset_Mods_rer_name_rer_city_spawns|Aparición en Asentamientos
+2115018094|        |preset_value_rer_no_city_spawns|Ninguno
+2115018095|        |preset_value_rer_all_city_spawns|Todos
+2115018096|        |preset_value_rer_no_large_creatures|Sin Criaturas grandes
+2115018097|        |preset_value_rer_no_small_creatures|Sin Criaturas pequeñas
+2115018098|        |option_rer_external_factors_coefficient|Coeficiente de Factores Externos
+2115018099|        |option_rer_monster_contract_ratio_day|<font color="#ffd33d">Frecuencia</font>
+2115018100|        |option_rer_monster_ambush_ratio_day|<font color="#ffd33d">Frecuencia</font>
+2115018101|        |panel_rer_settlement_settings|Generacion de Asentamientos
+2115018102|        |preset_Mods_rer_name_rer_encounter_type|Tipos de Encuentros
+2115018103|        |option_rer_mod_initialized|MOD INICIALIZADO <font color="#d73a49">(PRECAUCIÓN)</font>
+2115018104|        |preset_Mods_rer_name_rer_monster_trophies|Trofeos de Monstruos
+2115018105|        |panel_rer_monster_trophies|Trofeos de Monstruos
+2115018106|        |rer_trophy_werewolf|Trofeo de Hombre lobo
+2115018107|        |rer_trophy_fogling|Trofeo de Boira
+2115018108|        |rer_trophy_wildhunt|Trofeo de Cacería Salvaje
+2115018109|        |rer_trophy_beast|Trofeo de Bestia
+2115018110|        |rer_trophy_wraith|Trofeo de Aparición
+2115018111|        |rer_trophy_nekker|Trofeo de Nekker
+2115018112|        |rer_trophy_leshen|Trofeo de Leshen
+2115018113|        |rer_trophy_katakan|Trofeo de Katakan
+2115018114|        |rer_trophy_ekimmara|Trofeo de Ekimmara
+2115018115|        |rer_trophy_harpy|Trofeo de Arpía
+2115018116|        |rer_trophy_giant|Trofeo de Gigante
+2115018117|        |rer_trophy_sharley|Trofeo de Shaelmaar
+2115018118|        |rer_trophy_wight|Trofeo de Criatura
+2115018119|        |rer_trophy_grave_hag|Trofeo de Bruja sepulcral
+2115018120|        |rer_trophy_fiend|Trofeo de Demonibestia
+2115018121|        |rer_trophy_elemental|Trofeo de Elemental
+2115018122|        |rer_trophy_insectoid|Trofeo de Insectoide
+2115018123|        |rer_trophy_griffin|Trofeo de Grifo
+2115018124|        |rer_trophy_basilisk|Trofeo de Basilisco
+2115018125|        |rer_trophy_cockatrice|Trofeo de Gallotrice
+2115018126|        |rer_trophy_wyvern|Trofeo de Wyverno
+2115018127|        |rer_trophy_forktail|Trofeo de Colihendido
+2115018128|        |rer_trophy_czart|Trofeo de Chort
+2115018129|        |rer_trophy_cyclop|Trofeo de Cíclope
+2115018130|        |rer_trophy_noonwraith|Trofeo de Dama del mediodía
+2115018131|        |rer_trophy_nightwraith|Trofeo de Aparición nocturna
+2115018132|        |rer_trophy_arachas|Trofeo de Arachas
+2115018133|        |rer_trophy_garkain|Trofeo de Garkain
+2115018134|        |rer_trophy_spirit|Trofeo de Espectro
+2115018135|        |rer_trophy_necrophage|Trofeo de Necrófago
+2115018136|        |rer_trophy_vampire|Trofeo de vampiro
+2115018137|        |rer_trophy_human|Trofeo de Humano
+2115018138|        |rer_trophy_troll|Trofeo de Troll
+2115018139|        |rer_trophy_dracolizard|Trofeo de Eslizón
+2115018140|        |option_rer_min_spawn_distance|<font color="#ffffff">              Distancia:</font> Distancia mínima de Aparición (en metros)
+2115018141|        |option_rer_spawn_diameter|<font color="#ffffff">                             :</font> Diámetro de Aparición (en metros)
+2115018142|        |option_rer_kill_threshold_distance|<font color="#ffffff">                             :</font> Umbral de muerte automático (en metros)
+2115018143|        |preset_Mods_rer_name_rer_advanced_settings|Configuración Avanzada
+2115018144|        |panel_rer_advanced_settings|Configuración Avanzada
+2115018145|        |option_rer_trophies_ambush|<font color="#ffd33d">De Emboscadas</font>
+2115018146|        |option_rer_trophies_hunt|<font color="#ffd33d">De Cacerías</font>
+2115018147|        |option_rer_trophies_contract|<font color="#ffd33d">De Contratos</font>
+2115018148|        |option_rer_trophy_pickup_animation|Probabilidad de animación al recolectar trofeos
+2115018149|        |option_rer_only_known_bestiary_creatures|Solo Criaturas conocidas en el Bestiario
+2115018150|        |preset_Mods_rer_name_rer_advanced_settings_distances|Distancias
+2115018151|        |panel_distances|Distancias
+2115018152|        |preset_Mods_rer_name_rer_advanced_settings_levels|Niveles
+2115018153|        |panel_levels|Niveles
+2115018154|        |option_rer_min_level_range|<font color="#28a745">                  Niveles:</font> más bajo permitido (en relación a Geralt)
+2115018155|        |option_rer_max_level_range|<font color="#28a745">                             :</font> más alto permitido (en relación a Geralt)
+2115018156|        |preset_Mods_rer_name_rer_rewards_settings_rer_trophies_settings|Trofeos
+2115018157|        |panel_rer_trophies_settings|Trofeos
+2115018158|        |option_rer_trophy_prices|<font color="#ffd33d">Precios</font>
+2115018159|        |preset_value_rer_trophy_prices_low|Bajo (100%)
+2115018160|        |preset_value_rer_trophy_prices_medium|Medio (200%)
+2115018161|        |preset_value_rer_trophy_prices_high|Alto (300%)
+2115018162|        |preset_Mods_rer_name_rer_events_settings|Sistema de Eventos
+2115018163|        |panel_rer_events_settings|Sistema de Eventos
+2115018164|        |option_rer_event_system_interval|Intervalo del sistema de Eventos en segundos (0 = desactivado)
+2115018165|        |option_rer_mod_enabled|<font color="#28a745">MOD HABILITADO</font>
+2115018166|        |option_rer_disabled|Random Encounters Reworked Deshabilitado
+2115018167|        |option_rer_event_bloodnecrophages_chance|Evento % de chance - La sangre atrae a los Necrófagos
+2115018168|        |option_rer_event_bodiesnecrophages_chance|Evento % de chance - Los restos atraen a los Necrófagos
+2115018169|        |option_rer_event_entersswamp_chance|Evento % de chance - Emboscada al entrar en Pantano
+2115018170|        |option_rer_event_fightnoise_chance|Evento % de chance - Emboscada de Ruido por pelea
+2115018171|        |option_rer_event_fillcreaturesgroup_chance|Evento % de chance - Rellenar grupo de criaturas
+2115018172|        |option_rer_event_meditationambush_chance|Evento % de  chance - Emboscada en Meditación
+2115018174|        |option_rer_event_system_internal_cooldown|Segundos antes de que un evento pueda volver a activarse
+2115018175|        |option_rer_event_fillcreaturesgroup_allow_combat|Evento de Rellenar grupo de criaturas - permitir la copia de criaturas en combate
+2115018176|        |option_rer_big_city_spawns|Permitir la Aparición en Ciudades (Novigrado/Oxenfurt/Kaer Trolde)
+2115018177|        |preset_value_rer_region_constraint_none|En todas partes
+2115018178|        |preset_value_rer_region_constraint_only_velen|Sólo en Velen
+2115018179|        |preset_value_rer_region_constraint_only_skellige|Sólo en Skellige
+2115018180|        |preset_value_rer_region_constraint_only_toussaint|Sólo en Toussaint
+2115018181|        |preset_value_rer_region_constraint_no_velen|No en Velen
+2115018182|        |preset_value_rer_region_constraint_no_skellige|No en Skellige
+2115018183|        |preset_value_rer_region_constraint_no_toussaint|No en Toussaint
+2115018184|        |preset_Mods_rer_name_rer_encounters_settings_rer_region_constraints_settings|Restricciones Regionales
+2115018185|        |preset_value_rer_region_constraint_only_whiteorchard|Sólo en Huerto Blanco
+2115018186|        |preset_value_rer_region_constraint_no_whiteorchard|No en Huerto Blanco
+2115018187|        |panel_rer_region_constraints_settings|Restricciones Regionales
+2115018188|        |preset_Mods_rer_name_rer_encounters_settings|Creatures_settings ratios
+2115018189|        |panel_rer_creatures_ratio|Ratios de criaturas
+2115018190|        |panel_hunt_day_settings|Cacería de día
+2115018191|        |panel_hunt_night_settings|Cacería de noche
+2115018192|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_day_settings|Cacería de día
+2115018193|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunt_night_settings|Cacería de noche
+2115018194|        |panel_contract_day_settings|Contrato de día
+2115018195|        |panel_contract_night_settings|Contrato de noche
+2115018196|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_day_settings|Contrato de día
+2115018197|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_contract_night_settings|Contrato de noche
+2115018198|        |preset_Mods_rer_name_rer_advanced_settings_performances|Ajustes de rendimiento
+2115018199|        |panel_performances|Ajustes de rendimiento
+2115018200|        |option_rer_foottracks_ratio|tracks ratio (100: all, 0: no tracks)
+2115018201|        |preset_value_rer_all_everywhere|En todas partes
+2115018202|        |option_rer_camera_blending_disabled|Deshabilitar la combinación de cámaras
+2115018203|        |option_dlc_rer|Random Encounters Reworked
+2115018204|        |option_rer_camera_scenes_disabled|Desactivar escenas de cámara
+2115018205|        |option_rer_monster_ambush_ratio_night|<font color="#ffd33d">Frecuencia</font>
+2115018206|        |option_rer_monster_hunt_ratio_night|<font color="#ffd33d">Frecuencia</font>
+2115018207|        |option_rer_monster_contract_ratio_night|<font color="#ffd33d">Frecuencia</font>
+2115018208|        |option_rer_enable_action_camera_scenes|Habilitar escenas de cámara de acción
+2115018209|        |preset_Mods_rer_name_rer_encounters_settings|Sistema de Encuentros
+2115018210|        |preset_Mods_rer_name_rer_encounters_settings_rer_general_settings|General
+2115018211|        |preset_Mods_rer_name_rer_encounters_settings_rer_constraints_settings|Restricciones Regionales
+2115018212|        |preset_Mods_rer_name_rer_encounters_settings_rer_settlement_settings|Generacion de Asentamientos
+2115018213|        |panel_rer_general_settings|General
+2115018214|        |panel_rer_optional_features_settings|Características opcionales
+2115018215|        |panel_rer_encounters_settings|Sistema de Encuentros
+2115018216|        |preset_Mods_rer_name_rer_optional_features_settings|Características opcionales
+2115018217|        |option_rer_monster_contract_longevity|UNUSED
+2115018218|        |panel_creature_type_multiplier|Multiplicador del tipo de Criatura
+2115018219|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Multiplicador del tipo de Criatura
+2115018220|        |option_rer_crowns_ambush|<font color="#ffd33d">De Emboscadas</font>
+2115018221|        |option_rer_crowns_hunt|<font color="#ffd33d">De Cacerías</font>
+2115018222|        |option_rer_crowns_contract|<font color="#ffd33d">De Contratos</font>
+2115018224|        |preset_Mods_rer_name_rer_rewards_settings|Sistema de Recompensas
+2115018225|        |panel_rer_rewards_settings| Sistema de Recompensas
+2115018226|        |preset_Mods_rer_name_rer_rewards_settings_rer_crowns_settings|Coronas
+2115018227|        |panel_rer_crowns_settings|Coronas
+2115018228|        |option_rer_trails_use_pathfinding|Usar Busqueda de Ruta para los senderos
+2115018229|        |option_rer_static_encounter_small_spawn_chance|<font color="#ec6cb9">Encuentros estáticos:</font> Pequeño -  chance de Aparición (%)
+2115018230|        |option_rer_static_encounter_large_spawn_chance|<font color="#ec6cb9">                             :</font> Grande - chance de Aparición (%)
+2115018231|        |option_rer_camera_immersive_camera_compatibility|Sin escena de cámara sobre el caballo (compatibilidad ImmersiveCamera)
+2115018232|        |panel_rer_ecosystem_settings|Sistema de Ecosistemas
+2115018233|        |preset_Mods_rer_name_rer_ecosystem_settings|Sistema de Ecosistemas
+2115018234|        |option_rer_ecosystem_community_power_effect|Diversidad de la Comunidad (mayor = menos, menor = más)
+2115018235|        |option_rer_ecosystem_community_natural_death_speed|Velocidad de muerte natural de la Comunidad
+2115018236|        |option_rer_ecosystem_community_power_spread|Propagación del poder de la comunidad
+2115018237|        |option_rer_crowns_hunting_ground|<font color="#ffd33d">De Terrenos de Caza</font>
+2115018238|        |panel_hunting_ground_day_settings|Terrenos de Caza de día
+2115018239|        |panel_hunting_ground_night_settings|Terrenos de Caza de noche
+2115018240|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_day_settings|Terrenos de Caza de día
+2115018241|        |preset_Mods_rer_name_rer_encounters_settings_ratios_and_frequencies_hunting_ground_night_settings|Terrenos de Caza de noche
+2115018242|        |option_rer_monster_hunting_ground_ratio_night|<font color="#ffd33d">Frecuencia</font>
+2115018243|        |option_rer_monster_hunting_ground_ratio_day|<font color="#ffd33d">Frecuencia</font>
+2115018244|        |preset_Mods_rer_name_ratios_and_frequencies|Ajuste de Alcance y Frecuencias
+2115018245|        |panel_ratios_and_frequencies|Alcance y Frecuencias
+2115018246|        |option_rer_trophies_hunting_ground|<font color="#ffd33d">De terrenos de caza</font>
+2115018247|        |option_rer_markers_contract_first_phase|Marcadores - contrato primera fase
+2115018248|        |option_rer_markers_contract_intermediary_phase|Marcadores - contrato fase intermedia
+2115018249|        |option_rer_markers_bounty_hunting|Marcadores - recompensas de caza
+2115018250|        |option_rer_markers_challenge_mode|Marcadores - modo desafío
+2115018251|        |preset_Mods_rer_name_rer_tutorials_settings|Tutoriales
+2115018252|        |panel_rer_tutorials_settings|Tutoriales
+2115018253|        |option_rer_tutorial_challenge_mode|Modo desafío
+2115018254|        |option_rer_tutorial_bounty_hunting|Recompensas de caza
+2115018255|        |option_rer_tutorial_monster_contract|Contrato de monstruo
+2115018256|        |option_rer_tutorial_noticeboard_event|Evento en el tablón de anuncios
+2115018257|        |option_rer_tutorial_clue_examined|Pista examinada
+2115018258|        |option_rer_tutorial_ambushed|Geralt en una emboscada
+2115018259|        |option_rer_tutorial_trophy|Las recompensas
+2115018260|        |option_rer_tutorial_ecosystem|El ecosistema
+2115018261|        |panel_hud_dialogue_title_bet_rer|Selector de recompensa inicial
+2115018262|        |option_rer_trophy_master_buying_price|Precio de compra del trofeo del Maestro de Recompensas (%)
+2115018263|        |rer_bounty_notice|Aviso de recompensa
+2115018264|        |rer_bounty_notice_description|El Maestro de Recompensas está buscando un brujo, ya que hay monstruos que matar. Ven a verle para empezar las recompensas y vender tus trofeos
+2115018265|        |item_desc_trophy|Un trofeo de monstruo. El Maestro de Recompensas probablemente lo comprará a un mejor precio.
+2115018266|        |option_rer_ignore_seed_selector_window|Omitir ventana de selección de recompensa inicial
+2115018267|        |option_rer_delay_loading_start|Retrasar el inicio de carga de RER (compatibilidad con Bootstrap Hooked)
+2115018268|        |rer_tutorial_ambush_title|RER Tutorial - Emboscada
+2115018269|        |rer_tutorial_ambush_body|Acabas de ser <font color="#CD7D03">Emboscado</font>. Los enemigos se dirigen ahora hacia ti y debes luchar contra ellos. Puedes huir pero te seguirán hasta que los derrotes. Una vez que lo hagas serás recompensado con coronas y trofeos. Si no te gusta que te tiendan una emboscada o quieres cambiarla para que sea más o menos desafiante, puedes cambiar la configuración en el submenú Emboscadas del menú del Sistema de Encuentros.
+2115018270|        |rer_tutorial_bounty_title|RER Tutorial - Cazarrecompensas
+2115018271|        |rer_tutorial_bounty_body|Acabas de empezar una <font color="#CD7D03">Recompensa</font>. Las recompensas consisten en un blanco principal y un número aleatorio de blancos secundarios. Normalmente aparecen en puntos de interés alrededor de la región. El principal objetivo es siempre matar al blanco principal. Los blancos secundarios pueden omitirse, pero si te desvías de tu camino para matarlos, aumentas tu recompensa en un 100% por cada blanco secundario matado. Sin embargo, esto también tiene el efecto secundario de aumentar la dificultad de la lucha contra el blanco principal.
+2115018272|        |rer_tutorial_clue_title|RER Tutorial - Pista Examinada
+2115018273|        |rer_tutorial_clue_body|Acabas de <font color="#CD7D03">examinar una pista</font> dejada por una criatura. Al examinarlo, Geralt comentará de qué monstruo se trata y seguir el rastro te llevará hasta la criatura que lo creó. Ten en cuenta, que como RER utiliza líneas de voz de vainilla, algunas criaturas pueden ser identificadas incorrectamente. Sin embargo, la familia a la que pertenece la criatura siempre será correcta. Por ejemplo, Geralt puede encontrar las huellas de una Dama del medio día, pero como no hay lineas de voz para eso dice que es un Aparición Nocturna. Son criaturas diferentes, pero pertenecen a la misma familia de "Espectros".
+2115018274|        |rer_tutorial_contract_title|RER Tutorial - Contrato de Monstruo
+2115018275|        |rer_tutorial_contract_body|Acaba de recoger un aviso de <font color="#CD7D03">Contrato personalizado</font> que se puede distinguir porque el cartel del aviso siempre es <font color="#CD7D03">A. Letoth</font>. Cuando cierre este tutorial, aparecerá un menú que muestra lo siguiente:<br />- El tipo de tokens que puedes adquirir de este tablón de anuncios<br />- Su reputación actual<br />- Los contratos disponibles<br />Tenga en cuenta que estos factores son exclusivos de cada tablón de anuncios del juego<br />Es posible que también hayas notado que los avisos utilizados para desencadenar todos los contratos en el juego estándar están ausentes. Esto se debe a que RER usa un <font color="#CD7D03">Sistema de Reputación</font> especial mediante el cual Geralt debe ganar reputación completando contratos RER para que la población sepa que hay un brujo en el área y pagará los contratos estándar. El sistema de reputación también controla el tipo de contratos RER que puede recibir, comenzando con contratos fáciles y avanzando hasta contratos difíciles.<br/><br/>Si no le gusta este sistema, puede desactivarlo en el menú Sistema de Contratos.
+2115018276|        |rer_tutorial_ecosystem_title|RER Tutorial - El Ecosistema
+2115018277|        |rer_tutorial_ecosystem_body|Tu reciente matanza de una criatura ha cambiado indirectamente el <font color="#CD7D03">Ecosistema</font> circundante. RER simula una cadena alimenticia que cambia las criaturas que encuentras. Cada vez que matas criaturas el ecosistema cambia. Y si continúas matando, pueden aparecer nuevas especies y algunas incluso pueden migrar a otras regiones. Puede examinar el ecosistema utilizando la combinación de teclas Análisis del ecosistema, que puede brindarle información útil sobre las criaturas y sus hábitats. Esta combinación de teclas no está configurada de forma predeterminada, por lo que si desea utilizarla, consulte la guía de instalación detallada.<br /><br />Si no le gusta esta función, puede cambiar sus efectos o desactivarla por completo en el menú Ecosistema.
+2115018278|        |rer_tutorial_noticeboard_event_title|RER Tutorial - Evento de tablón de anuncios
+2115018279|        |rer_tutorial_noticeboard_event_body|Ha elegido un <font color="#CD7D03">aviso de contrato</font> del mod Random Encounters Reworked. Al cerrar la ventana, verás opciones de diálogo para seleccionar la dificultad del contrato, así como información sobre el tablón de anuncios. Estas recompensas varían según el tablón de anuncios y la región, pero permanecen iguales durante todo el juego.
+2115018280|        |rer_tutorial_rewards_title|RER Tutorial - Recompensas
+2115018281|        |rer_tutorial_rewards_body|Acabas de conseguir un <font color="#CD7D03">Trofeo</font>. Estos no sirven para ningún otro propósito aparte de ser vendidos por monedas, pero a quién se los vende sí importa, si desea maximizar las ganancias.<br /><br />Si no le gustan las recompensas y desea cambiarlas, entonces puede hacerlo en el menú Sistema de Recompensas.
+2115018282|        |option_rer_settlement_delay_multiplier|Multiplicador de retraso de Asentamientos (1 = sin cambios, 2 = dos veces más)
+2115018283|        |option_rer_dynamic_creatures_size|Tamaño dinámico de las criaturas (RER escala las criaturas en función de su nivel)
+2115018284|        |rer_unknown|Unknown
+2115018285|        |rer_bounty_start_popup|Las siguientes criaturas fueron vistas y tienen recompensas por sus cabezas,<br /><br />Blanco principal, requerido para reclamar la recompensa:<br />{{main_creature_listing}}<br /><br />Blancos secundarios opcionales: <br />{{side_creature_listing}}<br />Quien traiga sus trofeos al Maestro de Recompensas obtendrá una recompensa considerable.
+2115018286|        |rer_mappin_bounty_master_title|Maestro de Recompensas
+2115018287|        |rer_mappin_bounty_master_description|Ve a ver al Maestro de Recompensas para vender tus trofeos y conocer nuevas recompensas.
+2115018288|        |rer_mappin_bounty_main_target_title|Objetivo Principal de Recompensas
+2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} fueron vistos en la zona. Mátalos y recoge sus trofeos para obtener la recompensa.
+2115018290|        |rer_mappin_regular_title|Objetivo del Contrato
+2115018291|        |rer_mappin_regular_description|Las pistas conducen a esta zona, algo interesante debe haber aquí.
+2115018292|        |rer_dialog_farewell|Adiós.
+2115018293|        |rer_dialog_start_bounty|Iniciar la recompensa
+2115018294|        |rer_dialog_start_bounty_no_conversation|Iniciar recompensa (omitir conversación)
+2115018295|        |rer_dialog_sell_trophies|Vender trofeos ({{crowns_amount}})
+2115018296|        |rer_bounty_master_trophies_bought_notification|El Maestro de Recompensas compró tus trofeos por {{crowns_amount}} coronas
+2115018297|        |rer_bounty_finished_notification|Recompensa terminada. {{side_groups_killed}} recompensas de bonificación de grupos secundarios eliminados. Ahora tienes un nivel de recompensa de {{bounty_level}}.
+2115018298|        |option_rer_tutorial_started|Primer Lanzamiento
+2115018299|        |rer_tutorial_started_title|RER Tutorial - Primer Lanzamiento
+2115018300|        |rer_tutorial_started_body|¡Bienvenido a <font color="#CD7D03">Random Encounters Reworked</font>!<br />Aparecerán ventanas emergentes similares a esta cada vez que ocurra algo importante relacionado con el mod para explicar lo que está sucediendo. Por ahora, Random Encounters Reworked no estará notablemente activo y esto es a propósito. Para permitir que los usuarios se adapten al mod y no sean bombardeados, el mod presentará partes de sí mismo en el transcurso de 10 horas. Para entonces, los usuarios deberían estar bien familiarizados con el funcionamiento del mod.<br /><br />Si necesita que le recuerden cómo funciona un determinado evento o función, puede volver a habilitar el tutorial en el menú del mod para que cuando encuentre ese evento o característica nuevamente, la ventana emergente también aparecerá de nuevo.
+2115018301|        |rer_noticeboard_errand_0|Estoy Buscando un Brujo
+; to translators:
+; the end is not a typo but simply a random name formed with the letters of Aeltoth, my nickname,
+; as a way for users to recognise the notices created by RER but without breaking immersion!
+; and the spaces are so the name appears on the right on the notice.
+2115018302|        |rer_noticeboard_errand_0_text|¡Buenas Gente!<br /><br />Hay una especie de fantasma, bestia o demonio vil y peligroso que causa un sinfín de problemas cerca de nuestras casas. Prometemos nuestra más profunda gratitud y una recompensa considerable, a cualquier muchacho valiente que pueda matarlo.<br /><br />                       - <font color="#7e6d57">A. Letoth</ fuente>
+2115018303|        |rer_dialog_preset_exit_do_nothing|Salir y dejar los ajustes sin modificar.
+2115018304|        |rer_dialog_preset_enhanced_edition|[RER preset] Witcher 3 Enhanced Edition
+2115018305|        |rer_dialog_preset_vanilla|[RER preset] Vainilla/Defecto
+2115018306|        |preset_Mods_rer_name_rer_rewards_settings_rer_container_refill_settings|Recarga de Contenedores
+2115018307|        |panel_rer_container_refill_settings|Recarga de Contenedores
+2115018308|        |option_rer_container_refill_chance_multiplier|Botín general, multiplicador de posibilidades.
+2115018309|        |option_rer_container_refill_only_empty_containers|Sólo Contenedores vacíos
+2115018310|        |option_rer_container_refill_radius|Radio
+2115018311|        |option_rer_container_refill_number_of_containers|Número de Contenedores por activación
+2115018312|        |option_rer_noticeboard_errands|Recados en el tablón de anuncios para iniciar los contratos RER
+2115018313|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Día y Noche:</font> Retraso adicional (en segundos) por nivel de jugador
+2115018314|        |rer_noticeboard_errand_1|Estoy Buscando un Brujo
+2115018315|        |rer_noticeboard_errand_1_text|Cualquiera que sepa leer, que lea esto. Y léalo atentamente, para que sea conocido en todas partes, o al menos en todo el pueblo.<br /><br />Estaba en el campo, buscando algo para comer cuando escuché el gruñido. Hay una bestia que se alimenta de hombres. No puedes caminar a diez palmos del mal y esperar escapar con vida. Por lo tanto, nos impide cazar y cosechar nuestros cultivos, lo que significa que nos aguarda hambruna y miseria si nada cambia. aunque tengo muchas cacerías en mi haber. Ya me conoces, no soy de los que arman un escándalo, pero no puedo evitar pensar que son un mal augurio y todos deberíamos estar en guardia.<br /><br />Si tienes el coraje y la habilidad, Mata al monstruo por nosotros y tus esfuerzos seguramente serán recompensados.<br /><br />                             - <font color="#7e6d57">A. Letoth</ fuente>
+2115018316|        |option_rer_minimap_marker_bounty_master|Marcadores del minimapa <font color="#ffd33d">-</font> Maestro de Recompensas
+2115018317|        |option_rer_minimap_marker_bounties|Marcadores del minimapa <font color="#ffd33d">-</font> Recompensas
+2115018318|        |option_rer_minimap_marker_generic_objectives|Marcadores del minimapa <font color="#ffd33d">-</font> Objetivos Genéricos
+2115018319|        |option_rer_ecosystem_frequency_mutliplier|<font color="#9e9e9e">         Día y Noche:</font> Efectos de las muertes en los retrasos <font size="11">(+100%: más rápido, -100%: más lento)</font>
+2115018320|        |rer_noticeboard_errand_2|Se busca un cazador con experiencia
+2115018321|        |rer_noticeboard_errand_2_text|A quien corresponda:<br /><br />Por la presente se hace saber que quien mate a los monstruos que han tejido sus nidos cerca de nuestras tierras y han dado muerte tanto a hombres como a bestias, recibirá una recompensa considerable. Mata suficientes bestias y serás famoso en todas las tierras, y tu bolsa estará llena de oro.<br /><br />                         - <font color="#7e6d57">A. Letoth</ fuente>
+; Do not translate the "{{creature_name}}", this will be replaced with the actual
+; creature name dynamically.
+;
+; Thank you!
+2115018322|        |rer_horde_invasion_strength_title|{{creature_name}} fuerza
+2115018323|        |preset_Mods_rer_name_rer_rewards_settings_rer_killing_spree_custom_loot_settings|Botín de matanza
+2115018324|        |panel_rer_killing_spree_custom_loot_settings|Botín de matanza
+2115018325|        |option_rer_killing_spree_chance_increase_per_impact_point|Aumento del botín por punto de impacto en el ecosistema
+2115018326|        |option_rer_static_encounters_version|<font color="#ec6cb9">                             :</font> versión
+2115018327|        |preset_value_rer_static_encounters_luc_olivier|Luc Olivier's
+2115018328|        |preset_value_rer_static_encounters_aeltoth|Aeltoth'
+2115018329|        |preset_Mods_rer_name_rer_contracts_settings|Sistema de Contratos
+2115018330|        |panel_rer_contracts_settings|Sistema de Contratos
+2115018331|        |option_rer_hours_before_new_contracts|Horas en la vida real antes de los nuevos contratos
+2115018332|        |option_rer_easy_contracts_number|UNUSED
+2115018333|        |option_rer_hard_nearby_contracts_number|UNUSED
+2115018334|        |option_rer_hard_contracts_number|UNUSED
+2115018335|        |option_rer_hard_far_contracts_number|UNUSED
+2115018336|        |option_rer_allow_learn_new_locations|Permita que RER conozca nuevos lugares mientras explora
+2115018337|        |option_rer_contracts_generation_seed|Semilla de generación de Contratos
+2115018338|        |option_rer_species_chance_beasts|<font color="#ffd33d">Probabilidad de especie:</font> Bestias
+2115018339|        |option_rer_species_chance_cursed|<font color="#ffd33d">                          :</font> Malditos
+2115018340|        |option_rer_species_chance_draconids|<font color="#ffd33d">                          :</font> Dracónidos
+2115018341|        |option_rer_species_chance_elementa|<font color="#ffd33d">                          :</font> Constructos
+2115018342|        |option_rer_species_chance_hybrids|<font color="#ffd33d">                          :</font> Híbridos
+2115018343|        |option_rer_species_chance_insectoids|<font color="#ffd33d">                          :</font> Insectoides
+2115018344|        |option_rer_species_chance_necrophages|<font color="#ffd33d">                          :</font> Necrófagos
+2115018345|        |option_rer_species_chance_ogroids|<font color="#ffd33d">                          :</font> Ogroides
+2115018346|        |option_rer_species_chance_relicts|<font color="#ffd33d">                          :</font> Relictos
+2115018347|        |option_rer_species_chance_specters|<font color="#ffd33d">                          :</font> Espectros
+2115018348|        |option_rer_species_chance_vampires|<font color="#ffd33d">                          :</font> Vampiros
+2115018349|        |rer_species_beasts|Bestias
+2115018350|        |rer_species_cursed|Malditos
+2115018351|        |rer_species_draconids|Dracónidos
+2115018352|        |rer_species_elementa|Constructos
+2115018353|        |rer_species_hybrids|Híbridos
+2115018354|        |rer_species_insectoids|Insectoides
+2115018355|        |rer_species_necrophages|Necrófagos
+2115018356|        |rer_species_ogroids|Ogroides
+2115018357|        |rer_species_relicts|Relictos
+2115018358|        |rer_species_specters|Espectros
+2115018359|        |rer_species_vampires|Vampiros
+2115018360|        |rer_distance_close|UNUSED
+2115018361|        |rer_distance_far|UNUSED
+; this line is the one displayed when starting a contract, for example:
+; - Close and easy Ogroids contract
+; - Far and hard Draconids contract
+; the {{distance}} will be replaced by either "far" or "close"
+; the {{difficulty}} will be replaced the preset_value_rer_easy translation high above
+; the {{species}} will be replaced by the species translated just above.
+2115018362|        |rer_contract_dialog_choice|{{difficulty}} {{species}} contrato
+2115018363|        |rer_cancel|Cancelar
+2115018364|        |rer_token_gear|Muestra de Gratitud - Equipo
+2115018365|        |rer_token_gear_short|Equipo
+2115018366|        |rer_token_gear_description|Esta muestra de Gratitud, obtenida de tus contratos en todo el mundo, se puede intercambiar con el Maestro de Recompensas a cambio de equipo.
+2115018367|        |rer_token_consumables|Muestra de Gratitud - Consumibles
+2115018368|        |rer_token_consumables_short|Consumibles
+2115018369|        |rer_token_consumables_description|Esta muestra de Gratitud, obtenida de tus contratos en todo el mundo, puede ser negociada con el Maestro de Recompensas a cambio de consumibles.
+2115018370|        |rer_token_experience|Muestra de Gratitud - Experiencia
+2115018371|        |rer_token_experience_short|Experiencia
+2115018372|        |rer_token_experience_description|Esta muestra de Gratitud, obtenida de sus contratos en todo el mundo, puede intercambiarse con el Maestro de Recompensas a cambio de experiencia.
+2115018373|        |rer_token_materials|Muestra de Gratitud - Materiales
+2115018374|        |rer_token_materials_short|Materiales
+2115018375|        |rer_token_materials_description|Esta muestra de Gratitud, obtenida de sus contratos en todo el mundo, se puede intercambiar con el Maestro de Recompensas a cambio de materiales.
+2115018376|        |rer_token_gold|Muestra de Gratitud - Oro
+2115018377|        |rer_token_gold_short|Oro
+2115018378|        |rer_token_gold_description|Esta muestra de gratitud, obtenida de sus contratos en todo el mundo, puede intercambiarse con el maestro de recompensas a cambio de oro.
+; the {{rewards_list}} will be replaced by the actual list of rewards at runtime,
+2115018379|        |rer_available_rewards|Recompensas disponibles en este tablón de anuncios: {{rewards_list}}
+; As it may be hard to read with all these {{}}, here is an example of what
+; it should look like this once localized:
+; Gear (7 left)
+; {{reward_type}} are the `rer_token_type_short` lines you translated above.
+; {{tokens_amount}} is the number of tokens the player has in his inventory.
+2115018380|        |rer_token_trading_option|{{reward_type}} ({{tokens_amount}} restantes)
+2115018381|        |rer_token_trading_option_empty|No hay Muestras de Gratitud para intercambiar
+2115018382|        |rer_trade_tokens|Intercambiar Muestras de Gratitud
+2115018383|        |option_rer_mod_version|MOD VERSION <font color="#d73a49">(DO NOT EDIT)</font>
+2115018384|        |rer_find_nest|Encuentra el nido de {{type}}
+2115018385|        |rer_find_nests|Encuentra los nidos de {{type}}
+2115018386|        |rer_survive_horde|Sobrevive a la horda de {{type}}
+2115018387|        |rer_kill_target|Mata a {{type}}
+2115018388|        |rer_contract_finished|el contrato ha terminado
+2115018389|        |rer_reward_results|Intercambiaste una Muesta de Gratitud de {{reward_type}} por: {{item_names}}
+2115018390|        |rer_contract_started|El contrato de {{species}} ha comenzado. Busca el marcador en tu mapa.
+2115018391|        |rer_huntsman_redux_bonus|+50 % de la ventaja de Cazador
+2115018392|        |rer_complete_more_contracts|Bloqueado: Completa más contratos para ganar reputación
+2115018393|        |rer_current_reputation|Gastar reputación (actual: {{reputation}})
+2115018394|        |rer_distance_nearby|UNUSED
+2115018395|        |option_rer_medium_contracts_number|Número de <font color="#d4a72c">medium</font> contracts
+2115018396|        |option_rer_medium_far_contracts_number|UNUSED
+2115018397|        |option_rer_contracts_reputation_system_enabled|<font color="#8250df">Sistema de Reputación:</font> habilitado
+2115018398|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Reputación requerida para contratos vanilla
+2115018399|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Aumento de recompensa por punto de reputación
+2115018400|        |rer_mappin_bounty_side_target_title|Blanco secundario de recompensa
+2115018401|        |rer_mappin_bounty_side_target_description|Se ha visto un grupo de {{creature_type}} en la zona. Mátalos y aumenta tus recompensas.
+2115018402|        |rer_bounty_side_target_killed|Blanco secundario de la recompensa matado, las recompensas aumentan
+2115018403|        |option_rer_arachnophobia_mode|Modo amigable con aracnofobia
+2115018404|        |rer_difficulty|Dificultad
+2115018405|        |rer_bounty_start_popup_title|Información de Recompensa
+2115018406|        |rer_trade_all_tokens|Intercambiar todas las Muestras de Gratitud
+2115018407|        |option_rer_allow_select_difficulty|Permitir seleccionar la dificultad de los contratos
+2115018408|        |option_rer_allow_increased_enemy_count|Permitir un mayor número de enemigos
+2115018409|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
+2115018410|        |option_rer_tutorial_bounty_level|Nivel de recompensa
+2115018411|        |rer_tutorial_bounty_level_title|RER Tutorial - Nivel de recompensa
+2115018412|        |rer_tutorial_bounty_level_body|Una vez que hayas terminado una recompensa, tu <font color="#CD7D03">Nivel de Recompensa</font> puede aumentar. Cada región tiene su propio nivel de recompensa. Cada vez que aumentes tu nivel de recompensa, recibirás un objeto. Este objeto aumentará su rareza con tu nivel de Recompensa.
+2115018413|        |rer_tutorial_bounty_master_body|Has encontrado al <font color="#CD7D03">Maestro de Recompensas</font>, un personaje que puede darte recompensas. Viaja por todo el mundo por lo que se le puede encontrar en todas las regiones. Sin embargo, también se mueve dentro de esas regiones. Para encontrarlo mira en tu mapa y busca un signo de exclamación amarillo rodeado por un círculo blanco.
+2115018414|        |preset_Mods_rer_name_rer_rewards_settings_rer_rewards_general_settings|Configuración General de Recompensas
+2115018415|        |panel_rer_rewards_general_settings|Configuración General de Recompensas
+2115018416|        |option_rer_loot_global_chance_multiplier|<font color="#ffd33d">Multiplicador de probabilidad global</font>
+2115018417|        |option_rer_loot_gear_ratio|<font color="#28a745">           Equipamiento:</font> proporción
+2115018418|        |option_rer_loot_gear_rolls_amount|<font color="#28a745">                                   :</font> numero de tiros
+2115018419|        |option_rer_loot_gear_items_per_proc|<font color="#28a745">                                   :</font> artículos por tiros exitosos
+2115018420|        |option_rer_loot_gear_common_chance|<font color="#28a745">                                   :</font> posibilidad de rareza común
+2115018421|        |option_rer_loot_gear_uncommon_chance|<font color="#28a745">                                   :</font> posibilidad de rareza poco común
+2115018422|        |option_rer_loot_gear_rare_chance|<font color="#28a745">                                   :</font> posibilidad de rareza rara
+2115018423|        |option_rer_loot_gear_exotic_chance|<font color="#28a745">                                   :</font> posibilidad de rareza exótica
+2115018424|        |option_rer_loot_materials_ratio|<font color="#b392f0">               Materiales:</font>
+2115018425|        |option_rer_loot_materials_rolls_amount|<font color="#b392f0">                                 :</font> numero de tiros
+2115018426|        |option_rer_loot_materials_items_per_proc|<font color="#b392f0">                                 :</font> artículos por tiros exitosos
+2115018427|        |option_rer_loot_materials_common_chance|<font color="#b392f0">                                 :</font> posibilidad de rareza común
+2115018428|        |option_rer_loot_materials_uncommon_chance|<font color="#b392f0">                                 :</font> posibilidad de rareza poco común
+2115018429|        |option_rer_loot_materials_rare_chance|<font color="#b392f0">                                 :</font> posibilidad de rareza rara
+2115018430|        |option_rer_loot_materials_exotic_chance|<font color="#b392f0">                                 :</font> posibilidad de rareza exótica
+2115018431|        |option_rer_loot_consumables_ratio|<font color="#ffffff">           Consumibles:</font> proporción
+2115018432|        |option_rer_loot_consumables_rolls_amount|<font color="#ffffff">                                  :</font> numero de tiros
+2115018433|        |option_rer_loot_consumables_items_per_proc|<font color="#ffffff">                                  :</font> artículos por tiros exitosos
+2115018434|        |option_rer_loot_consumables_common_chance|<font color="#ffffff">                                  :</font> posibilidad de rareza común
+2115018435|        |option_rer_loot_consumables_uncommon_chance|<font color="#ffffff">                                  :</font> posibilidad de rareza poco común
+2115018436|        |option_rer_loot_consumables_rare_chance|<font color="#ffffff">                                  :</font> posibilidad de rareza rara
+2115018437|        |option_rer_loot_consumables_exotic_chance|<font color="#ffffff">                                  :</font> posibilidad de rareza exótica
+2115018438|        |option_rer_loot_valuables_ratio|<font color="#ffd33d">       Objetos de Valor:</font> proporción
+2115018439|        |option_rer_loot_valuables_rolls_amount|<font color="#ffd33d">                                    :</font> numero de tiros
+2115018440|        |option_rer_loot_valuables_items_per_proc|<font color="#ffd33d">                                    :</font> artículos por tiros exitosos
+2115018441|        |option_rer_loot_valuables_common_chance|<font color="#ffd33d">                                    :</font> posibilidad de rareza común
+2115018442|        |option_rer_loot_valuables_uncommon_chance|<font color="#ffd33d">                                    :</font> posibilidad de rareza poco común
+2115018443|        |option_rer_loot_valuables_rare_chance|<font color="#ffd33d">                                    :</font> posibilidad de rareza rara
+2115018444|        |option_rer_loot_valuables_exotic_chance|<font color="#ffd33d">                                    :</font> posibilidad de rareza exótica
+2115018445|        |rer_reputation_loss_message|La noticia de tu fracaso durante el contrato se ha extendido por toda la región. Tu reputación ha caído {{number}} puntos.
+2115018446|        |rer_reputation_spent_message|Se intercambiaron {{number}} puntos de reputación por botín
+2115018446|        |rer_reputation_spent_message|{{number}} reputation points were exchanged for loot
+2115018447|        |option_rer_tutorial_bounty_master|Maestro de recompensas
+2115018448|        |rer_tutorial_bounty_master_title|RER Tutorial - Maestro de Recompensas
