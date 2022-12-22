@@ -398,6 +398,11 @@ statemachine class RER_BountyManager extends CEntity {
     return count;
   }
 
+  public function resetBountyLevel() {
+    this.master.storages.bounty.bounty_level = 0;
+    this.master.storages.bounty.save();
+  }
+
   public function notifyMainGroupKilled() {
     if (!this.isBountyActive()) {
       NDEBUG("RER warning: notifyMainGroupKilled() was called but no active bounty was found.");
