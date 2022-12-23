@@ -54,7 +54,7 @@ state Initialising in CRandomEncounters {
     parent.GotoState('Loading');
   }
 
-  function updateSettings() {
+  latent function updateSettings() {
     var config: CInGameConfigWrapper;
     var constants: RER_Constants;
     var current_version: float;
