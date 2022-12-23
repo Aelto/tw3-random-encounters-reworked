@@ -5,7 +5,8 @@
   --color-light-transparent: #0000008f;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,7 +25,20 @@ html {
   align-items: center;
 }
 
-span {
+#success-install {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: justify;
+}
+
+#success-install:target {
+  display: flex;
+}
+
+#success- span {
   /* background: rgba(255, 255, 255, 1); */
   /* color: black; */
   background: var(--color-light-transparent);
@@ -53,7 +67,7 @@ section {
   padding: 2em 0;
 }
 
-section:not(#part-3) > div + div {
+section:not(#part-3)>div+div {
   margin-top: 2em;
   padding-top: 1em;
 }
@@ -66,14 +80,15 @@ h2 {
   border-top: solid 8px white;
 } */
 
-*:target {
+*:not(#success-install):target {
   border-left: solid 6px black;
   box-shadow: -12px 0px 6px -12px rgba(20, 20, 20, 0.9);
   margin-left: -40px;
   padding-left: 40px;
 }
 
-img, iframe {
+img,
+iframe {
   max-width: 100%;
   margin: 2em 0;
   border-radius: 3px;
@@ -91,11 +106,11 @@ img, iframe {
   display: block;
 }
 
-.spoiler:target + .spoiler-show {
+.spoiler:target+.spoiler-show {
   display: none;
 }
 
-.spoiler > a {
+.spoiler>a {
   display: block;
 }
 
@@ -123,7 +138,10 @@ hr {
   transition: .15s;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   position: relative;
 }
 
