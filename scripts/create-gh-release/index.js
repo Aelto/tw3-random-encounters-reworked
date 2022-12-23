@@ -24,7 +24,7 @@ async function main() {
 
   const latest_release = execSync('git describe --tags --abbrev^=0').toString().trim();
   console.log(`last release is: ${latest_release}`);
-  
+
   const new_version_name = await question('New version name? ');
   const commits_since_last_release = execSync(`git log ${latest_release}..HEAD --oneline`).toString();
 
@@ -34,7 +34,7 @@ async function main() {
   if (!only_zip) {
     if (await question('Confirm you want to continue? (y/n) ') !== 'y') {
       console.log('Cancelling');
-  
+
       return;
     }
   }
@@ -54,10 +54,17 @@ async function main() {
   const is_prerelease = only_zip
     ? true
     : await question('Is it a pre-release? (y/n) ') === 'y';
-  
-  const zip_file_path = `${new_version_name}.zip`;
+
+  const zip_file_path = `tw3-random-encounters-reworked.zip`;
   const zip = new AdmZip();
-  zip.addLocalFolder(`${__dirname}/../../release`, new_version_name);
+
+  // transfer the three folders mods/bin/dlc from the release folder to the zip
+  // archive.
+  const folders_to_transfer = ['mods', 'bin', 'dlc'];
+  for (const folder of folders_to_transfer) {
+    zip.addLocalFolder(`${__dirname}/../../release/${folder}`, folder);
+  }
+
   zip.writeZip(zip_file_path);
 
   if (only_zip) {
@@ -100,6 +107,7 @@ ${changelog}
     prerelease: is_prerelease,
   });
 
+  // start by pushing the zip asset for the release
   octokit.repos.uploadReleaseAsset({
     owner: 'Aelto',
     repo: 'tw3-random-encounters-reworked',
@@ -107,6 +115,18 @@ ${changelog}
     name: zip_file_path,
     label: zip_file_path,
     data: fs.readFileSync(zip_file_path)
+  });
+
+  // then push the install script for this release
+  const install_script_name = 'install-mod.ps1';
+  const install_script_path = `${__dirname}/../${install_script_name}`;
+  octokit.repos.uploadReleaseAsset({
+    owner: 'Aelto',
+    repo: 'tw3-random-encounters-reworked',
+    release_id: create_release_response.data.id,
+    name: install_script_name,
+    label: install_script_name,
+    data: fs.readFileSync(install_script_path)
   });
 
   fs.unlinkSync(zip_file_path);
