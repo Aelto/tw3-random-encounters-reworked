@@ -38,7 +38,17 @@ html {
   display: flex;
 }
 
-#success- span {
+#success-install p {
+  margin: 0;
+  padding: 0;
+}
+
+#success-install h2 {
+  margin: 0;
+  margin-top: 1rem;
+}
+
+span {
   /* background: rgba(255, 255, 255, 1); */
   /* color: black; */
   background: var(--color-light-transparent);
