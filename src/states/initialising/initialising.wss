@@ -147,7 +147,7 @@ state Initialising in CRandomEncounters {
 
       var message: string;
       message += "Random Encounters Reworked was updated to the v3.0 - The Next-Gen update";
-      message += "<br />All of your settings were reset for stability reasons."
+      message += "<br />All of your settings were reset for stability reasons.";
       NTUTO("RER v3.0 - Next-Gen update", message);
     }
 
