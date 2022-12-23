@@ -21,7 +21,7 @@
  # Installing
  There are three guides available to you:
   - [The quick guide (install script)](https://aelto.github.io/tw3-random-encounters-reworked/#install) recommended for everyone, even complex modlists
-  - [The video guide (manual install)](https://www.youtube.com/watch?v=QBLdV3T2IKs)
+  - [~~The video guide (manual install)~~ outdated](https://www.youtube.com/watch?v=QBLdV3T2IKs)
   - [The in-depth guide (manual install)](https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/)
 
 # Uninstalling
