@@ -143,8 +143,11 @@ state Initialising in CRandomEncounters {
     if (current_version < 3.0) {
       current_version = 3.0;
 
+      this.runManagerPreset('Vanilla');
+
       var message: string;
       message += "Random Encounters Reworked was updated to the v3.0 - The Next-Gen update";
+      message += "<br />All of your settings were reset for stability reasons."
       NTUTO("RER v3.0 - Next-Gen update", message);
     }
 
@@ -156,9 +159,6 @@ state Initialising in CRandomEncounters {
     var choices: array<SSceneChoice>;
     var manager: RER_PresetManager;
     var response: SSceneChoice;
-
-    manager = new RER_PresetManager in this;
-    manager.master = parent;
 
     choices = manager.getChoiceList();
 
@@ -174,17 +174,26 @@ state Initialising in CRandomEncounters {
 
     response = SU_setDialogChoicesAndWaitForResponse(choices);
     SU_closeDialogChoiceInterface();
-    manager.GotoState(response.playGoChunk);
-
-    while (!manager.done) {
-      SleepOneFrame();
-    }
+    this.runManagerPreset(response.playGoChunk);
 
     (new RER_RandomDialogBuilder in thePlayer).start()
       .dialog(new REROL_ready_to_go_now in thePlayer, true)
       .play();
 
     theGame.SaveUserSettings();
+  }
+
+  private latent function runManagerPreset(statename: name) {
+    var manager: RER_PresetManager;
+
+    manager = new RER_PresetManager in this;
+    manager.master = parent;
+
+    manager.GotoState(statename);
+
+    while (!manager.done) {
+      SleepOneFrame();
+    }
   }
 
   private function removeAllRerMapPins() {
