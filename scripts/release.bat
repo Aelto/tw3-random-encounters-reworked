@@ -34,6 +34,9 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_helpers\" "%modpath%\release\mods\
 XCOPY "%modpath%\shared-utils\mod_sharedutils_custombossbar\" "%modpath%\release\mods\mod_sharedutils_custombossbar\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_damagemodifiers\" "%modpath%\release\mods\mod_sharedutils_damagemodifiers\" /e /s /y
 
+REM Dependencies
+XCOPY "%modpath%\dependencies\" "%modpath%\release\" /e /s /y
+
 @REM it's an optional patch, so it is not included
 @REM XCOPY "%modpath%\shared-utils\mod0000_sharedutilsmappinsfhudpatch\" "%modpath%\release\mods\mod0000_sharedutilsmappinsfhudpatch\" /e /s /y
 
