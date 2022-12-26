@@ -5,6 +5,10 @@
 
 #define const NOT_DEBUG;
 
+// flags to quickly disable the major systems of the mod,
+// comment out the constant definitions to disable a system.
+#define const ENABLE_STATIC_ENCOUNTERS;
+
 #ifdef DEBUG {
   #define const DEBUG_LOOT;
 };

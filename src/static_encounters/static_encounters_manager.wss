@@ -7,7 +7,9 @@ statemachine class RER_StaticEncounterManager {
   public latent function init(master: CRandomEncounters) {
     this.master = master;
 
-    this.registerStaticEncounters();
+    #ifdef ENABLE_STATIC_ENCOUNTERS {
+      this.registerStaticEncounters();
+    };
   }
 
   public function registerStaticEncounter(master: CRandomEncounters, encounter: RER_StaticEncounter) {
@@ -58,13 +60,15 @@ statemachine class RER_StaticEncounterManager {
   }
 
   public latent function startSpawning() {
-    if (!RER_modPowerIsStaticEncounterSystemEnabled()) {
-      return;
-    }
+    #ifdef ENABLE_STATIC_ENCOUNTERS {
+      if (!RER_modPowerIsStaticEncounterSystemEnabled()) {
+        return;
+      }
 
-    if (this.GetCurrentStateName() != 'Spawning') {
-      this.GotoState('Spawning');
-    }
+      if (this.GetCurrentStateName() != 'Spawning') {
+        this.GotoState('Spawning');
+      }
+    };
   }
 
   private latent function registerStaticEncounters() {
