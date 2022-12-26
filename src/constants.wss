@@ -27,7 +27,7 @@
 
 // remove the ecosystem system from the mod, short-circuit most ecosystem
 // functions and remove most calls to the ecosystem manager as well.
-#define const ENABLE_ECOSYSTEM;
+// #define const ENABLE_ECOSYSTEM;
 
 #ifdef DEBUG {
   #define const DEBUG_LOOT;
