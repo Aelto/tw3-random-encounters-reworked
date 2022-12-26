@@ -45,10 +45,9 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   function startEncounter(master: CRandomEncounters) {
     this.master = master;
     this.loadSettings(master);
+    this.AddTimer('intervalLifeCheck', 10.0, true);
 
     this.GotoState('Loading');
-
-    this.AddTimer('intervalLifeCheck', 10.0, true);
   }
 
   private function loadSettings(master: CRandomEncounters) {
@@ -88,6 +87,8 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
        return false;
     }
 
+    SUH_makeEntitiesTargetPlayer(this.entities);
+
     this.l_enginetime = theGame.GetEngineTimeAsSeconds();
 
     // the player did not talk in the last 60 seconds
@@ -100,8 +101,6 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     else if (GetCurrentStateName() != 'Spawning') {
       this.GotoState('Spawning');
     }
-
-    SUH_makeEntitiesTargetPlayer(this.entities);
   }
 
   event OnFireHit(source: CGameplayEntity) {

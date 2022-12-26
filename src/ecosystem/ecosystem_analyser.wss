@@ -6,10 +6,9 @@ statemachine class RER_EcosystemAnalyzer extends CEntity {
 
   public function init(manager: RER_EcosystemManager) {
     this.ecosystem_manager = manager;
+    theInput.RegisterListener(this, 'OnAnalyseEcosystem', 'EcosystemAnalyse');
     
     this.GotoState('Waiting');
-
-    theInput.RegisterListener(this, 'OnAnalyseEcosystem', 'EcosystemAnalyse');
   }
 
   event OnAnalyseEcosystem(action: SInputAction) {
