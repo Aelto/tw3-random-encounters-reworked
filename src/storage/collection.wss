@@ -1,6 +1,6 @@
 
 // a collection of all storage classes the mod uses
-struct RER_StorageCollection {
+class RER_StorageCollection {
   var general: RER_GeneralStorage;
   var ecosystem: RER_EcosystemStorage;
   var bounty: RER_BountyStorage;
@@ -17,8 +17,4 @@ function RER_loadStorageCollection(): RER_StorageCollection {
   collection.contract = RER_loadContractStorage();
 
   return collection;
-}
-
-function RER_saveStorageCollection(collection: RER_StorageCollection): bool {
-  return collection.ecosystem.save();
 }

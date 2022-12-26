@@ -12,15 +12,19 @@ class RER_EcosystemStorage extends RER_BaseStorage {
 function RER_loadEcosystemStorage(): RER_EcosystemStorage {
   var storage: RER_EcosystemStorage;
 
+  #ifndef ENABLE_STORAGE_SYSTEM {
+    return new RER_EcosystemStorage in CModStorage;
+  };
+
   storage = GetModStorage()
     .load('RandomEncountersReworked', 'ecosystem') as RER_EcosystemStorage;
 
   // the first time we load, there is no data so we have to create something from
   // scratch.
-  if (!IsNameValid(storage.id) && !IsNameValid(storage.containerId)) {
+  if (!storage) {
     NLOG("RER_loadEcosystemStorage - instantiating new EcosystemStorage");
 
-    storage = new RER_EcosystemStorage in thePlayer;
+    storage = new RER_EcosystemStorage in CModStorage;
   }
 
   return storage;

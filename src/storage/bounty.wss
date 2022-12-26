@@ -13,15 +13,19 @@ class RER_BountyStorage extends RER_BaseStorage {
 function RER_loadBountyStorage(): RER_BountyStorage {
   var storage: RER_BountyStorage;
 
+  #ifndef ENABLE_STORAGE_SYSTEM {
+    return new RER_BountyStorage in CModStorage;
+  };
+
   storage = GetModStorage()
     .load('RandomEncountersReworked', 'bounty') as RER_BountyStorage;
 
   // the first time we load, there is no data so we have to create something from
   // scratch.
-  if (!IsNameValid(storage.id) && !IsNameValid(storage.containerId)) {
+  if (!storage) {
     NLOG("RER_loadBountyStorage - instantiating new RER_BountyStorage");
 
-    storage = new RER_BountyStorage in thePlayer;
+    storage = new RER_BountyStorage in CModStorage;
   }
 
   return storage;
