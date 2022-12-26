@@ -297,7 +297,7 @@ class RER_Bestiary {
 
   public function addThirdPartyCreature(bestiary_entry: RER_BestiaryEntry) {
     if (this.hasThirdPartyCreature(bestiary_entry.type)) {
-      LogChannel('modRandomEncounters', "3rd party creature with id [" + bestiary_entry.type + "], name [" + bestiary_entry.menu_name + "] denied because id already exists");
+      NLOG("3rd party creature with id [" + bestiary_entry.type + "], name [" + bestiary_entry.menu_name + "] denied because id already exists");
       
       return;
     }

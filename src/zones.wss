@@ -387,7 +387,7 @@ class CModRExtra {
       }
     }
 
-    LogChannel('modRandomEncounters', "number of hit foliage = " + totalQuantity);
+    NLOG("number of hit foliage = " + totalQuantity);
 
 
     return totalQuantity > 10;

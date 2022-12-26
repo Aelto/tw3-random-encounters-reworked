@@ -23,7 +23,7 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 
   level = RandRange(player_level + max_level_allowed, player_level + min_level_allowed);
 
-  LogChannel('modRandomEnocunters', "random creature level = " + level);
+  NLOG("random creature level = " + level);
 
   return Max(level, 1);
 }

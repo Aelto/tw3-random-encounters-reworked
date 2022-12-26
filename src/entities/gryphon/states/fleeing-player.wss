@@ -31,7 +31,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
       this.is_bleeding = false;
     }
 
-    LogChannel('modRandomEncounters', "Gryphon - State GryphonFleeingPlayer");
+    NLOG("Gryphon - State GryphonFleeingPlayer");
 
     this.GryphonFleeingPlayer_main();
   }
@@ -40,7 +40,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   entry function GryphonFleeingPlayer_main() {
     var i: int;
 
-    LogChannel('modRandomEncounters', "Gryphon - State GryphonFleeingPlayer - main");
+    NLOG("Gryphon - State GryphonFleeingPlayer - main");
 
     (parent.this_actor).SetImmortalityMode(AIM_Invulnerable, AIC_Default);
     (parent.this_actor).EnableCharacterCollisions(false);
@@ -119,7 +119,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   timer function GryphonFleeingPlayer_intervalDefaultFunction(optional dt : float, optional id : Int32) {
     var bait_position: Vector;
 
-    LogChannel('modRandomEncounters', "gryphon fleeing");
+    NLOG("gryphon fleeing");
 
     parent.this_actor.SetTemporaryAttitudeGroup( 'monsters', AGP_Default );
 
@@ -142,7 +142,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     // distance_threshold is already squared
     if (VecDistanceSquared(this.starting_position, parent.this_actor.GetWorldPosition()) > distance_threshold) {
-      LogChannel('modRandomEncounters', "Gryphon looking for ground position");
+      NLOG("Gryphon looking for ground position");
 
       parent.RemoveTimer('GryphonFleeingPlayer_intervalDefaultFunction');
       parent.AddTimer('GryphonFightingPlayer_intervalLookingForGroundPositionFunction', 1, true);
@@ -171,7 +171,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
       // if (getGroundPosition(this.landing_position, 3.0)
       && theGame.GetWorld().GetWaterLevel(this.landing_position, true) <= this.landing_position.Z) {
 
-        LogChannel('modRandomEncounters', "found landing position");
+        NLOG("found landing position");
         this.found_landing_position = true;
         
         // so the bait is not completely into the ground
@@ -208,7 +208,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
       parent.this_newnpc.SetUnstoppable(false);
 
 
-      LogChannel('modRandomEncounters', "Gryphon landed");
+      NLOG("Gryphon landed");
 
       parent.RemoveTimer('GryphonFightingPlayer_intervalLookingForGroundPositionFunction');
       // the gryphon found a landing spot, giving up now would not make sense.

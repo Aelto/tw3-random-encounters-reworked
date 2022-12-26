@@ -42,7 +42,7 @@ statemachine class CRandomEncounters extends CEntity {
     var is_enabled: bool;
     var version: float;
 
-    LogChannel('modRandomEncounters', "RandomEncounter spawned");
+    NLOG("RandomEncounter spawned");
 
     theGame.GetEntitiesByTag('RandomEncounterTag', ents);
 
@@ -93,7 +93,7 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   event OnRefreshSettings(action: SInputAction) {
-    LogChannel('modRandomEncounters', "settings refreshed");
+    NLOG("settings refreshed");
 
     if (IsPressed(action)) {
       this.settings
@@ -110,7 +110,7 @@ statemachine class CRandomEncounters extends CEntity {
   }
 
   event OnSpawnMonster(action: SInputAction) {
-    LogChannel('modRandomEncounters', "on spawn event");
+    NLOG("on spawn event");
 
     if (this.ticks_before_spawn > 5) {
       this.ticks_before_spawn = 5;
@@ -119,7 +119,7 @@ statemachine class CRandomEncounters extends CEntity {
 
   event OnRER_enabledToggle(action: SInputAction) {
     if (IsPressed(action)) {
-      LogChannel('modRandomEncounters', "RER enabled state toggle");
+      NLOG("RER enabled state toggle");
 
       this.settings.toggleEnabledSettings();
 
@@ -158,7 +158,7 @@ statemachine class CRandomEncounters extends CEntity {
 
     already_added = false;
 
-    LogChannel('modRandomEncounters', "adding request out of combat: " + request);
+    NLOG("adding request out of combat: " + request);
 
     for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
       if (this.out_of_combat_requests[i] == request) {
@@ -218,7 +218,7 @@ statemachine class CRandomEncounters extends CEntity {
     RER_tutorialTryShowTrophy();
 
     if (will_play_cutscene) {
-      LogChannel('modRandomEncounters', "playing out of combat cutscene");
+      NLOG("playing out of combat cutscene");
 
       scene = LoadResource(
         "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
@@ -249,18 +249,18 @@ statemachine class CRandomEncounters extends CEntity {
     var ents: array<CEntity>;
     var i: int;
 
-    LogChannel('modRandomEncounters', "On destroyed called on RER main class");
+    NLOG("On destroyed called on RER main class");
 
     theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', ents);
 
-    LogChannel('modRandomEncounters', "found " + ents.Size() + " RER entities");
+    NLOG("found " + ents.Size() + " RER entities");
 
     // super.OnDestroyed();
   }
 
   event OnDeath( damageAction : W3DamageAction ) {
 
-    LogChannel('modRandomEncounters', "On death called on RER main class");
+    NLOG("On death called on RER main class");
 
     // super.OnDeath( damageAction );
   }

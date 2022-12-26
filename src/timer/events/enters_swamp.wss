@@ -34,7 +34,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
     if (is_in_swamp_now && !was_in_swamp_last_run && RandRangeF(100) < this.trigger_chance * chance_scale) {
       type = this.getRandomSwampCreatureType(master);
 
-      LogChannel('modRandomEncounters', "RER_ListenerEntersSwamp - swamp ambush triggered, " + type);
+      NLOG("RER_ListenerEntersSwamp - swamp ambush triggered, " + type);
 
       createRandomCreatureAmbush(master, type);
 

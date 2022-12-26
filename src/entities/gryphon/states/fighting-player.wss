@@ -19,7 +19,7 @@ state GryphonFightingPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     this.starting_health = parent.this_actor.GetHealthPercents();
 
-    LogChannel('modRandomEncounters', "Gryphon - State GryphonFightingPlayer");
+    NLOG("Gryphon - State GryphonFightingPlayer");
 
     theSound.SoundEvent("stop_music");
     theSound.SoundEvent("play_music_nomansgrad");
@@ -29,7 +29,7 @@ state GryphonFightingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   }
 
   timer function GryphonFightingPlayer_intervalDefaultFunction(optional dt : float, optional id : Int32) {
-    LogChannel('modRandomEncounters', "health loss: " + (this.starting_health - parent.this_actor.GetHealthPercents()));
+    NLOG("health loss: " + (this.starting_health - parent.this_actor.GetHealthPercents()));
 
     if (this.can_flee_fight && this.starting_health - parent.this_actor.GetHealthPercents() > 0.45) {
       parent.GotoState('GryphonFleeingPlayer');

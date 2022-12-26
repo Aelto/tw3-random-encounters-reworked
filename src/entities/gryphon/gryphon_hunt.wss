@@ -49,7 +49,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 
     this.this_actor.SetTemporaryAttitudeGroup( 'q104_avallach_friendly_to_all', AGP_Default );
 
-    LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity spawned");
+    NLOG("RandomEncountersReworkedGryphonHuntEntity spawned");
   }
 
   public function attach(actor: CActor, newnpc: CNewNPC, this_entity: CEntity, master: CRandomEncounters) {
@@ -66,7 +66,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
 
   // ENTRY-POINT for the gryphon fight
   public function startEncounter(blood_resources: array<RER_TrailMakerTrack>) {
-    LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity encounter started");
+    NLOG("RandomEncountersReworkedGryphonHuntEntity encounter started");
 
     this.blood_maker = new RER_TrailMaker in this;
     this.blood_maker.init(
@@ -135,7 +135,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     );
 
     if (distance_from_player > this.automatic_kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
+      NLOG("killing entity - threshold distance reached: " + this.automatic_kill_threshold_distance);
       this.clean();
 
       return;
@@ -145,7 +145,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   private function clean() {
     var i: int;
 
-    LogChannel('modRandomEncounters', "RandomEncountersReworkedGryphonHuntEntity destroyed");
+    NLOG("RandomEncountersReworkedGryphonHuntEntity destroyed");
     
     RemoveTimer('intervalDefaultFunction');
 

@@ -13,7 +13,7 @@ state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "Gryphon - State FlyingAbovePlayer, from " + previous_state_name);
+    NLOG("Gryphon - State FlyingAbovePlayer, from " + previous_state_name);
 
     parent.this_actor.SetTemporaryAttitudeGroup( 'q104_avallach_friendly_to_all', AGP_Default );
 

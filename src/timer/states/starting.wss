@@ -2,7 +2,7 @@
 state Starting in RER_EventsManager {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_EventsManager - State Starting");
+    NLOG("RER_EventsManager - State Starting");
 
     this.Starting_main();
   }
@@ -33,7 +33,7 @@ state Starting in RER_EventsManager {
     // the chance_scale also scales with the mod power
     parent.chance_scale = parent.delay / parent.internal_cooldown * RER_getModPower();
 
-    LogChannel('modRandomEncounters', "RER_EventsManager - chance_scale = " + parent.chance_scale + ", delay =" + parent.delay);
+    NLOG("RER_EventsManager - chance_scale = " + parent.chance_scale + ", delay =" + parent.delay);
     
     parent.GotoState('Waiting');
   }

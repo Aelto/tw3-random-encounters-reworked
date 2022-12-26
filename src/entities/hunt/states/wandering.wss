@@ -3,7 +3,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "RandomEncountersReworkedHuntEntity - State Wandering");
+    NLOG("RandomEncountersReworkedHuntEntity - State Wandering");
     this.Wandering_main();
   }
 
@@ -25,7 +25,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
     do {
       if (SUH_areAllEntitiesDead(parent.entities)) {
-        LogChannel('modRandomEncounters', "HuntEntity - wandering state, all entities dead");
+        NLOG("HuntEntity - wandering state, all entities dead");
 
         parent.GotoState('Ending');
 
@@ -42,7 +42,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         );
 
         if (distance_from_player > parent.entity_settings.kill_threshold_distance) {
-          LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + parent.entity_settings.kill_threshold_distance);
+          NLOG("killing entity - threshold distance reached: " + parent.entity_settings.kill_threshold_distance);
 
           parent.killEntity(current_entity);
 

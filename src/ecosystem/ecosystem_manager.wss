@@ -29,7 +29,7 @@ class RER_EcosystemManager {
     var output: array<int>;
     var i: int;
 
-    LogChannel('RER', "getCurrentEcosystemAreas, current areas count: " + this.master.storages.ecosystem.ecosystem_areas.Size());
+    NLOG("getCurrentEcosystemAreas, current areas count: " + this.master.storages.ecosystem.ecosystem_areas.Size());
 
     player_position = thePlayer.GetWorldPosition();
     for (i = 0; i < this.master.storages.ecosystem.ecosystem_areas.Size(); i += 1) {
@@ -41,7 +41,7 @@ class RER_EcosystemManager {
       }
     }
 
-    LogChannel('RER', "getCurrentEcosystemAreas, found " + output.Size() + " areas");
+    NLOG("getCurrentEcosystemAreas, found " + output.Size() + " areas");
 
     return output;
   }
@@ -72,7 +72,7 @@ class RER_EcosystemManager {
           continue;
         }
 
-        LogChannel('RER', "current area, creature power = " + (j as CreatureType) + " - " + current_power);
+        NLOG("current area, creature power = " + (j as CreatureType) + " - " + current_power);
 
         // note that here, J is also an int that can be used as a CreatureType
         current_impact = this.master.bestiary.entries[j].ecosystem_impact;
@@ -95,21 +95,21 @@ class RER_EcosystemManager {
     var i: int;
 
     if (counters.Size() != modifiers.Size()) {
-      LogChannel('RER', "attempt at updating counters with creature modifiers, but counters and modifiers are not of the same size");
+      NLOG("attempt at updating counters with creature modifiers, but counters and modifiers are not of the same size");
 
       return;
     }
 
     for (i = 0; i < counters.Size(); i += 1) {
-      LogChannel('RER', "udpateCountersWithCreatureModifiers, before = " + counters[i]);
-      LogChannel('RER', "udpateCountersWithCreatureModifiers, creature = " + (i as CreatureType) + " modifier = " + modifiers[i]);
+      NLOG("udpateCountersWithCreatureModifiers, before = " + counters[i]);
+      NLOG("udpateCountersWithCreatureModifiers, creature = " + (i as CreatureType) + " modifier = " + modifiers[i]);
 
       // here, it's an added value `+=` and not a `=` so if the modifiers is at
       // 0 it won't change the value rather than setting it at 0.
       // See modifiers as an % increase/decrease.
       counters[i] += ((counters[i] as float) * modifiers[i] * this.master.settings.ecosystem_community_power_effect) as int;
 
-      LogChannel('RER', "udpateCountersWithCreatureModifiers, after = " + counters[i]);
+      NLOG("udpateCountersWithCreatureModifiers, after = " + counters[i]);
     }
   }
 
@@ -135,11 +135,11 @@ class RER_EcosystemManager {
     var distance_from_center: float;
     var i: int;
 
-    LogChannel('RER', "power change for " + creature + " = " + power_change);
+    NLOG("power change for " + creature + " = " + power_change);
     ecosystem_areas = this.getCurrentEcosystemAreas();
 
     if (ecosystem_areas.Size() == 0) {
-      LogChannel('RER', "no ecosystem area found, creating one");
+      NLOG("no ecosystem area found, creating one");
       current_ecosystem_area = getNewEcosystemArea(
         position,
         // this is the default radius, it uses the distance settings
@@ -171,8 +171,8 @@ class RER_EcosystemManager {
       // minimum power change is 20%,
       distance_from_center = MinF(distance_from_center, 0.2);
 
-      LogChannel('RER', "ecosystem power change for " + creature + " distance from center = " + distance_from_center);
-      LogChannel('RER', "ecosystem power change for " + creature + " = " + power_change * (1 - distance_from_center));
+      NLOG("ecosystem power change for " + creature + " distance from center = " + distance_from_center);
+      NLOG("ecosystem power change for " + creature + " = " + power_change * (1 - distance_from_center));
 
       this.master
         .storages

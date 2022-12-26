@@ -24,7 +24,7 @@ latent function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, to
     max_tries += template_list.templates[i].max;
   }
 
-  LogChannel('modRandomEncounters', "maximum number of tries: " + max_tries + " use bestiary = " + use_bestiary);
+  NLOG("maximum number of tries: " + max_tries + " use bestiary = " + use_bestiary);
 
   if (use_bestiary) {
     manager = theGame.GetJournalManager();
@@ -40,7 +40,7 @@ latent function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, to
 
     selected_template_to_increment = RandRange(template_list.templates.Size());
 
-    LogChannel('modRandomEncounters', "selected template: " + selected_template_to_increment);
+    NLOG("selected template: " + selected_template_to_increment);
 
     if (template_list.templates[selected_template_to_increment].max > 0
       && template_list.templates[selected_template_to_increment].count >= template_list.templates[selected_template_to_increment].max) {

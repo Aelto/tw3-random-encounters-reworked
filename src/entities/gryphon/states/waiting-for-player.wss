@@ -9,7 +9,7 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "Gryphon - State WaitingForPlayer");
+    NLOG("Gryphon - State WaitingForPlayer");
 
     this.WaitingForPlayer_Main();
   }
@@ -103,7 +103,7 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     FixZAxis(this.bloodtrail_current_position);
 
-    LogChannel('modRandomEncounters', "line of blood to gryphon, current position: " + VecToString(this.bloodtrail_current_position) + " target position: " + VecToString(this.bloodtrail_target_position));
+    NLOG("line of blood to gryphon, current position: " + VecToString(this.bloodtrail_current_position) + " target position: " + VecToString(this.bloodtrail_target_position));
 
     parent.blood_maker.addTrackHere(this.bloodtrail_current_position);
 

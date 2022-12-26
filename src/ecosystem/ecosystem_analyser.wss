@@ -26,7 +26,7 @@ state Waiting in RER_EcosystemAnalyzer {}
 state Analysing in RER_EcosystemAnalyzer {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('RER', "RER_EcosystemAnalyzer - state ANALYSING");
+    NLOG("RER_EcosystemAnalyzer - state ANALYSING");
 
     this.startAnalysing();
   }
@@ -96,7 +96,7 @@ state Analysing in RER_EcosystemAnalyzer {
         negative_total += modifiers[i];
       }
 
-      LogChannel('RER', "getSurroundingCreaturesPercentages - current modifier = " + modifiers[i]);
+      NLOG("getSurroundingCreaturesPercentages - current modifier = " + modifiers[i]);
     }
 
     negative_total = AbsF(negative_total);
@@ -111,7 +111,7 @@ state Analysing in RER_EcosystemAnalyzer {
           percent = modifiers[i] / negative_total;
         }
 
-        LogChannel('RER', "getSurroundingCreaturesPercentages - percent for " + (i as CreatureType) + " - " + percent);
+        NLOG("getSurroundingCreaturesPercentages - percent for " + (i as CreatureType) + " - " + percent);
 
         // only creatures whose percentage is above 5
         // if (percent > 0.05 || percent < -0.05) {
@@ -137,7 +137,7 @@ state Analysing in RER_EcosystemAnalyzer {
 
     sorted_creatures_ascending = this.sortCreaturePercentagesAscending(creatures);
 
-    LogChannel('RER', "positive sorted creatures size " + sorted_creatures_ascending.Size());
+    NLOG("positive sorted creatures size " + sorted_creatures_ascending.Size());
 
     if (sorted_creatures_ascending.Size() == 0) {
       this.playRandomNothingOneliner();
@@ -236,7 +236,7 @@ state Analysing in RER_EcosystemAnalyzer {
     ArraySortFloats(sorted_percentages);
 
     for (i = 0; i < percentages.Size(); i += 1) {
-      LogChannel('RER', "sort positive, value" + sorted_percentages[i]);
+      NLOG("sort positive, value" + sorted_percentages[i]);
     }
 
     sorted_size = sorted_percentages.Size();
@@ -252,7 +252,7 @@ state Analysing in RER_EcosystemAnalyzer {
     }
 
     for (i = 0; i < output.Size(); i += 1) {
-      LogChannel('RER', "sort ascending, value" + output[i].type + " " + output[i].percentage);
+      NLOG("sort ascending, value" + output[i].type + " " + output[i].percentage);
     }
 
     return output;

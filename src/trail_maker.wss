@@ -191,7 +191,7 @@ class RER_TrailMaker {
       volume_path_manager = theGame.GetVolumePathManager();
     }
 
-    LogChannel('modRandomEncounters', "TrailMaker, drawing trail, with ratio = " + this.trail_ratio);
+    NLOG("TrailMaker, drawing trail, with ratio = " + this.trail_ratio);
 
     do {
       // 50 / 100 = 0.5
@@ -218,7 +218,7 @@ class RER_TrailMaker {
           // 1 + 1 * distance_left
         );
 
-        // LogChannel('RER', " P - tracks position = " + VecToString(current_track_position) + " destination = " + VecToString(to));
+        // NLOG(" P - tracks position = " + VecToString(current_track_position) + " destination = " + VecToString(to));
       }
       else {
         current_track_position += current_track_translation;

@@ -3,7 +3,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "RandomEncountersReworkedHuntingGroundEntity - State Wandering");
+    NLOG("RandomEncountersReworkedHuntingGroundEntity - State Wandering");
     this.Wandering_main();
   }
 
@@ -50,7 +50,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
 
         // when in bounty mode, creatures are not subject to the kill threshold distance
         if (!parent.is_bounty && distance_from_player > parent.entity_settings.kill_threshold_distance) {
-          LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + parent.entity_settings.kill_threshold_distance);
+          NLOG("killing entity - threshold distance reached: " + parent.entity_settings.kill_threshold_distance);
 
           parent.killEntity(current_entity);
 

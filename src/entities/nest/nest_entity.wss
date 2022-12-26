@@ -189,7 +189,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
     );
 
     if (distance_from_player > this.entity_settings.kill_threshold_distance) {
-      LogChannel('modRandomEncounters', "killing entity - threshold distance reached: " + this.entity_settings.kill_threshold_distance);
+      NLOG("killing entity - threshold distance reached: " + this.entity_settings.kill_threshold_distance);
       this.endEncounter();
 
       return;

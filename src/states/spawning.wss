@@ -11,7 +11,7 @@ state Spawning in CRandomEncounters {
     this.is_spawn_forced = previous_state_name == 'SpawningForced';
 
 
-    LogChannel('modRandomEncounters', "Entering state SPAWNING");
+    NLOG("Entering state SPAWNING");
 
     triggerCreaturesSpawn();
   }
@@ -19,7 +19,7 @@ state Spawning in CRandomEncounters {
   entry function triggerCreaturesSpawn() {
     var picked_encounter_type: EncounterType;
 
-    LogChannel('modRandomEncounters', "creatures spawning triggered");
+    NLOG("creatures spawning triggered");
 
     picked_encounter_type = this.getRandomEncounterType();
     
@@ -40,7 +40,7 @@ state Spawning in CRandomEncounters {
       return;
     }
 
-    LogChannel('modRandomEncounters', "picked encounter type: " + picked_encounter_type);
+    NLOG("picked encounter type: " + picked_encounter_type);
 
     makeGroupComposition(
       picked_encounter_type,

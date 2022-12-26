@@ -47,7 +47,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
 
     if (this.areThereRemainsNearby() && RandRangeF(100) < this.trigger_chance * chance_scale) {
       if (shouldAbortCreatureSpawn(master.settings, master.rExtra, master.bestiary)) {
-        LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - cancelled");
+        NLOG("RER_ListenerBodiesNecrophages - cancelled");
 
         return false;
       }
@@ -58,7 +58,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       // so that we don't spawn an ambush too frequently
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
       
-      LogChannel('modRandomEncounters', "RER_ListenerBodiesNecrophages - spawn triggered type = " + type);
+      NLOG("RER_ListenerBodiesNecrophages - spawn triggered type = " + type);
 
       return true;
     }

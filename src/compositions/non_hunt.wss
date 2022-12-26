@@ -24,12 +24,12 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
   if (bestiary_entry.isNull()) {
-    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
+    NLOG("creature_type is NONE, cancelling spawn");
 
     return;
   }
 
-  LogChannel('modRandomEncounters', "spawning ambush - " + bestiary_entry.type);
+  NLOG("spawning ambush - " + bestiary_entry.type);
 
   if (creature_type == CreatureWILDHUNT) {
     makeCreatureWildHunt(master);
@@ -114,7 +114,7 @@ latent function makeCreatureAmbushWitcher(bestiary_entry: RER_BestiaryEntry, out
 
 class CreatureAmbushWitcherComposition extends CompositionSpawner {
   public function init(settings: RE_Settings) {
-    LogChannel('modRandomEncounters', "CreatureAmbushWitcherComposition");
+    NLOG("CreatureAmbushWitcherComposition");
 
     this
       .setRandomPositionMinRadius(settings.minimum_spawn_distance)

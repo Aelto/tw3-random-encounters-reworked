@@ -2,7 +2,7 @@
 state Waiting in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "Entering state WAITING");
+    NLOG("Entering state WAITING");
 
     parent.ticks_before_spawn = this.calculateRandomTicksBeforeSpawn();
 
@@ -14,7 +14,7 @@ state Waiting in CRandomEncounters {
       parent.ticks_before_spawn = (parent.ticks_before_spawn * parent.settings.settlement_delay_multiplier) as int;
     }
 
-    LogChannel('modRandomEncounters', "waiting " + parent.ticks_before_spawn + " ticks");
+    NLOG("waiting " + parent.ticks_before_spawn + " ticks");
 
     this.startWaiting();
   }

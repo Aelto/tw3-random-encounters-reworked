@@ -19,7 +19,7 @@ function RER_loadBountyStorage(): RER_BountyStorage {
   // the first time we load, there is no data so we have to create something from
   // scratch.
   if (!IsNameValid(storage.id) && !IsNameValid(storage.containerId)) {
-    LogChannel('RER', "RER_loadBountyStorage - instantiating new RER_BountyStorage");
+    NLOG("RER_loadBountyStorage - instantiating new RER_BountyStorage");
 
     storage = new RER_BountyStorage in thePlayer;
   }

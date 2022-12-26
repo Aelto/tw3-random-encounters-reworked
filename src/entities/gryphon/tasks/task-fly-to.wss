@@ -168,7 +168,7 @@ function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance:
   npc.SetBehaviorVariable( 'FlyPitch', flyPitch );
   npc.SetBehaviorVariable( 'FlySpeed', flySpeed );
 
-  LogChannel('modRandomEncounters', "flyYaw" + flyYaw + " flyPitch" + flyPitch + " flySpeed" + flySpeed);
+  NLOG("flyYaw" + flyYaw + " flyPitch" + flyPitch + " flySpeed" + flySpeed);
   
   // DebugDisplayDestination( dest );
   

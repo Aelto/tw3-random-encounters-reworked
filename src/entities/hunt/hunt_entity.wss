@@ -36,10 +36,7 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
   public latent function clean() {
     var i: int;
 
-    LogChannel(
-      'modRandomEncounters',
-      "RandomEncountersReworkedHuntEntity destroyed"
-    );
+    NLOG("RandomEncountersReworkedHuntEntity destroyed");
 
     for (i = 0; i < this.entities.Size(); i += 1) {
       this.killEntity(this.entities[i]);

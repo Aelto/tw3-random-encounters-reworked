@@ -5,7 +5,7 @@
 
 latent function makeGroupComposition(encounter_type: EncounterType, random_encounters_class: CRandomEncounters) {
   if (encounter_type == EncounterType_HUNT) {
-    LogChannel('modRandomEncounters', "spawning - HUNT");
+    NLOG("spawning - HUNT");
     createRandomCreatureHunt(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled && !isPlayerInScene()) {
@@ -13,7 +13,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     }
   }
   else if (encounter_type == EncounterType_DEFAULT) {
-    LogChannel('modRandomEncounters', "spawning - AMBUSH");
+    NLOG("spawning - AMBUSH");
     createRandomCreatureAmbush(random_encounters_class, CreatureNONE);
 
     if (random_encounters_class.settings.geralt_comments_enabled && !isPlayerInScene()) {
@@ -21,7 +21,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     }
   }
   else if (encounter_type == EncounterType_HUNTINGGROUND) {
-    LogChannel('modRandomEncounters', "spawning - HUNTINGGROUND");
+    NLOG("spawning - HUNTINGGROUND");
     createRandomCreatureHuntingGround(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);
     
     // no voiceline for this encounter type as it's supposed to be a passive
@@ -158,7 +158,7 @@ abstract class CompositionSpawner {
     }
 
     if (!this.getInitialPosition(this.initial_position, master)) {
-      LogChannel('modRandomEncounters', "could not find proper spawning position");
+      NLOG("could not find proper spawning position");
 
       return;
     }

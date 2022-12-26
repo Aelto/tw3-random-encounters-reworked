@@ -26,7 +26,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
       return false;
     }
 
-    // LogChannel('RER', "ecosystem kill run");
+    // NLOG("ecosystem kill run");
 
     is_player_in_combat = thePlayer.IsInCombat();
 
@@ -48,9 +48,9 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     // as small as possible.
     new_checkup = this.getCreatureTypesAroundPlayer(master);
 
-    LogChannel('RER', "last checkup:");
+    NLOG("last checkup:");
     this.debugShowCheckup(this.last_checkup);
-    LogChannel('RER', "new checkup:");
+    NLOG("new checkup:");
     this.debugShowCheckup(new_checkup);
 
     // we get here the create that were here before but are no longer here and
@@ -60,7 +60,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
       new_checkup
     );
 
-    // LogChannel('RER', "diff checkup:");
+    // NLOG("diff checkup:");
     // this.debugShowCheckup(checkup_difference);
 
     this.notifyEcosystemManager(master, checkup_difference);
@@ -101,13 +101,13 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
         continue;
       }
 
-      LogChannel('RER', "getCreatureTypesAroundPlayer, found one creature");
+      NLOG("getCreatureTypesAroundPlayer, found one creature");
 
       current_type = master
         .bestiary
         .getCreatureTypeFromEntity(entities[i] as CEntity);
 
-      LogChannel('RER', "getCreatureTypesAroundPlayer, found one creature, current type = " + current_type);
+      NLOG("getCreatureTypesAroundPlayer, found one creature, current type = " + current_type);
 
       if (current_type < CreatureMAX) {
         output.PushBack(current_type);
@@ -165,7 +165,7 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     var i: int;
 
     for (i = 0; i < checkup.Size(); i += 1) {
-      LogChannel('RER', "checkup creature " + checkup[i]);
+      NLOG("checkup creature " + checkup[i]);
     }
   }
 }

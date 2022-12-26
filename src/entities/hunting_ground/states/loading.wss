@@ -3,7 +3,7 @@ state Loading in RandomEncountersReworkedHuntingGroundEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('modRandomEncounters', "RandomEncountersReworkedHuntingGroundEntity - State Loading");
+    NLOG("RandomEncountersReworkedHuntingGroundEntity - State Loading");
     this.Loading_main();
   }
 

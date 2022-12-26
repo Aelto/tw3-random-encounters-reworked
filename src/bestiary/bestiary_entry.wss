@@ -90,7 +90,7 @@ abstract class RER_BestiaryEntry {
       );
     }
 
-    // LogChannel('modRandomEncounters', "settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
+    // NLOG("settings " + this.menu_name + " = " + this.city_spawn + " - " + this.trophy_chance + " " + this.chance_day + " " + this.region_constraint + " " );
   }
 
   public function isNull(): bool {
@@ -136,7 +136,7 @@ abstract class RER_BestiaryEntry {
     // random scale applied to the creatures
 		var scale: float;
 
-    LogChannel('RER', "BestiaryEntry, spawn() count = " + count + " " + this.type);
+    NLOG("BestiaryEntry, spawn() count = " + count + " " + this.type);
 
 
     if (RER_flagEnabled(flags, RER_BESF_NO_PERSIST)) {
@@ -225,7 +225,7 @@ abstract class RER_BestiaryEntry {
           );
 
           if (!RER_flagEnabled(flags, RER_BESF_NO_TROPHY) && RandRange(100) < this.trophy_chance) {
-            LogChannel('modRandomEncounters', "adding 1 trophy " + this.type);
+            NLOG("adding 1 trophy " + this.type);
             
             (created_entity as CActor)
               .GetInventory()
@@ -327,7 +327,7 @@ abstract class RER_BestiaryEntry {
       composition_entities
     );
 
-    LogChannel('RER', "BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
+    NLOG("BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
     SUH_makeEntitiesAlliedWithEachother(created_entities);
 

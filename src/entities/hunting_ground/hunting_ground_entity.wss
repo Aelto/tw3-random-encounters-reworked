@@ -23,7 +23,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.bestiary_entry = bestiary_entry;
     this.loadSettings(master);
 
-    LogChannel('RER', "starting RandomEncountersReworkedHuntingGroundEntity with " + entities.Size() + " " + bestiary_entry.type);
+    NLOG("starting RandomEncountersReworkedHuntingGroundEntity with " + entities.Size() + " " + bestiary_entry.type);
 
     this.GotoState('Loading');
   }
@@ -49,10 +49,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
   public latent function clean() {
     var i: int;
 
-    LogChannel(
-      'modRandomEncounters',
-      "RandomEncountersReworkedHuntingGroundEntity destroyed"
-    );
+    NLOG("RandomEncountersReworkedHuntingGroundEntity destroyed");
 
     for (i = 0; i < this.entities.Size(); i += 1) {
       this.killEntity(this.entities[i]);

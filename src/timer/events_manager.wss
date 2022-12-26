@@ -35,7 +35,7 @@ statemachine class RER_EventsManager extends CEntity {
   public var chance_scale: float;
   
   public function start() {
-    LogChannel('modRandomEncounters', "RER_EventsManager - start()");
+    NLOG("RER_EventsManager - start()");
 
     this.delay = this.master.settings.event_system_interval;
     

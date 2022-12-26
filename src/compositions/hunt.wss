@@ -2,7 +2,7 @@
 latent function createRandomCreatureHunt(master: CRandomEncounters, optional creature_type: CreatureType) {
   var bestiary_entry: RER_BestiaryEntry;
 
-  LogChannel('modRandomEncounters', "making create hunt");
+  NLOG("making create hunt");
 
   if (creature_type == CreatureNONE) {
     bestiary_entry = master
@@ -19,7 +19,7 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   // added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
   if (bestiary_entry.isNull()) {
-    LogChannel('modRandomEncounters', "creature_type is NONE, cancelling spawn");
+    NLOG("creature_type is NONE, cancelling spawn");
 
     return;
   }

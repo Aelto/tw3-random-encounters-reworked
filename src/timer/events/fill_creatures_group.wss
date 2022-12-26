@@ -30,13 +30,13 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     var creature_height: float;
     
     if (was_spawn_already_triggered) {
-      LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - spawn already triggered");
+      NLOG("RER_ListenerFillCreaturesGroup - spawn already triggered");
 
       return false;
     }
 
     if (this.time_before_other_spawn > 0) {
-      LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - delay between spawns");
+      NLOG("RER_ListenerFillCreaturesGroup - delay between spawns");
 
       time_before_other_spawn -= delta;
 
@@ -64,7 +64,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
         return false;
       }
 
-      LogChannel('modRandomEncounters', "RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
+      NLOG("RER_ListenerFillCreaturesGroup - duplicateRandomNearbyEntity");
       
       this.duplicateEntity(master, random_entity_to_duplicate);
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
@@ -141,7 +141,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
 
     tags_array.PushBack('RandomEncountersReworked_Entity');
 
-    LogChannel('modRandomEncounters', "duplicating = " + StrAfterFirst(entity.ToString(), "::"));
+    NLOG("duplicating = " + StrAfterFirst(entity.ToString(), "::"));
 
     entity_template = LoadResourceAsync(
       StrAfterFirst(entity.ToString(), "::"),

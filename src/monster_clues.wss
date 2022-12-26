@@ -30,7 +30,7 @@ state Interacting in RER_MonsterClue {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    LogChannel('RER', "RER_MonsterClue - State Interacting");
+    NLOG("RER_MonsterClue - State Interacting");
     this.start();
   }
 
@@ -43,7 +43,7 @@ state Interacting in RER_MonsterClue {
   }
 
   latent function playOneliner() {
-    LogChannel('RER', "voiceline_type = " + parent.voiceline_type);
+    NLOG("voiceline_type = " + parent.voiceline_type);
 
     switch (parent.voiceline_type) {
       case 'RER_MonsterClueNekker':

@@ -8,12 +8,12 @@ function lootTrophiesInRadius(): bool {
 
   looted_a_trophy = false;
 
-  LogChannel('modRandomEncounters', "searching lootbag nearby");
+  NLOG("searching lootbag nearby");
   FindGameplayEntitiesInRange( entities, thePlayer, 25, 30, , FLAG_ExcludePlayer/*,, 'W3Container'*/ );
 
   for (i = 0; i < entities.Size(); i += 1) {
     if ((entities[i] as W3Container)) {
-      LogChannel('modRandomEncounters', "lootbag - giving all RER_Trophy to player");
+      NLOG("lootbag - giving all RER_Trophy to player");
       items_guids = (entities[i] as W3Container).GetInventory().GetItemsByTag('RER_Trophy');
 
       // set `looted_a_trophy` if a trophy was found
@@ -23,7 +23,7 @@ function lootTrophiesInRadius(): bool {
         guid_used_for_notification = items_guids[0];
       }
       
-      LogChannel('modRandomEncounters', "lootbag - found " + items_guids.Size() + " trophies");
+      NLOG("lootbag - found " + items_guids.Size() + " trophies");
       (entities[i] as W3Container).GetInventory()
         .GiveItemsTo(thePlayer.GetInventory(), items_guids);
     }

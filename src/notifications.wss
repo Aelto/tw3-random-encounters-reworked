@@ -26,7 +26,7 @@ function NHUD(message: string) {
 }
 
 function NLOG(message: string) {
-  LogChannel('RER', message);
+  NLOG(message);
 }
 
 function NTUTO(title: string, body: string, optional do_not_pause: bool) {

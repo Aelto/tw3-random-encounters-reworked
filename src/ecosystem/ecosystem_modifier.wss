@@ -23,7 +23,7 @@ statemachine class RER_EcosystemModifier {
 state Waiting in RER_EcosystemModifier {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('RER', "RER_EcosystemModifier - state WAITING");
+    NLOG("RER_EcosystemModifier - state WAITING");
   }
 }
 
@@ -34,7 +34,7 @@ state Waiting in RER_EcosystemModifier {
 state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('RER', "RER_EcosystemModifier - state PowerSpreadAndNaturalDeath");
+    NLOG("RER_EcosystemModifier - state PowerSpreadAndNaturalDeath");
 
     this.powerSpreadAndNaturalDeathMain();
   }

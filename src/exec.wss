@@ -482,7 +482,7 @@ statemachine class RER_ExecRunner extends CEntity {
 state RunCreatureAmbush in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunCreatureAmbush");
+    NLOG("RER_ExecRunner - State RunCreatureAmbush");
 
     this.RunCreatureAmbush_main();
   }
@@ -495,7 +495,7 @@ state RunCreatureAmbush in RER_ExecRunner {
 state RunCreatureHuntingGround in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunCreatureHuntingGround");
+    NLOG("RER_ExecRunner - State RunCreatureHuntingGround");
 
     this.RunCreatureHuntingGround_main();
   }
@@ -514,7 +514,7 @@ state RunCreatureHuntingGround in RER_ExecRunner {
 state RunCreatureHunt in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunCreatureHunt");
+    NLOG("RER_ExecRunner - State RunCreatureHunt");
 
     this.RunCreatureHunt_main();
   }
@@ -527,7 +527,7 @@ state RunCreatureHunt in RER_ExecRunner {
 state RunHumanAmbush in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunHumanAmbush");
+    NLOG("RER_ExecRunner - State RunHumanAmbush");
 
     this.RunHumanAmbush_main(parent.human_type, parent.count);
   }
@@ -547,7 +547,7 @@ state RunHumanAmbush in RER_ExecRunner {
 state TestCameraScenePlayer in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State TestCameraScenePlayer");
+    NLOG("RER_ExecRunner - State TestCameraScenePlayer");
 
     if (parent.count == 0) {
       this.TestCameraScenePlayer_main();
@@ -613,7 +613,7 @@ state TestCameraScenePlayer in RER_ExecRunner {
 state RunBestiaryCanSpawn in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunBestiaryCanSpawn");
+    NLOG("RER_ExecRunner - State RunBestiaryCanSpawn");
 
     this.RunBestiaryCanSpawn_main(parent.human_type, parent.count);
   }
@@ -636,7 +636,7 @@ state RunBestiaryCanSpawn in RER_ExecRunner {
 state RunChallengeMode in RER_ExecRunner {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "RER_ExecRunner - State RunChallengeMode");
+    NLOG("RER_ExecRunner - State RunChallengeMode");
 
     this.RunChallengeMode_main();
     parent.GotoState('Waiting');

@@ -24,7 +24,7 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
     initial_pos = player_position + VecConeRand(theCamera.GetCameraHeading(), 270, minimum_distance * -1, distance * -1);
 
     if (getGroundPosition(initial_pos)) {
-      LogChannel('modRandomEncounters', initial_pos.X + " " + initial_pos.Y + " " + initial_pos.Z);
+      NLOG(initial_pos.X + " " + initial_pos.Y + " " + initial_pos.Z);
 
       if (initial_pos.X == 0
        || initial_pos.Y == 0
@@ -64,7 +64,7 @@ function getRandomPositionAroundPlayer(out initial_pos: Vector, optional distanc
     initial_pos = player_position + VecRingRand(minimum_distance, distance);
 
     if (getGroundPosition(initial_pos)) {
-      LogChannel('modRandomEncounters', initial_pos.X + " " + initial_pos.Y + " " + initial_pos.Z);
+      NLOG(initial_pos.X + " " + initial_pos.Y + " " + initial_pos.Z);
 
       if (initial_pos.X == 0
        || initial_pos.Y == 0

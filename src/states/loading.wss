@@ -2,7 +2,7 @@
 state Loading in CRandomEncounters {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-    LogChannel('modRandomEncounters', "Entering state LOADING");
+    NLOG("Entering state LOADING");
 
     this.startLoading();
   }
@@ -48,7 +48,7 @@ state Loading in CRandomEncounters {
     var entity: CEntity;
     var i, k: int;
 
-    LogChannel('RER', "takeControlOfEntities()");
+    NLOG("takeControlOfEntities()");
 
 
     theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', entities);
@@ -108,7 +108,7 @@ state Loading in CRandomEncounters {
       if (entity_group.Size() > 0) {
         rer_entity = theGame.CreateEntity(rer_entity_template, entity.GetWorldPosition(), entity.GetWorldRotation()) as RandomEncountersReworkedHuntingGroundEntity;
         rer_entity.startEncounter(parent, entity_group, parent.bestiary.entries[parent.bestiary.getCreatureTypeFromEntity(entity)]);
-        LogChannel('modRandomEncounters', "created a HuntingGround with " + entity_group.Size() + " RER entities");
+        NLOG("created a HuntingGround with " + entity_group.Size() + " RER entities");
       }
     }
 
@@ -116,7 +116,7 @@ state Loading in CRandomEncounters {
       entities[i].RemoveTag('RER_controlled');
     }
 
-    LogChannel('modRandomEncounters', "found " + entities.Size() + " RER entities");
+    NLOG("found " + entities.Size() + " RER entities");
   }
 }
 

@@ -50,7 +50,7 @@ state Initialising in CRandomEncounters {
 
     RER_tutorialTryShowStarted();
     
-    LogChannel('RER', "ecosystem areas storage count = " + parent.storages
+    NLOG("ecosystem areas storage count = " + parent.storages
       .ecosystem
       .ecosystem_areas.Size());
 
