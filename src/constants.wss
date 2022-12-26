@@ -7,7 +7,14 @@
 
 // flags to quickly disable the major systems of the mod,
 // comment out the constant definitions to disable a system.
+//
+// IF DISABLED:
+// completely remove the static encounters from the mod, the manager functions
+// for no SE are registered and the startSpawning function is short-circuited.
 #define const ENABLE_STATIC_ENCOUNTERS;
+// remove the bestiary filtering when fetching a random creature, the journal
+// entries are still in the bestiary entries but they're not used anywhere
+#define const ENABLE_BESTIARY_FEATURE;
 
 #ifdef DEBUG {
   #define const DEBUG_LOOT;

@@ -159,19 +159,21 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
-    // when the option "Only known bestiary creatures" is ON
-    // we remove every unknown creatures from the spawning pool
-    if (master.settings.only_known_bestiary_creatures) {
-      manager = theGame.GetJournalManager();
+    #ifdef ENABLE_BESTIARY_FEATURE {
+      // when the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool
+      if (master.settings.only_known_bestiary_creatures) {
+        manager = theGame.GetJournalManager();
 
-      for (i = 0; i < CreatureMAX; i += 1) {
-        can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
-        
-        if (!can_spawn_creature) {
-          spawn_roller.setCreatureCounter(i, 0);
+        for (i = 0; i < CreatureMAX; i += 1) {
+          can_spawn_creature = bestiaryCanSpawnEnemyTemplateList(master.bestiary.entries[i].template_list, manager);
+          
+          if (!can_spawn_creature) {
+            spawn_roller.setCreatureCounter(i, 0);
+          }
         }
       }
-    }
+    };
 
     roll = spawn_roller.rollCreatures(master.ecosystem_manager);
     return roll.roll;
