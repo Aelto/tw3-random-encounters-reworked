@@ -9,6 +9,17 @@ state Initialising in CRandomEncounters {
 
   entry function startInitialising() {
     NLOG("Delaying RER loading start");
+
+    // delay init until loading screen has stopped playing
+    while (theGame.IsLoadingScreenVideoPlaying()) {
+      Sleep(1);
+    }
+
+    // then wait until scenes are over etc...
+    while (isPlayerBusy()) {
+      Sleep(0.5);
+    }
+
     Sleep(10);
 
     if (parent.settings.shouldResetRERSettings(theGame.GetInGameConfigWrapper())) {
