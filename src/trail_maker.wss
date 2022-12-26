@@ -88,9 +88,11 @@ class RER_TrailMaker {
   }
 
   public function init(ratio: int, maximum: int, resources: array<RER_TrailMakerTrack>) {
-    this.setTrackResources(resources);
-    this.setTracksMaximum(maximum);
-    this.setTrailRatio(ratio);
+    #ifdef ENABLE_TRAIL_MAKER {
+      this.setTrackResources(resources);
+      this.setTracksMaximum(maximum);
+      this.setTrailRatio(ratio);
+    };
   }
 
   private var last_track_position: Vector;
@@ -100,6 +102,10 @@ class RER_TrailMaker {
   public function addTrackHere(position: Vector, optional heading: EulerAngles): bool {
     var new_entity: RER_MonsterClue;
     var track_resource: RER_TrailMakerTrack;
+
+    #ifndef ENABLE_TRAIL_MAKER {
+      return;
+    };
 
     if (VecDistanceSquared2D(position, this.last_track_position) < PowF(0.5 * this.trail_ratio, 2)) {
       return false;
@@ -179,6 +185,10 @@ class RER_TrailMaker {
     var distance_left: float; // it's a % going from 100% to 0%
     var volume_path_manager: CVolumePathManager;
     var i: int;
+
+    #ifndef ENABLE_TRAIL_MAKER {
+      return;
+    };
 
     number_of_tracks_created = 0;
     final_point_radius = destination_radius * destination_radius;

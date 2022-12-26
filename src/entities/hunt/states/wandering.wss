@@ -88,10 +88,12 @@ state Wandering in RandomEncountersReworkedHuntEntity {
             .NoticeActor(parent.bait_entity as CActor);
         }
 
-        parent.trail_maker.addTrackHere(
-          current_entity.GetWorldPosition(),
-          current_entity.GetWorldRotation()
-        );
+        #ifdef ENABLE_TRAIL_MAKER {
+          parent.trail_maker.addTrackHere(
+            current_entity.GetWorldPosition(),
+            current_entity.GetWorldRotation()
+          );
+        };
       }
 
       // to keep the bait near the player at all time

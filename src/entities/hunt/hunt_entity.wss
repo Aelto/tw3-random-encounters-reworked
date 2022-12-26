@@ -42,7 +42,9 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
       this.killEntity(this.entities[i]);
     }
 
-    trail_maker.clean();
+    #ifdef ENABLE_TRAIL_MAKER {
+      trail_maker.clean();
+    };
 
     this.Destroy();
   }

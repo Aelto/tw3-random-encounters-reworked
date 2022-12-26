@@ -29,30 +29,31 @@ state Loading in RandomEncountersReworkedHuntEntity {
 
     tracks_templates.PushBack(getTracksTemplateByCreatureType(parent.bestiary_entry.type));
 
-    parent.trail_maker = new RER_TrailMaker in parent;
-    parent.trail_maker.init(
-      parent.master.settings.foottracks_ratio,
-      200,
-      tracks_templates
-    );
-
-    // to calculate the initial position we go from the
-    // monsters position and use the inverse tracks_heading to
-    // cross ThePlayer's path.
-    parent.trail_maker
-      .drawTrail(
-        VecInterpolate(
-          parent.GetWorldPosition(),
-          thePlayer.GetWorldPosition(),
-          1.3
-        ),
-
-        parent.GetWorldPosition(),
-        20,,,
-        true,
-        parent.master.settings.use_pathfinding_for_trails
+    #ifdef ENABLE_TRAIL_MAKER {
+      parent.trail_maker = new RER_TrailMaker in parent;
+      parent.trail_maker.init(
+        parent.master.settings.foottracks_ratio,
+        200,
+        tracks_templates
       );
 
+      // to calculate the initial position we go from the
+      // monsters position and use the inverse tracks_heading to
+      // cross ThePlayer's path.
+      parent.trail_maker
+        .drawTrail(
+          VecInterpolate(
+            parent.GetWorldPosition(),
+            thePlayer.GetWorldPosition(),
+            1.3
+          ),
+
+          parent.GetWorldPosition(),
+          20,,,
+          true,
+          parent.master.settings.use_pathfinding_for_trails
+        );
+    };
 
     parent.GotoState('Wandering');
   }

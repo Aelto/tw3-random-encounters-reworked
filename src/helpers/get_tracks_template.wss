@@ -4,6 +4,10 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
   track = RER_TrailMakerTrack();
 
+  #ifndef ENABLE_TRAIL_MAKER {
+    return track;
+  };
+
   switch(create_type) {
     case CreatureBARGHEST :
     case CreatureNIGHTWRAITH :
