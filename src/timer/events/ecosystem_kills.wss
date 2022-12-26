@@ -146,6 +146,10 @@ class RER_ListenerEcosystemKills extends RER_EventsListener {
     var power_changes: array<float>;
     var i: int;
 
+    #ifndef ENABLE_ECOSYSTEM {
+      return;
+    };
+
     for (i = 0; i < CreatureMAX; i += 1) {
       if (differences[i] > 0) {
         RER_tutorialTryShowEcosystem();

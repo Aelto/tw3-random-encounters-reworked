@@ -105,14 +105,16 @@ class SpawnRoller {
     //
     // TODO: ecosystem, make it toggable by the user in case the user doesn't
     // want the ecosystem feature in his game.
-    if (true) {
-      ecosystem_manager.udpateCountersWithCreatureModifiers(
-        this.creatures_counters,
-        ecosystem_manager.getCreatureModifiersForEcosystemAreas(
-          ecosystem_manager.getCurrentEcosystemAreas()
-        )
-      );
-    }
+    #ifdef ENABLE_ECOSYSTEM {
+      if (true) {
+        ecosystem_manager.udpateCountersWithCreatureModifiers(
+          this.creatures_counters,
+          ecosystem_manager.getCreatureModifiersForEcosystemAreas(
+            ecosystem_manager.getCurrentEcosystemAreas()
+          )
+        );
+      }
+    };
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
     // added so the user can disable all CreatureType and it would

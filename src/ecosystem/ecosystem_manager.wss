@@ -29,6 +29,10 @@ class RER_EcosystemManager {
     var output: array<int>;
     var i: int;
 
+    #ifndef ENABLE_ECOSYSTEM {
+      return output;
+    };
+
     NLOG("getCurrentEcosystemAreas, current areas count: " + this.master.storages.ecosystem.ecosystem_areas.Size());
 
     player_position = thePlayer.GetWorldPosition();
@@ -94,6 +98,10 @@ class RER_EcosystemManager {
   public function udpateCountersWithCreatureModifiers(out counters: array<int>, modifiers: array<float>) {
     var i: int;
 
+    #ifndef ENABLE_ECOSYSTEM {
+      return;
+    };
+
     if (counters.Size() != modifiers.Size()) {
       NLOG("attempt at updating counters with creature modifiers, but counters and modifiers are not of the same size");
 
@@ -134,6 +142,10 @@ class RER_EcosystemManager {
     var current_index: int;
     var distance_from_center: float;
     var i: int;
+
+    #ifndef ENABLE_ECOSYSTEM {
+      return;
+    };
 
     NLOG("power change for " + creature + " = " + power_change);
     ecosystem_areas = this.getCurrentEcosystemAreas();
@@ -405,6 +417,10 @@ class RER_EcosystemManager {
     var current_power: float;
     var i, j: int;
     var multiplier: float;
+
+    #ifndef ENABLE_ECOSYSTEM {
+      return 1;
+    };
 
     number_of_areas = areas.Size();
     if (number_of_areas <= 0) {

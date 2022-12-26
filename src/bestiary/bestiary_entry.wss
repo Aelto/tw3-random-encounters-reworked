@@ -286,18 +286,20 @@ abstract class RER_BestiaryEntry {
 
     // notify the ecosystem manager some creatures were added. Every time we spawn
     // something it should slightly increase their power.
-    if (!RER_flagEnabled(flags, RER_BESF_NO_ECOSYSTEM_EFFECT)) {
-      master
-        .ecosystem_manager
-        .updatePowerForCreatureInCurrentEcosystemAreas(
-          this.type,
-          // currently leaving this as is. But it may be a good idea to divide this
-          // power gain by the power the surrounding areas currently have to avoid
-          // an infinitely growing community.
-          created_entities.Size() * 0.20,
-          position
-        );
-    }
+    #ifdef ENABLE_ECOSYSTEM {
+      if (!RER_flagEnabled(flags, RER_BESF_NO_ECOSYSTEM_EFFECT)) {
+        master
+          .ecosystem_manager
+          .updatePowerForCreatureInCurrentEcosystemAreas(
+            this.type,
+            // currently leaving this as is. But it may be a good idea to divide this
+            // power gain by the power the surrounding areas currently have to avoid
+            // an infinitely growing community.
+            created_entities.Size() * 0.20,
+            position
+          );
+      }
+    };
 
     RER_addKillingSpreeCustomLootToEntities(
       master.loot_manager,
