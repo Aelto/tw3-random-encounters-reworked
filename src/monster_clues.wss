@@ -18,6 +18,14 @@ statemachine class RER_MonsterClue extends W3MonsterClue {
   }
 }
 
+state Waiting in RER_MonsterClue {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    NLOG("RER_MonsterClue - State Waiting");
+  }
+}
+
 state Interacting in RER_MonsterClue {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);

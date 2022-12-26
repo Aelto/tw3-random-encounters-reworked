@@ -650,3 +650,10 @@ state RunChallengeMode in RER_ExecRunner {
     NDEBUG("A bounty was created with the seed " + RER_yellowFont(parent.seed));
   }
 }
+
+state Waiting in RER_ExecRunner {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+    NLOG("RER_ExecRunner - State Waiting");
+  } 
+}
