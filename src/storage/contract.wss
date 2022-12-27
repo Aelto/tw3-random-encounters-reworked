@@ -27,7 +27,7 @@ function RER_loadContractStorage(): RER_ContractStorage {
   var storage: RER_ContractStorage;
 
   #ifndef ENABLE_STORAGE_SYSTEM {
-    return new RER_ContractStorage in CModStorage;
+    return new RER_ContractStorage in thePlayer;
   };
 
   storage = GetModStorage()
@@ -38,7 +38,7 @@ function RER_loadContractStorage(): RER_ContractStorage {
   if (!storage) {
     NLOG("RER_loadContractStorage - instantiating new RER_ContractStorage");
 
-    storage = new RER_ContractStorage in CModStorage;
+    storage = new RER_ContractStorage in thePlayer;
   }
 
   return storage;

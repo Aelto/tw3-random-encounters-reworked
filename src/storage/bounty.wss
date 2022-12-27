@@ -14,7 +14,7 @@ function RER_loadBountyStorage(): RER_BountyStorage {
   var storage: RER_BountyStorage;
 
   #ifndef ENABLE_STORAGE_SYSTEM {
-    return new RER_BountyStorage in CModStorage;
+    return new RER_BountyStorage in thePlayer;
   };
 
   storage = GetModStorage()
@@ -25,7 +25,7 @@ function RER_loadBountyStorage(): RER_BountyStorage {
   if (!storage) {
     NLOG("RER_loadBountyStorage - instantiating new RER_BountyStorage");
 
-    storage = new RER_BountyStorage in CModStorage;
+    storage = new RER_BountyStorage in thePlayer;
   }
 
   return storage;

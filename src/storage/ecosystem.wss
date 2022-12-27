@@ -13,7 +13,7 @@ function RER_loadEcosystemStorage(): RER_EcosystemStorage {
   var storage: RER_EcosystemStorage;
 
   #ifndef ENABLE_STORAGE_SYSTEM {
-    return new RER_EcosystemStorage in CModStorage;
+    return new RER_EcosystemStorage in thePlayer;
   };
 
   storage = GetModStorage()
@@ -24,7 +24,7 @@ function RER_loadEcosystemStorage(): RER_EcosystemStorage {
   if (!storage) {
     NLOG("RER_loadEcosystemStorage - instantiating new EcosystemStorage");
 
-    storage = new RER_EcosystemStorage in CModStorage;
+    storage = new RER_EcosystemStorage in thePlayer;
   }
 
   return storage;

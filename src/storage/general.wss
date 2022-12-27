@@ -16,7 +16,7 @@ function RER_loadGeneralStorage(): RER_GeneralStorage {
   var storage: RER_GeneralStorage;
 
   #ifndef ENABLE_STORAGE_SYSTEM {
-    return new RER_GeneralStorage in CModStorage;
+    return new RER_GeneralStorage in thePlayer;
   };
 
   storage = GetModStorage()
@@ -27,7 +27,7 @@ function RER_loadGeneralStorage(): RER_GeneralStorage {
   if (!storage) {
     NLOG("RER_loadGeneralStorage - instantiating new RER_GeneralStorage");
 
-    storage = new RER_GeneralStorage in CModStorage;
+    storage = new RER_GeneralStorage in thePlayer;
   }
 
   return storage;

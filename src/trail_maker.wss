@@ -104,7 +104,7 @@ class RER_TrailMaker {
     var track_resource: RER_TrailMakerTrack;
 
     #ifndef ENABLE_TRAIL_MAKER {
-      return;
+      return false;
     };
 
     if (VecDistanceSquared2D(position, this.last_track_position) < PowF(0.5 * this.trail_ratio, 2)) {
