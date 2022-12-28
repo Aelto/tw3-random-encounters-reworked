@@ -12,22 +12,22 @@
 
 // completely remove the static encounters from the mod, the manager functions
 // for no SE are registered and the startSpawning function is short-circuited.
-// #define const ENABLE_STATIC_ENCOUNTERS;
+#define const ENABLE_STATIC_ENCOUNTERS;
 
 // remove the bestiary filtering when fetching a random creature, the journal
 // entries are still in the bestiary entries but they're not used anywhere
-// #define const ENABLE_BESTIARY_FEATURE;
+#define const ENABLE_BESTIARY_FEATURE;
 
 // remove the trails from the mod
-// #define const ENABLE_TRAIL_MAKER;
+#define const ENABLE_TRAIL_MAKER;
 
 // remove the storage system from the mod, bounties, contracts and the ecosystem
 // won't have persisting changes between reloads.
-// #define const ENABLE_STORAGE_SYSTEM;
+#define const ENABLE_STORAGE_SYSTEM;
 
 // remove the ecosystem system from the mod, short-circuit most ecosystem
 // functions and remove most calls to the ecosystem manager as well.
-// #define const ENABLE_ECOSYSTEM;
+#define const ENABLE_ECOSYSTEM;
 
 #ifdef DEBUG {
   #define const DEBUG_LOOT;
