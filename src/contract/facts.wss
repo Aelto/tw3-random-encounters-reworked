@@ -31,13 +31,13 @@ function RER_createInstanceFact(optional seconds: float) {
  * @returns
  */
 function RER_doesInstanceFactExist(): bool {
-  return RER_getInstanceSum() > 0;
+  return RER_getInstanceFactSum() > 0;
 }
 
 /**
  * Return the number of instances created recently
  * @returns 
  */
-function RER_getInstanceSum(): int {
+function RER_getInstanceFactSum(): int {
   return FactsQuerySum(RER_INSTANCE_FACT_ID!);
 }

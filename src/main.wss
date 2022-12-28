@@ -41,7 +41,7 @@ statemachine class CRandomEncounters extends CEntity {
     NLOG("RandomEncounter spawned");
     RER_createInstanceFact();
 
-    if (RER_getInstanceSum() > 1) {
+    if (RER_getInstanceFactSum() > 1) {
       this.Destroy();
 
       return true;
