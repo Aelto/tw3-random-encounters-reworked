@@ -7,6 +7,8 @@
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
+            </Preset>
+            <Preset id="1" displayName="rer_preset_selector" >
                 <Entry varId="RERmodVersion" value="0" />
             </Preset>
         </PresetsArray>
