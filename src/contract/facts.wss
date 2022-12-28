@@ -16,3 +16,28 @@ function RER_addContractReputationFactValue(gain: int) {
 function RER_removeContractReputationFact() {
   FactsRemove(RER_CONTRACT_REPUTATION_FACT_ID!);
 }
+
+#define const RER_INSTANCE_FACT_ID = "rer_instance_fact_id";
+
+/// Set a temporary fact in the DB
+function RER_createInstanceFact(optional seconds: float) {
+  seconds = MaxF(seconds, 20);
+
+  FactsAdd(RER_INSTANCE_FACT_ID!, 1, seconds);
+}
+
+/**
+ * Tell if at least one instance was created recently
+ * @returns
+ */
+function RER_doesInstanceFactExist(): bool {
+  return RER_getInstanceSum() > 0;
+}
+
+/**
+ * Return the number of instances created recently
+ * @returns 
+ */
+function RER_getInstanceSum(): int {
+  return FactsQuerySum(RER_INSTANCE_FACT_ID!);
+}

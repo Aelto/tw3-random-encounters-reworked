@@ -38,16 +38,13 @@ statemachine class CRandomEncounters extends CEntity {
   var ecosystem_frequency_multiplier: float;
 
   event OnSpawned(spawn_data: SEntitySpawnData) {
-    var ents: array<CEntity>;
-    var is_enabled: bool;
-    var version: float;
-
     NLOG("RandomEncounter spawned");
+    RER_createInstanceFact();
 
-    theGame.GetEntitiesByTag('RandomEncounterTag', ents);
-
-    if (ents.Size() > 1) {
+    if (RER_getInstanceSum() > 1) {
       this.Destroy();
+
+      return true;
     }
     else {
       this.AddTag('RandomEncounterTag');
