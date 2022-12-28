@@ -20,8 +20,8 @@ function RER_removeContractReputationFact() {
 #define const RER_INSTANCE_FACT_ID = "rer_instance_fact_id";
 
 /// Set a temporary fact in the DB
-function RER_createInstanceFact(optional seconds: float) {
-  seconds = MaxF(seconds, 20);
+function RER_createInstanceFact(optional seconds: int) {
+  seconds = Max(seconds, 20);
 
   FactsAdd(RER_INSTANCE_FACT_ID!, 1, seconds);
 }
