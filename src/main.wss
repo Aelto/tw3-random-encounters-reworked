@@ -46,13 +46,6 @@ statemachine class CRandomEncounters extends CEntity {
 
     theGame.GetEntitiesByTag('RandomEncounterTag', ents);
 
-    is_enabled = theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
-    version = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodVersion'));
-
-    if (!is_enabled && version >= 0) {
-      return false;
-    }
-
     if (ents.Size() > 1) {
       this.Destroy();
     }
