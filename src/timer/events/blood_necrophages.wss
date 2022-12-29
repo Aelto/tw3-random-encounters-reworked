@@ -94,10 +94,6 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
 
     creatures_preferences
       .reset();
-      
-    master.bestiary.entries[CreatureGHOUL]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureGHOUL]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
@@ -146,6 +142,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     master.bestiary.entries[CreatureFLEDER]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
+
     master.bestiary.entries[CreatureGARKAIN]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);

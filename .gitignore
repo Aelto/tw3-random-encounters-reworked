@@ -11,3 +11,4 @@ docs/skellige-valid-points-bounties.psd
 *.exe
 dist
 .vscode
+/.vs
