@@ -1,5 +1,5 @@
-:: copies the files from the repository into the game
-:: it's an easy way to install it
+:: Copies the files from the repository into the game.
+:: It's an easy way to install it.
 
 @echo off
 

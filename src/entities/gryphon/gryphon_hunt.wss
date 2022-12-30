@@ -2,8 +2,8 @@
 statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
   public var bait_position: Vector;
 
-  // ticks variable used in some states. 
-  // often used to run a timer for set period.
+  // Ticks variable used in some states. 
+  // Often used to run a timer for set period.
   public var ticks: int;
 
   public var this_entity: CEntity;
@@ -64,7 +64,7 @@ statemachine class RandomEncountersReworkedGryphonHuntEntity extends CEntity {
     newnpc.AddTag('RandomEncountersReworked_Entity');
   }
 
-  // ENTRY-POINT for the gryphon fight
+  // ENTRY-POINT for the gryphon fight.
   public function startEncounter(blood_resources: array<RER_TrailMakerTrack>) {
     NLOG("RandomEncountersReworkedGryphonHuntEntity encounter started");
 

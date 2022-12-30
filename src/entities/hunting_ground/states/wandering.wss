@@ -31,7 +31,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
         break;
       }
 
-      // in case it moves
+      // In case it moves.
       parent.bait_entity.Teleport(parent.GetWorldPosition());
 
       SUH_keepCreaturesOnPoint(
@@ -48,7 +48,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
           thePlayer.GetWorldPosition()
         );
 
-        // when in bounty mode, creatures are not subject to the kill threshold distance
+        // When in bounty mode, creatures are not subject to the kill threshold distance.
         if (!parent.is_bounty && distance_from_player > parent.entity_settings.kill_threshold_distance) {
           NLOG("killing entity - threshold distance reached: " + parent.entity_settings.kill_threshold_distance);
 
@@ -59,7 +59,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
 
         if (distance_from_player < 15
         || distance_from_player < 20 && (current_entity as CActor).HasAttitudeTowards(thePlayer)) {
-          // leave the function, it will automatically enter in the Combat state
+          // Leave the function, it will automatically enter in the Combat state
           // and the creatures will attack the player.
           return;
         }
@@ -87,7 +87,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
   }
 
   // Checks if one of the creatures is outside the given point and its radius
-  // and teleports it back into the circle  ifthe creature is indeed outside.
+  // and teleports it back into the circle if the creature is indeed outside.
   // The function is supposed to be called in a fast while loop to keep the
   // creatures on point in an efficient way.
   function keepCreaturesOnPoint(position: Vector, radius: float) {

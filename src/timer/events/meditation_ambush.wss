@@ -1,5 +1,5 @@
 
-// When the player enters a swamp, there is a small chance for drowners or hags to appear
+// When the player comes out of meditation there is a chance for an ambush to appear.
 class RER_ListenerMeditationAmbush extends RER_EventsListener {
   var trigger_chance: float;
 
@@ -13,7 +13,7 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
       .GetVarValue('RERevents', 'eventMeditationAmbush')
     );
 
-    // the event is only active if its chances to trigger are greater than 0
+    // The event is only active if its chances to trigger are greater than 0.
     this.active = this.trigger_chance > 0;
   }
 
@@ -36,7 +36,7 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
 
     // NLOG("current state = " + current_state);
 
-    // if the player is not meditating right now
+    // If the player is not meditating right now
     // we can early cancel the event here.
     if (!is_meditating) {
       // the player was meditating and is no longer meditating
@@ -49,16 +49,16 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
       return false;
     }
 
-    // to avoid triggering this event too frequently
+    // To avoid triggering this event too frequently.
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
 
       return false;
     }
 
-    // at this point it means the player is meditating
+    // At this point it means the player is meditating.
 
-    // the player just started meditating
+    // The player just started meditating.
     if (time_spent_meditating == 0) {
       time_spent_meditating = CeilF(delta);
     }
@@ -73,17 +73,17 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
     //   + (float)(time_spent_meditating / 3600) + " final = "
     //   + (this.trigger_chance * (0.8 + (float)(time_spent_meditating / 3600) / 12.0)) * chance_scale);
     
-    // once we know how many seconds the player meditated, 
-    // we can increase the chances
+    // Once we know how many seconds the player meditated, 
+    // we can increase the chances.
     // 12 hours increase the chances by 100%, 24h by 200%.
-    // the default value is 80% of what the user set in the settings
-    // so when starting a meditation we're at 80%
-    // 12 hours later it's at 180%
-    // 24 hours later it's at 280%
+    // The default value is 80% of what the user set in the settings.
+    // So when starting a meditation we're at 80%.
+    // 12 hours later it's at 180%.
+    // 24 hours later it's at 280%.
     if (RandRangeF(100) < ((this.trigger_chance * (0.8 + (time_spent_meditating / 3600) as float) / 12.0)) * chance_scale) {
       NLOG("RER_ListenerMeditationAmbush - triggered, % increased by meditation = " + time_spent_meditating / 3600);
 
-      // this check is done only when the event has triggered to avoid doing it too often
+      // This check is done only when the event has triggered to avoid doing it too often.
       if (shouldAbortCreatureSpawn(master.settings, master.rExtra, master.bestiary)) {
         NLOG("RER_ListenerMeditationAmbush - cancelled");
 
@@ -92,7 +92,7 @@ class RER_ListenerMeditationAmbush extends RER_EventsListener {
 
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
-      // create a random ambush with no creature type chosen, let RER pick one
+      // Create a random ambush with no creature type chosen, let RER pick one
       // randomly.
       createRandomCreatureAmbush(master, CreatureNONE);
 

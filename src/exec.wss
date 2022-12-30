@@ -48,7 +48,7 @@ exec function rerloot(optional category: RER_LootCategory) {
   rer_entity.loot_manager.rollAndGiveItemsTo(
     thePlayer.GetInventory(),
     1.0,
-    , // rng
+    , // RNG
     category
   );
 }
@@ -57,7 +57,7 @@ exec function reruninstall() {
   var entities: array<CEntity>;
   var i: int;
 
-  // remove all RER entities
+  // Remove all RER entities.
   theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', entities);
 
   for (i = 0; i < entities.Size(); i += 1) {
@@ -244,7 +244,7 @@ exec function rerabandonbounty() {
   NDEBUG("The bounty was removed.");
 }
 
-// gpc for GetPlayerCoordinates
+// GPC for GetPlayerCoordinates.
 exec function rergpc() {
   var entities: array<CGameplayEntity>;
   var rotation: EulerAngles;
@@ -254,11 +254,11 @@ exec function rergpc() {
   FindGameplayEntitiesInRange(
     entities,
     thePlayer,
-    25, // radius
-    10, // max number of entities
-    , // tag
+    25, // Radius
+    10, // Max number of entities
+    , // Tag
     FLAG_Attitude_Hostile + FLAG_ExcludePlayer + FLAG_OnlyAliveActors,
-    thePlayer, // target
+    thePlayer, // Target
     'CNewNPC'
   );
 
@@ -561,11 +561,11 @@ state TestCameraScenePlayer in RER_ExecRunner {
     var scene: RER_CameraScene;
     var camera: RER_StaticCamera;
     
-    // where the camera is placed
+    // Where the camera is placed.
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
     scene.position = theCamera.GetCameraPosition() + Vector(0.3, 0, 1);
 
-    // where the camera is looking
+    // Where the camera is looking.
     scene.look_at_target_type = RER_CameraTargetType_NODE;
     scene.look_at_target_node = thePlayer;
 
@@ -587,12 +587,12 @@ state TestCameraScenePlayer in RER_ExecRunner {
     var scene: RER_CameraScene;
     var camera: RER_StaticCamera;
     
-    // where the camera is placed
+    // Where the camera is placed.
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
     // scene.position = parent.investigation_center_position + Vector(0, 0, 5);
     scene.position = thePlayer.GetWorldPosition() + Vector(5, 0, 5);
 
-    // where the camera is looking
+    // Where the camera is looking.
     scene.look_at_target_type = RER_CameraTargetType_STATIC;
     scene.look_at_target_static = thePlayer.GetWorldPosition();
 

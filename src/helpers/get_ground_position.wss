@@ -19,7 +19,7 @@ function getGroundPosition(out input_position: Vector, optional personal_space: 
   do {
     attempts -= 1;
 
-    // first search for ground based on navigation data.
+    // First search for ground based on navigation data.
     theGame
     .GetWorld()
     .NavigationComputeZ(
@@ -35,7 +35,7 @@ function getGroundPosition(out input_position: Vector, optional personal_space: 
       continue;
     }
 
-    // then do a static trace to find the position on ground
+    // Then do a static trace to find the position on ground.
     // ... okay i'm not sure anymore, is the static trace needed?
     // theGame
     // .GetWorld()
@@ -46,7 +46,7 @@ function getGroundPosition(out input_position: Vector, optional personal_space: 
     //   collision_normal
     // );
 
-    // finally, return if the position is above water level
+    // Finally, return if the position is above water level.
     if (output_position.Z < theGame.GetWorld().GetWaterLevel(output_position, true)) {
       continue;
     }

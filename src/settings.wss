@@ -19,17 +19,17 @@ class RE_Settings {
 
   public var allow_big_city_spawns: bool;
 
-  // controls whether or not geralt will comment
-  // when an encounter appears
+  // Controls whether or not geralt will comment
+  // when an encounter appears.
   public var geralt_comments_enabled: bool;
 
-  // controls whether or not RER shows notifications
+  // Controls whether or not RER shows notifications.
   public var hide_next_notifications: bool;
 
-  // controls whether or not RER encounters will drop loot
+  // Controls whether or not RER encounters will drop loot.
   public var enable_encounters_loot: bool;
 
-  // tells how much impact an external factor has on a creature
+  // Tells how much impact an external factor has on a creature
   // spawning chances.
   public var external_factors_coefficient: float;
 
@@ -39,7 +39,7 @@ class RE_Settings {
 
   public var trophies_enabled_by_encounter: array<bool>;
 
-  // uses the enum EncounterType as the index
+  // Uses the enum EncounterType as the index.
   public var crowns_amounts_by_encounter: array<int>;
 
   public var trophy_pickup_scene: bool;
@@ -60,7 +60,7 @@ class RE_Settings {
 
   public var disable_camera_scenes : bool;
 
-  // scenes that play when ambushed, or when a contract start nearby, etc...
+  // Scenes that play when ambushed, or when a contract start nearby, etc...
   public var enable_action_camera_scenes : bool;
 
   public var ecosystem_community_power_effect: float;

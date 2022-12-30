@@ -9,9 +9,9 @@
 // well, the old solution of adding types to an array and picking into the array
 // was great until we had to push more than 200 times into the array.
 // so much memory write/delete for so little...
-// and instead we use much more CPU power, i don't know which is better.
+// and instead we use much more CPU power, I don't know which is better.
 // 
-// NOTE: the class currently uses arrays, i could not find a hashmap type/class.
+// NOTE: The class currently uses arrays, I could not find a hashmap type/class.
 // It would greatly improve performances though...
 class SpawnRoller {
 
@@ -64,7 +64,7 @@ class SpawnRoller {
     var can_apply_filter: bool;
     var i: int;
 
-    // first we check if any creature IN the filter has a spawn rate of 1 or more
+    // First we check if any creature IN the filter has a spawn rate of 1 or more
     // otherwise when we'll roll the SpawnRoller it will default to humans.
     for (i = 0; i < CreatureMAX; i += 1) {
       if ((this.creatures_counters[i] * filter.multipliers[i] as int) > 0) {
@@ -99,11 +99,11 @@ class SpawnRoller {
       total += this.third_party_creatures_counters[i];
     }
 
-    // ecosystem feature:
-    // here, we gather the data about the surrounding ecoysystems and
+    // Ecosystem feature:
+    // Here, we gather the data about the surrounding ecoysystems and
     // we update the counters based on this data.
     //
-    // TODO: ecosystem, make it toggable by the user in case the user doesn't
+    // TODO: ecosystem, make it toggleable by the user in case the user doesn't
     // want the ecosystem feature in his game.
     #ifdef ENABLE_ECOSYSTEM {
       if (true) {
@@ -117,7 +117,7 @@ class SpawnRoller {
     };
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-    // added so the user can disable all CreatureType and it would
+    // Added so the user can disable all CreatureType and it would
     // cancel the spawn. Useful when the user wants no spawn during the day.
     if (total <= 0) {
       spawn_roll.type = SpawnRoller_RollTypeCREATURE;
@@ -132,7 +132,7 @@ class SpawnRoller {
 
     for (i = 0; i < CreatureMAX; i += 1) {
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-      // `this.creatures_counters[i] > 0` is add so the user can
+      // `this.creatures_counters[i] > 0` Is "add" so the user can
       // disable a CreatureType completely.
       if (this.creatures_counters[i] > 0 && roll <= current_position + this.creatures_counters[i]) {
         spawn_roll.type = SpawnRoller_RollTypeCREATURE;
@@ -153,7 +153,7 @@ class SpawnRoller {
       }
     }
 
-    // not supposed to get here but hey, who knows.
+    // Not supposed to get here but hey, who knows.
     spawn_roll.type = SpawnRoller_RollTypeCREATURE;
     spawn_roll.roll = CreatureNONE;
 
@@ -171,7 +171,7 @@ class SpawnRoller {
     }
 
     // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-    // if for any reason no human variant is available return HT_NONE
+    // If for any reason no human variant is available return HT_NONE
     if (total <= 0) {
       return HT_NONE;
     }
@@ -182,7 +182,7 @@ class SpawnRoller {
 
     for (i = 0; i < HT_MAX; i += 1) {
       // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-      // ignore the variants at 0
+      // Ignore the variants at 0.
       if (this.humans_variants_counters[i] > 0 && roll <= current_position + this.humans_variants_counters[i]) {
         return i;
       }
@@ -190,7 +190,7 @@ class SpawnRoller {
       current_position += this.humans_variants_counters[i];
     }
 
-    // not supposed to get here but hey, who knows.
+    // Not supposed to get here but hey, who knows.
     return HT_NONE;
   }
 
@@ -211,9 +211,9 @@ struct SpawnRoller_Roll {
  * from the creatures you configured.
  *
  * It offers a few methods to define different kinds of filters, such as:
- *  - left offset
- *  - right offset
- *  - remove a specific creature from the pool
+ *  - left offset.
+ *  - right offset.
+ *  - remove a specific creature from the pool.
  */
 class RER_SpawnRollerFilter {
   /**
@@ -270,7 +270,7 @@ class RER_SpawnRollerFilter {
   }
 
   /**
-   * remove the creatures that are outside the range set by the offsets.
+   * Remove the creatures that are outside the range set by the offsets.
    * The creatures passed for the offsets are NOT reset, it's everything OUTSIDE
    * the range that is reset.
    */

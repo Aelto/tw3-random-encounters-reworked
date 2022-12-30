@@ -1,5 +1,5 @@
 
-// in this class you will find all persistent data about the ecosystem the mod
+// In this class you will find all persistent data about the ecosystem the mod
 // stores in the user save files.
 class RER_EcosystemStorage extends RER_BaseStorage {
     default id = 'RandomEncountersReworked';
@@ -8,7 +8,7 @@ class RER_EcosystemStorage extends RER_BaseStorage {
     public var ecosystem_areas: array<EcosystemArea>;
 }
 
-// an helper function to get ecosystem storage
+// A helper function to get ecosystem storage
 function RER_loadEcosystemStorage(): RER_EcosystemStorage {
   var storage: RER_EcosystemStorage;
 
@@ -19,7 +19,7 @@ function RER_loadEcosystemStorage(): RER_EcosystemStorage {
   storage = GetModStorage()
     .load('RandomEncountersReworked', 'ecosystem') as RER_EcosystemStorage;
 
-  // the first time we load, there is no data so we have to create something from
+  // The first time we load, there is no data so we have to create something from
   // scratch.
   if (!storage) {
     NLOG("RER_loadEcosystemStorage - instantiating new EcosystemStorage");

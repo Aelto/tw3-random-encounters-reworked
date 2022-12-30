@@ -17,10 +17,10 @@ state Loading in CRandomEncounters {
 
     parent.refreshEcosystemFrequencyMultiplier();
 
-    // give time for other mods to register their static encounters
+    // Give time for other mods to register their static encounters.
     Sleep(10);
 
-    // it's super important the mod takes control of the creatures BEFORE spawning
+    // It's super important the mod takes control of the creatures BEFORE spawning
     // the static encounters, or else RER will consider creatures from static encounters
     // like HuntingGround encounters and because of the death threshold distance
     // it will kill them instantly. We don't want them to be killed.
@@ -35,7 +35,7 @@ state Loading in CRandomEncounters {
     parent.GotoState('Waiting');
   }
 
-  // the mod loses control of the previously spawned entities when the player
+  // The mod loses control of the previously spawned entities when the player
   // reloads. So when the mod is initialized it loops through all the RER entities
   // (thanks to a tag) and then finds groups of creatures and links them to a
   // HuntEntity manager that will control them again.
@@ -92,7 +92,7 @@ state Loading in CRandomEncounters {
 
       entity_group.Clear();
 
-      // the goal here is to create a list of entities in the surrounding areas
+      // The goal here is to create a list of entities in the surrounding areas
       // that RER will take control of.
       for (k = 0; k < surrounding_entities.Size(); k += 1) {
         // RER has already taken control of this creature so we ignore it.

@@ -32,7 +32,7 @@ statemachine class RER_StaticEncounterManager {
 
     size = StaticEncounterType_SMALL;
 
-    // a 20% chance to be a large creature
+    // A 20% chance to be a large creature.
     if (RandRange(100, 0) < 20) {
       size = StaticEncounterType_LARGE;
     }
@@ -48,7 +48,7 @@ statemachine class RER_StaticEncounterManager {
       .init(
         false,
         position,
-        20, // by default a 20 meters radius
+        20, // By default a 20 meters radius.
         size,
         placeholder_type
       );
@@ -1620,7 +1620,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     StaticEncounterType_SMALL
   );
 
-  // A abandonned house with skeletons and hanged people in the forest
+  // An abandonned house with skeletons and hanged people in the forest.
   RER_registerStaticEncounter(
     master,
     CreatureHUMAN,
@@ -1630,7 +1630,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     StaticEncounterType_SMALL
   );
 
-  // a mountain near the swamp
+  // A mountain near the swamp
   RER_registerStaticEncounter(
     master,
     CreatureFORKTAIL,
@@ -1640,7 +1640,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     StaticEncounterType_LARGE
   );
 
-  // a flat surface in the mountain near the swamp
+  // A flat surface in the mountain near the swamp
   RER_registerStaticEncounter(
     master,
     CreatureWYVERN,
@@ -1660,7 +1660,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     StaticEncounterType_SMALL
   );
 
-  // a ruined castle near a swamp
+  // A ruined castle near a swamp
   RER_registerStaticEncounter(
     master,
     CreatureENDREGA,
@@ -1931,7 +1931,7 @@ latent function RER_registerStaticEncountersAeltoth(master: CRandomEncounters) {
     StaticEncounterType_LARGE
   );
 
-  // a big stone where there is sometimes a cyclop in vanilla
+  // A big stone where there is sometimes a cyclop in vanilla.
   RER_registerStaticEncounter(
     master,
     CreatureCYCLOP,

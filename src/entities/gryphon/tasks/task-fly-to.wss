@@ -1,7 +1,7 @@
 
 // It works but it's completely bugged. I don't understand how to use the functions
 // to controls the gryphon animations. Nothing fully works :(
-// Not used anywhere
+// Not used anywhere.
 latent function flyTo(npc: CNewNPC, destination_point: Vector, destination_radius: float, optional height_from_ground: float) : EBTNodeStatus {
   var traceStartPos, traceEndPos, traceEffect, normal, groundLevel : Vector;
   var should_land: bool;
@@ -19,7 +19,7 @@ latent function flyTo(npc: CNewNPC, destination_point: Vector, destination_radiu
 
   npcPos = npc.GetWorldPosition();
 
-  // Z of destination_point can be under terrain so it must be checked
+  // Z of destination_point can be under terrain so it must be checked.
   traceStartPos = destination_point;
   traceEndPos = destination_point;
   traceStartPos.Z += 200;
@@ -101,7 +101,7 @@ function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance:
 
   turnSpeedScale = 2.75;
 
-  // Calculate Pitch
+  // Calculate Pitch.
   flyPitch = Rad2Deg( AcosF( VecDot( VecNormalize( npcToDestVector ), VecNormalize( npcToDestVector2 ) ) ) );
   if ( npcPos.X == dest.X && npcPos.Y == dest.Y )
   {
@@ -125,7 +125,7 @@ function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance:
     flyPitch *= -1;
   }
   
-  // Calculate Yaw
+  // Calculate Yaw.
   flyYaw = AngleDistance( VecHeading( npcToDestVector ), VecHeading( npcHeadingVec ) ) ;
   flyYaw = flyYaw / 180;
   flyYaw = flyYaw * PowF( turnSpeedScale , AbsF( flyYaw ) );
@@ -139,22 +139,22 @@ function CalculateBehaviorVariables( npc: CNewNPC, dest : Vector, full_distance:
     flyYaw = -1.f;
   }
   
-  // If there is an obstacle in the direction we're trying to turn, go the other way around
-  // If going forward
+  // If there is an obstacle in the direction we're trying to turn, go the other way around.
+  // If going forward.
   if( flyYaw > -0.5 && flyYaw < 0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + npc.GetWorldForward(), collision, normal ) )
   {
     //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Forward", collision + Vector(0,0,0.4), true, 0, Color( 255, 255, 0 ), true, 1 );
     //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8, 0.5, 0.6, true, Color( 255, 255, 0 ), true, 1 );
     flyYaw = -1;
   }
-  // If turning right
+  // If turning right.
   if( flyYaw < -0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + npc.GetWorldRight(), collision, normal ) )
   {
     flyYaw  = 1;			
     //npc.GetVisualDebug().AddText( 'VolumetricObstacleText', "Volumetric obstacle Right", collision + Vector(0,0,0.4), true, 0, Color( 255, 255, 0 ), true, 1 );
     //npc.GetVisualDebug().AddArrow('ToVolumetricObstacle', npc.GetWorldPosition(), collision, 0.8, 0.5, 0.6, true, Color( 255, 255, 0 ), true, 1 );
   }
-  // If turning left
+  // If turning left.
   else if ( flyYaw > 0.5 && theGame.GetWorld().StaticTrace( npcPos, npcPos + ( npc.GetWorldRight() * -1 ) , collision, normal ) )
   {
     flyYaw  = -1;

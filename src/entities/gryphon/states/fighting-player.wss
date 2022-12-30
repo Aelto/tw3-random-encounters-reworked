@@ -1,8 +1,8 @@
 
 // When the gryphon is fighting with the player. 
 // The gryphon is fighting with you until a health threshold. Where he
-// will start fleeing
-// MULTIPLE state. Can be used multiple times in the encounter
+// will start fleeing.
+// MULTIPLE state. Can be used multiple times in the encounter.
 state GryphonFightingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   var can_flee_fight: bool;
   var starting_health: float;

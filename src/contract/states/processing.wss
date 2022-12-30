@@ -58,8 +58,8 @@ state Processing in RER_ContractManager {
 
       active_contract = parent.master.storages.contract.active_contract;
 
-      // this part is pretty much useless since the storage is unique per region
-      // meaning you get only the contract for the current region.
+      // This part is pretty much useless since the storage is unique per region.
+      // This means you get only contracts for the current region.
       if (!SUH_isPlayerInRegion(active_contract.region_name)) {
         parent.GotoState('Waiting');
       }
@@ -125,7 +125,7 @@ state Processing in RER_ContractManager {
       position = active_contract.destination_point
         + VecRingRandStatic(rng.previous_number as int, 5, active_contract.destination_radius * 0.5 + 5);
 
-      // try to see if the position is valid. If it returns true then it means
+      // Try to see if the position is valid. If it returns true then it means
       // it found a valid position.
       if (getGroundPosition(position, 1, 10)) {
         i = -1;
@@ -134,10 +134,10 @@ state Processing in RER_ContractManager {
       }
     }
 
-    // since i is set to -1 when a position is found, this means no position was
-    // found.    
+    // Since i is set to -1 when a position is found, this means no position was
+    // found.
     if (i >= 0) {
-      // spawn the monster on the player directly as a last resort.
+      // Spawn the monster on the player directly as a last resort.
       position = thePlayer.GetWorldPosition();
       getGroundPosition(position, 1, 20);
     }
@@ -148,7 +148,7 @@ state Processing in RER_ContractManager {
       impact_points - 2
     );
 
-    // enemy_count temporarily holds the amount of bonus enemies
+    // enemy_count temporarily holds the amount of bonus enemies.
     enemy_count = 0;  
 
     NLOG("impact points = " + impact_points);
@@ -156,11 +156,11 @@ state Processing in RER_ContractManager {
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERallowIncreasedEnemyCount')) {
       NLOG("RERallowIncreasedEnemyCount = true");
 
-      // caps at 25, which is enough for a shaelmaar
+      // Caps at 25, which is enough for a Shaelmaar.
       enemy_count += MinF(impact_points * 0.25, 25) as int;
       impact_points *= 0.75;
 
-      // then we take again 5% of the impact points for the enemy count but this
+      // Then we take again 5% of the impact points for the enemy count but this
       // time with no cap at all.
       enemy_count += (impact_points * 0.05) as int;
       impact_points *= 0.95;
@@ -177,18 +177,18 @@ state Processing in RER_ContractManager {
         + Min(
           enemy_count,
           bestiary_entry.template_list.difficulty_factor.maximum_count_medium
-        ), //count
-      , // density
+        ), // Count
+      , // Density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
       'RandomEncountersReworked_ContractCreature',
-      // a high number to make sure there is no composition as we'll spawn them
+      // A high number to make sure there is no composition as we'll spawn them
       // manually.
       10000
     );
 
     enemy_count = entities.Size();
-    // here we make sure to use the medium count rather than the `enemy_count`
+    // Here we make sure to use the medium count rather than the `enemy_count`
     // since it would include the bonus entities from the impact points and
     // the cost of these entities were already substracted from the impact_points
     // variable earlier.
@@ -211,7 +211,7 @@ state Processing in RER_ContractManager {
       damage_modifier.damage_dealt_modifier = 1;
 
       while (impact_points != 0) {
-        // the higher the amount of enemies, the higher the chances of them
+        // The higher the amount of enemies, the higher the chances of them
         // getting a damage boost. Smaller enemies often deal less damages,
         // so it is perfectly safe to give them more damage boosts than large
         // monsters who already inflict big hits.
@@ -219,7 +219,7 @@ state Processing in RER_ContractManager {
           damage_modifier.damage_dealt_modifier *= PowF(buff_multiplier, 1);
         }
         else {
-          // so here we add 7.5% more damage received
+          // So here we add 7.5% more damage received.
           damage_modifier.damage_received_modifier *= PowF(2 - buff_multiplier, 7.5);
         }
 
@@ -228,14 +228,14 @@ state Processing in RER_ContractManager {
         impact_points = RoundF(impact_points + sign);
       }
 
-      // set a minimum of 5% damage received modifier, for higher level contracts
+      // Set a minimum of 5% damage received modifier, for higher level contracts
       // it can easily reach 0% due to float precision.
       damage_modifier.damage_received_modifier = MaxF(0.05, damage_modifier.damage_received_modifier);
 
-      // don't tweak the buffs for small creatures because they're already pretty
+      // Don't tweak the buffs for small creatures because they're already pretty
       // weak by default.
       if (parent.master.bestiary.isCreatureLarge(active_contract.creature_type)) {
-        // to better balance the damage modifiers on large group of enemies, the
+        // To better balance the damage modifiers on large groups of enemies, the
         // more enemies there is the lower the buffs are. It's like we spread
         // the buffs over the enemies basically.
         damage_modifier.damage_received_modifier = PowF(
@@ -323,14 +323,14 @@ state Processing in RER_ContractManager {
     path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
 
     if (!RER_isCreatureTypeAllowedForNest(active_contract.creature_type)) {
-      // the monster doesn't fit a nest, in that case we spawn a boss fight
+      // The monster doesn't fit a nest, in that case we spawn a boss fight
       // instead.
       this.createHuntingGroundAndWaitForEnd(active_contract);
 
       return;
     }
 
-    // amount of nests:
+    // Amount of nests:
     i = RoundF(rng.nextRange(1 + active_contract.difficulty_level.value / 20, 1));
 
     while (i > 0) {
@@ -343,7 +343,7 @@ state Processing in RER_ContractManager {
 
         FixZAxis(position);
 
-        // try to see if the position is valid. If it returns true then it means
+        // Try to see if the position is valid. If it returns true then it means
         // it found a valid position.
         if (getGroundPosition(position, 2, 10)) {
           k = -1;
@@ -352,10 +352,10 @@ state Processing in RER_ContractManager {
         }
       }
 
-      // since i is set to -1 when a position is found, this means no position was
-      // found.    
+      // Since i is set to -1 when a position is found, this means no position was
+      // found.
       // if (k >= 0) {
-      //   // spawn the monster on the player directly as a last resort.
+      //   // Spawn the monster on the player directly as a last resort.
       //   position = thePlayer.GetWorldPosition();
       //   getGroundPosition(position, 1, 20);
       // }
@@ -418,8 +418,8 @@ state Processing in RER_ContractManager {
     enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
 
     if (enemy_count < 3) {
-      // the amount of enemies would be too low for it to be a good horde, in
-      // that case we spawn a bossfight instead
+      // The amount of enemies would be too low for it to be a good horde, in
+      // that case we spawn a bossfight instead.
       this.createHuntingGroundAndWaitForEnd(active_contract);
 
       return;
@@ -437,7 +437,7 @@ state Processing in RER_ContractManager {
 
     parent.master.horde_manager.sendRequest(request);
 
-    // the statemachine may not enter the processing state right away,
+    // The statemachine may not enter the processing state right away,
     // in this case we wait for it to leave the waiting state.
     while (parent.master.horde_manager.GetCurrentStateName() == 'Waiting') {
       Sleep(1);
@@ -463,7 +463,7 @@ state Processing in RER_ContractManager {
       config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer')
     );
 
-    // the reputation loss is capped at 2 deaths
+    // The reputation loss is capped at 2 deaths.
     if (current_value < 2) {
       config.SetVarValue(
         'RERcontracts',

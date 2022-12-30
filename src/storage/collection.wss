@@ -1,5 +1,5 @@
 
-// a collection of all storage classes the mod uses
+// A collection of all storage classes the mod uses.
 class RER_StorageCollection {
   var general: RER_GeneralStorage;
   var ecosystem: RER_EcosystemStorage;
@@ -7,7 +7,7 @@ class RER_StorageCollection {
   var contract: RER_ContractStorage;
 }
 
-// an helper function to get the full storage collection
+// A helper function to get the full storage collection.
 function RER_loadStorageCollection(): RER_StorageCollection {
   var collection: RER_StorageCollection;
 

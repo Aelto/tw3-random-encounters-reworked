@@ -1,5 +1,5 @@
 
-// When the player enters a swamp, there is a small chance for drowners or hags to appear
+// When the player enters a swamp, there is a small chance for drowners or hags to appear.
 class RER_ListenerEntersSwamp extends RER_EventsListener {
   var was_in_swamp_last_run: bool;
   var type: CreatureType;
@@ -16,7 +16,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
       .GetVarValue('RERevents', 'eventEntersSwamp')
     );
 
-    // the event is only active if its chances to trigger are greater than 0
+    // The event is only active if its chances to trigger are greater than 0.
     this.active = this.trigger_chance > 0;
   }
 
@@ -29,7 +29,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
 
     is_in_swamp_now = master.rExtra.IsPlayerInSwamp();
 
-    // the player is now in a swamp and was not in one last run
+    // The player is now in a swamp and was not in one last run
     // it means he just entered it this run.
     if (is_in_swamp_now && !was_in_swamp_last_run && RandRangeF(100) < this.trigger_chance * chance_scale) {
       type = this.getRandomSwampCreatureType(master);
@@ -92,8 +92,8 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
       .fillSpawnRoller(spawn_roller);
 
     #ifdef ENABLE_BESTIARY_FEATURE {
-      // when the option "Only known bestiary creatures" is ON
-      // we remove every unknown creatures from the spawning pool
+      // When the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool.
       if (master.settings.only_known_bestiary_creatures) {
         manager = theGame.GetJournalManager();
 

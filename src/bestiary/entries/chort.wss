@@ -29,6 +29,8 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 10;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -56,7 +58,7 @@ class RER_BestiaryChort extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureBERSERKER
       .influence(influences.no_influence) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.low_bad_influence) //CreatureDRACOLIZARD
       .influence(influences.low_bad_influence) //CreatureGARGOYLE
       .influence(influences.friend_with) //CreatureLESHEN

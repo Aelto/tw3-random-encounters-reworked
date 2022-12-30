@@ -42,7 +42,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
   }
 
   /**
-   * override the function to return true whenever it finds a monster instead of
+   * Override the function to return true whenever it finds a monster instead of
    * a specific bestiary entry.
    */
   private function areThereEntitiesWithSameTemplate(entities: array<CGameplayEntity>): bool {
@@ -68,10 +68,10 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
   }
 
   /**
-   * override the function to return a random entry based on the surrounding
+   * Override the function to return a random entry based on the surrounding
    * ecosystem.
    *
-   * warning: side effect, depending on the RER_PlaceholderStaticEncounterType
+   * Warning: side effect, depending on the RER_PlaceholderStaticEncounterType
    * it may run some additional functions.
    */
   public latent function getBestiaryEntry(master: CRandomEncounters): RER_BestiaryEntry {
@@ -88,7 +88,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
         .setOffsets(
           constants.large_creature_begin,
           constants.large_creature_max,
-          0 // creature outside the offset have 0% chance to appear
+          0 // Creature outside the offset have 0% chance to appear.
         );
     }
     else {
@@ -96,7 +96,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
         .setOffsets(
           constants.large_creature_begin,
           constants.large_creature_max,
-          0 // creature outside the offset have 0% chance to appear
+          0 // Creature outside the offset have 0% chance to appear.
         );
     }
 
@@ -111,13 +111,13 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
       return output;
     }
     else if (this.placeholder_type == RER_PSET_CopyNearbyCreature) {
-      // this placeholder static encounter has not yet found an entity to copy 
+      // This placeholder static encounter has not yet found an entity to copy.
       if (this.picked_creature_type == CreatureNONE) {
         this.picked_creature_type = this.findRandomNearbyHostileCreatureType(master);
       }
 
-      // if it's still none then we default back to
-      // the LearnFromEcosystem behavior
+      // If it's still none then we default back to
+      // the LearnFromEcosystem behavior.
       if (this.picked_creature_type == CreatureNONE) {
         output = master.bestiary.getRandomEntryFromBestiary(
           master,
@@ -151,7 +151,7 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
       this.position,
       this.radius + 20, // the +20 is to still catch monster on small radius in case they move
       1 * (this.radius as int),
-      , // tags
+      , // Tags
       FLAG_ExcludePlayer | FLAG_OnlyAliveActors | FLAG_Attitude_Hostile, // queryflags
       thePlayer, // target
       'CNewNPC'
@@ -171,13 +171,13 @@ class RER_PlaceholderStaticEncounter extends RER_StaticEncounter {
       }
     }
 
-    // note: we re-use i here instead of making a new variable for the array size
+    // Note: We re-use i here instead of making a new variable for the array size.
     i = possible_types.Size();
     if (i <= 0) {
       return CreatureNONE;
     }
 
-    // note: we re-use i here for the random index now
+    // Note: We re-use i here for the random index now.
     i = RandRange(i, 0);
 
     return possible_types[i];

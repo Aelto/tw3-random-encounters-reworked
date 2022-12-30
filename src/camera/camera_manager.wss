@@ -7,11 +7,11 @@ class RER_CameraDataInterface {
 }
 
 class RER_CameraDataMoveToPositionLookAtPosition extends RER_CameraDataInterface {
-  // edit these two variables 
+  // Edit these two variables.
   public var camera_position_goal: Vector;
   public var camera_target: Vector;
   
-  // or extend the class and override these method if your target is a moving target
+  // Or extend the class and override these method if your target is a moving target.
   function getCameraTarget(): Vector {
     return this.camera_target;
   }
@@ -77,7 +77,7 @@ class RER_CameraDataMoveToPositionLookAtPosition extends RER_CameraDataInterface
 
 // Here the camera looks in the direction it's going.
 class RER_CameraDataMoveToPoint extends RER_CameraDataInterface {
-  // edit the variable
+  // Edit the variable.
   public var camera_position_goal: Vector;
 
   private var camera_position: Vector;
@@ -85,7 +85,7 @@ class RER_CameraDataMoveToPoint extends RER_CameraDataInterface {
   private var camera_rotation_goal: EulerAngles;
   private var camera_target: Vector;
 
-  // or extend the class and override this method if your target is a moving target
+  // Or extend the class and override this method if your target is a moving target.
   function getCameraTarget(): Vector {
     return this.camera_target;
   }
@@ -104,7 +104,7 @@ class RER_CameraDataMoveToPoint extends RER_CameraDataInterface {
     this.camera_rotation = theCamera.GetCameraRotation();
 
     while (this.can_loop && this.canRunLoop()) {
-      // we get the mean value between both entities
+      // We get the mean value between both entities.
       this.camera_target = this.getCameraTarget();
 
       this.camera_position += (this.camera_position_goal - this.camera_position) * 0.01;
@@ -122,7 +122,7 @@ class RER_CameraDataMoveToPoint extends RER_CameraDataInterface {
 }
 
 class RER_CameraDataFloatAndLookAtTalkingActors extends RER_CameraDataMoveToPositionLookAtPosition {
-  // edit this variable
+  // Edit this variable.
   public var actors: array<CActor>;
 
   default camera_rotation_blending = 0.01;
@@ -165,9 +165,9 @@ class RER_CameraDataFloatAndLookAtTalkingActors extends RER_CameraDataMoveToPosi
   protected var last_talking_actor_index: int;
   default last_talking_actor_index = -1;
 
-  // for this class the camera will by default look between the actors
-  // but if an actor is talking the camera is look more in his direction while
-  // still trying to target the other non-talking actors
+  // For this class the camera will by default face in between the actors
+  // but if an actor is talking the camera will face more in his direction while
+  // still trying to target the other non-talking actors.
   function getCameraTarget(): Vector {
     var number_of_actors: int;
     var position: Vector;

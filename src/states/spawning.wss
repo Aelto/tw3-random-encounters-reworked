@@ -7,7 +7,7 @@ state Spawning in CRandomEncounters {
 
     super.OnEnterState(previous_state_name);
 
-    // Set is_spawn_forced if the previous state was SpawningForced
+    // Set is_spawn_forced if the previous state was SpawningForced.
     this.is_spawn_forced = previous_state_name == 'SpawningForced';
 
 
@@ -23,15 +23,15 @@ state Spawning in CRandomEncounters {
 
     picked_encounter_type = this.getRandomEncounterType();
     
-    // we start by checking if the creature spawn should be cancelled.
+    // We start by checking if the creature spawn should be cancelled.
     if (
-       // first if RER is disabled, any spawn should be cancelled
+       // First if RER is disabled, any spawn should be cancelled.
        !parent.settings.is_enabled
 
-       // or if there is not enough mod power to enable the system
+       // Or if there is not enough mod power to enable the system.
     || !RER_modPowerIsEncounterSystemEnabled()
 
-       // then, if the spawn is not forced we check if the player
+       // Then, if the spawn is not forced we check if the player
        // is in a place where a spawn in accepted.
     || !this.is_spawn_forced
     && shouldAbortCreatureSpawn(parent.settings, parent.rExtra, parent.bestiary)) {

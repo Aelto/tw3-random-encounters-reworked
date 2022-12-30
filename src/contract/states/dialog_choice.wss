@@ -1,7 +1,7 @@
 
 /**
  * In this state we display a list of dialogue options to the player so that
- * he can pick the contract he likes.
+ * they can pick the contract they like.
  */
 state DialogChoice in RER_ContractManager {
   var camera: SU_StaticCamera;
@@ -178,7 +178,7 @@ state DialogChoice in RER_ContractManager {
     var response: SSceneChoice;
     var i: int;
 
-    // while on gamepad, the interact input is directly sent in the dialog choice
+    // While on gamepad, the interact input is directly sent in the dialog choice
     // it is safer to wait a bit before capturing the input.
     Sleep(0.25);
 
@@ -223,8 +223,8 @@ state DialogChoice in RER_ContractManager {
     }
 
     for (i = 0; i < 3; i += 1) {
-      // get the choices starting at 4th from last until 2nd to last, as the last
-      // is the exit choice
+      // Get the choices starting at 4th from last until 2nd to last, as the last
+      // is the exit choice.
       // EDIT: it works because the number of contracts is hardcoded at 3 at
       // the moment.
       // EDIT 2: this code is overly complex, why use .Size() and minus 4

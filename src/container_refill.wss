@@ -7,7 +7,7 @@
 
 /**
  * This function does a random roll, if it succeeds it calls the function to
- * fill a random container
+ * fill a random container.
  */
 latent function RER_tryRefillRandomContainer(master: CRandomEncounters) {
   NLOG("container refill called");
@@ -50,11 +50,11 @@ latent function RER_tryRefillRandomContainer(master: CRandomEncounters) {
   FindGameplayEntitiesInRange(
     containers,
     thePlayer,
-    radius, // radius
+    radius, // Radius
     50 + number_of_containers * 10, // max number of entities
-    , // tag
+    , // Tag
     ,
-    , // target
+    , // Target
     'W3Container'
   );
 

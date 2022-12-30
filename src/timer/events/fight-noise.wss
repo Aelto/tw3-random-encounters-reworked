@@ -19,7 +19,7 @@ class RER_ListenerFightNoise extends RER_EventsListener {
       .GetVarValue('RERevents', 'eventFightNoise')
     );
 
-    // the event is only active if its chances to trigger are greater than 0
+    // The event is only active if its chances to trigger are greater than 0.
     this.active = this.trigger_chance > 0;
   }
 
@@ -28,14 +28,14 @@ class RER_ListenerFightNoise extends RER_EventsListener {
 
     is_in_combat = thePlayer.IsInCombat();
 
-    // to avoid triggering more than one event per fight
+    // To avoid triggering more than one event per fight.
     if (is_in_combat && (was_spawn_already_triggered || this.already_spawned_this_combat)) {
       this.already_spawned_this_combat = true;
 
       return false;
     }
 
-    // to avoid triggering this event too frequently
+    // To avoid triggering this event too frequently.
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
 
@@ -53,12 +53,12 @@ class RER_ListenerFightNoise extends RER_EventsListener {
         return false;
       }
       
-      // we disable it for the fight so it doesn't spawn non-stop
+      // We disable it for the fight so it doesn't spawn non-stop.
       this.already_spawned_this_combat = is_in_combat;
 
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
-      // create a random ambush with no creature type chosen, let RER pick one
+      // Create a random ambush with no creature type chosen, let RER pick one
       // randomly.
       createRandomCreatureAmbush(master, CreatureNONE);
 

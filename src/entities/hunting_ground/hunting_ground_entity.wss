@@ -37,7 +37,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
   public var is_bounty: bool;
   public var bounty_group_index: int;
 
-  // Once activated as a bounty mode it will place a marker on the group and will
+  // Once activated as a bounty mode it will place a marker on the group.
   public function activateBountyMode(bounty_manager: RER_BountyManager, group_index: int) {
     this.bounty_manager = bounty_manager;
     this.is_bounty = true;
@@ -58,9 +58,9 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.Destroy();
   }
 
-  ///////////////////////////////////////////////////
-  // below are helper functions used in the states //
-  ///////////////////////////////////////////////////
+  ////////////////////////////////////////////////////
+  // Below are helper functions used in the states. //
+  ////////////////////////////////////////////////////
 
   public function killEntity(entity: CEntity): bool {
     (entity as CActor).Kill('RandomEncountersReworked_Entity', true);

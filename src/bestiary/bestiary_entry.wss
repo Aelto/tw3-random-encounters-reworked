@@ -5,30 +5,30 @@ abstract class RER_BestiaryEntry {
 
   var template_list: EnemyTemplateList;
 
-  // stores a hash of the templates the bestiary entry has for a faster lookup.
-  // Used by the function `isCreatureHashedNameFromEntry()`
+  // Stores a hash of the templates the bestiary entry has for a faster lookup.
+  // Used by the function `isCreatureHashedNameFromEntry()`.
   var template_hashes: array<string>;
 
-  // names for this entity trophies
-  // uses the enum TrophyVariant as index
+  // Names for this entity trophies.
+  // Uses the enum TrophyVariant as index.
   var trophy_names: array<name>;
 
-  // the name used in the mod menus
+  // The name used in the mod menus.
   var menu_name: name;
   
   var localized_name: name;
 
   var ecosystem_impact: EcosystemCreatureImpact;
 
-  // controls how myuch 1 of this type killed affects the delays, the value is
+  // Controls how myuch 1 of this type killed affects the delays, the value is
   // expressed in %.
   var ecosystem_delay_multiplier: float;
 
-  // both use the enum EncounterType as index
+  // Both use the enum EncounterType as index.
   var chances_day: array<int>;
   var chances_night: array<int>;
 
-  // the custom multiplier the user set for this specific creature type. By default
+  // The custom multiplier the user set for this specific creature type. By default
   // it's set at 1.
   var creature_type_multiplier: float;
   default creature_type_multiplier = 1;
@@ -73,9 +73,9 @@ abstract class RER_BestiaryEntry {
     this.chances_day[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntDay', this.menu_name));
     this.chances_night[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntNight', this.menu_name));
 
-    // special case for the contracts, they used to have a menu but don't anymore.
+    // Special case for the contracts, they used to have a menu but don't anymore.
     // The contracts are now well balanced even for small creatures so the user
-    // does not need to assign different ratios for each creatures
+    // does not need to assign different ratios for each creature.
     this.chances_day[EncounterType_CONTRACT] = 1;
     this.chances_night[EncounterType_CONTRACT] = 1;
 
@@ -133,7 +133,7 @@ abstract class RER_BestiaryEntry {
     var i: int;
     var j: int;
 
-    // random scale applied to the creatures
+    // Random scale applied to the creatures.
 		var scale: float;
 
     NLOG("BestiaryEntry, spawn() count = " + count + " " + this.type);
@@ -154,8 +154,8 @@ abstract class RER_BestiaryEntry {
       density = 0.01;
     }
 
-    //set the flag automatically if the settings disable trophies for that
-    // encounter type
+    // Set the flag automatically if the settings disable trophies for that
+    // encounter type.
     flags = RER_setFlag(
       flags,
       RER_BESF_NO_TROPHY,
@@ -207,10 +207,10 @@ abstract class RER_BestiaryEntry {
             tags_array
           );
 
-          // the scale is calculated based on the level of the creature. In the
-          // formula we add +50 to both end so a level 4 creature when level
+          // The scale is calculated based on the level of the creature. In the
+          // formula we add +50 to both ends so a level 4 creature when level 1
           // doesn't end up 400% bigger. It will also make the difference in height
-          // more noticeable at lower levels.
+          // less noticeable at lower levels.
           if (master.settings.dynamic_creatures_size) {
             scale = (getRandomLevelBasedOnSettings(master.settings) + 50.0)
                   / (RER_getPlayerLevel() + 50.0);
@@ -235,7 +235,7 @@ abstract class RER_BestiaryEntry {
               );
           }
 
-          // add a bounty notice to the entity
+          // Add a bounty notice to the entity.
           if (RandRange(100) < 3) {
             (created_entity as CActor)
               .GetInventory()
@@ -245,7 +245,7 @@ abstract class RER_BestiaryEntry {
               );
           }
 
-          // add crowns to the entity, based on the settings
+          // Add crowns to the entity, based on the settings.
           (created_entity as CActor)
           .GetInventory()
           .AddMoney(
@@ -275,7 +275,7 @@ abstract class RER_BestiaryEntry {
 
         npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
 
-        // past 30% damage reduction monsters get debuffs immunity
+        // Past 30% damage reduction monsters get debuff immunity.
         if (damage_modifier.damage_received_modifier < 0.7) {
           (npc as CActor).AddBuffImmunity(EET_Knockdown, 'RandomEncountersReworked', false);
           (npc as CActor).AddBuffImmunity(EET_HeavyKnockdown, 'RandomEncountersReworked', false);
@@ -284,7 +284,7 @@ abstract class RER_BestiaryEntry {
       }
     }
 
-    // notify the ecosystem manager some creatures were added. Every time we spawn
+    // Notify the ecosystem manager some creatures were added. Every time we spawn
     // something it should slightly increase their power.
     #ifdef ENABLE_ECOSYSTEM {
       if (!RER_flagEnabled(flags, RER_BESF_NO_ECOSYSTEM_EFFECT)) {
@@ -292,7 +292,7 @@ abstract class RER_BestiaryEntry {
           .ecosystem_manager
           .updatePowerForCreatureInCurrentEcosystemAreas(
             this.type,
-            // currently leaving this as is. But it may be a good idea to divide this
+            // Currently leaving this as is. But it may be a good idea to divide this
             // power gain by the power the surrounding areas currently have to avoid
             // an infinitely growing community.
             created_entities.Size() * 0.20,
@@ -336,8 +336,8 @@ abstract class RER_BestiaryEntry {
     return created_entities;
   }
 
-  // checks if the hashed creature name is from this bestiary entry. To get a hashed
-  // creature name, use CEntity::GetReadableName() and then use rer_hash_string()
+  // Checks if the hashed creature name is from this bestiary entry. To get a hashed
+  // creature name, use CEntity::GetReadableName() and then use rer_hash_string().
   public function isCreatureHashedNameFromEntry(hashed_name: string): bool {
     var i: int;
 
@@ -366,16 +366,16 @@ abstract class RER_BestiaryEntry {
     }
 
     #ifdef ENABLE_BESTIARY_FEATURE {
-      // when the option "Only known bestiary creatures" is ON
-      // we remove every unknown creatures from the spawning pool
+      // When the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool.
       if (master.settings.only_known_bestiary_creatures) {
         manager = theGame.GetJournalManager();
       }
     };
     
     for (i = 0; i < this.possible_compositions.Size(); i += 1) {
-      // if a maximum strength is supplied, we make sure to include only creatures
-      // whose strength is within the boundary
+      // If a maximum strength is supplied, we make sure to include only creatures
+      // whose strength is within the boundary.
       if (maximum_strength > 0 && master.bestiary.entries[this.possible_compositions[i]].ecosystem_delay_multiplier >= maximum_strength) {
         continue;
       }
@@ -431,8 +431,8 @@ abstract class RER_BestiaryEntry {
     }
 
     #ifdef ENABLE_BESTIARY_FEATURE {
-      // when the option "Only known bestiary creatures" is ON
-      // we remove every unknown creatures from the spawning pool
+      // When the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool.
       if (master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BREF_IGNORE_BESTIARY)) {
         manager = theGame.GetJournalManager();
 
@@ -491,7 +491,7 @@ abstract class RER_BestiaryEntry {
     var max: int;
     var i: int;
 
-    // composition groups are recursive, a spawned group causes a composition to
+    // Composition groups are recursive, a spawned group causes a composition to
     // appear. But that composition can have its own composition.
     // We add a failsafe to avoid a recursive crash/stack-overflow.
     if (creature == CreatureNONE || composition_count > 0) {
@@ -500,15 +500,15 @@ abstract class RER_BestiaryEntry {
 
     bestiary_entry = master.bestiary.entries[creature];
 
-    // 75% to not spawn any composition
+    // 75% to not spawn any composition.
     if (RandRange(100) < 75) {
       return entities;
     }
 
-    // at the moment `count` is the amount of creatures from the initial group
+    // At the moment `count` is the amount of creatures from the initial group.
     max = (this.ecosystem_delay_multiplier * count / bestiary_entry.ecosystem_delay_multiplier) as int;
     count = Clamp(
-      // once we're sure compositions can spawn, we get a random value between
+      // Once we're sure compositions can spawn, we get a random value between
       // the maximum number of allies and 80% of that number. The maximum number
       // of allies is calculated from the original group' strength and the
       // strength of the new allies.
@@ -516,10 +516,10 @@ abstract class RER_BestiaryEntry {
         max,
         (max * 0.8) as int
       ),
-      // a maximum of 5 times more allies than in the original group
+      // A maximum of 5 times more allies than in the original group
       // this will not affect small creatures who often come in large groupes
       // but will limit the amount of allies for creatures with a high strength.
-      // Like 15 harpies from 1 wyvern
+      // Like 15 harpies from 1 wyvern.
       count * 5,
       0
     );
@@ -566,7 +566,7 @@ enum RER_BestiaryEntrySpawnFlag {
   RER_BESF_NO_PERSIST = 2,
   RER_BESF_NO_ECOSYSTEM_EFFECT = 4,
 
-  // if set, it will ignore the bestiary feature that removes unknown
+  // If set, it will ignore the bestiary feature that removes unknown
   // creatures from the spawn. It's used for the bounties where settings are
   // ignored.
   RER_BESF_NO_BESTIARY_FEATURE = 8

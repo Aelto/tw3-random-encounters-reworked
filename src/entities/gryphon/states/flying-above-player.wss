@@ -1,7 +1,7 @@
 
-// When the gryphon flies over the player, then comes back to attack it
-// Imagine it flying at high-speed above you, he sees you and screems
-// then he does a complete turn and starts attacking you
+// When the gryphon flies over the player, then comes back to attack it.
+// Imagine it flying at high-speed above you, it sees you and screams.
+// It does a complete turn and starts attacking you.
 // ENTRY-POINT state.
 state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
   var bait: CEntity;
@@ -64,7 +64,7 @@ state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
       thePlayer.GetWorldPosition()
     ) + 100;
 
-    // The two seconds here is important, the gryphon doesn't fly without it
+    // The two seconds here is important, the gryphon doesn't fly without it.
     parent.AddTimer('FlyingAbovePlayer_intervalDefaultFunction', 2, true);
   }
 
@@ -89,7 +89,7 @@ state FlyingAbovePlayer in RandomEncountersReworkedGryphonHuntEntity {
     
     parent.this_newnpc.NoticeActor(this.bait as CActor);
 
-    // distance_threshold is already squared
+    // Distance_threshold is already squared.
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.this_actor.GetWorldPosition()) > distance_threshold) {
       parent.RemoveTimer('FlyingAbovePlayer_intervalDefaultFunction');
       parent.AddTimer('FlyingAbovePlayer_intervalComingToPlayer', 0.5, true);

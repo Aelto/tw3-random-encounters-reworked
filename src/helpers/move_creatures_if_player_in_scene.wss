@@ -1,9 +1,9 @@
 
 /**
- * move the supplied creatures away if the player is in a cutscene. Does nothing
- * if it's not the case.
- * The function will look for a ground position before teleporting them away,
- * and will teleport every creature from the array if one or more creatures
+ * Move the supplied creatures away if the player is in a cutscene. Does nothing
+ * if this is not the case.
+ * The function will look for a ground position before teleporting them away.
+ * Will teleport every creature from the array if one or more creatures
  * goes under the threshold value.
  */
 function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, radius: float): bool {
@@ -17,17 +17,17 @@ function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, rad
     return false;
   }
 
-  // square the radius
+  // Square the radius.
   squared_radius *= radius;
   player_position = thePlayer.GetWorldPosition();
 
   for (i = 0; i < entities.Size(); i += 1) {
     squared_distance = VecDistanceSquared2D(player_position, entities[i].GetWorldPosition());
 
-    // the entity is under the threshold value
+    // The entity is under the threshold value.
     if (squared_distance < squared_radius) {
-      // it could not find a suitable position. We do nothing and return, maybe
-      // the next time this function is called will be the good one.
+      // It could not find a suitable position. We do nothing and return.
+	  // maybe the next time this function is called will be the good one.
       if (!getRandomPositionBehindCamera(position, radius)) {
         SUH_keepCreaturesOutsidePoint(
           thePlayer.GetWorldPosition(),
@@ -38,13 +38,13 @@ function RER_moveCreaturesAwayIfPlayerIsInCutscene(entities: array<CEntity>, rad
         return true;
       }
 
-      // we re-use i here because it doesn't matter as we'll leave the function
+      // We re-use i here because it doesn't matter as we'll leave the function
       // after that.
       for (i = 0; i < entities.Size(); i += 1) {
         entities[i].Teleport(position);
       }
 
-      // and leave now
+      // And leave now.
       return true;
     }
   }

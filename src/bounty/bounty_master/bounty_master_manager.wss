@@ -52,7 +52,7 @@ statemachine class RER_BountyMasterManager {
     }
     //Ferroxius - New Bounty Masters END
 
-    // every hour of playtime it changes the index in the valid positions
+    // Every hour of playtime it changes the index in the valid positions.
     valid_positions = this.getBountyMasterValidPositions();
     position_index = (RandNoiseF(
       GameTimeHours(theGame.CalculateTimePlayed()),
@@ -67,11 +67,11 @@ statemachine class RER_BountyMasterManager {
       position_index = 0;
     }
 
-    // the bounty master already exist
+    // The bounty master already exist.
     if (this.bounty_master_entity) {
       NLOG("bounty master exists, template = " + StrAfterFirst(this.bounty_master_entity.ToString(), "::"));
 
-      // not the same template as the one asked, we kill the current bounty master
+      // Not the same template as the one asked, we kill the current bounty master.
 
       if (StrAfterFirst(this.bounty_master_entity.ToString(), "::") != template_path) {
         NLOG("bounty master wrong template");
@@ -80,7 +80,7 @@ statemachine class RER_BountyMasterManager {
         delete this.bounty_master_entity;
       }
       else {
-        // teleport the bounty master at the current position based on the current playtime
+        // Teleport the bounty master at the current position based on the current playtime.
         bounty_master_entity
         .TeleportWithRotation(
           valid_positions[position_index] + Vector(0, 0, 0.2),

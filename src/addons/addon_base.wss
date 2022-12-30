@@ -9,9 +9,9 @@
 abstract class RER_BaseAddon {
 
   /**
-   * Every loot that is added to the loot manager so that it can be used in all
-   * the rewards of the mod, this function is called on every addon registered
-   * and if any of the addons return false, then the item will not be added.
+   * Every loot item is added to the loot manager so that it can be used in all
+   * the rewards of the mod. This function is called on every addon registered.
+   * If any of the addons return false, then the item will not be added.
    *
    * The fourth parameter is the origin, a name you can used to identify the
    * items your addon added.

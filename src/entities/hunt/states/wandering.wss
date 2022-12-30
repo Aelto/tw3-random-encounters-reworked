@@ -51,7 +51,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
         if (distance_from_player < 15
         || distance_from_player < 20 && (current_entity as CActor).HasAttitudeTowards(thePlayer)) {
-          // leave the function, it will automatically enter in the Combat state
+          // Leave the function, it will automatically enter in the Combat state
           // and the creatures will attack the player.
           return;
         }
@@ -96,7 +96,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         };
       }
 
-      // to keep the bait near the player at all time
+      // To keep the bait near the player at all time.
       if (parent.bait_moves_towards_player) {
         if (RER_moveCreaturesAwayIfPlayerIsInCutscene(parent.entities, 30)) {
           teleportBaitEntityOnMonsters();
@@ -132,8 +132,8 @@ state Wandering in RandomEncountersReworkedHuntEntity {
     );
   }
 
-  // This function always teleports the bait on the monsters
-  // often used to pause the hunt during cutscenes or when the player is busy.
+  // This function always teleports the bait on the monsters.
+  // Often used to pause the hunt during cutscenes or when the player is busy.
   latent function teleportBaitEntityOnMonsters() {
     var new_bait_position: Vector;
     var new_bait_rotation: EulerAngles;

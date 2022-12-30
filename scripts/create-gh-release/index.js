@@ -58,7 +58,7 @@ async function main() {
   const zip_file_path = `tw3-random-encounters-reworked.zip`;
   const zip = new AdmZip();
 
-  // transfer the three folders mods/bin/dlc from the release folder to the zip
+  // Transfer the three folders mods/bin/dlc from the release folder to the zip
   // archive.
   const folders_to_transfer = ['mods', 'bin', 'dlc'];
   for (const folder of folders_to_transfer) {
@@ -87,13 +87,13 @@ async function main() {
 
   if (is_prerelease) {
     body += `
-## CHANGELOG (since last release)
+## CHANGELOG (Since last release.)
 ${changelog}
 `;
   }
   else {
     body += `
-## CHANGELOG (since last full release)
+## CHANGELOG (Since last full release.)
 ${changelog}
 `;
   }
@@ -107,7 +107,7 @@ ${changelog}
     prerelease: is_prerelease,
   });
 
-  // start by pushing the zip asset for the release
+  // Start by pushing the zip asset for the release.
   octokit.repos.uploadReleaseAsset({
     owner: 'Aelto',
     repo: 'tw3-random-encounters-reworked',
@@ -117,7 +117,7 @@ ${changelog}
     data: fs.readFileSync(zip_file_path)
   });
 
-  // then push the install script for this release
+  // Then push the install script for this release.
   const install_script_name = 'install-mod.ps1';
   const install_script_path = `${__dirname}/../${install_script_name}`;
   octokit.repos.uploadReleaseAsset({

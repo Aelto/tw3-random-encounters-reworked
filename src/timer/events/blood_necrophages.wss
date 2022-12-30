@@ -1,5 +1,5 @@
 
-// When the player is hurt (not full life) necrophages ambush can appear around him
+// When the player is hurt (not full health) necrophage ambushes can appear around him.
 class RER_ListenerBloodNecrophages extends RER_EventsListener {
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
@@ -19,7 +19,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       .GetVarValue('RERevents', 'eventBloodNecrophages')
     );
 
-    // the event is only active if its chances to trigger are greater than 0
+    // The event is only active if its chances to trigger are greater than 0.
     this.active = this.trigger_chance > 0;
   }
 
@@ -30,14 +30,14 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
 
     is_in_combat = thePlayer.IsInCombat();
 
-    // to avoid triggering more than one event per fight
+    // To avoid triggering more than one event per fight.
     if (is_in_combat && (was_spawn_already_triggered || this.already_spawned_this_combat)) {
       this.already_spawned_this_combat = true;
 
       return false;
     }
 
-    // to avoid triggering this event too frequently
+    // To avoid triggering this event too frequently.
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
 
@@ -46,8 +46,8 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
     
     this.already_spawned_this_combat = false;
 
-    // this will be used to scale the % chances based on the missing health
-    // the lower the health the higher the chances.
+    // This will be used to scale the % chances based on the missing health.
+    // The lower the health the higher the chances.
     health_missing_perc = 1 - thePlayer.GetHealthPercents();
 
     if (RandRangeF(100) < this.trigger_chance * chance_scale * health_missing_perc) {
@@ -60,7 +60,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       type = this.getRandomNecrophageType(master);
       createRandomCreatureAmbush(master, type);
 
-      // so that we don't spawn an ambush too frequently
+      // So that we don't spawn an ambush too frequently.
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
       
       NLOG("RER_ListenerBloodNecrophages - spawn triggered type = " + type);
@@ -152,8 +152,8 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       .fillSpawnRoller(spawn_roller);
 
     #ifdef ENABLE_BESTIARY_FEATURE {
-      // when the option "Only known bestiary creatures" is ON
-      // we remove every unknown creatures from the spawning pool
+      // When the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool.
       if (master.settings.only_known_bestiary_creatures) {
         manager = theGame.GetJournalManager();
 

@@ -49,9 +49,9 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
     this.Destroy();
   }
 
-  ///////////////////////////////////////////////////
-  // below are helper functions used in the states //
-  ///////////////////////////////////////////////////
+  ////////////////////////////////////////////////////
+  // Below are helper functions used in the states. //
+  ////////////////////////////////////////////////////
 
   public function killEntity(entity: CEntity): bool {
     (entity as CActor).Kill('RandomEncountersReworked_Entity', true);

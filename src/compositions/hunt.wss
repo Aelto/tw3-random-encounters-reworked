@@ -16,7 +16,7 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/5:
-  // added the NONE check because the SpawnRoller can return
+  // Added the NONE check because the SpawnRoller can return
   // the NONE value if the user set all values to 0.
   if (bestiary_entry.isNull()) {
     NLOG("creature_type is NONE, cancelling spawn");
@@ -91,7 +91,7 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
     );
 
     if (this.allow_trophy) {
-      // if the user allows trophy pickup scene, tell the entity
+      // If the user allows trophy pickup scene, tell the entity
       // to send RER a request on its death.
       current_rer_entity.pickup_animation_on_death = this.allow_trophy_pickup_scene;
     }

@@ -51,6 +51,8 @@ class RER_BestiaryEchinops extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 8;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -78,7 +80,7 @@ class RER_BestiaryEchinops extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureBERSERKER
       .influence(influences.no_influence) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.high_indirect_influence) //CreatureLESHEN

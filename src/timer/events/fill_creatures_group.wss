@@ -21,7 +21,7 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     this.can_duplicate_creatures_in_combat = inGameConfigWrapper
       .GetVarValue('RERevents', 'eventFillCreaturesGroupAllowCombat');
 
-    // the event is only active if its chances to trigger are greater than 0
+    // The event is only active if its chances to trigger are greater than 0.
     this.active = this.trigger_chance > 0;
   }
 
@@ -48,10 +48,10 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     }
 
     if (RandRangeF(100) < this.trigger_chance * chance_scale) {
-      // it's done inside the if and only after a successful roll to avoid retrieving
+      // It's done inside the if and only after a successful roll to avoid retrieving
       // the creature's height every interval. It's an attempt at optimizing it.
       //
-      // small creatures will have a higher chance to pass, while larger creatures
+      // Small creatures will have a higher chance to pass, while larger creatures
       // will have a lower chance. The height is divided by two because some creatures
       // are 4 meters tall like fiends and dividing their chances by 4 would be
       // too much. So instead we divide their chance by 4meters / 2.
@@ -69,10 +69,10 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
       this.duplicateEntity(master, random_entity_to_duplicate);
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
 
-      // NOTE: this event SHOULD return true but doesn't because it doesn't affect
+      // NOTE: This event SHOULD return true but doesn't because it doesn't affect
       // the other events. Other events use the "true" to know if another event
-      // spawned a creature. But as this one only add creatures that are out of
-      // combat it should not infer with the other event.
+      // spawned a creature. But as this one only adds creatures that are out of
+      // combat it should not interfere with the other events.
       return false;
     }
 
@@ -93,27 +93,27 @@ class RER_ListenerFillCreaturesGroup extends RER_EventsListener {
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
-      300, // radius
-      100, // max number of entities
-      , // tag
+      300, // Radius
+      100, // Max number of entities
+      , // Tag
       FLAG_Attitude_Hostile + FLAG_ExcludePlayer + FLAG_OnlyAliveActors,
-      thePlayer, // target
+      thePlayer, // Target
       'CNewNPC'
     );
 
-    // to avoid duplicating bosses
+    // To avoid duplicating bosses.
     boss_tag = thePlayer.GetBossTag();
 
     for (i = 0; i < entities.Size(); i += 1) {
       if ((entities[i] as CNewNPC)
       && (entities[i] as CNewNPC).GetNPCType() == ENGT_Enemy
       
-      // this one removes animals like bears, wolves
-      // and also humans like bandits
+      // This one removes animals like bears, wolves
+      // and also humans like bandits.
       // && (entities[i] as CNewNPC).IsMonster()
       
-      // if the user allows even creatures who are in combat
-      // or if the creature is not in combat
+      // If the user allows even creatures who are in combat
+      // or if the creature is not in combat.
       && (
         this.can_duplicate_creatures_in_combat
         || !(entities[i] as CNewNPC).IsInCombat()

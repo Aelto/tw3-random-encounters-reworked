@@ -7,7 +7,7 @@ class RER_StaticEncounter {
 
   var region_constraint: RER_RegionConstraint;
 
-  // used to fetch the spawning chance from the menu.
+  // Used to fetch the spawning chance from the menu.
   var type: RER_StaticEncounterType;
   default type = StaticEncounterType_SMALL;
 
@@ -46,13 +46,13 @@ class RER_StaticEncounter {
       return false;
     }
 
-    // first if the player is too far
+    // First if the player is too far.
     radius = this.radius * this.radius;
     if (VecDistanceSquared2D(player_position, this.position) > max_distance * max_distance) {
       return false;
     }
 
-    // then check if the player is nearby, cancel spawn.
+    // Then check if the player is nearby, cancel spawn.
     radius = MinF(
       this.radius * this.radius * 2,
       max_distance * 0.5
@@ -62,7 +62,7 @@ class RER_StaticEncounter {
       return false;
     }
 
-    // check if an enemy from the `bestiary_entry` is nearby, cancel spawn.
+    // Check if an enemy from the `bestiary_entry` is nearby, cancel spawn.
     FindGameplayEntitiesCloseToPoint(
       entities,
       this.position,
@@ -90,7 +90,7 @@ class RER_StaticEncounter {
     for (i = 0; i < entities.Size(); i += 1) {
       hashed_name = entities[i].GetReadableName();
 
-      // we found a nearby enemy that is from the same template
+      // We found a nearby enemy that is from the same template
       if (this.isTemplateInEntry(hashed_name)) {
         NLOG("StaticEncounter already spawned");
 
@@ -133,7 +133,7 @@ class RER_StaticEncounter {
   }
 
   //
-  // return `true` if the roll succeeded, and false if it didn't.
+  // Return `true` if the roll succeeded, and false if it didn't.
   private function rollSpawningChance(small_chance: float, large_chance: float): bool {
     var spawn_chance: float;
 

@@ -1,18 +1,18 @@
 
-// in this class you will find all persistent data about the contracts the mod
+// In this class you will find all persistent data about the contracts the mod
 // stores in the user save files.
 class RER_ContractStorage extends RER_BaseStorage {
   default id = 'RandomEncountersReworked';
   default containerId = 'contract';
 
   /**
-   * the time the contracts were last generated. The int value in the hours
+   * The time the contracts were last generated. The int value in the hours
    * of playtime the player has spent in the save.
    */
   var last_generation_time: RER_GenerationTime;
 
   /**
-   * an array of the currently completed contracts. It is flushed if the
+   * An array of the currently completed contracts. It is flushed if the
    * last_errand_injection_time is refreshed.
    */
   var completed_contracts: array<RER_ContractIdentifier>;
@@ -22,7 +22,7 @@ class RER_ContractStorage extends RER_BaseStorage {
   var has_ongoing_contract: bool;
 }
 
-// an helper function to get contract storage
+// A helper function to get contract storage.
 function RER_loadContractStorage(): RER_ContractStorage {
   var storage: RER_ContractStorage;
 
@@ -33,7 +33,7 @@ function RER_loadContractStorage(): RER_ContractStorage {
   storage = GetModStorage()
     .load('RandomEncountersReworked', 'contract') as RER_ContractStorage;
 
-  // the first time we load, there is no data so we have to create something from
+  // The first time we load, there is no data so we have to create something from
   // scratch.
   if (!storage) {
     NLOG("RER_loadContractStorage - instantiating new RER_ContractStorage");

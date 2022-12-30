@@ -3,7 +3,7 @@
 function RER_addKillingSpreeCustomLootToEntities(loot_manager: RER_LootManager, entities: array<CEntity>, ecosystem_strength: float) {
   NLOG("RER_addKillingSpreeCustomLootToEntities: ecosystem strength = " + ecosystem_strength * 100);
 
-  // when it's a value in the ]0;1[ range, we bring it back to the [1;inf] range
+  // When it's a value in the ]0;1[ range, we bring it back to the [1;inf] range.
   // For example if it is a 0.5, so a 50% ecosystem strength it should be considered
   // the same as a 200% ecosystem strength, so 2. And 1 / 0.5 = 2.
   if (ecosystem_strength < 1 && ecosystem_strength != 0) {
@@ -20,10 +20,9 @@ function RER_addKillingSpreeCustomLootToEntities(loot_manager: RER_LootManager, 
   );
 
   for entity: CEntity in entities {
-    // the -100 to the ecosystem strength is because want to boost loot tables
-    // only if the strength is above 100. As an ecosystem_strength of 50 means
-    // it is as 50% of its original strength, meaning half and not an increase
-    // in 50%.
+    // The -100 to the ecosystem strength is because want to boost loot tables.
+    // Only if the strength is above 100. As an ecosystem_strength of 50 means
+    // it is at 50% of its original strength, meaning half and not an increase of 50%.
     loot_manager.rollAndGiveItemsTo((entity as CGameplayEntity).GetInventory(), ecosystem_strength * increase_per_point);
     (entity as CGameplayEntity).GetInventory().UpdateLoot();
   }

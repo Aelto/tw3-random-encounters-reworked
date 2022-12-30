@@ -25,7 +25,7 @@ state Spawning in RER_StaticEncounterManager {
       return;
     }
 
-    // WARNING: if you remove this sleep call the game crashes, at the moment of
+    // WARNING: If you remove this sleep call the game crashes, at the moment of
     // writing this comment i have literally no idea of why it would crash.
     Sleep(10);
 
@@ -36,7 +36,7 @@ state Spawning in RER_StaticEncounterManager {
     small_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterSmallSpawnChance'));
     large_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterLargeSpawnChance'));
 
-    // cancel if both options are set to 0
+    // Cancel if both options are set to 0.
     if (small_chance + large_chance <= 0) {
       return;
     }
@@ -57,9 +57,9 @@ state Spawning in RER_StaticEncounterManager {
       SleepOneFrame();
     }
 
-    // every time the spawning triggers, we loop over the nearby POIs and we spawn
+    // Every time the spawning triggers, we loop over the nearby POIs and we spawn
     // any new placeholder static encounter. They are then added to the persistent
-    // storage and finally they are manually triggered
+    // storage and finally they are manually triggered.
     // this.spawnPlaceholderStaticEncounters(
     //   master,
     //   player_position,
@@ -130,8 +130,8 @@ state Spawning in RER_StaticEncounterManager {
       );
     }
 
-    // we now save the storage where placeholders are stored since they may
-    // have copied a creature from their surrounding
+    // We now save the storage where placeholders are stored since they may
+    // have copied a creature from their surrounding.
     parent.master.storages.general.save();
   }
 
@@ -145,13 +145,13 @@ state Spawning in RER_StaticEncounterManager {
 
     // We also fetch entities with a custom tag to support
     // custom point of interests. This can prove useful in
-    // new maps from mods that may want to add support for RER
+    // new maps from mods that may want to add support for RER.
     // placeholders
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
-      max_distance, // range
-      500, // maxresults
+      max_distance, // Range
+      500, // Maxresults
       'RER_contractPointOfInterest', // tag
     );
 

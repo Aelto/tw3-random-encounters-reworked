@@ -2,7 +2,7 @@
 struct RER_Bounty {
   var seed: int;
 
-  // contains information about the different groups of creature the bounty is
+  // Contains information about the different groups of creature the bounty is
   // composed of.
   var random_data: RER_BountyRandomData;
 
@@ -16,10 +16,10 @@ struct RER_BountyRandomData {
 
 
 struct RER_BountyRandomMonsterGroupData {
-  // the creature type that composes this group
+  // The creature type that composes this group.
   var type: CreatureType;
   
-  // the enemy count
+  // The enemy count.
   var count: int;
 
   var position: Vector;

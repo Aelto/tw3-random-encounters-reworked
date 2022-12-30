@@ -33,6 +33,8 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.low_bad_influence) //CreatureARACHAS
       .influence(influences.low_bad_influence) //CreatureENDREGA
@@ -60,7 +62,7 @@ class RER_BestiaryBarghest extends RER_BestiaryEntry {
       .influence(influences.low_bad_influence) //CreatureBERSERKER
       .influence(influences.low_bad_influence) //CreatureSIREN
 
-      // large creatures below
+   // Large creatures below.
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.friend_with) //CreatureGARGOYLE
       .influence(influences.low_indirect_influence) //CreatureLESHEN

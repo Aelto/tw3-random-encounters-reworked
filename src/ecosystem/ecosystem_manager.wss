@@ -1,5 +1,5 @@
 
-// this manager class doesn't do much actually, it's more of a namespace for functions
+// This manager class doesn't do much actually, it's more of a namespace for functions
 // about the ecosystem feature.
 class RER_EcosystemManager {
   var master: CRandomEncounters;
@@ -16,11 +16,11 @@ class RER_EcosystemManager {
     this.ecosystem_modifier.init(this);
   }
 
-  // returns the EcosystemAreas the player is currently in.
-  // EcosystemAreas can overlap and so it returns an array
+  // Returns the EcosystemAreas the player is currently in.
+  // EcosystemAreas can overlap and so it returns an array.
   //
-  // NOTE: it returns the indices of the EcosystemAreas because they're structs
-  // and returning a struct makes a copy of it and not a reference. Which means
+  // NOTE: It returns the indices of the EcosystemAreas because they're structs.
+  // Returning a struct makes a copy of it and not a reference. Which means
   // if you edit the returned struct the original isn't and you'd need to find it
   // with its index so it's better to just return an index.
   public function getCurrentEcosystemAreas(): array<int> {
@@ -39,7 +39,7 @@ class RER_EcosystemManager {
     for (i = 0; i < this.master.storages.ecosystem.ecosystem_areas.Size(); i += 1) {
       current_area = this.master.storages.ecosystem.ecosystem_areas[i];
 
-      // check if the player in is the radius
+      // Check if the player in is the radius.
       if (VecDistanceSquared(player_position, current_area.position) < current_area.radius * current_area.radius) {
         output.PushBack(i);
       }
@@ -58,12 +58,12 @@ class RER_EcosystemManager {
     var current_impact: EcosystemCreatureImpact;
     var i, j, k: int;
 
-    // first we fill the array with 0 for each creature type
+    // First we fill the array with 0 for each creature type.
     for (i = 0; i < CreatureMAX; i += 1) {
       output.PushBack(0);
     }
 
-    // now for each area
+    // Now for each area.
     for (i = 0; i < areas.Size(); i += 1) {
       current_index = areas[i];
       current_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
@@ -71,26 +71,26 @@ class RER_EcosystemManager {
       for (j = 0; j < CreatureMAX; j += 1) {
         current_power = current_area.impacts_power_by_creature_type[j];
 
-        // when power is at 0 we can skip it as it won't change anything
+        // When power is at 0 we can skip it as it won't change anything.
         if (current_power == 0) {
           continue;
         }
 
         NLOG("current area, creature power = " + (j as CreatureType) + " - " + current_power);
 
-        // note that here, J is also an int that can be used as a CreatureType
+        // Note that here, J is also an int that can be used as a CreatureType.
         current_impact = this.master.bestiary.entries[j].ecosystem_impact;
 
-        // now we loop through each influence and add them to the output
-        // the influence is multiplied by the power of the current CreatureType
+        // Now we loop through each influence and add them to the output.
+        // The influence is multiplied by the power of the current CreatureType.
         for (k = 0; k < current_impact.influences.Size(); k += 1) {
           output[k] += current_power * current_impact.influences[k];
         }
       }
     }
 
-    // here we now have a list of the influenced spawn rates for each CreatureType.
-    // the influenced spawn rate is a float value that tells by how much the creature's
+    // Here we now have a list of the influenced spawn rates for each CreatureType.
+    // The influenced spawn rate is a float value that tells by how much the creature's
     // spawn rate should be multiplied. It can be positive or negative.
     return output;
   }
@@ -112,7 +112,7 @@ class RER_EcosystemManager {
       NLOG("udpateCountersWithCreatureModifiers, before = " + counters[i]);
       NLOG("udpateCountersWithCreatureModifiers, creature = " + (i as CreatureType) + " modifier = " + modifiers[i]);
 
-      // here, it's an added value `+=` and not a `=` so if the modifiers is at
+      // Here, it's an added value `+=` and not a `=` so if the modifiers is at
       // 0 it won't change the value rather than setting it at 0.
       // See modifiers as an % increase/decrease.
       counters[i] += ((counters[i] as float) * modifiers[i] * this.master.settings.ecosystem_community_power_effect) as int;
@@ -121,7 +121,7 @@ class RER_EcosystemManager {
     }
   }
 
-  // this function fetches the current ecosystem areas the player is in, then
+  // This function fetches the current ecosystem areas the player is in, then
   // updates the power for the supplied creature by additioning the supplied
   // `power_change` value to the current `power` value of the creature in the
   // current areas.
@@ -135,7 +135,7 @@ class RER_EcosystemManager {
   // No matter the count of EcosystemAreas around the player it updates the power
   // value by calculating the % distance from the center of the area to its extremity.
   //
-  // NOTE: the function saves the ecosystem storage after the operation.
+  // NOTE: The function saves the ecosystem storage after the operation.
   public function updatePowerForCreatureInCurrentEcosystemAreas(creature: CreatureType, power_change: float, position: Vector) {
     var ecosystem_areas: array<int>;
     var current_ecosystem_area: EcosystemArea;
@@ -154,7 +154,7 @@ class RER_EcosystemManager {
       NLOG("no ecosystem area found, creating one");
       current_ecosystem_area = getNewEcosystemArea(
         position,
-        // this is the default radius, it uses the distance settings
+        // This is the default radius, it uses the distance settings.
         this.master.settings.minimum_spawn_distance + this.master.settings.spawn_diameter
       );
 
@@ -171,16 +171,16 @@ class RER_EcosystemManager {
       current_index = ecosystem_areas[i];
       current_ecosystem_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
       
-      // at the moment it's just the raw squared distance
+      // At the moment it's just the raw squared distance.
       distance_from_center = VecDistanceSquared(
         current_ecosystem_area.position,
         position
       );
 
-      // now it's a percentage value going from 0 to 1
+      // Now it's a percentage value going from 0 to 1.
       distance_from_center = distance_from_center / (current_ecosystem_area.radius * current_ecosystem_area.radius);
 
-      // minimum power change is 20%,
+      // Minimum power change is 20%.
       distance_from_center = MinF(distance_from_center, 0.2);
 
       NLOG("ecosystem power change for " + creature + " distance from center = " + distance_from_center);
@@ -193,16 +193,16 @@ class RER_EcosystemManager {
         .impacts_power_by_creature_type[creature] += power_change
           * (1 - distance_from_center)
 
-          // this is to make changes more impactful on minorities and large communities
+          // This is to make changes more impactful on minorities and large communities
           // the power change is multiplied by the power of the community.
           * (1 +
             AbsF(this.master
             .storages
             .ecosystem
             .ecosystem_areas[current_index]
-            // 2.5% for every power
-            // Let's imagine a case where 5 drowners spawn. 5 drowners mean +5 power
-            // the next time drowners spawn instead of adding +5 it will be +6.5 or something
+            // 2.5% for every power.
+            // Let's imagine a case where 5 drowners spawn. 5 drowners mean +5 power.
+            // The next time drowners spawn instead of adding +5 it will be +6.5 or something.
             .impacts_power_by_creature_type[creature] * 0.025)
           );
     }
@@ -210,14 +210,14 @@ class RER_EcosystemManager {
     this.ecosystem_modifier
         .executePowerSpreadAndNaturalDeath(ecosystem_areas);
 
-    // we now save the storage to store the power change.
+    // We now save the storage to store the power change.
     this.master
       .storages
       .ecosystem
       .save();
   }
 
-  // returns a new empty ecosystem area with all default values initiliased
+  // Returns a new empty ecosystem area with all default values initiliased.
   public function getNewEcosystemArea(position: Vector, radius: float): EcosystemArea {
     var area: EcosystemArea;
     var i: int;
@@ -232,7 +232,7 @@ class RER_EcosystemManager {
     return area;
   }
 
-  // returns which other creatures influenced the surrounding ecosystem and helped
+  // Returns which other creatures influenced the surrounding ecosystem and helped
   // the community with the supplied type form.
   // 
   public function getCommunityReasonsToExist(creature_type: CreatureType): array<CreatureType> {
@@ -243,9 +243,9 @@ class RER_EcosystemManager {
 
     influences = RER_ConstantInfluences();
 
-    // we search for all creature who are either friend_with, low_indirect_influence
+    // We search for all creature who are either friend_with, low_indirect_influence
     // or high_indirect_influence towards wolves.
-    // we do it in three steps to create a sorted array
+    // We do it in three steps to create a sorted array.
     for (i = 0; i < CreatureMAX; i += 1) {
       current_bestiary_entry = this.master.bestiary.entries[i];
 
@@ -273,7 +273,7 @@ class RER_EcosystemManager {
     return output;
   }
 
-  // returns which other creatures influenced the surrounding ecosystem and stopped
+  // Returns which other creatures influenced the surrounding ecosystem and stopped
   // the community with the supplied type from forming.
   // 
   public function getCommunityReasonsToNotExist(creature_type: CreatureType): array<CreatureType> {
@@ -284,9 +284,9 @@ class RER_EcosystemManager {
 
     influences = RER_ConstantInfluences();
 
-    // we search for all creature who are either kills_them, low_bad_influence
+    // We search for all creature who are either kills_them, low_bad_influence
     // or high_bad_influence towards wolves.
-    // we do it in three steps to create a sorted array
+    // We do it in three steps to create a sorted array.
     for (i = 0; i < CreatureMAX; i += 1) {
       current_bestiary_entry = this.master.bestiary.entries[i];
 
@@ -314,7 +314,7 @@ class RER_EcosystemManager {
     return output;
   }
 
-  // returns communities who are influenced in a good way by the supplied creature type
+  // Returns communities who are influenced in a good way by the supplied creature type.
   public function getCommunityGoodInfluences(creature_type: CreatureType): array<CreatureType> {
     var influences: RER_ConstantInfluences;
     var output: array<CreatureType>;
@@ -323,9 +323,9 @@ class RER_EcosystemManager {
 
     influences = RER_ConstantInfluences();
 
-    // we search for all creatures whose wolves are either
+    // We search for all creatures whose wolves are either
     // friend_with, low_indirect_influence or high_indirect_influence towards them.
-    // we do it in three steps to create a sorted array
+    // We do it in three steps to create a sorted array.
     for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
       current_influence = this.master.bestiary.entries[creature_type]
         .ecosystem_impact
@@ -359,7 +359,7 @@ class RER_EcosystemManager {
     return output;
   }
 
-  // returns communities who are influenced in a bad way by the supplied creature type
+  // Returns communities who are influenced in a bad way by the supplied creature type.
   public function getCommunityBadInfluences(creature_type: CreatureType): array<CreatureType> {
     var influences: RER_ConstantInfluences;
     var output: array<CreatureType>;
@@ -368,9 +368,9 @@ class RER_EcosystemManager {
 
     influences = RER_ConstantInfluences();
 
-    // we search for all creatures whose wolves are either
+    // We search for all creatures whose wolves are either
     // kills_them, low_bad_influence or high_bad_influence towards them.
-    // we do it in three steps to create a sorted array
+    // We do it in three steps to create a sorted array.
     for (current_type = 0; current_type < CreatureMAX; current_type += 1) {
       current_influence = this.master.bestiary.entries[creature_type]
         .ecosystem_impact
@@ -404,7 +404,7 @@ class RER_EcosystemManager {
     return output;
   }
 
-  // returns the frequency multiplier based on the state of the supplied ecosystems.
+  // Returns the frequency multiplier based on the state of the supplied ecosystems.
   // A negative power increases the multiplier while a negative power decreases it.
   // That means killing monsters will increase the speed at which new monsters are
   // spawned while letting them leave will decrease the speed.
@@ -427,7 +427,7 @@ class RER_EcosystemManager {
       return 1;
     }
     
-    // for each area
+    // For each area.
     for (i = 0; i < number_of_areas; i += 1) {
       current_index = areas[i];
       current_area = this.master.storages.ecosystem.ecosystem_areas[current_index];
@@ -435,14 +435,14 @@ class RER_EcosystemManager {
       for (j = 0; j < CreatureMAX; j += 1) {
         current_power = current_area.impacts_power_by_creature_type[j];
 
-        // when power is at 0 we can skip it as it won't change anything
+        // When power is at 0 we can skip it as it won't change anything.
         if (current_power == 0) {
           continue;
         }
 
         NLOG("current_power [" + (j as CreatureType) + "] =" + current_power);
 
-        // note that here, J is also an int that can be used as a CreatureType
+        // Note that here, J is also an int that can be used as a CreatureType.
         multiplier += current_power * this.master
           .bestiary
           .entries[j]
@@ -450,7 +450,7 @@ class RER_EcosystemManager {
       }
     }
 
-    // and finally we divide the multiplier by the amount of ecosystem areas
+    // And finally we divide the multiplier by the amount of ecosystem areas
     // to create a mean value.
     //
     // At this point the multiplier is the raw power value, that means it's
@@ -458,7 +458,7 @@ class RER_EcosystemManager {
     // divider value.
     // +100 means it's a 100% increase in speed (a 50% decrease in time so)
     // -100 means it's the opposite of a 100% increase, which is x2 and so here
-    // it is a division by 2 or 50% in speed (or a 100% increase in time)
+    // It is a division by 2 or 50% in speed (or a 100% increase in time).
     multiplier /= number_of_areas;
     multiplier *= StringToFloat(
       theGame.GetInGameConfigWrapper()
@@ -471,24 +471,24 @@ class RER_EcosystemManager {
       return 1;
     }
     else if (multiplier < 0) {
-      //  -50 gives a 1.5 multiplier in speed
-      // -100 gives a 2 multiplier
-      // -200 gives a 3 multiplier
+      //  -50 gives a 1.5 multiplier in speed.
+      // -100 gives a 2 multiplier.
+      // -200 gives a 3 multiplier.
       return multiplier
-           * -0.01 // bring back to the range of a multiplier, so 100% is now 1
-           + 1; // because it's a multiplier we want it to be higher than 1
-           // otherwise it would decrease the delay instead of increasing it.
+           * -0.01 // Bring back to the range of a multiplier, so 100% is now 1.
+           + 1; // Because it's a multiplier we want it to be higher than 1.
+           // Otherwise it would decrease the delay instead of increasing it.
     }
     else {
-      //  +50 gives a 0.66 multiplier in speed
-      // +100 gives a 0.5 multiplier
-      // +200 gives a 0.33
+      //  +50 gives a 0.66 multiplier in speed.
+      // +100 gives a 0.5 multiplier.
+      // +200 gives a 0.33.
       return 1
            / (
               (multiplier)
-              * 0.01 // same reason as above
-              + 1 // because at -100 we want it to be the same as
-              // a division by 2, at -50 it should be a division by 1.5
+              * 0.01 // Same reason as above.
+              + 1 // Because at -100 we want it to be the same as
+              // a division by 2, at -50 it should be a division by 1.5.
              );
 
     }
@@ -501,7 +501,7 @@ class RER_EcosystemManager {
 
     this.master.storages.ecosystem.ecosystem_areas.Clear();
 
-    // we now save the storage to store the power change.
+    // We now save the storage to store the power change.
     this.master
       .storages
       .ecosystem

@@ -52,6 +52,8 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 3.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
@@ -79,7 +81,7 @@ class RER_BestiaryFogling extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureBERSERKER
       .influence(influences.friend_with) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN

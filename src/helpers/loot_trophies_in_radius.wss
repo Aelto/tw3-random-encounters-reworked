@@ -16,7 +16,7 @@ function lootTrophiesInRadius(): bool {
       NLOG("lootbag - giving all RER_Trophy to player");
       items_guids = (entities[i] as W3Container).GetInventory().GetItemsByTag('RER_Trophy');
 
-      // set `looted_a_trophy` if a trophy was found
+      // Set `looted_a_trophy` if a trophy was found.
       looted_a_trophy = looted_a_trophy || items_guids.Size() > 0;
 
       if (items_guids.Size() > 0) {

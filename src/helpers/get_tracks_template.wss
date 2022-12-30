@@ -20,8 +20,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
       track.monster_clue_type = 'RER_MonsterClueNightwraith';
 
-      // only 1 out of 10 clouds of mist are created.
-      // track.trail_ratio_multiplier = 5;
+      // Only 1 out of 10 clouds of mist are created.
+      // Track.trail_ratio_multiplier = 5;
 
       return track;
       break;
@@ -32,8 +32,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueHuman';
       break;
 
@@ -43,8 +43,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueDrowner';
       break;
 
@@ -54,8 +54,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueDrowner';
       break;
 
@@ -65,8 +65,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueRotfiend';
       break;
 
@@ -76,8 +76,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueNekker';
       break;
 
@@ -87,8 +87,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueGhoul';
       break;
 
@@ -98,8 +98,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueAlghoul';
       break;
 
@@ -109,8 +109,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueFiend';
       break;
 
@@ -120,8 +120,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueChort';
       break;
 
@@ -131,8 +131,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueWerewolf';
       break;
 
@@ -142,8 +142,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueLeshen';
       break;
 
@@ -153,8 +153,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueKatakan';
       break;
 
@@ -164,8 +164,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueEkimmara';
       break;
 
@@ -175,8 +175,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueElemental';
       break;
 
@@ -186,8 +186,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueGolem';
       break;
     
@@ -197,8 +197,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueGiant';
       break;
 
@@ -208,8 +208,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueCyclop';
       break;
 
@@ -219,8 +219,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueGryphon';
       break;
 
@@ -230,8 +230,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueWyvern';
       break;
 
@@ -241,8 +241,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueCockatrice';
       break;
 
@@ -252,8 +252,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBasilisk';
       break;
 
@@ -263,8 +263,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueForktail';
       break;
 
@@ -274,8 +274,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueWight';
       break;
 
@@ -285,8 +285,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueSharley';
       break;
 
@@ -296,8 +296,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueHag';
       break;
 
@@ -307,8 +307,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueFoglet';
       break;
 
@@ -318,8 +318,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueTroll';
       break;
 
@@ -329,8 +329,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBruxa';
       break;
 
@@ -340,8 +340,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueDetlaff';
       break;
 
@@ -351,8 +351,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueGarkain';
       break;
     
@@ -362,8 +362,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueFleder';
       break;
 
@@ -373,8 +373,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueGargoyle';
       break;
 
@@ -384,8 +384,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueKikimore';
       break;
 
@@ -395,8 +395,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueCentipede';
       break;
 
@@ -406,8 +406,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBerserker';
       break;
 
@@ -417,8 +417,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueWolf';
       break;
 
@@ -428,8 +428,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBear';
       break;
 
@@ -439,8 +439,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBoar';
       break;
 
@@ -450,8 +450,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBoar';
       break;
 
@@ -461,8 +461,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueBoar';
       break;
 
@@ -472,8 +472,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueWildhunt';
       break;
 
@@ -483,8 +483,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueArachas';
       break;
 
@@ -494,8 +494,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueHarpy';
       break;
 
@@ -505,8 +505,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueSiren';
       break;
 
@@ -516,8 +516,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueEndrega';
       break;
 
@@ -527,8 +527,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueEchinops';
       break;
 
@@ -538,8 +538,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClueDracolizard';
       break;
 
@@ -549,8 +549,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         true
       ) as CEntityTemplate;
 
-      // dynamically assigning the monster_clue_type to our own. Easier than to create
-      // 32 w2ent files
+      // Dynamically assigning the monster_clue_type to our own. Easier than to create
+      // 48 w2ent files.
       track.monster_clue_type = 'RER_MonsterClue';
       break;
 
@@ -560,8 +560,8 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
     //     true
     //   );
 
-    //   // dynamically assigning the monster_clue_type to our own. Easier than to create
-    //   // 32 w2ent files
+    //   // Dynamically assigning the monster_clue_type to our own. Easier than to create
+    //   // 48 w2ent files.
     //   track.monster_clue_type = 'RER_MonsterClueFleder';
     //   break;
   }

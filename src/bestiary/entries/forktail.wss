@@ -42,6 +42,8 @@ class RER_BestiaryForktail extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 7.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
@@ -69,7 +71,7 @@ class RER_BestiaryForktail extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureBERSERKER
       .influence(influences.no_influence) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.high_bad_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN

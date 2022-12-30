@@ -4,19 +4,19 @@
 cls
 
 echo ""
-echo "Installer for the mod Random Encounters Reworked"
+echo "Installer for the mod Random Encounters Reworked."
 echo ""
 echo "This will work in major steps:"
-echo " - First it will download the mods and its dependencies from GitHub"
-echo " - It will remove dependencies you may not need based on your current mods"
-echo " - It will list everything it plans to add to your game"
-echo " - It will install the listed files"
-echo " - It will open a link in your browser to guide you through the merging process and the first steps while in game"
+echo " - First it will download the mods and its dependencies from GitHub."
+echo " - It will remove dependencies you may not need based on your current mods."
+echo " - It will list everything it plans to add to your game."
+echo " - It will install the listed files."
+echo " - It will open a link in your browser to guide you through the merging process and the first steps while in game."
 
 pause
 cls
 
-# before doing anything we check if the script file is placed in the right
+# Before doing anything we check if the script file is placed in the right
 # directory. It expects to be placed right in the witcher 3 root.
 if (!(test-path dlc)) {
   write-host -ForegroundColor red "Please make sure the script is placed inside your The Witcher 3 install directly"
@@ -27,7 +27,7 @@ if (!(test-path dlc)) {
   exit
 }
 
-# first we create the mods folder if it doesn't exist, because in clean installs
+# First we create the mods folder if it doesn't exist, because in clean installs
 # this folder may be missing.
 if (!(test-path mods)) {
   mkdir mods | out-null
@@ -51,8 +51,8 @@ Expand-Archive -Force -LiteralPath $latestAssetName -DestinationPath ./$extracti
 remove-item $latestAssetName -recurse -force
 
 # TODO:
-# if the user has EE, install the patches for the improved compatibility
-# this is done after the RER download because it will overwrite files
+# If the user has EE, install the patches for the improved compatibility
+# this is done after the RER download because it will overwrite files.
 # if (test-path mods/modW3EE) {
 #   echo ""
 #   echo "downloading W3EE compatibility patches"
@@ -63,7 +63,7 @@ remove-item $latestAssetName -recurse -force
 # }
 
 # TODO:
-# if the user has FHUD, there is a patch for it to display custom 3D map markers
+# If the user has FHUD, there is a patch for it to display custom 3D map markers.
 # if (!(test-path mods/modW3EE) -and (test-path mods/modFriendlyHUD)) {
 #   echo ""
 #   echo "downloading FHUD compatibility patches"
@@ -73,7 +73,7 @@ remove-item $latestAssetName -recurse -force
 #   remove-item $assetFhudPatches.name -recurse -force
 # }
 
-# print message notifying which mod will be installed
+# Print message notifying which mod will be installed.
 cls
 echo ""
 echo "installing the following mods:"
@@ -110,7 +110,7 @@ foreach ($child in $children) {
 echo ""
 pause
 
-# finally start installing the mods
+# Finally start installing the mods.
 $children = Get-ChildItem ./$extractingFolder
 foreach ($child in $children) {
   $fullpath = "{0}/{1}" -f $extractingFolder, $child

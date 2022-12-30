@@ -36,6 +36,8 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 7.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
@@ -63,7 +65,7 @@ class RER_BestiaryCyclop extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureBERSERKER
       .influence(influences.friend_with) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.kills_them) //CreatureDRACOLIZARD
       .influence(influences.kills_them) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN

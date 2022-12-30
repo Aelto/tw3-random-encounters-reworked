@@ -84,8 +84,8 @@ class RER_Bestiary {
     }
 
     #ifdef ENABLE_BESTIARY_FEATURE {
-      // when the option "Only known bestiary creatures" is ON
-      // we remove every unknown creatures from the spawning pool
+      // When the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool.
       if (master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BREF_IGNORE_BESTIARY)) {
         manager = theGame.GetJournalManager();
 
@@ -277,9 +277,9 @@ class RER_Bestiary {
   }
 
 
-  //#region 3rd party code
-  // everything in here is code to handle third party encounters/creatures in 
-  // the bestiary
+  // #region 3rd party code
+  // Everything in here is code to handle third party encounters/creatures in 
+  // the bestiary.
 
   private var third_party_creature_counter: int;
   default third_party_creature_counter = 0;

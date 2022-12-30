@@ -1,13 +1,13 @@
 
 statemachine class RER_EventsManager extends CEntity {
 
-  //#region listeners
+  // #region listeners
   public var listeners: array<RER_EventsListener>;
   
   public function addListener(listener: RER_EventsListener) {
     this.listeners.PushBack(listener);
   }
-  //#endregion listeners
+  // #endregion listeners
 
   public var master: CRandomEncounters;
 
@@ -27,8 +27,8 @@ statemachine class RER_EventsManager extends CEntity {
 
   public var delay: float;
 
-  // this exists because i don't want the the event % chances to trigger
-  // to scale on the interval. Because it means if a player wants his events
+  // This exists because i don't want the the event % chances to trigger
+  // the scale on the interval. Because it means if a player wants his events
   // to trigger less often he has to either increase the interval or reduce 
   // the % chances one by one. And the interval should NOT be increased unless
   // for performance reasons. 
@@ -39,7 +39,7 @@ statemachine class RER_EventsManager extends CEntity {
 
     this.delay = this.master.settings.event_system_interval;
     
-    // only start the system if the delay is above 0
+    // Only start the system if the delay is above 0.
     if (this.delay > 0) {
       this.GotoState('Starting');
     }

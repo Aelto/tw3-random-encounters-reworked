@@ -16,7 +16,7 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
       parent.GetWorldPosition()
     );
 
-    // the distance check could cause issues if the player lures monsters outside
+    // The distance check could cause issues if the player lures monsters outside
     // the radius and kill them there.
     if (parent.is_bounty && distance_from_player < 150 * 150) {
       if (parent.bounty_group_index < 0) {

@@ -1,26 +1,26 @@
 
 
 enum RER_CameraTargetType {
-  // when you want the camera to target a node, the node can move
+  // When you want the camera to target a node, the node can move.
   RER_CameraTargetType_NODE = 0,
 
-  // when you want the camera to target a static position
+  // When you want the camera to target a static position.
   RER_CameraTargetType_STATIC = 1,
 
-  // when you want the camera to target a bone component, it can move
+  // When you want the camera to target a bone component, it can move.
   RER_CameraTargetType_BONE = 3
 }
 
 enum RER_CameraPositionType {
-  // the position will be absolute positions
+  // The position will be absolute positions.
   RER_CameraPositionType_ABSOLUTE = 0,
 
-  // the position will be relative to the camera's current position.
+  // The position will be relative to the camera's current position.
   RER_CameraPositionType_RELATIVE = 1,
 }
 
 enum RER_CameraVelocityType {
-  // relative to the rotation of the camera
+  // Relative to the rotation of the camera.
   RER_CameraVelocityType_RELATIVE = 0,
 
   RER_CameraVelocityType_ABSOLUTE = 1,
@@ -29,11 +29,11 @@ enum RER_CameraVelocityType {
 }
 
 struct RER_CameraScene {
-  // where the camera is placed
+  // Where the camera is placed.
   var position_type: RER_CameraPositionType;
   var position: Vector;
 
-  // where the camera is looking
+  // Where the camera is looking.
   var look_at_target_type: RER_CameraTargetType;
   var look_at_target_node: CNode;
   var look_at_target_static: Vector;
@@ -44,8 +44,7 @@ struct RER_CameraScene {
   var velocity_type: RER_CameraVelocityType;
   var velocity: Vector;
 
-  // 1 means no blending at all, while 0 means so much blending it won't move at
-  // all
+  // 1 Means no blending at all, while 0 means so much blending it won't move at all.
   var position_blending_ratio: float;
   var rotation_blending_ratio: float;
 
@@ -98,7 +97,7 @@ class RER_StaticCamera extends CStaticCamera {
         break;
     }
 
-    // because the Pitch (Y axis) is inverted by default
+    // Because the Pitch (Y axis) is inverted by default.
     current_rotation.Pitch *= -1;
 
     return current_rotation;
@@ -108,14 +107,14 @@ class RER_StaticCamera extends CStaticCamera {
     var current_rotation: EulerAngles;
     var current_position: Vector;
 
-    // immersive camera crashes if there is camera blending when on horse
+    // Immersive camera crashes if there is camera blending when on horse
     // or in combat.
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraScenesDisabledOnHorse')
     &&  thePlayer.IsUsingHorse() || thePlayer.IsInCombat()) {
       return;
     }
 
-    // this option was added because immersive camera doesn't like the blending 
+    // This option was added because immersive camera doesn't like the blending 
     // options, and the game would crash.
     if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERcameraBlendingDisabled')) {
       this.deactivationDuration = 1.5;
@@ -134,24 +133,24 @@ class RER_StaticCamera extends CStaticCamera {
     this.Run();
     Sleep(this.activationDuration);
 
-    // 1. we always start from the camera's position and its rotation
-    // only if not relative, because relative position starts from (0, 0, 0)
+    // 1. We always start from the camera's position and its rotation
+    // only if not relative, because relative position starts from (0, 0, 0).
     // if (scene.position_type != RER_CameraPositionType_RELATIVE) {
     current_position = theCamera.GetCameraPosition();
     // }
 
     current_rotation = theCamera.GetCameraRotation();
 
-    // 2. then we move the camera there and start running
+    // 2. Then we move the camera there and start running.
     this.TeleportWithRotation(current_position, current_rotation);
 
-    // 3. we start looping to animate the camera toward the scene goals
+    // 3. We start looping to animate the camera toward the scene goals.
     this.blendToScene(scene, current_position, current_rotation);
 
     this.Stop();
 
     // if (destroy_after) {
-      // removed because it cancels the blending
+      // Removed because it cancels the blending.
       // this.Destroy();
     // }
   }
@@ -167,8 +166,8 @@ class RER_StaticCamera extends CStaticCamera {
     while (theGame.GetEngineTimeAsSeconds() < ending_time) {
       time_progress = MinF((theGame.GetEngineTimeAsSeconds() - starting_time) / scene.duration, 0.5);
 
-      // 1 we do the position & rotation blendings
-      // 1.1 we do the position blending
+      // 1 We do the position & rotation blendings.
+      // 1.1 We do the position blending.
       if (scene.position_type == RER_CameraPositionType_RELATIVE) {
         current_position += (thePlayer.GetWorldPosition() + scene.position - current_position) * scene.position_blending_ratio * time_progress;
       }
@@ -176,13 +175,13 @@ class RER_StaticCamera extends CStaticCamera {
         current_position += (scene.position - current_position) * scene.position_blending_ratio * time_progress;
       }
 
-      // 1.2 we do the rotation blending
+      // 1.2 We do the rotation blending.
       goal_rotation = this.getRotation(scene, current_position);
       current_rotation.Roll += AngleNormalize180(goal_rotation.Roll - current_rotation.Roll) * scene.rotation_blending_ratio * time_progress;
       current_rotation.Yaw += AngleNormalize180(goal_rotation.Yaw - current_rotation.Yaw) * scene.rotation_blending_ratio * time_progress;
       current_rotation.Pitch += AngleNormalize180(goal_rotation.Pitch - current_rotation.Pitch) * scene.rotation_blending_ratio * time_progress;
 
-      // 2 we update the goal position using the velocity
+      // 2 We update the goal position using the velocity.
       if (scene.velocity_type == RER_CameraVelocityType_ABSOLUTE) {
         scene.position += scene.velocity; // todo: use delta
       } else if (scene.velocity_type == RER_CameraVelocityType_FORWARD) {
@@ -192,7 +191,7 @@ class RER_StaticCamera extends CStaticCamera {
         scene.position += VecFromHeading(theCamera.GetCameraHeading()) * scene.velocity;
       }
 
-      // 3 we finally teleport the camera
+      // 3 We finally teleport the camera.
       this.TeleportWithRotation(current_position, current_rotation);
       
       SleepOneFrame();

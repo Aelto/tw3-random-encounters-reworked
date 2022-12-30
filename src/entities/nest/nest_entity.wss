@@ -22,12 +22,12 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   default forced_species = SpeciesTypes_NONE;
 
   /**
-   * counts how many monsters were spawned by this nest
+   * Counts how many monsters were spawned by this nest.
    */
   var monsters_spawned_count: int;
 
   /**
-   * defines when newly spawned monsters should no longer drop loot.
+   * Defines when newly spawned monsters should no longer drop loot.
    * The number set corresponds to the number of monsters that were spawned
    * before.
    */
@@ -35,7 +35,7 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
   default disable_monsters_loot_threshold = 10;
 
   /**
-   * controls how many monsters the nest can spawn in total.
+   * Controls how many monsters the nest can spawn in total.
    */
   var monsters_spawned_limit: int;
   default monsters_spawned_limit = 15;
@@ -91,13 +91,13 @@ statemachine class RER_MonsterNest extends CMonsterNestEntity {
 
     this.l_enginetime = theGame.GetEngineTimeAsSeconds();
 
-    // the player did not talk in the last 60 seconds
+    // The player did not talk in the last 60 seconds.
     if (l_enginetime > this.voicesetTime + 60.0) {
       this.voicesetTime = this.l_enginetime;
       this.voicesetPlayed = true;
       this.GotoState('Talking');
     }
-    // he did, so we directly go to the spawning state
+    // The player did, directly go to the spawning state.
     else if (GetCurrentStateName() != 'Spawning') {
       this.GotoState('Spawning');
     }

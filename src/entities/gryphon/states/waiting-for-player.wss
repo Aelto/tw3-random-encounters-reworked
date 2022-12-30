@@ -1,5 +1,5 @@
 
-// When the gryphon is on the ground waiting for the player to attack it
+// When the gryphon is on the ground waiting for the player to attack it.
 // The gryphon is feeding on a dead beast on the ground. You have to find
 // it with tracks and blood spills on the ground.
 // ENTRY-POINT state.
@@ -65,8 +65,8 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
     parent.this_newnpc.ForgetAllActors();
 
     if (parent.this_actor.IsInCombat() && parent.this_actor.GetTarget() == thePlayer
-    // the distance here is squared for performances reasons, so 400 = 20*20
-    // the squareroot is a costly operation. So it's better to multiply the other
+    // The distance here is squared for performances reasons, so 400 = 20*20.
+    // The squareroot is a costly operation. So it's better to multiply the other
     // side and compare it to the squared value (distance).
      || VecDistanceSquared(thePlayer.GetWorldPosition(), parent.this_actor.GetWorldPosition()) < 400
      || parent.this_actor.GetDistanceFromGround(1000) > 3
@@ -118,7 +118,7 @@ state WaitingForPlayer in RandomEncountersReworkedGryphonHuntEntity {
     parent.RemoveTimer('WaitingForPlayer_intervalDefaultFunction');
     parent.RemoveTimer('WaitingForPlayer_drawLineOfBloodToGryphon');
 
-    // copied from regular RE, not sure about it.
+    // Copied from regular RE, not sure about it.
     for(i=0; i<100; i+=1) {
       parent.this_actor.CancelAIBehavior(i);
     }

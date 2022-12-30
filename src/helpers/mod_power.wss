@@ -1,6 +1,6 @@
 
 /**
- * the mod power is a value in the [0;1] range that indicates how fast
+ * The mod power is a value in the [0;1] range that indicates how fast
  * the mod should run. This means that at 0.1, the mod will use only 10%
  * of its power (spawning monsters, events, contracts etc...) and will
  * progressively get more aggressive until it reaches 1.
@@ -28,7 +28,7 @@ function RER_getModPower(): float {
 }
 
 /**
- * return if there is enough mod power for the encounter system to be
+ * Return if there is enough mod power for the encounter system to be
  * enabled.
  */
 function RER_modPowerIsEncounterSystemEnabled(): bool {
@@ -36,7 +36,7 @@ function RER_modPowerIsEncounterSystemEnabled(): bool {
 }
 
 function RER_modPowerIsStaticEncounterSystemEnabled(): bool {
-  // same as the regular encounters
+  // Same as the regular encounters.
   return RER_modPowerIsEncounterSystemEnabled();
 }
 

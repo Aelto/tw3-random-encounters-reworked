@@ -41,6 +41,8 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 15;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -68,7 +70,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureBERSERKER
       .influence(influences.kills_them) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.kills_them) //CreatureDRACOLIZARD
       .influence(influences.kills_them) //CreatureGARGOYLE
       .influence(influences.self_influence) //CreatureLESHEN

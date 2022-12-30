@@ -9,9 +9,9 @@ state Combat in RandomEncountersReworkedHuntEntity {
   }
 
   entry function Combat_Main() {
-    // to know if it's an ambush
-    // if true, will play a oneliner and a camera scene
-    // the camera scene plays only if player is not busy and doesn't have camera scenes disabled from menu
+    // To know if it's an ambush.
+    // If true, will play a oneliner and a camera scene.
+    // The camera scene plays only if player is not busy and doesn't have camera scenes disabled from menu.
     if (parent.bait_moves_towards_player) {
       RER_tutorialTryShowAmbushed();
       this.startAmbushCutscene();
@@ -50,11 +50,11 @@ state Combat in RandomEncountersReworkedHuntEntity {
     var camera: RER_StaticCamera;
     var look_at_position: Vector;
 
-    // where the camera is placed
+    // Where the camera is placed.
     scene.position_type = RER_CameraPositionType_ABSOLUTE;
     scene.position = theCamera.GetCameraPosition() + Vector(0, 0, 1);
 
-    // where the camera is looking
+    // Where the camera is looking.
     scene.look_at_target_type = RER_CameraTargetType_STATIC;
     look_at_position = parent.getRandomEntity().GetWorldPosition();
     scene.look_at_target_static = look_at_position + Vector(0, 0, 0);
@@ -97,8 +97,8 @@ state Combat in RandomEncountersReworkedHuntEntity {
   }
 
   latent function waitUntilPlayerFinishesCombat() {
-    // sleep a bit before entering the loop, to avoid a really fast loop if the
-    // player runs away from the monster
+    // Sleep a bit before entering the loop, to avoid a really fast loop if the
+    // player runs away from the monster.
     Sleep(3);
 
     while (SUH_waitUntilPlayerFinishesCombatStep(parent.entities)) {

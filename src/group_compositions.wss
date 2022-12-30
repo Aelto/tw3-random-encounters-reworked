@@ -1,7 +1,7 @@
 
 // Sometimes solo creatures can be accompanied by smaller creatures,
-// this is what i call a group composition. Imagine a leshen and a few wolves
-// or a giant fighting humans.
+// this is what I call a group composition. Imagine a leshen and a few wolves.
+// Or a giant fighting humans.
 
 latent function makeGroupComposition(encounter_type: EncounterType, random_encounters_class: CRandomEncounters) {
   if (encounter_type == EncounterType_HUNT) {
@@ -24,7 +24,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
     NLOG("spawning - HUNTINGGROUND");
     createRandomCreatureHuntingGround(random_encounters_class, new RER_BestiaryEntryNull in random_encounters_class);
     
-    // no voiceline for this encounter type as it's supposed to be a passive
+    // No voiceline for this encounter type as it's supposed to be a passive
     // encounter you don't notice.
   }
   else {
@@ -34,7 +34,7 @@ latent function makeGroupComposition(encounter_type: EncounterType, random_encou
 
 abstract class CompositionSpawner {
 
-  // When you need to force a creature type
+  // When you need to force a creature type.
   var _bestiary_entry: RER_BestiaryEntry;
   var _bestiary_entry_null: bool;
   default _bestiary_entry_null = true;
@@ -46,7 +46,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // When you need to force a number of creatures
+  // When you need to force a number of creatures.
   var _number_of_creatures: int;
   default _number_of_creatures = 0;
 
@@ -56,7 +56,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // When you need to force the spawn position
+  // When you need to force the spawn position.
   var spawn_position: Vector;
   var spawn_position_force: bool;
   default spawn_position_force = false;
@@ -68,8 +68,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // When using a random position
-  // this will be the max radius used
+  // When using a random position this will be the max radius used.
   var _random_position_max_radius: float;
   default _random_position_max_radius = 200;
 
@@ -79,8 +78,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // When using a random position
-  // this will be the min radius used
+  // When using a random position this will be the min radius used.
   var _random_positition_min_radius: float;
   default _random_positition_min_radius = 150;
 
@@ -90,7 +88,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // when spawning multiple creature
+  // When spawning multiple creature.
   var _group_positions_density: float;
   default _group_positions_density = 0.01;
 
@@ -100,7 +98,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // the distance at which an RER creature is killed
+  // The distance at which an RER creature is killed.
   var automatic_kill_threshold_distance: float;
   default automatic_kill_threshold_distance = 200;
 
@@ -110,7 +108,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // should the creature drop a trophy on death
+  // Should the creature drop a trophy on death.
   var allow_trophy: bool;
   default allow_trophy = true;
 
@@ -120,7 +118,7 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // should the creature trigger a loot pickup cutscene on death
+  // Should the creature trigger a loot pickup cutscene on death.
   var allow_trophy_pickup_scene: bool;
   default allow_trophy_pickup_scene = false;
 
@@ -130,8 +128,8 @@ abstract class CompositionSpawner {
     return this;
   }
 
-  // tell which type of encounter the composition is from
-  // especially used when retrieving a random monster from the bestiary
+  // Tell which type of encounter the composition is from.
+  // Especially used when retrieving a random monster from the bestiary.
   var encounter_type: EncounterType;
   default encounter_type = EncounterType_DEFAULT;
   public function setEncounterType(encounter_type: EncounterType): CompositionSpawner {
@@ -199,12 +197,12 @@ abstract class CompositionSpawner {
     return true;
   }
 
-  // A method to override if needed,
-  // such as creating a custom class and attaching it.
+  // A method to override if needed.
+  // Such as creating a custom class and attaching it.
   protected latent function forEachEntity(entity: CEntity) {}
 
-  // A method to override if needed,
-  // such as creating a custom class for handling the fight.
+  // A method to override if needed.
+  // Such as creating a custom class for handling the fight.
   // If it returns false the spawn is cancelled.
   protected latent function afterSpawningEntities(): bool {
     return true;

@@ -6,11 +6,11 @@
 // You are supposed to extend the class if you want to add a custom action on
 // completion.
 class RER_HordeRequest {
-  // the enum CreatureType is used as the index, while the value is the amount
+  // The enum CreatureType is used as the index, while the value is the amount
   // of creatures of the given type to spawn.
   var counters_per_creature_types: array<int>;
 
-  // the entities spawned for that request
+  // The entities spawned for that request.
   var entities: array<CEntity>;
 
   var spawning_flags: RER_BestiaryEntrySpawnFlag;
@@ -28,7 +28,7 @@ class RER_HordeRequest {
     this.counters_per_creature_types[creature] = count;
   }
 
-  // override the method to run your code
+  // Override the method to run your code.
   public latent function onComplete(master: CRandomEncounters) {
     NLOG("RER_HordeRequest - onComplete");
   }

@@ -17,6 +17,8 @@ enum EHumanType
 }
 
 enum CreatureType {
+
+  // Small creatures below.
   CreatureHUMAN        = 0,
   CreatureENDREGA      = 1,
   CreatureGHOUL        = 2,
@@ -44,7 +46,7 @@ enum CreatureType {
   CreatureSIREN        = 24,
   CreatureHAG          = 25,
 
-  // large creatures below
+  // Large creatures below.
   // the dracolizard is used in a few places as the first large creature of the
   // enum. If you change it, you'll have to update it in the other places.
   CreatureARACHAS      = 26,
@@ -80,14 +82,14 @@ enum CreatureType {
   // It is important to keep the numbers continuous.
   // The `SpawnRoller` classes uses these numbers to
   // to fill its arrays.
-  // (so that i dont have to write 40 lines by hand)
+  // (So that I dont have to write 40 lines by hand.)
   CreatureMAX          = 55,
   CreatureNONE         = 56,
 }
 
 
 enum EncounterType {
-  // default means an ambush.
+  // Default means an ambush.
   EncounterType_DEFAULT  = 0,
   
   EncounterType_HUNT     = 1,

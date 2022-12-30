@@ -110,7 +110,7 @@ function rollDifficultyFactor(out factor: DifficultyFactor, difficulty: RER_Diff
   }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/34
-  // if the selected difficulty is RANDOM, then we randomly pick the difficulty
+  // If the selected difficulty is RANDOM, then we randomly pick the difficulty.
   if (difficulty == RER_Difficulty_RANDOM) {
     difficulty = RandRange(RER_Difficulty_RANDOM - 1);
   }
@@ -127,22 +127,22 @@ function rollDifficultyFactorWithRng(out factor: DifficultyFactor, difficulty: R
   }
 
   // https://github.com/Aelto/W3_RandomEncounters_Tweaks/issues/34
-  // if the selected difficulty is RANDOM, then we randomly pick the difficulty
+  // If the selected difficulty is RANDOM, then we randomly pick the difficulty.
   if (difficulty == RER_Difficulty_RANDOM) {
     difficulty = RandRange(RER_Difficulty_RANDOM - 1);
   }
   
   return (rng.nextRange(
     getMinimumCountBasedOnDifficulty(factor, difficulty, added_factor),
-    // +1 because RandRange is [min;max[
+    // +1 because RandRange is [min;max]
     getMaximumCountBasedOnDifficulty(factor, difficulty, added_factor) + 1
   )) as int;
 }
 
-// return true if atleast of the bestiary entries is known.
-// if all entries are unknown then return false
+// Return true if atleast of the bestiary entries is known.
+// If all entries are unknown then return false.
 latent function bestiaryCanSpawnEnemyTemplateList(template_list: EnemyTemplateList, manager: CWitcherJournalManager): bool {
-  // we use a list too avoid loading twice the same journal entry
+  // We use a list too avoid loading twice the same journal entry.
   var already_checked_journals: array<string>;
   var can_spawn: bool;
 	
@@ -152,21 +152,21 @@ latent function bestiaryCanSpawnEnemyTemplateList(template_list: EnemyTemplateLi
 	var entryBase : CJournalBase;
 
   for (i = 0; i < template_list.templates.Size(); i += 1) {
-    // 1. first checking if the entry was already checked
+    // 1. First checking if the entry was already checked.
     for (j = 0; j < already_checked_journals.Size(); j += 1) {
-      // 2. the entry was checked already, we skip it
+      // 2. The entry was checked already, we skip it.
       if (already_checked_journals[j] == template_list.templates[i].bestiary_entry) {
         continue;
       }
     }
 
-    // 3. check the entry
+    // 3. Check the entry.
     can_spawn = bestiaryCanSpawnEnemyTemplate(template_list.templates[i], manager);
     if (can_spawn) {
       return true;
     }
 
-    // 4. entry unknown, add it to the checked list
+    // 4. Entry unknown, add it to the checked list.
     already_checked_journals.PushBack(template_list.templates[i].bestiary_entry);
   }
 

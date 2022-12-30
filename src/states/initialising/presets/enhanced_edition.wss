@@ -13,10 +13,10 @@ state EnhancedEdition in RER_PresetManager {
 
     wrapper = theGame.GetInGameConfigWrapper();
 
-    // first we apply the default presets
+    // First we apply the default presets.
     parent.master.settings.resetRERSettings(wrapper);
 
-    // then we change a few things here and there
+    // Then we change a few things here and there.
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersAmbushDay', 'Katakans', 0.5);
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersAmbushDay', 'Ekimmaras', 0.5);
     this.wrapperMultiplyFloatValue(wrapper, 'RERencountersAmbushDay', 'Bruxae', 0.1);

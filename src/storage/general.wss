@@ -1,6 +1,6 @@
 
 /**
- * A general storage for generic data
+ * A general storage for generic data.
  */
 class RER_GeneralStorage extends RER_BaseStorage {
     default id = 'RandomEncountersReworked';
@@ -11,7 +11,7 @@ class RER_GeneralStorage extends RER_BaseStorage {
     var placeholder_static_encounters: array<RER_PlaceholderStaticEncounter>;
 }
 
-// an helper function to get ecosystem storage
+// A helper function to get ecosystem storage.
 function RER_loadGeneralStorage(): RER_GeneralStorage {
   var storage: RER_GeneralStorage;
 
@@ -22,7 +22,7 @@ function RER_loadGeneralStorage(): RER_GeneralStorage {
   storage = GetModStorage()
     .load('RandomEncountersReworked', 'general') as RER_GeneralStorage;
 
-  // the first time we load, there is no data so we have to create something from
+  // The first time we load, there is no data so we have to create something from
   // scratch.
   if (!storage) {
     NLOG("RER_loadGeneralStorage - instantiating new RER_GeneralStorage");

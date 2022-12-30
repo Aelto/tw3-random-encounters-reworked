@@ -1,6 +1,6 @@
 
-// an empty statemachine only to use latent functions when the player presses the
-// input to analyze the surrounding areas
+// An empty statemachine only to use latent functions when the player presses the
+// input to analyze the surrounding areas.
 statemachine class RER_EcosystemAnalyzer extends CEntity {
   var ecosystem_manager: RER_EcosystemManager;
 
@@ -20,7 +20,7 @@ statemachine class RER_EcosystemAnalyzer extends CEntity {
 
 state Waiting in RER_EcosystemAnalyzer {}
 
-// this state creates a pop-up that displays more information about the surrounding
+// This state creates a pop-up that displays more information about the surrounding
 // ecosystems. It also shows the closests two bounties and gives information about
 // them too, such as the distance and the creature from the bounty.
 state Analysing in RER_EcosystemAnalyzer {
@@ -86,13 +86,13 @@ state Analysing in RER_EcosystemAnalyzer {
       parent.ecosystem_manager.getCurrentEcosystemAreas()
     );
 
-    // first we get the total
+    // First we get the total.
     for (i = 0; i < CreatureMAX; i += 1) {
       if (modifiers[i] > 0) {
         positive_total += modifiers[i];
       }
       else {
-        // we want the total to also be positive
+        // We want the total to also be positive.
         negative_total += modifiers[i];
       }
 
@@ -101,7 +101,7 @@ state Analysing in RER_EcosystemAnalyzer {
 
     negative_total = AbsF(negative_total);
 
-    // then for all creature with modifiers
+    // Then for all creatures with modifiers.
     for (i = 0; i < CreatureMAX; i += 1) {
       if (modifiers[i] != 0) {
         if (modifiers[i] > 0) {
@@ -113,9 +113,8 @@ state Analysing in RER_EcosystemAnalyzer {
 
         NLOG("getSurroundingCreaturesPercentages - percent for " + (i as CreatureType) + " - " + percent);
 
-        // only creatures whose percentage is above 5
-        // if (percent > 0.05 || percent < -0.05) {
-          output.PushBack(newSurroundingCreaturePercentage(i,percent));
+        // Only creatures whose percentage is above 5.
+        // if (percent > 0.05 || percent < -0.05) {output.PushBack(newSurroundingCreaturePercentage(i,percent));
         // }
       }
     }
@@ -194,7 +193,7 @@ state Analysing in RER_EcosystemAnalyzer {
       message += "<br /><br />" + this.getEcosystemAdvice(picked_creature.type);
     }
 
-    // first the positive percentages
+    // First the positive percentages.
     // for (i = 0; i < creatures.Size(); i += 1) {
     //   if (i > 0) {
     //     message += ", ";
@@ -227,12 +226,12 @@ state Analysing in RER_EcosystemAnalyzer {
     var sorted_size: int;
     var i, j: int;
 
-    // first we fill the array with the percentages
+    // First we fill the array with the percentages.
     for (i = 0; i < percentages.Size(); i += 1) {
       sorted_percentages.PushBack(percentages[i].percentage);
     }
 
-    // then we sort them
+    // Then we sort them.
     ArraySortFloats(sorted_percentages);
 
     for (i = 0; i < percentages.Size(); i += 1) {
@@ -268,20 +267,20 @@ state Analysing in RER_EcosystemAnalyzer {
       main_creature_type
     ) + " lives here due to the abundance of ";
 
-    // first we list the creatures who helped the community form in the area
+    // First we list the creatures who helped the community form in the area.
     creatures = parent.ecosystem_manager.getCommunityReasonsToExist(main_creature_type);
     for (i = 0; i < creatures.Size(); i += 1) {
-      // we stop after three creatures
+      // We stop after three creatures.
       if (i == 3) {
         advice += ".";
         break;
       }
 
-      // if it's the last creature in the list we add "and"
+      // If it's the last creature in the list we add "and".
       if (i == creatures.Size() - 1 || i == 2) {
         advice += ", and ";
       }
-      // we add a quote for the second and third creature
+      // We add a quote for the second and third creature.
       else if (i > 0) {
         advice += ", ";
       }
@@ -292,20 +291,20 @@ state Analysing in RER_EcosystemAnalyzer {
       );
     }
 
-    // now we explain what we can find because of the wolves
+    // Now we explain what we can find because of the wolves.
     advice += " As a result, other creatures such as ";
     creatures = parent.ecosystem_manager.getCommunityGoodInfluences(main_creature_type);
     for (i = 0; i < creatures.Size(); i += 1) {
-      // we stop after three creatures
+      // We stop after three creatures.
       if (i == 3) {
         break;
       }
 
-      // if it's the last creature in the list we add "and"
+      // If it's the last creature in the list we add "and".
       if (i == creatures.Size() - 1 || i == 2) {
         advice += ", and ";
       }
-      // we add a quote for the second and third creature
+      // We add a quote for the second and third creature.
       else if (i > 0) {
         advice += ", ";
       }
@@ -318,7 +317,7 @@ state Analysing in RER_EcosystemAnalyzer {
     
     advice += " may roam the area.";
 
-    // now we explain what would happen if the player killed wolves
+    // Now we explain what would happen if the player killed wolves.
     creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
 
     if (creatures.Size() > 0) {
@@ -332,12 +331,12 @@ state Analysing in RER_EcosystemAnalyzer {
 
       creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
       for (i = 0; i < creatures.Size(); i += 1) {
-        // we stop after three creatures
+        // We stop after three creatures.
         if (i == 3) {
           break;
         }
 
-        // if it's the last creature in the list we add "and"
+        // If it's the last creature in the list we add "and".
         if (i == creatures.Size() - 1 || i == 2) {
           if (creatures.Size() > 2) {
             advice += ",";
@@ -345,7 +344,7 @@ state Analysing in RER_EcosystemAnalyzer {
 
           advice += " and ";
         }
-        // we add a quote for the second and third creature
+        // We add a quote for the second and third creature.
         else if (i > 0) {
           advice += ", ";
         }

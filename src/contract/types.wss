@@ -1,13 +1,13 @@
 
 /**
- * Unique identifier used to differentiate one noticeboard from another
+ * Unique identifier used to differentiate one noticeboard from another.
  */
 struct RER_NoticeboardIdentifier {
   var identifier: string;
 }
 
 /**
- * Unique identifier used to differentiate one contract from another
+ * Unique identifier used to differentiate one contract from another.
  */
 struct RER_ContractIdentifier {
   var identifier: string;
@@ -24,14 +24,14 @@ function RER_identifierToInt(identifier: string): int {
     if (StrFindFirst(segment, "-") >= 0) {
       sub = StrBeforeFirst(segment, "-");
     }
-    // if it's the last element
+    // If it's the last element.
     else {
       sub = segment;
     }
 
     output += StringToInt(sub);
 
-    // the +1 is there to exclude the "-"
+    // The +1 is there to exclude the "-".
     segment = StrMid(segment, StrLen(sub) + 1);
   }
 
@@ -39,7 +39,7 @@ function RER_identifierToInt(identifier: string): int {
 }
 
 /**
- * Represents the time when the contracts were generated
+ * Represents the time when the contracts were generated.
  */
 struct RER_GenerationTime {
   var time: float;
@@ -75,7 +75,7 @@ struct RER_ContractDifficultyLevel {
  */
 struct RER_ContractGenerationData {
   /**
-   * the position of the noticeboard when the contract was accepted
+   * The position of the noticeboard when the contract was accepted.
    */
   var starting_point: Vector;
 
@@ -92,7 +92,7 @@ struct RER_ContractGenerationData {
   var region_name: string;
 
   /**
-   * the seed of the random number generator before doing any rand call for
+   * The seed of the random number generator before doing any rand call for
    * generating the contract.
    */
   var rng_seed: int;
@@ -122,14 +122,14 @@ enum RER_ContractRewardType {
  */
 struct RER_ContractRepresentation {
   /**
-   * where the player needs to go to trigger the contract
+   * Where the player needs to go to trigger the contract.
    */
   var destination_point: Vector;
 
   var destination_radius: float;
 
   /**
-   * what should happen once the player has reached the destination
+   * What should happen once the player has reached the destination.
    */
   var event_type: RER_ContractEventType;
 
@@ -142,8 +142,8 @@ struct RER_ContractRepresentation {
   var noticeboard_identifier: RER_NoticeboardIdentifier;
 
   /**
-   * the possible rewards the player can get from completing the contract.
-   * This value is a flag and can contain multiple reward types
+   * The possible rewards the player can get from completing the contract.
+   * This value is a flag and can contain multiple reward types.
    *
    * IMPORTANT: should be RER_ContractRewardType, but since it acts as a flag
    * the game doesn't know what to do when reloading data and so it sets 0.
@@ -158,7 +158,7 @@ struct RER_ContractRepresentation {
 }
 
 /**
- * It's a class because structs are copied in this language
+ * It's a class because structs are copied in this language.
  */
 class RER_ContractLocation extends SU_ArraySorterData {
   var position: Vector;
@@ -166,7 +166,7 @@ class RER_ContractLocation extends SU_ArraySorterData {
   public function init(position: Vector, distance: float): RER_ContractLocation {
     this.position = position;
 
-    // we use the distance as the value used during the sorting
+    // We use the distance as the value used during the sorting.
     this.value = distance;
 
     return this;
@@ -174,7 +174,7 @@ class RER_ContractLocation extends SU_ArraySorterData {
 }
 
 /**
- * Represents the reputation level for a given noticeboard
+ * Represents the reputation level for a given noticeboard.
  */
 struct RER_NoticeboardReputation {
   var noticeboard_identifier: RER_NoticeboardIdentifier;

@@ -1,6 +1,6 @@
 
 //--- RandomEncounters ---
-// Made by Erxv
+// Made by Erxv.
 enum EREZone {
   REZ_UNDEF   = 0,
   REZ_NOSPAWN = 1,
@@ -132,7 +132,7 @@ class CModRExtra {
   private function isNearNoticeboard(radius_check: float): bool {
     var entities: array<CGameplayEntity>;
 
-     // 'W3NoticeBoard' for noticeboards, 'W3FastTravelEntity' for signpost
+     // 'W3NoticeBoard' for noticeboards, 'W3FastTravelEntity' for signpost.
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
@@ -180,14 +180,14 @@ class CModRExtra {
 
     current_area = theGame.GetCommonMapManager().GetCurrentArea();
 
-    // HACK: it can be a great way to see if a settlement is nearby
+    // HACK: It can be a great way to see if a settlement is nearby
     // by looking for a noticeboard. Though some settlements don't have
     // any noticeboard.
     if (this.isNearNoticeboard(radius_check)) {
       return true;
     }
 
-    // the .isInSettlement() method doesn't work when is skellige
+    // The .isInSettlement() method doesn't work when in skellige
     // it always returns true.
     if (current_area == AN_Skellige_ArdSkellig) {
       

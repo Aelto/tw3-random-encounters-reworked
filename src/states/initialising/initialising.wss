@@ -10,12 +10,12 @@ state Initialising in CRandomEncounters {
   entry function startInitialising() {
     NLOG("Delaying RER loading start");
 
-    // delay init until loading screen has stopped playing
+    // Delay init until loading screen has stopped playing.
     while (theGame.IsLoadingScreenVideoPlaying()) {
       Sleep(1);
     }
 
-    // then wait until scenes are over etc...
+    // Then wait until scenes are over etc...
     while (isPlayerBusy()) {
       Sleep(0.5);
     }
@@ -90,7 +90,7 @@ state Initialising in CRandomEncounters {
     if (current_version < 2.08) {
       NDEBUG("[RER] The mod was updated to v2.8: the Contract System settings were reset to support the new reputation system");
 
-      // reset the contract tutorial value so it displays again
+      // Reset the contract tutorial value so it displays again.
       // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
       config.ApplyGroupPreset('RERcontracts', 0);
 
@@ -100,11 +100,11 @@ state Initialising in CRandomEncounters {
     if (current_version < 2.09) {
       NDEBUG("[RER] The mod was updated to v2.9: the Contract System settings were reset to support updated distance settings");
 
-      // reset the contract tutorial value so it displays again
+      // Reset the contract tutorial value so it displays again.
       // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
       config.ApplyGroupPreset('RERcontracts', 0);
 
-      // disable any active bounty from before v2.9 since it won't be compatible
+      // Disable any active bounty from before v2.9 since it won't be compatible
       // anymore.
       parent.storages.bounty.current_bounty.is_active = false;
 
@@ -121,20 +121,20 @@ state Initialising in CRandomEncounters {
       var message: string;
 
       message += "You just updated the Random Encounters Reworked mod to the v2.12, the loot update.<br/><br/>";
-      message += "All of your reward settings were reset following the update. ";
-      message += "To simplify and streamline the loot coming from the mod, all of the old rewards were removed and replaced ";
+      message += "All of your reward settings were reset following the update.";
+      message += "To simplify and streamline the loot coming from the mod, all of the old rewards were removed and replaced.";
       message += "with a central and generic system. This system called the Loot Manager offers four loot categories:";
       message += "<br/> - Gear";
       message += "<br/> - Materials";
       message += "<br/> - Consumables";
       message += "<br/> - Valuables";
-      message += "<br/>And for each category it offers four loot rarities: ";
+      message += "<br/>And for each category it offers four loot rarities:";
       message += "<br/> - Common";
       message += "<br/> - Uncommon";
       message += "<br/> - Rare";
       message += "<br/> - Exotic";
-      message += "<br/><br/>Now every time RER wants to add loot to something, it sends a call to the loot manager which will ";
-      message += "give it a list of items based on the settings you set in the menu, and this for every feature in the mod.";
+      message += "<br/><br/>Now every time RER wants to generate loot for something, it sends a call to the loot manager which will ";
+      message += "give it a list of items based on the settings you set in the menu, and it does this for every feature in the mod.";
 
       NTUTO("RER v2.12 - The loot update", message);
 

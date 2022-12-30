@@ -40,7 +40,7 @@ statemachine class RER_LootManager {
   }
 
   /**
-   * Remove the supplied item from the given category and rarity
+   * Remove the supplied item from the given category and rarity.
    */
   public function removeLoot(category: RER_LootCategory, rarity: RER_LootRarity, item_name: name) {
     this.loot_by_category[category][rarity].Remove(item_name);
@@ -51,7 +51,7 @@ statemachine class RER_LootManager {
 
     NLOG("roll(chance_multiplier: " + chance_multiplier + ", rng, category:" + category);
 
-    // if no RNG instance was provided, create a fresh one just for the roll
+    // If no RNG instance was provided, create a fresh one just for the roll
     // but set it to be completely random.
     if (!rng) {
       rng = (new RandomNumberGenerator in this).useSeed(false);

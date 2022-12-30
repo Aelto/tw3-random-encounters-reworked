@@ -31,7 +31,7 @@ function RER_getSeededRandomSpeciesType(rng: RandomNumberGenerator): RER_Species
 function RER_getSeededRandomEasySpeciesType(rng: RandomNumberGenerator): RER_SpeciesTypes {
   var max: float;
 
-  // exclude specters for EE users
+  // Exclude specters for EE users.
   if (RER_playerUsesEnhancedEditionRedux()) {
     max = ((SpeciesTypes_SPECTERS as int) as float);
   }

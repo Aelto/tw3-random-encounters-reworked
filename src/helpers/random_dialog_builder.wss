@@ -1,17 +1,17 @@
 
-// represents all the data we need to play a oneliner
+// Represents all the data we need to play a oneliner.
 class RER_DialogData {
   var dialog_id: int;
   var dialog_duration: float;
   var wait_until_end: bool;
 }
-// and then replace the oneliner functions i have with structs like these that
-// extend the RER_DialogData and set default values like
+// Then replace the oneliner functions I have with structs like these that
+// extend the RER_DialogData and set default values.
 class RER_DialogDataExample extends RER_DialogData {
   default dialog_id = 380546;
   default dialog_duration = 1.5;
 }
-// and then we use the build like so
+// Then we use the build like so.
 // (new RER_RandomDialogBuilder in thePlayer)
 //  .start()
 //  .dialog(new RER_DialogDataExample in thePlayer, true)
@@ -20,8 +20,8 @@ class RER_DialogDataExample extends RER_DialogData {
 //  .either(new RER_DialogDataExample in thePlayer, false, 0.5)
 //  .play()
 // 
-// and it plays a voiceline, then pick randomly between one or the other
-// and the boolean we pass mean if we should wait_until_the_end or not.
+// And it plays a voiceline, then pick randomly between one or the other.
+// The boolean we pass checks if we should wait_until_the_end or not.
 class RER_RandomDialogBuilder {
   var sections: array<RandomDialogSection>;
   var current_section: RandomDialogSection;
@@ -96,7 +96,7 @@ class RER_RandomDialogBuilder {
     camera.FocusOn(this.talking_actor as CNode);
 
     // 1.
-    // pick a position in front of the talking actor, preferably behind the actor
+    // Pick a position in front of the talking actor, preferably behind the actor
     // that is listening.
     talking_actor_position = this.talking_actor.GetBoneWorldPosition('head');
     if (interlocutor) {
@@ -206,8 +206,8 @@ class RER_RandomDialogBuilder {
       total -= this.sections[index].chances[k];
     }
 
-    // from here we know the picked section is at index K so we play it
-    // but only if the player is not in a scene
+    // From here we know the picked section is at index K so we play it.
+    // But only if the player is not in a scene.
     if (!isPlayerInScene()) {
       this.talking_actor.PlayLine(this.sections[index].dialogs[k].dialog_id, true);
 

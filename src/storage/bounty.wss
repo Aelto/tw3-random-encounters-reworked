@@ -1,5 +1,5 @@
 
-// in this class you will find all persistent data about the bounties the mod
+// In this class you will find all persistent data about the bounties the mod
 // stores in the user save files.
 class RER_BountyStorage extends RER_BaseStorage {
     default id = 'RandomEncountersReworked';
@@ -9,7 +9,7 @@ class RER_BountyStorage extends RER_BaseStorage {
     var current_bounty: RER_Bounty;
 }
 
-// an helper function to get ecosystem storage
+// A helper function to get ecosystem storage.
 function RER_loadBountyStorage(): RER_BountyStorage {
   var storage: RER_BountyStorage;
 
@@ -20,7 +20,7 @@ function RER_loadBountyStorage(): RER_BountyStorage {
   storage = GetModStorage()
     .load('RandomEncountersReworked', 'bounty') as RER_BountyStorage;
 
-  // the first time we load, there is no data so we have to create something from
+  // The first time we load, there is no data so we have to create something from
   // scratch.
   if (!storage) {
     NLOG("RER_loadBountyStorage - instantiating new RER_BountyStorage");

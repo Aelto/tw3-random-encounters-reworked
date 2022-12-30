@@ -10,19 +10,19 @@ statemachine class RER_BountyManager extends CEntity {
     this.GotoState('Processing');
   }
 
-  //#region bounty settings & constants
+  // #region bounty settings & constants
 
-  // returns the steps at which the seed gains difficulty points
+  // Returns the steps at which the seed gains difficulty points.
   public function getSeedDifficultyStep(): int {
     return 1000;
   }
 
   public function getDifficultyForSeed(seed: int): int {
-    // when using the 0 seed, which means the bounty is completely random. The
+    // When using the 0 seed, which means the bounty is completely random. The
     // difficulty no longer scales on the seed as there is no seed but instead
     // on the player's level.
     if (seed == 0) {
-      // there is still a level of randomness here, it uses the settings values
+      // There is still a level of randomness here, it uses the settings values
       // to get the difficulty relative to the player's level.
       return getRandomLevelBasedOnSettings(this.master.settings);
     }
@@ -30,7 +30,7 @@ statemachine class RER_BountyManager extends CEntity {
     return (seed / this.getSeedDifficultyStep()) as int;
   }
 
-  // returns how much the seed cap is increased by bounty level
+  // Returns how much the seed cap is increased by bounty level.
   public function getSeedBountyLevelStep(): int {
     return 500;
   }
@@ -39,11 +39,11 @@ statemachine class RER_BountyManager extends CEntity {
     return this.master.storages.bounty.bounty_level * this.getSeedBountyLevelStep();
   }
 
-  //#endregion bounty settings & constants
+  // #endregion bounty settings & constants
 
-  //#region bounty creation
+  // #region bounty creation
 
-  // create a new bounty struct with all the data we need to know about the new
+  // Create a new bounty struct with all the data we need to know about the new
   // bounty.
   private latent function getNewBounty(seed: int): RER_Bounty {
     var bounty: RER_Bounty;
@@ -69,8 +69,8 @@ statemachine class RER_BountyManager extends CEntity {
         RER_BREF_IGNORE_BIOMES | RER_BREF_IGNORE_SETTLEMENT | RER_BREF_IGNORE_BESTIARY,
         (new RER_SpawnRollerFilter in this)
           .init()
-          // we multiply everyone by 100, so that 0.01 * 100 = 1
-          // since the resulting creature chances are integers, 50 * 0.01 results
+          // We multiply everyone by 100, so that 0.01 * 100 = 1.
+          // Since the resulting creature chances are integers, 50 * 0.01 results
           // in 0 and would cause a crash. This will instead multiply everyone
           // by 100 and leave the creatures we don't want to their initial tiny
           // values.
@@ -78,8 +78,8 @@ statemachine class RER_BountyManager extends CEntity {
           .setOffsets(
             constants.large_creature_begin,
             constants.large_creature_max,
-            // creature outside the offset have 1% chance to appear
-            // 1% and not 0% to avoid crashes if all creatures to be disabled
+            // Creature outside the offset have 1% chance to appear.
+            // 1% and not 0% to avoid crashes if all creatures are disabled
             // in the settings.
             0.01
           )
@@ -111,8 +111,8 @@ statemachine class RER_BountyManager extends CEntity {
 
     constants = RER_ConstantCreatureTypes();
 
-    // the seed 0 means the bounty will be completely random and won't use the
-    // seed in the RNG
+    // The seed 0 means the bounty will be completely random and won't use the
+    // seed in the RNG.
     rng = (new RandomNumberGenerator in this).setSeed(seed)
       .useSeed(seed != 0);
 
@@ -124,17 +124,17 @@ statemachine class RER_BountyManager extends CEntity {
     NLOG("generateRandomDataForBounty(), number of groups = " + number_of_groups);
 
     // 0.
-    // prepare the data we'll need while generating stuff
+    // Prepare the data we'll need while generating stuff.
     
-    // get a sorted list of the different POIs in the game
+    // Get a sorted list of the different POIs in the game.
     point_of_interests_positions = this.master.contract_manager.getClosestDestinationPoints(thePlayer.GetWorldPosition());
 
-    // bounties are composed of 1 main target and multiple side targets.
+    // Bounties are composed of 1 main target and multiple side targets.
     // The main target is a large monster, something supposedly hard to kill,
     // while the side targets are small creatures.
     
     // 1.
-    // we start by adding the main group
+    // We start by adding the main group.
     current_group_data = RER_BountyRandomMonsterGroupData();
 
     current_group_data.type = main_bestiary_entry.type;
@@ -157,7 +157,7 @@ statemachine class RER_BountyManager extends CEntity {
     data.main_group = current_group_data;
 
     // 2.
-    // we generate the side groups
+    // We generate the side groups.
     for (i = 0; i < number_of_groups; i += 1) {
       current_group_data = RER_BountyRandomMonsterGroupData();
 
@@ -171,7 +171,7 @@ statemachine class RER_BountyManager extends CEntity {
             .setOffsets(
               constants.small_creature_begin_no_humans,
               constants.small_creature_max,
-              // creature outside the offset have 1% chance to appear
+              // Creature outside the offset have 1% chance to appear.
               // 1% and not 0% to avoid crashes if all creatures to be disabled
               // in the settings.
               0.01
@@ -220,10 +220,10 @@ statemachine class RER_BountyManager extends CEntity {
 
     return data;
   }
-  //#endregion bounty creation
+  // #endregion bounty creation
 
 
-  //#region bounty workflow
+  // #region bounty workflow
   public latent function startBounty(seed: int) {
     this.master.storages.bounty.current_bounty = this.getNewBounty(seed);
 
@@ -254,7 +254,7 @@ statemachine class RER_BountyManager extends CEntity {
     bonus = this.getNumberOfSideGroupsKilled();
     new_level = this.increaseBountyLevel();
 
-    // bonus groups grant additional rewards based on the new bounty level.
+    // Bonus groups grant additional rewards based on the new bounty level.
     if (bonus > 0) {
       RER_giveItemForLevelUnknown(
         this.master,
@@ -454,7 +454,7 @@ statemachine class RER_BountyManager extends CEntity {
     message = GetLocStringByKey("rer_bounty_start_popup");
 
     // 1.
-    // first the main target
+    // First the main target.
     message = StrReplace(
       message,
       "{{main_creature_listing}}",
@@ -465,7 +465,7 @@ statemachine class RER_BountyManager extends CEntity {
     );
 
     // 2
-    // then the side targets
+    // Then the side targets.
     for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
       group = this.master.storages.bounty.current_bounty.random_data.side_groups[i];
 
@@ -481,22 +481,22 @@ statemachine class RER_BountyManager extends CEntity {
     return message;
   }
 
-  //#endregion bounty workflow
+  // #endregion bounty workflow
 
-  // return the maximum progress the bounty will have for this seed. Each progress
+  // Return the maximum progress the bounty will have for this seed. Each progress
   // level is a group of creatures.
   public function getNumberOfGroupsForSeed(rng: RandomNumberGenerator, seed: int): int {
     var min: int;
     var max: int;
 
     min = 1;
-    // for every 10 levels bounties have a chance to get 1 more group
+    // For every 10 levels bounties have a chance to get 1 more group.
     max = 2 + (this.getDifficultyForSeed(seed) * 0.1 as int) + min;
 
     NLOG("getNumberOfGroupsForSeed(" + seed + ") - " + RandNoiseF(seed, max, min) + " " + max);
 
-    // a difficulty 0 seed has maximum 5 monster groups in it
-    // the difficulty seed step divided by 100 means that a difficulty 100 seed
+    // A difficulty 0 seed has maximum 5 monster groups in it.
+    // The difficulty seed step divided by 100 means that a difficulty 100 seed
     // will double the amount of creatures.
     return rng.nextRange(max, min) as int;
   }
@@ -547,12 +547,12 @@ state Processing in RER_BountyManager {
   }
 
   entry function Processing_main() {
-    // we also call it instantly to handle cases where the player teleported near
-    // a group that was picked but not spawned yet
+    // We also call it instantly to handle cases where the player teleported near
+    // a group that was picked but not spawned yet.
     parent.displayMarkersForCurrentBounty();
 
     while (true) {
-      // no active bounty, do nothing
+      // No active bounty, do nothing.
       if (!parent.isBountyActive()) {
         Sleep(20);
 
@@ -579,7 +579,7 @@ state Processing in RER_BountyManager {
     player_position = thePlayer.GetWorldPosition();
 
     // 1.
-    // we start by checking for the main group
+    // We start by checking for the main group.
     this.trySpawnBountyGroup(
       parent.master.storages.bounty.current_bounty.random_data.main_group,
       100,
@@ -597,7 +597,7 @@ state Processing in RER_BountyManager {
 
       NLOG("spawnNearbyBountyGroups(), side group " + i);
 
-      // here, we know the group we currently have was not killed
+      // Here, we know the group we currently have was not killed.
       this.trySpawnBountyGroup(
         groups[i],
         50,
@@ -657,7 +657,7 @@ state Processing in RER_BountyManager {
 
     bestiary_entry = parent.master.bestiary.entries[group_data.type];
 
-    // to get it closer to the real ground position. It works because bounty
+    // To get it closer to the real ground position. It works because bounty
     // groups are spawned only when the player gets close.
     position = group_data.position;
 
@@ -680,15 +680,15 @@ state Processing in RER_BountyManager {
       parent.master,
       position,
       group_data.count,
-      , // density
+      , // Density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
       'RandomEncountersReworked_BountyCreature',,
       damage_modifier
     );
 
-    // group index -1 is a way to identify the main group
-    // in that case we add 1 of each side group killed into the main group
+    // Group index -1 is a way to identify the main group.
+    // In that case we add 1 of each side group killed into the main group.
     if (group_index < 0) {
       for (i = 0; i < parent.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
         current_group = parent.master.storages.bounty.current_bounty.random_data.side_groups[i];
@@ -704,8 +704,8 @@ state Processing in RER_BountyManager {
         side_entities = side_bestiary_entry.spawn(
           parent.master,
           position,
-          1, // only 1 creature
-          , // density
+          1, // Only 1 creature.
+          , // Density
           EncounterType_CONTRACT,
           RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
           'RandomEncountersReworked_BountyCreature',,

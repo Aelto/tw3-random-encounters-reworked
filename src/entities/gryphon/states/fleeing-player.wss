@@ -3,7 +3,7 @@
 // The gryphon is hurt, he's bleeding and start flying far from the
 // player at low speed. So the player can catch him with or without
 // Roach. It ends when the gryphon is exhausted and goes on the ground
-// SINGLE state. Used once in the encounter (more would be annoying)
+// SINGLE state. Used once in the encounter (more would be annoying).
 state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   var is_bleeding: bool;
   var bait: CEntity;
@@ -13,8 +13,8 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   var distance_threshold: float;
   var starting_position: Vector;
   
-  // if found_landing_position is set to true,
-  // The gryphon will go to the landing position
+  // If the found_landing_position is set to true,
+  // the gryphon will go to the landing position.
   var found_landing_position: bool;
   var landing_position: Vector;
 
@@ -23,7 +23,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
-    // the gryphon bleeds only if a fight happened before.
+    // The gryphon bleeds only if a fight has happened before.
     if (previous_state_name == 'GryphonFightingPlayer') {
       this.is_bleeding = true;
     }
@@ -79,10 +79,10 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     parent.AddTimer('GryphonFleeingPlayer_startFlying', 2, false);
     parent.AddTimer('GryphonFleeingPlayer_forgetPlayer', 0.05, true);
 
-    // in case something unexpected happened.
-    // the timer is removed if the gryphon is waiting for the player
-    // the gryphon will enter into the FlyingAbovePlayer state.
-    // meaning il will come back to the player.
+    // In case something unexpected happened.
+    // The timer is removed if the gryphon is waiting for the player.
+    // The gryphon will enter into the FlyingAbovePlayer state.
+    // Meaning it will come back to the player.
     parent.AddTimer('GryphonFleeingPlayer_GiveUp', 60, true);
   }
 
@@ -137,17 +137,17 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
 
     parent.this_actor.SetHealthPerc(parent.this_actor.GetHealthPercents() + 0.01);
 
-    // attempt at forcing the gryphon to fly
+    // Attempt at forcing the gryphon to fly.
     parent.this_entity.Teleport(parent.this_entity.GetWorldPosition() + Vector(0, 0, 0.1));
 
-    // distance_threshold is already squared
+    // Distance_threshold is already squared.
     if (VecDistanceSquared(this.starting_position, parent.this_actor.GetWorldPosition()) > distance_threshold) {
       NLOG("Gryphon looking for ground position");
 
       parent.RemoveTimer('GryphonFleeingPlayer_intervalDefaultFunction');
       parent.AddTimer('GryphonFightingPlayer_intervalLookingForGroundPositionFunction', 1, true);
 
-      // the gryphon is coming down, set back his collisions.
+      // The gryphon is coming down, set back his collisions.
       (parent.this_actor).SetImmortalityMode(AIM_Invulnerable, AIC_Default);
       (parent.this_actor).EnableCharacterCollisions(true);
       (parent.this_actor).EnableDynamicCollisions(true);
@@ -162,8 +162,8 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     bait_position = VecRingRand(1, 20) + parent.this_entity.GetWorldPosition();
     bait_position.Z -= 20;
 
-    // the bait is close enough for the ground.
-    // we look for a safe landing position
+    // The bait is close enough for the ground.
+    // We look for a safe landing position.
     if (!this.found_landing_position && (bait as CActor).GetDistanceFromGround(500) <= 20) {
       this.landing_position = bait_position;
       
@@ -174,7 +174,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
         NLOG("found landing position");
         this.found_landing_position = true;
         
-        // so the bait is not completely into the ground
+        // So the bait is not completely into the ground.
         this.landing_position.Z += 0.5;
 
         bait_position = this.landing_position;
@@ -190,7 +190,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
     parent.this_newnpc.ForgetActor(thePlayer);
     parent.this_newnpc.NoticeActor(this.bait as CActor);
 
-    // attempt at making the gryphon land gracefully
+    // Attempt at making the gryphon land gracefully.
     if (parent.this_actor.GetDistanceFromGround(500) > 5) {
       parent.this_entity.Teleport(parent.this_entity.GetWorldPosition() - Vector(0, 0, 0.05));
     }
@@ -211,7 +211,7 @@ state GryphonFleeingPlayer in RandomEncountersReworkedGryphonHuntEntity {
       NLOG("Gryphon landed");
 
       parent.RemoveTimer('GryphonFightingPlayer_intervalLookingForGroundPositionFunction');
-      // the gryphon found a landing spot, giving up now would not make sense.
+      // The gryphon found a landing spot, giving up now would not make sense.
       parent.RemoveTimer('GryphonFleeingPlayer_GiveUp');
 
       this.cancelAIBehavior();

@@ -1,5 +1,5 @@
 
-// return true in cases where the player is busy in a cutscene or in the boat.
+// Return true in cases where the player is busy in a cutscene or in the boat.
 // When a spawn should be cancelled.
 function isPlayerBusy(): bool {
   return thePlayer.IsInInterior()

@@ -24,7 +24,7 @@ state Processing in RER_HordeManager {
 
       number_of_requests = parent.requests.Size();
 
-      // a request was removed or a new one was added
+      // A request was removed or a new one was added.
       if (old_number_of_requests != number_of_requests) {
         total_of_creatures_to_spawn = this.getCreaturesCountToSpawnFromRequests(parent.requests);
       }
@@ -40,7 +40,7 @@ state Processing in RER_HordeManager {
         return;
       }
 
-      // the horde monsters are spawned only if regular monsters can be spawned
+      // The horde monsters are spawned only if regular monsters can be spawned.
       if (isPlayerInScene()) {
         SU_hideCustomBossBar();
 
@@ -50,7 +50,7 @@ state Processing in RER_HordeManager {
       for (i = 0; i < number_of_requests; i += 1) {
         creature_to_spawn = this.getFirstCreatureWithPositiveCounter(parent.requests[i]);
 
-        // we display the title only for the first request in the queue
+        // We display the title only for the first request in the queue.
         if (i == 0 && creature_to_spawn != CreatureNONE) {
           SU_showCustomBossBar(StrReplace(
             GetLocStringByKey("rer_horde_invasion_strength_title"),
@@ -61,7 +61,7 @@ state Processing in RER_HordeManager {
             )
           ), true);
 
-          // we also check for a random dialogue here because we know it's ran
+          // We also check for a random dialogue here because we know it's ran
           // once.
           if (RandRange(100) > 95) {
             (new RER_RandomDialogBuilder in thePlayer)
@@ -88,7 +88,7 @@ state Processing in RER_HordeManager {
         
         this.spawnMonsterFromRequest(parent.requests[i], creature_to_spawn);
 
-        // too many attempts failed, give up on the horde.
+        // Too many attempts failed, give up on the horde.
         if (this.failed_attempts > 5) {
           SU_hideCustomBossBar();
 

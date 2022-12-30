@@ -71,6 +71,8 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 10;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.friend_with) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -98,7 +100,7 @@ class RER_BestiaryWerewolf extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureBERSERKER
       .influence(influences.no_influence) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN

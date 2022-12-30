@@ -8,7 +8,7 @@ function getRandomPositionBehindCamera(out initial_pos: Vector, optional distanc
     minimum_distance = 20.0;
   }
 
-  // value of `0.0` means the parameter was not supplied
+  // Value of `0.0` means the parameter was not supplied.
   if (distance == 0.0) {
     distance = 40;
   }
@@ -48,7 +48,7 @@ function getRandomPositionAroundPlayer(out initial_pos: Vector, optional distanc
     minimum_distance = 20.0;
   }
 
-  // value of `0.0` means the parameter was not supplied
+  // Value of `0.0` means the parameter was not supplied.
   if (distance == 0.0) {
     distance = 40;
   }

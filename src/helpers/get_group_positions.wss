@@ -7,7 +7,7 @@ function getGroupPositions(initial_position: Vector, count: int, density: float)
   var i: int;
   var sign: int;
 
-  //const values used in the loop
+  // Const values used in the loop.
   pos_fin.Z = initial_position.Z;
   s = count / density; // maintain a constant density of `density` unit per m2
   r = SqrtF(s/Pi());
@@ -34,9 +34,9 @@ function getGroupPositions(initial_position: Vector, count: int, density: float)
       
     pos_fin.Y = initial_position.Y + sign * y;  //final Y pos
 
-    // return false means it could not find ground position
-    // in this case, take the default position
-    // if return true, then pos_fin is updated with the correct position
+    // Return false means it could not find ground position.
+    // In this case, take the default position.
+    // If return true, then pos_fin is updated with the correct position.
     if (!getGroundPosition(pos_fin)) {
       pos_fin = initial_position;
     }

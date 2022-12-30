@@ -1,17 +1,17 @@
 
 /**
  * Summary of the whole Contract system:
- *  - An errand injector adds a notice to every noticeboard in the game
+ *  - An errand injector adds a notice to every noticeboard in the game.
  *  - When the errand is picked, it notifies the ContractManager which
  *    displays a list of contracts the user can start.
- *  - There is a limited amount of contracts per hour (by default)
+ *  - There is a limited amount of contracts per hour (by default).
  *  - For contracts to be restricted per noticeboard, the noticeboards as
  *    well as the contract have a unique identifier.
  *  - These identifiers are used to determine if the same contract was
  *    already completed from the same noticeboard.
  *  - When a contract is started, it selects a random location in the
  *    world, as well a random reward and a random species.
- *  - Every thing random in contracts are generated from a seeded RNG
+ *  - Every thing random in contracts are generated from a seeded RNG.
  *  - The seed is obtained from the noticeboard and the current
  *    generation time.
  *  - Contracts do not persist in the save, but are regenerated every
@@ -47,7 +47,7 @@ statemachine class RER_ContractManager {
       .GetVarValue('RERcontracts', 'RERhoursBeforeNewContracts')
     );
 
-    // special scenario, 0 means it will generate new contracts every time the
+    // Special scenario, 0 means it will generate new contracts every time the
     // board is opened.
     if (required_time_elapsed <= 0) {
       return RER_GenerationTime(RoundF(RandF() * 1000 - 500));
@@ -141,7 +141,7 @@ statemachine class RER_ContractManager {
 
     NLOG("generateContract, reward_type = " + contract.reward_type);
 
-    // TODO: once the PR that allows us to get the creature type right here is
+    // TODO: Once the PR that allows us to get the creature type right here is
     // merged, replace the difficulty check with a creature strength check.
     if (data.difficulty_level.value < 9) {
       if (rng.nextRange(10, 0) < 5) {
@@ -167,7 +167,7 @@ statemachine class RER_ContractManager {
 
     closest_points = this.getClosestDestinationPoints(starting_point);
 
-    // since it can return less than what we asked for
+    // Since it can return less than what we asked for.
     size = closest_points.Size();
     quarter = RoundF(size * 0.25);
     if (size <= 0) {
@@ -175,8 +175,8 @@ statemachine class RER_ContractManager {
     }
 
     if (SUH_getCurrentRegion() == "prolog_village") {
-      // white orchard doesn't have enough POIs to pick only a portion of them,
-      // instead we pick all of them:
+      // White orchard doesn't have enough POIs to pick only a portion of them.
+      // Instead we pick all of them.
       index = rng.nextRange(size, 0) as int;
     }
     else {
@@ -218,7 +218,7 @@ statemachine class RER_ContractManager {
       }
     };
 
-    // We use a list of point of interests across the map
+    // We use a list of point of interests across the map.
     mappins = this.getPointOfInterests();
     for (i = 0; i < mappins.Size(); i += 1) {
       current_position = mappins[i].entityPosition;
@@ -229,14 +229,14 @@ statemachine class RER_ContractManager {
 
     // We also fetch entities with a custom tag to support
     // custom point of interests. This can prove useful in
-    // new maps from mod who may want to add support for RER
-    // contracts
+    // new maps from mods who may want to add support for RER
+    // contracts.
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
-      10000, // range
-      500, // maxresults
-      'RER_contractPointOfInterest', // tag
+      10000, // Range
+      500, // Maxresults
+      'RER_contractPointOfInterest', // Tag
     );
 
     for (i = 0; i < entities.Size(); i += 1) {
@@ -246,7 +246,7 @@ statemachine class RER_ContractManager {
       sorter_data.PushBack((new RER_ContractLocation in this).init(current_position, current_distance));
     }
 
-    // we re-use the same variable here
+    // We re-use the same variable here.
     sorter_data = SU_sortArray(sorter_data);
 
     for (i = 0; i < sorter_data.Size(); i += 1) {
@@ -349,7 +349,7 @@ statemachine class RER_ContractManager {
     if (IsNameValid(token_name)) {
 
       // 50% chance to get either 1 token, or the rewards_amount - 1, which is
-      // boosted by the reputation and difficulty
+      // boosted by the reputation and difficulty.
       if (rng.next() > 0.5) {
         current_amount = 1;
       }
@@ -360,13 +360,13 @@ statemachine class RER_ContractManager {
       thePlayer.GetInventory().AddAnItem(token_name, current_amount);
       thePlayer.DisplayItemRewardNotification(token_name, current_amount);
 
-      // then we give what's left as jewels:
+      // Then we give what's left as jewels.
       rewards_amount -= current_amount;
 
       this.master.loot_manager.rollAndGiveItemsTo(
         thePlayer.GetInventory(),
         rewards_amount * 0.1,
-        , // rng
+        , // RNG
         LootCategory_Valuables
       );
 
@@ -375,7 +375,7 @@ statemachine class RER_ContractManager {
     }
     else {
       NDEBUG(
-        "RER ERROR: the name of the token is not valid [" + token_name + "]." +
+        "RER ERROR: The name of the token is not valid [" + token_name + "]." +
         "You can report this issue to the author, preferably with a copy/screenshot of this message." +
         "<br/>Additional information:" +
         "<br/> - seed: " + storage.active_contract.rng_seed +
@@ -425,11 +425,11 @@ statemachine class RER_ContractManager {
     // difficulty at 80 = 116.740753
     // difficulty at 99 = 158.036987
     //
-    // tweak the last number to control how low it can go in the negatives.
+    // Tweak the last number to control how low it can go in the negatives.
     // Lower the number the higher it starts.
     //
     // Cap the level to 50 in the exponential function to avoid crazy numbers
-    // at higher levels
+    // at higher levels.
     return ExpF(Min(difficulty.value, 50) * 0.055)
          * LogF(difficulty.value + 1)
          // add a linear function for levels above 50
@@ -446,14 +446,14 @@ statemachine class RER_ContractManager {
       entities,
       thePlayer,
       20, // range, 
-      1, // max results
+      1, // rax results
       , // tag: optional value
       FLAG_ExcludePlayer,
       , // optional value
       'W3NoticeBoard'
     );
 
-    // bold move here, if there are no noticeboard nearby the game will crash.
+    // Bold move here, if there are no noticeboard nearby the game will crash.
     board = entities[0] as W3NoticeBoard;
 
     return board;

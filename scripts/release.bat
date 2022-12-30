@@ -1,4 +1,4 @@
-:: update the /release directory with:
+:: Update the /release directory with:
 :: - the mod menu in /release/bin
 :: - the mod DLC in /release/dlc
 :: - the mod content in /release/mod
@@ -36,7 +36,7 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_damagemodifiers\" "%modpath%\relea
 REM Dependencies
 XCOPY "%modpath%\dependencies\" "%modpath%\release\" /e /s /y
 
-@REM it's an optional patch, so it is not included
+@REM it's an optional patch, so it is not included.
 @REM XCOPY "%modpath%\shared-utils\mod0000_sharedutilsmappinsfhudpatch\" "%modpath%\release\mods\mod0000_sharedutilsmappinsfhudpatch\" /e /s /y
 
 if "%1"=="-github" (

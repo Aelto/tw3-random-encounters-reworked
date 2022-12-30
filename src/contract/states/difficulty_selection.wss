@@ -24,7 +24,7 @@ state DifficultySelection in RER_ContractManager {
     noticeboard_identifier = parent.getUniqueIdFromNoticeboard(parent.getNearbyNoticeboard());
 
     if (!parent.canSelectContractDifficulty()) {
-      // the player cannot select the difficulty, go straight to the next state.
+      // The player cannot select the difficulty, go straight to the next state.
       parent.contractHaggleDifficultySelected(
         RER_ContractDifficultyLevel(
           parent.getMaximumDifficultyForReputation(

@@ -1,5 +1,5 @@
-:: encode the strings from the csv file in /strings and creates all the
-:: w3strings files
+:: Encode the strings from the csv file in /strings and creates all the
+:: w3strings files.
 
 call variables.cmd
 

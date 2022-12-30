@@ -7,11 +7,11 @@ function RER_addNoticeboardInjectors() {
   FindGameplayEntitiesInRange(
     entities,
     thePlayer,
-    5000, // range, 
-    100, // max results
-    , // tag: optional value
+    5000, // Range, 
+    100, // Max results
+    , // Tag: optional value
     FLAG_ExcludePlayer,
-    , // optional value
+    , // Optional value
     'W3NoticeBoard'
   );
 
@@ -52,7 +52,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
 
     identifier = master.contract_manager.getUniqueIdFromNoticeboard(board);
 
-    // if the reputation system is enabled but the player
+    // If the reputation system is enabled but the player
     // does not meet the requirement to see the vanilla
     // contracts yet, we remove all of the quest contracts
     // before injecting our errand.

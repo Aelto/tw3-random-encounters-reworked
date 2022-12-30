@@ -138,10 +138,10 @@ statemachine class CRandomEncounters extends CEntity {
     return this.storages.general.playthrough_seed;
   }
 
-  //#region OutOfCombat action
+  // #region OutOfCombat action
   private var out_of_combat_requests: array<OutOfCombatRequest>;
 
-  // add the requested action for when the player will leave combat
+  // Add the requested action for when the player will leave combat.
   public function requestOutOfCombatAction(request: OutOfCombatRequest): bool {
     var i: int;
     var already_added: bool;
@@ -163,7 +163,7 @@ statemachine class CRandomEncounters extends CEntity {
       this.AddTimer('waitOutOfCombatTimer', 0.1, true);
     }
 
-    // to return if something was added
+    // To return if something was added.
     return !already_added;
   }
 
@@ -202,7 +202,7 @@ statemachine class CRandomEncounters extends CEntity {
     var scene: CStoryScene;
     var will_play_cutscene: bool;
 
-    // is set to true only if trophies were picked up
+    // Is set to true only if trophies were picked up.
     will_play_cutscene = lootTrophiesInRadius();
 
     RER_tutorialTryShowTrophy();
@@ -219,7 +219,7 @@ statemachine class CRandomEncounters extends CEntity {
       .GetStorySceneSystem()
       .PlayScene(scene, "Input");
 
-      // Play some oneliners about the trophies
+      // Play some oneliners about the trophies.
       if (RandRange(10) < 2) {
         REROL_hang_your_head_from_sadle_sync();
       }
@@ -231,7 +231,7 @@ statemachine class CRandomEncounters extends CEntity {
       }
     }
   }
-  //#endregion OutOfCombat action
+  // #endregion OutOfCombat action
 
 
 

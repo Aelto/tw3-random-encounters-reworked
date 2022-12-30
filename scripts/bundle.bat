@@ -1,4 +1,4 @@
-:: bundles the files from /modRandomEncountersReworked for the DLC
+:: Bundles the files from /modRandomEncountersReworked for the DLC.
 
 @echo off
 

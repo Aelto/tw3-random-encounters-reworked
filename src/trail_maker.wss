@@ -3,16 +3,16 @@ struct RER_TrailMakerTrack {
   var template: CEntityTemplate;
   var monster_clue_type: name;
 
-  // some track templates need a higher trail ratio
-  // so when you add a track with a multiplier greater than 1
-  // the TrailMaker trail ratio will increased to accomodate.
-  // the TrailMaker uses the highest trail_ratio_multiplier among
+  // Some track templates need a higher trail ratio.
+  // So when you add a track with a multiplier greater than 1.
+  // The TrailMaker trail ratio will increased to accomodate.
+  // The TrailMaker uses the highest trail_ratio_multiplier among
   // its track lists.
   var trail_ratio_multiplier: float;
   default trail_ratio_multiplier = 1;
 }
 
-// the trail maker is class used to create trails of blood or tracks on the
+// The trail maker is class used to create trails of blood or tracks on the
 // ground. It handles cases where you must draw a trail from point A to point B,
 // or simple cases where you only need one track at a specific location.
 //
@@ -21,7 +21,7 @@ struct RER_TrailMakerTrack {
 // where we can say only draw 0.25 or 0.50, etc...
 class RER_TrailMaker {
 
-  // tells how many are skipped when drawing a trail. If it is set at `1` then
+  // Tells how many are skipped when drawing a trail. If it is set at `1` then
   // it will draw every track, if set at `2` it will draw every 2 tracks.
   private var trail_ratio: int;
   default trail_ratio = 1;
@@ -34,7 +34,7 @@ class RER_TrailMaker {
     this.trail_ratio_index = 1;
   }
 
-  // loops through the tracks and find the highest trail ratio multiplier
+  // Loops through the tracks and find the highest trail ratio multiplier.
   private function getHighestTrailRatioMultiplier(): float {
     var i: int;
     var highest_multiplier: float;
@@ -50,9 +50,9 @@ class RER_TrailMaker {
     return highest_multiplier;
   }
 
-  // an array containing entities for the tracks when
-  // using the functions to add a track on the ground
-  // it adds one to the array, unless we reached the maximum
+  // An array containing entities for the tracks when
+  // using the functions to add a track on the ground.
+  // It adds one to the array, unless we reached the maximum
   // number of tracks. At this moment we come back to 0 and
   // start using the tracks_index and set tracks_looped  
   // to true to tell we have already reached the maximum once.
@@ -137,7 +137,7 @@ class RER_TrailMaker {
       if (this.tracks_entities.Size() == this.tracks_maximum) {
         this.tracks_looped = true;
 
-        // because the recycling process starts first by doing `tracks_index + 1`
+        // Because the recycling process starts first by doing `tracks_index + 1`
         // it is by default set at -1 so the first track it starts recycling is
         // the track at index 0.
         this.tracks_index = -1;
@@ -162,14 +162,14 @@ class RER_TrailMaker {
     return this.tracks_entities[this.tracks_entities.Size() - 1];
   }
 
-  // `use_failsage` stops the trail if it drew more than `this.tracks_maximum`
-  // tracks. It can be useful if the trail is too long, to avoid a crash
+  // `use_failsafe` Stops the trail if it drew more than `this.tracks_maximum`
+  // tracks. It can be useful if the trail is too long, to avoid a crash.
   public latent function drawTrail(
     from: Vector,
     to: Vector,
     destination_radius: float,
 
-    /* set both trails_details parameters or none at all */
+    // Set both trails_details parameters or none at all.
     optional trail_details_maker: RER_TrailDetailsMaker,
     optional trail_details_chances: float,
 
@@ -205,17 +205,16 @@ class RER_TrailMaker {
 
     do {
       // 50 / 100 = 0.5
-      // it's a % going from 100% to 0% as we get closer
+      // It's a % going from 100% to 0% as we get closer.
       distance_left = 1 - (total_distance_to_final_point - distance_to_final_point) / total_distance_to_final_point;
 
       current_track_translation = VecConeRand(
         VecHeading(to - current_track_position),
 
-        // the closer we get to the final point, the smaller the degrees randomness is
+        // The closer we get to the final point, the smaller the degrees of randomness are.
         40 + 50 * distance_left, 
 
-        // the closer we get to the final point, the smaller the distance between
-        // tracks is.
+        // The closer we get to the final point, the smaller the distance between tracks is.
         0.5 + distance_left * 0.5,
         1 + 1 * distance_left
       );
@@ -250,7 +249,7 @@ class RER_TrailMaker {
 
       distance_to_final_point = VecDistanceSquared2D(current_track_position, to);
 
-      // small chance to add a corpse near the tracks
+      // Small chance to add a corpse near the tracks.
       if (trail_details_chances > 0 && RandRange(100) < trail_details_chances) {
         trail_details_maker.placeDetailsHere(current_track_position);
       }
@@ -283,9 +282,9 @@ class RER_TrailMaker {
   }
 
   /**
-   * set it to true if you don't want the class to clean all tracks when it's
+   * Set it to true if you don't want the class to clean all tracks when it's
    * destroyed. Especially useful if you create a temporary TrailMaker just
-   * to quickly draw trails
+   * to quickly draw trails.
    */
   var dont_clean_on_destroy: bool;
 
@@ -297,12 +296,12 @@ class RER_TrailMaker {
 
 }
 
-// the `TrailDetailsMaker` is a class used by the `TrailMaker` class when
-// drawing a trail. It is an abstract class with only one method:
+// The `TrailDetailsMaker` is a class used by the `TrailMaker` class when
+// drawing a trail. It is an abstract class with only one method.
 //  ```
 //    placeDetailsHere(position: Vector)
 //  ```
-// when drawing a trail there is a chance we add small details among the tracks
+// When drawing a trail there is a chance we add small details among the tracks
 // such as corpses, blood around the tracks, a creature, etc... This is what
 //  this class is for.
 //
@@ -311,7 +310,7 @@ class RER_TrailMaker {
 // this new class we just created and that's it.
 abstract class RER_TrailDetailsMaker {
   
-  // override it
+  // Override it.
   public latent function placeDetailsHere(position: Vector) {}
 
 }
@@ -319,8 +318,8 @@ abstract class RER_TrailDetailsMaker {
 
 class RER_CorpseAndBloodTrailDetailsMaker extends RER_TrailDetailsMaker {
   
-  // because it creates corpses and blood spills, we must set these to members
-  // before using this DetailsMaker
+  // Because it creates corpses and blood spills, we must set these to members
+  // before using this DetailsMaker.
   public var corpse_maker: RER_TrailMaker;
   public var blood_maker: RER_TrailMaker;
 

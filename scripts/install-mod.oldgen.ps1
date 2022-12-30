@@ -3,17 +3,17 @@
 cls
 
 echo ""
-echo "Installer for the mod Random Encounters Reworked"
-echo "This will install Random Encounters and its dependencies based on the mods you have"
+echo "Installer for the mod Random Encounters Reworked."
+echo "This will install Random Encounters and its dependencies based on the mods you have."
 echo ""
 
 pause
 cls
 
-# before doing anything we check if the script file is placed in the right
+# Before doing anything we check if the script file is placed in the right
 # directory. It expects to be placed right in the witcher 3 root.
 if (!(test-path dlc)) {
-  write-host -ForegroundColor red "Please make sure the script is placed inside your The Witcher 3 install directly"
+  write-host -ForegroundColor red "Please make sure the script is placed inside your The Witcher 3 install directly!"
   echo "Place it in your The Witcher 3 root directory and run the script again."
   echo ""
 
@@ -21,7 +21,7 @@ if (!(test-path dlc)) {
   exit
 }
 
-# first we create the mods folder if it doesn't exist, because in clean installs
+# First we create the mods folder if it doesn't exist, because in clean installs
 # this folder may be missing.
 if (!(test-path mods)) {
   mkdir mods | out-null
@@ -38,7 +38,7 @@ $assetBootstrap = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("b
 $assetEePatches = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("ee-patches")} |Select -First 1
 $assetFhudPatches = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("fhud-patches")} |Select -First 1
 
-# do not install community-patch-base if the user already has it or if has EE
+# Do not install community-patch-base if the user already has it or EE.
 if (!(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
   echo ""
   echo "downloading community-patch-base"
@@ -48,7 +48,7 @@ if (!(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
   remove-item $assetCommunityPatchBase.name -recurse -force
 }
 
-# do not install bootstrap if the user already has it
+# Do not install bootstrap if the user already has it.
 if (!(test-path mods/modBootstrap-registry)) {
   echo ""
   echo "downloading bootstrap"
@@ -59,7 +59,7 @@ if (!(test-path mods/modBootstrap-registry)) {
   remove-item $assetBootstrap.name -recurse -force
 }
 
-# do not install sharedimport if the user already has it or if he has EE
+# Do not install sharedimport if the user already has it or EE.
 if (!(test-path mods/modSharedImports) -and !(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
   echo ""
   echo "downloading shared import"
@@ -77,8 +77,8 @@ echo "fetching latest v2 release"
 $allReleases = "https://api.github.com/repos/Aelto/tw3-random-encounters-reworked/releases"
 $allReleasesResponse = Invoke-RestMethod -Uri $allReleases
 
-# get the first release that starts with `v2.`, all OldGen releases will be in
-# the "2." rang while NextGen ones are "3."
+# Get the first release that starts with `v2.`, all OldGen releases will be in
+# the "2." rang while NextGen ones are "3.".
 $latestRelease = $allReleasesResponse | ? {($_.name.StartsWith("v2."))} | Select -First 1
 $latestAsset = $latestRelease.assets[0]
 
@@ -88,8 +88,8 @@ Invoke-WebRequest -Uri $latestAsset.browser_download_url -OutFile $latestAsset.n
 Expand-Archive -Force -LiteralPath $latestAsset.name -DestinationPath ./$extractingFolder
 remove-item $latestAsset.name -recurse -force
 
-# if the user has EE, install the patches for the improved compatibility
-# this is done after the RER download because it will overwrite files
+# If the user has EE, install the patches for the improved compatibility
+# this is done after the RER download because it will overwrite files.
 if (test-path mods/modW3EE) {
   echo ""
   echo "downloading W3EE compatibility patches"
@@ -99,7 +99,7 @@ if (test-path mods/modW3EE) {
   remove-item $assetEePatches.name -recurse -force
 }
 
-# if the user has FHUD, there is a patch for it to display custom 3D map markers
+# If the user has FHUD, there is a patch for it to display custom 3D map markers.
 if (!(test-path mods/modW3EE) -and (test-path mods/modFriendlyHUD)) {
   echo ""
   echo "downloading FHUD compatibility patches"
@@ -109,7 +109,7 @@ if (!(test-path mods/modW3EE) -and (test-path mods/modFriendlyHUD)) {
   remove-item $assetFhudPatches.name -recurse -force
 }
 
-# print message notifying which mod will be installed
+# Print message notifying which mod will be installed.
 $children = Get-ChildItem ./$extractingFolder
 cls
 echo ""
@@ -131,7 +131,7 @@ if (test-path $extractingFolderPatches) {
 echo ""
 pause
 
-# finally start installing the mods
+# Finally start installing the mods.
 foreach ($child in $children) {
   $fullpath = "{0}/{1}/*" -f $extractingFolder, $child
   copy-item $fullpath . -force -recurse
@@ -158,14 +158,14 @@ if (test-path $extractingFolderPatches) {
 }
 
 
-# and run the update registry script
+# Run the update registry script.
 echo ""
 echo "Updating bootstrap registry for Random Encounters Reworked"
 cd ./mods/modRandomEncountersReworked/
 ./update-registry.bat
 cd ../../
 
-# final message
+# Final message.
 cls
 
 if ((test-path ./mods/modImmersiveCam) -or (test-path ./mods/modW3EE)) {

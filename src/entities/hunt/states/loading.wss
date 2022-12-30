@@ -37,7 +37,7 @@ state Loading in RandomEncountersReworkedHuntEntity {
         tracks_templates
       );
 
-      // to calculate the initial position we go from the
+      // To calculate the initial position we go from the
       // monsters position and use the inverse tracks_heading to
       // cross ThePlayer's path.
       parent.trail_maker

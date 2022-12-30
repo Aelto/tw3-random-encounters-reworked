@@ -45,6 +45,8 @@ class RER_BestiaryPanther extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 2.5;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.high_indirect_influence) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -72,7 +74,7 @@ class RER_BestiaryPanther extends RER_BestiaryEntry {
       .influence(influences.low_indirect_influence) //CreatureBERSERKER
       .influence(influences.no_influence) //CreatureSIREN
 
-      // large creatures below
+ // Large creatures below.
       .influence(influences.high_indirect_influence) //CreatureDRACOLIZARD
       .influence(influences.high_indirect_influence) //CreatureGARGOYLE
       .influence(influences.friend_with) //CreatureLESHEN

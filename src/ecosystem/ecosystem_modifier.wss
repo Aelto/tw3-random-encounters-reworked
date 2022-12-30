@@ -28,9 +28,8 @@ state Waiting in RER_EcosystemModifier {
 }
 
 // This state decreases the power of all communities by a small amount.
-// this process is essential to the ecosystem or huge communities will form.
-// by default it will remove something like 0.5% of the community's current power
-// which means that 
+// This process is essential to the ecosystem or huge communities will form.
+// By default it will remove something like 0.5% of the community's current power.
 state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -46,7 +45,7 @@ state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
     parent.GotoState('Waiting');
   }
 
-  // a power change should change the community radius by a bit.
+  // Which means that a power change should change the community radius by a bit.
   latent function powerSpread() {
     var spread_settings: float;
     var default_radius: float;
@@ -80,7 +79,7 @@ state PowerSpreadAndNaturalDeath in  RER_EcosystemModifier {
           .ecosystem_areas[current_index]
           .radius = default_radius + current_power * spread_settings;
       }
-      // when the power is negative it still affects the spread but by half the
+      // When the power is negative it still affects the spread but by half the
       // default amount.
       else {
         parent.ecosystem_manager

@@ -1,7 +1,6 @@
 
-// File containing helper functions used for creatures levels.
+// File containing helper functions used for creature levels.
 // It uses values from the settings to calculate their levels.
-//
 
 function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
   var player_level: int;
@@ -11,7 +10,7 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 
   player_level = RER_getPlayerLevel();
 
-  // if for some reason the user set the max lower than the min value
+  // If for some reason the user set the max lower than the min value.
   if (settings.max_level_allowed >= settings.min_level_allowed) {
     max_level_allowed = settings.max_level_allowed;
     min_level_allowed = settings.min_level_allowed;
@@ -30,7 +29,7 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 
 function RER_getPlayerLevel(): int {
   if (RER_playerUsesEnhancedEditionRedux()) {
-    // every 4 hours of gameplay is equal to 1 level in vanilla
+    // Every 4 hours of gameplay is equal to 1 level in vanilla.
     return GameTimeHours(theGame.CalculateTimePlayed()) / 4;
   }
 

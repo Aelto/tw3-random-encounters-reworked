@@ -36,7 +36,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
   inventory.RemoveItemByName(item, count);
 
   if (item == 'rer_token_experience') {
-    // re-use the index variable here
+    // Re-use the index variable here.
     index =  RER_getPlayerLevel() * 10;
 
     GetWitcherPlayer()
@@ -81,7 +81,7 @@ latent function RER_applyLootFromContractTokenName(master: CRandomEncounters, in
     master.loot_manager.rollAndGiveItemsTo(
       inventory,
       1.0,
-      , // rng
+      , // RNG
       category
     );
   }
@@ -180,7 +180,7 @@ function RER_getAllowedContractRewardsMaskFromRegion(): RER_ContractRewardType {
   if (region == "no_mans_land") {
     position = thePlayer.GetWorldPosition();
 
-    // novigrad, higher than oxenfurt on the map
+    // Novigrad, higher than oxenfurt on the map.
     if (position.X < 1150) {
       return ContractRewardType_GOLD
          | ContractRewardType_GEAR;
@@ -190,7 +190,7 @@ function RER_getAllowedContractRewardsMaskFromRegion(): RER_ContractRewardType {
          | ContractRewardType_MATERIALS;
     }
   }
-  // should never enter this one, but left just in case it happens
+  // Should never enter this one, but left just in case it happens.
   else if (region == "novigrad") {
     return ContractRewardType_GOLD
          | ContractRewardType_GEAR;
@@ -203,14 +203,14 @@ function RER_getAllowedContractRewardsMaskFromRegion(): RER_ContractRewardType {
     return ContractRewardType_CONSUMABLES
          | ContractRewardType_GOLD;
   }
-  // kaer_morhen, spiral, isle of mysts, etc...
-  // places where contracts cannot happen without mods
+  // Kaer_morhen, spiral, isle of mysts, etc...
+  // Places where contracts cannot happen without mods.
   
   return ContractRewardType_ALL;
 }
 
 /**
- * contracts rewards are subject to region based restrictions
+ * Contract rewards are subject to region based restrictions
  * but some noticeboards break the rules, this adds some nice
  * variation.
  */

@@ -43,7 +43,7 @@ class RER_CreaturePreferences {
   }
 
   // If the creature has its chance reduce by the external factor
-  // when in the biomes
+  // when in the biomes.
   public var disliked_biomes: array<RER_Biome>;
   public function addDislikedBiome(biome: RER_Biome): RER_CreaturePreferences {
     this.disliked_biomes.PushBack(biome);
@@ -52,7 +52,7 @@ class RER_CreaturePreferences {
   }
 
   // If the creature has its chance increased by the external factor
-  // when in the biomes
+  // when in the biomes.
   public var liked_biomes: array<RER_Biome>;
   public function addLikedBiome(biome: RER_Biome): RER_CreaturePreferences {
     this.liked_biomes.PushBack(biome);
@@ -69,8 +69,7 @@ class RER_CreaturePreferences {
     return this;
   }
 
-  //#region persistent values
-  // value is not reset
+  // #region persistent values value is not reset
   public var is_night: bool;
   public function setIsNight(value: bool): RER_CreaturePreferences {
     this.is_night = value;
@@ -93,7 +92,7 @@ class RER_CreaturePreferences {
     return this;
   }
 
-  // value is not reset
+  // Value is not reset.
   public var external_factors_coefficient: float;
   public function setExternalFactorsCoefficient(value: float): RER_CreaturePreferences {
     this.external_factors_coefficient = value;
@@ -101,7 +100,7 @@ class RER_CreaturePreferences {
     return this;
   }
 
-  // value is not reset
+  // Value is not reset.
   public var is_near_water: bool;
   public function setIsNearWater(value: bool): RER_CreaturePreferences {
     this.is_near_water = value;
@@ -109,7 +108,7 @@ class RER_CreaturePreferences {
     return this;
   }
 
-  // value is not reset
+  // Value is not reset.
   public var is_in_forest: bool;
   public function setIsInForest(value: bool): RER_CreaturePreferences {
     this.is_in_forest = value;
@@ -117,7 +116,7 @@ class RER_CreaturePreferences {
     return this;
   }
 
-  // value is not reset
+  // Value is not reset.
   public var is_in_swamp: bool;
   public function setIsInSwamp(value: bool): RER_CreaturePreferences {
     this.is_in_swamp = value;
@@ -138,7 +137,7 @@ class RER_CreaturePreferences {
 
     return this;
   }
-  //#endregion persistent values
+  // #endregion persistent values
 
   public function getChances(): int {
     var i: int;
@@ -186,7 +185,7 @@ class RER_CreaturePreferences {
       }
     }
 
-    // no allowed biome, return 0 directly.
+    // No allowed biome, return 0 directly.
     if (this.only_biomes.Size() > 0 && !can_spawn) {
       NLOG("creature removed from only biome, for " + this.creature_type);
 
@@ -201,7 +200,7 @@ class RER_CreaturePreferences {
     }
 
     
-    // being in a disliked biome reduces the spawn chances
+    // Being in a disliked biome reduces the spawn chances.
     is_in_disliked_biome = false;
     for (i = 0; i < this.disliked_biomes.Size(); i += 1) {
       if (this.disliked_biomes[i] == BiomeSwamp && this.is_in_swamp) {
@@ -221,7 +220,7 @@ class RER_CreaturePreferences {
       spawn_chances = this.applyCoefficientToCreatureDivide(spawn_chances);
     }
 
-    // being in a liked biome increases the spawn chances
+    // Being in a liked biome increases the spawn chances.
     is_in_liked_biome = false;
     for (i = 0; i < this.liked_biomes.Size(); i += 1) {
       if (this.liked_biomes[i] == BiomeSwamp && this.is_in_swamp) {

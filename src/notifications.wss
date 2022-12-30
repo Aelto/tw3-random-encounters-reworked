@@ -38,7 +38,7 @@ function NTUTO(title: string, body: string, optional do_not_pause: bool) {
   tut.messageTitle = title;
   tut.messageText = body;
 
-  // You can even add images if you want, i didn't test it however
+  // You can even add images if you want, I didn't test it however.
   // tut.imagePath = tutorialEntry.GetImagePath();
 
   tut.enableGlossoryLink = false;
