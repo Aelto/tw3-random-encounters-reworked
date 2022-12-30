@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,9 +17,9 @@
     <blockquote>
       Please keep in mind we're in the process of updating the documentation for
       the next-gen version. While everything is rewritten, documentation for the
-      older versions isn't archived yet. If you are using the 1.32 and wish to
-      install RER then it is recommended to wait a few days until the old documents
-      are published again.
+      older versions isn't archived yet. If you are using the 1.32 version of 
+      The Witcher 3 and wish to install RER then it is recommended to wait
+      a few days until the old documents are published again.
     </blockquote>
 
     <ul>
@@ -32,20 +32,20 @@
       </li>
 
       <li>
-        <a href="#part-2">2.</a> Merging instructions for known conflicts
+        <a href="#part-2">2.</a> Merging instructions for known conflicts.
       </li>
     </ul>
 
     <hr />
     <ul>
       <li>
-        <a href="#part-3">3.</a> <span>OPTIONAL:</span> you can also install keybinds if you want to trigger events by
-        using your keyboard
+        <a href="#part-3">3.</a> <span>OPTIONAL:</span> You can also install keybinds if you want to trigger events by
+        using your keyboard.
         <ul>
-          <li><a href="#part-3-1">3.1.</a> trigger an encounter</li>
-          <li><a href="#part-3-2">3.2.</a> reload the settings</li>
-          <li><a href="#part-3-3">3.3.</a> toggle RER</li>
-          <li><a href="#part-3-4">3.4.</a> analyse the surrounding ecosystem</li>
+          <li><a href="#part-3-1">3.1.</a> Trigger an encounter</li>
+          <li><a href="#part-3-2">3.2.</a> Reload the settings</li>
+          <li><a href="#part-3-3">3.3.</a> Toggle RER</li>
+          <li><a href="#part-3-4">3.4.</a> Analyse the surrounding ecosystem</li>
         </ul>
       </li>
     </ul>
@@ -87,7 +87,7 @@
   <section id="part-2">
     <h2>Merging instructions</h2>
     <blockquote class="info">
-      Merging instructions for known conflicts
+      Merging instructions for known conflicts:
     </blockquote>
 
     <details>
@@ -205,7 +205,7 @@
         the two given mods.
 
         <img src="npc_interaction_fhud_conflict.png" alt="image showing the kdiff3 between sharedutils and FHUD">
-        <i>hold left click on the image to zoom</i>
+        <i>Hold left click on the image to zoom.</i>
       </div>
 
       <div>
@@ -244,9 +244,9 @@
 
 
   <section id="part-3">
-    <h2>Adding the keyboard keybinds</h2>
+    <h2>Adding the keyboard keybinds.</h2>
     <blockquote class="info">
-      What each keybind does and how to add them to your game
+      What each keybind does and how to add them to your game:
     </blockquote>
 
     <div id="part-3-1">
@@ -263,12 +263,12 @@
         <h4>How to add it?</h4>
         <div>
           <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor.</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with:
               <span>IK_0=(Action=RandomEncounter)</span>
             </li>
             <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the
-              <span>0</span> of your keyboard
+              <span>0</span> of your keyboard.
             </li>
           </ol>
         </div>
@@ -290,12 +290,12 @@
         <h4>How to add it?</h4>
         <div>
           <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor.</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with:
               <span>IK_0=(Action=OnRefreshSettings)</span>
             </li>
             <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the
-              <span>0</span> of your keyboard
+              <span>0</span> of your keyboard.
             </li>
           </ol>
         </div>
@@ -309,7 +309,7 @@
         <h4>What is its role?</h4>
         <div>
           Sometimes you want to stop RER from doing its job, you can go into the mod menu and set the
-          <span>Enabled</span> toggle to OFF. This keybind can be used to toggle it without going to the mod menu
+          <span>Enabled</span> toggle to OFF. This keybind can be used to toggle it without going to the mod menu.
         </div>
       </div>
 
@@ -317,12 +317,12 @@
         <h4>How to add it?</h4>
         <div>
           <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor.</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with:
               <span>IK_0=(Action=OnRER_enabledToggle)</span>
             </li>
             <li>You can replace the <span>0</span> in <span>IK_0</span> by the key you want, here it means the
-              <span>0</span> of your keyboard
+              <span>0</span> of your keyboard.
             </li>
           </ol>
         </div>
@@ -336,8 +336,7 @@
         <h4>What is its role?</h4>
         <div>
           Geralt can analyse the surrounding ecosystem to get information about the creatures that live here and also
-          offers
-          advice on how to change the ecosystem.
+          offers advice on how to change the ecosystem.
         </div>
       </div>
 
@@ -345,12 +344,12 @@
         <h4>How to add it?</h4>
         <div>
           <ol>
-            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor</li>
-            <li>Search for <span>[Exploration]</span> and add a line below it with
+            <li>Go to <span>Documents/The Witcher 3</span> and open <span>input.settings</span> with a text editor.</li>
+            <li>Search for <span>[Exploration]</span> and add a line below it with:
               <span>IK_C=(Action=EcosystemAnalyse,State=Duration,IdleTime=0.4)</span>
             </li>
             <li>You can replace the <span>C</span> in <span>IK_C</span> by the key you want, here it means the
-              <span>C</span> of your keyboard
+              <span>C</span> of your keyboard.
             </li>
             <li>Note that you need to press the key for 0.4s for it to trigger.</li>
           </ol>
@@ -363,7 +362,7 @@
     <h2>Uninstalling Random Encounters Reworked</h2>
 
     <details>
-      <summary>Before removing RER</summary>
+      <summary><b>Before removing RER</b></summary>
 
       <div>
         Run the commands:
@@ -373,20 +372,20 @@
           <li><span>reruninstall</span></li>
         </ul>
 
-        Then <b>save your game</b>
+        Then <b>save your game</b>.
       </div>
     </details>
 
     <details>
-      <summary>Removing RER files</summary>
+      <summary><b>Removing RER files</b></summary>
 
       <ul class="spaced">
         <li>
           In your <span>Mods</span> folder:
           <ul>
             <li>Remove all folders whose names start with <span>mod_sharedutils</span></li> (the amount of sharedutils
-            mods may vary depending on the version)
-            <li>Remove the <span>modRandomEncountersReworked</span> folder</li>
+            mods may vary depending on the version).
+            <li>Remove the <span>modRandomEncountersReworked</span> folder.</li>
           </ul>
         </li>
         <li>
@@ -406,7 +405,7 @@
     </details>
 
     <details>
-      <summary>Removing community patches and shared dependencies</summary>
+      <summary><b>Removing community patches and shared dependencies</b></summary>
 
       <div>
         The following mods are shared dependencies. RER uses them but other could
@@ -458,8 +457,7 @@
         Then head to the <a href="https://www.nexusmods.com/witcher3/mods/3652?tab=files">Community Patch - Base</a>'s
         files
         tab, in the optional section get the vanilla scripts that correspond to your version. Refer to the
-        "Uninstallation"
-        section of this mod to understand how to restore the vanilla scripts.
+        "Uninstallation" section of this mod to understand how to restore the vanilla scripts.
       </section>
 
       <p>

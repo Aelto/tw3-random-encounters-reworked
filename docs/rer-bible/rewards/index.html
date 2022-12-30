@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,14 +10,14 @@
 <body>
   
   <h1>Random Encounters Reworked bible</h1>
-  <blockquote>Everything you need to know about RER</blockquote>
-  <a href="../index.html">back to summary</a>
+  <blockquote>Everything you need to know about RER.</blockquote>
+  <a href="../index.html">Back to summary.</a>
 
   <p>
     What would be the point of killing monsters if you did not get any reward
     for it. RER adds new trophies with the sole purpose of being sold so that
     you can earn a few crowns from the monsters you killed. Because trophies
-    may not sell much with the economy altering mods you use, it also includes
+    may not sell for much with the economy altering mods you use, it also includes
     an option for direct crown drops from creatures if you need it as well as
     custom loot for the creatures spawned by the mod.
   </p>
@@ -27,130 +27,128 @@
 
     <p>
       As of RER v2.12 the loot system of the mod has been entirely revamped.
-      You are able to find a single centralized menu called `General reward settings`,
-      then every other feature that needs to add loot will use the values from this menu.
+      You are able to find a single centralized menu called <span>General reward settings</span>.
+      Every other feature that needs to generate loot will use the values from this menu.
     </p>
 
     <h3>The settings explained</h3>
 
-    <p>
-      The rewards consist of four distinct categories, each with four other subcategories for the different levels of loot (the rarities ).
-    </p>
-    <p>
-      For each of these categories you will first find a ratio, it defines how
-      often you should see the category compared to the other categories.
-      If you set one ratio to <span>10</span> and another at <span>30</span>,
-      this means the second category has three times the chance to be selected
-      compared to the first one.
-    </p>
+        <p>
+          The rewards consist of four distinct categories, each with four other subcategories for the different levels of loot (the rarities.
+        </p>
+        <p>
+          For each of these categories you will first find a ratio, it defines how
+          often you should see the category compared to the other categories.
+          If you set one ratio to <span>10</span> and another at <span>30</span>,
+          this means the second category has three times the chance to be selected
+          compared to the first one.
+        </p>
 
-    <p>
-      Below the ratio is the amount of rolls once the category has been chosen.
-      For some of the categories, such as the gear category, a single roll suffices
-      whereas some others like consumables may need multiple rolls for it to match
-      in terms of value.
-    </p>
+        <p>
+          Below the ratio is the amount of rolls once the category has been chosen.
+          For some of the categories, such as the gear category, a single roll suffices
+          whereas some others like consumables may need multiple rolls for it to match
+          in terms of value.
+        </p>
 
-    <p>
-      The third option of each category is the amount of items on a successful rarity roll.
-    </p>
+        <p>
+          The third option of each category is the amount of items on a successful rarity roll.
+        </p>
 
-    <p>
-      And finally you will find a slider to define the chance for each of the
-      rarities. Getting a successful roll on one of the rarities doesn't exclude
-      the other rarities from getting a successful one as well.
-      This means that in theory you can get an item of every single rarity on a
-      single roll for the category. When adjusting the values you should keep
-      that in mind as setting the common rarity to a value like <span>100</span> will
-      simply mean you are guaranteed to get a common item plus some other items
-      for that category.
-    </p>
+        <p>
+          And finally you will find a slider to define the chance for each of the
+          rarities. Getting a successful roll on one of the rarities doesn't exclude
+          the other rarities from getting a successful one as well.
+          This means that in theory you can get an item of every single rarity on a
+          single roll for the category. When adjusting the values you should keep
+          that in mind as setting the common rarity to a value like <span>100</span> will
+          simply mean you are guaranteed to get a common item plus some other items
+          for that category.
+        </p>
 
-    <p>
-      If you wish to remove one of these categories from the possible loot or
-      one of the rarities, setting the ratio or the chance to <span>0</span> will
-      do exactly just that.
-    </p>
+        <p>
+          If you wish to remove one of these categories from the possible loot pools or
+          one of the rarities, setting the ratio or the chance to <span>0</span> will
+          do exactly that.
+        </p>
 
     <h3>Global chance multiplier</h3>
-    <p>
-      You may have noticed a slider colored in gold at the top of the menu.
-      Its has a direct impact on all the chances you set for the rarities,
-      a value of `1` will simply multiply all of them by one, which means they
-      remain unchanged. However if you to set it to `2` then all of them would
-      be multiplied by two, and if you were to set it to `0.5` then they all would
-      be halved. You will notice this is what the `low` and `high` presets are doing.
-    </p>
+        <p>
+          You may have noticed a slider colored in gold at the top of the menu.
+          It has a direct impact on all the chances you set for the rarities,
+          a value of <span>1</span> will simply multiply all of them by one, which means they
+          remain unchanged. However if you to set it to <span>2</span> then all of them would
+          be multiplied by two, and if you were to set it to <span>0.5</span> then they all would
+          be halved. You will notice this is what the <span>low</span> and <span>high</span> presets are doing.
+        </p>
 
-    <p>
-      Now on top of this explicit multiplier there is also a hidden multiplier
-      used by the other systems themselves. For example the killing spree loot,
-      which gives custom loot when you repeatedly slain creatures, links the strength
-      of your surrounding ecosystems to the chance multiplier. Let's say you are
-      currently in an ecosystem at 150% of its original strength where you have
-      been hunting creatures in the area for quite some time, every additional
-      creature spawned by RER will now get an additional 50% chance to get loot.
-      The ratio at which ecosystem strength is converted to chance multiplication can
-      be controlled in the killing spree submenu. The default value is around 1%
-      ecosystem strength = 0.3% bonus chance.
-    </p>
+        <p>
+          Now on top of this explicit multiplier there is also a hidden multiplier
+          used by the other systems themselves. For example the killing spree loot,
+          which gives custom loot when you repeatedly slay creatures, links the strength
+          of your surrounding ecosystems to the chance multiplier. Let's say you are
+          currently in an ecosystem at 150% of its original strength where you have
+          been hunting creatures in the area for quite some time, every additional
+          creature spawned by RER will now get an additional 50% chance to get loot.
+          The ratio at which ecosystem strength is converted to chance multiplication can
+          be controlled in the killing spree submenu. The default value is around 1%
+          ecosystem strength = 0.3% bonus chance.
+        </p>
 
-    <p>
-      Another example of this hidden multiplier is the container refill feature.
-      Every group of creature you kill has a chance to refill one of the nearby
-      containers with new loot. The container refill menu offers an additional
-      chance multiplier that it will use to multiply the global chance multiplier
-      from the general settings. This allows you to roughly control how often
-      you should see new loot in your containers.
-    </p>
+        <p>
+          Another example of this hidden multiplier is the container refill feature.
+          Every group of creatures you kill has a chance to refill one of the nearby
+          containers with new loot. The container refill menu offers an additional
+          chance multiplier that it will use to multiply the global chance multiplier
+          from the general settings. This allows you to roughly control how often
+          you should see new loot in your containers.
+        </p>
   </section>
 
   <section>
-    <h2 id="crowns"><a class="paragraph-link" href="#crowns">§</a>Crowns</h3>
+    <h2 id="crowns"><a class="paragraph-link" href="#crowns">§</a>Crowns</h2>
 
-    <p>
+     <p>
       In the crown settings, you control the base values for each encounter type.
       <img src="crownbasevalues.png" alt="">
       And then for each creature you control how much of the base value they drop in %.
       This value has some randomness you cannot edit, it varies by between 80% and 120%
       of what you set. So if you set 50% to the Sirens it will in reality vary
-      between 40% and 60%
+      between 40% and 60%.
       <img src="crownpercent.png" alt="">
-      This allows you to tell RER that Sirens should drop few crowns and also control
+      This allows you to tell RER that Sirens should drop less crowns and also control
       the amount of crowns you get based on the encounter type. Some people do not
-      want crowns outside of contracts so they set the <span>From ___</span> sliders to 0
+      want crowns outside of contracts so they set the <span>From ___</span> sliders to <span>0</span>
       except for the <span>From contracts</span> slider.
       <br>
       Then you can tweak the amount dropped on a per creature basis.
-    </p>
-
+     </p>
   </section>
 
   <section>
-    <p>
-      <h2 id="trophies"><a class="paragraph-link" href="#trophies">§</a>Trophies</h3>
+    <h2 id="trophies"><a class="paragraph-link" href="#trophies">§</a>Trophies</h2>
+     <p>
       You can control from which encounters you get RER trophies with the first toggles.
       Creatures from an encounter with the trophies disabled won't drop trophies.
       <img src="trophiesfrom.png" alt="">
 
       You can also change the price of the trophies you get, but note it is not
-      retroactive and won't change the price of the trophies you already picked.
+      retroactive and won't change the price of the trophies you already picked up.
       <img src="trophiesprice.png" alt="">
-    </p>
+     </p>
 
     <p>
       And finally, you can edit the chance for the creature to drop trophies.
-      <span>100</span> means it has 100% chance to drop a trophy, <span>50</span> 
-      means 50% and <span>0</span> means no trophies drop this creature.
+      <span>100</span> means it has a 100% chance to drop a trophy, <span>50</span> 
+      means 50% and <span>0</span> means no trophies drop from this creature.
       <img src="trophiesdrop.png" alt="">
     </p>
 
   </section>
 
   <section>
-
+   <h2 id="container-refill"><a class="paragraph-link" href="#contaiers-refill">§</a>Containers refill</h2>
     <p>
-      <h3 id="containers-refill"><a class="paragraph-link" href="#contaiers-refill">§</a>Containers refill</h3>
       RER has always been about revitalizing old content, or places. This feature
       will refill the containers of regions where you kill monsters. It's a pretty simple
       feature: you kill monsters, containers around you are filled with new loot.
@@ -170,38 +168,30 @@
       Now the main sliders:
       <ul>
         <li><span>chance to trigger</span> allows you to define the chance for
-          it to happen every time you kill an encounter from RER. Note that it only works
-          for RER encounters.
-        </li>
+          it to happen every time you complete an encounter from RER. Note that it only works
+          for RER encounters.</li>
         <li><span>Only empty containers</span> by default the feature only works
           on containers that are empty to prevent filling the containers with tons
-          of stuff.
-        </li>
-        <li>
-          <span>Radius</span>, it controls how far around the player RER will
-          look for containers.
-        </li>
-        <li>
-          <span>Number of containers</span> tells the maximum number of containers that will
+          of stuff.</li>
+        <li><span>Radius</span> controls how far around the player RER will
+          look for containers.</li>
+        <li><span>Number of containers</span> tells the maximum number of containers that will
           be refilled when this system triggers. It is not guaranteed to
-          reach this number if there are not enough containers around you.
-        </li>
+          reach this number if there are not enough containers around you.</li>
       </ul>
     </p>
   </section>
 
   <section id="killing-spree-loot">
     <h2><a class="paragraph-link" href="#killing-spree-loot">§</a>Killing spree loot</h3>
-
-    <p>
-      <img src="custom-loot.png" alt="">
-      This feature allows you to unlock new loot tables for the creatures spawned by RER as you
-      repeatedly kill monsters in the same areas.
-      It is tightly coupled to the ecosystem feature as it uses
-      the <a href="../encounters/index.html#state-of-the-ecosystem">ecosystem strength</a> to
-      determine what loot table is unlocked.
-    </p>
-
+      <p>
+        <img src="custom-loot.png" alt="">
+        This feature allows you to unlock new loot tables for the creatures spawned by RER as you
+        repeatedly kill monsters in the same areas.
+        It is tightly coupled to the ecosystem feature as it uses
+        the <a href="../encounters/index.html#state-of-the-ecosystem">ecosystem strength</a> to
+        determine what loot table is unlocked.
+      </p>
   </section>
 
 </body>

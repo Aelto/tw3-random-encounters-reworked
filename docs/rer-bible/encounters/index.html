@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,8 +10,8 @@
 <body>
   
   <h1>Random Encounters Reworked bible</h1>
-  <blockquote>Everything you need to know about RER</blockquote>
-  <a href="../index.html">back to summary</a>
+  <blockquote>Everything you need to know about RER.</blockquote>
+  <a href="../index.html">Back to summary.</a>
 
   <section>
     <h2>Encounters</h2>
@@ -29,12 +29,12 @@
       menu.
       <img src="delays.png" alt="image showing the two delay sliders">
       You can set different delays for the night and the day, particularely useful
-      if you want encounters only during the night for example. In such case you'd
+      if you want encounters mostly during the night for example. In such case you'd
       set the day delays to a really high value like 600 seconds (10 minutes).
       <br>
       There are two sliders for each, the minimum and maximum delay because RER
       picks a random value between the two intervals. So with the settings shown in
-      the image RER will pick create an encounter at an interval between 60 and 130 seconds
+      the image RER will create an encounter at an interval somewhere between 60 and 130 seconds
       <img src="delays-per-level.png" alt="image showing the two delay sliders">
       Then on top of the default delay sliders, there is a unique slider to add a
       custom delay based on your current level: <span>Additional delay (in seconds) per player level</span>.
@@ -68,7 +68,7 @@
       This slider controls how much repeatedly killing monsters in an area will
       affect the delays. RER will then adjust the pace at which it creates new creatures,
       the default value of <span>100</span> means that this feature works at 100%
-      of its intended efficacy. This slider can also go below zero, into negative values to
+      of its intended efficiency. This slider can also go below zero, into negative values to
       completely invert its effect on the delays.
     </p>
 
@@ -78,14 +78,14 @@
         <li>
           The first way are the positive values, this is the default value. Every time a creature
           will be slain, the spawn rates of other creatures will <u>increase</u>. For example if
-          you happen to kill one Ghoul, that spawnrate of creatures in the surrounding ecosystems
+          you happen to kill one Ghoul, the spawnrate of creatures in the surrounding ecosystems
           will now be increased by 1.5%. So the more you kill, the faster creatures will respawn.
           However you should note that creature spawns also affect the spawnrate the same way kills
           do, but in the opposite direction. Meaning every time a creature will spawn the spawn rate
           will <u>decrease</u>. This is why the default value for this slider is a positive value,
           this helps balance the amount of creatures you see in a single area. For example if too
           many creatures were to spawn around you, RER will then naturally slow down the spawn rate
-          of subsequent creatures. This avoids creature filled with too many creatures if you were
+          of subsequent creatures. This avoids areas being filled with too many creatures if you were
           to stay in a single area without killing anything. This also allows you to stay in one
           area and farm the creatures in case you like the ecosystems for example.
         </li>
@@ -94,7 +94,7 @@
           option as killing creatures will actually <u>slow down</u> the spawn rate of other creatures,
           it is like slowly eradicating the lifeforms of an ecosystem. But again it works the opposite
           way when creatures are spawned, which means that if you let creatures alive for too long this
-          will eventually lead to a point where creatures will spawn at an uncontrolled rate. If you
+          will eventually lead to a point where creatures will spawn at an uncontrollable rate. If you
           want to use a negative value, i highly suggest to look at the ecosystem menu and set <a href="../ecosystem/index.html">the death rate</a> to
           a high percentage like 10 or 15%. A percentage of 10% means that the spawn rate will
           tend to 200% over-time and will not go much higher as creatures of the ecosystem will die faster
@@ -104,48 +104,48 @@
     </p>
 
     <p id="state-of-the-ecosystem">
-      If you are wondering the state of the surrounding ecosystem and what's the spawn rate
-      in the region, you can use the <a href="https://www.youtube.com/watch?v=2txXNrz_QLY">ecosystem analyse</a> (
+      If you are wondering about the state of the surrounding ecosystem and what the spawn rates
+      in the region are, you can use the <a href="https://www.youtube.com/watch?v=2txXNrz_QLY">ecosystem analyse</a> (
         <a href="https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/#part-4-4">setup guide</a>
-      ) which will now include a line with the spawn rate
+      ) which will now include a line with the spawn rate.
       <img src="ecosystem-analyser-delay_multiplayer.png" alt="">
     </p>
 
     <p>
       You can also control how far encounters are created as encounters are spawned
-      around you. The distance sliders help you control this
+      around you. The distance sliders help you control this.
       <img src="distances.png" alt="image showing the three distance sliders">
-      the first slider, the <span>minimum spawn distance</span> controls the distance
+      The first slider: <span>minimum spawn distance</span> controls the distance
       at which encounters cannot be created. It is a safe radius around you.
       <br>
-      The second slider <span>spawn diameter</span> is the danger zone after the safe zone
+      The second slider: <span>spawn diameter</span> is the danger zone after the safe zone
       where encounters are created. So with the settings shown in the image encounters
       will be created between 40 meters and 160 meters from you.
       <br>
-      The last slider, the <span>automatic kill threshold</span> tells at which distance
+      The last slider: <span>automatic kill threshold</span> tells you at which distance
       RER considers an encounter lost and kills it to save performances. Because it is
-      not guaranteed creature from encounters will go towards Geralt, this slider is important.
+      not guaranteed that creatures from encounters will go towards Geralt, this slider is important.
     </p>
 
     <p>
       Creatures from RER are always spawned at Geralt's level, it ensures a pleasant experience.
-      But you can control their level with the levels sliders
+      But you can control their level with the levels sliders.
       <img src="levels.png" alt="">
       It is pretty simple, with <span>lowest: -3</span> and <span>highest: 3</span> you will get creatures
-      with a random level around yours but never higher than three levels and never lower than three.
+      with a random level around yours but never more then 3 levels above or below yours.
       <br>
       You can set both sliders to <span>+10</span> and every creatures will be ten levels higher than you.
     </p>
 
     <p>
-      Static encounters are so simple that they don't deserve they own menu, so their
-      spawn chance were set in this menu.
+      Static encounters are so simple that they don't deserve their own menu, so their
+      spawn chance settings were added to this menu.
       <img src="staticencounters.png" alt="image showing static encounters sliders">
       If you want to learn more about them, see the static encounters page.
     </p>
 
     <p>
-      Creatures from encounters may drop tracks on the ground, this slider controls
+      Creatures from encounters may leave tracks on the ground, this slider controls
       how often they leave tracks and how dense the trails will be.
       <img src="trailratio.png" alt="">
       A value around

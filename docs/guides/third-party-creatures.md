@@ -56,28 +56,28 @@ class EX_BestiaryEntry extends RER_BestiaryEntry {
 }
 
 ```
-In this example i named the class `EX_BestiaryEntry` where `EX` stands for example, and then for the calls to `GetVarValue` i fetched the values from menus prefixed with `EX` too: `EXencountersAmbushDay`. If you don't want to ship a mod menu with your mod, you could instead hardcode values here. The mod menus for RER are quite extensive and you should know that it could potentially take more time than creating the rest of the interfacing mod.
+In this example I named the class `EX_BestiaryEntry` where `EX` stands for example, and then for the calls to `GetVarValue` I fetched the values from menus prefixed with `EX` too: `EXencountersAmbushDay`. If you don't want to ship a mod menu with your mod, you could instead hardcode values here. The mod menus for RER are quite extensive and you should know that it could potentially take more time than creating the rest of the interfacing mod.
 
 Once you have created your own bestiary entry class for your own mod, you can now create the bestiary entries for the creatures of your mod. For example, here is the leshen bestiary entry: (I explain the code with comments)
 ```js
 
 // -----------------------------------------------------------------------------
-// It starts by extending the RER bestiary entry class
+// It starts by extending the RER bestiary entry class.
 class RER_BestiaryLeshen extends RER_BestiaryEntry {
   // ---------------------------------------------------------------------------
-  // then overrides the init() method. This method is called by RER whenever the
-  // entry is added in the bestiary
+  // Then overrides the init() method. This method is called by RER whenever the
+  // entry is added in the bestiary.
   public function init() {
     // -------------------------------------------------------------------------
-    // the variables, this will stay the same in your case
+    // The variables, this will stay the same in your case.
     var influences: RER_ConstantInfluences;
     influences = RER_ConstantInfluences();
 
     // -------------------------------------------------------------------------
-    // then the creature type and its menu name. You should know that the menu
+    // Then the creature type and its menu name. You should know that the menu
     // name should be in the plural form because it may sometimes be displayed
     // to the player through the UI and it will make more sense if the name
-    // is in the plural form
+    // is in the plural form.
     //
     // And in your case the type will be obtained with a function. I'll explain it
     // in the example below.
@@ -111,7 +111,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
     );
     
     // -------------------------------------------------------------------------
-    // This is how you do if a creature is from a DLC, otherwise the game will
+    // This is what to do if a creature originates from a DLC, otherwise the game will
     // crash when RER will try to spawn it because it doesn't exist.
     if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
       this.template_list.templates.PushBack(
@@ -123,10 +123,12 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
     }
 
     // -------------------------------------------------------------------------
-    // this is the food chain and influences of this creature towards the other
+    // This is the food chain and influences of this creature towards the other
     // creatures of the ecosystem. If you don't want to bother with this,
-    // simply set `influences.no_influence` to every line
+    // simply set `influences.no_influence` to every line.
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.kills_them) //CreatureHUMAN
       .influence(influences.friend_with) //CreatureARACHAS
       .influence(influences.friend_with) //CreatureENDREGA
@@ -154,7 +156,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
       .influence(influences.friend_with) //CreatureBERSERKER
       .influence(influences.kills_them) //CreatureSIREN
 
-      // large creatures below
+	// Large creatures below.
       .influence(influences.kills_them) //CreatureDRACOLIZARD
       .influence(influences.kills_them) //CreatureGARGOYLE
       .influence(influences.self_influence) //CreatureLESHEN
@@ -196,7 +198,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
     this.template_list.difficulty_factor.maximum_count_hard = 1;
     
     // -------------------------------------------------------------------------
-    // The names of the trophies your creatures will drop. Three variants for
+    // The names of the trophies your creature will drop. Three variants for
     // three different shop prices.
     this.trophy_names.PushBack('modrer_leshen_trophy_low');
     this.trophy_names.PushBack('modrer_leshen_trophy_medium');
@@ -205,7 +207,7 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
   }
 
   // ---------------------------------------------------------------------------
-  // and finally, the biomes your creature like. 
+  // And finally, the biomes your creature likes.
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{
     return super.setCreaturePreferences(preferences, encounter_type)
     .addOnlyBiome(BiomeForest);
@@ -213,12 +215,12 @@ class RER_BestiaryLeshen extends RER_BestiaryEntry {
 }
 ```
 
-And here is an example
+And here is an example:
 ```js
 
 // -----------------------------------------------------------------------------
-// this function is used to get the RER class and all of its public members
-// we'll use it to access the RER bestiary class.
+// This function is used to get the RER class and all of its public members.
+// We'll use it to access the RER bestiary class.
 function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
   var entities : array<CEntity>;
 
@@ -257,6 +259,8 @@ class EX_BestiaryBraveWarrior extends RER_BestiaryEntry {
     );
 
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
+
+	// Small creatures below.
       .influence(influences.no_influence) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
@@ -284,7 +288,7 @@ class EX_BestiaryBraveWarrior extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureBERSERKER
       .influence(influences.no_influence) //CreatureSIREN
 
-      // large creatures below
+	// Targe creatures below.
       .influence(influences.no_influence) //CreatureDRACOLIZARD
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN
@@ -335,7 +339,7 @@ class EX_BestiaryBraveWarrior extends RER_BestiaryEntry {
 }
 ```
 
-### Adding the entry to the bestiary
+### Adding the entry to the bestiary.
 > This is a summary of the bootstrap guide.
 ```js
 class CExampleRERInterfaceInitializer extends CEntityMod {
@@ -354,7 +358,7 @@ function modCreate_ExampleInterfaceRerMod() : CMod {
 }
 
 // -----------------------------------------------------------------------------
-// and now your class
+// And now your class.
 class ExampleInterfaceRerMod extends CEntity {
   event OnSpawned(spawn_data: SEntitySpawnData) {
     var entities: array<CEntity>;

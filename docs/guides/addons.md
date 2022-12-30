@@ -20,10 +20,10 @@ Create a mod bundle with an xml file and copy this content:
     <items>
 
       <!--
-        update the name of the item to the name of your addon.
+        Update the name of the item to the name of your addon.
        -->
       <item name="MyAddon">
-        <!-- make sure to add this tag or else the item won't be detected -->
+        <!-- Make sure to add this tag or else the item won't be detected: -->
         <tags>RER_Addon</tags>
       </item>
       
@@ -56,7 +56,7 @@ state MyAddon in RER_AddonManager extends Addon {
   }
 
   /**
-   * states can have undefined behaviors when two states have methods with the
+   * States can have undefined behaviors when two states have methods with the
    * same name. For this reason it is recommend to use a prefix on your function
    * names, using the state name is a good solution.
    */
@@ -65,14 +65,14 @@ state MyAddon in RER_AddonManager extends Addon {
 
     master = this.getMaster();
     
-    // now we can do anything we want with RER, for example adding an exception
+    // Now we can do anything we want with RER, for example adding an exception
     // area so the mod spawns creatures in out of bound areas of the map:
     master
       .addon_manager
       .addons_data
       .exception_areas.PushBack(Vector(10, 10, 1000));
 
-    // when our job is done, we MUST call the finish method. Not doing so will
+    // When our job is done, we MUST call the finish method. Not doing so will
     // block the add-on manager and it won't load any other add-on.
     this.finish();
   }
