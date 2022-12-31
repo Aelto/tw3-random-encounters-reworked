@@ -36,6 +36,10 @@ state Initialising in CRandomEncounters {
     this.removeAllRerMapPins();
     this.updateSettings();
 
+    if (!parent.storages) {
+      parent.storages = RER_loadStorageCollection(parent);
+    }
+
     parent.spawn_roller.fill_arrays();
 
     parent.bestiary.init();
@@ -46,8 +50,6 @@ state Initialising in CRandomEncounters {
 
     parent.events_manager.init(parent);
     parent.events_manager.start();
-
-    parent.storages = RER_loadStorageCollection();
 
     parent.ecosystem_manager.init(parent);
     parent.bounty_manager.init(parent);

@@ -3,8 +3,6 @@ state Spawning in CRandomEncounters {
   private var is_spawn_forced: bool;
 
   event OnEnterState(previous_state_name: name) {
-    parent.RemoveTimer('randomEncounterTick');
-
     super.OnEnterState(previous_state_name);
 
     // Set is_spawn_forced if the previous state was SpawningForced
