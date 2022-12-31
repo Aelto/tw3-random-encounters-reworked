@@ -1,21 +1,16 @@
 
-class CRandomEncounterInitializer extends CEntityMod {
-  default modName = 'Random Encounters Reworked';
-  default modAuthor = "Aeltoth";
-  default modUrl = "http://www.nexusmods.com/witcher3/mods/5018";
-  default modVersion = '3.0';
+state rer_bootstrapper in SU_TinyBootstrapperManager extends BaseMod {
+  public function getTag(): name {
+    return 'rer_bootstrapper';
+  }
 
-  default logLevel = MLOG_DEBUG;
-
-  default template = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_initializer.w2ent";
+  public function getMod(): SU_BaseBootstrappedMod {
+    return new CRandomEncounters in parent;
+  }
 }
 
 
-function modCreate_RandomEncountersReworked() : CMod {
-  return new CRandomEncounterInitializer in thePlayer;
-}
-
-statemachine class CRandomEncounters extends CEntity {
+statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
   var rExtra: CModRExtra;
   var settings: RE_Settings;
   var resources: RE_Resources;
@@ -24,7 +19,7 @@ statemachine class CRandomEncounters extends CEntity {
   var bestiary: RER_Bestiary;
   var static_encounter_manager: RER_StaticEncounterManager;
   var ecosystem_manager: RER_EcosystemManager;
-  var storages: RER_StorageCollection;
+  saved var storages: RER_StorageCollection;
   var bounty_manager: RER_BountyManager;
   var horde_manager: RER_HordeManager;
   var contract_manager: RER_ContractManager;
@@ -37,42 +32,30 @@ statemachine class CRandomEncounters extends CEntity {
   
   var ecosystem_frequency_multiplier: float;
 
-  event OnSpawned(spawn_data: SEntitySpawnData) {
-    NLOG("RandomEncounter spawned");
-    RER_createInstanceFact();
+  public function start() {
+    NLOG("Random Encounters Reworked - CRandomEncounters::start()");
 
-    if (RER_getInstanceFactSum() > 1) {
-      this.Destroy();
+    theInput.RegisterListener(this, 'OnRefreshSettings', 'OnRefreshSettings');
+    theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
+    theInput.RegisterListener(this, 'OnRER_enabledToggle', 'OnRER_enabledToggle');
 
-      return true;
-    }
-    else {
-      this.AddTag('RandomEncounterTag');
+    rExtra = new CModRExtra in this;
+    settings = new RE_Settings in this;
+    resources = new RE_Resources in this;
+    spawn_roller = new SpawnRoller in this;
+    events_manager = new RER_EventsManager in this;
+    bestiary = new RER_Bestiary in this;
+    static_encounter_manager = new RER_StaticEncounterManager in this;
+    ecosystem_manager = new RER_EcosystemManager in this;
+    bounty_manager = new RER_BountyManager in this;
+    horde_manager = new RER_HordeManager in this;
+    contract_manager = new RER_ContractManager in this;
+    addon_manager = new RER_AddonManager in this;
+    loot_manager = new RER_LootManager in this;
 
-      theInput.RegisterListener(this, 'OnRefreshSettings', 'OnRefreshSettings');
-      theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
-      theInput.RegisterListener(this, 'OnRER_enabledToggle', 'OnRER_enabledToggle');
+    this.boot_time = theGame.GetEngineTimeAsSeconds();
 
-      super.OnSpawned(spawn_data);
-
-      rExtra = new CModRExtra in this;
-      settings = new RE_Settings in this;
-      resources = new RE_Resources in this;
-      spawn_roller = new SpawnRoller in this;
-      events_manager = new RER_EventsManager in this;
-      bestiary = new RER_Bestiary in this;
-      static_encounter_manager = new RER_StaticEncounterManager in this;
-      ecosystem_manager = new RER_EcosystemManager in this;
-      bounty_manager = new RER_BountyManager in this;
-      horde_manager = new RER_HordeManager in this;
-      contract_manager = new RER_ContractManager in this;
-      addon_manager = new RER_AddonManager in this;
-      loot_manager = new RER_LootManager in this;
-
-      this.boot_time = theGame.GetEngineTimeAsSeconds();
-
-      this.GotoState('Initialising');
-    }
+    this.GotoState('Initialising');
   }
 
   /**
@@ -148,51 +131,51 @@ statemachine class CRandomEncounters extends CEntity {
 
     already_added = false;
 
-    NLOG("adding request out of combat: " + request);
+    // NLOG("adding request out of combat: " + request);
 
-    for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
-      if (this.out_of_combat_requests[i] == request) {
-        already_added = true;
-      }
-    }
+    // for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
+    //   if (this.out_of_combat_requests[i] == request) {
+    //     already_added = true;
+    //   }
+    // }
 
-    if (!already_added) {
-      this.out_of_combat_requests.PushBack(request);
+    // if (!already_added) {
+    //   this.out_of_combat_requests.PushBack(request);
 
-      this.RemoveTimer('waitOutOfCombatTimer');
-      this.AddTimer('waitOutOfCombatTimer', 0.1, true);
-    }
+    //   this.RemoveTimer('waitOutOfCombatTimer');
+    //   this.AddTimer('waitOutOfCombatTimer', 0.1, true);
+    // }
 
     // to return if something was added
     return !already_added;
   }
 
-  timer function waitOutOfCombatTimer(optional delta: float, optional id: Int32) {
-    var i: int;
+  // timer function waitOutOfCombatTimer(optional delta: float, optional id: Int32) {
+  //   var i: int;
 
-    if (thePlayer.IsInCombat()) {
-      return;
-    }
+  //   if (thePlayer.IsInCombat()) {
+  //     return;
+  //   }
 
-    this.RemoveTimer('waitOutOfCombatTimer');
+  //   this.RemoveTimer('waitOutOfCombatTimer');
 
 
-    for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
-      switch (this.out_of_combat_requests[i]) {
-        case OutOfCombatRequest_TROPHY_CUTSCENE:
-          if(this.shouldPlayTrophyCutScene())
-          {
-            // three times because some lootbags can take time to appear
-            this.AddTimer('lootTrophiesAndPlayCutscene', 1.5, false);
-            this.AddTimer('lootTrophiesAndPlayCutscene', 2.25, false);
-            this.AddTimer('lootTrophiesAndPlayCutscene', 3, false);
-          }
-        break;
-      }
-    }
+  //   for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
+  //     switch (this.out_of_combat_requests[i]) {
+  //       case OutOfCombatRequest_TROPHY_CUTSCENE:
+  //         if(this.shouldPlayTrophyCutScene())
+  //         {
+  //           // three times because some lootbags can take time to appear
+  //           // this.AddTimer('lootTrophiesAndPlayCutscene', 1.5, false);
+  //           // this.AddTimer('lootTrophiesAndPlayCutscene', 2.25, false);
+  //           // this.AddTimer('lootTrophiesAndPlayCutscene', 3, false);
+  //         }
+  //       break;
+  //     }
+  //   }
 
-    this.out_of_combat_requests.Clear();
-  }
+  //   this.out_of_combat_requests.Clear();
+  // }
 
   private function shouldPlayTrophyCutScene() : bool {
     return RandRange(100) <= this.settings.trophy_pickup_scene_chance;
@@ -257,17 +240,11 @@ statemachine class CRandomEncounters extends CEntity {
 }
 
 function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
-  var entities : array<CEntity>;
+  rer_entity = SUTB_getModByTag('rer_bootstrapper') as CRandomEncounters;
 
-  theGame.GetEntitiesByTag('RandomEncounterTag', entities);
-
-  if (entities.Size() == 0) {
-    LogAssert(false, "No entity found with tag <RandomEncounterTag>" );
-
-    return false;
+  if (rer_entity) {
+    return true;
   }
 
-  rer_entity = entities[0] as CRandomEncounters;
-
-  return true;
+  return false;
 }
