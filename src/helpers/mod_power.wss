@@ -22,7 +22,7 @@ function RER_getModPower(): float {
     1, // maximum of 1
   );
 
-  NLOG("RER_getModPower(): power = " + power);
+  // NLOG("RER_getModPower(): power = " + power);
 
   return power;
 }
