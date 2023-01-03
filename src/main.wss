@@ -11,6 +11,8 @@ state rer_bootstrapper in SU_TinyBootstrapperManager extends BaseMod {
 
 
 statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
+  default tag = 'rer_bootstrapper';
+
   var rExtra: CModRExtra;
   var settings: RE_Settings;
   var resources: RE_Resources;
