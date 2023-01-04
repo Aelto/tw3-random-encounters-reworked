@@ -6,16 +6,20 @@ call variables.cmd
 cd %modpath%\strings
 del *.w3strings
 %modkitpath%\w3strings --encode en.w3strings.csv --id-space 5018
+%modkitpath%\w3strings --encode es.w3strings.csv --id-space 5018
+%modkitpath%\w3strings --encode esmx.w3strings.csv --id-space 5018
 
 del *.ws
 rename en.w3strings.csv.w3strings en.w3strings
+rename es.w3strings.csv.w3strings es.w3strings
+rename esmx.w3strings.csv.w3strings esmx.w3strings
 
 copy en.w3strings ar.w3strings
 copy en.w3strings br.w3strings
 copy en.w3strings cz.w3strings
 copy en.w3strings de.w3strings
-copy en.w3strings es.w3strings
-copy en.w3strings esmx.w3strings
+:: copy en.w3strings es.w3strings
+:: copy en.w3strings esmx.w3strings
 copy en.w3strings fr.w3strings
 copy en.w3strings hu.w3strings
 copy en.w3strings it.w3strings
