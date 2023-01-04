@@ -160,7 +160,6 @@ state Initialising in CRandomEncounters {
         config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 30);
       }
 
-
       current_version = 2.13;
     }
 
@@ -170,6 +169,8 @@ state Initialising in CRandomEncounters {
       var message: string;
       message += "Random Encounters Reworked was updated to the v3.0 - The Next-Gen update";
       NTUTO("RER v3.0 - Next-Gen update", message);
+
+      config.ApplyGroupPreset('RERtutorials', 0);
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
