@@ -38,6 +38,7 @@ state Processing in RER_ContractManager {
     map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
     map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
     map_pin.type = "MonsterQuest";
+    map_pin.filtered_type = "MonsterQuest";
     map_pin.radius = active_contract.destination_radius;
     map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
     map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()

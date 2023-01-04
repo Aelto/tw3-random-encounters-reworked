@@ -323,6 +323,7 @@ statemachine class RER_BountyManager extends CEntity {
     );
     map_pin.label = GetLocStringByKey("rer_mappin_bounty_main_target_title");
     map_pin.type = "MonsterQuest";
+    map_pin.filtered_type = "MonsterQuest";
     map_pin.radius = 100;
     map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
     map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
@@ -354,6 +355,7 @@ statemachine class RER_BountyManager extends CEntity {
       );
       map_pin.label = GetLocStringByKey("rer_mappin_bounty_side_target_title");
       map_pin.type = "MonsterQuest";
+      map_pin.filtered_type = "MonsterQuest";
       map_pin.radius = 50;
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
