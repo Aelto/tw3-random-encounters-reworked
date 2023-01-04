@@ -7,7 +7,7 @@ statemachine class RER_BountyManager extends CEntity {
   public function init(master: CRandomEncounters) {
     this.master = master;
     this.bounty_master_manager = new RER_BountyMasterManager in this;
-    this.GotoState('Processing');
+    this.GotoState('Initialising');
   }
 
   //#region bounty settings & constants
@@ -534,6 +534,16 @@ statemachine class RER_BountyManager extends CEntity {
       thePlayer.GetInventory(),
       bounty_level
     );
+  }
+}
+
+state Initialising in RER_BountyManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    NLOG("RER_BountyManager - Initialising");
+
+    parent.GotoState('Processing');
   }
 }
 
