@@ -34,6 +34,18 @@ statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
   
   var ecosystem_frequency_multiplier: float;
 
+  /**
+   * the mod power is a value in the [0;1] range that indicates how fast
+   * the mod should run. This means that at 0.1, the mod will use only 10%
+   * of its power (spawning monsters, events, contracts etc...) and will
+   * progressively get more aggressive until it reaches 1.
+   *
+   * The default behaviour for this mod power is to start at 0 the first hour
+   * of gameplay and to gain 0.1 (10%) every hour of gameplay until it reaches
+   * the cap value of 1.
+   */
+  var mod_power: float;
+
   public function start() {
     NLOG("Random Encounters Reworked - CRandomEncounters::start()");
 
@@ -65,6 +77,34 @@ statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
    */
   public function hasJustBooted(): bool {
     return theGame.GetEngineTimeAsSeconds() - this.boot_time <= 30;
+  }
+
+  public function getModPower(): float {
+    return this.mod_power;
+  }
+
+  public function refreshModPower() {
+    var game_time: GameTime;
+    var power: float;
+
+    if (RER_doesIgnoreSlowBootFactExist()) {
+      NLOG("CRandomEncounters::refreshModPower(): ignore slowbot fact found");
+
+      power = 1;
+    }
+    else {
+      NLOG("CRandomEncounters::refreshModPower(): calculating mod power from gametime");
+      game_time = theGame.CalculateTimePlayed();
+      power = ClampF(
+        ((GameTimeDays(game_time) * 24 + GameTimeHours(game_time)) as float) / 10.0,
+  
+        0, // minimum of 0,
+        1, // maximum of 1
+      );
+    }
+
+    NLOG("CRandomEncounters::refreshModPower(): power = " + power);
+    this.mod_power = power;
   }
 
   event OnRefreshSettings(action: SInputAction) {

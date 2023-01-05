@@ -22,7 +22,7 @@ statemachine class RER_BountyMasterManager {
     var template_path: string;
     var map_pin: SU_MapPin;
 
-    if (!RER_modPowerIsBountySystemEnabled()) {
+    if (!RER_modPowerIsBountySystemEnabled(this.bounty_manager.master.getModPower())) {
       return;
     }
 

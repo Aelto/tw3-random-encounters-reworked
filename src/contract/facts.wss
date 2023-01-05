@@ -17,27 +17,16 @@ function RER_removeContractReputationFact() {
   FactsRemove(RER_CONTRACT_REPUTATION_FACT_ID!);
 }
 
-#define const RER_INSTANCE_FACT_ID = "rer_instance_fact_id";
+#define const RER_IGNORESLOWBOOT_FACT_ID = "rer_ignoreslowboot_fact_id";
 
-/// Set a temporary fact in the DB
-function RER_createInstanceFact(optional seconds: int) {
-  seconds = Max(seconds, 20);
-
-  FactsAdd(RER_INSTANCE_FACT_ID!, 1, seconds);
+function RER_createIgnoreSlowBootFact() {
+  FactsSet(RER_IGNORESLOWBOOT_FACT_ID!, 1);
 }
 
-/**
- * Tell if at least one instance was created recently
- * @returns
- */
-function RER_doesInstanceFactExist(): bool {
-  return RER_getInstanceFactSum() > 0;
+function RER_removeIgnoreSlowBootFact() {
+  FactsRemove(RER_IGNORESLOWBOOT_FACT_ID!);
 }
 
-/**
- * Return the number of instances created recently
- * @returns 
- */
-function RER_getInstanceFactSum(): int {
-  return FactsQuerySum(RER_INSTANCE_FACT_ID!);
+function RER_doesIgnoreSlowBootFactExist(): bool {
+  return FactsDoesExist(RER_IGNORESLOWBOOT_FACT_ID!);
 }
