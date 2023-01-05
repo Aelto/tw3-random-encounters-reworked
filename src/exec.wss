@@ -1,9 +1,9 @@
 exec function rerslowboot(optional enabled: bool) {
   if (enabled) {
-    RER_createIgnoreSlowBootFact();
+    RER_removeIgnoreSlowBootFact();
   }
   else {
-    RER_removeIgnoreSlowBootFact();
+    RER_createIgnoreSlowBootFact();
   }
 }
 
