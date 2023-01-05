@@ -7,7 +7,7 @@ statemachine class RER_BountyManager extends CEntity {
   public function init(master: CRandomEncounters) {
     this.master = master;
     this.bounty_master_manager = new RER_BountyMasterManager in this;
-    this.GotoState('Processing');
+    this.GotoState('Initialising');
   }
 
   //#region bounty settings & constants
@@ -36,7 +36,7 @@ statemachine class RER_BountyManager extends CEntity {
   }
 
   public function getMaximumSeed(): int {
-    return this.master.storages.bounty.bounty_level * this.getSeedBountyLevelStep();
+    return this.getTotalBountyLevel() * this.getSeedBountyLevelStep();
   }
 
   //#endregion bounty settings & constants
@@ -52,6 +52,7 @@ statemachine class RER_BountyManager extends CEntity {
     bounty.seed = seed;
     bounty.is_active = true;
     bounty.random_data = this.generateRandomDataForBounty(seed);
+    bounty.region_name = SUH_getCurrentRegion();
 
     return bounty;
   }
@@ -323,6 +324,7 @@ statemachine class RER_BountyManager extends CEntity {
     );
     map_pin.label = GetLocStringByKey("rer_mappin_bounty_main_target_title");
     map_pin.type = "MonsterQuest";
+    map_pin.filtered_type = "MonsterQuest";
     map_pin.radius = 100;
     map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
     map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
@@ -354,6 +356,7 @@ statemachine class RER_BountyManager extends CEntity {
       );
       map_pin.label = GetLocStringByKey("rer_mappin_bounty_side_target_title");
       map_pin.type = "MonsterQuest";
+      map_pin.filtered_type = "MonsterQuest";
       map_pin.radius = 50;
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
@@ -399,7 +402,7 @@ statemachine class RER_BountyManager extends CEntity {
   }
 
   public function resetBountyLevel() {
-    this.master.storages.bounty.bounty_level = 0;
+    this.setCurrentRegionBountyLevel(0);
     this.master.storages.bounty.save();
   }
 
@@ -501,31 +504,88 @@ statemachine class RER_BountyManager extends CEntity {
     return rng.nextRange(max, min) as int;
   }
 
-  public function increaseBountyLevel(optional multiplier: int): int {
-    var i: int;
+  function getCurrentRegionBountyLevel(): int {
+    var region: string = SUH_getCurrentRegion();
+    var output: int;
+  
+    switch (region) {
+      case "no_mans_land":
+        output = this.master.storages.bounty.velen_level;
+        break;
+      case "skellige":
+        output = this.master.storages.bounty.skellige_level;
+        break;
+      case "bob":
+        output = this.master.storages.bounty.toussaint_level;
+        break;
+      case "prolog_village":
+        output = this.master.storages.bounty.whiteorchard_level;
+        break;
+      case "kaer_morhen":
+        output = this.master.storages.bounty.kaermorhen_level;
+        break;
+      default:
+        output = this.master.storages.bounty.unknown_level;
+        break;
+    }
+  
+    return output;
+  }
 
+  function getTotalBountyLevel(): int {
+    return this.master.storages.bounty.velen_level
+         + this.master.storages.bounty.skellige_level
+         + this.master.storages.bounty.toussaint_level
+         + this.master.storages.bounty.whiteorchard_level
+         + this.master.storages.bounty.kaermorhen_level
+         + this.master.storages.bounty.unknown_level;
+  }
+
+  function setCurrentRegionBountyLevel(level: int) {
+    var region: string = SUH_getCurrentRegion();
+  
+    switch (region) {
+      case "no_mans_land":
+        this.master.storages.bounty.velen_level = level;
+        break;
+      case "skellige":
+        this.master.storages.bounty.skellige_level = level;
+        break;
+      case "bob":
+        this.master.storages.bounty.toussaint_level = level;
+        break;
+      case "prolog_village":
+        this.master.storages.bounty.whiteorchard_level = level;
+        break;
+      case "kaer_morhen":
+        this.master.storages.bounty.kaermorhen_level = level;
+        break;
+      default:
+        this.master.storages.bounty.unknown_level = level;
+        break;
+    }
+  }
+
+
+  public function increaseBountyLevel(optional multiplier: int): int {    
     multiplier = Max(1, multiplier);
-
-    this.master
-      .storages
-      .bounty
-      .bounty_level += multiplier;
-
+    
+    var level_before: int = this.getCurrentRegionBountyLevel();
+    this.setCurrentRegionBountyLevel(level_before + multiplier);
+    
     this.master
       .storages
       .bounty
       .save();
 
-    for (i = this.master.storages.bounty.bounty_level - multiplier; i < this.master.storages.bounty.bounty_level; i += 1) {
+    var i: int;
+    for (i = level_before; i < level_before + multiplier; i += 1) {
       this.giveBountyLevelupItemToPlayer(i);
     }
 
     RER_tutorialTryShowBountyLevel();
 
-    return this.master
-      .storages
-      .bounty
-      .bounty_level;
+    return level_before + multiplier;
   }
 
   public function giveBountyLevelupItemToPlayer(bounty_level: int) {
@@ -534,6 +594,16 @@ statemachine class RER_BountyManager extends CEntity {
       thePlayer.GetInventory(),
       bounty_level
     );
+  }
+}
+
+state Initialising in RER_BountyManager {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    NLOG("RER_BountyManager - Initialising");
+
+    parent.GotoState('Processing');
   }
 }
 
@@ -547,6 +617,8 @@ state Processing in RER_BountyManager {
   }
 
   entry function Processing_main() {
+    this.verifyBountyRegion();
+
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     parent.displayMarkersForCurrentBounty();
@@ -563,6 +635,27 @@ state Processing in RER_BountyManager {
 
       Sleep(10);
     }
+  }
+
+  function verifyBountyRegion() {
+    if (!parent.isBountyActive()) {
+      return;
+    }
+
+    if (SUH_isPlayerInRegion(parent.master.storages.bounty.current_bounty.region_name)) {
+      return;
+    }
+
+    NHUD(
+      StrReplace(
+        GetLocStringByKey("rer_strayed_too_far_cancelled"),
+        "{{thing}}",
+        StrLower(GetLocStringByKey("rer_bounty"))
+      )
+    );
+
+    theSound.SoundEvent("gui_global_denied");
+    parent.abandonBounty();
   }
 
   latent function spawnNearbyBountyGroups() {

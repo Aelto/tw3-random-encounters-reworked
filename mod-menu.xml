@@ -15,6 +15,8 @@
         <VisibleVars>
             <Var id="RERmodEnabled" displayName="rer_mod_enabled" displayType="TOGGLE"></Var>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="Difficulty" displayName="rer_difficulty" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_easy">
@@ -32,8 +34,9 @@
                 </OptionsArray>
             </Var>
 
-            <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
+            <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
             <Var id="RERmodVersion" displayName="rer_mod_version" displayType="SLIDER;0;100;10000"></Var>
 
         </VisibleVars>
@@ -76,12 +79,18 @@
             <Var id="RERadditionalDelayPerPlayerLevel" displayName="rer_additional_delay_per_player_level" displayType="SLIDER;-3000;3000;6000" />
             <Var id="RERecosystemFrequencyMultiplier" displayName="rer_ecosystem_frequency_mutliplier" displayType="SLIDER;-1000;1000;2000" />
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="minSpawnDistance" displayName="rer_min_spawn_distance" displayType="SLIDER;10;1010;1000"/>
             <Var id="spawnDiameter" displayName="rer_spawn_diameter" displayType="SLIDER;10;1010;1000"/>
             <Var id="killThresholdDistance" displayName="rer_kill_threshold_distance" displayType="SLIDER;100;3100;3000"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERminLevelRange" displayName="rer_min_level_range" displayType="SLIDER;-50;50;100"/>
             <Var id="RERmaxLevelRange" displayName="rer_max_level_range" displayType="SLIDER;-50;50;100"/>
+            
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERstaticEncounterSmallSpawnChance" displayName="rer_static_encounter_small_spawn_chance" displayType="SLIDER;0;100;200"/>
             <Var id="RERstaticEncounterLargeSpawnChance" displayName="rer_static_encounter_large_spawn_chance" displayType="SLIDER;0;100;200"/>
@@ -95,6 +104,8 @@
                     </Option>
                 </OptionsArray>
             </Var>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERfoottracksRatio" displayName="rer_foottracks_ratio" displayType="SLIDER;1;100;99"/>
         </VisibleVars>
@@ -110,7 +121,7 @@
                 <Entry varId="Werewolves"            value="0"    />
                 <Entry varId="Fiends"                value="5"    />
                 <Entry varId="Chorts"                value="5"    />
-                <Entry varId="Gryphons"             value="0"  />
+                <Entry varId="Gryphons"             value="5"  />
                 <Entry varId="Cockatrices"           value="5"  />
                 <Entry varId="Dracolizards"         value="4"  />
                 <Entry varId="Wyverns"              value="5"  />
@@ -2165,8 +2176,9 @@
         </PresetsArray>
         <VisibleVars>
             <Var id="allowSpawnInBigCities" displayName="rer_big_city_spawns" displayType="TOGGLE"></Var>
-
             <Var id="RERsettlementDelayMultiplier" displayName="rer_settlement_delay_multiplier" displayType="SLIDER;0;5;5" />
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="Sirens" displayName="rer_siren" displayType="OPTIONS">
                 <OptionsArray>
@@ -3024,6 +3036,8 @@
         <VisibleVars>
             <Var id="allMonsterAmbushChanceDay" displayName="rer_monster_ambush_ratio_day" displayType="SLIDER;0;100;100"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
             <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;0;100;100" />
@@ -3327,6 +3341,8 @@
         </PresetsArray>
         <VisibleVars>
             <Var id="allMonsterAmbushChanceNight" displayName="rer_monster_ambush_ratio_night" displayType="SLIDER;0;100;100"/>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
@@ -3632,6 +3648,8 @@
         <VisibleVars>
             <Var id="allMonsterHuntChanceDay" displayName="rer_monster_hunt_ratio_day" displayType="SLIDER;0;100;100"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
             <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;0;100;100" />
@@ -3935,6 +3953,8 @@
         </PresetsArray>
         <VisibleVars>
             <Var id="allMonsterHuntChanceNight" displayName="rer_monster_hunt_ratio_night" displayType="SLIDER;0;100;100"/>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
@@ -4240,6 +4260,8 @@
         <VisibleVars>
             <Var id="allMonsterHuntingGroundChanceDay" displayName="rer_monster_hunting_ground_ratio_day" displayType="SLIDER;0;100;100"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
             <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;0;100;100" />
@@ -4544,6 +4566,8 @@
         <VisibleVars>
             <Var id="allMonsterHuntingGroundChanceNight" displayName="rer_monster_hunting_ground_ratio_night" displayType="SLIDER;0;100;100"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;0;100;100" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
             <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;0;100;100" />
@@ -4667,6 +4691,8 @@
         <VisibleVars>
             <Var id="RERenemyCountMultiplier" displayName="rer_enemy_count_multiplier" displayType="SLIDER;1;10;9"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="Sirens" displayName="rer_siren" displayType="SLIDER;1;100;99" />
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;1;100;99" />
             <Var id="Berserkers" displayName="rer_berserker" displayType="SLIDER;1;100;99" />
@@ -4757,6 +4783,8 @@
             <Var id="eventSystemInterval" displayName="rer_event_system_interval" displayType="SLIDER;0;20;200"/>
             <Var id="eventSystemICD" displayName="rer_event_system_internal_cooldown" displayType="SLIDER;1;300;2990"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="eventBloodNecrophages" displayName="rer_event_bloodnecrophages_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventBodiesNecrophages" displayName="rer_event_bodiesnecrophages_chance" displayType="SLIDER;0;100;10000"/>
             <Var id="eventEntersSwamp" displayName="rer_event_entersswamp_chance" displayType="SLIDER;0;100;10000"/>
@@ -4787,10 +4815,14 @@
             <Var id="RERnoticeboardErrands" displayName="rer_noticeboard_errands" displayType="TOGGLE"></Var>
             <Var id="RERhoursBeforeNewContracts" displayName="rer_hours_before_new_contracts" displayType="SLIDER;0;24;48"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
             <Var id="RERallowSelectDifficulty" displayName="rer_allow_select_difficulty" displayType="TOGGLE"></Var>
             <Var id="RERallowIncreasedEnemyCount" displayName="rer_allow_increased_enemy_count" displayType="TOGGLE"></Var>
             <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
             <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
@@ -4860,6 +4892,8 @@
         <VisibleVars>
             <Var id="RERlootGlobalChanceMultiplier" displayName="rer_loot_global_chance_multiplier" displayType="SLIDER;0;10;100" />
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERlootGearRatio" displayName="rer_loot_gear_ratio" displayType="SLIDER;0;100;100" />
             <Var id="RERlootGearRollsAmount" displayName="rer_loot_gear_rolls_amount" displayType="SLIDER;0;100;100" />
             <Var id="RERlootGearItemsPerProc" displayName="rer_loot_gear_items_per_proc" displayType="SLIDER;0;100;100" />
@@ -4867,6 +4901,8 @@
             <Var id="RERlootGearRarityChanceUncommon" displayName="rer_loot_gear_uncommon_chance" displayType="SLIDER;0;100;100" />
             <Var id="RERlootGearRarityChanceRare" displayName="rer_loot_gear_rare_chance" displayType="SLIDER;0;100;100" />
             <Var id="RERlootGearRarityChanceExotic" displayName="rer_loot_gear_exotic_chance" displayType="SLIDER;0;100;100" />
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERlootMaterialsRatio" displayName="rer_loot_materials_ratio" displayType="SLIDER;0;100;100" />
             <Var id="RERlootMaterialsRollsAmount" displayName="rer_loot_materials_rolls_amount" displayType="SLIDER;0;100;100" />
@@ -4876,6 +4912,8 @@
             <Var id="RERlootMaterialsRarityChanceRare" displayName="rer_loot_materials_rare_chance" displayType="SLIDER;0;100;100" />
             <Var id="RERlootMaterialsRarityChanceExotic" displayName="rer_loot_materials_exotic_chance" displayType="SLIDER;0;100;100" />
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERlootConsumablesRatio" displayName="rer_loot_consumables_ratio" displayType="SLIDER;0;100;100" />
             <Var id="RERlootConsumablesRollsAmount" displayName="rer_loot_consumables_rolls_amount" displayType="SLIDER;0;100;100" />
             <Var id="RERlootConsumablesItemsPerProc" displayName="rer_loot_consumables_items_per_proc" displayType="SLIDER;0;100;100" />
@@ -4883,6 +4921,8 @@
             <Var id="RERlootConsumablesRarityChanceUncommon" displayName="rer_loot_consumables_uncommon_chance" displayType="SLIDER;0;100;100" />
             <Var id="RERlootConsumablesRarityChanceRare" displayName="rer_loot_consumables_rare_chance" displayType="SLIDER;0;100;100" />
             <Var id="RERlootConsumablesRarityChanceExotic" displayName="rer_loot_consumables_exotic_chance" displayType="SLIDER;0;100;100" />
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERlootValuablesRatio" displayName="rer_loot_valuables_ratio" displayType="SLIDER;0;100;100" />
             <Var id="RERlootValuablesRollsAmount" displayName="rer_loot_valuables_rolls_amount" displayType="SLIDER;0;100;100" />
@@ -5021,6 +5061,8 @@
             <Var id="RERcrownsHunt" displayName="rer_crowns_hunt" displayType="SLIDER;0;1000;1000" />
             <Var id="RERcrownsContract" displayName="rer_crowns_contract" displayType="SLIDER;0;1000;1000" />
             <Var id="RERcrownsHuntingGround" displayName="rer_crowns_hunting_ground" displayType="SLIDER;0;1000;1000" />
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;200" />
             <Var id="Dracolizards" displayName="rer_dracolizard" displayType="SLIDER;0;100;200" />
@@ -5341,11 +5383,15 @@
                 </OptionsArray>
             </Var>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERtrophiesAmbush" displayName="rer_trophies_ambush" displayType="TOGGLE"></Var>
             <Var id="RERtrophiesHunt" displayName="rer_trophies_hunt" displayType="TOGGLE"></Var>
             <Var id="RERtrophiesContract" displayName="rer_trophies_contract" displayType="TOGGLE"></Var>
             <Var id="RERtrophiesHuntingGround" displayName="rer_trophies_hunting_ground" displayType="TOGGLE"></Var>
             <Var id="RERtrophyMasterBuyingPrice" displayName="rer_trophy_master_buying_price" displayType="SLIDER;0;500;500"></Var>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="Gargoyles" displayName="rer_gargoyle" displayType="SLIDER;0;100;100" />
             <Var id="Dracolizards" displayName="rer_dracolizard" displayType="SLIDER;0;100;100" />
@@ -5480,7 +5526,9 @@
     <Group id="RERtutorials" displayName="Mods.rer_name.rer_tutorials_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
+                <Entry varId="RERtutorialChallengeMode" value="1" />
                 <Entry varId="RERtutorialBountyHunting" value="1" />
+                <Entry varId="RERtutorialNoticeboardEvent" value="1" />
                 <Entry varId="RERtutorialClueExamined" value="1" />
                 <Entry varId="RERtutorialAmbushed" value="1" />
                 <Entry varId="RERtutorialTrophy" value="1" />

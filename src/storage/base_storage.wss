@@ -1,11 +1,8 @@
 
 // any storage used in RER inherits from this class.
-abstract class RER_BaseStorage extends IModStorageData {
+abstract class RER_BaseStorage {
   public function save(): bool {
-    #ifndef ENABLE_STORAGE_SYSTEM {
-      return true;
-    };
-
-    return GetModStorage().save(this);
+    NLOG("RER_BaseStorage::save()");
+    return true;
   }
 }

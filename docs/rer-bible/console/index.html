@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,9 @@
   <link rel="stylesheet" href="../master.css">
   <title>RER Bible | Optional features</title>
 </head>
+
 <body>
-  
+
   <h1>Random Encounters Reworked bible</h1>
   <blockquote>Everything you need to know about RER</blockquote>
   <a href="../index.html">back to summary</a>
@@ -26,75 +28,137 @@
     </p>
 
     <p>
-      <span>rerchallenge(seed)</span> where <span>seed</span> is a <span>number</span>
+      <span>rerbounty(seed)</span> where <span>seed</span> is a <span>number</span>
       creates a simplified bounty in the world. You can also use the seed 0 to generate a
-      completely random bounty. Learn more about bounties in the <a href="../bounties/">bounties page</a> 
+      completely random bounty. Learn more about bounties in the <a href="../bounties/">bounties page</a>
+    </p>
+
+    <p>
+      <span>rerabandonbounty</span>, to cancel the currently active bounty.
+    </p>
+
+    <p>
+      <span>rercompletecontract</span>, to complete the current contract and get its reward
+    </p>
+
+    <p>
+      <span>rerslowboot(enabled)</span>, where <span>enabled</span> cab either be <span>true</span>, <span>false</span>,
+      or left empty to default to <span>false</span>. It disables the slow-boot feature for the current playthrough.
+      Making the mod go at 100% its capacity no matter the playtime.
+    </p>
+
+    <p>
+      <span>rerresetbountylevel</span>, to set the bounty level in your current map to 0. Allowing you to get bounty
+      rewards again
+    </p>
+
+    <p>
+      <span>rergetbountyreward(level)</span>, where <span>level</span> is a number. It gives you the reward you'd get if
+      your
+      bounty level
+      just reached that number
+    </p>
+
+    <p>
+      <span>rerdebug(enabled)</span>, where <span>enabled</span> is either <span>true</span> or <span>false</span>. It
+      activates
+      the debug mode in the mod. Allowing you to see debug data and things you, as a player, should not see.
+    </p>
+
+    <p>
+      <span>rerclearcontractstorage</span>, clears the contract storage. Cancels the currently active contract and
+      forgets
+      about the previously completed contracts.
+    </p>
+
+    <p>
+      <span>rergotobountymaster</span>, teleports you to the bounty master
+    </p>
+
+    <p>
+      <span>rerclearecosystems</span>, clear your storage of all ecosystem data
+    </p>
+
+    <p><span>rergetpincoord</span>, get the world coordinates of your user pin (green arrow, right click) from the map
+    </p>
+
+    <p>
+      <span>rertptopin</span>, teleports you to your user pin (green arrow, right click) from the map
+    </p>
+
+    <p>
+      <span>rergpc</span>, prints debug information about your current position
+    </p>
+
+    <p>
+      <span>rerkillbountymaster</span>, kill the bounty master to make it respawn
+      next loading screen
     </p>
 
     <p>
       <span>rera(creature-type)</span> where <span>creature-type</span> can be one of the following
       thing:
-      <ul>
-        <li>CreatureHUMAN</li>
-        <li>CreatureARACHAS</li>
-        <li>CreatureENDREGA</li>
-        <li>CreatureGHOUL</li>
-        <li>CreatureALGHOUL</li>
-        <li>CreatureNEKKER</li>
-        <li>CreatureDROWNER</li>
-        <li>CreatureROTFIEND</li>
-        <li>CreatureWOLF</li>
-        <li>CreatureWRAITH</li>
-        <li>CreatureHARPY</li>
-        <li>CreatureSPIDER</li>
-        <li>CreatureCENTIPEDE</li>
-        <li>CreatureDROWNERDLC</li>
-        <li>CreatureBOAR</li>
-        <li>CreatureBEAR</li>
-        <li>CreaturePANTHER</li>
-        <li>CreatureSKELETON</li>
-        <li>CreatureECHINOPS</li>
-        <li>CreatureKIKIMORE</li>
-        <li>CreatureBARGHEST</li>
-        <li>CreatureSKELWOLF</li>
-        <li>CreatureSKELBEAR</li>
-        <li>CreatureWILDHUNT</li>
-        <li>CreatureBERSERKER</li>
-        <li>CreatureSIREN</li>
+    <ul>
+      <li>CreatureHUMAN</li>
+      <li>CreatureARACHAS</li>
+      <li>CreatureENDREGA</li>
+      <li>CreatureGHOUL</li>
+      <li>CreatureALGHOUL</li>
+      <li>CreatureNEKKER</li>
+      <li>CreatureDROWNER</li>
+      <li>CreatureROTFIEND</li>
+      <li>CreatureWOLF</li>
+      <li>CreatureWRAITH</li>
+      <li>CreatureHARPY</li>
+      <li>CreatureSPIDER</li>
+      <li>CreatureCENTIPEDE</li>
+      <li>CreatureDROWNERDLC</li>
+      <li>CreatureBOAR</li>
+      <li>CreatureBEAR</li>
+      <li>CreaturePANTHER</li>
+      <li>CreatureSKELETON</li>
+      <li>CreatureECHINOPS</li>
+      <li>CreatureKIKIMORE</li>
+      <li>CreatureBARGHEST</li>
+      <li>CreatureSKELWOLF</li>
+      <li>CreatureSKELBEAR</li>
+      <li>CreatureWILDHUNT</li>
+      <li>CreatureBERSERKER</li>
+      <li>CreatureSIREN</li>
 
-        <li><b>Large creatures below</b></li>
-        <li>CreatureDRACOLIZARD</li>
-        <li>CreatureGARGOYLE</li>
-        <li>CreatureLESHEN</li>
-        <li>CreatureWEREWOLF</li>
-        <li>CreatureFIEND</li>
-        <li>CreatureEKIMMARA</li>
-        <li>CreatureKATAKAN</li>
-        <li>CreatureGOLEM</li>
-        <li>CreatureELEMENTAL</li>
-        <li>CreatureNIGHTWRAITH</li>
-        <li>CreatureNOONWRAITH</li>
-        <li>CreatureCHORT</li>
-        <li>CreatureCYCLOP</li>
-        <li>CreatureTROLL</li>
-        <li>CreatureHAG</li>
-        <li>CreatureFOGLET</li>
-        <li>CreatureBRUXA</li>
-        <li>CreatureFLEDER</li>
-        <li>CreatureGARKAIN</li>
-        <li>CreatureDETLAFF</li>
-        <li>CreatureGIANT</li>
-        <li>CreatureSHARLEY</li>
-        <li>CreatureWIGHT</li>
-        <li>CreatureGRYPHON</li>
-        <li>CreatureCOCKATRICE</li>
-        <li>CreatureBASILISK</li>
-        <li>CreatureWYVERN</li>
-        <li>CreatureFORKTAIL</li>
-        <li>CreatureSKELTROLL</li>
-      </ul>
-      or <span>CreatureNONE</span> for a random creature. This command creates an
-      ambush after a five seconds delay.
+      <li><b>Large creatures below</b></li>
+      <li>CreatureDRACOLIZARD</li>
+      <li>CreatureGARGOYLE</li>
+      <li>CreatureLESHEN</li>
+      <li>CreatureWEREWOLF</li>
+      <li>CreatureFIEND</li>
+      <li>CreatureEKIMMARA</li>
+      <li>CreatureKATAKAN</li>
+      <li>CreatureGOLEM</li>
+      <li>CreatureELEMENTAL</li>
+      <li>CreatureNIGHTWRAITH</li>
+      <li>CreatureNOONWRAITH</li>
+      <li>CreatureCHORT</li>
+      <li>CreatureCYCLOP</li>
+      <li>CreatureTROLL</li>
+      <li>CreatureHAG</li>
+      <li>CreatureFOGLET</li>
+      <li>CreatureBRUXA</li>
+      <li>CreatureFLEDER</li>
+      <li>CreatureGARKAIN</li>
+      <li>CreatureDETLAFF</li>
+      <li>CreatureGIANT</li>
+      <li>CreatureSHARLEY</li>
+      <li>CreatureWIGHT</li>
+      <li>CreatureGRYPHON</li>
+      <li>CreatureCOCKATRICE</li>
+      <li>CreatureBASILISK</li>
+      <li>CreatureWYVERN</li>
+      <li>CreatureFORKTAIL</li>
+      <li>CreatureSKELTROLL</li>
+    </ul>
+    or <span>CreatureNONE</span> for a random creature. This command creates an
+    ambush after a five seconds delay.
     </p>
 
     <p>
@@ -109,24 +173,25 @@
 
     <p>
       <span>rerhorde(creature-type)</span> where <span>creature-type</span> can be any
-      value from the list above. The command will create a horde around you. You can stack hordes and have them running at the same time.
+      value from the list above. The command will create a horde around you. You can stack hordes and have them running
+      at the same time.
     </p>
 
     <p>
       <span>rerhu(human-type, count)</span> where <span>count</span> is a number
       and <span>human-type</span> can be any value from this list:
-      <ul>
-        <li>HT_BANDIT</li>
-        <li>HT_NOVBANDIT</li>
-        <li>HT_SKELBANDIT</li>
-        <li>HT_SKELBANDIT2</li>
-        <li>HT_CANNIBAL</li>
-        <li>HT_RENEGADE</li>
-        <li>HT_PIRATE</li>
-        <li>HT_SKELPIRATE</li>
-        <li>HT_WITCHHUNTER</li>
-      </ul>
-      The command will create a human ambush after a five seconds delay.
+    <ul>
+      <li>HT_BANDIT</li>
+      <li>HT_NOVBANDIT</li>
+      <li>HT_SKELBANDIT</li>
+      <li>HT_SKELBANDIT2</li>
+      <li>HT_CANNIBAL</li>
+      <li>HT_RENEGADE</li>
+      <li>HT_PIRATE</li>
+      <li>HT_SKELPIRATE</li>
+      <li>HT_WITCHHUNTER</li>
+    </ul>
+    The command will create a human ambush after a five seconds delay.
     </p>
 
     <p>
@@ -134,11 +199,8 @@
       pins in weird positions and you can't remove them. This command is useful for
       that, it removes pins from all maps no matter their position and type
     </p>
-
-    <p>
-      <span>rerabandonbounty</span>, to cancel the currently active bounty.
-    </p>
   </section>
 
 </body>
+
 </html>

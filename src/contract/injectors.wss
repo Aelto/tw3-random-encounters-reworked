@@ -37,13 +37,13 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     can_inject_errand = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERnoticeboardErrands');
 
-    if (!can_inject_errand || !RER_modPowerIsContractSystemEnabled()) {
-      return;
-    }
-
     if (!getRandomEncounters(master)) {
       NLOG("ERROR: could not get the RER entity for RER_ContractErrandInjector.");
 
+      return;
+    }
+
+    if (!can_inject_errand || !RER_modPowerIsContractSystemEnabled(master.getModPower())) {
       return;
     }
 

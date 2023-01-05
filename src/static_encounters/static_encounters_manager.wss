@@ -61,7 +61,7 @@ statemachine class RER_StaticEncounterManager {
 
   public latent function startSpawning() {
     #ifdef ENABLE_STATIC_ENCOUNTERS {
-      if (!RER_modPowerIsStaticEncounterSystemEnabled()) {
+      if (!RER_modPowerIsStaticEncounterSystemEnabled(this.master.getModPower())) {
         return;
       }
 
