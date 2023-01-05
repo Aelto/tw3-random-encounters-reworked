@@ -46,7 +46,7 @@ state DialogChoice in RER_BountyMasterManager {
 
     this.pushCameras();
 
-    has_completed_a_bounty = parent.bounty_manager.master.storages.bounty.bounty_level > 0;
+    has_completed_a_bounty = parent.bounty_manager.getTotalBountyLevel() > 0;
 
     this.doMovementAdjustment();
 

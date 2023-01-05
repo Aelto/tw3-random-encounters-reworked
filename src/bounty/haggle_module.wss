@@ -17,10 +17,7 @@ class RER_BountyModuleDialog extends CR4HudModuleDialog {
 
     bounty_level = bounty_master_manager
       .bounty_manager
-      .master
-      .storages
-      .bounty
-      .bounty_level;
+      .getTotalBountyLevel();
 
     data = new RER_SeedSelectorBettingSliderData in this;
     data.bounty_master_manager = bounty_master_manager;
