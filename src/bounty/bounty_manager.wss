@@ -52,6 +52,7 @@ statemachine class RER_BountyManager extends CEntity {
     bounty.seed = seed;
     bounty.is_active = true;
     bounty.random_data = this.generateRandomDataForBounty(seed);
+    bounty.region_name = SUH_getCurrentRegion();
 
     return bounty;
   }
@@ -616,6 +617,8 @@ state Processing in RER_BountyManager {
   }
 
   entry function Processing_main() {
+    this.verifyBountyRegion();
+
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     parent.displayMarkersForCurrentBounty();
@@ -632,6 +635,27 @@ state Processing in RER_BountyManager {
 
       Sleep(10);
     }
+  }
+
+  function verifyBountyRegion() {
+    if (!parent.isBountyActive()) {
+      return;
+    }
+
+    if (SUH_isPlayerInRegion(parent.master.storages.bounty.current_bounty.region_name)) {
+      return;
+    }
+
+    NHUD(
+      StrReplace(
+        GetLocStringByKey("rer_strayed_too_far_cancelled"),
+        "{{thing}}",
+        StrLower(GetLocStringByKey("rer_bounty"))
+      )
+    );
+
+    theSound.SoundEvent("gui_global_denied");
+    parent.abandonBounty();
   }
 
   latent function spawnNearbyBountyGroups() {

@@ -11,10 +11,32 @@ state Processing in RER_ContractManager {
   }
 
   entry function Processing_main() {
+    this.verifyContractRegion();
     this.waitForPlayerToReachDestination();
     this.waitForPlayerToFinishContract();
     parent.completeCurrentContract();
     parent.GotoState('Waiting');
+  }
+
+  function verifyContractRegion() {
+    if (!parent.master.storages.contract.has_ongoing_contract) {
+      return;
+    }
+
+    if (!SUH_isPlayerInRegion(parent.master.storages.contract.active_contract.region_name)) {
+      return;
+    }
+
+    NHUD(
+      StrReplace(
+        GetLocStringByKey("rer_strayed_too_far_cancelled"),
+        "{{thing}}",
+        StrLower(GetLocStringByKey("rer_contract"))
+      )
+    );
+
+    theSound.SoundEvent("gui_global_denied");
+    parent.master.storages.contract.has_ongoing_contract = false;
   }
 
   latent function waitForPlayerToReachDestination() {
