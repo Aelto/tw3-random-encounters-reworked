@@ -23,7 +23,7 @@ state Processing in RER_ContractManager {
       return;
     }
 
-    if (!SUH_isPlayerInRegion(parent.master.storages.contract.active_contract.region_name)) {
+    if (SUH_isPlayerInRegion(parent.master.storages.contract.active_contract.region_name)) {
       return;
     }
 
