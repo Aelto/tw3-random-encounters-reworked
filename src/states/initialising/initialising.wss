@@ -179,7 +179,7 @@ state Initialising in CRandomEncounters {
       message += "If you wish to turn it off, you can find the toggle at the bottom of the Encounters System, General menu";
       NTUTO("RER v3.1 - Next-Gen update", message);
 
-      config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 30);
+      config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 1);
       config.ApplyGroupPreset('RERtutorials', 0);
     }
 
