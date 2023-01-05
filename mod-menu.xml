@@ -121,7 +121,7 @@
                 <Entry varId="Werewolves"            value="0"    />
                 <Entry varId="Fiends"                value="5"    />
                 <Entry varId="Chorts"                value="5"    />
-                <Entry varId="Gryphons"             value="0"  />
+                <Entry varId="Gryphons"             value="5"  />
                 <Entry varId="Cockatrices"           value="5"  />
                 <Entry varId="Dracolizards"         value="4"  />
                 <Entry varId="Wyverns"              value="5"  />
