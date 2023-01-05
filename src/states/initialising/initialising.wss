@@ -167,10 +167,19 @@ state Initialising in CRandomEncounters {
     if (current_version < 3.0) {
       current_version = 3.0;
 
-      var message: string;
-      message += "Random Encounters Reworked was updated to the v3.0 - The Next-Gen update";
-      NTUTO("RER v3.0 - Next-Gen update", message);
+      config.ApplyGroupPreset('RERtutorials', 0);
+    }
 
+    if (current_version < 3.1) {
+      current_version = 3.1;
+
+      var message: string;
+      message += "Random Encounters Reworked was updated to the v3.1 - The Next-Gen update";
+      message += "<br/>A new settings was enabled automatically: disable encounter spawns when near quest markers.";
+      message += "If you wish to turn it off, you can find the toggle at the bottom of the Encounters System, General menu";
+      NTUTO("RER v3.1 - Next-Gen update", message);
+
+      config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 30);
       config.ApplyGroupPreset('RERtutorials', 0);
     }
 

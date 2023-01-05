@@ -68,6 +68,7 @@
                 <Entry varId="RERstaticEncounterVersion" value="0" />
 
                 <Entry varId="RERfoottracksRatio" value="30" />
+                <Entry varId="RERcancelSpawnsWhenNearQuestMarkers" value="1" />
 
             </Preset>
         </PresetsArray>
@@ -108,6 +109,7 @@
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERfoottracksRatio" displayName="rer_foottracks_ratio" displayType="SLIDER;1;100;99"/>
+            <Var id="RERcancelSpawnsWhenNearQuestMarkers" displayName="rer_cancel_spawns_near_quest_markers" displayType="TOGGLE"></Var>
         </VisibleVars>
     </Group>
 

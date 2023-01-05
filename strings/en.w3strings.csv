@@ -519,3 +519,4 @@
 2115018451|        |rer_bounty|Bounty
 2115018452|        |rer_contract|Contract
 2115018453|        |rer_strayed_too_far_cancelled|You strayed too far, your current {{thing}} was cancelled
+2115018454|        |option_rer_cancel_spawns_near_quest_markers|Cancel spawns when near quest markers
