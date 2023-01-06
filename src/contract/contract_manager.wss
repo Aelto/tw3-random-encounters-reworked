@@ -235,7 +235,7 @@ statemachine class RER_ContractManager {
       entities,
       thePlayer,
       10000, // Range
-      500, // Maxresults
+      500, // Max results
       'RER_contractPointOfInterest', // Tag
     );
 
@@ -445,11 +445,11 @@ statemachine class RER_ContractManager {
     FindGameplayEntitiesInRange(
       entities,
       thePlayer,
-      20, // range, 
-      1, // rax results
-      , // tag: optional value
+      20, // Range, 
+      1, // Max results
+      , // Tag: optional value
       FLAG_ExcludePlayer,
-      , // optional value
+      , // Optional value
       'W3NoticeBoard'
     );
 
