@@ -52,6 +52,7 @@ latent function RER_getSeededRandomCreatureType(master: CRandomEncounters, diffi
 
   maxmimum_strength = MaxF(difficulty_level.value, 5);
 
+  var current_region: string = SUH_getCurrentRegion();
   var manager : CWitcherJournalManager;
 
   #ifdef ENABLE_BESTIARY_FEATURE {
@@ -73,9 +74,15 @@ latent function RER_getSeededRandomCreatureType(master: CRandomEncounters, diffi
       }
     };
 
-    if (bestiary_entry.ecosystem_delay_multiplier < maxmimum_strength) {
-      creature_types.PushBack(i);
+    if (bestiary_entry.ecosystem_delay_multiplier > maxmimum_strength) {
+      continue;
     }
+
+    if (!RER_isRegionConstraintValid(bestiary_entry.region_constraint, current_region)) {
+      continue;
+    }
+
+    creature_types.PushBack(i);
   }
 
   return creature_types[rng.nextRange(creature_types.Size(), 0) as int];
