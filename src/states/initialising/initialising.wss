@@ -8,24 +8,28 @@ state Initialising in CRandomEncounters {
   }
 
   entry function startInitialising() {
-    NLOG("Delaying RER loading start");
+    NLOG("Delaying RER loading start:");
 
     // delay init until loading screen has stopped playing
     while (theGame.IsLoadingScreenVideoPlaying()) {
       Sleep(1);
     }
 
+    NLOG(" - Loading screen video ended");
+
     // then wait until scenes are over etc...
     while (isPlayerBusy()) {
       Sleep(0.5);
     }
 
-    Sleep(10);
+    NLOG(" - Player no longer busy");
+
+    Sleep(0.5);
 
     var is_enabled: bool = theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
     var version: float = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodVersion'));
 
-    if (!is_enabled && version >= 0) {
+    if (!is_enabled && version > 0) {
       return;
     }
 
@@ -36,6 +40,11 @@ state Initialising in CRandomEncounters {
     this.removeAllRerMapPins();
     this.updateSettings();
 
+    if (!parent.storages) {
+      parent.storages = RER_loadStorageCollection(parent);
+    }
+
+    parent.refreshModPower();
     parent.spawn_roller.fill_arrays();
 
     parent.bestiary.init();
@@ -46,8 +55,6 @@ state Initialising in CRandomEncounters {
 
     parent.events_manager.init(parent);
     parent.events_manager.start();
-
-    parent.storages = RER_loadStorageCollection();
 
     parent.ecosystem_manager.init(parent);
     parent.bounty_manager.init(parent);
@@ -154,16 +161,26 @@ state Initialising in CRandomEncounters {
         config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 30);
       }
 
-
       current_version = 2.13;
     }
 
     if (current_version < 3.0) {
       current_version = 3.0;
 
+      config.ApplyGroupPreset('RERtutorials', 0);
+    }
+
+    if (current_version < 3.01) {
+      current_version = 3.01;
+
       var message: string;
-      message += "Random Encounters Reworked was updated to the v3.0 - The Next-Gen update";
-      NTUTO("RER v3.0 - Next-Gen update", message);
+      message += "Random Encounters Reworked was updated to the v3.1 - The Next-Gen update";
+      message += "<br/>A new settings was enabled automatically: disable encounter spawns when near quest markers.";
+      message += "If you wish to turn it off, you can find the toggle at the bottom of the Encounters System, General menu";
+      NTUTO("RER v3.1 - Next-Gen update", message);
+
+      config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 1);
+      config.ApplyGroupPreset('RERtutorials', 0);
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);

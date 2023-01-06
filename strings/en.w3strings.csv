@@ -516,3 +516,7 @@
 2115018448|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
 2115018449|        |rer_reputation_spent_message_not_enough|You do not have enough reputation to spend
 2115018450|        |preset_value_rer_preset_selector|Get preset selector
+2115018451|        |rer_bounty|Bounty
+2115018452|        |rer_contract|Contract
+2115018453|        |rer_strayed_too_far_cancelled|You strayed too far, your current {{thing}} was cancelled
+2115018454|        |option_rer_cancel_spawns_near_quest_markers|Cancel spawns when near quest markers

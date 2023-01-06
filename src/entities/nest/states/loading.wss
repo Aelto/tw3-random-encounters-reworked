@@ -53,6 +53,7 @@ state Loading in RER_MonsterNest {
       map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
       map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
       map_pin.type = "TreasureQuest";
+      map_pin.filtered_type = "TreasureQuest";
       map_pin.radius = 100;
       map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()

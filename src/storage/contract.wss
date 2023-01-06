@@ -2,9 +2,6 @@
 // in this class you will find all persistent data about the contracts the mod
 // stores in the user save files.
 class RER_ContractStorage extends RER_BaseStorage {
-  default id = 'RandomEncountersReworked';
-  default containerId = 'contract';
-
   /**
    * the time the contracts were last generated. The int value in the hours
    * of playtime the player has spent in the save.
@@ -20,26 +17,4 @@ class RER_ContractStorage extends RER_BaseStorage {
   var active_contract: RER_ContractRepresentation;
 
   var has_ongoing_contract: bool;
-}
-
-// an helper function to get contract storage
-function RER_loadContractStorage(): RER_ContractStorage {
-  var storage: RER_ContractStorage;
-
-  #ifndef ENABLE_STORAGE_SYSTEM {
-    return new RER_ContractStorage in thePlayer;
-  };
-
-  storage = GetModStorage()
-    .load('RandomEncountersReworked', 'contract') as RER_ContractStorage;
-
-  // the first time we load, there is no data so we have to create something from
-  // scratch.
-  if (!storage) {
-    NLOG("RER_loadContractStorage - instantiating new RER_ContractStorage");
-
-    storage = new RER_ContractStorage in thePlayer;
-  }
-
-  return storage;
 }

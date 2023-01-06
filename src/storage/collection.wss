@@ -8,13 +8,16 @@ class RER_StorageCollection {
 }
 
 // an helper function to get the full storage collection
-function RER_loadStorageCollection(): RER_StorageCollection {
+function RER_loadStorageCollection(master: CRandomEncounters): RER_StorageCollection {
   var collection: RER_StorageCollection;
 
-  collection.general = RER_loadGeneralStorage();
-  collection.ecosystem = RER_loadEcosystemStorage();
-  collection.bounty = RER_loadBountyStorage();
-  collection.contract = RER_loadContractStorage();
+  NLOG("RER_loadStorageCollection() - Instantiating new storage collection");
+
+  collection = new RER_StorageCollection in master;
+  collection.general = new RER_GeneralStorage in collection;
+  collection.ecosystem = new RER_EcosystemStorage in collection;
+  collection.bounty = new RER_BountyStorage in collection;
+  collection.contract = new RER_ContractStorage in collection;
 
   return collection;
 }
