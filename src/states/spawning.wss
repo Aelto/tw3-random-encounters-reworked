@@ -3,8 +3,6 @@ state Spawning in CRandomEncounters {
   private var is_spawn_forced: bool;
 
   event OnEnterState(previous_state_name: name) {
-    parent.RemoveTimer('randomEncounterTick');
-
     super.OnEnterState(previous_state_name);
 
     // Set is_spawn_forced if the previous state was SpawningForced.
@@ -28,8 +26,9 @@ state Spawning in CRandomEncounters {
        // First if RER is disabled, any spawn should be cancelled.
        !parent.settings.is_enabled
 
-       // Or if there is not enough mod power to enable the system.
-    || !RER_modPowerIsEncounterSystemEnabled()
+      // Or if there is not enough mod power to enable the system.
+    || !RER_modPowerIsEncounterSystemEnabled(parent.getModPower())
+
 
        // Then, if the spawn is not forced we check if the player
        // is in a place where a spawn in accepted.

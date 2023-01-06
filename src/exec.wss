@@ -1,3 +1,12 @@
+exec function rerslowboot(optional enabled: bool) {
+  if (enabled) {
+    RER_removeIgnoreSlowBootFact();
+  }
+  else {
+    RER_createIgnoreSlowBootFact();
+  }
+}
+
 exec function rersetcontractreputation(value: int) {
   NDEBUG("last value: " + RER_getContractReputationFactValue());
 
@@ -639,7 +648,6 @@ state RunChallengeMode in RER_ExecRunner {
     NLOG("RER_ExecRunner - State RunChallengeMode");
 
     this.RunChallengeMode_main();
-    parent.GotoState('Waiting');
   }
 
   entry function RunChallengeMode_main() {
@@ -648,6 +656,7 @@ state RunChallengeMode in RER_ExecRunner {
       .startBounty(parent.seed);
 
     NDEBUG("A bounty was created with the seed " + RER_yellowFont(parent.seed));
+    parent.GotoState('Waiting');
   }
 }
 

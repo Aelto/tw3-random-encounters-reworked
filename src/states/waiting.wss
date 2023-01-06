@@ -24,6 +24,7 @@ state Waiting in CRandomEncounters {
     var ticks: float;
 
     parent.refreshEcosystemFrequencyMultiplier();
+    parent.refreshModPower();
 
     time_before_updating_frequency_multiplier = 30;
     NLOG("ecosystem_frequency_multiplier = " + parent.ecosystem_frequency_multiplier);
@@ -31,8 +32,9 @@ state Waiting in CRandomEncounters {
     while (parent.ticks_before_spawn >= 0) {
       ticks = 5
             * parent.ecosystem_frequency_multiplier
+
             // The speed at which encounters are spawned scales with the mod power.
-            * RER_getModPower();
+            * parent.getModPower();
 
       parent.ticks_before_spawn -= ticks;
       time_before_updating_frequency_multiplier -= ticks;

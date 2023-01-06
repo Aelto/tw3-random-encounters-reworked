@@ -61,7 +61,7 @@ statemachine class RER_StaticEncounterManager {
 
   public latent function startSpawning() {
     #ifdef ENABLE_STATIC_ENCOUNTERS {
-      if (!RER_modPowerIsStaticEncounterSystemEnabled()) {
+      if (!RER_modPowerIsStaticEncounterSystemEnabled(this.master.getModPower())) {
         return;
       }
 
@@ -72,20 +72,22 @@ statemachine class RER_StaticEncounterManager {
   }
 
   private latent function registerStaticEncounters() {
-    var used_version: StaticEncountersVariant;
+    #ifdef ENABLE_STATIC_ENCOUNTERS {
+      var used_version: StaticEncountersVariant;
+  
+      used_version = StringToInt(
+        theGame
+        .GetInGameConfigWrapper()
+        .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion')
+      );
 
-    used_version = StringToInt(
-      theGame
-      .GetInGameConfigWrapper()
-      .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion')
-    );
-
-    if (used_version == StaticEncountersVariant_LUCOLIVIER) {
-      RER_registerStaticEncountersLucOliver(this.master);
-    }
-    else {
-      RER_registerStaticEncountersAeltoth(this.master);
-    }
+      if (used_version == StaticEncountersVariant_LUCOLIVIER) {
+        RER_registerStaticEncountersLucOliver(this.master);
+      }
+      else {
+        RER_registerStaticEncountersAeltoth(this.master);
+      }
+    };
   }
 }
 

@@ -11,7 +11,7 @@
 
 // Completely remove the static encounters from the mod, the manager functions
 // for no SE are registered and the startSpawning function is short-circuited.
-#define const ENABLE_STATIC_ENCOUNTERS;
+// #define const NOT_ENABLE_STATIC_ENCOUNTERS;
 
 // Remove the bestiary filtering when fetching a random creature, the journal
 // entries are still in the bestiary entries but they're not used anywhere.
@@ -39,7 +39,7 @@ struct RER_Constants {
    * the Initialising state. And also the default value in the menu.
    */
   var version: float;
-  default version = 3.0;
+  default version = 3.01;
 }
 
 // Used to define influences the currenth creature has over

@@ -18,5 +18,48 @@ function shouldAbortCreatureSpawn(settings: RE_Settings, rExtra: CModRExtra, bes
       || isPlayerBusy()
 
       || rExtra.isPlayerInSettlement()
-      && !bestiary.doesAllowCitySpawns();
+      && !bestiary.doesAllowCitySpawns()
+      
+      || RER_isPlayerNearQuestMarker();
+}
+
+function RER_isPlayerNearQuestMarker(): bool {
+  var player_position: Vector = thePlayer.GetWorldPosition();
+  var area_map_pins: array<SAreaMapPinInfo>;
+
+  var can_cancel: bool = theGame.GetInGameConfigWrapper()
+    .GetVarValue('RERencountersGeneral', 'RERcancelSpawnsWhenNearQuestMarkers');
+
+  if (!can_cancel) {
+    NLOG("isNearQuestMarker(): settings off, leaving early.");
+
+    return false;
+  }
+
+  area_map_pins = theGame.GetCommonMapManager().GetAreaMapPins();
+
+  var i: int;
+  for (i = 0; i < area_map_pins.Size(); i += 1) {
+    var local_map_pins: array<SCommonMapPinInstance> = theGame
+      .GetCommonMapManager()
+      .GetMapPinInstances( area_map_pins[ i ].worldPath );
+    
+    var k: int;
+    for (k = 0; k < local_map_pins.Size(); k += 1) {
+      if (!theGame.GetCommonMapManager().IsQuestPinType(local_map_pins[k].type)) {
+        continue;
+      }
+
+      // the player is near an active quest marker,
+      if (VecDistanceSquared2D(player_position, local_map_pins[k].position) < 15 * 15) {
+        NLOG("isNearQuestMarker(): near quest marker.");
+
+        return true;
+      }
+    }
+  }
+
+  NLOG("isNearQuestMarker(): no quest marker nearby.");
+
+  return false;
 }

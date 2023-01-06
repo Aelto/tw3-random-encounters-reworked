@@ -31,7 +31,7 @@ state Starting in RER_EventsManager {
     );
 
     // The chance_scale also scales with the mod power.
-    parent.chance_scale = parent.delay / parent.internal_cooldown * RER_getModPower();
+    parent.chance_scale = parent.delay / parent.internal_cooldown * parent.master.getModPower();
 
     NLOG("RER_EventsManager - chance_scale = " + parent.chance_scale + ", delay =" + parent.delay);
     

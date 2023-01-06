@@ -22,7 +22,7 @@ statemachine class RER_BountyMasterManager {
     var template_path: string;
     var map_pin: SU_MapPin;
 
-    if (!RER_modPowerIsBountySystemEnabled()) {
+    if (!RER_modPowerIsBountySystemEnabled(this.bounty_manager.master.getModPower())) {
       return;
     }
 
@@ -115,9 +115,10 @@ statemachine class RER_BountyMasterManager {
       map_pin.position = valid_positions[position_index];
       map_pin.description = GetLocStringByKey("rer_mappin_bounty_master_description");
       map_pin.label = GetLocStringByKey("rer_mappin_bounty_master_title");
-      map_pin.type = "QuestGiverChapter";
+      map_pin.type = "QuestAvailableBaW";
+      map_pin.filtered_type = "QuestAvailableBaW";
       map_pin.radius = 10;
-      map_pin.region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+      map_pin.region = SUH_getCurrentRegion();
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
           .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBountyMaster');
 

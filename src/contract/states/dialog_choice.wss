@@ -230,7 +230,7 @@ state DialogChoice in RER_ContractManager {
       // EDIT 2: this code is overly complex, why use .Size() and minus 4
       // instead of simply adding + 2 to `i` since we know there is always
       // 2 info message before it starts listing the contracts.
-      if (choices[choices.Size() - 4 + i].description == response.description) {
+      if (StrContains(response.description, choices[i + 2].description)) {
         creature_type = creature_type_choices[i];
 
         break;
