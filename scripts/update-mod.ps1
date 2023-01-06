@@ -1,5 +1,5 @@
 
-# Hhowing a link to RER.
+# Showing a link to RER.
 echo ""
 write-host -ForegroundColor yellow "If you enjoy the mod, the script and everything that goes with RER. Please consider endorsing my mod!"
 echo ""
