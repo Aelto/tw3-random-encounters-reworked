@@ -1,0 +1,67 @@
+
+class RER_TrackerStorage extends RER_BaseStorage {
+  // where the index is the EncounterType enum
+  var encounters_spawned: array<int>;
+
+  // where the index is the EncounterType enum
+  var encounters_killed: array<int>;
+
+  // where the index is the EncounterType enum
+  var encounters_recycled: array<int>;
+
+  var encounters_cancelled: int;
+
+  // where the index is the CreatureType enum
+  var creatures_spawned: array<int>;
+}
+
+function RER_getTrackerStorage(): RER_TrackerStorage {
+  var master: CRandomEncounters;
+
+  if (!getRandomEncounters(master)) {
+    return NULL;
+  }
+
+  return master.storages.tracker;
+}
+
+function RER_emitEncounterSpawned(encounter: EncounterType) {
+  var storage: RER_TrackerStorage = RER_getTrackerStorage();
+
+  if (storage) {
+    storage.encounters_spawned[encounter] += 1;
+  }
+}
+
+function RER_emitEncounterKilled(encounter: EncounterType) {
+  var storage: RER_TrackerStorage = RER_getTrackerStorage();
+
+  if (storage) {
+    storage.encounters_killed[encounter] += 1;
+  }
+}
+
+function RER_emitEncounterRecycled(encounter: EncounterType) {
+  var storage: RER_TrackerStorage = RER_getTrackerStorage();
+
+  if (storage) {
+    storage.encounters_recycled[encounter] += 1;
+  }
+}
+
+
+function RER_emitEncounterCancelled() {
+  var storage: RER_TrackerStorage = RER_getTrackerStorage();
+
+  if (storage) {
+    storage.encounters_cancelled += 1;
+  }
+}
+
+function RER_emitCreatureSpawned(type: CreatureType, count: int) {
+  var storage: RER_TrackerStorage = RER_getTrackerStorage();
+
+  if (storage) {
+    storage.creatures_spawned[type] += count;
+  }
+}

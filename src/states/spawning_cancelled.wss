@@ -4,6 +4,8 @@ state SpawningCancelled in CRandomEncounters {
     super.OnEnterState(previous_state_name);
     NLOG("entering state SPAWNING-CANCELLED");
 
+    RER_emitEncounterCancelled();
+
     parent.GotoState('Waiting');
   }
 }

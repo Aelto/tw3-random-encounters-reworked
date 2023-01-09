@@ -2,6 +2,8 @@
 latent function createRandomCreatureHuntingGround(master: CRandomEncounters, bestiary_entry: RER_BestiaryEntry) {
   var composition: CreatureHuntingGroundComposition;
 
+  RER_emitEncounterSpawned(EncounterType_HUNTINGGROUND);
+
   composition = new CreatureHuntingGroundComposition in master;
 
   composition.init(master.settings);

@@ -40,9 +40,7 @@ state Initialising in CRandomEncounters {
     this.removeAllRerMapPins();
     this.updateSettings();
 
-    if (!parent.storages) {
-      parent.storages = RER_loadStorageCollection(parent);
-    }
+    RER_loadStorageCollection(parent);
 
     parent.refreshModPower();
     parent.spawn_roller.fill_arrays();
@@ -61,6 +59,8 @@ state Initialising in CRandomEncounters {
     parent.horde_manager.init(parent);
     parent.contract_manager.init(parent);
     parent.loot_manager.init(parent);
+
+    RER_addTrackerGlossary();
 
     RER_tutorialTryShowStarted();
     

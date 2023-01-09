@@ -11,6 +11,21 @@ state Ending in RandomEncountersReworkedHuntEntity {
   entry function Ending_main() {
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {
       RER_tryRefillRandomContainer(parent.master);
+
+      if (parent.bait_moves_towards_player) {
+        RER_emitEncounterKilled(EncounterType_DEFAULT);
+      }
+      else {
+        RER_emitEncounterKilled(EncounterType_HUNT);
+      }
+    }
+    else {
+      if (parent.bait_moves_towards_player) {
+        RER_emitEncounterRecycled(EncounterType_DEFAULT);
+      }
+      else {
+        RER_emitEncounterRecycled(EncounterType_HUNT);
+      }
     }
     parent.clean();
   }

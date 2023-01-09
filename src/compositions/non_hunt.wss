@@ -7,6 +7,8 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
   var creature_composition: CreatureComposition;
   var bestiary_entry: RER_BestiaryEntry;
 
+  RER_emitEncounterSpawned(EncounterType_DEFAULT);
+
   creature_composition = CreatureComposition_AmbushWitcher;
 
   if (creature_type == CreatureNONE) {
@@ -53,6 +55,8 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
 // all the creatures are alive or not. 
 latent function makeCreatureWildHunt(out master: CRandomEncounters) {
   var composition: WildHuntAmbushWitcherComposition;
+
+  RER_emitEncounterSpawned(EncounterType_DEFAULT);
 
   composition = new WildHuntAmbushWitcherComposition in master;
 
@@ -104,6 +108,8 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
 
 latent function makeCreatureAmbushWitcher(bestiary_entry: RER_BestiaryEntry, out master: CRandomEncounters) {
   var composition: CreatureAmbushWitcherComposition;
+
+  RER_emitEncounterSpawned(EncounterType_DEFAULT);
 
   composition = new CreatureAmbushWitcherComposition in master;
 
