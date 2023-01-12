@@ -512,6 +512,11 @@
 2115018444|        |option_rer_loot_valuables_exotic_chance|<font color="#ffd33d">                                    :</font> posibilidad de rareza exótica
 2115018445|        |rer_reputation_loss_message|La noticia de tu fracaso durante el contrato se ha extendido por toda la región. Tu reputación ha caído {{number}} puntos.
 2115018446|        |rer_reputation_spent_message|Se intercambiaron {{number}} puntos de reputación por botín
-2115018446|        |rer_reputation_spent_message|{{number}} reputation points were exchanged for loot
 2115018447|        |option_rer_tutorial_bounty_master|Maestro de recompensas
 2115018448|        |rer_tutorial_bounty_master_title|RER Tutorial - Maestro de Recompensas
+2115018449|        |rer_reputation_spent_message_not_enough|No tienes suficiente reputación para gastar
+2115018450|        |preset_value_rer_preset_selector|Obtener selector de preselección
+2115018451|        |rer_bounty|Recompensa
+2115018452|        |rer_contract|Contrato
+2115018453|        |rer_strayed_too_far_cancelled|Te alejaste demasiado, tu actual {{thing}} se cancelo
+2115018454|        |option_rer_cancel_spawns_near_quest_markers|Cancelar la generacion cuando los marcadores de misiones estan cerca
