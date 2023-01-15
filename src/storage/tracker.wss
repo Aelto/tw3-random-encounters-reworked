@@ -13,14 +13,48 @@ class RER_TrackerStorage extends RER_BaseStorage {
 
   // where the index is the CreatureType enum
   var creatures_spawned: array<int>;
+
+  public function init() {
+    if (!this.encounters_spawned || this.encounters_spawned.Size() <= 0) {
+      var i = 0;
+      for (i = 0; i < CreatureMAX; i += 1) {
+        this.encounters_spawned.PushBack(0);
+      }
+    }
+
+    if (!this.encounters_killed || this.encounters_killed.Size() <= 0) {
+        var i = 0;
+        for (i = 0; i < CreatureMAX; i += 1) {
+          this.encounters_killed.PushBack(0);
+        }
+    }
+
+    if (!this.encounters_recycled || this.encounters_recycled.Size() <= 0) {
+      var i = 0;
+      for (i = 0; i < CreatureMAX; i += 1) {
+        this.encounters_recycled.PushBack(0);
+      }
+    }
+
+    if (!this.creatures_spawned || this.creatures_spawned.Size() <= 0) {
+      var i = 0;
+      for (i = 0; i < CreatureMAX; i += 1) {
+        this.creatures_spawned.PushBack(0);
+      }
+    }
+
+  }
 }
 
 function RER_getTrackerStorage(): RER_TrackerStorage {
   var master: CRandomEncounters;
 
   if (!getRandomEncounters(master)) {
+    NLOG("RER_getTrackerStorage(), returning NULL");
     return NULL;
   }
+
+  NLOG("RER_getTrackerStorage(), returning tracker storage");
 
   return master.storages.tracker;
 }

@@ -40,4 +40,5 @@ function RER_loadStorageCollection(master: CRandomEncounters) {
     NLOG("RER_loadStorageCollection() - Instantiating new RER_TrackerStorage");
     master.storages.tracker = new RER_TrackerStorage in master.storages;
   }
+  master.storages.tracker.init();
 }
