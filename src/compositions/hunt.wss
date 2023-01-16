@@ -3,6 +3,7 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   var bestiary_entry: RER_BestiaryEntry;
 
   NLOG("making create hunt");
+  RER_emitEncounterSpawned(EncounterType_HUNT);
 
   if (creature_type == CreatureNONE) {
     bestiary_entry = master

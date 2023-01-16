@@ -330,7 +330,7 @@ statemachine class RER_BountyManager extends CEntity {
     map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
 
-    thePlayer.addCustomPin(map_pin);
+    SUMP_addCustomPin(map_pin);
 
     for (i = 0; i < this.master.storages.bounty.current_bounty.random_data.side_groups.Size(); i += 1) {
       if (this.master.storages.bounty.current_bounty.random_data.side_groups[i].was_killed) {
@@ -362,7 +362,7 @@ statemachine class RER_BountyManager extends CEntity {
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
         .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
 
-      thePlayer.addCustomPin(map_pin);
+      SUMP_addCustomPin(map_pin);
     }
 
     SU_updateMinimapPins();

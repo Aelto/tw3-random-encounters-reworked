@@ -261,12 +261,13 @@ class RER_CreaturePreferences {
 }
 
 function RER_isRegionConstraintValid(constraint: RER_RegionConstraint, region: string): bool {
-  return  constraint == RER_RegionConstraint_NO_VELEN && region != "no_mans_land" && region != "novigrad"
-      ||  constraint == RER_RegionConstraint_NO_SKELLIGE && region != "skellige" && region != "kaer_morhen"
-      ||  constraint == RER_RegionConstraint_NO_TOUSSAINT && region != "bob"
-      ||  constraint == RER_RegionConstraint_NO_WHITEORCHARD && region != "prolog_village"
-      ||  constraint == RER_RegionConstraint_ONLY_TOUSSAINT && region == "bob"
-      ||  constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && region == "prolog_village"
-      ||  constraint == RER_RegionConstraint_ONLY_SKELLIGE && (region == "skellige" || region == "kaer_morhen")
-      ||  constraint == RER_RegionConstraint_ONLY_VELEN && (region == "no_mans_land" || region == "novigrad");
+  return constraint == RER_RegionConstraint_NONE
+      || constraint == RER_RegionConstraint_NO_VELEN && region != "no_mans_land" && region != "novigrad"
+      || constraint == RER_RegionConstraint_NO_SKELLIGE && region != "skellige" && region != "kaer_morhen"
+      || constraint == RER_RegionConstraint_NO_TOUSSAINT && region != "bob"
+      || constraint == RER_RegionConstraint_NO_WHITEORCHARD && region != "prolog_village"
+      || constraint == RER_RegionConstraint_ONLY_TOUSSAINT && region == "bob"
+      || constraint == RER_RegionConstraint_ONLY_WHITEORCHARD && region == "prolog_village"
+      || constraint == RER_RegionConstraint_ONLY_SKELLIGE && (region == "skellige" || region == "kaer_morhen")
+      || constraint == RER_RegionConstraint_ONLY_VELEN && (region == "no_mans_land" || region == "novigrad");
 }

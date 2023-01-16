@@ -5,19 +5,40 @@ class RER_StorageCollection {
   var ecosystem: RER_EcosystemStorage;
   var bounty: RER_BountyStorage;
   var contract: RER_ContractStorage;
+  var tracker: RER_TrackerStorage;
 }
 
 // an helper function to get the full storage collection
-function RER_loadStorageCollection(master: CRandomEncounters): RER_StorageCollection {
-  var collection: RER_StorageCollection;
+function RER_loadStorageCollection(master: CRandomEncounters) {
+  if (!master.storages) {
+    NLOG("RER_loadStorageCollection() - Instantiating new storage collection");
+  
+    master.storages = new RER_StorageCollection in master;
+  }
 
-  NLOG("RER_loadStorageCollection() - Instantiating new storage collection");
+  if (!master.storages.general) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_GeneralStorage");
+    master.storages.general = new RER_GeneralStorage in master.storages;
+  }
 
-  collection = new RER_StorageCollection in master;
-  collection.general = new RER_GeneralStorage in collection;
-  collection.ecosystem = new RER_EcosystemStorage in collection;
-  collection.bounty = new RER_BountyStorage in collection;
-  collection.contract = new RER_ContractStorage in collection;
+  if (!master.storages.ecosystem) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_EcosystemStorage");
+    master.storages.ecosystem = new RER_EcosystemStorage in master.storages;
+  }
 
-  return collection;
+  if (!master.storages.bounty) {
+    NLOG("RER_loadStorageCollection() - Instantiating RER_BountyStorage");
+    master.storages.bounty = new RER_BountyStorage in master.storages;
+  }
+
+  if (!master.storages.contract) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_ContractStorage");
+    master.storages.contract = new RER_ContractStorage in master.storages;
+  }
+
+  if (!master.storages.tracker) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_TrackerStorage");
+    master.storages.tracker = new RER_TrackerStorage in master.storages;
+  }
+  master.storages.tracker.init();
 }
