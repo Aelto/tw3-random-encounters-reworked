@@ -122,7 +122,7 @@ statemachine class RER_BountyMasterManager {
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
           .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBountyMaster');
 
-      thePlayer.addCustomPin(map_pin);
+      SUMP_addCustomPin(map_pin);
 
       NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
     }

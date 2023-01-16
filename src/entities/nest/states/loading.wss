@@ -59,7 +59,7 @@ state Loading in RER_MonsterNest {
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
           .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives');
 
-      thePlayer.addCustomPin(map_pin);
+      SUMP_addCustomPin(map_pin);
 
       parent.pin_position = position;
 
