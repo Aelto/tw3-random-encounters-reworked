@@ -1,5 +1,5 @@
 
-// When remains are near the player, necrophages can spawn
+// When remains are near the player, necrophages can spawn.
 class RER_ListenerBodiesNecrophages extends RER_EventsListener {
   var time_before_other_spawn: float;
   default time_before_other_spawn = 0;
@@ -18,7 +18,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       .GetVarValue('RERevents', 'eventBodiesNecrophages')
     );
     
-    // the event is only active if its chances to trigger are greater than 0
+    // The event is only active if its chances to trigger are greater than 0.
     this.active = this.trigger_chance > 0;
   }
 
@@ -29,14 +29,14 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
 
     is_in_combat = thePlayer.IsInCombat();
 
-    // to avoid triggering more than one event per fight
+    // To avoid triggering more than one event per fight.
     if (is_in_combat && (was_spawn_already_triggered || this.already_spawned_this_combat)) {
       this.already_spawned_this_combat = true;
 
       return false;
     }
 
-    // to avoid triggering this event too frequently
+    // To avoid triggering this event too frequently.
     if (this.time_before_other_spawn > 0) {
       time_before_other_spawn -= delta;
 
@@ -55,7 +55,7 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       type = this.getRandomNecrophageType(master);
       createRandomCreatureAmbush(master, type);
 
-      // so that we don't spawn an ambush too frequently
+      // So that we don't spawn an ambush too frequently.
       this.time_before_other_spawn += master.events_manager.internal_cooldown;
       
       NLOG("RER_ListenerBodiesNecrophages - spawn triggered type = " + type);
@@ -99,10 +99,6 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
 
     creatures_preferences
       .reset();
-      
-    master.bestiary.entries[CreatureGHOUL]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
 
     master.bestiary.entries[CreatureGHOUL]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
@@ -128,14 +124,6 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
-    master.bestiary.entries[CreatureEKIMMARA]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureKATAKAN]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
     master.bestiary.entries[CreatureHAG]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
@@ -144,24 +132,13 @@ class RER_ListenerBodiesNecrophages extends RER_EventsListener {
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
-    master.bestiary.entries[CreatureBRUXA]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
-    master.bestiary.entries[CreatureFLEDER]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
     master.bestiary.entries[CreatureGARKAIN]
       .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
       .fillSpawnRoller(spawn_roller);
 
-    master.bestiary.entries[CreatureDETLAFF]
-      .setCreaturePreferences(creatures_preferences, EncounterType_DEFAULT)
-      .fillSpawnRoller(spawn_roller);
-
     #ifdef ENABLE_BESTIARY_FEATURE {
-      // when the option "Only known bestiary creatures" is ON
-      // we remove every unknown creatures from the spawning pool
+      // When the option "Only known bestiary creatures" is ON
+      // we remove every unknown creatures from the spawning pool.
       if (master.settings.only_known_bestiary_creatures) {
         manager = theGame.GetJournalManager();
 
