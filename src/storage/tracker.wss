@@ -18,28 +18,24 @@ class RER_TrackerStorage extends RER_BaseStorage {
 	var i: int;
 
     if (this.encounters_spawned.Size() <= 0) {
-      var i = 0;
       for (i = 0; i < CreatureMAX; i += 1) {
         this.encounters_spawned.PushBack(0);
       }
     }
 
     if (this.encounters_killed.Size() <= 0) {
-        var i = 0;
-        for (i = 0; i < CreatureMAX; i += 1) {
-          this.encounters_killed.PushBack(0);
-        }
+      for (i = 0; i < CreatureMAX; i += 1) {
+        this.encounters_killed.PushBack(0);
+      }
     }
 
     if (this.encounters_recycled.Size() <= 0) {
-      var i = 0;
       for (i = 0; i < CreatureMAX; i += 1) {
         this.encounters_recycled.PushBack(0);
       }
     }
 
     if (this.creatures_spawned.Size() <= 0) {
-      var i = 0;
       for (i = 0; i < CreatureMAX; i += 1) {
         this.creatures_spawned.PushBack(0);
       }
