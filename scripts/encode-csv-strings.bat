@@ -3,9 +3,9 @@
 
 call variables.cmd
 
-cd %modpath%\strings
+cd /D "%modpath%\strings"
 del *.w3strings
-%modkitpath%\w3strings --encode en.w3strings.csv --id-space 5018
+"%modkitpath%\w3strings" --encode en.w3strings.csv --id-space 5018
 
 del *.ws
 rename en.w3strings.csv.w3strings en.w3strings
@@ -25,4 +25,4 @@ copy en.w3strings pl.w3strings
 copy en.w3strings ru.w3strings
 copy en.w3strings zh.w3strings
 
-cd %modpath%\scripts
+cd /D %modpath%\scripts

@@ -1,1 +1,2 @@
-cahirc ..
+cd /D %modPath%
+cahirc
