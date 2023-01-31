@@ -16,6 +16,7 @@ class RER_TrackerStorage extends RER_BaseStorage {
 
   public function init() {
     var i: int;
+
     if (this.encounters_spawned.Size() <= 0) {
       for (i = 0; i < CreatureMAX; i += 1) {
         this.encounters_spawned.PushBack(0);
