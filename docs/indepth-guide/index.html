@@ -120,11 +120,88 @@
 
     <details>
       <summary>Enhanced Edition</summary>
-      <blockquote>
-        Since EE comes with FHUD bundled-in it is necessary you also look at the
-        Friendly HUD section below.
-      </blockquote>
+      <div>
+        The list below includes all of the conflicts you may get on a fresh EE + RER install
+        with no other mod. For each file it will list the conflicting mods and will indicate
+        whether or not you should include the mods during the merging process. A mod you should
+        include is represented with a checked box and a mod you should not include is represented
+        with an unchecked/empty box.
+        <hr>
+        It is very important you follow the list for the files that do not include all of the conflicting
+        mods. For example the <span>component.ws</span> one. Or else the game will not compile.
+      </div>
 
+      <div>
+        <h3>Conflicts & files to merge/ignore</h3>
+        <ul>
+          <li>
+            <span>engine\component.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
+              <li><input type="checkbox" checked> modSharedImports</li>
+              <li><input type="checkbox"> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>engine\environment.ws</span> <i>(DO NOT MERGE)</i>
+            <ul>
+              <li><input type="checkbox"> modSharedImports</li>
+              <li><input type="checkbox"> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>engine\persistentEntity.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
+              <li><input type="checkbox" checked> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gameplay\damage\damageManagerProcessor.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_damagemodifiers</li>
+              <li><input type="checkbox" checked> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\hud\modules\hudModuleBossFocus.ws</span> <i>(DO NOT MERGE)</i>
+            <ul>
+              <li><input type="checkbox"> mod_sharedutils_custombossbar</li>
+              <li><input type="checkbox"> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\hud\modules\hudModuleDialog.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_dialogChoices</li>
+              <li><input type="checkbox" checked> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\hud\modules\hudModuleMinimap2.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_mappins</li>
+              <li><input type="checkbox" checked> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\gui\menu\mapMenu.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_mappins</li>
+              <li><input type="checkbox" checked> modW3EE</li>
+            </ul>
+          </li>
+          <li>
+            <span>game\npc\npc.ws</span>
+            <ul>
+              <li><input type="checkbox" checked> mod_sharedutils_damagemodifiers</li>
+              <li><input type="checkbox" checked> modW3EE</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 1.32 instructions:
       <div>
         <h3>Files to merge</h3>
         <div>
@@ -190,7 +267,7 @@
         </ul>
       </div>
 
-      <!-- <div>
+      <div>
         <h3>Files <b>NOT</b> to merge</h3>
         You do not need to merge these mods, however you <b>MUST</b> ensure they
         are loaded before W3EE.
@@ -214,8 +291,15 @@
       </div> -->
     </details>
 
+    <!-- the sharedutils npc_interaction no longer edits playerInput.ws:
     <details>
       <summary>Friendly HUD or Enhanced Edition</summary>
+
+      <blockquote>
+        Note that you may not get the conflict depending on the version of your game
+        or the version of FHUD you use. If you don't get the conflict, then move to
+        the next conflict
+      </blockquote>
 
       <div>
         <ul>
@@ -267,7 +351,7 @@
 
         Do no merge it, but make sure it is loaded before FHUD.
       </div>
-    </details>
+    </details> -->
   </section>
 
 
