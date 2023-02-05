@@ -1,2 +1,4 @@
-cd /D %modPath%
-cahirc
+call variables.cmd
+cd /D %modPath%/scripts
+
+cahirc ..
