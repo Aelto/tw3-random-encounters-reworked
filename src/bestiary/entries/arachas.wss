@@ -28,18 +28,53 @@ class RER_BestiaryArachas extends RER_BestiaryEntry {
       )
     );
 
+    if (RER_playerUsesEnhancedEditionRedux()) {
+      this.template_list.difficulty_factor.minimum_count_easy = 1;
+      this.template_list.difficulty_factor.maximum_count_easy = 1;
+      this.template_list.difficulty_factor.minimum_count_medium = 1;
+      this.template_list.difficulty_factor.maximum_count_medium = 2;
+      this.template_list.difficulty_factor.minimum_count_hard = 2;
+      this.template_list.difficulty_factor.maximum_count_hard = 2;
+
+      // W3EE redux players also get endregas with arachas, to make it easier
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "characters\npc_entities\monsters\endriaga_lvl1__worker.w2ent",,,
+          "gameplay\journal\bestiary\bestiaryendriag.journal"
+        )
+      ); // small endrega
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "characters\npc_entities\monsters\endriaga_lvl2__tailed.w2ent", 2,,
+          "gameplay\journal\bestiary\endriagatruten.journal"
+        )
+      ); // bigger tailed endrega
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "characters\npc_entities\monsters\endriaga_lvl3__spikey.w2ent", 1,,
+          "gameplay\journal\bestiary\endriagaworker.journal"
+        ),
+      ); // big tailless endrega
+    }
+    else {
       this.template_list.difficulty_factor.minimum_count_easy = 1;
       this.template_list.difficulty_factor.maximum_count_easy = 2;
       this.template_list.difficulty_factor.minimum_count_medium = 2;
       this.template_list.difficulty_factor.maximum_count_medium = 3;
       this.template_list.difficulty_factor.minimum_count_hard = 3;
       this.template_list.difficulty_factor.maximum_count_hard = 3;
+    }
 
     this.trophy_names.PushBack('modrer_insectoid_trophy_low');
     this.trophy_names.PushBack('modrer_insectoid_trophy_medium');
     this.trophy_names.PushBack('modrer_insectoid_trophy_high');
 
-    this.ecosystem_delay_multiplier = 10;
+    if (RER_playerUsesEnhancedEditionRedux()) {
+      this.ecosystem_delay_multiplier = 15;
+    }
+    else {
+      this.ecosystem_delay_multiplier = 10;
+    }
 
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
       .influence(influences.kills_them) //CreatureHUMAN
