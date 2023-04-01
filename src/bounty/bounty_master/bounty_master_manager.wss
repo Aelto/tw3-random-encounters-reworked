@@ -112,6 +112,7 @@ statemachine class RER_BountyMasterManager {
 
       map_pin = new SU_MapPin in thePlayer;
       map_pin.tag = "RER_bounty_master";
+      map_pin.pin_tag = 'RER_bounty_master';
       map_pin.position = valid_positions[position_index];
       map_pin.description = GetLocStringByKey("rer_mappin_bounty_master_description");
       map_pin.label = GetLocStringByKey("rer_mappin_bounty_master_title");
@@ -119,6 +120,7 @@ statemachine class RER_BountyMasterManager {
       map_pin.filtered_type = "QuestAvailableBaW";
       map_pin.radius = 10;
       map_pin.region = SUH_getCurrentRegion();
+      map_pin.is_fast_travel = true;
       map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
           .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBountyMaster');
 

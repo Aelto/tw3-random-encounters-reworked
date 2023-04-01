@@ -56,6 +56,8 @@ state Processing in RER_ContractManager {
 
     map_pin = new SU_MapPin in parent;
     map_pin.tag = "RER_contract_target";
+    map_pin.pin_tag = 'RER_contract_target';
+    map_pin.is_fast_travel = true;
     map_pin.position = active_contract.destination_point;
     map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
     map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
