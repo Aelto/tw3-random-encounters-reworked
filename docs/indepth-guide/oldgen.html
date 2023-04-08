@@ -14,192 +14,273 @@
   <h1>In depth guide for installing Random Encounter Reworked</h1>
 
   <section class="summary">
-    <blockquote>
-      This documentation is for the NextGen (v4.0 and higher) of the game, if you
-      are using 1.32 then refer to <a href="oldgen.html">this page</a>
-
-    </blockquote>
-
     <ul>
       <li>
-        <a href="#part-1">1.</a> Downloading the mod and its dependencies, and installing it.
+        <a href="#part-1">1.</a> first i will explain what each dependencies does and how to install them, and in which
+        cases you should <b>not</b> install them.
         <ul>
-          <li><a href="#part-1-1">1.1.</a>Download the mod</li>
-          <li><a href="#part-1-2">1.2.</a>Installing the mod</li>
-          <li><a href="#part-1-3">1.3.</a>Updating the menu filelists</li>
+          <li><a href="#part-1-1">1.1.</a> modBootstrap</li>
+          <li><a href="#part-1-2">1.2.</a> SharedImports</li>
+          <li><a href="#part-1-3">1.3.</a> CommunityPatch - Base</li>
         </ul>
       </li>
 
       <li>
-        <a href="#part-2">2.</a> Merging instructions for known conflicts
+        <a href="#part-2">2.</a> then how to actually install Random Encounters Reworked.
+      </li>
+
+      <li>
+        <a href="#part-3">3.</a> update the mod bootstrap registry and why we need to do this
+      </li>
+
+      <li>
+        <a href="#part-4">4.</a> install any patch for the overhauls you may use
+      </li>
+
+      <li>
+        <a href="#part-5">5.</a> merging instructions for known conflicts
       </li>
     </ul>
 
     <hr />
     <ul>
       <li>
-        <a href="#part-3">3.</a> <span>OPTIONAL:</span> you can also install keybinds if you want to trigger events by
+        <a href="#part-6">6.</a> <span>OPTIONAL:</span> you can also install keybinds if you want to trigger events by
         using your keyboard
         <ul>
-          <li><a href="#part-3-1">3.1.</a> trigger an encounter</li>
-          <li><a href="#part-3-2">3.2.</a> reload the settings</li>
-          <li><a href="#part-3-3">3.3.</a> toggle RER</li>
-          <li><a href="#part-3-4">3.4.</a> analyse the surrounding ecosystem</li>
+          <li><a href="#part-6-1">6.1.</a> trigger an encounter</li>
+          <li><a href="#part-6-2">6.2.</a> reload the settings</li>
+          <li><a href="#part-6-3">6.3.</a> toggle RER</li>
+          <li><a href="#part-6-4">6.4.</a> analyse the surrounding ecosystem</li>
         </ul>
       </li>
     </ul>
 
     <hr />
     <ul>
-      <li><a href="#part-4">4.</a> Uninstalling Random Encounters Reworked</li>
+      <li><a href="#part-7">7.</a> Uninstalling Random Encounters Reworked</li>
     </ul>
   </section>
 
   <section id="part-1">
-    <h2>Installing the mod and its dependencies</h2>
+    <h2>Installing the dependencies</h2>
+    <blockquote class="info">
+      How to install the dependencies and why Random Encounters Reworked needs them, and in which cases you could skip
+      this step.
+    </blockquote>
 
     <div id="part-1-1">
-      <h3>Downloading the mod and its dependencies</h3>
+      <h3>Dependency - modBootstrap</h3>
+
       <div>
-        You can use this <a
-          href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/latest/download/tw3-random-encounters-reworked.zip">
-          direct link
-        </a> to download the latest full release archive from Github.
-        Alternatively the mod is currently hosted on GitHub, and its releases are shared under
-        <a href="https://github.com/Aelto/tw3-random-encounters-reworked/releases">the releases tab</a>.
-        You can find the zip archive with the mod and all of its dependencies under
-        the "assets" categories of the releases.
+        <h4>What is its role?</h4>
+        <div>
+          Mod boostrap is what allows Random Encounters Reworked to start automatically as soon as you enter a game.
+          Because RER is like a DLC which adds content to the game without changing anything, it needs a way to start
+          itself. The modBootstrap solves this.
+          It creates a common way for modders to inject some of their come to an invisible quest that is started on
+          launch.
+        </div>
+      </div>
+
+      <div>
+        <h4>When should you skip this mod?</h4>
+        <div>
+          Do not install it if you have already installed it. To check if you've installed it already go into <span>The
+            Witcher 3/mods/</span> and look for a folder named <span>modBootstrap</span>.
+          If you find one then skip this step.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to install it?</h4>
+        <div>
+          <ol>
+            <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/2109/?tab=files">modBootstrap</a>'s mod page</li>
+            <li>Download <span>modBootstrap-registry</span></li>
+            <li>
+              Download either
+              <ul>
+                <li><span>modBootstrap-v0.4.1</span> if you don't have mod that change your map or the UI like "all
+                  quest objectives on map" or "E3 UI" or "Colored map markers"</li>
+                <li><span>modBootstrap-v0.4.1-unmodified-worldmap</span> if you DO have such mods or are not sure (i
+                  don't have these mods but still downloaded this one and it works)</li>
+              </ul>
+            </li>
+            <li>Drop the content of the archives you downloaded directly into <span>The Witcher 3/</span> so that you
+              merge the archive <span>mods</span> directory with your <span>mods</span> directory</li>
+          </ol>
+        </div>
       </div>
     </div>
 
     <div id="part-1-2">
-      <h3>Installing the mod and its dependencies</h3>
+      <h3>Dependency - Shared Imports</h3>
+
       <div>
-        Navigate in the release archive until you find three folders: bin, dlc, mods;
-        drop the folders in your game's root directory to merge them with the existing
-        folders. When/if prompted to replace files, deny all requests to ensure
-        you do not override any of your existing mods.
+        <h4>What is its role</h4>
+        <div>
+          It's a simple mod that imports tons of helper functions (things to interact with the game) so people don't
+          have to.
+          Because if two mods import the same function the game won't start and will give you an error, hence the name
+          "Shared" imports.
+        </div>
+      </div>
+
+      <div>
+        <h4>When should you skip it?</h4>
+        <div>
+          If you've installed it already or if you have Witcher 3 Enhanced Edition. To check if you've installed it
+          already go into <span>The Witcher 3/mods/</span> and look for a folder named <span>modSharedImports</span>
+          If you find one skip this dependency.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to install it?</h4>
+        <div>
+          <ol>
+            <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/2110/?tab=files">Shared Imports</a>' mod page
+            </li>
+            <li>Download <span>modSharedImports-v0.6</span></li>
+            <li>Drop the content of the archive you downloaded directly into <span>The Witcher 3/</span> so that you
+              merge the archive <span>mods</span> directory with your <span>mods</span> directory</li>
+          </ol>
+        </div>
       </div>
     </div>
 
     <div id="part-1-3">
-      <h3>Updating the menu filelists for next-gen</h3>
+      <h3>Dependency - CommunityPatch - Base</h3>
+
       <div>
-        Two ways to do it:
-        <ul>
-          <li>The quick and easy way by using the menu filelist updater, from <a
-              href="https://github.com/Aelto/tw3-menufilelist-updater/releases/latest">Github</a> or <a
-              href="https://www.nexusmods.com/witcher3/mods/7171">Nexusmods</a></li>
-          <li>Manually, by adding <span>modRandomEncountersReworked.xml</span> to the two filelists.txt files</li>
-        </ul>
+        <h4>What is its role</h4>
+        <div>
+          Not all versions have the same code and somes helper functions were added to later versions. But if RER uses
+          one of these functions while you're not on the latest version you won't be able to use my mod.
+          This mod creates a "base" (clever name eh?) for mod makers so everyone can use their mods.
+        </div>
+      </div>
+
+      <div>
+        <h4>When should you skip it?</h4>
+        <div>
+          If you've installed it already, if you have Unification Patch or if you have GM/W3EE you may not need it. To
+          check if you've installed CP-Base already go into <span>The Witcher 3/mods/</span> and look for a folder named
+          <span>mod0000___CompilationTrigger</span>
+          If you find one skip this dependency.
+        </div>
+      </div>
+
+      <div>
+        <h4>How to install it?</h4>
+        <div>
+          <ol>
+            <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/3652?tab=files">CP - Base</a>'s mod page</li>
+            <li>Download <span>CommunityPatch-Base</span></li>
+            <li>Drop the content of the archive you downloaded directly into <span>The Witcher 3/</span> so that you
+              merge the archive <span>mods</span> directory with your <span>mods</span> directory and also the
+              <span>content directory</span>
+            </li>
+            <li>Replace every file when prompted</li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="part-2">
+    <h2>Installing Random Encounters Reworked</h2>
+    <blockquote class="info">
+      How to actually install Random Encounters Reworked.
+    </blockquote>
+
+
+    <ol>
+      <li>
+        Download the latest v2 version: <a
+          href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/download/v2.13-pre-release_0/v2.13-pre-release_0.zip">direct
+          download link</a>
+      </li>
+      <li>Drop the content of the archive into your <span>The Witcher 3</span> directory so that you merge the three
+        directories <span>mods</span>/<span>bin</span>/<span>content</span> with those already here</li>
+      <li>Merge the shared utils mods from RER with the script merger of your choice. The only exception is if you use
+        the FHUD patch, let it win by priority</li>
+    </ol>
+  </section>
+
+  <section id="part-3">
+    <h2>Updating the bootstrap registry</h2>
+    <blockquote class="info">
+      Setting up the registry so Random Encounters Reworked get started automatically
+    </blockquote>
+
+    <div>
+      <h3>Why do we need this?</h3>
+      <div>
+        As i said in <a href="#part-1-1">part 1.1</a> the bootstrap mod allows RER to start every time you enter the
+        game. But you have to tell him where to look for RER, this is what you do with the registry.
+        It may seem complicated but it's actually the simplest solution.
+      </div>
+    </div>
+
+    <div>
+      <h3>How to update the registry</h3>
+      <div>
+        Go into <span>The Witcher 3/mods/modRandomEncountersReworked</span> and run <span>update-registry.bat</span> by
+        double clicking it. Please always take a glance at a <span>.bat</span> file before running, by doing a
+        right-click and edit, i know you may not be a programmer but it's a good habit and this one has comments
+        explaining it. You never know 👍
+      </div>
+    </div>
+  </section>
+
+  <section id="part-4">
+    <h2>Optional patches</h2>
+    <blockquote class="info">
+      Some patches may simplify your merging process, here are a few
+    </blockquote>
+
+    <div>
+      <h3>Optional patches</h3>
+
+      <div>
+        <h3>Friendly HUD (not compatible with EE)</h3>
+
+        <div>
+          You can apply this patch to friendly HUD to see the custom markers added by RER as 3D markers.
+          If the patch is used, it is simpler not to merge it with friendly HUD and let the patch win by priority. <a
+            href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/tag/dependencies-v1.0">Download it
+            here</a>
+        </div>
+      </div>
+
+      <div>
+        <h3>Enhanced Edition</h3>
+
+        <div>
+          A small patch to a few sharedutils to simplify your merging process with EE.
+          If the patch is used, you <b>MUST NOT</b> merge the sharedutils_bossbar utility and let it win by priority. <a
+            href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/tag/dependencies-v1.0">Download it
+            here</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="part-5">
     <h2>Merging instructions</h2>
     <blockquote class="info">
       Merging instructions for known conflicts
     </blockquote>
 
-    <p>
-      Merge everything. In case of a conflict between a sharedutils mod and a mod of yours,
-      <b>always</b> pick at least the sharedutils AND the other mod. The order you pick however
-      may be important so be careful on that. Sharedutils code never overrides vanilla features
-      so you can be sure that by picking your other mod and sharedutils the other mod will continue
-      working as intended.
-    </p>
-
-    <hr>
-
-    <p>
-      Known hard to solve conflicts:
-    </p>
-
     <details>
       <summary>Enhanced Edition</summary>
-      <div>
-        The list below includes all of the conflicts you may get on a fresh EE + RER install
-        with no other mod. For each file it will list the conflicting mods and will indicate
-        whether or not you should include the mods during the merging process. A mod you should
-        include is represented with a checked box and a mod you should not include is represented
-        with an unchecked/empty box.
-        <hr>
-        It is very important you follow the list for the files that do not include all of the conflicting
-        mods. For example the <span>component.ws</span> one. Or else the game will not compile.
-      </div>
+      <blockquote>
+        Since EE comes with FHUD bundled-in it is necessary you also look at the
+        Friendly HUD section below.
+      </blockquote>
 
-      <div>
-        <h3>Conflicts & files to merge/ignore</h3>
-        <ul>
-          <li>
-            <span>engine\component.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
-              <li><input type="checkbox" checked> modSharedImports</li>
-              <li><input type="checkbox"> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>engine\environment.ws</span> <i>(DO NOT MERGE)</i>
-            <ul>
-              <li><input type="checkbox"> modSharedImports</li>
-              <li><input type="checkbox"> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>engine\persistentEntity.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gameplay\damage\damageManagerProcessor.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_damagemodifiers</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleBossFocus.ws</span> <i>(DO NOT MERGE)</i>
-            <ul>
-              <li><input type="checkbox"> mod_sharedutils_custombossbar</li>
-              <li><input type="checkbox"> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleDialog.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_dialogChoices</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleMinimap2.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_mappins</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\menu\mapMenu.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_mappins</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\npc\npc.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_damagemodifiers</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <!-- 1.32 instructions:
       <div>
         <h3>Files to merge</h3>
         <div>
@@ -286,18 +367,11 @@
             </ul>
           </li>
         </ul>
-      </div> -->
+      </div>
     </details>
 
-    <!-- the sharedutils npc_interaction no longer edits playerInput.ws:
     <details>
-      <summary>Friendly HUD or Enhanced Edition</summary>
-
-      <blockquote>
-        Note that you may not get the conflict depending on the version of your game
-        or the version of FHUD you use. If you don't get the conflict, then move to
-        the next conflict
-      </blockquote>
+      <summary>Friendly HUD</summary>
 
       <div>
         <ul>
@@ -349,17 +423,17 @@
 
         Do no merge it, but make sure it is loaded before FHUD.
       </div>
-    </details> -->
+    </details>
   </section>
 
 
-  <section id="part-3">
+  <section id="part-6">
     <h2>Adding the keyboard keybinds</h2>
     <blockquote class="info">
       What each keybind does and how to add them to your game
     </blockquote>
 
-    <div id="part-3-1">
+    <div id="part-6-1">
       <h3>Keybind - Trigger an encounter</h3>
 
       <div>
@@ -385,7 +459,7 @@
       </div>
     </div>
 
-    <div id="part-3-2">
+    <div id="part-6-2">
       <h3>Keybind - Reload the settings</h3>
 
       <div>
@@ -412,7 +486,7 @@
       </div>
     </div>
 
-    <div id="part-3-3">
+    <div id="part-6-3">
       <h3>Keybind - Toggle Random Encounters Reworked</h3>
 
       <div>
@@ -439,7 +513,7 @@
       </div>
     </div>
 
-    <div id="part-3-4">
+    <div id="part-6-4">
       <h3>Keybind - Analyse surrounding ecosystem</h3>
 
       <div>
@@ -469,7 +543,7 @@
     </div>
   </section>
 
-  <section id="part-4">
+  <section id="part-7">
     <h2>Uninstalling Random Encounters Reworked</h2>
 
     <details>
@@ -479,7 +553,7 @@
         Run the commands:
         <ul class="spaced">
           <li><span>rercompletecontract</span></li>
-          <li><span>rerabandonbounty</span></li>
+          <li><span>rerabandonbounties</span></li>
           <li><span>reruninstall</span></li>
         </ul>
 
