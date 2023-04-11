@@ -31,7 +31,7 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 function RER_getPlayerLevel(): int {
   if (RER_playerUsesEnhancedEditionRedux()) {
     // every 4 hours of gameplay is equal to 1 level in vanilla
-    return GameTimeHours(theGame.CalculateTimePlayed()) / 4;
+    return GameTimeHours(theGame.CalculateTimePlayed()) / 3;
   }
 
   return thePlayer.GetLevel();
