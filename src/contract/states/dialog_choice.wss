@@ -111,15 +111,14 @@ state DialogChoice in RER_ContractManager {
       ));
     }
 
+    var max_reputation: int = parent.getMaximumDifficultyForReputation(
+      RER_getContractReputationFactValue()
+    );
+
     for (i = 0; i < 3; i += 1) {
       if (!can_select_difficulty) {
         selected_difficulty = RER_ContractDifficultyLevel(
-          rng.nextRange(
-            parent.getMaximumDifficultyForReputation(
-              RER_getContractReputationFactValue()
-            ),
-            0
-          ) as int
+          rng.nextRange(max_reputation, 0) as int
         );
 
         rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);

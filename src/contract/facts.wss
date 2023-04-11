@@ -2,6 +2,14 @@
 #define const RER_CONTRACT_REPUTATION_FACT_ID = "rer_contract_reputation_fact_id";
 
 function RER_getContractReputationFactValue(): int {
+  var reputation_system_enabled: bool = theGame.GetInGameConfigWrapper()
+    .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+  if (!reputation_system_enabled) {
+    // when reputation is disabled it defaults to 1 reputation point per 2 levels
+    return RER_getPlayerLevel() / 2;
+  }
+
   return FactsQueryLatestValue(RER_CONTRACT_REPUTATION_FACT_ID!);
 }
 

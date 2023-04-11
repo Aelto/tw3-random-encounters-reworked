@@ -334,17 +334,13 @@ statemachine class RER_ContractManager {
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.active_contract.reward_type);
 
-    current_reputation = RER_getContractReputationFactValue();
     rewards_amount = 1;
-
-    if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled')) {
-      rewards_increase_from_reputation = StringToFloat(
-        theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
-      );
-      
-      rewards_amount += RoundF(storage.active_contract.difficulty_level.value * 0.05 * (1 + rewards_increase_from_reputation));
-    }
+    rewards_increase_from_reputation = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
+    );
+    
+    rewards_amount += RoundF(storage.active_contract.difficulty_level.value * 0.05 * (1 + rewards_increase_from_reputation));
 
     if (IsNameValid(token_name)) {
 
