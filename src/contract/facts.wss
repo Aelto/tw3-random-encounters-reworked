@@ -7,7 +7,10 @@ function RER_getContractReputationFactValue(): int {
 
   if (!reputation_system_enabled) {
     // when reputation is disabled it defaults to 1 reputation point per 2 levels
-    return RER_getPlayerLevel() / 2;
+    var player_level: float = RER_getPlayerLevel() as float;
+    var value: float = player_level / 1.5;
+
+    return value as int;
   }
 
   return FactsQueryLatestValue(RER_CONTRACT_REPUTATION_FACT_ID!);
