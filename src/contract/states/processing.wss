@@ -1,5 +1,6 @@
 
 state Processing in RER_ContractManager {
+  var oneliner: SU_Oneliner;
   var is_spawned: bool;
 
   event OnEnterState(previous_state_name: name) {
@@ -73,6 +74,16 @@ state Processing in RER_ContractManager {
     SU_updateMinimapPins();
     theSound.SoundEvent("gui_hubmap_mark_pin");
 
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersContract')) {
+      this.oneliner = SU_oneliner(
+        (new SUOL_TagBuilder in thePlayer)
+          .tag("font")
+          .attr("color", "#ff6655")
+          .text(GetLocStringByKey("rer_mappin_regular_title")),
+          active_contract.destination_point
+      );
+    }
+
 
     while (true) {
       if (!parent.master.storages.contract.has_ongoing_contract) {
@@ -101,6 +112,7 @@ state Processing in RER_ContractManager {
     }
 
     theSound.SoundEvent("gui_ingame_new_journal");
+    this.oneliner.unregister();
   }
 
   latent function waitForPlayerToFinishContract() {

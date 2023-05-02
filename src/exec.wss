@@ -1,3 +1,4 @@
+
 exec function rerslowboot(optional enabled: bool) {
   if (enabled) {
     RER_removeIgnoreSlowBootFact();

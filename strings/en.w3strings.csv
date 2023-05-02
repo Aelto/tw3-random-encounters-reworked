@@ -520,3 +520,9 @@
 2115018452|        |rer_contract|Contract
 2115018453|        |rer_strayed_too_far_cancelled|You strayed too far, your current {{thing}} was cancelled
 2115018454|        |option_rer_cancel_spawns_near_quest_markers|Cancel spawns when near quest markers
+2115018455|        |option_rer_oneliners_bounty_main_target|Oneliner / 3D Marker <font color="#ffd33d">-</font> Bounty targets
+2115018456|        |option_rer_oneliners_contract|Oneliner / 3D Marker <font color="#ffd33d">-</font> Contract targets
+2115018457|        |option_rer_oneliners_ambush|Oneliner / 3D Marker <font color="#ffd33d">-</font> Ambushes
+2115018458|        |option_rer_oneliners_hunting_ground|Oneliner / 3D Marker <font color="#ffd33d">-</font> Hunting grounds
+2115018459|        |option_rer_oneliners_hunt|Oneliner / 3D Marker <font color="#ffd33d">-</font> Hunts
+2115018460|        |option_rer_oneliners_bounty_master|Oneliner / 3D Marker <font color="#ffd33d">-</font> Bounty master

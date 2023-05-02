@@ -17,6 +17,8 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
 
   var manual_destruction: bool;
 
+  var oneliner: SU_Oneliner;
+
   public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, bestiary_entry: RER_BestiaryEntry) {
     this.master = master;
     this.entities = entities;
@@ -25,7 +27,26 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
 
     NLOG("starting RandomEncountersReworkedHuntingGroundEntity with " + entities.Size() + " " + bestiary_entry.type);
 
+    this.addOneliner();
     this.GotoState('Loading');
+  }
+
+  private function addOneliner() {
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersHuntingGround')) {
+      return;
+    }
+
+    if (this.entities.Size() > 0) {
+      var first: CEntity = this.entities[0];
+
+      this.oneliner = SU_onelinerEntity(
+        (new SUOL_TagBuilder in thePlayer)
+          .tag("font")
+          .attr("color", "#ff6655")
+          .text(this.bestiary_entry.toLocalizedName()),
+        first
+      ).setRenderDistance(50);
+    }
   }
 
   private function loadSettings(master: CRandomEncounters) {
@@ -50,6 +71,10 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     var i: int;
 
     NLOG("RandomEncountersReworkedHuntingGroundEntity destroyed");
+
+    if (this.oneliner) {
+      this.oneliner.unregister();
+    }
 
     for (i = 0; i < this.entities.Size(); i += 1) {
       this.killEntity(this.entities[i]);

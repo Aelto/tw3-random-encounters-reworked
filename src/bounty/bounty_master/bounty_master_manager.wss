@@ -9,6 +9,9 @@ statemachine class RER_BountyMasterManager {
 
   var picked_seed: int;
 
+  var oneliner: SU_Oneliner;
+
+
   public latent function init(bounty_manager: RER_BountyManager) {
     this.bounty_manager = bounty_manager;
     this.spawnBountyMaster();
@@ -129,6 +132,18 @@ statemachine class RER_BountyMasterManager {
       NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
     }
 
+    this.addOneliner();
+  }
+
+  private function addOneliner() {
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
+      return;
+    }
+
+    this.oneliner = SU_onelinerEntity(
+      GetLocStringByKey("rer_mappin_bounty_master_title"),
+      this.bounty_master_entity
+    );
   }
 
   public function getBountyMasterValidPositions(): array<Vector> {

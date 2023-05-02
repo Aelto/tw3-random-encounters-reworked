@@ -3,6 +3,7 @@
 statemachine class RER_BountyManager extends CEntity {
   var master: CRandomEncounters;
   var bounty_master_manager: RER_BountyMasterManager;
+  var oneliner: SU_Oneliner;
 
   public function init(master: CRandomEncounters) {
     this.master = master;
@@ -288,6 +289,29 @@ statemachine class RER_BountyManager extends CEntity {
     this.master.storages.bounty.save();
 
     this.displayMarkersForCurrentBounty();
+  }
+
+  public function displayOnelinersForCurrentBounty() {
+    if (this.oneliner) {
+      this.oneliner.unregister();
+      delete this.oneliner;
+    }
+
+    if (!isBountyActive()) {
+      return;
+    }
+
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMainTarget')) {
+      return;
+    }
+
+    this.oneliner = SU_oneliner(
+      (new SUOL_TagBuilder in thePlayer)
+        .tag("font")
+        .attr("color", "#ff6655")
+        .text(GetLocStringByKey("rer_mappin_bounty_main_target_title")),
+      this.master.storages.bounty.current_bounty.random_data.main_group.position
+    );
   }
 
   public function displayMarkersForCurrentBounty() {

@@ -19,13 +19,39 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
 
   var bait_moves_towards_player: bool;
 
+  var oneliner: SU_Oneliner;
+
+
   public function startEncounter(master: CRandomEncounters, entities: array<CEntity>, bestiary_entry: RER_BestiaryEntry, optional bait_moves_towards_player: bool) {
     this.master = master;
     this.entities = entities;
     this.bestiary_entry = bestiary_entry;
     this.bait_moves_towards_player = bait_moves_towards_player;
     this.loadSettings(master);
+    this.addOneliner();
     this.GotoState('Loading');
+  }
+
+  private function addOneliner() {
+    if (this.bait_moves_towards_player && !theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersAmbush')) {
+      return;
+    }
+
+    if (!this.bait_moves_towards_player && !theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersHunt')) {
+      return;
+    }
+
+    if (this.entities.Size() > 0) {
+      var first: CEntity = this.entities[0];
+
+      this.oneliner = SU_onelinerEntity(
+        (new SUOL_TagBuilder in thePlayer)
+          .tag("font")
+          .attr("color", "#ff6655")
+          .text(this.bestiary_entry.toLocalizedName()),
+        first
+      ).setRenderDistance(50);
+    }
   }
 
   private function loadSettings(master: CRandomEncounters) {
@@ -37,6 +63,10 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
     var i: int;
 
     NLOG("RandomEncountersReworkedHuntEntity destroyed");
+
+    if (this.oneliner) {
+      this.oneliner.unregister();
+    }
 
     for (i = 0; i < this.entities.Size(); i += 1) {
       this.killEntity(this.entities[i]);

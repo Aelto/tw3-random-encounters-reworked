@@ -5488,37 +5488,42 @@
             </Preset>
         </PresetsArray>
         <VisibleVars>
-            <Var id="enableEncountersLoot" displayName="rer_enable_encounters_loot" displayType="TOGGLE"></Var>
-
-            <Var id="geraltComments" displayName="rer_geralt_comments" displayType="TOGGLE"></Var>
-
-            <Var id="enableActionCameraScenes" displayName="rer_enable_action_camera_scenes" displayType="TOGGLE"></Var>
-
-            <Var id="RERonlyKnownBestiaryCreatures" displayName="rer_only_known_bestiary_creatures" displayType="TOGGLE"></Var>
-
-            <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="TOGGLE"></Var>
-
-            <Var id="RERcameraScenesDisabled" displayName="rer_camera_scenes_disabled" displayType="TOGGLE"/>
-
-            <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
-
-            <Var id="RERcameraScenesDisabledOnHorse" displayName="rer_camera_immersive_camera_compatibility" displayType="TOGGLE"/>
 
             <Var id="RERtrophyPickupAnimation" displayName="rer_trophy_pickup_animation" displayType="SLIDER;0;100;100"></Var>
 
+            <Var id="enableEncountersLoot" displayName="rer_enable_encounters_loot" displayType="TOGGLE"></Var>
+            <Var id="geraltComments" displayName="rer_geralt_comments" displayType="TOGGLE"></Var>
+            <Var id="enableActionCameraScenes" displayName="rer_enable_action_camera_scenes" displayType="TOGGLE"></Var>
+            <Var id="RERonlyKnownBestiaryCreatures" displayName="rer_only_known_bestiary_creatures" displayType="TOGGLE"></Var>
+            <Var id="hideNextNotifications" displayName="rer_hide_notifications" displayType="TOGGLE"></Var>
             <Var id="RERtrailsUsePathFinding" displayName="rer_trails_use_pathfinding" displayType="TOGGLE"></Var>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
+            <Var id="RERcameraScenesDisabled" displayName="rer_camera_scenes_disabled" displayType="TOGGLE"/>
+            <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
+            <Var id="RERcameraScenesDisabledOnHorse" displayName="rer_camera_immersive_camera_compatibility" displayType="TOGGLE"/>
+
             <Var id="RERmarkersBountyHunting" displayName="rer_markers_bounty_hunting" displayType="TOGGLE"></Var>
-            
             <Var id="RERminimapMarkerBountyMaster" displayName="rer_minimap_marker_bounty_master" displayType="TOGGLE"></Var>
-
             <Var id="RERminimapMarkerBounties" displayName="rer_minimap_marker_bounties" displayType="TOGGLE"></Var>
-
             <Var id="RERminimapMarkerGenericObjectives" displayName="rer_minimap_marker_generic_objectives" displayType="TOGGLE"></Var>
 
-            <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
+            <Var id="RERonelinersBountyMainTarget" displayName="rer_oneliners_bounty_main_target" displayType="TOGGLE"></Var>
+            <Var id="RERonelinersContract" displayName="rer_oneliners_contract" displayType="TOGGLE"></Var>
+            <Var id="RERonelinersAmbush" displayName="rer_oneliners_ambush" displayType="TOGGLE"></Var>
+            <Var id="RERonelinersHuntingGround" displayName="rer_oneliners_hunting_ground" displayType="TOGGLE"></Var>
+            <Var id="RERonelinersHunt" displayName="rer_oneliners_hunt" displayType="TOGGLE"></Var>
+            <Var id="RERonelinersBountyMaster" displayName="rer_oneliners_bounty_master" displayType="TOGGLE"></Var>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
+            <Var id="RERignoreSeedSelectorWindow" displayName="rer_ignore_seed_selector_window" displayType="TOGGLE"></Var>
             <Var id="RERdynamicCreaturesSize" displayName="rer_dynamic_creatures_size" displayType="TOGGLE"></Var>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERarachnophobiaMode" displayName="rer_arachnophobia_mode" displayType="TOGGLE"></Var>
 
