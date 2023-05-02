@@ -32,7 +32,7 @@ state Processing in RER_HordeManager {
       old_number_of_requests = number_of_requests;
 
       if (number_of_requests <= 0) {
-        SU_hideCustomBossBar();
+        //SU_hideCustomBossBar();
 
         Sleep(2);
         parent.GotoState('Waiting');
@@ -42,7 +42,7 @@ state Processing in RER_HordeManager {
 
       // the horde monsters are spawned only if regular monsters can be spawned
       if (isPlayerInScene()) {
-        SU_hideCustomBossBar();
+        //SU_hideCustomBossBar();
 
         continue;
       }
@@ -52,14 +52,14 @@ state Processing in RER_HordeManager {
 
         // we display the title only for the first request in the queue
         if (i == 0 && creature_to_spawn != CreatureNONE) {
-          SU_showCustomBossBar(StrReplace(
-            GetLocStringByKey("rer_horde_invasion_strength_title"),
-            "{{creature_name}}",
-            getCreatureNameFromCreatureType(
-              parent.master.bestiary,
-              creature_to_spawn
-            )
-          ), true);
+          //SU_showCustomBossBar(StrReplace(
+          //  GetLocStringByKey("rer_horde_invasion_strength_title"),
+          //  "{{creature_name}}",
+          //  getCreatureNameFromCreatureType(
+          //    parent.master.bestiary,
+          //    creature_to_spawn
+          //  )
+          //), true);
 
           // we also check for a random dialogue here because we know it's ran
           // once.
@@ -73,7 +73,7 @@ state Processing in RER_HordeManager {
         }
         
         dead_entities += SUH_removeDeadEntities(parent.requests[i].entities);
-        SU_setCustomBossBarPercent(1 - dead_entities / total_of_creatures_to_spawn);
+        //SU_setCustomBossBarPercent(1 - dead_entities / total_of_creatures_to_spawn);
         SUH_makeEntitiesTargetPlayer(parent.requests[i].entities);
 
         bestiary_entry = parent.master.bestiary.getEntry(parent.master, creature_to_spawn);
@@ -90,7 +90,7 @@ state Processing in RER_HordeManager {
 
         // too many attempts failed, give up on the horde.
         if (this.failed_attempts > 5) {
-          SU_hideCustomBossBar();
+          //SU_hideCustomBossBar();
 
           (new RER_RandomDialogBuilder in thePlayer)
             .start()
