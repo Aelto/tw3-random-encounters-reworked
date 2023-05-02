@@ -246,6 +246,7 @@ statemachine class RER_BountyManager extends CEntity {
     );
 
     this.displayMarkersForCurrentBounty();
+    this.displayOnelinersForCurrentBounty();
   }
 
   public function endBounty() {
@@ -289,6 +290,7 @@ statemachine class RER_BountyManager extends CEntity {
     this.master.storages.bounty.save();
 
     this.displayMarkersForCurrentBounty();
+    this.displayOnelinersForCurrentBounty();
   }
 
   public function displayOnelinersForCurrentBounty() {
@@ -301,7 +303,7 @@ statemachine class RER_BountyManager extends CEntity {
       return;
     }
 
-    if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMainTarget')) {
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMainTarget')) {
       return;
     }
 
@@ -499,6 +501,7 @@ statemachine class RER_BountyManager extends CEntity {
     this.master.storages.bounty.save();
 
     this.displayMarkersForCurrentBounty();
+    this.displayOnelinersForCurrentBounty();
 
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_bounty_side_target_killed"));
   }
@@ -683,6 +686,7 @@ state Processing in RER_BountyManager {
     // we also call it instantly to handle cases where the player teleported near
     // a group that was picked but not spawned yet
     parent.displayMarkersForCurrentBounty();
+    parent.displayOnelinersForCurrentBounty();
 
     while (true) {
       // no active bounty, do nothing
