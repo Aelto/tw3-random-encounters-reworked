@@ -30,7 +30,6 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_dialogChoices\" "%modpath%\release
 XCOPY "%modpath%\shared-utils\mod_sharedutils_npcInteraction\" "%modpath%\release\mods\mod_sharedutils_npcInteraction\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_noticeboards\" "%modpath%\release\mods\mod_sharedutils_noticeboards\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_helpers\" "%modpath%\release\mods\mod_sharedutils_helpers\" /e /s /y
-XCOPY "%modpath%\shared-utils\mod_sharedutils_custombossbar\" "%modpath%\release\mods\mod_sharedutils_custombossbar\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_damagemodifiers\" "%modpath%\release\mods\mod_sharedutils_damagemodifiers\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_tiny_bootstrapper\" "%modpath%\release\mods\mod_sharedutils_tiny_bootstrapper\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_storage\" "%modpath%\release\mods\mod_sharedutils_storage\" /e /s /y
