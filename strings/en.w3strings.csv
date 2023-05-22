@@ -526,3 +526,6 @@
 2115018458|        |option_rer_oneliners_hunting_ground|Oneliner / 3D Marker <font color="#ffd33d">-</font> Hunting grounds
 2115018459|        |option_rer_oneliners_hunt|Oneliner / 3D Marker <font color="#ffd33d">-</font> Hunts
 2115018460|        |option_rer_oneliners_bounty_master|Oneliner / 3D Marker <font color="#ffd33d">-</font> Bounty master
+2115018461|        |option_rer_contracts_reward_option|Type of rewards
+2115018462|        |preset_value_rer_crowns|Crowns <font size="11">scales with contracts Rewards Crowns settings</font>
+2115018463|        |preset_value_rer_tokens_of_gratitude|Tokens of gratitude

@@ -115,6 +115,22 @@ enum RER_ContractRewardType {
 }
 
 /**
+ * Controls what type of reward the contracts give, it is linked to a menu
+ * option.
+ */
+enum RER_ContractRewardOption {
+  RER_ContractRewardOption_CROWNS = 0,
+  RER_ContractRewardOption_TOKENS = 1,
+}
+
+function RER_getContractRewardOption(): RER_ContractRewardOption {
+  return StringToInt(
+    theGame.GetInGameConfigWrapper()
+    .GetVarValue('RERcontracts', 'RERcontractsRewardOption')
+  );
+}
+
+/**
  * Represents a contract and the needed data to identify the contract.
  *
  * It also contains the needed data to run the contract and restore it in-between

@@ -306,13 +306,7 @@ statemachine class RER_ContractManager {
   }
 
   public function completeCurrentContract() {
-    var rewards_increase_from_reputation: float;
     var storage: RER_ContractStorage;
-    var rng: RandomNumberGenerator;
-    var current_reputation: int;
-    var rewards_amount: int;
-    var current_amount: int;
-    var token_name: name;
 
     storage = this.master.storages.contract;
 
@@ -325,47 +319,57 @@ statemachine class RER_ContractManager {
     storage.completed_contracts.PushBack(storage.active_contract.identifier);
     storage.has_ongoing_contract = false;
 
-    rng = (new RandomNumberGenerator in this).setSeed(storage.active_contract.rng_seed)
+    if (RER_getContractRewardOption() == RER_ContractRewardOption_CROWNS) {
+      this.giveCrownsReward(storage);
+    }
+    else {
+      this.giveTokensReward(storage);
+    }
+
+    RER_addContractReputationFactValue(1);
+
+    storage.save();
+  }
+
+  private function giveCrownsReward(storage: RER_ContractStorage) {
+    var bestiary_entry: RER_BestiaryEntry = this.master.bestiary
+      .getEntry(storage.active_contract.creature_type);
+
+    var strength: float = bestiary_entry.ecosystem_delay_multiplier;
+    var contract_difficulty = storage.active_contract.difficulty_level.value;
+    
+    var crowns_amount_settings: float =  master.settings.crowns_amounts_by_encounter[encounter_type]
+      * bestiary_entry.crowns_percentage
+      * RandRangeF(1.2, 0.8);
+
+    var final_crowns_amount: float = contract_difficulty
+      / strength
+      * crowns_amount_settings;
+
+    thePlayer.AddMoney(final_crowns_amount);
+    thePlayer.DisplayItemRewardNotification('Crowns', final_crowns_amount);
+    theSound.SoundEvent("gui_inventory_buy");
+    thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
+  }
+
+  private function giveTokensReward(storage: RER_ContractStorage) {
+    var rng: RandomNumberGenerator = (new RandomNumberGenerator in this)
+      .setSeed(storage.active_contract.rng_seed)
       .useSeed(true);
 
-    token_name = RER_contractRewardTypeToItemName(
+    var token_name: name = RER_contractRewardTypeToItemName(
       RER_getRandomContractRewardTypeFromFlag(storage.active_contract.reward_type, rng)
     );
 
     NLOG("completeCurrentContract, token_name = " + token_name + " flag = " + storage.active_contract.reward_type);
 
-    rewards_amount = 1;
-    rewards_increase_from_reputation = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemReputationRewardsIncrease')
-    );
-    
-    rewards_amount += RoundF(storage.active_contract.difficulty_level.value * 0.05 * (1 + rewards_increase_from_reputation));
+    // one additional token every 7 levels
+    var tokens_amount: int = RoundF(storage.active_contract.difficulty_level.value / 7)
+      + 1;
 
     if (IsNameValid(token_name)) {
-
-      // 50% chance to get either 1 token, or the rewards_amount - 1, which is
-      // boosted by the reputation and difficulty
-      if (rng.next() > 0.5) {
-        current_amount = 1;
-      }
-      else {
-        current_amount = rewards_amount - 1;
-      }
-
-      thePlayer.GetInventory().AddAnItem(token_name, current_amount);
-      thePlayer.DisplayItemRewardNotification(token_name, current_amount);
-
-      // then we give what's left as jewels:
-      rewards_amount -= current_amount;
-
-      this.master.loot_manager.rollAndGiveItemsTo(
-        thePlayer.GetInventory(),
-        rewards_amount * 0.1,
-        , // rng
-        LootCategory_Valuables
-      );
-
+      thePlayer.GetInventory().AddAnItem(token_name, tokens_amount);
+      thePlayer.DisplayItemRewardNotification(token_name, tokens_amount);
       theSound.SoundEvent("gui_inventory_buy");
       thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
     }
@@ -379,10 +383,6 @@ statemachine class RER_ContractManager {
         "<br/> - identifier: " + storage.active_contract.identifier.identifier
       );
     }
-
-    RER_addContractReputationFactValue(1);
-
-    storage.save();
   }
 
   public function hasRequiredReputationForVanillaContracts(): bool {

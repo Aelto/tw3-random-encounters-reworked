@@ -183,6 +183,31 @@ state Initialising in CRandomEncounters {
       config.ApplyGroupPreset('RERtutorials', 0);
     }
 
+    if (current_version < 3.02) {
+      current_version = 3.02;
+
+      var message: string;
+      message += "Random Encounters Reworked was updated to the v3.2";
+      message += "<br/>This version brings two major changes:";
+      message += "<br/><br/>" + RER_yellowFont("Standalone 3D markers") + " for the various things spawned by the mod "
+               + "were added. You can toggle them ON or OFF in the " + RER_yellowFont("Optional Features") + " menu.";
+
+      message += "<br/><br/>" + RER_yellowFont("Contract rewards streamlining") + ", the random nature of Tokens of Gratitude "
+               + "plus the need to find the bounty master to sell them was frustrating. "
+               + "A new option (that is enabled by default) was added to the Contracts menu to give crowns directly instead "
+               + "of tokens. If you prefer the Tokens way of getting reward, this solution was streamlined to no longer "
+               + "scale with your current reputation but instead scale linearly with the contract's difficulty: 1 plus "
+               + "an additional token every 7 Contract levels";
+
+      NTUTO("RER v3.2 - 3D Markers & Contract rewards", message);
+
+      config.SetVarValue('RERoptionalFeatures', 'RERonelinersBountyMainTarget', 1);
+      config.SetVarValue('RERoptionalFeatures', 'RERonelinersContract', 1);
+      config.SetVarValue('RERoptionalFeatures', 'RERonelinersBountyMaster', 1);
+      config.SetVarValue('RERmonsterCrowns', 'RERcrownsContract', 40);
+      config.SetVarValue('RERcontracts', 'RERcontractsRewardOption', 0);
+    }
+
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }

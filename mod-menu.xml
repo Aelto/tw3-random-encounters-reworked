@@ -4810,7 +4810,7 @@
 
                 <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
                 <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="0" />
-                <Entry varId="RERcontractsReputationSystemReputationRewardsIncrease" value="0.05" />
+                <Entry varId="RERcontractsRewardOption" value="0" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -4828,7 +4828,19 @@
 
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
             <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
-            <Var id="RERcontractsReputationSystemReputationRewardsIncrease" displayName="rer_contracts_reputation_system_reputation_rewards_increase" displayType="SLIDER;0;100;1000"></Var>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
+            <Var id="RERcontractsRewardOption" displayName="rer_contracts_reward_option" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_crowns">
+                        <Entry varId="RERcontractsRewardOption" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_tokens_of_gratitude">
+                        <Entry varId="RERcontractsRewardOption" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
 
             <!--
                 on death, increase this slider value by one. Next time a noticeboard
@@ -4983,7 +4995,7 @@
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERcrownsAmbush" value="50" />
                 <Entry varId="RERcrownsHunt" value="30" />
-                <Entry varId="RERcrownsContract" value="100" />
+                <Entry varId="RERcrownsContract" value="40" />
                 <Entry varId="RERcrownsHuntingGround" value="20" />
 
                 <Entry varId="Hags"                    value="10"     />
@@ -5485,6 +5497,11 @@
                 <Entry varId="RERmarkersChallengeMode" value="1" />
                 <Entry varId="RERignoreSeedSelectorWindow" value="1" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
+
+                <Entry varId="RERdynamicCreaturesSizeRERonelinersBountyMainTarget" value="1" />
+                <Entry varId="RERdynamicCreaturesSizeRERonelinersContract" value="1" />
+                <Entry varId="RERdynamicCreaturesSizeRERonelinersBountyMaster" value="1" />
+
             </Preset>
         </PresetsArray>
         <VisibleVars>
