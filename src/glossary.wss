@@ -17,7 +17,7 @@ class RER_TrackerGlossary extends SU_GlossaryEntry {
       total_encounters_spawned += count;
     }
 
-    message += "Encounters spawned: " + total_creatures_spawned;
+    message += "Encounters spawned: " + total_encounters_spawned;
     message += "<br/> - " + tracker.encounters_spawned[EncounterType_DEFAULT] + " Ambushes";
     message += "<br/> - " + tracker.encounters_spawned[EncounterType_HUNT] + " Monster hunts";
     message += "<br/> - " + tracker.encounters_spawned[EncounterType_HUNTINGGROUND] + " Hunting grounds";
