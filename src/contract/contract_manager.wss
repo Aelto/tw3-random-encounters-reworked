@@ -337,6 +337,7 @@ statemachine class RER_ContractManager {
 
     var strength: float = bestiary_entry.ecosystem_delay_multiplier;
     var contract_difficulty = storage.active_contract.difficulty_level.value;
+    var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
     
     var crowns_amount_settings: float =  master.settings.crowns_amounts_by_encounter[encounter_type]
       * bestiary_entry.crowns_percentage
@@ -344,7 +345,8 @@ statemachine class RER_ContractManager {
 
     var final_crowns_amount: float = contract_difficulty
       / strength
-      * crowns_amount_settings;
+      * crowns_amount_settings
+      * enemy_count;
 
     thePlayer.AddMoney(final_crowns_amount);
     thePlayer.DisplayItemRewardNotification('Crowns', final_crowns_amount);
