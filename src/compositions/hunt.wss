@@ -3,7 +3,6 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
   var bestiary_entry: RER_BestiaryEntry;
 
   NLOG("making create hunt");
-  RER_emitEncounterSpawned(master, EncounterType_HUNT);
 
   if (creature_type == CreatureNONE) {
     bestiary_entry = master
@@ -24,6 +23,8 @@ latent function createRandomCreatureHunt(master: CRandomEncounters, optional cre
 
     return;
   }
+
+  RER_emitEncounterSpawned(master, EncounterType_HUNT);
 
   if (bestiary_entry.type == CreatureGRYPHON) {
     makeGryphonCreatureHunt(master);
