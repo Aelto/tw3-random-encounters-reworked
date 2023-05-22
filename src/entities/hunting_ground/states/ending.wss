@@ -29,10 +29,10 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
 
     if (VecDistanceSquared(thePlayer.GetWorldPosition(), parent.bait_entity.GetWorldPosition()) < 50 * 50) {
       RER_tryRefillRandomContainer(parent.master);
-      RER_emitEncounterKilled(EncounterType_HUNTINGGROUND);
+      RER_emitEncounterKilled(parent.master, EncounterType_HUNTINGGROUND);
     }
     else {
-      RER_emitEncounterRecycled(EncounterType_HUNTINGGROUND);
+      RER_emitEncounterRecycled(parent.master, EncounterType_HUNTINGGROUND);
     }
 
     if (!parent.manual_destruction) {

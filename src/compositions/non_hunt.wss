@@ -7,8 +7,6 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
   var creature_composition: CreatureComposition;
   var bestiary_entry: RER_BestiaryEntry;
 
-  RER_emitEncounterSpawned(EncounterType_DEFAULT);
-
   creature_composition = CreatureComposition_AmbushWitcher;
 
   if (creature_type == CreatureNONE) {
@@ -32,6 +30,7 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
   }
 
   NLOG("spawning ambush - " + bestiary_entry.type);
+  RER_emitEncounterSpawned(master, EncounterType_DEFAULT);
 
   if (creature_type == CreatureWILDHUNT) {
     makeCreatureWildHunt(master);

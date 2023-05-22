@@ -331,7 +331,7 @@ abstract class RER_BestiaryEntry {
 
     NLOG("BestiaryEntry, spawned " + created_entities.Size() + " " + this.type);
 
-    RER_emitCreatureSpawned(this.type, created_entities.Size());
+    RER_emitCreatureSpawned(master, this.type, created_entities.Size());
 
     SUH_makeEntitiesAlliedWithEachother(created_entities);
 
