@@ -55,8 +55,6 @@ latent function createRandomCreatureAmbush(out master: CRandomEncounters, creatu
 latent function makeCreatureWildHunt(out master: CRandomEncounters) {
   var composition: WildHuntAmbushWitcherComposition;
 
-  RER_emitEncounterSpawned(EncounterType_DEFAULT);
-
   composition = new WildHuntAmbushWitcherComposition in master;
 
   composition.init(master.settings);
@@ -107,8 +105,6 @@ class WildHuntAmbushWitcherComposition extends CreatureAmbushWitcherComposition 
 
 latent function makeCreatureAmbushWitcher(bestiary_entry: RER_BestiaryEntry, out master: CRandomEncounters) {
   var composition: CreatureAmbushWitcherComposition;
-
-  RER_emitEncounterSpawned(EncounterType_DEFAULT);
 
   composition = new CreatureAmbushWitcherComposition in master;
 
