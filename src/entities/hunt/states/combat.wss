@@ -17,6 +17,7 @@ state Combat in RandomEncountersReworkedHuntEntity {
       this.startAmbushCutscene();
     }
 
+    parent.Teleport(thePlayer.GetWorldPosition());
     this.resetEntitiesAttitudes();
     this.makeEntitiesTargetPlayer();
     this.waitUntilPlayerFinishesCombat();
@@ -93,6 +94,14 @@ state Combat in RandomEncountersReworkedHuntEntity {
         (parent.entities[i] as CNewNPC).NoticeActor(thePlayer);
         (parent.entities[i] as CActor).SetAttitude(thePlayer, AIA_Hostile);
       }
+    }
+  }
+
+  private function moveBaitEntityOnFirstCreature() {
+    if (parent.entities.Size() > 0) {
+      var entity: CEntity = parent.entities[0];
+
+      parent.bait_entity.Teleport(entity.GetWorldPosition());
     }
   }
 

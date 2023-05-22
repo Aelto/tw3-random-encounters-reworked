@@ -23,6 +23,8 @@ state Wandering in RandomEncountersReworkedHuntEntity {
     var is_player_busy: bool;
     var i: int;
 
+    parent.bait_entity.Teleport(parent.GetWorldPosition());
+
     do {
       if (SUH_areAllEntitiesDead(parent.entities)) {
         NLOG("HuntEntity - wandering state, all entities dead");
