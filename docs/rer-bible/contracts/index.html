@@ -50,8 +50,9 @@
       <li
         title="The value you set in this slider is the reputation level you must have before seeing vanilla contracts on the boards. Set it to 0 to completely disable this feature">
         Reputation required for vanilla contracts. Default: <span>2</span></li>
-      <li title="Controls how much each reputation point you have increases the potential rewards">Rewards bonus from
-        reputation points. Default: <span>0.1</span> (10%)</li>
+      <li
+        title="If set to crowns will tell the mod to give raw crowns when completing contracts, whereas the Tokens of gratitude options gives 1 plus an additional token every 7 Contract level">
+        Type of rewards. Default: <span>Crowns</span></li>
     </ul>
   </section>
 
@@ -136,35 +137,52 @@
     <h3>Completing contracts and rewards</h3>
 
     <p>
-      Every time you will complete a contract, you will earn tokens of gratitude
-      from the locals that you will be able to trade for valuables to the bounty master.
-      For each token the trader will offer various types of rewards:
-    <ul>
-      <li>Consumables</li>
-      <li>Crafting materials</li>
-      <li>Gear</li>
-      <li>Golds</li>
-      <li>Experience</li>
-    </ul>
+      Rewards vary based on the settings you picked, refer to the Type of Rewards
+      option to learn more about your choices.
     </p>
 
-    <p>
-      The rewards token you get from the completion of the contract however depends
-      on the location where you started the contract. A poor Velen settlement does not
-      have the same rewards as Novigrad for example.
-    </p>
+    <details>
+      <summary>Crowns</summary>
 
-    <p>
-      On top of getting tokens that you can later trade, you may also get jewels
-      which you can sell for raw gold.
-    </p>
+      <p>
+        Once the contract is completed, crowns are directly added to your inventory
+        based on the creature you fought, its strength, and how many of them were
+        there.
+      </p>
 
-    <p>
-      Depending on the difficulty of the contract you just completed, your reward may vary.
-      Harder contracts result in more tokens. Your <a href="#reputation">reputation</a> also
-      has an impact on how the locals will pay you. As you get known your rewards will tend
-      to increase.
-    </p>
+      <p>
+        The base value is obtained from
+        the <a href="../rewards/index.html#crowns">Rewards System - crowns</a> menu.
+        If you wish to tweak the values then refer to the dedicated page.
+      </p>
+    </details>
+
+    <details>
+      <summary>Tokens of gratitude</summary>
+      <p>
+        Every time you will complete a contract, you will earn tokens of gratitude
+        from the locals that you will be able to trade for valuables to the bounty master.
+        For each token the trader will offer various types of rewards:
+      <ul>
+        <li>Consumables</li>
+        <li>Crafting materials</li>
+        <li>Gear</li>
+        <li>Golds</li>
+        <li>Experience</li>
+      </ul>
+      </p>
+
+      <p>
+        The rewards token you get from the completion of the contract however depends
+        on the location where you started the contract. A poor Velen settlement does not
+        have the same rewards as Novigrad for example.
+      </p>
+
+      <p>
+        Depending on the difficulty of the contract you just completed, your reward may vary.
+        Harder contracts result in more tokens.
+      </p>
+    </details>
   </section>
 
   <!-- <section>
