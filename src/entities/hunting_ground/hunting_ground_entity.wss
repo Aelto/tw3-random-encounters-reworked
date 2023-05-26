@@ -42,7 +42,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
       this.oneliner = SU_onelinerEntity(
         (new SUOL_TagBuilder in thePlayer)
           .tag("font")
-          .attr("color", "#ff6655")
+          .attr("color", "#9e9e9e")
           .text(this.bestiary_entry.toLocalizedName()),
         first
       ).setRenderDistance(50);

@@ -141,7 +141,7 @@ statemachine class RER_BountyMasterManager {
     }
 
     this.oneliner = SU_onelinerEntity(
-      GetLocStringByKey("rer_mappin_bounty_master_title"),
+      " <img src='img://icons/inventory/scrolls/scroll2.dds' vspace='-10' />",
       this.bounty_master_entity
     );
   }
