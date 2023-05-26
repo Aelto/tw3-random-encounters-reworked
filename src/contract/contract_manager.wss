@@ -333,13 +333,13 @@ statemachine class RER_ContractManager {
 
   private function giveCrownsReward(storage: RER_ContractStorage) {
     var bestiary_entry: RER_BestiaryEntry = this.master.bestiary
-      .getEntry(storage.active_contract.creature_type);
+      .getEntry(this.master, storage.active_contract.creature_type);
 
     var strength: float = bestiary_entry.ecosystem_delay_multiplier;
-    var contract_difficulty = storage.active_contract.difficulty_level.value;
+    var contract_difficulty: int = storage.active_contract.difficulty_level.value;
     var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
     
-    var crowns_amount_settings: float =  master.settings.crowns_amounts_by_encounter[encounter_type]
+    var crowns_amount_settings: float =  master.settings.crowns_amounts_by_encounter[EncounterType_CONTRACT]
       * bestiary_entry.crowns_percentage
       * RandRangeF(1.2, 0.8);
 
@@ -348,8 +348,8 @@ statemachine class RER_ContractManager {
       * crowns_amount_settings
       * enemy_count;
 
-    thePlayer.AddMoney(final_crowns_amount);
-    thePlayer.DisplayItemRewardNotification('Crowns', final_crowns_amount);
+    thePlayer.AddMoney(final_crowns_amount as int);
+    thePlayer.DisplayItemRewardNotification('Crowns', final_crowns_amount as int);
     theSound.SoundEvent("gui_inventory_buy");
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
   }

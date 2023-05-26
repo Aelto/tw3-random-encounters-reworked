@@ -34,6 +34,7 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_damagemodifiers\" "%modpath%\relea
 XCOPY "%modpath%\shared-utils\mod_sharedutils_tiny_bootstrapper\" "%modpath%\release\mods\mod_sharedutils_tiny_bootstrapper\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_storage\" "%modpath%\release\mods\mod_sharedutils_storage\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_glossary\" "%modpath%\release\mods\mod_sharedutils_glossary\" /e /s /y
+XCOPY "%modpath%\shared-utils\mod_sharedutils_oneliners\" "%modpath%\release\mods\mod_sharedutils_oneliners\" /e /s /y
 
 REM Dependencies
 XCOPY "%modpath%\dependencies\" "%modpath%\release\" /e /s /y
