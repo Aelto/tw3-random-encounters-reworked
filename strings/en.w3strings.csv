@@ -489,7 +489,7 @@
 2115018421|        |option_rer_loot_gear_uncommon_chance|<font color="#28a745">                       :</font> uncommon rarity chance
 2115018422|        |option_rer_loot_gear_rare_chance|<font color="#28a745">                       :</font> rare rarity chance
 2115018423|        |option_rer_loot_gear_exotic_chance|<font color="#28a745">                       :</font> exotic rarity chance
-2115018424|        |option_rer_loot_materials_ratio|<font color="#b392f0">       Materials:</font>
+2115018424|        |option_rer_loot_materials_ratio|<font color="#b392f0">       Materials:</font> ratio
 2115018425|        |option_rer_loot_materials_rolls_amount|<font color="#b392f0">                       :</font> number of rolls
 2115018426|        |option_rer_loot_materials_items_per_proc|<font color="#b392f0">                       :</font> items per successful roll
 2115018427|        |option_rer_loot_materials_common_chance|<font color="#b392f0">                       :</font> common rarity chance
@@ -529,3 +529,6 @@
 2115018461|        |option_rer_contracts_reward_option|Type of rewards
 2115018462|        |preset_value_rer_crowns|Crowns <font size="11">scales with contracts Rewards Crowns settings</font>
 2115018463|        |preset_value_rer_tokens_of_gratitude|Tokens of gratitude
+2115018464|        |rer_tracks_examine_hud_message|The tracks appear to be from {{species}}
+2115018465|        |rer_tracks_examine_hud_message_unknown|The tracks appear to be from an unknown creature
+2115018466|        |option_rer_contract_death_reputation_loss_buffer|Active death counter <font color="#d73a49">(DO NOT EDIT)</font>
