@@ -332,11 +332,11 @@
 2115018284|        |rer_unknown|Unknown
 2115018285|        |rer_bounty_start_popup|The following creatures were seen and have bounties on their heads,<br /><br />Main target, required to claim the reward:<br />{{main_creature_listing}}<br /><br />Optional side targets:<br />{{side_creature_listing}}<br />Whoever brings their trophies to the bounty master will get a sizable reward.
 2115018286|        |rer_mappin_bounty_master_title|Bounty master
-2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about new bounties.
+2115018287|        |rer_mappin_bounty_master_description|Go see the bounty master to sell your trophies and learn about new bounties. <font color="#ffd33d">(Click to fast-travel)</font>
 2115018288|        |rer_mappin_bounty_main_target_title|Bounty main target
-2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} were seen in the area. Kill them and collect the bounty reward.
+2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} were seen in the area. Kill them and collect the bounty reward. <font color="#ffd33d">(Click to fast-travel)</font>
 2115018290|        |rer_mappin_regular_title|Contract target
-2115018291|        |rer_mappin_regular_description|Clues lead to this area, something interesting must be here.
+2115018291|        |rer_mappin_regular_description|Clues lead to this area, something interesting must be here. <font color="#ffd33d">(Click to fast-travel)</font>
 2115018292|        |rer_dialog_farewell|Farewell.
 2115018293|        |rer_dialog_start_bounty|Start bounty
 2115018294|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
@@ -466,7 +466,7 @@
 2115018398|        |option_rer_contracts_reputation_system_vanilla_contracts_requirement|<font color="#8250df">                                :</font> Required reputation for vanilla contracts
 2115018399|        |option_rer_contracts_reputation_system_reputation_rewards_increase|<font color="#8250df">                                :</font> Reward increase per reputation point
 2115018400|        |rer_mappin_bounty_side_target_title|Bounty side target
-2115018401|        |rer_mappin_bounty_side_target_description|A group of {{creature_type}} was seen in the area. Kill them and increase your rewards.
+2115018401|        |rer_mappin_bounty_side_target_description|A group of {{creature_type}} was seen in the area. Kill them and increase your rewards. <font color="#ffd33d">(Click to fast-travel)</font>
 2115018402|        |rer_bounty_side_target_killed|Bounty side target killed, rewards increased
 2115018403|        |option_rer_arachnophobia_mode|Arachnophobia friendly mode
 2115018404|        |rer_difficulty|Difficulty
