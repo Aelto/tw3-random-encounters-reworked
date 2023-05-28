@@ -289,7 +289,7 @@ statemachine class RER_BountyManager extends CEntity {
     this.master.storages.bounty.current_bounty.is_active = false;
     this.master.storages.bounty.save();
 
-    this.displayMarkersForCurrentBounty();
+    this.removeMarkersForCurrentBounty();
     this.displayOnelinersForCurrentBounty();
   }
 
@@ -313,11 +313,16 @@ statemachine class RER_BountyManager extends CEntity {
     );
   }
 
+  public function removeMarkersForCurrentBounty() {
+    SU_removeCustomPinByTag("RER_bounty_target");
+    SU_removeCustomPinByTag("RER_bounty_target_main");
+  }
+
   public function displayMarkersForCurrentBounty() {
     var map_pin: SU_MapPin;
     var i: int;
 
-    SU_removeCustomPinByTag("RER_bounty_target");
+    this.removeMarkersForCurrentBounty();
 
     if (!isBountyActive()) {
       return;
