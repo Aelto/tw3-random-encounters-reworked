@@ -308,10 +308,7 @@ statemachine class RER_BountyManager extends CEntity {
     }
 
     this.oneliner = SU_oneliner(
-      (new SUOL_TagBuilder in thePlayer)
-        .tag("font")
-        .attr("color", "#9e9e9e")
-        .text(GetLocStringByKey("rer_mappin_bounty_main_target_title")),
+      " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
       this.master.storages.bounty.current_bounty.random_data.main_group.position
     );
   }

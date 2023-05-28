@@ -76,10 +76,7 @@ state Processing in RER_ContractManager {
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersContract')) {
       this.oneliner = SU_oneliner(
-        (new SUOL_TagBuilder in thePlayer)
-          .tag("font")
-          .attr("color", "#9e9e9e")
-          .text(GetLocStringByKey("rer_mappin_regular_title")),
+        " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
           active_contract.destination_point
       );
     }

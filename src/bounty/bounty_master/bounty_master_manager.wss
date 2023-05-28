@@ -141,7 +141,7 @@ statemachine class RER_BountyMasterManager {
     }
 
     this.oneliner = SU_onelinerEntity(
-      " <img src='img://icons/inventory/scrolls/scroll2.dds' vspace='-10' />",
+      " <img src='img://icons/quests/treasurehunt.png' vspace='-10' />",
       this.bounty_master_entity
     );
   }
