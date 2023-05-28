@@ -5498,9 +5498,9 @@
                 <Entry varId="RERignoreSeedSelectorWindow" value="1" />
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
 
-                <Entry varId="RERdynamicCreaturesSizeRERonelinersBountyMainTarget" value="1" />
-                <Entry varId="RERdynamicCreaturesSizeRERonelinersContract" value="1" />
-                <Entry varId="RERdynamicCreaturesSizeRERonelinersBountyMaster" value="1" />
+                <Entry varId="RERonelinersBountyMainTarget" value="1" />
+                <Entry varId="RERonelinersContract" value="1" />
+                <Entry varId="RERonelinersBountyMaster" value="1" />
 
             </Preset>
         </PresetsArray>
