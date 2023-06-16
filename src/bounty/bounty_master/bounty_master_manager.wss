@@ -9,7 +9,7 @@ statemachine class RER_BountyMasterManager {
 
   var picked_seed: int;
 
-  var oneliner: SU_Oneliner;
+  var oneliner: RER_OnelinerEntity;
 
 
   public latent function init(bounty_manager: RER_BountyManager) {
@@ -140,8 +140,8 @@ statemachine class RER_BountyMasterManager {
       return;
     }
 
-    this.oneliner = SU_onelinerEntity(
-      " <img src='img://icons/quests/treasurehunt.png' vspace='-10' />",
+    this.oneliner = RER_onelinerEntity(
+      "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> Bounty Master",
       this.bounty_master_entity
     );
   }

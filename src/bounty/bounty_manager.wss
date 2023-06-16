@@ -3,7 +3,7 @@
 statemachine class RER_BountyManager extends CEntity {
   var master: CRandomEncounters;
   var bounty_master_manager: RER_BountyMasterManager;
-  var oneliner: SU_Oneliner;
+  var oneliner: RER_Oneliner;
 
   public function init(master: CRandomEncounters) {
     this.master = master;
@@ -307,7 +307,7 @@ statemachine class RER_BountyManager extends CEntity {
       return;
     }
 
-    this.oneliner = SU_oneliner(
+    this.oneliner = RER_oneliner(
       " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
       this.master.storages.bounty.current_bounty.random_data.main_group.position
     );

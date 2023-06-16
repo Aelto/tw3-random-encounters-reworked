@@ -1,6 +1,6 @@
 
 state Processing in RER_ContractManager {
-  var oneliner: SU_Oneliner;
+  var oneliner: RER_Oneliner;
   var is_spawned: bool;
 
   event OnEnterState(previous_state_name: name) {
@@ -75,7 +75,7 @@ state Processing in RER_ContractManager {
     theSound.SoundEvent("gui_hubmap_mark_pin");
 
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersContract')) {
-      this.oneliner = SU_oneliner(
+      this.oneliner = RER_oneliner(
         " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
           active_contract.destination_point
       );

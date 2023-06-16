@@ -1,4 +1,38 @@
 
+class RER_Oneliner extends SU_Oneliner {
+  function getVisible(player_position: Vector): bool {
+    return theGame.IsFocusModeActive() && super.getVisible(player_position);
+  }
+}
+
+function RER_oneliner(text: string, position: Vector): RER_Oneliner {
+  var oneliner: RER_Oneliner;
+
+  oneliner = new RER_Oneliner in thePlayer;
+  oneliner.text = text;
+  oneliner.position = position;
+  oneliner.register();
+
+  return oneliner;
+}
+
+class RER_OnelinerEntity extends SU_OnelinerEntity {
+  function getVisible(player_position: Vector): bool {
+    return theGame.IsFocusModeActive() && super.getVisible(player_position);
+  }
+}
+
+function RER_onelinerEntity(text: string, entity: CEntity): RER_OnelinerEntity {
+  var oneliner: RER_OnelinerEntity;
+
+  oneliner = new RER_OnelinerEntity in thePlayer;
+  oneliner.text = text;
+  oneliner.entity = entity;
+  oneliner.register();
+
+  return oneliner;
+}
+
 // Geralt: Died recently, wonder what killed it
 // from "Mysterious Tracks" monster hunt.
 // when interacting with a dead fiend.
