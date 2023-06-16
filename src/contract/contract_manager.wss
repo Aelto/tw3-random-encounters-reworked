@@ -180,12 +180,18 @@ statemachine class RER_ContractManager {
       index = rng.nextRange(size, 0) as int;
     }
     else {
-      // the first 12.5%
-      index = rng.nextRange(RoundF(quarter * 0.5), 0) as int;
-      // the first 25%
-      // index = (int)rng.nextRange(quarter, 0);
-      // between 25% and 50%
-      // index = (int)rng.nextRange(quarter * 2, quarter);
+      if (rng.next() < 0.10) {
+        // between 25% and 50%
+        index = rng.nextRange(quarter * 2, quarter) as int;
+      }
+      else if (rng.next() < 0.20) {
+        // the first 25%
+        index = rng.nextRange(quarter, 0) as int;
+      }
+      else {
+        // the first 12.5%
+        index = rng.nextRange(RoundF(quarter * 0.5), 0) as int;
+      }
     }
 
     NLOG("getRandomDestinationAroundPoint, " + index + " size = " + size );
