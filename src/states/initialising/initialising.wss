@@ -208,6 +208,14 @@ state Initialising in CRandomEncounters {
       config.SetVarValue('RERcontracts', 'RERcontractsRewardOption', 0);
     }
 
+    if (current_version < 3.03) {
+      current_version = 3.03;
+
+      config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossAmount', 1);
+
+      NTUTO("RER v3.3", "The mod was successfully updated to v3.3");
+    }
+
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }

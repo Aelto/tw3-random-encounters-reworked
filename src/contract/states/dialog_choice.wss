@@ -332,7 +332,11 @@ state DialogChoice in RER_ContractManager {
 
     config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer', 0);
     theGame.SaveUserSettings();
-    RER_addContractReputationFactValue(current_value * -1);
+
+    var reputation_loss_amount = StringToInt(
+      config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossAmount')
+    );
+    RER_addContractReputationFactValue(current_value * reputation_loss_amount * -1);
 
     NHUD(
       StrReplace(

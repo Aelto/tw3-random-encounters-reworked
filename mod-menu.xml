@@ -4828,6 +4828,8 @@
 
             <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
             <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
+            <Var id="RERcontractsDeathReputationLossAmount" displayName="rer_contract_death_reputation_loss_amount" displayType="SLIDER;0;100;100"></Var>
+
 
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
