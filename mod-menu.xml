@@ -4810,6 +4810,7 @@
 
                 <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
                 <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="0" />
+                <Entry varId="RERcontractsDeathReputationLossAmount" value="1" />
                 <Entry varId="RERcontractsRewardOption" value="0" />
             </Preset>
         </PresetsArray>
