@@ -31,12 +31,8 @@ $dependenciesRelease = "https://api.github.com/repos/Aelto/tw3-random-encounters
 $dependenciesReleaseResponse = Invoke-RestMethod -Uri $dependenciesRelease
 
 $extractingFolder = "./__install_rer"
-$extractingFolderPatches = "./__install_rer_patches"
 $assetCommunityPatchBase = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("community-patch-base")} | Select -First 1
 $assetSharedImport = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("sharedimport")} |Select -First 1
-$assetBootstrap = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("bootstrap")} |Select -First 1
-$assetEePatches = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("ee-patches")} |Select -First 1
-$assetFhudPatches = $dependenciesReleaseResponse.assets | ? {$_.name.StartsWith("fhud-patches")} |Select -First 1
 
 # do not install community-patch-base if the user already has it or if has EE
 if (!(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
@@ -46,17 +42,6 @@ if (!(test-path mods/modW3EE) -and !(test-path mods/modW3EEMain)) {
   Invoke-WebRequest -Uri $assetCommunityPatchBase.browser_download_url -OutFile $assetCommunityPatchBase.name
   Expand-Archive -Force -LiteralPath $assetCommunityPatchBase.name -DestinationPath ./$extractingFolder
   remove-item $assetCommunityPatchBase.name -recurse -force
-}
-
-# do not install bootstrap if the user already has it
-if (!(test-path mods/modBootstrap-registry)) {
-  echo ""
-  echo "downloading bootstrap"
-
-
-  Invoke-WebRequest -Uri $assetBootstrap.browser_download_url -OutFile $assetBootstrap.name
-  Expand-Archive -Force -LiteralPath $assetBootstrap.name -DestinationPath ./$extractingFolder
-  remove-item $assetBootstrap.name -recurse -force
 }
 
 # do not install sharedimport if the user already has it or if he has EE
@@ -88,27 +73,6 @@ Invoke-WebRequest -Uri $latestAsset.browser_download_url -OutFile $latestAsset.n
 Expand-Archive -Force -LiteralPath $latestAsset.name -DestinationPath ./$extractingFolder
 remove-item $latestAsset.name -recurse -force
 
-# if the user has EE, install the patches for the improved compatibility
-# this is done after the RER download because it will overwrite files
-if (test-path mods/modW3EE) {
-  echo ""
-  echo "downloading W3EE compatibility patches"
-
-  Invoke-WebRequest -Uri $assetEePatches.browser_download_url -OutFile $assetEePatches.name
-  Expand-Archive -Force -LiteralPath $assetEePatches.name -DestinationPath ./$extractingFolderPatches
-  remove-item $assetEePatches.name -recurse -force
-}
-
-# if the user has FHUD, there is a patch for it to display custom 3D map markers
-if (!(test-path mods/modW3EE) -and (test-path mods/modFriendlyHUD)) {
-  echo ""
-  echo "downloading FHUD compatibility patches"
-
-  Invoke-WebRequest -Uri $assetFhudPatches.browser_download_url -OutFile $assetFhudPatches.name
-  Expand-Archive -Force -LiteralPath $assetFhudPatches.name -DestinationPath ./$extractingFolderPatches
-  remove-item $assetFhudPatches.name -recurse -force
-}
-
 # print message notifying which mod will be installed
 $children = Get-ChildItem ./$extractingFolder
 cls
@@ -116,16 +80,6 @@ echo ""
 echo "installing the following mods:"
 foreach ($child in $children) {
   write-host " - $($child.name)"
-}
-
-if (test-path $extractingFolderPatches) {
-  echo ""
-  echo "installing the following patches:"
-  $childrenPatches = Get-ChildItem ./$extractingFolderPatches
-
-  foreach ($child in $childrenPatches) {
-    write-host " - $($child.name)"
-  }
 }
 
 echo ""
@@ -139,48 +93,14 @@ foreach ($child in $children) {
   write-host "$($child) installed"
 }
 
-if (test-path $extractingFolderPatches) {
-  $childrenPatches = Get-ChildItem ./$extractingFolderPatches
-
-  foreach ($child in $childrenPatches) {
-    $fullpath = "{0}/{1}/*" -f $extractingFolderPatches, $child
-    copy-item $fullpath . -force -recurse
-
-    write-host "$($child) installed"
-  }
-}
-
 if (test-path $extractingFolder) {
   remove-item $extractingFolder -recurse -force
 }
-if (test-path $extractingFolderPatches) {
-  remove-item $extractingFolderPatches -recurse -force
-}
 
-
-# and run the update registry script
-echo ""
-echo "Updating bootstrap registry for Random Encounters Reworked"
-cd ./mods/modRandomEncountersReworked/
-./update-registry.bat
-cd ../../
 
 # final message
 cls
 
-if ((test-path ./mods/modImmersiveCam) -or (test-path ./mods/modW3EE)) {
-  echo ""
-  write-warning "It seems you have Immersive Camera installed."
-  echo "Before loading your save, please go in RER's optional features menu and enable the Immersive Camera compatibility"
-  echo ""
-  echo "Note that if you have Enhanced Edition, EE has a version of Immersive Camera bundled in."
-}
-
-if (test-path ./mods/modBootstrap/content/scripts/game/player/player.ws) {
-  echo ""
-  write-warning "It seems you have Bootstrap Sripthooked installed."
-  echo "Before loading your save, please go in RER's optional features menu and enable the Scripthooked compatibility"
-}
 
 echo "Opening browser at: https://aelto.github.io/tw3-random-encounters-reworked/rer-bible#success-install"
 Start-Process "https://aelto.github.io/tw3-random-encounters-reworked/rer-bible#success-install"
