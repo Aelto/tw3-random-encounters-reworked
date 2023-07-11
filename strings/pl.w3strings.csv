@@ -7,6 +7,12 @@
 ; There is always some variation since not all letters have the same width, but that should
 ; save you some time.
 ;
+; Changed in v2.13:
+;  - id 2115018393 was updated
+;  - id 2115018445 was added
+;  - id 2115018446 was added
+;  - id 2115018297 was updated
+;
 ; Changed in v2.12:
 ;  - changes are too vast to list here  unfortunately, i would recommend looking at 
 ;    the changelog on github and finding the link to the diff between v2.11 to v2.12.
@@ -304,7 +310,7 @@
 2115018262|        |option_rer_trophy_master_buying_price|Wartość trofeów kupowanych przez Brygadiera Łowców Nagród (%)
 2115018263|        |rer_bounty_notice|Ogłoszenie dla łowców nagród
 2115018264|        |rer_bounty_notice_description|Brygadier Łowców Nagród poszukuje wiedźmina skorego do ubicia grupy potworów. Przyjdź do niego, by rozpoczynać zlecenia łowcy nagród i sprzedawać trofea.
-2115018265|        |item_desc_trophy|Trofeum potwora, Brygadier Łowców Nagród zapewne kupi je po lepszej cenie. 
+2115018265|        |item_desc_trophy|Trofeum potwora. Brygadier Łowców Nagród zapewne kupi je po lepszej cenie. 
 2115018266|        |option_rer_ignore_seed_selector_window|Pomiń okno wyboru ziarna zlecenia łowcy nagród
 2115018267|        |option_rer_delay_loading_start|Opóźnij załadowanie modyfikacji (kompatybilność z Bootstrap Hooked)
 2115018268|        |rer_tutorial_ambush_title|Samouczek NLS - zasadzki
@@ -326,17 +332,17 @@
 2115018284|        |rer_unknown|Nieznane
 2115018285|        |rer_bounty_start_popup|Następujące stworzenia, na które jest wystawiona nagroda, zostały zauważone w okolicy.<br /><br />Cel główny wymagany do uzyskania nagrody:<br />{{main_creature_listing}}<br /><br />Opcjonalne cele poboczne:<br />{{side_creature_listing}}<br />Ktokolwiek przyniesie ich trofea do brygadiera łowców nagród zostanie sowicie wynagrodzony.
 2115018286|        |rer_mappin_bounty_master_title|Brygadier Łowców Nagród
-2115018287|        |rer_mappin_bounty_master_description|Spotkaj się z brygadierem łowców nagród by sprzedać trofea i dowiedzieć się o nowych zleceniach
+2115018287|        |rer_mappin_bounty_master_description|Spotkaj się z Brygadierem Łowców Nagród by sprzedać trofea i dowiedzieć się o nowych zleceniach. <font color="#ffd33d">(Naciśnij by użyć szybkiej podróży)</font>
 2115018288|        |rer_mappin_bounty_main_target_title|Główny cel zlecenia
-2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i odbierz nagrodę z wystawionego na nie zlecenia.
+2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} zostały zauważone w okolicy. Pozbądź się ich i odbierz nagrodę z wystawionego na nie zlecenia. <font color="#ffd33d">(Naciśnij by użyć szybkiej podróży)</font>
 2115018290|        |rer_mappin_regular_title|Cel zlecenia
-2115018291|        |rer_mappin_regular_description|Ślady prowadzą do tego miejsca, coś interesującego musi być w okolicy.
+2115018291|        |rer_mappin_regular_description|Ślady prowadzą do tego miejsca, coś interesującego musi być w okolicy. <font color="#ffd33d">(Naciśnij by użyć szybkiej podróży)</font>
 2115018292|        |rer_dialog_farewell|Powodzenia.
 2115018293|        |rer_dialog_start_bounty|Rozpocznij zlecenie łowcy nagród
 2115018294|        |rer_dialog_start_bounty_no_conversation|Rozpocznij zlecenie łowcy nagród (pomiń dialog)
 2115018295|        |rer_dialog_sell_trophies|Sprzedaj trofea ({{crowns_amount}})
-2115018296|        |rer_bounty_master_trophies_bought_notification|Brygadier łowców nagród kupił twoje trofea za {{crowns_amount}} koron
-2115018297|        |rer_bounty_finished_notification|Zlecenie łowcy nagród zakończone. {{side_groups_killed}} bonusowych punktów za cele poboczne, obecnie posiadasz {{bounty_level}} poziom łowcy nagród
+2115018296|        |rer_bounty_master_trophies_bought_notification|Brygadier Łowców Nagród kupił twoje trofea za {{crowns_amount}} koron
+2115018297|        |rer_bounty_finished_notification|Zlecenie łowcy nagród zakończone. {{side_groups_killed}} bonusowych punktów za cele poboczne. Obecnie posiadasz {{bounty_level}} poziom łowcy nagród.
 2115018298|        |option_rer_tutorial_started|Pierwsze uruchomienie
 2115018299|        |rer_tutorial_started_title|Samouczek NLS - pierwsze uruchomienie
 2115018300|        |rer_tutorial_started_body|Witaj w modyfikacji <font color="#CD7D03">Nowe Losowe Starcia</font>!<br />Powiadomienia takie jak to pojawią się kiedy zdarzy się coś ważnego związanego z tym modem, by wyjaśnić o co chodzi. Na ten moment modyfikacja nie będzie zauważalnie aktywna z konkretnego powodu: by pozwolić użytkownikom do zaadaptowania się do niej i nie zostać przytłoczonym modyfikacja ukaże swoje elementy w przebiegu 10 godzin. Do tego momentu użytkownicy powinni być dobrze zapoznani z mechanikami jakie mod oferuje.<br /><br />Jeśli potrzebujesz przypomnienia o tym jak pewne zdarzenie lub funkcja działa możesz włączyć samouczek ponownie w menu modyfikacji, co spowoduje, że pojawi się on znów przy określonej okazji.
@@ -358,7 +364,7 @@
 2115018312|        |option_rer_noticeboard_errands|Ogłoszenia z tablicy do rozpoczęcia zleceń NLS
 2115018313|        |option_rer_additional_delay_per_player_level|<font color="#9e9e9e">         Dzień i Noc:</font> Dodatkowe opóźnienie (w sekundach) na poziom gracza
 2115018314|        |rer_noticeboard_errand_1|Poszukiwany jest wiedźmin
-2115018315|        |rer_noticeboard_errand_1_text|Kto czytać umie, niech i to przeczyta, i to dokładnie, co by o tym wszędzie było wiadomo, a przynajmniej w naszej wsi.<br /><br />W lesie byłem co by jaką zwierzynę na obiad upolować, aż tu nagle jakie wycie słyszę. Tam jakieś zło żyje co się ludźmi żywi, a kto na mniej niż 10 łokci do tego podejdzie z życiem się już może żegnać. Licho nie daje ludziom ani polować ani w polu pracować, a to przecie tylko kwestia czasu jak głód i nędza przyjdzie jak nic z tym nie będzie zrobione.<br />Jakieś dziwne ślady żem ostatnio wytropił, ale jak boga kocham nie wiem co je zostawiło, choć już wiele polowań za sobą mam. Mówcie sobie co chcecie, ale to zły omen jest i wszyscy teraz na siebie uważać powinni.<br /><br />Jeśliś dobry we władaniu mieczem i odwagi ci nie brak, zabij dla nas tego potwora, a twoje wysiłki z pewnością zostaną wynagrodzone.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
+2115018315|        |rer_noticeboard_errand_1_text|Kto czytać umie, niech i to przeczyta, i to dokładnie, co by o tym wszędzie było wiadomo, a przynajmniej w naszej wsi.<br /><br />W lesie byłem co by jaką zwierzynę na obiad upolować, aż tu nagle jakie wycie słyszę. Tam jakieś zło żyje co się ludźmi żywi, a kto na mniej niż 10 łokci do tego podejdzie z życiem się już może żegnać. Licho nie daje ludziom ani polować ani w polu pracować, a to przecie tylko kwestia czasu jak głód i nędza przyjdzie jak nic z tym nie będzie zrobione.<br /><br />Jakieś dziwne ślady żem ostatnio wytropił, ale jak boga kocham nie wiem co je zostawiło, choć już wiele polowań za sobą mam. Mówcie sobie co chcecie, ale to zły omen jest i wszyscy teraz na siebie uważać powinni.<br /><br />Jeśliś dobry we władaniu mieczem i odwagi ci nie brak, zabij dla nas tego potwora, a twoje wysiłki z pewnością zostaną wynagrodzone.<br /><br />                              - <font color="#7e6d57">A. Letoth</ font>
 2115018316|        |option_rer_minimap_marker_bounty_master|Znaczniki na minimapie <font color="#ffd33d">-</font> Brygadier Łowców Nagród
 2115018317|        |option_rer_minimap_marker_bounties|Znaczniki na minimapie <font color="#ffd33d">-</font> Zlecenia łowcy nagród
 2115018318|        |option_rer_minimap_marker_generic_objectives|Znaczniki na minimapie <font color="#ffd33d">-</font> Zadania ogólne
@@ -449,10 +455,10 @@
 2115018387|        |rer_kill_target|Zabij wszystkie potwory: {{type}}
 2115018388|        |rer_contract_finished|Zlecenie zostało ukończone
 2115018389|        |rer_reward_results|Żeton na {{reward_type}} został wymieniony na: {{item_names}}
-2115018390|        |rer_contract_started|Zlecenie na {{species}} właśnie się rozpoczęło, przeszukaj obszar oznaczony na mapie
+2115018390|        |rer_contract_started|Zlecenie na {{species}} właśnie się rozpoczęło. Przeszukaj obszar oznaczony na mapie.
 2115018391|        |rer_huntsman_redux_bonus|Bonus +50% z umiejętności Łowca
 2115018392|        |rer_complete_more_contracts|Zablokowane: wykonaj więcej zleceń by zwiększyć swoją reputację
-2115018393|        |rer_current_reputation|Obecna reputacja dla tej tablicy ogłoszeniowej: {{reputation}}
+2115018393|        |rer_current_reputation|Wydaj punkty reputacji: (obecne: {{reputation}})
 2115018394|        |rer_distance_nearby|NIEUŻYWANE
 2115018395|        |option_rer_medium_contracts_number|Ilość <font color="#d4a72c">przeciętnych</font> zleceń
 2115018396|        |option_rer_medium_far_contracts_number|NIEUŻYWANE
@@ -471,9 +477,7 @@
 2115018409|        |option_dlc_sharedutils|MOD: Nowe Losowe Starcia - Shared Utilities
 2115018410|        |option_rer_tutorial_bounty_level|Ranga zleceń łowcy nagród
 2115018411|        |rer_tutorial_bounty_level_title|Samouczek NLS - Ranga zleceń łowcy nagród
-2115018410|        |rer_tutorial_bounty_level_body|Kiedy już ukończysz zlecenie łowcy nagród twoja <font color="#CD7D03">ranga zleceń</font> ma okazję się podnieść, każdy region ma oddzielną rangę zleceń. Za każdym razem gdy podniesies rangę zleceń otrzymasz przedmiot, rzadkość tego przedmiotu wzrasta wraz z rangą zleceń.
-2115018411|        |option_rer_tutorial_bounty_master|Brygadier Łowców Nagród
-2115018412|        |rer_tutorial_bounty_master_title|Samouczek NLS - Brygadier Łowców Nagród
+2115018412|        |rer_tutorial_bounty_level_body|Kiedy już ukończysz zlecenie łowcy nagród twoja <font color="#CD7D03">ranga zleceń</font> ma okazję się podnieść. Każdy region ma oddzielną rangę zleceń. Za każdym razem gdy podniesies rangę zleceń otrzymasz przedmiot. Rzadkość tego przedmiotu wzrasta wraz z rangą zleceń.
 2115018413|        |rer_tutorial_bounty_master_body|Trafiłeś na <font color="#CD7D03">Brygadiera Łowców Nagród</font>, postać która jest w stanie ci zaoferować zlecenia łowcy nagród. Podróżuje po całym świecei, więc może zostać odnaleziony w każdym regionie. Dodatkowo może on poruszać się wewnątrz tych właśnie regionów. By go odnaleźć otwórz mapę i poszukaj żółtego wykrzyknika otoczonego przez białe koło.
 2115018414|        |preset_Mods_rer_name_rer_rewards_settings_rer_rewards_general_settings|Ustawienia ogólnego łupu
 2115018415|        |panel_rer_rewards_general_settings|Ustawienia ogólnego łupu
@@ -506,3 +510,26 @@
 2115018442|        |option_rer_loot_valuables_uncommon_chance|<font color="#ffd33d">                       :</font> szansa na niepospolite
 2115018443|        |option_rer_loot_valuables_rare_chance|<font color="#ffd33d">                       :</font> szansa na rzadkie
 2115018444|        |option_rer_loot_valuables_exotic_chance| <font color="#ffd33d">                       :</font> szansa na egzotyczne
+2115018445|        |rer_reputation_loss_message|Wieści o twojej porażce w trakcie zlecenia rozniosły się po regionie. Liczba utraconych puktów reputacji: {{number}}.
+2115018446|        |rer_reputation_spent_message|{{number}} punkty/ów reputacji zostały wymienione na nagrodę
+2115018447|        |option_rer_tutorial_bounty_master|Brygadier Łowców Nagród
+2115018448|        |rer_tutorial_bounty_master_title|Samouczek NLS - Brygadier Łowców Nagród
+2115018449|        |rer_reputation_spent_message_not_enough|Nie posiadasz wystarczającej ilości punktów reputacji
+2115018450|        |preset_value_rer_preset_selector|Wybór ustawień predefiniowanych
+2115018451|        |rer_bounty|Zlecenie łowcy nagród
+2115018452|        |rer_contract|Zlecenie wiedźmińskie
+2115018453|        |rer_strayed_too_far_cancelled|Zbytnio się oddaliłeś i twoje obecne {{thing}} zostało anulowane
+2115018454|        |option_rer_cancel_spawns_near_quest_markers|Bezpieczna strefa przy znacznikach zadań
+2115018455|        |option_rer_oneliners_bounty_main_target|Podpis / Znacznik 3D <font color="#ffd33d">-</font> Cele zleceń łowcy nagród
+2115018456|        |option_rer_oneliners_contract|Podpis / Znacznik 3D <font color="#ffd33d">-</font> Cele zleceń wiedźminskich
+2115018457|        |option_rer_oneliners_ambush|Podpis / Znacznik 3D <font color="#ffd33d">-</font> Zasadzki
+2115018458|        |option_rer_oneliners_hunting_ground|Podpis / Znacznik 3D <font color="#ffd33d">-</font> Tereny łowieckie
+2115018459|        |option_rer_oneliners_hunt|Podpis / Znacznik 3D <font color="#ffd33d">-</font> Polowania
+2115018460|        |option_rer_oneliners_bounty_master|Podpis / Znacznik 3D <font color="#ffd33d">-</font> Brygadier Łowców Nagród
+2115018461|        |option_rer_contracts_reward_option|Typy nagród
+2115018462|        |preset_value_rer_crowns|Korony <font size="11">skaluje się z ustawieniem nagród za zlecenia</font>
+2115018463|        |preset_value_rer_tokens_of_gratitude|Żetony
+2115018464|        |rer_tracks_examine_hud_message|Ślady wskazują na obecność znanego potwora. To z pewnością {{species}}.
+2115018465|        |rer_tracks_examine_hud_message_unknown|Ślady wskazują na obecność nieznanego stworzenia.
+2115018466|        |option_rer_contract_death_reputation_loss_buffer|Licznik zgonów <font color="#d73a49">(NIE ZMIENIAĆ)</font>
+2115018467|        |option_rer_contract_death_reputation_loss_amount|Utrata reputacji w przypadku zgonu
