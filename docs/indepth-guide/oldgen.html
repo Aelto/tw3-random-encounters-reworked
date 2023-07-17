@@ -11,13 +11,36 @@
 
 <body>
 
-  <h1>In depth guide for installing Random Encounter Reworked</h1>
+  <h1>In depth guide for installing Random Encounter Reworked on 1.32 (Old Gen)</h1>
 
   <section class="summary">
+    <p>
+      The recommended approach to install the mod on 1.32 (Old Gen) is to proceed
+      with a manual installation. This page will guide you through the process
+      in an in-depth manner so that even newcomers can follow it.
+    </p>
+
+      <details>
+        <summary>TL;DR for the experienced modders</summary>
+
+        <ul>
+          <li>If not using W3 Enhanced Edition:
+            <ul>
+              <li>Install <a href="https://www.nexusmods.com/witcher3/mods/2110/?tab=files">SharedImports</a></li>
+              <li>Install <a href="https://www.nexusmods.com/witcher3/mods/3652?tab=files">CommunityPatch-Base (CPB)</a></li>
+            </ul>
+          </li>
+          <li>Install <a href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/download/v2.14/v2.14.zip">RER (direct download link)</a></li>
+          <li>Merge all scripts and refer to merging instructions if there are conflicts</li>
+        </ul>
+      </details>
+
+      <hr>
+
     <ul>
       <li>
-        <a href="#part-1">1.</a> first i will explain what each dependencies does and how to install them, and in which
-        cases you should <b>not</b> install them.
+        <a href="#part-1">1. Dependencies</a>: The mod depends on a few other mods (aka dependencies) to work, however in some cases
+        you may skip them as another mod you use already bring what these dependencies bring to RER. 
         <ul>
           <li><a href="#part-1-2">1.1.</a> SharedImports</li>
           <li><a href="#part-1-2">1.2.</a> CommunityPatch - Base</li>
@@ -25,11 +48,11 @@
       </li>
 
       <li>
-        <a href="#part-2">2.</a> then how to actually install Random Encounters Reworked.
+        <a href="#part-2">2. Installing RER</a> Once the dependencies are installed you can finally install RER itself
       </li>
 
       <li>
-        <a href="#part-3">3.</a> merging instructions for known conflicts
+        <a href="#part-3">3. Merging script</a> and merging instructions for known conflicts
       </li>
     </ul>
 
@@ -64,12 +87,11 @@
       <h3>Dependency - Shared Imports</h3>
 
       <div>
-        <h4>What is its role</h4>
+        <h4>Why?</h4>
         <div>
-          It's a simple mod that imports tons of helper functions (things to interact with the game) so people don't
-          have to.
-          Because if two mods import the same function the game won't start and will give you an error, hence the name
-          "Shared" imports.
+         It brings a good amount of helper functions RER uses to function.
+         But unlike the sharedutils that you'll see bundled with the mod this
+         one is not maintained by me and it is not always needed although rarely.
         </div>
       </div>
 
@@ -88,7 +110,7 @@
           <ol>
             <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/2110/?tab=files">Shared Imports</a>' mod page
             </li>
-            <li>Download <span>modSharedImports-v0.6</span></li>
+            <li>Download <span>modSharedImports-v0.6-CLASSIC</span></li>
             <li>Drop the content of the archive you downloaded directly into <span>The Witcher 3/</span> so that you
               merge the archive <span>mods</span> directory with your <span>mods</span> directory</li>
           </ol>
@@ -100,21 +122,21 @@
       <h3>Dependency - CommunityPatch - Base</h3>
 
       <div>
-        <h4>What is its role</h4>
+        <h4>Why?</h4>
         <div>
-          Not all versions have the same code and somes helper functions were added to later versions. But if RER uses
-          one of these functions while you're not on the latest version you won't be able to use my mod.
-          This mod creates a "base" (clever name eh?) for mod makers so everyone can use their mods.
+          This CommunityPatch can be installed to bring all of the variants the 1.32 version of the game has to a common
+          state that RER can rely on in order to work reliably. Without it and if you are not of 1.32 Steam GOTY then your
+          game may not be able to start without a compile error. Installing the patch is a safe way to bring the 1.32 Steam GOTY
+          changes to your game (for example GOG 1.32)
         </div>
       </div>
 
       <div>
         <h4>When should you skip it?</h4>
         <div>
-          If you've installed it already, if you have Unification Patch or if you have GM/W3EE you may not need it. To
+          If you've installed it already, or if you have Unification Patch, or if you have GM or W3EE installed then you may skip that step. To
           check if you've installed CP-Base already go into <span>The Witcher 3/mods/</span> and look for a folder named
-          <span>mod0000___CompilationTrigger</span>
-          If you find one skip this dependency.
+          <span>mod0000___CompilationTrigger</span> if you find one skip this dependency.
         </div>
       </div>
 
@@ -125,8 +147,8 @@
             <li>Go to <a href="https://www.nexusmods.com/witcher3/mods/3652?tab=files">CP - Base</a>'s mod page</li>
             <li>Download <span>CommunityPatch-Base</span></li>
             <li>Drop the content of the archive you downloaded directly into <span>The Witcher 3/</span> so that you
-              merge the archive <span>mods</span> directory with your <span>mods</span> directory and also the
-              <span>content directory</span>
+              merge the archive <span>mods</span> directory with your <span>mods</span> directory, do the same with the
+              <span>content</span> directory from the archive
             </li>
             <li>Replace every file when prompted</li>
           </ol>
@@ -145,13 +167,13 @@
     <ol>
       <li>
         Download the latest v2 version: <a
-          href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/download/v2.13-pre-release_0/v2.13-pre-release_0.zip">direct
+          href="https://github.com/Aelto/tw3-random-encounters-reworked/releases/download/v2.14/v2.14.zip">direct
           download link</a>
       </li>
-      <li>Drop the content of the archive into your <span>The Witcher 3</span> directory so that you merge the three
-        directories <span>mods</span>/<span>bin</span>/<span>content</span> with those already here</li>
-      <li>Merge the shared utils mods from RER with the script merger of your choice. The only exception is if you use
-        the FHUD patch, let it win by priority</li>
+      <li>Navigate inside the archive until you see the three <span>mods</span>, <span>dlc</span>, <span>bin</span> folders</li>
+      <li>Drop the folders into your <span>The Witcher 3</span> directory so that you merge the three
+        directories <span>mods</span>/<span>bin</span>/<span>content</span> with those already present in your game's directory (the mods folder may be missing but that's okay)</li>
+      <li>Merge the shared utils mods from RER with the script merger of your choice.</li>
     </ol>
   </section>
 
