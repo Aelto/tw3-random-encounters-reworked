@@ -1,8 +1,6 @@
 
 // a collection of all storage classes the mod uses
-class RER_StorageCollection extends SU_StorageItem {
-  default tag = "RER_StorageCollection";
-
+class RER_StorageCollection {
   var general: RER_GeneralStorage;
   var ecosystem: RER_EcosystemStorage;
   var bounty: RER_BountyStorage;
@@ -12,19 +10,35 @@ class RER_StorageCollection extends SU_StorageItem {
 
 // an helper function to get the full storage collection
 function RER_loadStorageCollection(master: CRandomEncounters) {
-  var storage: RER_StorageCollection;
-
-  storage = SU_getStorage().getItem("RER_StorageCollection") as RER_StorageCollection;
-  if (!storage) {
+  if (!master.storages) {
     NLOG("RER_loadStorageCollection() - Instantiating new storage collection");
-    storage = new RER_StorageCollection in master;
-    storage.general = new RER_GeneralStorage in storage;
-    storage.ecosystem = new RER_EcosystemStorage in storage;
-    storage.bounty = new RER_BountyStorage in storage;
-    storage.contract = new RER_ContractStorage in storage;
-    storage.tracker = new RER_TrackerStorage in storage;
-    storage.tracker.init();
+  
+    master.storages = new RER_StorageCollection in master;
   }
 
-  master.storages = storage;
+  if (!master.storages.general) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_GeneralStorage");
+    master.storages.general = new RER_GeneralStorage in master.storages;
+  }
+
+  if (!master.storages.ecosystem) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_EcosystemStorage");
+    master.storages.ecosystem = new RER_EcosystemStorage in master.storages;
+  }
+
+  if (!master.storages.bounty) {
+    NLOG("RER_loadStorageCollection() - Instantiating RER_BountyStorage");
+    master.storages.bounty = new RER_BountyStorage in master.storages;
+  }
+
+  if (!master.storages.contract) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_ContractStorage");
+    master.storages.contract = new RER_ContractStorage in master.storages;
+  }
+
+  if (!master.storages.tracker) {
+    NLOG("RER_loadStorageCollection() - Instantiating new RER_TrackerStorage");
+    master.storages.tracker = new RER_TrackerStorage in master.storages;
+  }
+  master.storages.tracker.init();
 }

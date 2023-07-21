@@ -21,7 +21,7 @@ statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
   var bestiary: RER_Bestiary;
   var static_encounter_manager: RER_StaticEncounterManager;
   var ecosystem_manager: RER_EcosystemManager;
-  var storages: RER_StorageCollection;
+  saved var storages: RER_StorageCollection;
   var bounty_manager: RER_BountyManager;
   var horde_manager: RER_HordeManager;
   var contract_manager: RER_ContractManager;
