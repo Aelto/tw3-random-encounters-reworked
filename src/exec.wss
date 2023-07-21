@@ -82,6 +82,7 @@ exec function reruninstall() {
   }
 
   RER_removeContractReputationFact();
+  _sutbuninstall('rer_bootstrapper');
 
   NDEBUG("RER Uninstall finished.");
 }
