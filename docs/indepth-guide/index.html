@@ -103,43 +103,24 @@
     </blockquote>
 
     <p>
-      Merge everything. In case of a conflict between a sharedutils mod and a mod of yours,
-      <b>always</b> pick at least the sharedutils AND the other mod. The order you pick however
-      may be important so be careful on that. Sharedutils code never overrides vanilla features
-      so you can be sure that by picking your other mod and sharedutils the other mod will continue
-      working as intended.
+      If one of the mods you use is in the list below then use the mod specific instructions,
+      otherwise merge everything that includes a sharedutils mod.
     </p>
 
     <hr>
 
     <p>
-      Known hard to solve conflicts:
+      Mod specific instructions:
     </p>
 
     <details>
-      <summary>Enhanced Edition</summary>
+      <summary>Enhanced Edition / W3EE Redux</summary>
       <div>
-        The list below includes all of the conflicts you may get on a fresh EE + RER install
-        with no other mod. For each file it will list the conflicting mods and will indicate
-        whether or not you should include the mods during the merging process. A mod you should
-        include is represented with a checked box and a mod you should not include is represented
-        with an unchecked/empty box.
-        <hr>
-        It is very important you follow the list for the files that do not include all of the conflicting
-        mods. For example the <span>component.ws</span> one. Or else the game will not compile.
+        Merge everything that includes a sharedutils and W3EE/W3EER except for the following files:
       </div>
 
       <div>
-        <h3>Conflicts & files to merge/ignore</h3>
         <ul>
-          <li>
-            <span>engine\component.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
-              <li><input type="checkbox" checked> modSharedImports</li>
-              <li><input type="checkbox"> modW3EE</li>
-            </ul>
-          </li>
           <li>
             <span>engine\environment.ws</span> <i>(DO NOT MERGE)</i>
             <ul>
@@ -148,145 +129,15 @@
             </ul>
           </li>
           <li>
-            <span>engine\persistentEntity.ws</span>
+            <span>engine\component.ws</span>
             <ul>
               <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gameplay\damage\damageManagerProcessor.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_damagemodifiers</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleBossFocus.ws</span> <i>(DO NOT MERGE)</i>
-            <ul>
-              <li><input type="checkbox"> mod_sharedutils_custombossbar</li>
+              <li><input type="checkbox" checked> modSharedImports</li>
               <li><input type="checkbox"> modW3EE</li>
             </ul>
           </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleDialog.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_dialogChoices</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleMinimap2.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_mappins</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\menu\mapMenu.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_mappins</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\npc\npc.ws</span>
-            <ul>
-              <li><input type="checkbox" checked> mod_sharedutils_damagemodifiers</li>
-              <li><input type="checkbox" checked> modW3EE</li>
-            </ul>
-          </li>
         </ul>
       </div>
-
-      <!-- 1.32 instructions:
-      <div>
-        <h3>Files to merge</h3>
-        <div>
-          All of them will merge automatically, the names of the files in the merger are blue.
-        </div>
-        <ul>
-          <li>
-            <span>engine\component.ws</span>
-            <ul>
-              <li>mod_sharedutils_npcInteraction</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>engine\persistentEntity.ws</span>
-            <ul>
-              <li>mod_sharedutils_npcInteraction</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleDialog.ws</span>
-            <ul>
-              <li>mod_sharedutils_dialogChoices</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleMinimap2.ws</span>
-            <ul>
-              <li>mod_sharedutils_mappins</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\menus\mapMenu.ws</span>
-            <ul>
-              <li>mod_sharedutils_mappins</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\player\r4Player.ws</span>
-            <ul>
-              <li>mod_sharedutils_mappins</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gameplay\damage\damageManagerProcessor.ws</span>
-            <ul>
-              <li>mod_sharedutils_damagemodifiers</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gameplay\npc\npc.ws</span>
-            <ul>
-              <li>mod_sharedutils_damagemodifiers</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3>Files <b>NOT</b> to merge</h3>
-        You do not need to merge these mods, however you <b>MUST</b> ensure they
-        are loaded before W3EE.
-
-        <ul>
-          <li>
-            <span>game\areaTypes.ws</span>
-            <ul>
-              <li>modBootstrap</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-          <li>
-            <span>game\gui\hud\modules\hudModuleBossFocus.ws</span>
-            <ul>
-              <li>mod_sharedutils_custombossbar</li>
-              <li>modW3EE</li>
-            </ul>
-          </li>
-        </ul>
-      </div> -->
     </details>
 
     <!-- the sharedutils npc_interaction no longer edits playerInput.ws:
