@@ -107,6 +107,12 @@
       otherwise merge everything that includes a sharedutils mod.
     </p>
 
+    <p>
+      Note: the instructions assume you have no custom priority on any of your mods, but if you do then
+      you'll have to ensure Shared Imports is always loaded
+      first (its name shouldn't be greyed in the script merger window).
+    </p>
+
     <hr>
 
     <p>
@@ -129,7 +135,7 @@
             </ul>
           </li>
           <li>
-            <span>engine\component.ws</span>
+            <span>engine\component.ws (MERGE ONLY THE TWO MARKED MODS)</span>
             <ul>
               <li><input type="checkbox" checked> mod_sharedutils_npcInteraction</li>
               <li><input type="checkbox" checked> modSharedImports</li>
