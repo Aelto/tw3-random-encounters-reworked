@@ -374,7 +374,9 @@ state Loading in RER_LootManager {
     parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Ducal water');
     parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Hydragenum');
     parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Lunar shards');
-    parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Nigredo');
+    if (!RER_playerUsesEnhancedEditionRedux()) {
+      parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Nigredo');
+    }
     parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Optima mater');
     parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Phosphorus');
     parent.addLoot(LootCategory_Materials, LootRarity_Common, 'Quebrith');
