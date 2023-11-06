@@ -117,6 +117,17 @@ class RE_Settings {
     .ShowNotification("Random Encounters Reworked settings loaded");
   }
 
+  public function getGeneralIntensity(): float {
+    return StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERmain', 'RERgeneralIntensity')
+    );
+  }
+
+  public function withGeneralIntensity(v: float): float {
+    return v * this.getGeneralIntensity();
+  }
+
   private function loadMainMenuSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.enable_action_camera_scenes = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'enableActionCameraScenes');
   }
