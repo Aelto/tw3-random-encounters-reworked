@@ -45,6 +45,11 @@ state Spawning in RER_StaticEncounterManager {
 
     player_position = thePlayer.GetWorldPosition();
 
+    // scale the chance to see SE with the mod's general intensity
+    var intensity: float = master.settings.getGeneralIntensity(0.25);
+    small_chance *= intensity;
+    large_chance *= intensity;
+
     for (i = 0; i < parent.static_encounters.Size(); i += 1) {
       has_spawned = this.trySpawnStaticEncounter(
         master,
