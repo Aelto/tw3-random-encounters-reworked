@@ -465,6 +465,8 @@ class RER_EcosystemManager {
       .GetVarValue('RERencountersGeneral', 'RERecosystemFrequencyMultiplier')
     ) * 0.01;
 
+    multiplier = this.master.settings.withGeneralIntensity(multiplier, 0.25);
+
     NLOG("multiplier = " + multiplier);
 
     if (multiplier == 0) {
