@@ -216,11 +216,28 @@ class RE_Settings {
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
-    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyHigh'));
-    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow'));
-    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
-    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));
-    settlement_delay_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'RERsettlementDelayMultiplier'));
+    customDayMax = this.withGeneralIntensity(
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyHigh')),
+      -1.0
+    ) as int;
+    customDayMin = this.withGeneralIntensity(
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow')),
+      -1.0
+    ) as int;
+    customNightMax = this.withGeneralIntensity(
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh')),
+      -1.0
+    ) as int;
+    customNightMin = this.withGeneralIntensity(
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow')),
+      -1.0
+    ) as int;
+
+    settlement_delay_multiplier = this.withGeneralIntensity(
+      StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'RERsettlementDelayMultiplier')),
+      -1.0
+    );
+
     additional_delay_per_player_level = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERadditionalDelayPerPlayerLevel'));
   }
 
