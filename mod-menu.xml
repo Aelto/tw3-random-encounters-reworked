@@ -6,8 +6,8 @@
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
-                <Entry varId="RERexternalFactorsImpact" value="2" />
                 <Entry varId="RERlevelScaling" value="0" />
+                <Entry varId="RERexternalFactorsImpact" value="2" />
             </Preset>
             <Preset id="1" displayName="rer_preset_selector" >
                 <Entry varId="RERmodVersion" value="0" />
@@ -35,10 +35,6 @@
                 </OptionsArray>
             </Var>
 
-			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
-
-            <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
-
             <Var id="RERlevelScaling" displayName="rer_level_scaling" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_level_scaling_automatic">
@@ -53,6 +49,9 @@
                 </OptionsArray>
             </Var>
 
+            <Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
+            <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
             <Var id="RERmodVersion" displayName="rer_mod_version" displayType="SLIDER;0;100;10000"></Var>
 
         </VisibleVars>
