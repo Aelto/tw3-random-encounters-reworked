@@ -36,3 +36,38 @@ function RER_getPlayerLevel(): int {
 
   return thePlayer.GetLevel();
 }
+
+function RER_detectAbnormalLevelChanges() {
+  // automatically adjust setting if it's on Automatic
+  if (RER_getPlayerScaling() != RER_LevelScaling_Automatic) {
+    return;
+  }
+
+  if (!RER_hasPlayerLevelChangedAbnormally()) {
+    return;
+  }
+
+  NTUTO(
+    GetLocStringByKey('option_rer_level_scaling'),
+    GetLocStringByKey('rer_level_scaling_no_level_detected')
+  );
+}
+
+function RER_hasPlayerLevelChangedAbnormally(): bool {
+  var previous_level: int = RER_getPlayerLevelFactValue();
+  var current_level: int = thePlayer.GetLevel();
+
+  RER_setPlayerLevelFactValue(current_level);
+  if (previous_level <= 0) {
+    return false;
+  }
+
+  // normal levels should never go down
+  if (current_level < previous_level) {
+    return true;
+  }
+
+  // more than two levels of difference, especially since this function should
+  // run every 30 seconds or so.
+  return current_level - previous_level >= 2;
+}
