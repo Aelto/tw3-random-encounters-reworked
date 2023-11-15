@@ -515,7 +515,7 @@
 2115018447|        |option_rer_tutorial_bounty_master|Bounty master
 2115018448|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
 2115018449|        |rer_reputation_spent_message_not_enough|You do not have enough reputation to spend
-2115018450|        |preset_value_rer_preset_selector|Get preset selector
+2115018450|        |preset_value_rer_preset_selector|Preset selector
 2115018451|        |rer_bounty|Bounty
 2115018452|        |rer_contract|Contract
 2115018453|        |rer_strayed_too_far_cancelled|You strayed too far, your current {{thing}} was cancelled
@@ -533,3 +533,8 @@
 2115018465|        |rer_tracks_examine_hud_message_unknown|The tracks appear to be from an unknown creature
 2115018466|        |option_rer_contract_death_reputation_loss_buffer|Active death counter <font color="#d73a49">(DO NOT EDIT)</font>
 2115018467|        |option_rer_contract_death_reputation_loss_amount|<font color="#8250df">                                :</font> Reputation loss on death
+2115018468|        |option_rer_level_scaling|Mod & level scaling
+2115018469|        |preset_value_rer_level_scaling_automatic|Detect automatically
+2115018470|        |preset_value_rer_level_scaling_use_levels|Use player levels
+2115018471|        |preset_value_rer_level_scaling_use_playtime|Use play time (3 hours = 1 level)
+2115018472|        |rer_level_scaling_no_level_detected|It looks like you are using a "No Level" mod or a mod that adjusts your level dynamically. The <font color="#CD7D03">Mod & Level scaling</font> setting from <font color="#CD7D03">Random Encounters Reworked</font> is now set to use your play-time instead of the player level.<br /><br />If you don't like this change or if you think there is an error, you can manually change it in <font color="#CD7D03">Random Encounters Reworked</font>'s general mod menu.
