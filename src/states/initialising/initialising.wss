@@ -219,7 +219,7 @@ state Initialising in CRandomEncounters {
     if (current_version < 3.04) {
       current_version = 3.04;
 
-      config.SetVarValue('RERmain', 'RERlevelScaling', 1);
+      config.SetVarValue('RERmain', 'RERlevelScaling', 0);
 
       NTUTO("RER v3.4", "The mod was successfully updated to v3.4");
     }
