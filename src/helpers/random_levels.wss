@@ -3,6 +3,12 @@
 // It uses values from the settings to calculate their levels.
 //
 
+enum RER_LevelScaling {
+  RER_LevelScaling_Automatic = 0,
+  RER_LevelScaling_Level = 1,
+  RER_LevelScaling_Playtime = 2,
+}
+
 function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
   var player_level: int;
   var max_level_allowed: int;
@@ -29,12 +35,19 @@ function getRandomLevelBasedOnSettings(settings: RE_Settings): int {
 }
 
 function RER_getPlayerLevel(): int {
-  if (RER_playerUsesEnhancedEditionRedux()) {
-    // every 4 hours of gameplay is equal to 1 level in vanilla
+  if (RER_playerUsesEnhancedEditionRedux() || RER_getPlayerScaling() == RER_LevelScaling_Playtime) {
+    // every 3 hours of gameplay is equal to 1 level in vanilla
     return GameTimeHours(theGame.CalculateTimePlayed()) / 3;
   }
 
   return thePlayer.GetLevel();
+}
+
+function RER_getPlayerScaling(): RER_LevelScaling {
+  return StringToInt(
+    theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERmain', 'RERlevelScaling')
+  );
 }
 
 function RER_detectAbnormalLevelChanges() {
