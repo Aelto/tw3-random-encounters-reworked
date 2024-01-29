@@ -172,7 +172,7 @@ statemachine class RER_BountyMasterManager {
         output.PushBack(Vector(-297.9, -1049, 6));
 
         // Holmstein port
-        output.PushBack(Vector(-36, 619, 2));
+        output.PushBack(Vector(-36, 613.5, 2));
 
         // Urialla harbor
         output.PushBack(Vector(1488, 1907, 4.7));
