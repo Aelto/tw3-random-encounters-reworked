@@ -1,5 +1,0 @@
-
-function getCreatureHeight(entity: CActor): float {
-  return (entity.GetMovingAgentComponent() as CMovingPhysicalAgentComponent)
-    .GetCapsuleHeight();
-}

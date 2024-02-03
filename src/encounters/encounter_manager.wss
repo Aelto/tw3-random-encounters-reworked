@@ -1,0 +1,28 @@
+/// Manages the lifecycle of the encounters around the player. Takes care of
+/// creating the encounters that get in reach & destroying the ones that are too
+/// far away.
+class RER_EncounterManager {
+  public function init() {}
+  
+  /// Fetch the RER_LocationTracker for new available locations that could be
+  /// used as encounter locations around the player, then register them so they
+  /// persist between reloads.
+  private function registerNewEncounterLocations() {
+    //todo!
+  }
+
+  /// Lookup in the registered encounters for any location around the player
+  /// that may need spawning. Makes sure it doesn't spawn the ones that are
+  /// already spawned.
+  private function spawnEncounters() {
+    //todo!
+  }
+
+  /// Look at all the currently spawned encounters and see if any needs to be
+  /// destroyed (to save resources). In which case it is deleted and marked as
+  /// ready to spawn again (IMPORTANT:) with a timeout to prevent unwanted
+  /// spawn/destroy back-and-forth.
+  private function destroyOutdatedEncounters() {
+    //todo!
+  }
+}

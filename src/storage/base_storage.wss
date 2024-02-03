@@ -1,8 +1,0 @@
-
-// any storage used in RER inherits from this class.
-abstract class RER_BaseStorage {
-  public function save(): bool {
-    NLOG("RER_BaseStorage::save()");
-    return true;
-  }
-}

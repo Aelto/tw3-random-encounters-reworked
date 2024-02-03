@@ -1,0 +1,30 @@
+/// Manages a list of locations, offers an API similar to Iterators that yields
+/// locations (of type Vector) in series.
+/// 
+/// Mainly used for monsters that follow pre-defined paths composed of
+/// points/locations.
+class RER_LocationManager {
+  private locations: array<Vector>;
+  private index: int;
+  private size: int;
+
+  public function init(initial_position: Vector) {
+    this.addLocation(initial_position);
+  }
+
+  public function addLocation(position: Vector) {
+    this.locations.PushBack(position);
+    this.size = this.locations.Size();
+  }
+
+  public function next(): Vector {
+    var output: Vector = this.locations[this.index];
+
+    this.index += 1;
+    if (this.index >= this.size) {
+      this.index = 0;
+    }
+
+    return output;
+  }
+}

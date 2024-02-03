@@ -1,6 +1,0 @@
-
-// in this class you will find all persistent data about the ecosystem the mod
-// stores in the user save files.
-class RER_EcosystemStorage extends RER_BaseStorage {
-    public var ecosystem_areas: array<EcosystemArea>;
-}

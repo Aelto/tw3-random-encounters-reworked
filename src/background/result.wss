@@ -1,0 +1,4 @@
+struct RER_LocationTrackerResult {
+  var success: bool;
+  var position: Vector;
+}

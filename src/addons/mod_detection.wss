@@ -1,7 +1,0 @@
-function RER_playerUsesEnhancedEditionRedux(): bool {
-  return StrLen(GetLocStringByKey("Redux_ToxMult")) > 0;
-}
-
-function RER_playerUsesVladimirUI(): bool {
-  return StrLen(GetLocStringById(2112698555)) > 0;
-}

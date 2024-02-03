@@ -1,0 +1,19 @@
+class RER_CreatureManager {
+  private var creatures: array<CEntity>;
+
+  public function init(creatures: array<CEntity>) {
+    this.creatures = creatures;
+  }
+
+  public function moveCreaturesTo(position: Vector) {
+    // TODO!
+  }
+
+  public function keepCreaturesAt(position: Vector, radius: float) {
+    // TODO!
+  }
+
+  public function destroyCreatures() {
+    // TODO!
+  }
+}

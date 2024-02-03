@@ -1,9 +1,0 @@
-
-/**
- * A general storage for generic data
- */
-class RER_GeneralStorage extends RER_BaseStorage {
-    var playthrough_seed: int;
-
-    var placeholder_static_encounters: array<RER_PlaceholderStaticEncounter>;
-}

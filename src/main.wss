@@ -1,292 +1,42 @@
 
-state rer_bootstrapper in SU_TinyBootstrapperManager extends BaseMod {
-  public function getTag(): name {
-    return 'rer_bootstrapper';
-  }
+/// TODO:
+/// - Do not use a location tracker, instead use PRNG where the X:Y vector form
+///   a seed and that's how the locations of the Static Encounters are found.
+///   It has the advantage of having a tweakable density value, so the density's
+///   values can change at any time and we only have to change how the X:Y values
+///   are mapped to offer more available spawn locations.
+/// - mapping X:Y coordinates into the PRNG. To give control over the density
+///   and because we want it to be reliable we must create a "grid", so if the
+///   cells are 25x25 meters wide then an X of 19.5 will be rounded to the
+///   closest cell. The density would then control the size of the cells.
+/// - the location tracker should instead check when the player moves around to
+///   see if it's worth checking the new cells for new spawns and the cells that
+///   we left for destroying encounters.
+/// - a single cell can/should spawn a single static encounter at once, however
+///   the values that are used to build the seed may vary. The creatures at day
+///   differ from the ones we see at night for example
+///
+///
+///
 
-  public function getMod(): SU_BaseBootstrappedMod {
-    return new CRandomEncounters in parent;
-  }
-}
-
-
-statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
+/// Main logic of the mod:
+/// - RER_LocationTracker is a statemachine that checks the player's location at
+///   a fixed interval in order to find & collect suitable locations for the
+///   static encounters.
+/// - RER_EncounterManager takes care of fetching suitable locations from the
+///   location tracker and transforms them into persistent (across reloads)
+///   static spawn points (aka Static Encounters)
+class RER_Master extends SU_BaseBootstrappedMod {
   default tag = 'rer_bootstrapper';
 
-  var rExtra: CModRExtra;
-  var settings: RE_Settings;
-  var resources: RE_Resources;
-  var spawn_roller: SpawnRoller;
-  var events_manager: RER_EventsManager;
-  var bestiary: RER_Bestiary;
-  var static_encounter_manager: RER_StaticEncounterManager;
-  var ecosystem_manager: RER_EcosystemManager;
-  saved var storages: RER_StorageCollection;
-  var bounty_manager: RER_BountyManager;
-  var horde_manager: RER_HordeManager;
-  var contract_manager: RER_ContractManager;
-  var addon_manager: RER_AddonManager;
-  var loot_manager: RER_LootManager;
-
-  var boot_time: float;
-
-  var ticks_before_spawn: float;
-  
-  var ecosystem_frequency_multiplier: float;
-
-  /**
-   * the mod power is a value in the [0;1] range that indicates how fast
-   * the mod should run. This means that at 0.1, the mod will use only 10%
-   * of its power (spawning monsters, events, contracts etc...) and will
-   * progressively get more aggressive until it reaches 1.
-   *
-   * The default behaviour for this mod power is to start at 0 the first hour
-   * of gameplay and to gain 0.1 (10%) every hour of gameplay until it reaches
-   * the cap value of 1.
-   */
-  var mod_power: float;
+  var location_tracker: RER_LocationTracker;
+  var encounter_manager: RER_EncounterManager;
 
   public function start() {
-    NLOG("Random Encounters Reworked - CRandomEncounters::start()");
+    this.location_tracker = new RER_LocationTracker in this;
+    this.location_tracker.init();
 
-    theInput.RegisterListener(this, 'OnRefreshSettings', 'OnRefreshSettings');
-    theInput.RegisterListener(this, 'OnSpawnMonster', 'RandomEncounter');
-    theInput.RegisterListener(this, 'OnRER_enabledToggle', 'OnRER_enabledToggle');
-
-    rExtra = new CModRExtra in this;
-    settings = new RE_Settings in this;
-    resources = new RE_Resources in this;
-    spawn_roller = new SpawnRoller in this;
-    events_manager = new RER_EventsManager in this;
-    bestiary = new RER_Bestiary in this;
-    static_encounter_manager = new RER_StaticEncounterManager in this;
-    ecosystem_manager = new RER_EcosystemManager in this;
-    bounty_manager = new RER_BountyManager in this;
-    horde_manager = new RER_HordeManager in this;
-    contract_manager = new RER_ContractManager in this;
-    addon_manager = new RER_AddonManager in this;
-    loot_manager = new RER_LootManager in this;
-
-    this.boot_time = theGame.GetEngineTimeAsSeconds();
-
-    this.GotoState('Initialising');
+    this.encounter_manager = new RER_EncounterManager in this;
+    this.location_tracker.init();
   }
-
-  /**
-   * return if the mod was booted less than 30 seconds ago.
-   */
-  public function hasJustBooted(): bool {
-    return theGame.GetEngineTimeAsSeconds() - this.boot_time <= 30;
-  }
-
-  public function getModPower(): float {
-    return this.mod_power;
-  }
-
-  public function refreshModPower() {
-    var game_time: GameTime;
-    var power: float;
-
-    if (RER_doesIgnoreSlowBootFactExist()) {
-      NLOG("CRandomEncounters::refreshModPower(): ignore slowbot fact found");
-
-      power = 1;
-    }
-    else {
-      NLOG("CRandomEncounters::refreshModPower(): calculating mod power from gametime");
-      game_time = theGame.CalculateTimePlayed();
-      power = ClampF(
-        ((GameTimeDays(game_time) * 24 + GameTimeHours(game_time)) as float) / 10.0,
-  
-        0, // minimum of 0,
-        1, // maximum of 1
-      );
-    }
-
-    NLOG("CRandomEncounters::refreshModPower(): power = " + power);
-    this.mod_power = power;
-  }
-
-  event OnRefreshSettings(action: SInputAction) {
-    NLOG("settings refreshed");
-
-    if (IsPressed(action)) {
-      this.settings
-        .loadXMLSettingsAndShowNotification();
-
-      this.events_manager
-        .start();
-
-      this.bestiary.init();
-      this.bestiary.loadSettings();
-
-      this.GotoState('Loading');
-    }
-  }
-
-  event OnSpawnMonster(action: SInputAction) {
-    NLOG("on spawn event");
-
-    if (this.ticks_before_spawn > 5) {
-      this.ticks_before_spawn = 5;
-    }
-  }
-
-  event OnRER_enabledToggle(action: SInputAction) {
-    if (IsPressed(action)) {
-      NLOG("RER enabled state toggle");
-
-      this.settings.toggleEnabledSettings();
-
-      if (!this.settings.hide_next_notifications) {
-        if (this.settings.is_enabled) {
-          displayRandomEncounterEnabledNotification();
-        }
-        else {
-          displayRandomEncounterDisabledNotification();
-        }
-      }
-    }
-  }
-
-  public function refreshEcosystemFrequencyMultiplier() {
-    this.ecosystem_frequency_multiplier = this.ecosystem_manager
-      .getEcosystemAreasFrequencyMultiplier(this.ecosystem_manager.getCurrentEcosystemAreas());
-  }
-
-  public function getPlaythroughSeed(): int {
-    if (this.storages.general.playthrough_seed == 0) {
-      this.storages.general.playthrough_seed = RandRange(1000000, 0);
-      this.storages.general.save();
-    }
-    
-    return this.storages.general.playthrough_seed;
-  }
-
-  //#region OutOfCombat action
-  private var out_of_combat_requests: array<OutOfCombatRequest>;
-
-  // add the requested action for when the player will leave combat
-  public function requestOutOfCombatAction(request: OutOfCombatRequest): bool {
-    var i: int;
-    var already_added: bool;
-
-    already_added = false;
-
-    // NLOG("adding request out of combat: " + request);
-
-    // for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
-    //   if (this.out_of_combat_requests[i] == request) {
-    //     already_added = true;
-    //   }
-    // }
-
-    // if (!already_added) {
-    //   this.out_of_combat_requests.PushBack(request);
-
-    //   this.RemoveTimer('waitOutOfCombatTimer');
-    //   this.AddTimer('waitOutOfCombatTimer', 0.1, true);
-    // }
-
-    // to return if something was added
-    return !already_added;
-  }
-
-  // timer function waitOutOfCombatTimer(optional delta: float, optional id: Int32) {
-  //   var i: int;
-
-  //   if (thePlayer.IsInCombat()) {
-  //     return;
-  //   }
-
-  //   this.RemoveTimer('waitOutOfCombatTimer');
-
-
-  //   for (i = 0; i < this.out_of_combat_requests.Size(); i += 1) {
-  //     switch (this.out_of_combat_requests[i]) {
-  //       case OutOfCombatRequest_TROPHY_CUTSCENE:
-  //         if(this.shouldPlayTrophyCutScene())
-  //         {
-  //           // three times because some lootbags can take time to appear
-  //           // this.AddTimer('lootTrophiesAndPlayCutscene', 1.5, false);
-  //           // this.AddTimer('lootTrophiesAndPlayCutscene', 2.25, false);
-  //           // this.AddTimer('lootTrophiesAndPlayCutscene', 3, false);
-  //         }
-  //       break;
-  //     }
-  //   }
-
-  //   this.out_of_combat_requests.Clear();
-  // }
-
-  private function shouldPlayTrophyCutScene() : bool {
-    return RandRange(100) <= this.settings.trophy_pickup_scene_chance;
-  }
-
-  timer function lootTrophiesAndPlayCutscene(optional delta: float, optional id: Int32) {
-    var scene: CStoryScene;
-    var will_play_cutscene: bool;
-
-    // is set to true only if trophies were picked up
-    will_play_cutscene = lootTrophiesInRadius();
-
-    RER_tutorialTryShowTrophy();
-
-    if (will_play_cutscene) {
-      NLOG("playing out of combat cutscene");
-
-      scene = LoadResource(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
-        true
-      ) as CStoryScene;
-
-      theGame
-      .GetStorySceneSystem()
-      .PlayScene(scene, "Input");
-
-      // Play some oneliners about the trophies
-      if (RandRange(10) < 2) {
-        REROL_hang_your_head_from_sadle_sync();
-      }
-      else if (RandRange(10) < 2) {
-        REROL_someone_pay_for_trophy_sync();
-      }
-      else if (RandRange(10) < 2) {
-        REROL_good_size_wonder_if_someone_pay_sync();
-      }
-    }
-  }
-  //#endregion OutOfCombat action
-
-
-
-  event OnDestroyed() {
-    var ents: array<CEntity>;
-    var i: int;
-
-    NLOG("On destroyed called on RER main class");
-
-    theGame.GetEntitiesByTag('RandomEncountersReworked_Entity', ents);
-
-    NLOG("found " + ents.Size() + " RER entities");
-
-    // super.OnDestroyed();
-  }
-
-  event OnDeath( damageAction : W3DamageAction ) {
-
-    NLOG("On death called on RER main class");
-
-    // super.OnDeath( damageAction );
-  }
-}
-
-function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
-  rer_entity = SUTB_getModByTag('rer_bootstrapper') as CRandomEncounters;
-
-  if (rer_entity) {
-    return true;
-  }
-
-  return false;
 }
