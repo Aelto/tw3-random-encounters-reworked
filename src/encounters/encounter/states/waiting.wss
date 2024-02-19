@@ -1,0 +1,12 @@
+
+state Waiting in RER_Encounter {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    this.Waiting_main();
+  }
+
+  entry function Waiting_main() {
+    
+  }
+}

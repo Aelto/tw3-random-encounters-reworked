@@ -1,0 +1,35 @@
+
+class RER_BestiaryGravier extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureDROWNERDLC;
+    this.species = SpeciesTypes_NECROPHAGES;
+    this.menu_name = 'Graviers';
+    this.localized_name = 'option_rer_scurver';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\gravier.w2ent",,,
+      "dlc\bob\journal\bestiary\parszywiec.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 3;
+    this.template_list.difficulty_factor.minimum_count_medium = 2;
+    this.template_list.difficulty_factor.maximum_count_medium = 4;
+    this.template_list.difficulty_factor.minimum_count_hard = 3;
+    this.template_list.difficulty_factor.maximum_count_hard = 6;
+
+  
+
+  this.ecosystem_delay_multiplier = 2.75;
+this.possible_compositions.PushBack(CreatureDROWNER);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
+    this.possible_compositions.PushBack(CreatureGHOUL);
+    this.possible_compositions.PushBack(CreatureHAG);
+  }
+
+
+}

@@ -1,0 +1,34 @@
+
+class RER_BestiaryDetlaff extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureDETLAFF;
+    this.species = SpeciesTypes_VAMPIRES;
+    this.menu_name = 'Higher_Vampires';
+    this.localized_name = 'option_rer_higher_vampire';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\dettlaff_vampire.w2ent", 1,,
+      "dlc\bob\journal\bestiary\dettlaffmonster.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  
+
+  this.ecosystem_delay_multiplier = 25;
+this.possible_compositions.PushBack(CreatureBRUXA);
+    this.possible_compositions.PushBack(CreatureKATAKAN);
+    this.possible_compositions.PushBack(CreatureGARKAIN);
+  }
+
+
+}

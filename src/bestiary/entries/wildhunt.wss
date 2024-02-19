@@ -1,0 +1,64 @@
+
+class RER_BestiaryWildhunt extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureWILDHUNT;
+    this.species = SpeciesTypes_ELEMENTA;
+    this.menu_name = 'Wild_Hunt';
+    this.localized_name = 'option_rer_wildhunt';
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_axe.w2ent",,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_halberd.w2ent", 2,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_hammer.w2ent", 1,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_spear.w2ent", 2,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "quests\part_2\quest_files\q403_battle\characters\q403_wild_hunt_2h_sword.w2ent", 1,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\wildhunt_minion_lvl1.w2ent",,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );  // hound of the wild hunt   
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\wildhunt_minion_lvl2.w2ent", 1,,
+        "gameplay\journal\bestiary\whminion.journal"
+      )
+    );  // spikier hound
+
+      this.template_list.difficulty_factor.minimum_count_easy = 3;
+      this.template_list.difficulty_factor.maximum_count_easy = 4;
+      this.template_list.difficulty_factor.minimum_count_medium = 4;
+      this.template_list.difficulty_factor.maximum_count_medium = 6;
+      this.template_list.difficulty_factor.minimum_count_hard = 5;
+      this.template_list.difficulty_factor.maximum_count_hard = 7;
+
+  this.ecosystem_delay_multiplier = 6;
+this.possible_compositions.PushBack(CreatureHUMAN);
+  }
+
+
+}

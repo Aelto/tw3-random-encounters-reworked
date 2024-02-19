@@ -1,0 +1,403 @@
+
+class RER_Bestiary {
+  var entries: array<RER_BestiaryEntry>;
+  var human_entries: array<RER_BestiaryEntry>;
+
+  public function init() {
+    var empty_entry: RER_BestiaryEntry;
+    var i: int;
+
+    for (i = 0; i < RER_Species_MAX; i += 1) {
+      this.entries.PushBack(empty_entry);
+    }
+
+    for (i = 0; i < RER_HumanType_MAX; i += 1) {
+      this.human_entries.PushBack(empty_entry);
+    }
+
+    this.entries[CreatureALGHOUL] = new RER_BestiaryAlghoul in this;
+    this.entries[CreatureARACHAS] = new RER_BestiaryArachas in this;
+    this.entries[CreatureBARGHEST] = new RER_BestiaryBarghest in this;
+    this.entries[CreatureBASILISK] = new RER_BestiaryBasilisk in this;
+    this.entries[CreatureBEAR] = new RER_BestiaryBear in this;
+    this.entries[CreatureBERSERKER] = new RER_BestiaryBerserker in this;
+    this.entries[CreatureBOAR] = new RER_BestiaryBoar in this;
+    this.entries[CreatureBRUXA] = new RER_BestiaryBruxa in this;
+    // this.entries[CreatureBRUXACITY] = new RER_BestiaryBruxacity in this;
+    this.entries[CreatureCENTIPEDE] = new RER_BestiaryCentipede in this;
+    this.entries[CreatureCHORT] = new RER_BestiaryChort in this;
+    this.entries[CreatureCOCKATRICE] = new RER_BestiaryCockatrice in this;
+    this.entries[CreatureCYCLOP] = new RER_BestiaryCyclop in this;
+    this.entries[CreatureDETLAFF] = new RER_BestiaryDetlaff in this;
+    this.entries[CreatureDRACOLIZARD] = new RER_BestiaryDracolizard in this;
+    this.entries[CreatureDROWNER] = new RER_BestiaryDrowner in this;
+    this.entries[CreatureECHINOPS] = new RER_BestiaryEchinops in this;
+    this.entries[CreatureEKIMMARA] = new RER_BestiaryEkimmara in this;
+    this.entries[CreatureELEMENTAL] = new RER_BestiaryElemental in this;
+    this.entries[CreatureENDREGA] = new RER_BestiaryEndrega in this;
+    this.entries[CreatureFIEND] = new RER_BestiaryFiend in this;
+    this.entries[CreatureFLEDER] = new RER_BestiaryFleder in this;
+    this.entries[CreatureFOGLET] = new RER_BestiaryFogling in this;
+    this.entries[CreatureFORKTAIL] = new RER_BestiaryForktail in this;
+    this.entries[CreatureGARGOYLE] = new RER_BestiaryGargoyle in this;
+    this.entries[CreatureGARKAIN] = new RER_BestiaryGarkain in this;
+    this.entries[CreatureGHOUL] = new RER_BestiaryGhoul in this;
+    this.entries[CreatureGIANT] = new RER_BestiaryGiant in this;
+    this.entries[CreatureGOLEM] = new RER_BestiaryGolem in this;
+    this.entries[CreatureDROWNERDLC] = new RER_BestiaryGravier in this;
+    this.entries[CreatureGRYPHON] = new RER_BestiaryGryphon in this;
+    this.entries[CreatureHAG] = new RER_BestiaryHag in this;
+    this.entries[CreatureHARPY] = new RER_BestiaryHarpy in this;
+    this.entries[CreatureHUMAN] = new RER_BestiaryHuman in this;
+    this.entries[CreatureKATAKAN] = new RER_BestiaryKatakan in this;
+    this.entries[CreatureKIKIMORE] = new RER_BestiaryKikimore in this;
+    this.entries[CreatureLESHEN] = new RER_BestiaryLeshen in this;
+    this.entries[CreatureNEKKER] = new RER_BestiaryNekker in this;
+    this.entries[CreatureNIGHTWRAITH] = new RER_BestiaryNightwraith in this;
+    this.entries[CreatureNOONWRAITH] = new RER_BestiaryNoonwraith in this;
+    this.entries[CreaturePANTHER] = new RER_BestiaryPanther in this;
+    this.entries[CreatureROTFIEND] = new RER_BestiaryRotfiend in this;
+    this.entries[CreatureSHARLEY] = new RER_BestiarySharley in this;
+    this.entries[CreatureSIREN] = new RER_BestiarySiren in this;
+    this.entries[CreatureSKELBEAR] = new RER_BestiarySkelbear in this;
+    this.entries[CreatureSKELETON] = new RER_BestiarySkeleton in this;
+    this.entries[CreatureSKELTROLL] = new RER_BestiarySkeltroll in this;
+    this.entries[CreatureSKELWOLF] = new RER_BestiarySkelwolf in this;
+    this.entries[CreatureSPIDER] = new RER_BestiarySpider in this;
+    this.entries[CreatureTROLL] = new RER_BestiaryTroll in this;
+    this.entries[CreatureWEREWOLF] = new RER_BestiaryWerewolf in this;
+    this.entries[CreatureWIGHT] = new RER_BestiaryWight in this;
+    this.entries[CreatureWILDHUNT] = new RER_BestiaryWildhunt in this;
+    this.entries[CreatureWOLF] = new RER_BestiaryWolf in this;
+    this.entries[CreatureWRAITH] = new RER_BestiaryWraith in this;
+    this.entries[CreatureWYVERN] = new RER_BestiaryWyvern in this;
+
+    this.human_entries[HT_BANDIT] = new RER_BestiaryHumanBandit in this;
+    this.human_entries[HT_CANNIBAL] = new RER_BestiaryHumanCannibal in this;
+    this.human_entries[HT_NILFGAARDIAN] = new RER_BestiaryHumanNilf in this;
+    this.human_entries[HT_NOVBANDIT] = new RER_BestiaryHumanNovbandit in this;
+    this.human_entries[HT_PIRATE] = new RER_BestiaryHumanPirate in this;
+    this.human_entries[HT_RENEGADE] = new RER_BestiaryHumanRenegade in this;
+    this.human_entries[HT_SKELBANDIT2] = new RER_BestiaryHumanSkel2bandit in this;
+    this.human_entries[HT_SKELBANDIT] = new RER_BestiaryHumanSkelbandit in this;
+    this.human_entries[HT_SKELPIRATE] = new RER_BestiaryHumanSkelpirate in this;
+    this.human_entries[HT_WITCHHUNTER] = new RER_BestiaryHumanWhunter in this;
+
+    for (i = 0; i < CreatureMAX; i += 1) {
+      this.entries[i].init();
+    }
+
+    for (i = 0; i < HT_MAX; i += 1) {
+      this.human_entries[i].init();
+    }
+
+    this.loadSettings();
+  }
+
+  public function getEntry(species: RER_Species, optional seed: int): RER_BestiaryEntry {
+    if (species == RER_Species_HUMAN) {
+      return this.getHumanEntry(seed);
+    }
+    
+    var index: int = RandNoiseF(seed, this.entries.Size()) as int;
+    var bentry: RER_BestiaryEntry = this.entries[index];
+
+    return bentry;
+  }
+
+  private function getHumanEntry(seed: int): RER_BestiaryEntry {
+    var index: int = RandNoiseF(seed, this.human_entries.Size()) as int;
+    var bentry: RER_BestiaryEntry = this.human_entries[index];
+
+    return bentry;
+  }
+
+  private function loadSettings() {
+    var inGameConfigWrapper: CInGameConfigWrapper;
+    var i: int;
+
+    inGameConfigWrapper = theGame.GetInGameConfigWrapper();
+
+    for (i = 0; i < this.entries.Size(); i += 1) {
+      this.entries[i].loadSettings(inGameConfigWrapper);
+    }
+
+    for (i = 0; i < this.human_entries.Size(); i += 1) {
+      this.human_entries[i].loadSettings(inGameConfigWrapper);
+    }
+  }
+}
+
+function RER_getBestiaryEntry(species: RER_Species, optional seed: int): RER_BestiaryEntry {
+  switch (species) {
+    case (CreatureALGHOUL):
+      bentry = new RER_BestiaryAlghoul in this;
+      break;
+
+    case (CreatureARACHAS):
+      bentry = new RER_BestiaryArachas in this;
+      break;
+
+    case (CreatureBARGHEST):
+      bentry = new RER_BestiaryBarghest in this;
+      break;
+
+    case (CreatureBASILISK):
+      bentry = new RER_BestiaryBasilisk in this;
+      break;
+
+    case (CreatureBEAR):
+      bentry = new RER_BestiaryBear in this;
+      break;
+
+    case (CreatureBERSERKER):
+      bentry = new RER_BestiaryBerserker in this;
+      break;
+
+    case (CreatureBOAR):
+      bentry = new RER_BestiaryBoar in this;
+      break;
+
+    case (CreatureBRUXA):
+      bentry = new RER_BestiaryBruxa in this;
+      break;
+
+    case (CreatureCENTIPEDE):
+      bentry = new RER_BestiaryCentipede in this;
+      break;
+
+    case (CreatureCHORT):
+      bentry = new RER_BestiaryChort in this;
+      break;
+
+    case (CreatureCOCKATRICE):
+      bentry = new RER_BestiaryCockatrice in this;
+      break;
+
+    case (CreatureCYCLOP):
+      bentry = new RER_BestiaryCyclop in this;
+      break;
+
+    case (CreatureDETLAFF):
+      bentry = new RER_BestiaryDetlaff in this;
+      break;
+
+    case (CreatureDRACOLIZARD):
+      bentry = new RER_BestiaryDracolizard in this;
+      break;
+
+    case (CreatureDROWNER):
+      bentry = new RER_BestiaryDrowner in this;
+      break;
+
+    case (CreatureECHINOPS):
+      bentry = new RER_BestiaryEchinops in this;
+      break;
+
+    case (CreatureEKIMMARA):
+      bentry = new RER_BestiaryEkimmara in this;
+      break;
+
+    case (CreatureELEMENTAL):
+      bentry = new RER_BestiaryElemental in this;
+      break;
+
+    case (CreatureENDREGA):
+      bentry = new RER_BestiaryEndrega in this;
+      break;
+
+    case (CreatureFIEND):
+      bentry = new RER_BestiaryFiend in this;
+      break;
+
+    case (CreatureFLEDER):
+      bentry = new RER_BestiaryFleder in this;
+      break;
+
+    case (CreatureFOGLET):
+      bentry = new RER_BestiaryFogling in this;
+      break;
+
+    case (CreatureFORKTAIL):
+      bentry = new RER_BestiaryForktail in this;
+      break;
+
+    case (CreatureGARGOYLE):
+      bentry = new RER_BestiaryGargoyle in this;
+      break;
+
+    case (CreatureGARKAIN):
+      bentry = new RER_BestiaryGarkain in this;
+      break;
+
+    case (CreatureGHOUL):
+      bentry = new RER_BestiaryGhoul in this;
+      break;
+
+    case (CreatureGIANT):
+      bentry = new RER_BestiaryGiant in this;
+      break;
+
+    case (CreatureGOLEM):
+      bentry = new RER_BestiaryGolem in this;
+      break;
+
+    case (CreatureDROWNERDLC):
+      bentry = new RER_BestiaryGravier in this;
+      break;
+
+    case (CreatureGRYPHON):
+      bentry = new RER_BestiaryGryphon in this;
+      break;
+
+    case (CreatureHAG):
+      bentry = new RER_BestiaryHag in this;
+      break;
+
+    case (CreatureHARPY):
+      bentry = new RER_BestiaryHarpy in this;
+      break;
+
+    case (CreatureHUMAN):
+      bentry = new RER_BestiaryHuman in this;
+      break;
+
+    case (CreatureKATAKAN):
+      bentry = new RER_BestiaryKatakan in this;
+      break;
+
+    case (CreatureKIKIMORE):
+      bentry = new RER_BestiaryKikimore in this;
+      break;
+
+    case (CreatureLESHEN):
+      bentry = new RER_BestiaryLeshen in this;
+      break;
+
+    case (CreatureNEKKER):
+      bentry = new RER_BestiaryNekker in this;
+      break;
+
+    case (CreatureNIGHTWRAITH):
+      bentry = new RER_BestiaryNightwraith in this;
+      break;
+
+    case (CreatureNOONWRAITH):
+      bentry = new RER_BestiaryNoonwraith in this;
+      break;
+
+    case (CreaturePANTHER):
+      bentry = new RER_BestiaryPanther in this;
+      break;
+
+    case (CreatureROTFIEND):
+      bentry = new RER_BestiaryRotfiend in this;
+      break;
+
+    case (CreatureSHARLEY):
+      bentry = new RER_BestiarySharley in this;
+      break;
+
+    case (CreatureSIREN):
+      bentry = new RER_BestiarySiren in this;
+      break;
+
+    case (CreatureSKELBEAR):
+      bentry = new RER_BestiarySkelbear in this;
+      break;
+
+    case (CreatureSKELETON):
+      bentry = new RER_BestiarySkeleton in this;
+      break;
+
+    case (CreatureSKELTROLL):
+      bentry = new RER_BestiarySkeltroll in this;
+      break;
+
+    case (CreatureSKELWOLF):
+      bentry = new RER_BestiarySkelwolf in this;
+      break;
+
+    case (CreatureSPIDER):
+      bentry = new RER_BestiarySpider in this;
+      break;
+
+    case (CreatureTROLL):
+      bentry = new RER_BestiaryTroll in this;
+      break;
+
+    case (CreatureWEREWOLF):
+      bentry = new RER_BestiaryWerewolf in this;
+      break;
+
+    case (CreatureWIGHT):
+      bentry = new RER_BestiaryWight in this;
+      break;
+
+    case (CreatureWILDHUNT):
+      bentry = new RER_BestiaryWildhunt in this;
+      break;
+
+    case (CreatureWOLF):
+      bentry = new RER_BestiaryWolf in this;
+      break;
+
+    case (CreatureWRAITH):
+      bentry = new RER_BestiaryWraith in this;
+      break;
+
+    case (CreatureWYVERN):
+      bentry = new RER_BestiaryWyvern in this;
+      break;
+
+    default:
+      bentry = RER_spawnHumans(
+        RandNoiseF(seed, RER_HumanType_MAX) as RER_HumanType
+      );
+  }
+
+  return bentry;
+}
+
+function RER_spawnHumans(htype: RER_HumanType): RER_BestiaryEntry {
+  var bentry: RER_BestiaryEntry;
+
+  switch (htype) {
+    case HT_BANDIT:
+       bentry = new RER_BestiaryHumanBandit in this;
+       break;
+    case HT_CANNIBAL:
+       bentry = new RER_BestiaryHumanCannibal in this;
+       break;
+    case HT_NILFGAARDIAN:
+       bentry = new RER_BestiaryHumanNilf in this;
+       break;
+    case HT_NOVBANDIT:
+       bentry = new RER_BestiaryHumanNovbandit in this;
+       break;
+    case HT_PIRATE:
+       bentry = new RER_BestiaryHumanPirate in this;
+       break;
+    case HT_RENEGADE:
+       bentry = new RER_BestiaryHumanRenegade in this;
+       break;
+    case HT_SKELBANDIT2:
+       bentry = new RER_BestiaryHumanSkel2bandit in this;
+       break;
+    case HT_SKELBANDIT:
+       bentry = new RER_BestiaryHumanSkelbandit in this;
+       break;
+    case HT_SKELPIRATE:
+       bentry = new RER_BestiaryHumanSkelpirate in this;
+       break;
+    case HT_WITCHHUNTER:
+       bentry = new RER_BestiaryHumanWhunter in this;
+       break;
+
+    default:
+      bentry = new RER_BestiaryHumanBandit in this;
+       break;
+  }
+
+  return bentry;
+}

@@ -1,0 +1,4 @@
+function RER_getPlayerLevel(): int {
+  // todo! #get-player-level-ee
+  return thePlayer.GetLevel();
+}

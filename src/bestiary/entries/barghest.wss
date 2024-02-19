@@ -1,0 +1,32 @@
+
+class RER_BestiaryBarghest extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureBARGHEST;
+    this.species = SpeciesTypes_SPECTERS;
+    this.menu_name = 'Barghests';
+    this.localized_name = 'option_rer_barghest';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\barghest.w2ent",,,
+      "dlc\bob\journal\bestiary\barghests.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 2;
+    this.template_list.difficulty_factor.minimum_count_hard = 2;
+    this.template_list.difficulty_factor.maximum_count_hard = 2;
+
+  
+
+  this.ecosystem_delay_multiplier = 5;
+this.possible_compositions.PushBack(CreatureWRAITH);
+  }
+
+
+}

@@ -1,0 +1,38 @@
+
+class RER_BestiaryCentipede extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureCENTIPEDE;
+    this.species = SpeciesTypes_INSECTOIDS;
+    this.menu_name = 'Centipedes';
+    this.localized_name = 'option_rer_centipede';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\scolopendromorph.w2ent",,,
+      "dlc\bob\journal\bestiary\scolopedromorph.journal"
+    )
+  ); //worm
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\mq7023_albino_centipede.w2ent",,,
+      "dlc\bob\journal\bestiary\scolopedromorph.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 2;
+    this.template_list.difficulty_factor.minimum_count_hard = 2;
+    this.template_list.difficulty_factor.maximum_count_hard = 3;
+
+  
+
+  this.ecosystem_delay_multiplier = 4.5;
+this.possible_compositions.PushBack(CreatureNEKKER);
+  }
+
+
+}

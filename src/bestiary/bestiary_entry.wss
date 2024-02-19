@@ -1,0 +1,113 @@
+
+abstract class RER_BestiaryEntry {
+  var type: RER_Species
+  var species: RER_SpeciesTypes;
+
+  var template_list: EnemyTemplateList;
+
+  // stores a hash of the templates the bestiary entry has for a faster lookup.
+  // Used by the function `isCreatureHashedNameFromEntry()`
+  var template_hashes: array<string>;
+
+  // names for this entity trophies
+  // uses the enum TrophyVariant as index
+  var trophy_names: array<name>;
+
+  // the name used in the mod menus
+  var menu_name: name;
+  var ecosystem_delay_multiplier: float;
+  var localized_name: name;
+  
+  var possible_compositions: array<RER_Species>;
+
+  public function init() {}
+  
+  public function loadSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    var i: int;
+
+    for (i = 0; i < this.template_list.templates.Size(); i += 1) {
+      this.template_hashes.PushBack(
+        this.template_list.templates[i].template
+      );
+    }
+  }
+
+  public function isNull(): bool {
+    return this.type == CreatureNONE;
+  }
+
+  public function getSpawnCount(master: CRandomEncounters): int {
+    return this.template_list.difficulty_factor.minimum_count_medium;
+  }
+
+  public latent function spawn(
+    position: Vector
+  ): array<CEntity> {
+    
+    var created_entities: array<CEntity>;
+    var j: int;
+
+    count = this.getSpawnCount(master);
+
+    var creatures_templates: EnemyTemplateList = fillEnemyTemplateList(
+      this.template_list,
+      count
+    );
+
+    var group_positions: array<Vector> = group_positions = getGroupPositions(
+      position,
+      count
+    );
+
+    var tags_array: array<name>;
+    tags_array.PushBack('RandomEncountersReworked_Entity');
+
+    var group_positions_index: int = 0;
+
+    for (var current_entity_template: SEnemyTemplate in creatures_templates.templates()) {
+      if (current_entity_template.count <= 0) {
+        continue;
+      }
+
+      var current_template: CEntityTemplate = LoadResourceAsync(
+        current_entity_template.template,
+        true
+      ) as CEntityTemplate;
+
+      FixZAxis(group_positions[group_positions_index]);
+      for (j = 0; j < current_entity_template.count; j += 1) {
+        var persistance: EPersistanceMode = PM_DontPersist; // persistance = PM_Persist;
+        var current_rotation: EulerAngles = VecToRotation(VecRingRand(1, 2));
+
+        var created_entity: CEntity = theGame.CreateEntity(
+          current_template,
+          group_positions[group_positions_index],
+          current_rotation,,,,
+          persistance,
+          tags_array
+        );
+
+        (created_entity as CNewNPC).SetLevel(RER_getPlayerLevel());
+        created_entities.PushBack(created_entity);
+        group_positions_index += 1;
+      }
+    }
+
+    SUH_makeEntitiesAlliedWithEachother(created_entities);
+
+    return created_entities;
+  }
+
+  public function toLocalizedName(): string {
+    return GetLocStringByKey(this.localized_name);
+  }
+}
+
+class RER_BestiaryEntryNull extends RER_BestiaryEntry {
+  default type = CreatureNONE;
+
+  public function isNull(): bool {
+    return true;
+  }
+}
+

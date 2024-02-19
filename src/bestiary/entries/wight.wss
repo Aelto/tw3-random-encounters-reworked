@@ -1,0 +1,39 @@
+
+class RER_BestiaryWight extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureWIGHT;
+    this.species = SpeciesTypes_CURSED;
+    this.menu_name = 'Wights';
+    this.localized_name = 'option_rer_wight';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\spooncollector.w2ent",1,,
+      "dlc\bob\journal\bestiary\wicht.journal"
+    )
+  );  // spoon
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\wicht.w2ent",2,,
+      "dlc\bob\journal\bestiary\wicht.journal"
+    )
+  );     // wight
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  
+
+  this.ecosystem_delay_multiplier = 5;
+this.possible_compositions.PushBack(CreatureBARGHEST);
+    this.possible_compositions.PushBack(CreatureWRAITH);
+  }
+
+
+}

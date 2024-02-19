@@ -1,0 +1,44 @@
+
+class RER_BestiaryPanther extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreaturePANTHER;
+    this.species = SpeciesTypes_BEASTS;
+    this.menu_name = 'Panthers';
+    this.localized_name = 'option_rer_panther';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\panther_black.w2ent",,,
+      "dlc\bob\journal\bestiary\panther.journal"
+    )
+  );
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\panther_leopard.w2ent",,,
+      "dlc\bob\journal\bestiary\panther.journal"
+    )
+  );
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\panther_mountain.w2ent",,,
+      "dlc\bob\journal\bestiary\panther.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 2;
+
+  
+
+  this.ecosystem_delay_multiplier = 2.5;
+
+  }
+
+
+}

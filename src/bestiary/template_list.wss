@@ -1,0 +1,34 @@
+
+struct SEnemyTemplate {
+  var template : string;
+  var max      : int;
+  var count    : int;
+  var bestiary_entry: string;
+}
+
+function makeEnemyTemplate(template: string, optional max: int, optional count: int, optional bestiary_entry: string): SEnemyTemplate {
+  var enemy_template: SEnemyTemplate;
+
+  enemy_template.template = template;
+  enemy_template.max = max;
+  enemy_template.count = count;
+  enemy_template.bestiary_entry = bestiary_entry;
+
+  return enemy_template;
+}
+ 
+struct DifficultyFactor {
+  var minimum_count_easy: int;
+  var maximum_count_easy: int;
+  
+  var minimum_count_medium: int;
+  var maximum_count_medium: int;
+  
+  var minimum_count_hard: int;
+  var maximum_count_hard: int;
+}
+
+struct EnemyTemplateList {
+  var templates: array<SEnemyTemplate>;
+  var difficulty_factor: DifficultyFactor;
+}

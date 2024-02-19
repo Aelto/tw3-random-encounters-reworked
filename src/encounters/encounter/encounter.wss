@@ -1,0 +1,33 @@
+statemachine class RER_Encounter {
+  private var cell: RER_Cell;
+  private var data: RER_EncounterData;
+  private var creature_manager: RER_CreatureManager;
+
+  public function init(cell: RER_Cell, options: RER_EncounterSpawnOptions) {
+    this.cell = cell;
+
+    // this is more of a default value, it is regenerated on-demand
+    this.data = RER_randomEncounterData(RER_cellToSeed(cell));
+
+    this.GotoState('Loading');
+  }
+
+  public function tick(delta: float): bool {
+    return true;
+  }
+}
+
+// represents spawn options that come from outside the encounter, they influence
+// what/if the encounter spawns.
+struct RER_EncounterSpawnOptions {
+  // represents the hours from 00h to 24h
+  var daytime: float;
+}
+
+function RER_roundedDaytime(daytime: float, seed: int): int {
+  // a maximum of 6 slices (at 6h per slice) and a minimum of 2 slices (at 12h
+  // per slice)
+  var slices: int = RandNoiseF(seed, 5.0f, 2.0) as int;
+
+  return (daytime as int) / slices;
+}

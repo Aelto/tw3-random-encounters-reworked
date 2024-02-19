@@ -1,0 +1,34 @@
+
+class RER_BestiaryTroll extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureTROLL;
+    this.species = SpeciesTypes_OGROIDS;
+    this.menu_name = 'Trolls';
+    this.localized_name = 'option_rer_troll';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_cave_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\trollcave.journal"
+    )
+  );    // grey
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 3;
+
+  
+
+  this.ecosystem_delay_multiplier = 5;
+this.possible_compositions.PushBack(CreatureNEKKER);
+    this.possible_compositions.PushBack(CreatureTROLL);
+    this.possible_compositions.PushBack(CreatureSKELTROLL);
+  }
+
+
+}

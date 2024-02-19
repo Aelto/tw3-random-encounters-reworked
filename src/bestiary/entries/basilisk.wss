@@ -1,0 +1,40 @@
+
+class RER_BestiaryBasilisk extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureBASILISK;
+    this.species = SpeciesTypes_DRACONIDS;
+    this.menu_name = 'Basilisks';
+    this.localized_name = 'option_rer_basilisk';
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\basilisk_lvl1.w2ent",,,
+        "gameplay\journal\bestiary\bestiarybasilisk.journal"
+        )
+      );
+    
+    if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "dlc\bob\data\characters\npc_entities\monsters\basilisk_white.w2ent",,,
+          "dlc\bob\journal\bestiary\mq7018basilisk.journal"
+        )
+      );
+  }
+
+      this.template_list.difficulty_factor.minimum_count_easy = 1;
+      this.template_list.difficulty_factor.maximum_count_easy = 1;
+      this.template_list.difficulty_factor.minimum_count_medium = 1;
+      this.template_list.difficulty_factor.maximum_count_medium = 1;
+      this.template_list.difficulty_factor.minimum_count_hard = 1;
+      this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  this.ecosystem_delay_multiplier = 14;
+this.possible_compositions.PushBack(CreatureWYVERN);
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
+    this.possible_compositions.PushBack(CreatureHARPY);
+    this.possible_compositions.PushBack(CreatureSIREN);
+  }
+
+
+}

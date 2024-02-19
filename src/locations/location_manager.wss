@@ -1,0 +1,52 @@
+class RER_LocationManager {
+  private var previous_position: Vector;
+
+  public function getNewEncountersAroundPlayer(): array<RER_Cell> {
+    var position: Vector = thePlayer.GetWorldPosition();
+    var cell_size: int = RER_menuCellSize();
+    var output: array<RER_Cell>;
+
+    return this.getEncountersInSquare(position, cell_size * RER_menuGridSize(), this.previous_position);
+  }
+
+  private function getEncountersInSquare(center: Vector, radius: float, previous_center: Vector): array<RER_Cell> {
+    var output: array<RER_Cell>;
+    var size: int = this.getCellsSize();
+
+    var min_x: float = center.X - radius;
+    var max_x: float = center.X + radius;
+    var min_y: float = center.Y - radius;
+    var max_y: float = center.Y + radius;
+
+    // get the min/max edges of the previous grid to exclude duplicate cells
+    // between this run and the previous run.
+    var min_x_old: float = previous_center.X - radius;
+    var max_x_old: float = previous_center.X + radius;
+    var min_y_old: float = previous_center.Y - radius;
+    var max_y_old: float = previous_center.Y + radius;
+
+    for (var x = min_x; x < max_x; x += size) {
+      for (var y = min_y; y < max_y; y += size) {
+
+        // exclude the cells that were also present in the previous iteration
+        if (x >= min_x_old && x <= max_x_old && y >= min_y_old && y <= max_y_old) {
+          continue;
+        }
+
+        var cell_encounter = this.getEncounterForCoordinates(Vector(x, y));
+
+        output.PushBack(cell_encounter);
+      }
+    }
+
+    return output;
+  }
+
+  /// returns the eventual encounter for the given coordinates. It maps the
+  /// coordinates to the nearerst cell
+  private function getEncounterForCoordinates(position: Vector): RER_Cell {
+    var cell: RER_Cell = RER_vectorToCell(position, this.getCellsSize());
+
+    return cell;
+  }
+}

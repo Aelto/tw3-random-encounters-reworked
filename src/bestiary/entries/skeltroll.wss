@@ -1,0 +1,44 @@
+
+class RER_BestiarySkeltroll extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureSKELTROLL;
+    this.species = SpeciesTypes_OGROIDS;
+    this.menu_name = 'Skellige_Trolls';
+    this.localized_name = 'option_rer_troll';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_cave_lvl3__ice.w2ent",,,
+      "gameplay\journal\bestiary\icetroll.journal"
+    )
+  );  // ice   
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_cave_lvl4__ice.w2ent",,,
+      "gameplay\journal\bestiary\icetroll.journal"
+    )
+  );  // ice
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\troll_ice_lvl13.w2ent",,,
+      "gameplay\journal\bestiary\icetroll.journal"
+    )
+  );    // ice
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 3;
+
+  
+
+  this.ecosystem_delay_multiplier = 5;
+
+  }
+
+
+}

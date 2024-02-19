@@ -1,10 +1,5 @@
 
 /// TODO:
-/// - Do not use a location tracker, instead use PRNG where the X:Y vector form
-///   a seed and that's how the locations of the Static Encounters are found.
-///   It has the advantage of having a tweakable density value, so the density's
-///   values can change at any time and we only have to change how the X:Y values
-///   are mapped to offer more available spawn locations.
 /// - mapping X:Y coordinates into the PRNG. To give control over the density
 ///   and because we want it to be reliable we must create a "grid", so if the
 ///   cells are 25x25 meters wide then an X of 19.5 will be rounded to the
@@ -15,28 +10,37 @@
 /// - a single cell can/should spawn a single static encounter at once, however
 ///   the values that are used to build the seed may vary. The creatures at day
 ///   differ from the ones we see at night for example
+/// - the location tracker DOES NOT spawn the creatures, it spawns the
+///   RER_Encounter at the cell's position then the encounter takes care of
+///   finding a safe spot and spawning when the spot isn't in the camera's view.
+/// - maybe the location tracker shouldn't use the options, and instead it should
+///   have a predefinite amount of encounters (unless density changes) that move
+///   around as the player moves. When the position of the encounters is changed
+///   they refresh their options and check whether or not they should activate,
+///   and what they should spawn.
+/// - todo! #get-player-level-ee
 ///
 ///
 ///
 
 /// Main logic of the mod:
-/// - RER_LocationTracker is a statemachine that checks the player's location at
-///   a fixed interval in order to find & collect suitable locations for the
-///   static encounters.
+/// - RER_LocationManager maps world coordinates to a grid where each cell can
+///   host an encounter. This manager takes care of activating the nearby cells
+///   while deactivating the further ones as the player moves around the world.
 /// - RER_EncounterManager takes care of fetching suitable locations from the
 ///   location tracker and transforms them into persistent (across reloads)
 ///   static spawn points (aka Static Encounters)
 class RER_Master extends SU_BaseBootstrappedMod {
   default tag = 'rer_bootstrapper';
 
-  var location_tracker: RER_LocationTracker;
+  var location_manager: RER_LocationManager;
   var encounter_manager: RER_EncounterManager;
 
   public function start() {
-    this.location_tracker = new RER_LocationTracker in this;
+    this.location_tracker = new RER_LocationManager in this;
     this.location_tracker.init();
 
     this.encounter_manager = new RER_EncounterManager in this;
-    this.location_tracker.init();
+    this.encounter_manager.init();
   }
 }

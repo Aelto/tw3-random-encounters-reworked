@@ -1,0 +1,7 @@
+function RER_menuCellSize(): int {
+  return 25;
+}
+
+function RER_menuGridSize(): int {
+  return 10;
+}

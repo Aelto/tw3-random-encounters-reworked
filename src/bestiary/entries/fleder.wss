@@ -1,0 +1,39 @@
+
+class RER_BestiaryFleder extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureFLEDER;
+    this.species = SpeciesTypes_VAMPIRES;
+    this.menu_name = 'Fleders';
+    this.localized_name = 'option_rer_fleder';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\fleder.w2ent", 1,,
+      "dlc\bob\journal\bestiary\fleder.journal"
+    )
+  );this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\quests\main_quests\quest_files\q704_truth\characters\q704_protofleder.w2ent", 1,,
+      "dlc\bob\journal\bestiary\protofleder.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  
+
+  this.ecosystem_delay_multiplier = 7;
+this.possible_compositions.PushBack(CreatureGHOUL);
+    this.possible_compositions.PushBack(CreatureALGHOUL);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
+  }
+
+
+}

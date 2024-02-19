@@ -1,0 +1,47 @@
+
+class RER_BestiaryGhoul extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureGHOUL;
+    this.species = SpeciesTypes_NECROPHAGES;
+    this.menu_name = 'Ghouls';
+    this.localized_name = 'option_rer_ghoul';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ghoul_lvl1.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryghoul.journal"
+    )
+  );          // normal ghoul   spawns from the ground
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ghoul_lvl2.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryghoul.journal"
+    )
+  );          // red ghoul   spawns from the ground
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "characters\npc_entities\monsters\ghoul_lvl3.w2ent",,,
+      "gameplay\journal\bestiary\bestiaryghoul.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 2;
+    this.template_list.difficulty_factor.maximum_count_easy = 3;
+    this.template_list.difficulty_factor.minimum_count_medium = 3;
+    this.template_list.difficulty_factor.maximum_count_medium = 4;
+    this.template_list.difficulty_factor.minimum_count_hard = 3;
+    this.template_list.difficulty_factor.maximum_count_hard = 5;
+
+  
+
+  NLOG("constant influence, " + influences.kills_them);
+    this.ecosystem_delay_multiplier = 2.5;  this.possible_compositions.PushBack(CreatureALGHOUL);
+    this.possible_compositions.PushBack(CreatureDROWNER);
+    this.possible_compositions.PushBack(CreatureDROWNERDLC);
+    this.possible_compositions.PushBack(CreatureROTFIEND);
+  }
+
+
+}

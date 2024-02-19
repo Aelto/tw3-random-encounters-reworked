@@ -1,0 +1,76 @@
+
+class RER_BestiaryArachas extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureARACHAS;
+    this.species = SpeciesTypes_INSECTOIDS;
+    this.menu_name = 'Arachas';
+    this.localized_name = 'option_rer_arachas';
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\arachas_lvl1.w2ent",,,
+        "gameplay\journal\bestiary\bestiarycrabspider.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\arachas_lvl2__armored.w2ent", 1,,
+        "gameplay\journal\bestiary\armoredarachas.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\arachas_lvl3__poison.w2ent", 1,,
+        "gameplay\journal\bestiary\poisonousarachas.journal"
+      )
+    );
+
+    if (RER_playerUsesEnhancedEditionRedux()) {
+      this.template_list.difficulty_factor.minimum_count_easy = 1;
+      this.template_list.difficulty_factor.maximum_count_easy = 1;
+      this.template_list.difficulty_factor.minimum_count_medium = 1;
+      this.template_list.difficulty_factor.maximum_count_medium = 2;
+      this.template_list.difficulty_factor.minimum_count_hard = 2;
+      this.template_list.difficulty_factor.maximum_count_hard = 2;
+
+      // W3EE redux players also get endregas with arachas, to make it easier
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "characters\npc_entities\monsters\endriaga_lvl1__worker.w2ent",,,
+          "gameplay\journal\bestiary\bestiaryendriag.journal"
+        )
+      ); // small endrega
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "characters\npc_entities\monsters\endriaga_lvl2__tailed.w2ent", 2,,
+          "gameplay\journal\bestiary\endriagatruten.journal"
+        )
+      ); // bigger tailed endrega
+      this.template_list.templates.PushBack(
+        makeEnemyTemplate(
+          "characters\npc_entities\monsters\endriaga_lvl3__spikey.w2ent", 1,,
+          "gameplay\journal\bestiary\endriagaworker.journal"
+        ),
+      ); // big tailless endrega
+    }
+    else {
+      this.template_list.difficulty_factor.minimum_count_easy = 1;
+      this.template_list.difficulty_factor.maximum_count_easy = 2;
+      this.template_list.difficulty_factor.minimum_count_medium = 2;
+      this.template_list.difficulty_factor.maximum_count_medium = 3;
+      this.template_list.difficulty_factor.minimum_count_hard = 3;
+      this.template_list.difficulty_factor.maximum_count_hard = 3;
+    }
+
+  if (RER_playerUsesEnhancedEditionRedux()) {
+      this.ecosystem_delay_multiplier = 15;
+    }
+    else {
+      this.ecosystem_delay_multiplier = 10;
+    }
+
+    this.possible_compositions.PushBack(CreatureENDREGA);
+  }
+
+
+}

@@ -1,0 +1,126 @@
+struct RER_EncounterData {
+  var type: RER_EncounterType;
+  var species: RER_Species;
+}
+
+enum RER_Species {
+  RER_Species_HUMAN        = 0,
+  RER_Species_ENDREGA      = 1,
+  RER_Species_GHOUL        = 2,
+  RER_Species_ALGHOUL      = 3,
+  RER_Species_NEKKER       = 4,
+  RER_Species_DROWNER      = 5,
+  RER_Species_ROTFIEND     = 6,
+  RER_Species_WOLF         = 7,
+  RER_Species_WRAITH       = 8,
+  RER_Species_HARPY        = 9,
+  RER_Species_SPIDER       = 10,
+  RER_Species_CENTIPEDE    = 11,
+  RER_Species_DROWNERDLC   = 12,  
+  RER_Species_BOAR         = 13,  
+  RER_Species_BEAR         = 14,
+  RER_Species_PANTHER      = 15,  
+  RER_Species_SKELETON     = 16,
+  RER_Species_ECHINOPS     = 17,
+  RER_Species_KIKIMORE     = 18,
+  RER_Species_BARGHEST     = 19,
+  RER_Species_SKELWOLF     = 20,
+  RER_Species_SKELBEAR     = 21,
+  RER_Species_WILDHUNT     = 22,
+  RER_Species_BERSERKER    = 23,
+  RER_Species_SIREN        = 24,
+  RER_Species_HAG          = 25,
+
+  // large creatures below
+  // the dracolizard is used in a few places as the first large creature of the
+  // enum. If you change it, you'll have to update it in the other places.
+  RER_Species_ARACHAS      = 26,
+  RER_Species_DRACOLIZARD  = 27,
+  RER_Species_GARGOYLE     = 28,
+  RER_Species_LESHEN       = 29,
+  RER_Species_WEREWOLF     = 30,
+  RER_Species_FIEND        = 31,
+  RER_Species_EKIMMARA     = 32,
+  RER_Species_KATAKAN      = 33,
+  RER_Species_GOLEM        = 34,
+  RER_Species_ELEMENTAL    = 35,
+  RER_Species_NIGHTWRAITH  = 36,
+  RER_Species_NOONWRAITH   = 37,
+  RER_Species_CHORT        = 38,
+  RER_Species_CYCLOP       = 39,
+  RER_Species_TROLL        = 40,
+  RER_Species_FOGLET       = 41,
+  RER_Species_BRUXA        = 42,
+  RER_Species_FLEDER       = 43,
+  RER_Species_GARKAIN      = 44,
+  RER_Species_DETLAFF      = 45,
+  RER_Species_GIANT        = 46,  
+  RER_Species_SHARLEY      = 47,
+  RER_Species_WIGHT        = 48,
+  RER_Species_GRYPHON      = 49,
+  RER_Species_COCKATRICE   = 50,
+  RER_Species_BASILISK     = 51,
+  RER_Species_WYVERN       = 52,
+  RER_Species_FORKTAIL     = 53,
+  RER_Species_SKELTROLL    = 54,
+
+  // It is important to keep the numbers continuous.
+  // (so that i dont have to write 40 lines by hand)
+  RER_Species_MAX          = 55,
+  RER_Species_NONE         = 56,
+}
+
+enum RER_HumanType
+{
+  RER_HumanType_BANDIT       = 0,
+  RER_HumanType_NOVBANDIT    = 1,
+  RER_HumanType_SKELBANDIT   = 2,
+  RER_HumanType_SKELBANDIT2  = 3,
+  RER_HumanType_CANNIBAL     = 4,
+  RER_HumanType_RENEGADE     = 5,
+  RER_HumanType_PIRATE       = 6,
+  RER_HumanType_SKELPIRATE   = 7,
+  RER_HumanType_NILFGAARDIAN = 8,
+  RER_HumanType_WITCHHUNTER  = 9,
+
+  RER_HumanType_MAX          = 10,
+  RER_HumanType_NONE         = 11
+}
+
+enum RER_SpeciesTypes {
+  SpeciesTypes_BEASTS = 0,
+  SpeciesTypes_INSECTOIDS = 1,
+  SpeciesTypes_NECROPHAGES = 2,
+  SpeciesTypes_OGROIDS = 3,
+  SpeciesTypes_SPECTERS = 4,
+  SpeciesTypes_CURSED = 5,
+  SpeciesTypes_DRACONIDS = 6,
+  SpeciesTypes_ELEMENTA = 7,
+  SpeciesTypes_HYBRIDS = 8,
+  SpeciesTypes_RELICTS = 9,
+  SpeciesTypes_VAMPIRES = 10,
+
+  SpeciesTypes_MAX = 11,
+  SpeciesTypes_NONE = 12,
+}
+
+enum RER_EncounterType {
+  RER_EncounterType_Static = 0,
+  RER_EncounterType_Mobile = 1,
+  RER_EncounterType_MAX = 2,
+}
+
+function RER_randomEncounterData(seed: int): RER_EncounterData {
+  return RER_EncounterData(
+    RER_randomEncounterType(seed),
+    RER_randomSpecies(seed),
+  );
+}
+
+function RER_randomSpecies(seed:int): RER_Species {
+  return RandNoiseF(seed, RER_Species_MAX as float) as int;
+}
+
+function RER_randomEncounterType(seed: int): RER_EncounterType {
+  return RandNoiseF(seed, RER_EncounterType_MAX as float) as int;
+}

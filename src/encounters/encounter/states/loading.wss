@@ -1,0 +1,67 @@
+
+state Loading in RER_Encounter {
+  event OnEnterState(previous_state_name: name) {
+    super.OnEnterState(previous_state_name);
+
+    this.Loading_main();
+  }
+
+  entry function Loading_main() {
+    parent.creature_manager = new RER_CreatureManager in parent;
+    parent.creature_manager.init(this.maybeSpawn(options));
+  }
+
+  private latent function maybeSpawn(options: RER_EncounterSpawnOptions): array<CEntity {
+    var output: CEntity;
+
+    // this will be used as the base seed, we then add numbers to this seed to
+    // build "sub-seeds" for various elements of the encounter.
+    var seed: int = RER_cellToSeed(this.cell);
+    var rdt: int = RER_roundedDaytime(options.daytime, seed);
+
+    // each cell has 10% chance to be activated
+    var activation_seed: int = seed + rdt;
+    var is_activated: bool = RandNoiseF(activation_seed as float, 10.0f) <= 1.0f;
+    if (!is_activated) {
+      return output;
+    }
+
+    this.data = RER_randomEncounterData(seed + rdt + 1);
+
+    // transform the cell coordinates into world coordinates, then add some
+    // variation to it so entities aren't spawn exactly at the center of the cell
+    var cell_size: int = RER_menuCellSize();
+    // we use half the cell size since we assume we're at the center of the cell
+    // so half on the left, half on the right.
+    var half_cell_size: int = cell_size * 0.5 as int;
+    var variation: Vector = Vector(
+      RandNoiseF(seed + rdt + 2, cell_size) - half_cell_size,
+      RandNoiseF(seed + rdt + 3, cell_size) - half_cell_size,
+    );
+    var spawn_position: Vector = RER_cellToVector(this.cell, cell_size) + variation;
+
+    output = this.spawnCreatures(
+      this.data.species,
+      spawn_position
+    );
+
+    return output;
+  }
+
+  private latent function spawnCreatures(species: RER_Species, position: Vector): array<CEntity> {
+    var output: array<CEntity>;
+
+    var safe_position: Vector = position;
+    var radius: float = RER_menuCellSize() as float;
+    if RER_getGroundPosition(safe_position, /*personal_space*/, radius) {
+      var bentry_seed: int = RER_vectorToSeed(position);
+      var bestiary_entry: RER_BestiaryEntry = RER_getBestiaryEntry(species, bentry_seed);
+
+      if (bestiary_entry) {
+        output = bestiary_entry.spawn(safe_position);
+      }
+    }
+
+    return output;
+  }
+}

@@ -1,0 +1,35 @@
+
+class RER_BestiaryHumanSkelpirate extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureHUMAN;
+    this.menu_name = 'Humans';
+
+    
+
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_axe1h_hard.w2ent"));
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_axe1h_normal.w2ent"));      
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_axe2h.w2ent", 2));
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_blunt_hard.w2ent"));     
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_blunt_normal.w2ent"));  
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_bow.w2ent", 2));    
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_crossbow.w2ent", 1));    
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_hammer2h.w2ent", 1));
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_swordshield.w2ent"));
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_sword_easy.w2ent"));
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_sword_hard.w2ent"));
+  this.template_list.templates.PushBack(makeEnemyTemplate("living_world\enemy_templates\skellige_pirate_sword_normal.w2ent"));
+
+    this.template_list.difficulty_factor.minimum_count_easy = 3;
+    this.template_list.difficulty_factor.maximum_count_easy = 4;
+    this.template_list.difficulty_factor.minimum_count_medium = 3;
+    this.template_list.difficulty_factor.maximum_count_medium = 5;
+    this.template_list.difficulty_factor.minimum_count_hard = 4;
+    this.template_list.difficulty_factor.maximum_count_hard = 6;
+
+  
+    this.ecosystem_delay_multiplier = 2.5;
+
+}
+
+
+}

@@ -1,0 +1,23 @@
+/// Represents a cell on the map
+struct RER_Cell {
+  var x: int;
+  var y: int;
+}
+
+function RER_vectorToCell(position: Vector, cell_size: int): RER_Cell {
+  return RER_Cell(
+    (position.X / cell_size) as int,
+    (position.Y / cell_size) as int
+  );
+}
+
+function RER_cellToVector(cell: RER_Cell, cell_size: int): Vector {
+  return Vector(
+    cell.x * cell_size,
+    cell.y * cell_size
+  );
+}
+
+function RER_cellToSeed(cell: RER_Cell): int {
+  return cell.x+cell.y;
+}

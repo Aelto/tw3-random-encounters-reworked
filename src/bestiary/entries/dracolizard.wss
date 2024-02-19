@@ -1,0 +1,36 @@
+
+class RER_BestiaryDracolizard extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureDRACOLIZARD;
+    this.species = SpeciesTypes_DRACONIDS;
+    this.menu_name = 'Dracolizards';
+    this.localized_name = 'option_rer_dracolizard';
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\oszluzg_young.w2ent",,,
+        "dlc\bob\journal\bestiary\dracolizard.journal"
+      )
+    );
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "dlc\bob\data\characters\npc_entities\monsters\oszluzg.w2ent",,,
+        "dlc\bob\journal\bestiary\dracolizard.journal"
+      )
+    );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  this.ecosystem_delay_multiplier = 18;
+this.possible_compositions.PushBack(CreatureWYVERN);
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
+  }
+
+
+}

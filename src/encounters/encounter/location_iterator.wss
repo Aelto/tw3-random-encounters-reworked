@@ -3,7 +3,7 @@
 /// 
 /// Mainly used for monsters that follow pre-defined paths composed of
 /// points/locations.
-class RER_LocationManager {
+class RER_LocationIterator {
   private locations: array<Vector>;
   private index: int;
   private size: int;

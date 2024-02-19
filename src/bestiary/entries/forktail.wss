@@ -1,0 +1,44 @@
+
+class RER_BestiaryForktail extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureFORKTAIL;
+    this.species = SpeciesTypes_DRACONIDS;
+    this.menu_name = 'Forktails';
+    this.localized_name = 'option_rer_forktail';
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\forktail_lvl1.w2ent",,,
+        "gameplay\journal\bestiary\bestiaryforktail.journal"
+      )
+    );
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\forktail_lvl2.w2ent",,,
+        "gameplay\journal\bestiary\bestiaryforktail.journal"
+      )
+    );
+
+    this.template_list.templates.PushBack(
+      makeEnemyTemplate(
+        "characters\npc_entities\monsters\forktail_mh.w2ent",,,
+        "gameplay\journal\bestiary\bestiarymonsterhuntmh208.journal"
+      )
+    );
+
+      this.template_list.difficulty_factor.minimum_count_easy = 1;
+      this.template_list.difficulty_factor.maximum_count_easy = 1;
+      this.template_list.difficulty_factor.minimum_count_medium = 1;
+      this.template_list.difficulty_factor.maximum_count_medium = 1;
+      this.template_list.difficulty_factor.minimum_count_hard = 1;
+      this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  this.ecosystem_delay_multiplier = 7.5;
+this.possible_compositions.PushBack(CreatureWYVERN);
+    this.possible_compositions.PushBack(CreatureFORKTAIL);
+    this.possible_compositions.PushBack(CreatureHARPY);
+    this.possible_compositions.PushBack(CreatureSIREN);
+  }
+
+
+}

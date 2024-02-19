@@ -1,0 +1,52 @@
+
+class RER_BestiarySharley extends RER_BestiaryEntry {
+  public function init() {
+    this.type = CreatureSHARLEY;
+    this.species = SpeciesTypes_RELICTS;
+    this.menu_name = 'Shaelmaars';
+    this.localized_name = 'option_rer_shaelmaar';
+
+    
+
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );  // rock boss things
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley_mh.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley_q701.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );
+  this.template_list.templates.PushBack(
+    makeEnemyTemplate(
+      "dlc\bob\data\characters\npc_entities\monsters\sharley_q701_normal_scale.w2ent",,,
+      "dlc\bob\journal\bestiary\ep2sharley.journal"
+    )
+  );
+
+    this.template_list.difficulty_factor.minimum_count_easy = 1;
+    this.template_list.difficulty_factor.maximum_count_easy = 1;
+    this.template_list.difficulty_factor.minimum_count_medium = 1;
+    this.template_list.difficulty_factor.maximum_count_medium = 1;
+    this.template_list.difficulty_factor.minimum_count_hard = 1;
+    this.template_list.difficulty_factor.maximum_count_hard = 1;
+
+  
+
+  this.ecosystem_delay_multiplier = 25;
+this.possible_compositions.PushBack(CreatureKIKIMORE);
+    this.possible_compositions.PushBack(CreatureCENTIPEDE);
+    this.possible_compositions.PushBack(CreatureSPIDER);
+  }
+
+
+}
