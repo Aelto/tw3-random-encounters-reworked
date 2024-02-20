@@ -129,7 +129,7 @@ statemachine class RER_BountyManager extends CEntity {
     // prepare the data we'll need while generating stuff
     
     // get a sorted list of the different POIs in the game
-    point_of_interests_positions = this.master.contract_manager.getClosestDestinationPoints(thePlayer.GetWorldPosition());
+    point_of_interests_positions = RER_getClosestDestinationPoints(thePlayer.GetWorldPosition());
 
     // bounties are composed of 1 main target and multiple side targets.
     // The main target is a large monster, something supposedly hard to kill,

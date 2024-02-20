@@ -5,6 +5,7 @@
  */
 state DialogChoice in RER_ContractManager {
   var camera: SU_StaticCamera;
+  var completed: bool;
 
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -16,10 +17,11 @@ state DialogChoice in RER_ContractManager {
   private var menu_distance_value: float;
 
   entry function DialogChoice_main() {
+    this.completed = false;
     this.startNoticeboardCutscene();
 
-    while (true) {
-      this.DialogChoice_prepareAndDisplayDialogueChoices();
+    while (!this.completed) {
+      this.DialogChoice_prepareAndDisplayDialogChoices();
     }
   }
 
@@ -44,149 +46,81 @@ state DialogChoice in RER_ContractManager {
     theGame.FadeInAsync(0.4);
   }
 
-  private latent function DialogChoice_prepareAndDisplayDialogueChoices() {
-    var noticeboard_identifier: RER_NoticeboardIdentifier;
-    var selected_difficulty: RER_ContractDifficultyLevel;
-    var difficulties: array<RER_ContractDifficultyLevel>;
-    var contract_identifier: RER_ContractIdentifier;
-    var generation_time: RER_GenerationTime;
-    var random_creature_type: CreatureType;
-    var reputation_system_enabled: bool;
-    var required_time_elapsed: float;
-    var choices: array<SSceneChoice>;
-    var creature_type_choices: array<CreatureType>;
-    var rng: RandomNumberGenerator;
-    var bestiary_entry: RER_BestiaryEntry;
-    var can_select_difficulty: bool;
-    var amount_of_options: int;
-    var line: string;
+  private latent function DialogChoice_prepareAndDisplayDialogChoices() {
+    var playtime: int = GameTimeHours(theGame.CalculateTimePlayed());
+    var contracts_count: int = Min(3, playtime / 20) + 1;
+
+    var noticeboard: W3NoticeBoard = parent.getNearbyNoticeboard();
+    var contracts: array<RER_Contract>;
+
     var i: int;
+    for (i = contracts_count; i > 0; i -= 1) {
+      var factory: RER_ContractSeedFactory = RER_ContractSeedFactory(
+        noticeboard.GetWorldPosition(),
+        playtime,
+        i,
+        SUH_getCurrentRegion()
+      );
 
-    generation_time = parent.getGenerationTime(GameTimeHours(theGame.CalculateTimePlayed()));
-    reputation_system_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+      var contract: RER_Contract = new RER_Contract in parent;
+      contract.init(factory);
 
-    can_select_difficulty = parent.canSelectContractDifficulty();
-    
-    if (parent.isItTimeToRegenerateContracts(generation_time)) {
-      if (!parent.hasCompletedContractSinceLastGeneration()) {
-        parent.decreaseReputationFromInactivity();
-      }
-
-      parent.updateStorageGenerationTime(generation_time);
+      contracts.PushBack(contract);
     }
 
-    noticeboard_identifier = parent.getUniqueIdFromNoticeboard(parent.getNearbyNoticeboard());
-    selected_difficulty = parent.selected_difficulty;
-    rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
+    var choices: array<SSceneChoice>;
+    var i: int;
+    for (i = 0; i < contracts.Size(); i += 1) {
+      var contract: RER_Contract = contracts[i];
+      var species_list: array<CreatureType> = contract.speciesList();
+      var line: string = "[" + (i + 1) + "] ";
+      var require_comma: bool = false;
 
-    this.applyReputationLossBuffer();
+      for species: CreatureType in species_list {
+        if (require_comma) {
+          line += ", ";
+        }
+        require_comma = true;
 
-    line = GetLocStringByKey("rer_available_rewards");
-    line = StrReplace(line, "{{rewards_list}}", RER_getLocalizedRewardTypesFromFlag(
-      RER_getAllowedContractRewardsMaskFromRegion()
-      | RER_getRandomAllowedRewardType(parent, noticeboard_identifier)
-    ));
-
-    choices.PushBack(SSceneChoice(
-      upperCaseFirstLetter(line),
-      false,
-      true, // already choosen
-      true, // disabled
-      DialogAction_MONSTERCONTRACT,
-      ''
-    ));
-
-    if (reputation_system_enabled) {
-      line = GetLocStringByKey("rer_current_reputation");
-      line = StrReplace(line, "{{reputation}}", "" + RER_getContractReputationFactValue());
+        line += upperCaseFirstLetter(
+          getCreatureNameFromCreatureType(
+            parent.master.bestiary, species
+          )
+        );
+      }
 
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
         false,
         false, // already choosen
-        false, // disabled
-        DialogAction_MONSTERCONTRACT,
-        'SpendReputation'
-      ));
-    }
-
-    var max_reputation: int = parent.getMaximumDifficultyForReputation(
-      RER_getContractReputationFactValue()
-    );
-
-    for (i = 0; i < 3; i += 1) {
-      if (!can_select_difficulty) {
-        selected_difficulty = RER_ContractDifficultyLevel(
-          rng.nextRange(max_reputation, 0) as int
-        );
-
-        rng = this.getRandomNumberGenerator(noticeboard_identifier, generation_time, selected_difficulty);
-      }
-
-      difficulties.PushBack(selected_difficulty);
-
-      random_creature_type = RER_getSeededRandomCreatureType(parent.master, selected_difficulty, rng);
-      creature_type_choices.PushBack(random_creature_type);
-
-      contract_identifier = parent.getUniqueIdFromContract(
-        noticeboard_identifier,
-        selected_difficulty,
-        random_creature_type,
-        generation_time,
-        i
-      );
-
-      line = GetLocStringByKey("rer_contract_dialog_choice");
-      line = StrReplace(line, "{{difficulty}}", "(" + selected_difficulty.value + ")");
-      line = StrReplace(line, "{{species}}", upperCaseFirstLetter(getCreatureNameFromCreatureType(parent.master.bestiary, random_creature_type)));
-
-      NLOG("Adding contract choice, uuid = " + contract_identifier.identifier);
-
-      choices.PushBack(SSceneChoice(
-        upperCaseFirstLetter(line),
-        false,
-        parent.isContractInStorageCompletedContracts(contract_identifier), // already choosen
         false,
         DialogAction_MONSTERCONTRACT,
-        'StartContractDifficultyEasy'
+        'StartContract'
       ));
     }
 
     choices.PushBack(SSceneChoice(
       GetLocStringByKey("rer_cancel"),
       false,
-      false,
+      true,
       false,
       DialogAction_EXIT,
       'Cancel'
     ));
 
-    this.displayDialogChoices(choices, creature_type_choices, noticeboard_identifier, generation_time, difficulties, rng);
+    this.DialogChoice_displayDialogChoices(choices, contracts);
   }
 
-  latent function displayDialogChoices(
+  private latent function DialogChoice_displayDialogChoices(
     choices: array<SSceneChoice>,
-    creature_type_choices: array<CreatureType>,
-    noticeboard_identifier: RER_NoticeboardIdentifier,
-    generation_time: RER_GenerationTime,
-    difficulties: array<RER_ContractDifficultyLevel>,
-    rng: RandomNumberGenerator
+    contracts: array<RER_Contract>
   ) {
-    var creature_type: CreatureType;
-    var response: SSceneChoice;
-    var i: int;
-
     // while on gamepad, the interact input is directly sent in the dialog choice
     // it is safer to wait a bit before capturing the input.
     Sleep(0.25);
 
-    response = SU_setDialogChoicesAndWaitForResponse(choices);
+    var response: SSceneChoice = SU_setDialogChoicesAndWaitForResponse(choices);
     SU_closeDialogChoiceInterface();
-
-    if (response.previouslyChoosen) {
-      return;
-    }
 
     if (!IsNameValid(response.playGoChunk) || response.playGoChunk == 'Cancel') {
       this.camera.Stop();
@@ -195,164 +129,28 @@ state DialogChoice in RER_ContractManager {
       return;
     }
 
-    if (response.playGoChunk == 'SpendReputation') {
-      if (RER_getContractReputationFactValue() < 3) {
-        NDEBUG(GetLocStringByKey('rer_reputation_spent_message_not_enough'));
-      }
-      else {
-        if (RER_getContractReputationFactValue() > 2) {
-          parent.master.loot_manager.rollAndGiveItemsTo(
-            thePlayer.GetInventory(),
-            1,
-          );
-        }
-
-        RER_addContractReputationFactValue(-3);
-
-        NDEBUG(StrReplace(
-          GetLocStringByKey('rer_reputation_spent_message'),
-          "{{number}}",
-          3
-        ));
-      }
-
-      Sleep(0.5);
-
-      return;
-    }
-
     var reputation_system_enabled: bool = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
     var offset: int = 1 + (reputation_system_enabled as int);
 
-    for (i = 0; i < 3; i += 1) {
-      // get the choices starting at 4th from last until 2nd to last, as the last
-      // is the exit choice
-      // EDIT: it works because the number of contracts is hardcoded at 3 at
-      // the moment.
-      // EDIT 2: this code is overly complex, why use .Size() and minus 4
-      // instead of simply adding + 2 to `i` since we know there is always
-      // 2 info message before it starts listing the contracts.
-      if (StrContains(response.description, choices[i + offset].description)) {
-        creature_type = creature_type_choices[i];
+    var i: int;
+    for (i = 0; i < choices.Size(); i += 1) {
+      if (StrContains(response.description, choices[i].description)) {
+        var selected_contract: RER_Contract = contracts[i];
 
-        break;
+        if (selected_contract) {
+          this.completed = true;
+          theSound.SoundEvent("gui_ingame_quest_active");
+          this.camera.Stop();
+
+          NHUD(GetLocStringByKey("rer_contract_started"));
+
+          parent.startContract(selected_contract);          
+          return;
+        }
       }
     }
 
-    if (i > 3) {
-      NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
-    }
-
-    this.acceptContract(creature_type, noticeboard_identifier, generation_time, difficulties[i], rng, i);
-  }
-
-  function getRandomNumberGenerator(
-    noticeboard_identifier: RER_NoticeboardIdentifier,
-    generation_time: RER_GenerationTime,
-    difficulty: RER_ContractDifficultyLevel
-  ): RandomNumberGenerator {
-    var rng: RandomNumberGenerator;
-    var menu_seed: float;
-
-    menu_seed = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsGenerationSeed')
-    );
-    rng = new RandomNumberGenerator in this;
-
-    return rng
-      .setSeed((menu_seed + RER_identifierToInt(noticeboard_identifier.identifier) + generation_time.time + difficulty.value) as int)
-      .useSeed(true);
-  }
-
-  latent function acceptContract(
-    creature_type: CreatureType,
-    noticeboard_identifier: RER_NoticeboardIdentifier,
-    generation_time: RER_GenerationTime,
-    difficulty: RER_ContractDifficultyLevel,
-    rng: RandomNumberGenerator,
-    index: int
-  ) {
-    var contract_data: RER_ContractGenerationData;
-    var creature_t: RER_ContractRepresentation;
-    var bestiary_entry: RER_BestiaryEntry;
-    var nearby_noticeboard: W3NoticeBoard;
-
-    nearby_noticeboard = parent.getNearbyNoticeboard();
-
-    contract_data = RER_ContractGenerationData();
-    contract_data.creature_type = creature_type;
-    contract_data.difficulty_level = difficulty;
-    
-    contract_data.noticeboard_identifier = noticeboard_identifier;
-    contract_data.identifier = parent.getUniqueIdFromContract(
-      noticeboard_identifier,
-      contract_data.difficulty_level,
-      creature_type,
-      generation_time,
-      index
-    );
-
-    rng.setSeed(RER_identifierToInt(contract_data.identifier.identifier));
-    rng.next();
-    contract_data.rng_seed = (rng.previous_number as int) + rng.seed;
-
-    NLOG("acceptContract(), contract_data.identifier.identifier = " + contract_data.identifier.identifier + " contract_data.rng_seed = " + contract_data.rng_seed);
-    NLOG("acceptContract(), difficulty = " + contract_data.difficulty_level.value);
-
-    contract_data.region_name = SUH_getCurrentRegion();
-    contract_data.starting_point = nearby_noticeboard.GetWorldPosition();
-
-    parent.master.storages.contract.active_contract = parent.generateContract(contract_data);
-    parent.master.storages.contract.has_ongoing_contract = true;
-    parent.master.storages.contract.save();
-
-    theSound.SoundEvent("gui_ingame_quest_active");
-    this.camera.Stop();
-
-    Sleep(1.5);
-    NHUD(
-      StrReplace(
-        GetLocStringByKey('rer_contract_started'),
-        "{{species}}",
-        getCreatureNameFromCreatureType(parent.master.bestiary, creature_type)
-      )
-    );
-
-    parent.GotoState('Processing');
-  }
-
-  private latent function applyReputationLossBuffer() {
-    var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
-
-    var current_value: int = StringToInt(
-      config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer')
-    );
-
-    if (current_value <= 0) {
-      return;
-    }
-
-    config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer', 0);
-    theGame.SaveUserSettings();
-
-    var reputation_loss_amount: int = StringToInt(
-      config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossAmount')
-    );
-
-    if (reputation_loss_amount > 0) {
-      RER_addContractReputationFactValue(current_value * reputation_loss_amount * -1);
-
-      NHUD(
-        StrReplace(
-          GetLocStringByKey('rer_reputation_loss_message'),
-          "{{number}}",
-          current_value
-        )
-      );
-    }
-
-    Sleep(2);
+    NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
   }
 }
