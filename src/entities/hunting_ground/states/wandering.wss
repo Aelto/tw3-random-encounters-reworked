@@ -43,10 +43,12 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];
 
-        distance_from_player = VecDistance(
-          current_entity.GetWorldPosition(),
-          thePlayer.GetWorldPosition()
-        );
+        if (!current_entity.IsInCombat()) {
+          distance_from_player = VecDistance(
+            current_entity.GetWorldPosition(),
+            thePlayer.GetWorldPosition()
+          );
+        }
 
         // when in bounty mode, creatures are not subject to the kill threshold distance
         if (!parent.is_bounty && distance_from_player > parent.entity_settings.kill_threshold_distance) {
