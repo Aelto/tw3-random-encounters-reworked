@@ -80,12 +80,12 @@ class RER_BestiaryHuman extends RER_BestiaryEntry {
       .influence(influences.kills_them) //CreatureGIANT
       .influence(influences.kills_them) //CreatureSHARLEY
       .influence(influences.kills_them) //CreatureWIGHT
-      .influence(influences.high_indirect_influence) //CreatureGRYPHON
-      .influence(influences.high_indirect_influence) //CreatureCOCKATRICE
-      .influence(influences.high_indirect_influence) //CreatureBASILISK
-      .influence(influences.high_indirect_influence) //CreatureWYVERN
-      .influence(influences.high_indirect_influence) //CreatureFORKTAIL
-      .influence(influences.high_indirect_influence) //CreatureSKELTROLL
+      .influence(influences.low_indirect_influence) //CreatureGRYPHON
+      .influence(influences.low_indirect_influence) //CreatureCOCKATRICE
+      .influence(influences.low_indirect_influence) //CreatureBASILISK
+      .influence(influences.low_indirect_influence) //CreatureWYVERN
+      .influence(influences.low_indirect_influence) //CreatureFORKTAIL
+      .influence(influences.low_indirect_influence) //CreatureSKELTROLL
       .build();
   }
 
