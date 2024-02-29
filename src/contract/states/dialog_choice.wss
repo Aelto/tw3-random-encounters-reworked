@@ -48,7 +48,8 @@ state DialogChoice in RER_ContractManager {
 
   private latent function DialogChoice_prepareAndDisplayDialogChoices() {
     var playtime: int = GameTimeHours(theGame.CalculateTimePlayed());
-    var contracts_count: int = Min(3, playtime / 20) + 1;
+    var level: int = RER_getPlayerLevel();
+    var contracts_count: int = Min(7, level / 10) + 1;
 
     var noticeboard: W3NoticeBoard = parent.getNearbyNoticeboard();
     var contracts: array<RER_Contract>;
@@ -143,7 +144,7 @@ state DialogChoice in RER_ContractManager {
           theSound.SoundEvent("gui_ingame_quest_active");
           this.camera.Stop();
 
-          NHUD(GetLocStringByKey("rer_contract_started"));
+          this.displayBookForContract(selected_contract, parent.master.bestiary);
 
           parent.startContract(selected_contract);          
           return;
@@ -152,5 +153,40 @@ state DialogChoice in RER_ContractManager {
     }
 
     NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
+  }
+
+  private function displayBookForContract(contract: RER_Contract, bestiary: RER_Bestiary) {
+    var species_list: array<CreatureType>;
+
+    var message: string = "Main targets:<br/>";
+    species_list = contract.speciesList();
+    for species: CreatureType in species_list {
+      message += " - " + getCreatureNameFromCreatureType(
+        bestiary,
+        species
+      ) + "<br/>";
+    }
+
+    message += "<br/><br/>";
+    message += "Optional targets:";
+    message += "<br/>";
+    message += "  Pre-fight:";
+    species_list = contract.secondaryPreCombatSpeciesList();
+    for species: CreatureType in species_list {
+      message += "   - " + getCreatureNameFromCreatureType(
+        bestiary,
+        species
+      ) + "<br/>";
+    }
+
+    message += "<br/><br/>";
+    message += "  Post-fight:";
+    species_list = contract.secondaryPostCombatSpeciesList();
+    for species: CreatureType in species_list {
+      message += "   - " + getCreatureNameFromCreatureType(
+        bestiary,
+        species
+      ) + "<br/>";
+    }
   }
 }
