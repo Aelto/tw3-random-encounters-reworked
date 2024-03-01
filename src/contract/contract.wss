@@ -2,8 +2,10 @@
 // CSO stands for ContractSeedOffset
 #define const ContractSeedOffset_species = 10;
 #define const ContractSeedOffset_destination = 20;
-#define const ContractSeedOffset_speciesSecondaryPre = 30;
-#define const ContractSeedOffset_speciesSecondaryPost = 40;
+#define const ContractSeedOffset_speciesSecondary = 30;
+#define const ContractSeedOffset_opportunistCheck = 40;
+#define const ContractSeedOffset_opportunistIndex = 50;
+#define const ContractSeedOffset_targetPosition = 60;
 
 /// A wrapping class around a contract seed with methods that are able to
 /// generate the final data off the seed.
@@ -25,57 +27,75 @@ class RER_Contract {
     var output: array<CreatureType>;
     var seed: int = this.seed + ContractSeedOffset_species!;
     var cmaxf: float = (CreatureMAX as int) as float;
+    var cminf: float = (CreatureARACHAS as int) as float;
 
-    output.PushBack(RandNoiseF(seed, cmaxf) as int);
+    output.PushBack(RandNoiseF(seed, cmaxf, cminf) as int);
 
 
     // the further into the playthrough the more chances of getting additional
-    // enemies. But the chances of getting all of them at once remain small
-    if (this.factory.player_level >= 10 && RandNoiseF(seed + 1, 1.0) >= 0.15) {
+    // enemies. But the chances of getting all of them at once remains small
+    if (this.factory.player_level >= 10 && RandNoiseF(seed + 1, 1.0) <= 0.15) {
       output.PushBack(
-        RandNoiseF(seed - 1, cmaxf) as int
+        RandNoiseF(seed - 1, cmaxf, cminf) as int
       );
     }
 
-    if (this.factory.player_level >= 25 && RandNoiseF(seed + 2, 1.0) >= 0.10) {
+    if (this.factory.player_level >= 25 && RandNoiseF(seed + 2, 1.0) <= 0.10) {
       output.PushBack(
-        RandNoiseF(seed - 2, cmaxf) as int
+        RandNoiseF(seed - 2, cmaxf, cminf) as int
       );
     }
 
-    if (this.factory.player_level >= 40 && RandNoiseF(seed + 3, 1.0) >= 0.05) {
+    if (this.factory.player_level >= 40 && RandNoiseF(seed + 3, 1.0) <= 0.05) {
       output.PushBack(
-        RandNoiseF(seed - 3, cmaxf) as int
+        RandNoiseF(seed - 3, cmaxf, cminf) as int
       );
     }
 
     return output;
   }
 
-  public function secondaryPreCombatSpeciesList(): array<CreatureType> {
-    return this.randomSecondarySpeciesList(
-      CreatureARACHAS as int,
-      ContractSeedOffset_speciesSecondaryPre!
-    );
-  }
-
-  public function secondaryPostCombatSpeciesList(): array<CreatureType> {
-    return this.randomSecondarySpeciesList(
-      CreatureARACHAS as int,
-      ContractSeedOffset_speciesSecondaryPost!
-    );
-  }
-
-  private function randomSecondarySpeciesList(max: int, offset: int): array<CreatureType> {
+  public function secondarySpeciesList(): array<CreatureType> {
     var output: array<CreatureType>;
-    var seed: int = this.seed + offset;
-    var cmaxf: float = max as float;
+    var seed: int = this.seed + ContractSeedOffset_speciesSecondary!;
+    var cmaxf: float = (CreatureARACHAS as int) as float;
 
     output.PushBack(RandNoiseF(seed, cmaxf) as int);
 
-    if (this.factory.player_level >= 25 && RandNoiseF(seed + 1, 1.0) >= 0.10) {
+    // every 5 player levels increases the chance for one more secondary species
+    var i: int;
+    for (i = 0; i * 5 < this.factory.player_level; i += 1) {
+      if (RandNoiseF(seed + i, 1.0) >= 0.10) {
+        output.PushBack(
+          RandNoiseF(seed - i, cmaxf) as int
+        );
+      }
+    }
+
+    return output;
+  }
+
+  /// This list of species is unique to the board, so it won't use the seed
+  /// directory but the position of the noticeboard itself.
+  public function opportunisticSpeciesList(): array<CreatureType> {
+    var seed: int = (factory.origin.X as int) + (factory.origin.Y as int);
+
+    var output: array<CreatureType>;
+    var cmaxf: float = (CreatureMAX as int) as float;
+    var cminf: float = (CreatureARACHAS as int) as float;
+
+
+    // the further into the playthrough the more chances of getting additional
+    // enemies. But the chances of getting all of them at once remain small
+    if (this.factory.player_level >= 5 && RandNoiseF(seed + 1, 1.0) >= 0.15) {
       output.PushBack(
-        RandNoiseF(seed - 1, cmaxf) as int
+        RandNoiseF(seed - 1, cmaxf, cminf) as int
+      );
+    }
+
+    if (this.factory.player_level >= 25 && RandNoiseF(seed + 2, 1.0) >= 0.15) {
+      output.PushBack(
+        RandNoiseF(seed - 2, cmaxf, cminf) as int
       );
     }
 
@@ -83,16 +103,40 @@ class RER_Contract {
   }
 
   public function destination(): Vector {
-    var destinations: array<Vector> = RER_getClosestDestinationPoints(
-      this.factory.origin
+    // if you change this, please verify it isn't used in tight loops as it
+    // could have a negative effect on performances.
+    return this.factory.origin;
+  }
+
+  public function destinationRadius(): float {
+    // if you change this, please verify it isn't used in tight loops as it
+    // could have a negative effect on performances.
+    return 300;
+  }
+
+  public function isTargetOpportunist(index: int): bool {
+    var seed: int = this.seed + ContractSeedOffset_opportunistCheck! + index;
+
+    return RandNoiseF(seed, 1.0) >= 0.1;
+  }
+
+  public function getPrimaryTargetPosition(
+    primary_targets_index: int,
+    opportunist_targets_index: int
+  ): Vector {
+    var seed: int = this.seed
+      + ContractSeedOffset_targetPosition!
+      + primary_targets_index
+      + opportunist_targets_index;
+
+    var radius: float = this.destinationRadius();
+    var min_radius: float = MaxF(50.0, radius * 0.25);
+
+    return VecRingRandStatic(
+      seed,
+      min_radius,
+      radius - 30 // to make sure monsters aren't spawned outside
     );
-
-    var seed: int = this.seed + ContractSeedOffset_destination!;
-
-    // NOTE: we use all of the POIs here not just the close ones
-    var index: int = RandNoiseF(seed, destinations.Size() as float) as int;
-
-    return destinations[index];
   }
 }
 

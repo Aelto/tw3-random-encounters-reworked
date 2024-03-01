@@ -34,21 +34,21 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
       // in case it moves
       parent.bait_entity.Teleport(parent.GetWorldPosition());
 
-      SUH_keepCreaturesOnPoint(
-        parent.GetWorldPosition(),
-        25,
-        parent.entities,
-      );
+      if (thePlayer.IsInCombat()) {
+        SUH_keepCreaturesOnPoint(
+          parent.GetWorldPosition(),
+          25,
+          parent.entities,
+        );
+      }
 
       for (i = parent.entities.Size() - 1; i >= 0; i -= 1) {
         current_entity = parent.entities[i];
 
-        if (!current_entity.IsInCombat()) {
-          distance_from_player = VecDistance(
-            current_entity.GetWorldPosition(),
-            thePlayer.GetWorldPosition()
-          );
-        }
+        distance_from_player = VecDistance(
+          current_entity.GetWorldPosition(),
+          thePlayer.GetWorldPosition()
+        );
 
         // when in bounty mode, creatures are not subject to the kill threshold distance
         if (!parent.is_bounty && distance_from_player > parent.entity_settings.kill_threshold_distance) {

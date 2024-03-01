@@ -46,6 +46,10 @@ statemachine class RER_ContractManager {
     return this.master.storages.contract.has_ongoing_contract;
   }
 
+  public function isPlayerInContract(): bool {
+    return this.GetCurrentStateName() == 'Processing';
+  }
+
   public function endOngoingContract() {
     this.master.storages.contract.has_ongoing_contract = false;
     this.master.storages.contract.save();
@@ -78,7 +82,8 @@ statemachine class RER_ContractManager {
       var strength: float = bestiary_entry.ecosystem_delay_multiplier;
       var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
 
-      var crowns_amount_settings: float =  master.settings.crowns_amounts_by_encounter[EncounterType_CONTRACT]
+      var crowns_amount_settings: float = 
+        (master.settings.crowns_amounts_by_encounter[EncounterType_CONTRACT] / 100.0)
         * bestiary_entry.crowns_percentage
         * RandRangeF(1.2, 0.8);
       

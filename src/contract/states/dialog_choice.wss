@@ -168,10 +168,9 @@ state DialogChoice in RER_ContractManager {
     }
 
     message += "<br/><br/>";
-    message += "Optional targets:";
+    message += "Secondary targets:";
     message += "<br/>";
-    message += "  Pre-fight:";
-    species_list = contract.secondaryPreCombatSpeciesList();
+    species_list = contract.secondarySpeciesList();
     for species: CreatureType in species_list {
       message += "   - " + getCreatureNameFromCreatureType(
         bestiary,
@@ -179,14 +178,19 @@ state DialogChoice in RER_ContractManager {
       ) + "<br/>";
     }
 
-    message += "<br/><br/>";
-    message += "  Post-fight:";
-    species_list = contract.secondaryPostCombatSpeciesList();
-    for species: CreatureType in species_list {
-      message += "   - " + getCreatureNameFromCreatureType(
-        bestiary,
-        species
-      ) + "<br/>";
+    species_list = contract.opportunisticSpeciesList();
+    if (species_list.Size() > 0) {
+      message += "<br/><br/>";
+      message += "Opportunistic species from the region:";
+      message += "<br/>";
+      for species: CreatureType in species_list {
+        message += "   - " + getCreatureNameFromCreatureType(
+          bestiary,
+          species
+        ) + "<br/>";
+      }
     }
+
+    RER_openPopup(GetLocStringByKey('rer_contract'), message);
   }
 }
