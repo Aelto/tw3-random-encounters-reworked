@@ -11,9 +11,10 @@ enum EHumanType
   HT_SKELPIRATE   = 7,
   HT_NILFGAARDIAN = 8,
   HT_WITCHHUNTER  = 9,
+  HT_OFIERI       = 10,
 
-  HT_MAX          = 10,
-  HT_NONE         = 11
+  HT_MAX          = 11,
+  HT_NONE         = 12
 }
 
 enum CreatureType {

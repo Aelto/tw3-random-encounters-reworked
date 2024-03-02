@@ -229,11 +229,11 @@ class CModRExtra {
       spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 2);
       spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
       spawn_roller.setHumanVariantCounter(HT_WITCHHUNTER, 1);
+      spawn_roller.setHumanVariantCounter(HT_OFIERI, 1);
     }
     else if (current_area == "bob") {
       spawn_roller.setHumanVariantCounter(HT_NOVBANDIT, 1);
       spawn_roller.setHumanVariantCounter(HT_BANDIT, 4);
-      spawn_roller.setHumanVariantCounter(HT_NILFGAARDIAN, 1);
       spawn_roller.setHumanVariantCounter(HT_CANNIBAL, 1);
       spawn_roller.setHumanVariantCounter(HT_RENEGADE, 2);
     }

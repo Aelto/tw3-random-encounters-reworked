@@ -214,6 +214,7 @@ class RER_Bestiary {
     this.human_entries[HT_SKELBANDIT] = new RER_BestiaryHumanSkelbandit in this;
     this.human_entries[HT_SKELPIRATE] = new RER_BestiaryHumanSkelpirate in this;
     this.human_entries[HT_WITCHHUNTER] = new RER_BestiaryHumanWhunter in this;
+    this.human_entries[HT_OFIERI] = new RER_BestiaryHumanOfieri in this;
 
     for (i = 0; i < CreatureMAX; i += 1) {
       this.entries[i].init();
