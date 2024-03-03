@@ -350,7 +350,7 @@ statemachine class RER_ContractManager {
       * RandRangeF(1.2, 0.8);
 
     var final_crowns_amount: float = contract_difficulty
-      / strength
+      * (strength * 0.1)
       * crowns_amount_settings
       * enemy_count;
 
