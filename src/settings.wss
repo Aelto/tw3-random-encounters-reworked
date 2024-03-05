@@ -125,39 +125,7 @@ class RE_Settings {
       .GetVarValue('RERmain', 'RERgeneralIntensity')
     ) * 0.01;
 
-    if (scale < 0) {
-      // invert the %, a 1 / 3 becomes 0.33, and 1 / 0.33 becomes a 3
-      out = 1 / out;
-
-      // also invert the scale back to a positive value
-      scale *= -1;
-    }
-
-    if (out < 1.0) {
-      // at this point a 0.5 (for example) becomes a 2
-      out = 1.0 / out;
-
-      // we apply the scale to it, with scale=3, a 2 becomes a 6
-      out = out * scale;
-
-      // finally we divide 1 with the scaled value to get back a number in the
-      // [0;1] range
-      return 1.0 / out;
-    }
-    else if (out > 1.0) {
-      // extract the extra % above 1, so a 3 becomes a 2
-      out = 1 - out;
-
-      // apply the scale to the extra. That way with scale=0.10, a out=3 wouldn't
-      // become a number lower than 1
-      out = out * scale;
-
-      return 1 + scale;
-    }
-
-    // in a normal case where the slider is at 100%, return an unscaled value of
-    // 1
-    return out;
+    return PowF(out, scale);
   }
 
   public function withGeneralIntensity(v: float, scale: float): float {
