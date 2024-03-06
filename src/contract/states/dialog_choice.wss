@@ -47,18 +47,17 @@ state DialogChoice in RER_ContractManager {
   }
 
   private latent function DialogChoice_prepareAndDisplayDialogChoices() {
-    var playtime: int = GameTimeHours(theGame.CalculateTimePlayed());
-    var level: int = RER_getPlayerLevel();
-    var contracts_count: int = Min(7, level / 10) + 1;
+    var contracts_count: int = parent.getMaximumContractCount();
 
     var noticeboard: W3NoticeBoard = parent.getNearbyNoticeboard();
+    var difficulty: int = parent.getSelectedDifficulty();
     var contracts: array<RER_Contract>;
 
     var i: int;
     for (i = contracts_count; i > 0; i -= 1) {
       var factory: RER_ContractSeedFactory = RER_ContractSeedFactory(
         noticeboard.GetWorldPosition(),
-        playtime,
+        difficulty,
         i,
         SUH_getCurrentRegion()
       );

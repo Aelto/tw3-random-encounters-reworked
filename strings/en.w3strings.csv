@@ -458,7 +458,7 @@
 2115018390|        |rer_contract_started|{{species}} contract has started. Search the marker on your map.
 2115018391|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018392|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
-2115018393|        |rer_current_reputation|Spend reputation (current: {{reputation}})
+2115018393|        |rer_select_diffculty|Select difficulty (current: {{difficulty}})
 2115018394|        |rer_distance_nearby|UNUSED
 2115018395|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
 2115018396|        |option_rer_medium_far_contracts_number|UNUSED
