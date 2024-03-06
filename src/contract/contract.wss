@@ -80,10 +80,10 @@ class RER_Contract {
     // increases.
     //
     // NOTE: that in the current implementation, it is possible to get more than
-    // 2 targets, every 10 level adds a 10% chance to get one more species, but
+    // 2 targets, every 25 level adds a 10% chance to get one more species, but
     // these are independant odds.
     var i: int;
-    for (i = 0; i * 10 < this.factory.level; i += 1) {
+    for (i = 0; i * 25 < this.factory.level; i += 1) {
       if (RandNoiseF(seed + i, 1.0) >= 0.10) {
         output.PushBack(
           RandNoiseF(seed - i, cmaxf) as int
