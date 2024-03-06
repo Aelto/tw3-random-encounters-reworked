@@ -28,18 +28,18 @@ function RER_removeContractReputationFact() {
   FactsRemove(RER_CONTRACT_REPUTATION_FACT_ID!);
 }
 
-#define const RER_CONTRACT_PREFERED_REPUTATION_FACT_ID = "rer_contract_prefered_reputation_fact_id";
+#define const RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID = "rer_contract_preferred_difficulty_fact_id";
 
-function RER_getContractPreferedReputationFactValue(): int {
-  return FactsQueryLatestValue(RER_CONTRACT_PREFERED_REPUTATION_FACT_ID!);
+function RER_getContractPreferredDifficultyFactValue(): int {
+  return FactsQueryLatestValue(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!);
 }
 
-function RER_setContractPreferedReputationFactValue(value: int) {
-  FactsSet(RER_CONTRACT_PREFERED_REPUTATION_FACT_ID!, Max(value, 0));
+function RER_setContractPreferredDifficultyFactValue(value: int) {
+  FactsSet(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!, Max(value, 0));
 }
 
-function RER_removeContractPreferedReputationFact() {
-  FactsRemove(RER_CONTRACT_PREFERED_REPUTATION_FACT_ID!);
+function RER_removeContractPreferredDifficultyFact() {
+  FactsRemove(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!);
 }
 
 

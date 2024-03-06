@@ -29,7 +29,7 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
 		data.BlurBackground = false;
 
     data.minValue = 0;
-		data.maxValue = RER_getContractReputationFactValue();
+		data.maxValue = contract_manager.getMaximumDifficulty();
     data.currentValue = contract_manager.getSelectedDifficulty();
 
     theGame.RequestMenu('PopupMenu', data);

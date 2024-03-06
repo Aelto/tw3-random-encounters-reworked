@@ -70,11 +70,28 @@ state DialogChoice in RER_ContractManager {
     }
 
     var choices: array<SSceneChoice>;
+
+    choices.PushBack(SSceneChoice(
+      StrReplace(
+        GetLocStringByKey("rer_select_difficulty"),
+        "{{difficulty}}",
+        difficulty
+      ),
+      false,
+      true,
+      false,
+      DialogAction_EXIT,
+      'SelectDifficulty'
+    ));
+
     var i: int;
     for (i = 0; i < contracts.Size(); i += 1) {
       var contract: RER_Contract = contracts[i];
       var species_list: array<CreatureType> = contract.speciesList();
-      var line: string = "[" + (i + 1) + "] ";
+      // the addition of the index here helps us differentiate the contracts
+      // after the player has selected them, so we can do a strcmp and be sure
+      // it's the one we want.
+      var line: string = "[" + contract.difficulty() + "-" + (i + 1) + "] ";
       var require_comma: bool = false;
 
       for species: CreatureType in species_list {
@@ -130,8 +147,16 @@ state DialogChoice in RER_ContractManager {
       return;
     }
 
+    if (response.playGoChunk == 'SelectDifficulty') {
+      var haggle: RER_ContractModuleDialog = new RER_ContractModuleDialog in this;
+      haggle.openDifficultySelectorWindow(parent);
+
+      return;
+    }
+
     var reputation_system_enabled: bool = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
     var offset: int = 1 + (reputation_system_enabled as int);
 
     var i: int;

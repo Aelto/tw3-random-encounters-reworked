@@ -13,6 +13,9 @@ statemachine class RER_ContractManager {
     this.GotoState('DialogChoice');
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+  // utility functions:
+
   public function getNearbyNoticeboard(): W3NoticeBoard {
     var entities: array<CGameplayEntity>;
     var board: W3NoticeBoard;
@@ -34,6 +37,13 @@ statemachine class RER_ContractManager {
 
     return board;
   }
+
+  public function getMaximumContractCount(): int {
+    return 2 + Min(this.getMaximumDifficulty() / 30, 8);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // contract workflow:
 
   public function startContract(contract: RER_Contract) {
     this.master.storages.contract.has_ongoing_contract = true;
@@ -65,7 +75,7 @@ statemachine class RER_ContractManager {
     this.master.storages.contract.save();
   }
 
-    public function completeOngoingContract() {
+  public function completeOngoingContract() {
     if (!this.hasOngoingContract()) {
       return;
     }
@@ -100,8 +110,49 @@ statemachine class RER_ContractManager {
 
     this.endOngoingContract();
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // difficulty logic:
+
+  public function getMaximumDifficulty(): int {
+    var enabled: bool = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+
+    if (enabled) {
+      return RER_getContractReputationFactValue() * 1;
+    }
+    
+    return RER_getPlayerLevel() * 2;
+  }
+
+  public function setPreferredDifficuty(difficulty: int) {
+    // setting the value to either the max or the min resets it
+    if (difficulty <= 0 || difficulty == this.getMaximumDifficulty()) {
+      RER_removeContractPreferedReputationFact();
+    }
+    else {
+      RER_setContractPreferedReputationFactValue(difficulty);
+    }
+  }
+
+  private function getPreferredDifficulty(): int {
+    var prefered: int = RER_getContractPreferedReputationFactValue();
+    var difficulty: int = this.getMaximumDifficulty();
+
+    if (prefered <= 0 || prefered > difficulty) {
+      return difficulty;
+    }
+
+    return prefered;
+  }
+
+  public function getSelectedDifficulty(): int {
+    var difficulty: int = this.getPreferredDifficulty();
+
+    return difficulty;
+  }
+
+  public function contractHagglePreferredDifficultySelected(difficulty: int) {
+    this.setPreferedDifficulty(difficulty);
+  }
 }
-
-
-
-
