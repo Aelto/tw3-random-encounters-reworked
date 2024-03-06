@@ -35,7 +35,10 @@ state Waiting in CRandomEncounters {
             // the speed at which encounters are spawned scales with the mod power
             * parent.getModPower();
 
-      parent.ticks_before_spawn -= ticks;
+      if (!parent.contract_manager.isPlayerInContract()) {
+        parent.ticks_before_spawn -= ticks;
+      }
+
       time_before_updating_frequency_multiplier -= ticks;
 
       // we refresh the ecosystem effects on frequencies every 30 seconds or so
