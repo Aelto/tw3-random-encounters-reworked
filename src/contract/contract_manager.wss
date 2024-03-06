@@ -106,6 +106,7 @@ statemachine class RER_ContractManager {
     thePlayer.AddMoney(final_crowns_amount as int);
     thePlayer.DisplayItemRewardNotification('Crowns', final_crowns_amount as int);
     theSound.SoundEvent("gui_inventory_buy");
+    RER_addContractReputationFactValue(species_list.Size());
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
     this.endOngoingContract();
