@@ -455,7 +455,7 @@
 2115018387|        |rer_kill_target|Kill the {{type}}
 2115018388|        |rer_contract_finished|The contract is over
 2115018389|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
-2115018390|        |rer_contract_started|The contract has started. Search the marker on your map.
+2115018390|        |rer_contract_started|{{species}} contract has started. Search the marker on your map.
 2115018391|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018392|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
 2115018393|        |rer_current_reputation|Spend reputation (current: {{reputation}})

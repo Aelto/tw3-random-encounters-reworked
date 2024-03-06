@@ -2,7 +2,6 @@
 state Processing in RER_ContractManager {
   var oneliner: RER_Oneliner;
   var is_spawned: bool;
-  var encounters_to_kill: array<RandomEncountersReworkedHuntingGroundEntity>;
 
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -16,12 +15,12 @@ state Processing in RER_ContractManager {
     this.verifyContractRegion();
     this.waitForPlayerToReachDestination();
     this.waitForPlayerToFinishContract();
-    parent.completeOngoingContract();
+    parent.completeCurrentContract();
     parent.GotoState('Waiting');
   }
 
   function verifyContractRegion() {
-    if (!parent.hasOngoingContract()) {
+    if (!parent.master.storages.contract.has_ongoing_contract) {
       return;
     }
 
@@ -38,7 +37,7 @@ state Processing in RER_ContractManager {
     );
 
     theSound.SoundEvent("gui_global_denied");
-    parent.endOngoingContract();
+    parent.master.storages.contract.has_ongoing_contract = false;
   }
 
   latent function waitForPlayerToReachDestination() {
@@ -46,16 +45,13 @@ state Processing in RER_ContractManager {
     var has_added_pins: bool;
     var map_pin: SU_MapPin;
 
-    if (!parent.hasOngoingContract()) {
+    if (!parent.master.storages.contract.has_ongoing_contract) {
       parent.GotoState('Waiting');
       
       return;
     }
 
-    var contract: RER_Contract = (new RER_Contract in parent)
-      .init(parent.getOngoingContractFactory());
-    
-    var destination: Vector = contract.destination();
+    active_contract = parent.master.storages.contract.active_contract;
 
     SU_removeCustomPinByTag("RER_contract_target");
 
@@ -63,12 +59,12 @@ state Processing in RER_ContractManager {
     map_pin.tag = "RER_contract_target";
     map_pin.pin_tag = 'RER_contract_target';
     map_pin.is_fast_travel = true;
-    map_pin.position = destination;
+    map_pin.position = active_contract.destination_point;
     map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
     map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
     map_pin.type = "MonsterQuest";
     map_pin.filtered_type = "MonsterQuest";
-    map_pin.radius = 100;
+    map_pin.radius = active_contract.destination_radius;
     map_pin.region = SUH_getCurrentRegion();
     map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
       .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
@@ -81,30 +77,27 @@ state Processing in RER_ContractManager {
     if (theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersContract')) {
       this.oneliner = RER_oneliner(
         " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
-          destination
+          active_contract.destination_point
       );
     }
 
 
     while (true) {
-      if (!parent.hasOngoingContract()) {
+      if (!parent.master.storages.contract.has_ongoing_contract) {
         parent.GotoState('Waiting');
         
         return;
       }
 
-      var factory: RER_ContractSeedFactory = parent.getOngoingContractFactory();
-      var contract: RER_Contract = (new RER_Contract in parent)
-        .init(factory);
-      
+      active_contract = parent.master.storages.contract.active_contract;
 
       // this part is pretty much useless since the storage is unique per region
       // meaning you get only the contract for the current region.
-      if (!SUH_isPlayerInRegion(factory.region_name)) {
+      if (!SUH_isPlayerInRegion(active_contract.region_name)) {
         parent.GotoState('Waiting');
       }
 
-      if (VecDistanceSquared2D(contract.destination(), thePlayer.GetWorldPosition()) <= 100 * 100) {
+      if (VecDistanceSquared2D(active_contract.destination_point, thePlayer.GetWorldPosition()) <= active_contract.destination_radius * active_contract.destination_radius) {
         break;
       }
 
@@ -120,28 +113,51 @@ state Processing in RER_ContractManager {
   }
 
   latent function waitForPlayerToFinishContract() {
-    if (!parent.hasOngoingContract()) {
+    var active_contract: RER_ContractRepresentation;
+    if (!parent.master.storages.contract.has_ongoing_contract) {
       return;
     }
 
-    var contract: RER_Contract = (new RER_Contract in parent)
-      .init(parent.getOngoingContractFactory());
+    active_contract = parent.master.storages.contract.active_contract;
 
-    this.spawnMultipleSpecies(contract);
+
+    // if (active_contract.event_type == ContractEventType_NEST) {
+    //  this.createNestEncounterAndWaitForEnd(active_contract);
+    // }
+    // else if (active_contract.event_type == ContractEventType_HORDE) {
+    //   this.sendHordeRequestAndWaitForEnd(active_contract);
+    // }
+    // else if (active_contract.event_type == ContractEventType_BOSS) {
+    this.createHuntingGroundAndWaitForEnd(active_contract);
+    // }
   }
 
-  latent function spawnMultipleSpecies(contract: RER_Contract) {
-    var species_list: array<CreatureType> = contract.speciesList();
-
-    var destination: Vector = contract.destination();
-    var rng: RandomNumberGenerator = (new RandomNumberGenerator in this).setSeed(contract.seed)
+  latent function createHuntingGroundAndWaitForEnd(active_contract: RER_ContractRepresentation) {
+    var rer_entity: RandomEncountersReworkedHuntingGroundEntity;
+    var damage_modifier: SU_BaseDamageModifier;
+    var rer_entity_template: CEntityTemplate;
+    var composition_entities: array<CEntity>;
+    var composition_entry: RER_BestiaryEntry;
+    var bestiary_entry: RER_BestiaryEntry;
+    var composition_type: CreatureType;
+    var rng: RandomNumberGenerator;
+    var entities: array<CEntity>;
+    var buff_multiplier: float;
+    var impact_points: float;
+    var position: Vector;
+    var enemy_count: int;
+    var npc: CNewNPC;
+    var sign: int;
+    var i: int;
+    
+    bestiary_entry = parent.master.bestiary.getEntry(parent.master, active_contract.creature_type);
+    rng = (new RandomNumberGenerator in this).setSeed(active_contract.rng_seed)
       .useSeed(true);
 
-    var i: int;
     for (i = 0; i < 15; i += 1) {
       rng.next();
-      var position: Vector = destination
-        + VecRingRandStatic(rng.previous_number as int, 5, 100 * 0.5 + 5);
+      position = active_contract.destination_point
+        + VecRingRandStatic(rng.previous_number as int, 5, active_contract.destination_radius * 0.5 + 5);
 
       // try to see if the position is valid. If it returns true then it means
       // it found a valid position.
@@ -160,33 +176,42 @@ state Processing in RER_ContractManager {
       getGroundPosition(position, 1, 20);
     }
 
-    for species: CreatureType in species_list {
-      var impact: float = this.addEncounterToKill(
-        species,
-        position
-      );
+    impact_points = parent.getImpactPointsForDifficulty(active_contract.difficulty_level);
+    impact_points = rng.nextRange(
+      impact_points + 2,
+      impact_points - 2
+    );
 
-      thePlayer.DisplayHudMessage(
-        StrReplace(
-          GetLocStringByKeyExt("rer_kill_target"),
-          "{{type}}",
-          getCreatureNameFromCreatureType(parent.master.bestiary, species)
-        )
-      );
+    // enemy_count temporarily holds the amount of bonus enemies
+    enemy_count = 0;  
 
-      var seconds_to_wait: float = impact * 10;
-      this.waitDelayOrUntilAllKilled(SUH_now(), seconds_to_wait);
+    NLOG("impact points = " + impact_points);
+
+    if (theGame.GetInGameConfigWrapper().GetVarValue('RERcontracts', 'RERallowIncreasedEnemyCount')) {
+      NLOG("RERallowIncreasedEnemyCount = true");
+
+      // caps at 25, which is enough for a shaelmaar
+      enemy_count += MinF(impact_points * 0.25, 25) as int;
+      impact_points *= 0.75;
+
+      // then we take again 5% of the impact points for the enemy count but this
+      // time with no cap at all.
+      enemy_count += (impact_points * 0.05) as int;
+      impact_points *= 0.95;
+
+      enemy_count = ((enemy_count as float) / bestiary_entry.ecosystem_delay_multiplier) as int;
+
+      NLOG("RERallowIncreasedEnemyCount = true, new enemy_count = " + enemy_count + " new impact points = " + impact_points);
     }
-  }
 
-  latent function addEncounterToKill(species: CreatureType, position: Vector): float {
-    var bestiary_entry: RER_BestiaryEntry = parent.master.bestiary
-      .getEntry(parent.master, species);
-
-    var entities: array<CEntity> = bestiary_entry.spawn(
+    entities = bestiary_entry.spawn(
       parent.master,
       position,
-      , //count
+      bestiary_entry.template_list.difficulty_factor.maximum_count_medium
+        + Min(
+          enemy_count,
+          bestiary_entry.template_list.difficulty_factor.maximum_count_medium
+        ), //count
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
@@ -196,66 +221,291 @@ state Processing in RER_ContractManager {
       10000
     );
 
-    var rer_entity_template: CEntityTemplate = LoadResourceAsync(
+    enemy_count = entities.Size();
+    // here we make sure to use the medium count rather than the `enemy_count`
+    // since it would include the bonus entities from the impact points and
+    // the cost of these entities were already substracted from the impact_points
+    // variable earlier.
+    impact_points -= bestiary_entry.ecosystem_delay_multiplier
+                   * bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
+
+    if (impact_points > 0) {
+      buff_multiplier = 1.01;
+      sign = -1;
+    }
+    else {
+      buff_multiplier = 0.99;
+      sign = 1;
+    }
+
+    impact_points = RoundF(impact_points);
+    if (impact_points != 0) {
+      damage_modifier = new SU_BaseDamageModifier in parent;
+      damage_modifier.damage_received_modifier = 1;
+      damage_modifier.damage_dealt_modifier = 1;
+
+      while (impact_points != 0) {
+        // the higher the amount of enemies, the higher the chances of them
+        // getting a damage boost. Smaller enemies often deal less damages,
+        // so it is perfectly safe to give them more damage boosts than large
+        // monsters who already inflict big hits.
+        if (rng.next() < 0.2 + (enemy_count * 0.1)) {
+          damage_modifier.damage_dealt_modifier *= PowF(buff_multiplier, 1);
+        }
+        else {
+          // so here we add 7.5% more damage received
+          damage_modifier.damage_received_modifier *= PowF(2 - buff_multiplier, 7.5);
+        }
+
+        NLOG("impact_points = " + impact_points + " damage_received_modifier = " + damage_modifier.damage_received_modifier + ", damage_dealt_modifier = " + damage_modifier.damage_dealt_modifier);
+
+        impact_points = RoundF(impact_points + sign);
+      }
+
+      // set a minimum of 5% damage received modifier, for higher level contracts
+      // it can easily reach 0% due to float precision.
+      damage_modifier.damage_received_modifier = MaxF(0.05, damage_modifier.damage_received_modifier);
+
+      // don't tweak the buffs for small creatures because they're already pretty
+      // weak by default.
+      if (parent.master.bestiary.isCreatureLarge(active_contract.creature_type)) {
+        // to better balance the damage modifiers on large group of enemies, the
+        // more enemies there is the lower the buffs are. It's like we spread
+        // the buffs over the enemies basically.
+        damage_modifier.damage_received_modifier = PowF(
+          damage_modifier.damage_received_modifier,
+          PowF(
+            0.95, // a 5% weaker buff per enemy
+            enemy_count
+          )
+        );
+
+        damage_modifier.damage_dealt_modifier = PowF(
+          damage_modifier.damage_dealt_modifier,
+          PowF(
+            0.95, // a 5% weaker buff per enemy
+            enemy_count
+          )
+        );
+      }
+
+      NLOG("damage_received_modifier = " + damage_modifier.damage_received_modifier + ", damage_dealt_modifier = " + damage_modifier.damage_dealt_modifier);
+
+      for (i = 0; i < entities.Size(); i += 1) {
+        npc = entities[i] as CNewNPC;
+
+        npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
+      }
+    }
+
+
+    rer_entity_template = LoadResourceAsync(
       "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
       true
     ) as CEntityTemplate;
 
-    var rer_entity: RandomEncountersReworkedHuntingGroundEntity = theGame
-      .CreateEntity(
-        rer_entity_template,
-        position,
-        thePlayer.GetWorldRotation()
-      ) as RandomEncountersReworkedHuntingGroundEntity;
-
+    rer_entity = theGame.CreateEntity(rer_entity_template, position, thePlayer.GetWorldRotation()) as RandomEncountersReworkedHuntingGroundEntity;
     rer_entity.manual_destruction = true;
     rer_entity.startEncounter(parent.master, entities, bestiary_entry);
 
-    this.encounters_to_kill.PushBack(rer_entity);
+		thePlayer.DisplayHudMessage(
+      StrReplace(
+        GetLocStringByKeyExt("rer_kill_target"),
+        "{{type}}",
+        getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+      )
+    );
 
-    return bestiary_entry.ecosystem_delay_multiplier;
+    var i: int;
+    var already_decreased_reputation: bool = false;
+    while (true) {
+      i += 1;
+
+      if (!thePlayer.IsAlive() && !already_decreased_reputation) {
+        this.increaseReputationLossBuffer();
+        already_decreased_reputation = true;
+      }
+
+      if (i > 60) {
+        i = 0;
+
+        if (rer_entity.GetCurrentStateName() == 'Ending') {
+          break;
+        }
+      }
+
+      SleepOneFrame();
+    }
+
+    rer_entity.clean();
   }
 
-  latent function waitDelayOrUntilAllKilled(last_spawn_timestamp: float, seconds_to_wait: float) {
-    while (!SUH_hasElapsed(last_spawn_timestamp, seconds_to_wait)) {
-      Sleep(5);
+  latent function createNestEncounterAndWaitForEnd(active_contract: RER_ContractRepresentation) {
+    var current_template: CEntityTemplate;
+    var nests: array<RER_MonsterNest>;
+    var are_all_nests_destroyed: bool;
+    var rng: RandomNumberGenerator;
+    var nest: RER_MonsterNest;
+    var position: Vector;
+    var path: string;
+    var i: int;
+    var k: int;
 
-      // it wouldn't be fair to tick the clock while the player has not reached
-      // the target yet.
-      if (!areAllAliveEncountersFighting()) {
-        last_spawn_timestamp = SUH_now();
+    rng = (new RandomNumberGenerator in this).setSeed(active_contract.rng_seed)
+      .useSeed(true);
+
+    path = "dlc\modtemplates\randomencounterreworkeddlc\data\rer_monster_nest.w2ent";
+
+    if (!RER_isCreatureTypeAllowedForNest(active_contract.creature_type)) {
+      // the monster doesn't fit a nest, in that case we spawn a boss fight
+      // instead.
+      this.createHuntingGroundAndWaitForEnd(active_contract);
+
+      return;
+    }
+
+    // amount of nests:
+    i = RoundF(rng.nextRange(1 + active_contract.difficulty_level.value / 20, 1));
+
+    while (i > 0) {
+      i -= 1;
+
+      for (k = 0; k < 15; k += 1) {
+        rng.next();
+        position = active_contract.destination_point
+          + VecRingRandStatic(rng.previous_number as int, 5, active_contract.destination_radius);
+
+        FixZAxis(position);
+
+        // try to see if the position is valid. If it returns true then it means
+        // it found a valid position.
+        if (getGroundPosition(position, 2, 10)) {
+          k = -1;
+
+          break;
+        }
       }
 
-      if (this.areAllEncountersKilled()) {
-        Sleep(15);
-        return;
+      // since i is set to -1 when a position is found, this means no position was
+      // found.    
+      // if (k >= 0) {
+      //   // spawn the monster on the player directly as a last resort.
+      //   position = thePlayer.GetWorldPosition();
+      //   getGroundPosition(position, 1, 20);
+      // }
+
+      current_template = LoadResourceAsync(path, true) as CEntityTemplate;
+      nest = theGame.CreateEntity(
+        current_template,
+        position,
+        thePlayer.GetWorldRotation(),,,,
+        PM_DontPersist
+      ) as RER_MonsterNest;
+
+      nest.bestiary_entry = parent.master.bestiary.entries[active_contract.creature_type];
+      nest.forced_bestiary_entry = true;
+      nest.startEncounter(parent.master);
+
+      nests.PushBack(nest);
+    }
+
+    if (nests.Size() <= 1) {
+      thePlayer.DisplayHudMessage(
+        StrReplace(
+          GetLocStringByKeyExt("rer_find_nest"),
+          "{{type}}",
+          getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+        )
+      );
+    }
+    else {
+      thePlayer.DisplayHudMessage(
+        StrReplace(
+          GetLocStringByKeyExt("rer_find_nests"),
+          "{{type}}",
+          getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+        )
+      );
+    }
+
+    do {
+      are_all_nests_destroyed = true;
+
+      for (i = 0; i < nests.Size(); i += 1) {
+        are_all_nests_destroyed = are_all_nests_destroyed && nests[i].HasTag('WasDestroyed');
       }
+
+      Sleep(1);
+    } while (!are_all_nests_destroyed);
+  }
+
+  latent function sendHordeRequestAndWaitForEnd(active_contract: RER_ContractRepresentation) {
+    var request: RER_HordeRequest;
+    var bestiary_entry: RER_BestiaryEntry;
+    var rng: RandomNumberGenerator;
+    var enemy_count: int;
+
+    bestiary_entry = parent.master.bestiary.getEntry(parent.master, active_contract.creature_type);
+    rng = (new RandomNumberGenerator in this).setSeed(active_contract.rng_seed)
+      .useSeed(true);
+
+    enemy_count = bestiary_entry.template_list.difficulty_factor.maximum_count_medium;
+
+    if (enemy_count < 3) {
+      // the amount of enemies would be too low for it to be a good horde, in
+      // that case we spawn a bossfight instead
+      this.createHuntingGroundAndWaitForEnd(active_contract);
+
+      return;
+    }
+
+    request = new RER_HordeRequest in parent;
+    request.init();
+    request.setCreatureCounter(
+      active_contract.creature_type,
+      enemy_count
+    );
+    request.spawning_flags = RER_flag(RER_BESF_NO_ECOSYSTEM_EFFECT, true)
+                           | RER_flag(RER_BESF_NO_PERSIST, true)
+                           | RER_flag(RER_BESF_NO_BESTIARY_FEATURE, true);
+
+    parent.master.horde_manager.sendRequest(request);
+
+    // the statemachine may not enter the processing state right away,
+    // in this case we wait for it to leave the waiting state.
+    while (parent.master.horde_manager.GetCurrentStateName() == 'Waiting') {
+      Sleep(1);
+    }
+
+    thePlayer.DisplayHudMessage(
+      StrReplace(
+        GetLocStringByKeyExt("rer_survive_horde"),
+        "{{type}}",
+        getCreatureNameFromCreatureType(parent.master.bestiary, active_contract.creature_type)
+      )
+    );
+
+    while (parent.master.horde_manager.GetCurrentStateName() == 'Processing') {
+      Sleep(1);
     }
   }
 
-  function areAllEncountersKilled(): bool {
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in this.encounters_to_kill {
-      if (encounter.GetCurrentStateName() != 'Ending') {
-        return false;
-      }
-    }
+  private function increaseReputationLossBuffer() {
+    var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    return true;
-  }
+    var current_value: int = StringToInt(
+      config.GetVarValue('RERcontracts', 'RERcontractsDeathReputationLossBuffer')
+    );
 
-  function areAllAliveEncountersFighting(): bool {
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in this.encounters_to_kill {
-      if (encounter.GetCurrentStateName() == 'Wandering') {
-        return false;
-      }
-    }
+    // the reputation loss is capped at 2 deaths
+    if (current_value < 2) {
+      config.SetVarValue(
+        'RERcontracts',
+        'RERcontractsDeathReputationLossBuffer',
+        current_value + 1
+      );
 
-    return true;
-  }
-
-  latent function cleanupEncounters() {
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in this.encounters_to_kill {
-      encounter.clean();
+      theGame.SaveUserSettings();
     }
   }
 }

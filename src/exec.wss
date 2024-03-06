@@ -96,7 +96,7 @@ exec function rercompletecontract() {
     return;
   }
 
-  // rer_entity.contract_manager.completeCurrentContract();
+  rer_entity.contract_manager.completeCurrentContract();
 }
 
 exec function rerclearcontractstorage() {
