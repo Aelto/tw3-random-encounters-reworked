@@ -28,6 +28,22 @@ function RER_removeContractReputationFact() {
   FactsRemove(RER_CONTRACT_REPUTATION_FACT_ID!);
 }
 
+#define const RER_CONTRACT_PREFERED_REPUTATION_FACT_ID = "rer_contract_prefered_reputation_fact_id";
+
+function RER_getContractPreferedReputationFactValue(): int {
+  return FactsQueryLatestValue(RER_CONTRACT_PREFERED_REPUTATION_FACT_ID!);
+}
+
+function RER_setContractPreferedReputationFactValue(value: int) {
+  FactsSet(RER_CONTRACT_PREFERED_REPUTATION_FACT_ID!, Max(value, 0));
+}
+
+function RER_removeContractPreferedReputationFact() {
+  FactsRemove(RER_CONTRACT_PREFERED_REPUTATION_FACT_ID!);
+}
+
+
+
 #define const RER_IGNORESLOWBOOT_FACT_ID = "rer_ignoreslowboot_fact_id";
 
 function RER_createIgnoreSlowBootFact() {

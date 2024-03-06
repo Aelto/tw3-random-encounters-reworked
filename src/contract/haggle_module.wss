@@ -11,17 +11,15 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
     theGame.SetIsDialogOrCutscenePlaying(false);
     theGame.GetGuiManager().RequestMouseCursor(false);
 
-    this.contract_manager.contractHaggleDifficultySelected(RER_ContractDifficultyLevel(value as int));
+    this.contract_manager.contractHagglePreferedReputationSelected(
+      RER_ContractDifficultyLevel(value as int)
+    );
   }
 
-  function openDifficultySelectorWindow(contract_manager: RER_ContractManager, noticeboard: RER_NoticeboardIdentifier) {
-    var noticeboard_reputation: int;
-    var data: BettingSliderData;
-
+  function openDifficultySelectorWindow(contract_manager: RER_ContractManager) {
     this.contract_manager = contract_manager;
 
-    noticeboard_reputation = RER_getContractReputationFactValue();
-
+    var data: BettingSliderData;
     data = new BettingSliderData in this;
     data.ScreenPosX = 0.62;
     data.ScreenPosY = 0.65;
@@ -31,8 +29,8 @@ class RER_ContractModuleDialog extends CR4HudModuleDialog {
 		data.BlurBackground = false;
 
     data.minValue = 0;
-		data.maxValue = contract_manager.getMaximumDifficultyForReputation(noticeboard_reputation);
-    data.currentValue = RoundF(data.maxValue / 2);
+		data.maxValue = RER_getContractReputationFactValue();
+    data.currentValue = contract_manager.getSelectedDifficulty();
 
     theGame.RequestMenu('PopupMenu', data);
   }

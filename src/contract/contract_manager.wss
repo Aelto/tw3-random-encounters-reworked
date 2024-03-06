@@ -33,12 +33,6 @@ statemachine class RER_ContractManager {
     this.GotoState('DifficultySelection');
   }
 
-  public function contractHaggleDifficultySelected(difficulty: RER_ContractDifficultyLevel) {
-    this.selected_difficulty = difficulty;
-
-    this.GotoState('DialogChoice');
-  }
-
   public function getGenerationTime(time: int): RER_GenerationTime {
     var required_time_elapsed: float;
 
@@ -463,8 +457,43 @@ statemachine class RER_ContractManager {
     return board;
   }
 
+  ///@DEPRECATED
   public function canSelectContractDifficulty(): bool {
     return theGame.GetInGameConfigWrapper()
       .GetVarValue('RERcontracts', 'RERallowSelectDifficulty');
+  }
+
+  public function setPreferedResetPreferedReputationputation(reputation: int) {
+    // setting the value to either the max or the min resets it
+    if (reputation <= 0 || reputation == RER_getContractReputationFactValue()) {
+      RER_removeContractPreferedReputationFact();
+    }
+    else {
+      RER_setContractPreferedReputationFactValue(reputation);
+    }
+  }
+
+  public function getPreferedReputation(): int {
+    var prefered: int = RER_getContractPreferedReputationFactValue();
+    var reputation: int = RER_getContractReputationFactValue();
+
+    if (prefered <= 0 || prefered > reputation) {
+      return reputation;
+    }
+
+    return prefered;
+  }
+
+  public function getSelectedDifficulty(): RER_ContractDifficultyLevel {
+    var reputation: int = this.getPreferedReputation();
+
+    return RER_ContractDifficultyLevel(
+      getMaximumDifficultyForReputation(reputation)
+    );
+  }
+
+  public function contractHagglePreferedReputationSelected(reputation: int) {
+    this.setPreferedReputation(reputation);
+    this.GotoState('DialogChoice');
   }
 }
