@@ -5,6 +5,9 @@ state Processing in RER_ContractManager {
 
   var debug_oneliner: SU_OnelinerScreen;
 
+  var primary_target_encounters: array<RandomEncountersReworkedHuntingGroundEntity>;
+
+
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
 
@@ -23,8 +26,7 @@ state Processing in RER_ContractManager {
     );
 
     this.verifyContractRegion();
-    this.createContractRegionMapPin(contract);
-    this.waitForPlayerToLeaveSettlement();
+    this.createContractRegionMapPins(contract);
 
     var finished: bool = this.waitForPlayerToFinishContract(contract);
     this.cleanupEncounters();
@@ -58,245 +60,120 @@ state Processing in RER_ContractManager {
     parent.endOngoingContract();
   }
 
-  function createContractRegionMapPin(contract: RER_Contract) {
+  function createContractRegionMapPins(contract: RER_Contract) {
     SU_removeCustomPinByTag("RER_contract_target");
 
-    var map_pin: SU_MapPin = new SU_MapPin in parent;
-    map_pin.tag = "RER_contract_target";
-    map_pin.pin_tag = 'RER_contract_target';
-    map_pin.is_fast_travel = true;
-    map_pin.position = contract.destination();
-    map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
-    map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
-    map_pin.type = "MonsterQuest";
-    map_pin.filtered_type = "MonsterQuest";
-    map_pin.radius = contract.destinationRadius();
-    map_pin.region = SUH_getCurrentRegion();
-    map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
+    var destinations: array<Vector> = contract.destinations();
 
-    SUMP_addCustomPin(map_pin);
+    for destination: Vector in destinations {
+      var map_pin: SU_MapPin = new SU_MapPin in parent;
+      map_pin.tag = "RER_contract_target";
+      map_pin.pin_tag = 'RER_contract_target';
+      map_pin.is_fast_travel = true;
+      map_pin.position = destination;
+      map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
+      map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
+      map_pin.type = "MonsterQuest";
+      map_pin.filtered_type = "MonsterQuest";
+      map_pin.radius = contract.destinationRadius();
+      map_pin.region = SUH_getCurrentRegion();
+      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+        .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
 
+      SUMP_addCustomPin(map_pin);
+    }
+    
     SU_updateMinimapPins();
     theSound.SoundEvent("gui_hubmap_mark_pin");
   }
 
-  latent function waitForPlayerToLeaveSettlement() {
-    while (parent.master.rExtra.isPlayerInSettlement()) {
-      Sleep(5);
 
-      this.debug_oneliner.setText("RER CONTRACT = in settlement");
-      this.debug_oneliner.update();
-    }
-  }
-
-
-  var primary_target_encounters: array<RandomEncountersReworkedHuntingGroundEntity>;
-  var secondary_target_encounters: array<RandomEncountersReworkedHuntingGroundEntity>;
   latent function waitForPlayerToFinishContract(contract: RER_Contract): bool {
-    var ticks_invalid_area: int = 0;
-    
     var primary_targets: array<CreatureType> = contract.speciesList();
-    var secondary_targets: array<CreatureType> = contract.secondarySpeciesList();
-    var opportunistic_targets: array<CreatureType> = contract.opportunisticSpeciesList();
-
-    var primary_targets_index: int = 0;
-    var opportunist_targets_index: int = 0;
-    var secondary_targets_index: int = 0;
-
-    var primary_target_position: Vector = contract.getPrimaryTargetPosition(
-      primary_targets_index,
-      opportunist_targets_index
-    );
-
-    var primary_credit: float = 50;
-    var secondary_credit: float = 50;
-
-
-    while (ticks_invalid_area < 3) {
-      if (!this.isPlayerInValidContractArea(contract)) {
-        ticks_invalid_area += 1;
-
-        if (ticks_invalid_area == 1) {
-          NHUD("You are leaving the valid contract area, going forward will end it");
-        }
-
-        Sleep(5);
-        continue;
-      }
-
-      ticks_invalid_area = 0;
-
-      primary_credit += 10;
-      secondary_credit += 10;
-
-      var killed_encounters: int = this.processEndedPrimaryEncounters();
-      primary_credit += 100 * killed_encounters;
-      secondary_credit += 100 * killed_encounters;
-
-      var killed_encounters: int = this.processEndedSecondaryEncounters();
-      primary_credit += 30 * killed_encounters;
-      secondary_credit += 30 * killed_encounters;
-
-      this.debug_oneliner.setText(
-        "primary_credit = "
-        + primary_credit
-        + " | secondary_credit = "
-        + secondary_credit
-        + " | primary_targets_index = "
-        + primary_targets_index
-        + " | secondary_targets_index = "
-        + secondary_targets_index
-        + " | distance_to_target = "
-        + VecDistanceSquared2D(thePlayer.GetWorldPosition(), primary_target_position)
-      );
-      this.debug_oneliner.update();
-
+    var killed_encounters_count: int = 0;
+  
+    while (true) {
+      killed_encounters_count += this.processEndedPrimaryEncounters();
+  
       if (!isPlayerBusy()) {
-        if (VecDistanceSquared2D(thePlayer.GetWorldPosition(), primary_target_position) <= primary_credit * primary_credit) {
-          if (primary_credit >= 300 && this.primary_target_encounters.Size() <= 0) { // 5 minutes
-            this.spawnPrimaryTarget(
-              contract,
-              primary_targets,
-              opportunistic_targets,
-              // out params
-              primary_targets_index,
-              opportunist_targets_index
-            );
-
-            primary_credit -= 300;
-
-            // recalculate a new position for the next target
-            var primary_target_position: Vector = contract.getPrimaryTargetPosition(
-              primary_targets_index,
-              opportunist_targets_index
-            );
-          }
-        }
-
-        if (secondary_credit >= 100) { // 1m40s
-          secondary_targets_index = this.spawnSecondaryTarget(
-            contract,
-            secondary_targets,
-            secondary_targets_index
+        var locations: array<Vector> = contract.destinations();
+        var location_index: int = 0;
+        for (location_index = 0; i location_index < locations.Size(); location_index += 1) {
+          var location: Vector = locations[location_index];
+          var is_in_area: bool = this.isPlayerInArea(
+            thePlayer.GetWorldPosition(),
+            location,
+            contract
           );
 
-          secondary_credit -= 100;
+          if (is_in_area) {
+            if (location_index < primary_targets.Size()) {
+              this.spawnPrimaryTarget(
+                spawnPrimaryTarget,
+                primary_targets[location_index],
+                location_index
+              );
+            }
+          }
         }
       }
 
       Sleep(10);
     }
 
-    return primary_targets_index >= primary_targets.Size();
+    return killed_encounters_count >= primary_targets.Size();
   }
 
-  function isPlayerInValidContractArea(contract: RER_Contract): bool {
+  function isPlayerInArea(player_position: Vector, position: Vector, contract: RER_Contract): bool {
     var radius: float = contract.destinationRadius();
 
-    return // !parent.master.rExtra.isPlayerInSettlement() && 
-        VecDistanceSquared2D(
-          thePlayer.GetWorldPosition(),
-          contract.destination()
-        ) <= radius * radius;
+    return VecDistanceSquared2D(
+      player_position,
+      position
+    ) <= radius * radius;
   }
 
   latent function spawnPrimaryTarget(
     contract: RER_Contract,
-    primary_targets: array<CreatureType>,
-    opportunistic_targets: array<CreatureType>,
-    // NOTE: out params below
-    out primary_targets_index: int,
-    out opportunist_targets_index: int
+    species: CreatureType,
+    index: int
   ) {
-    var can_spawn_opportunist: bool = contract.isTargetOpportunist(index);
+    var position: Vector = thePlayer.GetWorldPosition()
+      + contract.getPrimaryTargetOffset(index);
 
-    var index: int = 0;
-    if (can_spawn_opportunist) {
-      var index: int = RandNoiseF(
-        contract.seed
-        + ContractSeedOffset_opportunistIndex!
-        + primary_targets_index
-        + opportunist_targets_index,
-
-        opportunistic_targets.Size()
-      ) as int;
-
-      opportunist_targets_index += 1;
-      var species: CreatureType = opportunistic_targets[index];
-    }
-    else {
-      var index: int = RandNoiseF(
-        contract.seed
-        + ContractSeedOffset_opportunistIndex!
-        + primary_targets_index
-        + opportunist_targets_index,
-
-        opportunistic_targets.Size() as float
-      ) as int;
-
-      primary_targets_index += 1;
-      var species: CreatureType = primary_targets[index];
-    }
-
-    var position: Vector = thePlayer.GetWorldPosition();
-  
-    // may fail:
-    getRandomPositionAroundPlayer(position);
+    getGroundPosition(position);
 
     var encounter: RandomEncountersReworkedHuntingGroundEntity = this.spawnEncounter(
       species,
-      position
+      position,
+      contract
     );
 
     this.primary_target_encounters.PushBack(encounter);
   }
 
-  latent function spawnSecondaryTarget(
-    contract: RER_Contract,
-    secondary_targets: array<CreatureType>,
-    secondary_targets_index: int
-  ): int {
-    // var index: int = RandNoiseF(
-    //   contract.seed + secondary_targets_index,
-    //   (CreatureARACHAS as int) as float
-    // ) as int;
 
-    var species: CreatureType = RandNoiseF(
-      contract.seed + secondary_targets_index,
-      (CreatureARACHAS as int) as float
-    ) as int;
-    var position: Vector = thePlayer.GetWorldPosition();
-  
-    // may fail:
-    getRandomPositionAroundPlayer(position);
-
-    var encounter: RandomEncountersReworkedHuntingGroundEntity = this.spawnEncounter(
-      species,
-      position
-    );
-
-    this.secondary_target_encounters.PushBack(encounter);
-
-    return secondary_targets_index + 1;
-  }
-
-
-  latent function spawnEncounter(species: CreatureType, position: Vector): RandomEncountersReworkedHuntingGroundEntity {
+  latent function spawnEncounter(species: CreatureType, position: Vector, contract: RER_Contract): RandomEncountersReworkedHuntingGroundEntity {
     var bestiary_entry: RER_BestiaryEntry = parent.master.bestiary
       .getEntry(parent.master, species);
+
+    var count: int = RoundF(
+      bestiary_entry.getSpawnCount(parent.master) as float
+      * contract.enemyCountMultiplier()
+    );
 
     var entities: array<CEntity> = bestiary_entry.spawn(
       parent.master,
       position,
-      , //count
+      count, //count
       , // density
       EncounterType_CONTRACT,
       RER_BESF_NO_BESTIARY_FEATURE | RER_BESF_NO_PERSIST,
       'RandomEncountersReworked_ContractCreature',
       // a high number to make sure there is no composition as we'll spawn them
       // manually.
-      10000
+      10000,
+      this.getDamageModifiers(contract)
     );
 
     var rer_entity_template: CEntityTemplate = LoadResourceAsync(
@@ -317,6 +194,14 @@ state Processing in RER_ContractManager {
     return rer_entity;
   }
 
+  function getDamageModifiers(contract: RER_Contract): SU_BaseDamageModifier {
+    var damage_modifier: SU_BaseDamageModifier = new SU_BaseDamageModifier in parent;
+    damage_modifier.damage_received_modifier = contract.damageReceivedModifier();
+    damage_modifier.damage_dealt_modifier = contract.damageDealtModifier();
+
+    return damage_modifier;
+  }
+
   latent function processEndedPrimaryEncounters(): int {
     var encounters_to_remove: array<RandomEncountersReworkedHuntingGroundEntity>;
     var killed_encounters: int;
@@ -332,26 +217,6 @@ state Processing in RER_ContractManager {
 
     for encounter: RandomEncountersReworkedHuntingGroundEntity in encounters_to_remove {
       this.primary_target_encounters.Remove(encounter);
-    }
-
-    return killed_encounters;
-  }
-
-  latent function processEndedSecondaryEncounters(): int {
-    var encounters_to_remove: array<RandomEncountersReworkedHuntingGroundEntity>;
-    var killed_encounters: int;
-
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in this.secondary_target_encounters {
-      if (encounter.GetCurrentStateName() == 'Ending') {
-        encounter.clean();
-
-        killed_encounters += 1;
-        encounters_to_remove.PushBack(encounter);
-      }
-    }
-
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in encounters_to_remove {
-      this.secondary_target_encounters.Remove(encounter);
     }
 
     return killed_encounters;

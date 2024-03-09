@@ -4819,7 +4819,8 @@
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
                 <Entry varId="RERallowLearnNewLocations" value="1" />
-                <Entry varId="RERallowIncreasedEnemyCount" value="1" />
+                <Entry varId="RERcontractTargetsSpread" value="0" />
+                <Entry varId="RERcontractDifficultyScaling" value="0" />
                 <Entry varId="RERcontractsGenerationSeed" value="0" />
 
                 <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
@@ -4835,7 +4836,29 @@
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
-            <Var id="RERallowIncreasedEnemyCount" displayName="rer_allow_increased_enemy_count" displayType="TOGGLE"></Var>
+            <Var id="RERcontractTargetsSpread" displayName="rer_contract_target_spread" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_contract_targets_spread_spread">
+                        <Entry varId="RERcontractTargetsSpread" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_contract_targets_spread_grouped">
+                        <Entry varId="RERcontractTargetsSpread" value="1"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
+            <Var id="RERcontractDifficultyScaling" displayName="rer_contract_difficulty_scaling" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_contract_scaling_mixed">
+                        <Entry varId="RERcontractDifficultyScaling" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_contract_scaling_damage_modifiers">
+                        <Entry varId="RERcontractDifficultyScaling" value="1"/>
+                    </Option>
+                    <Option id="2" displayName="rer_contract_scaling_enemy_count">
+                        <Entry varId="RERcontractDifficultyScaling" value="2"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
             <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
 
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>

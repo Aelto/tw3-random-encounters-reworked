@@ -473,7 +473,7 @@
 2115018405|        |rer_bounty_start_popup_title|Bounty information
 2115018406|        |rer_trade_all_tokens|Trade all tokens
 2115018407|        |option_rer_allow_select_difficulty|Allow selecting contracts difficulty
-2115018408|        |option_rer_allow_increased_enemy_count|Allow increased enemy count
+2115018408|        |option_rer_contract_difficulty_scaling|Difficulty scaling
 2115018409|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
 2115018410|        |option_rer_tutorial_bounty_level|Bounty level
 2115018411|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
@@ -538,3 +538,9 @@
 2115018470|        |preset_value_rer_level_scaling_use_levels|Use player levels
 2115018471|        |preset_value_rer_level_scaling_use_playtime|Use play time (3 hours = 1 level)
 2115018472|        |rer_level_scaling_no_level_detected|It looks like you are using a "No Level" mod or a mod that adjusts your level dynamically. The <font color="#CD7D03">Mod & Level scaling</font> setting from <font color="#CD7D03">Random Encounters Reworked</font> is now set to use your play-time instead of the player level.<br /><br />If you don't like this change or if you think there is an error, you can manually change it in <font color="#CD7D03">Random Encounters Reworked</font>'s general mod menu.
+2115018473|        |rer_contract_scaling_mixed|Mixed
+2115018474|        |rer_contract_scaling_damage_modifiers|Damage modifiers
+2115018475|        |rer_contract_scaling_enemy_count|Enemy count
+2115018476|        |rer_contract_targets_spread|Targets spread behaviour
+2115018477|        |rer_contract_targets_spread_spread|Spread over multiple locations
+2115018477|        |rer_contract_targets_spread_grouped|Grouped on same location

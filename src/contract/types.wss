@@ -1,3 +1,28 @@
+enum RER_ContractScaling {
+  RER_ContractScaling_MIXED = 0,
+  RER_ContractScaling_ENEMY_COUNT = 1,
+  RER_ContractScaling_DAMAGE_MODIFIERS = 2,
+}
+
+function RER_getContractDifficultyScaling(): RER_ContractScaling {
+  return StringToInt(
+    theGame.GetInGameConfigWrapper()
+    .GetVarValue('RERoptionalFeatures', 'RERcontractDifficultyScaling')
+  );
+}
+
+enum RER_ContractTargetsSpread {
+  RER_ContractTargetsSpread_SPREAD = 0,
+  RER_ContractTargetsSpread_GROUPED = 1
+}
+
+function RER_getContractTargetsSpread(): RER_ContractTargetsSpread {
+  return StringToInt(
+    theGame.GetInGameConfigWrapper()
+    .GetVarValue('RERoptionalFeatures', 'RERcontractTargetsSpread')
+  );
+}
+
 
 /**
  * Unique identifier used to differentiate one noticeboard from another
