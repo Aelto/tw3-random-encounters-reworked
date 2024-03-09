@@ -83,7 +83,8 @@ statemachine class RER_ContractManager {
     var contract: RER_Contract = (new RER_Contract in this)
       .init(this.getOngoingContractFactory());
 
-    var final_crowns_amount: float = 0;
+    var total_crowns_amount: float = 0;
+    var total_reputation_points: float = 0;
     var species_list: array<CreatureType> = contract.speciesList();
     for species: CreatureType in species_list {
       var bestiary_entry: RER_BestiaryEntry = this.master.bestiary
@@ -97,16 +98,23 @@ statemachine class RER_ContractManager {
         * bestiary_entry.crowns_percentage
         * RandRangeF(1.2, 0.8);
       
-      final_crowns_amount += enemy_count * crowns_amount_settings;
+      total_crowns_amount += enemy_count * crowns_amount_settings;
+      
+      // the amount of reputation depends on the creatures and their ecosystem
+      // impact.
+      total_reputation_points += MaxF(
+        bestiary_entry.ecosystem_delay_multiplier * 0.5,
+        1
+      );
     }
 
     // each additional group grants a 10% bonus
-    final_crowns_amount *= 1 + (species_list.Size() * 0.1);
+    total_crowns_amount *= 1 + (species_list.Size() * 0.1);
 
-    thePlayer.AddMoney(final_crowns_amount as int);
-    thePlayer.DisplayItemRewardNotification('Crowns', final_crowns_amount as int);
+    thePlayer.AddMoney(total_crowns_amount as int);
+    thePlayer.DisplayItemRewardNotification('Crowns', total_crowns_amount as int);
     theSound.SoundEvent("gui_inventory_buy");
-    RER_addContractReputationFactValue(species_list.Size());
+    RER_addContractReputationFactValue(RoundF(total_reputation_points));
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
     this.endOngoingContract();
