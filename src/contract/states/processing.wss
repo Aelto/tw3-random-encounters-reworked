@@ -13,6 +13,11 @@ state Processing in RER_ContractManager {
   }
 
   entry function Processing_main() {
+    if (!parent.hasOngoingContract()) {
+      parent.GotoState('Waiting');
+      return;
+    }
+
     var contract: RER_Contract = (new RER_Contract in parent)
       .init(parent.getOngoingContractFactory());
 
@@ -27,7 +32,6 @@ state Processing in RER_ContractManager {
     var finished: bool = this.waitForPlayerToFinishContract(contract);
     this.cleanupEncounters();
     this.cleanupOneliners();
-    this.debug_oneliner.unregister();
 
     if (finished) {
       parent.completeOngoingContract();
@@ -121,12 +125,28 @@ state Processing in RER_ContractManager {
 
           if (is_in_area) {
             if (location_index < primary_targets.Size()) {
-              // TODO: display kill message & auto-save
+              if (!parent.master.hasJustBooted()) {
+                theGame.SaveGame( SGT_QuickSave, -1 );
+              }
+
+              theSound.SoundEvent("gui_ingame_new_journal");
+              this.unregisterNearbyOneliners(
+                location,
+                contract.destinationRadius()
+              );
+
+              thePlayer.DisplayHudMessage(
+                StrReplace(
+                  GetLocStringByKeyExt("rer_kill_target"),
+                  "{{type}}",
+                  getCreatureNameFromCreatureType(parent.master.bestiary, primary_targets[location_index])
+                )
+              );
 
               this.spawnPrimaryTarget(
-                spawnPrimaryTarget,
+                contract,
                 primary_targets[location_index],
-                location_index
+                location + contract.getPrimaryTargetOffset(location_index)
               );
             }
           }
@@ -151,23 +171,24 @@ state Processing in RER_ContractManager {
   latent function spawnPrimaryTarget(
     contract: RER_Contract,
     species: CreatureType,
-    index: int
+    position: Vector,
   ) {
-    var position: Vector = thePlayer.GetWorldPosition()
-      + contract.getPrimaryTargetOffset(index);
-
     getGroundPosition(position);
 
     var encounter: RandomEncountersReworkedHuntingGroundEntity = this.spawnEncounter(
+      contract,
       species,
-      position,
-      contract
+      position
     );
 
     this.primary_target_encounters.PushBack(encounter);
   }
 
-  latent function spawnEncounter(species: CreatureType, position: Vector, contract: RER_Contract): RandomEncountersReworkedHuntingGroundEntity {
+  latent function spawnEncounter(
+    contract: RER_Contract,
+    species: CreatureType,
+    position: Vector
+  ): RandomEncountersReworkedHuntingGroundEntity {
     var bestiary_entry: RER_BestiaryEntry = parent.master.bestiary
       .getEntry(parent.master, species);
 
@@ -216,6 +237,14 @@ state Processing in RER_ContractManager {
     return damage_modifier;
   }
 
+  function unregisterNearbyOneliners(position: Vector, radius: float) {
+    for oneliner: RER_Oneliner in this.oneliners {
+      if (VecDistanceSquared2D(oneliner.position, position) <= radius * radius) {
+        oneliner.unregister();
+      }
+    }
+  }
+
   latent function processEndedPrimaryEncounters(): int {
     var encounters_to_remove: array<RandomEncountersReworkedHuntingGroundEntity>;
     var killed_encounters: int;
@@ -245,6 +274,10 @@ state Processing in RER_ContractManager {
   function cleanupOneliners() {
     for oneliner: RER_Oneliner in this.oneliners {
       oneliner.unregister();
+    }
+
+    if (this.debug_oneliner) {
+      this.debug_oneliner.unregister();
     }
   }
 }
