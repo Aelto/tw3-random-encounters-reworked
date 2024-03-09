@@ -1,12 +1,8 @@
 
 state Processing in RER_ContractManager {
-  var oneliner: RER_Oneliner;
-  var is_spawned: bool;
-
-  var debug_oneliner: SU_OnelinerScreen;
-
   var primary_target_encounters: array<RandomEncountersReworkedHuntingGroundEntity>;
-
+  var debug_oneliner: SU_OnelinerScreen;
+  var oneliners: array<RER_Oneliner>;
 
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -30,6 +26,7 @@ state Processing in RER_ContractManager {
 
     var finished: bool = this.waitForPlayerToFinishContract(contract);
     this.cleanupEncounters();
+    this.cleanupOneliners();
     this.debug_oneliner.unregister();
 
     if (finished) {
@@ -87,6 +84,22 @@ state Processing in RER_ContractManager {
     theSound.SoundEvent("gui_hubmap_mark_pin");
   }
 
+  function createContractOneliners(contract: RER_Contract) {
+    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersContract')) {
+      return;
+    }
+
+    var destinations: array<Vector> = contract.destinations();
+
+    for destination: Vector in destinations {
+      this.oneliners.PushBack(
+        RER_oneliner(
+          " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
+          destination
+        )
+      );
+    }
+  }
 
   latent function waitForPlayerToFinishContract(contract: RER_Contract): bool {
     var primary_targets: array<CreatureType> = contract.speciesList();
@@ -108,6 +121,8 @@ state Processing in RER_ContractManager {
 
           if (is_in_area) {
             if (location_index < primary_targets.Size()) {
+              // TODO: display kill message & auto-save
+
               this.spawnPrimaryTarget(
                 spawnPrimaryTarget,
                 primary_targets[location_index],
@@ -151,7 +166,6 @@ state Processing in RER_ContractManager {
 
     this.primary_target_encounters.PushBack(encounter);
   }
-
 
   latent function spawnEncounter(species: CreatureType, position: Vector, contract: RER_Contract): RandomEncountersReworkedHuntingGroundEntity {
     var bestiary_entry: RER_BestiaryEntry = parent.master.bestiary
@@ -226,9 +240,11 @@ state Processing in RER_ContractManager {
     for encounter: RandomEncountersReworkedHuntingGroundEntity in this.primary_target_encounters {
       encounter.clean();
     }
+  }
 
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in this.secondary_target_encounters {
-      encounter.clean();
+  function cleanupOneliners() {
+    for oneliner: RER_Oneliner in this.oneliners {
+      oneliner.unregister();
     }
   }
 }

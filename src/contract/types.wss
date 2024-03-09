@@ -7,7 +7,7 @@ enum RER_ContractScaling {
 function RER_getContractDifficultyScaling(): RER_ContractScaling {
   return StringToInt(
     theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERoptionalFeatures', 'RERcontractDifficultyScaling')
+    .GetVarValue('RERcontracts', 'RERcontractDifficultyScaling')
   );
 }
 
@@ -19,7 +19,7 @@ enum RER_ContractTargetsSpread {
 function RER_getContractTargetsSpread(): RER_ContractTargetsSpread {
   return StringToInt(
     theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERoptionalFeatures', 'RERcontractTargetsSpread')
+    .GetVarValue('RERcontracts', 'RERcontractTargetsSpread')
   );
 }
 
