@@ -53,13 +53,17 @@ state DialogChoice in RER_ContractManager {
     var difficulty: int = parent.getSelectedDifficulty();
     var contracts: array<RER_Contract>;
 
+    var timeoffset: int = GameTimeHours(theGame.CalculateTimePlayed())
+      / RER_getHoursBeforeNewContract();
+
     var i: int;
     for (i = contracts_count; i > 0; i -= 1) {
       var factory: RER_ContractSeedFactory = RER_ContractSeedFactory(
         noticeboard.GetWorldPosition(),
         difficulty,
         i,
-        SUH_getCurrentRegion()
+        SUH_getCurrentRegion(),
+        timeoffset
       );
 
       var contract: RER_Contract = new RER_Contract in parent;
@@ -106,9 +110,15 @@ state DialogChoice in RER_ContractManager {
         );
       }
 
+      var has_bonus_rewards: bool = contract.hasBonusRewards();
+
+      if (has_bonus_rewards) {
+        line += " (" + GetLocStringByKey('rer_contract_crowns_reward') + ")";
+      }
+
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),
-        false,
+        has_bonus_rewards,
         false, // already choosen
         false,
         DialogAction_MONSTERCONTRACT,
@@ -147,30 +157,35 @@ state DialogChoice in RER_ContractManager {
     }
 
     if (response.playGoChunk == 'SelectDifficulty') {
+      this.camera.Stop();
+
       var haggle: RER_ContractModuleDialog = new RER_ContractModuleDialog in this;
       haggle.openDifficultySelectorWindow(parent);
+
+      parent.GotoState('Waiting');
 
       return;
     }
 
-    var reputation_system_enabled: bool = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+    var offset: int = 1;
 
-    var offset: int = 1 + (reputation_system_enabled as int);
+    NLOG("DialogChoice_displayDialogChoices" + response.description);
 
     var i: int;
     for (i = 0; i < choices.Size(); i += 1) {
       if (StrContains(response.description, choices[i].description)) {
-        var selected_contract: RER_Contract = contracts[i];
+        // there is the select difficulty first, make sure to add the -1 offset
+        var selected_contract: RER_Contract = contracts[i - 1];
 
         if (selected_contract) {
           this.completed = true;
           theSound.SoundEvent("gui_ingame_quest_active");
           this.camera.Stop();
 
-          this.displayBookForContract(selected_contract, parent.master.bestiary);
+          NHUD(GetLocStringByKey('rer_contract_started'));
+          // this.openMapMenuForContract(selected_contract);
 
-          parent.startContract(selected_contract);          
+          parent.startContract(selected_contract.factory);          
           return;
         }
       }
@@ -179,42 +194,12 @@ state DialogChoice in RER_ContractManager {
     NDEBUG("RER ERROR: Unable to get creature_type from dialogue choices");
   }
 
-  private function displayBookForContract(contract: RER_Contract, bestiary: RER_Bestiary) {
-    var species_list: array<CreatureType>;
-
-    var message: string = "Main targets:<br/>";
-    species_list = contract.speciesList();
-    for species: CreatureType in species_list {
-      message += " - " + getCreatureNameFromCreatureType(
-        bestiary,
-        species
-      ) + "<br/>";
-    }
-
-    message += "<br/><br/>";
-    message += "Secondary targets:";
-    message += "<br/>";
-    species_list = contract.secondarySpeciesList();
-    for species: CreatureType in species_list {
-      message += "   - " + getCreatureNameFromCreatureType(
-        bestiary,
-        species
-      ) + "<br/>";
-    }
-
-    species_list = contract.opportunisticSpeciesList();
-    if (species_list.Size() > 0) {
-      message += "<br/><br/>";
-      message += "Opportunistic species from the region:";
-      message += "<br/>";
-      for species: CreatureType in species_list {
-        message += "   - " + getCreatureNameFromCreatureType(
-          bestiary,
-          species
-        ) + "<br/>";
-      }
-    }
-
-    RER_openPopup(GetLocStringByKey('rer_contract'), message);
+  private function openMapMenuForContract(contract: RER_Contract) {
+    var initData : W3MapInitData;
+		
+		initData = new W3MapInitData in this;
+		initData.ignoreSaveSystem = true;
+		initData.setDefaultState('FastTravel');
+		theGame.RequestMenuWithBackground( 'MapMenu', 'CommonMenu', initData );
   }
 }

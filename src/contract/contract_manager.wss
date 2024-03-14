@@ -45,9 +45,18 @@ statemachine class RER_ContractManager {
   //////////////////////////////////////////////////////////////////////////////
   // contract workflow:
 
-  public function startContract(contract: RER_Contract) {
+  public function startContract(factory: RER_ContractSeedFactory) {
+    var contract: RER_Contract = (new RER_Contract in this).init(factory);
+
     this.master.storages.contract.has_ongoing_contract = true;
-    this.master.storages.contract.active_contract = contract.factory;
+    this.master.storages.contract.active_contract = factory;
+
+    this.master.storages.contract.killed_targets.Clear();
+    var species: array<CreatureType> = contract.speciesList();
+    for c: CreatureType in species {
+      this.master.storages.contract.killed_targets.PushBack(false);
+    }
+
     this.master.storages.contract.save();
     this.GotoState('Waiting');
   }
@@ -68,10 +77,34 @@ statemachine class RER_ContractManager {
   public function getOngoingContractFactory(): RER_ContractSeedFactory {
     return this.master.storages.contract.active_contract;
   }
+  
+  public function isTargetKilled(index: int): bool {
+    if (index >= this.master.storages.contract.killed_targets.Size()) {
+      return false;
+    }
+
+    return this.master.storages.contract.killed_targets[index];
+  }
+
+  public function setTargetKilled(index: int) {
+    this.master.storages.contract.killed_targets[index] = true;
+    this.master.storages.contract.save();
+  }
+
+  public function areAllTargetsKilled(): bool {
+    for killed: bool in this.master.storages.contract.killed_targets {
+      if (!killed) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   public function clearContractStorage() {
     this.master.storages.contract.completed_contracts.Clear();
     this.master.storages.contract.has_ongoing_contract = false;
+    this.master.storages.contract.killed_targets.Clear();
     this.master.storages.contract.save();
   }
 
@@ -83,6 +116,9 @@ statemachine class RER_ContractManager {
     var contract: RER_Contract = (new RER_Contract in this)
       .init(this.getOngoingContractFactory());
 
+    NLOG("completeOngoingContract(), seed = " + contract.seed);
+
+    var has_bonus_rewards: bool = contract.hasBonusRewards();
     var total_crowns_amount: float = 0;
     var total_reputation_points: float = 0;
     var species_list: array<CreatureType> = contract.speciesList();
@@ -90,20 +126,24 @@ statemachine class RER_ContractManager {
       var bestiary_entry: RER_BestiaryEntry = this.master.bestiary
         .getEntry(this.master, species);
 
-      var strength: float = bestiary_entry.ecosystem_delay_multiplier;
-      var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
+      if (has_bonus_rewards) {
+        var strength: float = bestiary_entry.ecosystem_delay_multiplier;
+        var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
 
-      var crowns_amount_settings: float = 
-        (master.settings.crowns_amounts_by_encounter[EncounterType_CONTRACT] / 100.0)
-        * bestiary_entry.crowns_percentage
-        * RandRangeF(1.2, 0.8);
-      
-      total_crowns_amount += enemy_count * crowns_amount_settings;
+        var crowns_amount_settings: float = 
+          (master.settings.crowns_amounts_by_encounter[EncounterType_CONTRACT] / 100.0)
+          * bestiary_entry.crowns_percentage
+          // every level increases the upper limit by 1%
+          * RandRangeF(1 + contract.factory.level * 0.01, 0.8 + contract.factory.level * 0.005)
+          * bestiary_entry.ecosystem_delay_multiplier;
+        
+        total_crowns_amount += enemy_count * crowns_amount_settings;
+      }
       
       // the amount of reputation depends on the creatures and their ecosystem
       // impact.
       total_reputation_points += MaxF(
-        bestiary_entry.ecosystem_delay_multiplier * 0.5,
+        bestiary_entry.ecosystem_delay_multiplier * 0.25,
         1
       );
     }
@@ -111,9 +151,15 @@ statemachine class RER_ContractManager {
     // each additional group grants a 10% bonus
     total_crowns_amount *= 1 + (species_list.Size() * 0.1);
 
-    thePlayer.AddMoney(total_crowns_amount as int);
-    thePlayer.DisplayItemRewardNotification('Crowns', total_crowns_amount as int);
-    theSound.SoundEvent("gui_inventory_buy");
+    NLOG("completeOngoingContract(), total_crowns_amount = " + total_crowns_amount);
+    NLOG("completeOngoingContract(), total_reputation_points = " + total_reputation_points);
+
+    if (has_bonus_rewards) {
+      thePlayer.AddMoney(total_crowns_amount as int);
+      thePlayer.DisplayItemRewardNotification('Crowns', total_crowns_amount as int);
+      theSound.SoundEvent("gui_inventory_buy");
+    }
+
     RER_addContractReputationFactValue(RoundF(total_reputation_points));
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
@@ -124,28 +170,21 @@ statemachine class RER_ContractManager {
   // difficulty logic:
 
   public function getMaximumDifficulty(): int {
-    var enabled: bool = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
-
-    if (enabled) {
-      return RER_getContractReputationFactValue() * 1;
-    }
-    
-    return RER_getPlayerLevel() * 2;
+    return RER_getContractReputationFactValue() * 1 + 1;
   }
 
   public function setPreferredDifficuty(difficulty: int) {
     // setting the value to either the max or the min resets it
     if (difficulty <= 0 || difficulty == this.getMaximumDifficulty()) {
-      RER_removeContractPreferedReputationFact();
+      RER_removeContractPreferredDifficultyFact();
     }
     else {
-      RER_setContractPreferedReputationFactValue(difficulty);
+      RER_setContractPreferredDifficultyFactValue(difficulty);
     }
   }
 
   private function getPreferredDifficulty(): int {
-    var prefered: int = RER_getContractPreferedReputationFactValue();
+    var prefered: int = RER_getContractPreferredDifficultyFactValue();
     var difficulty: int = this.getMaximumDifficulty();
 
     if (prefered <= 0 || prefered > difficulty) {
@@ -162,6 +201,7 @@ statemachine class RER_ContractManager {
   }
 
   public function contractHagglePreferredDifficultySelected(difficulty: int) {
-    this.setPreferedDifficulty(difficulty);
+    this.setPreferredDifficuty(difficulty);
+    this.GotoState('DialogChoice');
   }
 }

@@ -1,7 +1,6 @@
 
 state Processing in RER_ContractManager {
   var primary_target_encounters: array<RandomEncountersReworkedHuntingGroundEntity>;
-  var debug_oneliner: SU_OnelinerScreen;
   var oneliners: array<RER_Oneliner>;
 
   event OnEnterState(previous_state_name: name) {
@@ -21,13 +20,9 @@ state Processing in RER_ContractManager {
     var contract: RER_Contract = (new RER_Contract in parent)
       .init(parent.getOngoingContractFactory());
 
-    this.debug_oneliner = SU_onelinerScreen(
-      "[RER CONTRACT DEBUG OL]",
-      Vector(0.1, 0.8)
-    );
-
     this.verifyContractRegion();
     this.createContractRegionMapPins(contract);
+    this.createContractOneliners(contract);
 
     var finished: bool = this.waitForPlayerToFinishContract(contract);
     this.cleanupEncounters();
@@ -64,13 +59,15 @@ state Processing in RER_ContractManager {
   function createContractRegionMapPins(contract: RER_Contract) {
     SU_removeCustomPinByTag("RER_contract_target");
 
-    var destinations: array<Vector> = contract.destinations();
+    var destinations: array<Vector> = contract.destinations(
+      RER_getContractTargetsSpread()
+    );
 
     for destination: Vector in destinations {
       var map_pin: SU_MapPin = new SU_MapPin in parent;
       map_pin.tag = "RER_contract_target";
       map_pin.pin_tag = 'RER_contract_target';
-      map_pin.is_fast_travel = true;
+      map_pin.is_fast_travel = false;
       map_pin.position = destination;
       map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
       map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
@@ -89,11 +86,13 @@ state Processing in RER_ContractManager {
   }
 
   function createContractOneliners(contract: RER_Contract) {
-    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersContract')) {
+    if (!RER_menu('RERoptionalFeatures', 'RERonelinersContract')) {
       return;
     }
 
-    var destinations: array<Vector> = contract.destinations();
+    var destinations: array<Vector> = contract.destinations(
+      RER_getContractTargetsSpread()
+    );
 
     for destination: Vector in destinations {
       this.oneliners.PushBack(
@@ -107,24 +106,67 @@ state Processing in RER_ContractManager {
 
   latent function waitForPlayerToFinishContract(contract: RER_Contract): bool {
     var primary_targets: array<CreatureType> = contract.speciesList();
-    var killed_encounters_count: int = 0;
+    var target_index_to_location_index: array<int>;
+    var spawned_targets: array<bool>;
+
+    for species: CreatureType in primary_targets {
+      spawned_targets.PushBack(false);
+    }
   
     while (true) {
-      killed_encounters_count += this.processEndedPrimaryEncounters();
-  
-      if (!isPlayerBusy()) {
-        var locations: array<Vector> = contract.destinations();
-        var location_index: int = 0;
-        for (location_index = 0; i location_index < locations.Size(); location_index += 1) {
-          var location: Vector = locations[location_index];
-          var is_in_area: bool = this.isPlayerInArea(
-            thePlayer.GetWorldPosition(),
-            location,
-            contract
-          );
+      if (parent.areAllTargetsKilled()) {
+        return true;
+      }
 
-          if (is_in_area) {
-            if (location_index < primary_targets.Size()) {
+      var destination_radius: float = contract.destinationRadius();
+
+      // look for killed encounters
+      var i: int = 0;
+      for (i = 0; i < primary_target_encounters.Size(); i += 1) {
+        var target_index: int = target_index_to_location_index[i];
+        var is_already_killed: bool = parent.isTargetKilled(target_index);
+
+        if (!is_already_killed) {
+          var encounter: RandomEncountersReworkedHuntingGroundEntity = this.primary_target_encounters[i];
+
+          if (encounter.GetCurrentStateName() == 'Ending') {
+            parent.setTargetKilled(target_index);
+          }
+        }
+      }
+  
+      // try spawning new encounters
+      // if (!isPlayerBusy()) {
+        var locations: array<Vector> = contract.destinations(
+          RER_getContractTargetsSpread()
+        );
+
+        var location_index: int = 0;
+        for (location_index = 0; location_index < locations.Size(); location_index += 1) {
+          var target_index: int = target_index_to_location_index[location_index];
+          var is_already_killed = parent.isTargetKilled(target_index);
+          
+          var location: Vector = locations[location_index];
+          NLOG("TESTEST = " + spawned_targets[location_index] + " - " + is_already_killed);
+          // NLOG("TESTEST = " + this.isPlayerInArea(
+          //     thePlayer.GetWorldPosition(),
+          //     location,
+          //     contract
+          //   ));
+        NLOG("TESTEST = " + VecToString(location));
+        NLOG("TESTEST = " + VecToString(thePlayer.GetWorldPosition()));
+        NLOG("TESTEST = " + VecDistance(thePlayer.GetWorldPosition(), location));
+        
+
+
+          if (!spawned_targets[location_index] && !is_already_killed) {
+            var location: Vector = locations[location_index];
+            var is_in_area: bool = VecDistanceSquared2D(
+              thePlayer.GetWorldPosition(),
+              location
+            ) <= destination_radius * destination_radius;
+
+            if (is_in_area && location_index < primary_targets.Size()) {
               if (!parent.master.hasJustBooted()) {
                 theGame.SaveGame( SGT_QuickSave, -1 );
               }
@@ -148,25 +190,30 @@ state Processing in RER_ContractManager {
                 primary_targets[location_index],
                 location + contract.getPrimaryTargetOffset(location_index)
               );
-            }
+
+              spawned_targets[location_index] = true;
+              target_index_to_location_index.PushBack(location_index);
+
+              Sleep(0.5);
+            } 
           }
-        }
+        // }
       }
 
-      Sleep(10);
+      Sleep(5);
     }
 
-    return killed_encounters_count >= primary_targets.Size();
+    return parent.areAllTargetsKilled();
   }
 
-  function isPlayerInArea(player_position: Vector, position: Vector, contract: RER_Contract): bool {
-    var radius: float = contract.destinationRadius();
+  // function isPlayerInArea(player_position: Vector, position: Vector, contract: RER_Contract): bool {
+  //   var radius: float = contract.destinationRadius();
 
-    return VecDistanceSquared2D(
-      player_position,
-      position
-    ) <= radius * radius;
-  }
+  //   return VecDistanceSquared2D(
+  //     player_position,
+  //     position
+  //   ) <= radius * radius;
+  // }
 
   latent function spawnPrimaryTarget(
     contract: RER_Contract,
@@ -193,8 +240,8 @@ state Processing in RER_ContractManager {
       .getEntry(parent.master, species);
 
     var count: int = RoundF(
-      bestiary_entry.getSpawnCount(parent.master) as float
-      * contract.enemyCountMultiplier()
+      (bestiary_entry.getSpawnCount(parent.master) as float)
+      * contract.enemyCountMultiplier(RER_getContractDifficultyScaling())
     );
 
     var entities: array<CEntity> = bestiary_entry.spawn(
@@ -230,9 +277,13 @@ state Processing in RER_ContractManager {
   }
 
   function getDamageModifiers(contract: RER_Contract): SU_BaseDamageModifier {
+    var scaling: RER_ContractScaling = RER_getContractDifficultyScaling();
     var damage_modifier: SU_BaseDamageModifier = new SU_BaseDamageModifier in parent;
-    damage_modifier.damage_received_modifier = contract.damageReceivedModifier();
-    damage_modifier.damage_dealt_modifier = contract.damageDealtModifier();
+    damage_modifier.damage_received_modifier = contract.damageReceivedModifier(scaling);
+    damage_modifier.damage_dealt_modifier = contract.damageDealtModifier(scaling);
+
+    NLOG("contract, getDamageModifiers, damage_received_modifier =" + damage_modifier.damage_received_modifier);
+    NLOG("contract, getDamageModifiers, damage_dealt_modifier =" + damage_modifier.damage_dealt_modifier);
 
     return damage_modifier;
   }
@@ -245,26 +296,6 @@ state Processing in RER_ContractManager {
     }
   }
 
-  latent function processEndedPrimaryEncounters(): int {
-    var encounters_to_remove: array<RandomEncountersReworkedHuntingGroundEntity>;
-    var killed_encounters: int;
-
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in this.primary_target_encounters {
-      if (encounter.GetCurrentStateName() == 'Ending') {
-        encounter.clean();
-
-        killed_encounters += 1;
-        encounters_to_remove.PushBack(encounter);
-      }
-    }
-
-    for encounter: RandomEncountersReworkedHuntingGroundEntity in encounters_to_remove {
-      this.primary_target_encounters.Remove(encounter);
-    }
-
-    return killed_encounters;
-  }
-
   latent function cleanupEncounters() {
     for encounter: RandomEncountersReworkedHuntingGroundEntity in this.primary_target_encounters {
       encounter.clean();
@@ -274,10 +305,6 @@ state Processing in RER_ContractManager {
   function cleanupOneliners() {
     for oneliner: RER_Oneliner in this.oneliners {
       oneliner.unregister();
-    }
-
-    if (this.debug_oneliner) {
-      this.debug_oneliner.unregister();
     }
   }
 }

@@ -1,3 +1,8 @@
+
+function RER_menuContract(item: name): string {
+  return RER_menu('RERcontracts', item);
+}
+
 enum RER_ContractScaling {
   RER_ContractScaling_MIXED = 0,
   RER_ContractScaling_ENEMY_COUNT = 1,
@@ -5,10 +10,7 @@ enum RER_ContractScaling {
 }
 
 function RER_getContractDifficultyScaling(): RER_ContractScaling {
-  return StringToInt(
-    theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERcontracts', 'RERcontractDifficultyScaling')
-  );
+  return StringToInt(RER_menuContract('RERcontractDifficultyScaling'));
 }
 
 enum RER_ContractTargetsSpread {
@@ -17,10 +19,11 @@ enum RER_ContractTargetsSpread {
 }
 
 function RER_getContractTargetsSpread(): RER_ContractTargetsSpread {
-  return StringToInt(
-    theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERcontracts', 'RERcontractTargetsSpread')
-  );
+  return StringToInt(RER_menuContract('RERcontractTargetsSpread'));
+}
+
+function RER_getHoursBeforeNewContract(): int {
+  return StringToInt(RER_menuContract('RERhoursBeforeNewContracts'));
 }
 
 

@@ -455,10 +455,10 @@
 2115018387|        |rer_kill_target|Kill the {{type}}
 2115018388|        |rer_contract_finished|The contract is over
 2115018389|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
-2115018390|        |rer_contract_started|{{species}} contract has started. Search the marker on your map.
+2115018390|        |rer_contract_started|The contract has started. Search the marker on your map.
 2115018391|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018392|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
-2115018393|        |rer_select_diffculty|Select difficulty (current: {{difficulty}})
+2115018393|        |rer_select_difficulty|Select difficulty (current: {{difficulty}})
 2115018394|        |rer_distance_nearby|UNUSED
 2115018395|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
 2115018396|        |option_rer_medium_far_contracts_number|UNUSED
@@ -538,9 +538,12 @@
 2115018470|        |preset_value_rer_level_scaling_use_levels|Use player levels
 2115018471|        |preset_value_rer_level_scaling_use_playtime|Use play time (3 hours = 1 level)
 2115018472|        |rer_level_scaling_no_level_detected|It looks like you are using a "No Level" mod or a mod that adjusts your level dynamically. The <font color="#CD7D03">Mod & Level scaling</font> setting from <font color="#CD7D03">Random Encounters Reworked</font> is now set to use your play-time instead of the player level.<br /><br />If you don't like this change or if you think there is an error, you can manually change it in <font color="#CD7D03">Random Encounters Reworked</font>'s general mod menu.
-2115018473|        |rer_contract_scaling_mixed|Mixed
-2115018474|        |rer_contract_scaling_damage_modifiers|Damage modifiers
-2115018475|        |rer_contract_scaling_enemy_count|Enemy count
-2115018476|        |rer_contract_targets_spread|Targets spread behaviour
-2115018477|        |rer_contract_targets_spread_spread|Spread over multiple locations
-2115018477|        |rer_contract_targets_spread_grouped|Grouped on same location
+2115018473|        |preset_value_rer_contract_scaling_mixed|Mixed
+2115018474|        |preset_value_rer_contract_scaling_damage_modifiers|Damage modifiers
+2115018475|        |preset_value_rer_contract_scaling_enemy_count|Enemy count
+2115018476|        |option_rer_contract_targets_spread|Targets spread behaviour
+2115018477|        |preset_value_rer_contract_targets_spread_spread|Spread over multiple locations
+2115018478|        |preset_value_rer_contract_targets_spread_grouped|Grouped on same location
+2115018479|        |option_rer_contracts_target_max_distance|Target's max distance from noticeboard
+2115018480|        |option_rer_contracts_target_area_radius|Target area's radius
+2115018481|        |rer_contract_crowns_reward|rewards crowns

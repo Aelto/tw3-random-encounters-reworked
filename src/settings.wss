@@ -1,4 +1,9 @@
 
+function RER_menu(group: name, item: name): string {
+  return theGame.GetInGameConfigWrapper()
+    .GetVarValue(group, item);
+}
+ 
 class RE_Settings {
 
   public var is_enabled: bool;
