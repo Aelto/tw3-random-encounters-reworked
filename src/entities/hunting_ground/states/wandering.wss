@@ -34,7 +34,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
       // in case it moves
       parent.bait_entity.Teleport(parent.GetWorldPosition());
 
-      if (thePlayer.IsInCombat()) {
+      if (!thePlayer.IsInCombat()) {
         SUH_keepCreaturesOnPoint(
           parent.GetWorldPosition(),
           25,
