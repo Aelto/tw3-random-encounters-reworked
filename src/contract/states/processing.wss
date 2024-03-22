@@ -1,7 +1,6 @@
 
 state Processing in RER_ContractManager {
   var target_encounters: array<RER_ContractTargetEncounter>;
-  var oneliners: array<RER_Oneliner>;
 
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
@@ -21,12 +20,8 @@ state Processing in RER_ContractManager {
       .init(parent.getOngoingContractFactory());
 
     this.verifyContractRegion();
-    this.createContractRegionMapPins(contract);
-    this.createContractOneliners(contract);
-
     var finished: bool = this.waitForPlayerToFinishContract(contract);
     this.cleanupEncounters();
-    this.cleanupOneliners();
 
     if (finished) {
       parent.completeOngoingContract();
@@ -56,71 +51,32 @@ state Processing in RER_ContractManager {
     parent.endOngoingContract();
   }
 
-  function createContractRegionMapPins(contract: RER_Contract) {
-    SU_removeCustomPinByTag("RER_contract_target");
-
-    var destinations: array<Vector> = contract.destinations(
-      RER_getContractTargetsSpread()
-    );
-
-    for destination: Vector in destinations {
-      var map_pin: SU_MapPin = new SU_MapPin in parent;
-      map_pin.tag = "RER_contract_target";
-      map_pin.pin_tag = 'RER_contract_target';
-      map_pin.is_fast_travel = false;
-      map_pin.position = destination;
-      map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
-      map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
-      map_pin.type = "MonsterQuest";
-      map_pin.filtered_type = "MonsterQuest";
-      map_pin.radius = contract.destinationRadius();
-      map_pin.region = SUH_getCurrentRegion();
-      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
-
-      SUMP_addCustomPin(map_pin);
-    }
-    
-    SU_updateMinimapPins();
-    theSound.SoundEvent("gui_hubmap_mark_pin");
-  }
-
-  function createContractOneliners(contract: RER_Contract) {
-    if (!RER_menu('RERoptionalFeatures', 'RERonelinersContract')) {
-      return;
-    }
-
-    var destinations: array<Vector> = contract.destinations(
-      RER_getContractTargetsSpread()
-    );
-
-    for destination: Vector in destinations {
-      this.oneliners.PushBack(
-        RER_oneliner(
-          " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
-          destination
-        )
-      );
-    }
-  }
-
   latent function waitForPlayerToFinishContract(contract: RER_Contract): bool {
     var primary_targets: array<CreatureType> = contract.speciesList();
     var locations: array<Vector> = contract.destinations(
       RER_getContractTargetsSpread()
     );
 
+    SU_removeCustomPinByTag("RER_contract_target");
+
     var i: int = 0;
     for (i = 0; i < primary_targets.Size(); i += 1) {
-      this.target_encounters.PushBack(
-        (new RER_ContractTargetEncounter in this).init(
+      var target_encounter: RER_ContractTargetEncounter = (new RER_ContractTargetEncounter in this)
+        .init(
           i,
           locations[i],
           primary_targets[i],
           parent
-        )
-      );
+        );
+
+      target_encounter.createOneliner();
+      target_encounter.createMapPin(contract);
+
+      this.target_encounters.PushBack(target_encounter);
     }
+
+    SU_updateMinimapPins();
+    theSound.SoundEvent("gui_hubmap_mark_pin");
   
     while (true) {
       if (parent.areAllTargetsKilled()) {
@@ -141,10 +97,7 @@ state Processing in RER_ContractManager {
           }
 
           theSound.SoundEvent("gui_ingame_new_journal");
-          this.unregisterNearbyOneliners(
-            target_encounter.location,
-            contract.destinationRadius()
-          );
+          target_encounter.removeOneliner();
 
           thePlayer.DisplayHudMessage(
             StrReplace(
@@ -168,24 +121,12 @@ state Processing in RER_ContractManager {
     return parent.areAllTargetsKilled();
   }
 
-  function unregisterNearbyOneliners(position: Vector, radius: float) {
-    for oneliner: RER_Oneliner in this.oneliners {
-      if (VecDistanceSquared2D(oneliner.position, position) <= radius * radius) {
-        oneliner.unregister();
-      }
-    }
-  }
-
   latent function cleanupEncounters() {
     for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
       target_encounter.cleanupEncounter();
     }
-  }
 
-  function cleanupOneliners() {
-    for oneliner: RER_Oneliner in this.oneliners {
-      oneliner.unregister();
-    }
+    this.target_encounters.Clear();
   }
 }
 
@@ -197,6 +138,7 @@ class RER_ContractTargetEncounter {
   var species: CreatureType;
 
   var encounter: RandomEncountersReworkedHuntingGroundEntity;
+  var oneliner: RER_Oneliner;
 
   public function init(
     index: int,
@@ -209,7 +151,42 @@ class RER_ContractTargetEncounter {
     this.manager = manager;
     this.species = species;
 
+    NLOG("new RER_ContractTargetEncounter, index="
+      + this.index + ", location="
+      + VecToString(this.location) + "species="
+      + this.species
+    );
+
     return this;
+  }
+  
+  public function createOneliner() {
+    if (!RER_menu('RERoptionalFeatures', 'RERonelinersContract')) {
+      return;
+    }
+
+    this.oneliner = RER_oneliner(
+      " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
+      this.location
+    );
+  }
+
+  public function createMapPin(contract: RER_Contract) {
+    var map_pin: SU_MapPin = new SU_MapPin in this;
+    map_pin.tag = "RER_contract_target";
+    map_pin.pin_tag = 'RER_contract_target';
+    map_pin.is_fast_travel = false;
+    map_pin.position = this.location;
+    map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
+    map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
+    map_pin.type = "MonsterQuest";
+    map_pin.filtered_type = "MonsterQuest";
+    map_pin.radius = contract.destinationRadius();
+    map_pin.region = SUH_getCurrentRegion();
+    map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
+
+    SUMP_addCustomPin(map_pin);
   }
 
   public function canSpawn(player_position: Vector, radius: float): bool {
@@ -334,5 +311,13 @@ class RER_ContractTargetEncounter {
     }
 
     this.encounter.clean();
+    this.removeOneliner();
+  }
+
+  public function removeOneliner() {
+    if (this.oneliner) {
+      this.oneliner.unregister();
+      delete this.oneliner;
+    }
   }
 }
