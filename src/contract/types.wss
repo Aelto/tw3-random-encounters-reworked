@@ -26,6 +26,9 @@ function RER_getHoursBeforeNewContract(): int {
   return StringToInt(RER_menuContract('RERhoursBeforeNewContracts'));
 }
 
+function RER_getAllowBackToCamp(): bool {
+  return RER_menuContract('RERallowBackToCamp');
+}
 
 /**
  * Unique identifier used to differentiate one noticeboard from another

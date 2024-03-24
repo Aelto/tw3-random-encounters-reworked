@@ -547,3 +547,6 @@
 2115018479|        |option_rer_contracts_target_max_distance|Target's max distance from noticeboard
 2115018480|        |option_rer_contracts_target_area_radius|Target area's radius
 2115018481|        |rer_contract_crowns_reward|rewards crowns
+2115018482|        |option_rer_allow_back_to_camp|Go back to camp after completion
+2115018483|        |rer_confirm_back_to_camp_title|Go back to camp
+2115018484|        |rer_confirm_back_to_camp_description|Do you wish to fast travel back to where you accepted the contract?

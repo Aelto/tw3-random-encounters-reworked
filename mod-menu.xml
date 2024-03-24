@@ -4833,6 +4833,9 @@
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
+            <Var id="RERallowBackToCamp" displayName="rer_allow_back_to_camp" displayType="TOGGLE"></Var>
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERcontractTargetsSpread" displayName="rer_contract_targets_spread" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_contract_targets_spread_spread">

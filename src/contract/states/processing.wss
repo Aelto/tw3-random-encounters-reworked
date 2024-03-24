@@ -24,6 +24,8 @@ state Processing in RER_ContractManager {
     this.cleanupEncounters();
 
     if (finished) {
+      this.promptBackToCamp(contract);
+      Sleep(2);
       parent.completeOngoingContract();
     }
 
@@ -49,6 +51,16 @@ state Processing in RER_ContractManager {
 
     theSound.SoundEvent("gui_global_denied");
     parent.endOngoingContract();
+  }
+
+  latent function promptBackToCamp(contract: RER_Contract) {
+    if (!RER_getAllowBackToCamp()) {
+      return;
+    }
+
+    var confirmation: RER_ContractBackToCampConfirmation =  new RER_ContractBackToCampConfirmation in this;
+    NLOG("contract.factory.origin = "+ VecToString(contract.factory.origin));
+    confirmation.open(contract.factory.origin);
   }
 
   latent function waitForPlayerToFinishContract(contract: RER_Contract): bool {
