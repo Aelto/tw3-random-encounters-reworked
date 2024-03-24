@@ -128,6 +128,14 @@ state Processing in RER_ContractManager {
 
     this.target_encounters.Clear();
   }
+
+  event OnLeaveState( nextStateName : name ) {
+    for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
+      target_encounter.removeOneliner();
+    }
+
+    SU_removeCustomPinByTag("RER_contract_target");
+  }
 }
 
 class RER_ContractTargetEncounter {
