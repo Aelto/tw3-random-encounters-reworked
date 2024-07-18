@@ -20,7 +20,7 @@
  
  # Installing
 - Written guides: [The quick guide (install script)](https://aelto.github.io/tw3-random-encounters-reworked/#install) | [The in-depth guide](https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/) | [The in-depth guide (Old-Gen)](https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/oldgen.html)
-- Video guides: [Vanilla Next-Gen](https://www.youtube.com/watch?v=ICNbUVmycbs) | [W3EER Next-Gen ](https://www.youtube.com/watch?v=R148q8_k2NQ) | [Vanilla Old-Gen](https://www.youtube.com/watch?v=QBLdV3T2IKs)
+- Video guides: [Vanilla Next-Gen](https://www.youtube.com/watch?v=pQRPjLat-oc) | [W3EER Next-Gen ](https://www.youtube.com/watch?v=R148q8_k2NQ) | [Vanilla Old-Gen](https://www.youtube.com/watch?v=QBLdV3T2IKs)
 
 # Uninstalling
  - [The in-depth guide](https://aelto.github.io/tw3-random-encounters-reworked/indepth-guide/#part-7)
