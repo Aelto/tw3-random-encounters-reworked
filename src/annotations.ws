@@ -1,5 +1,4 @@
 
-//#region annotations
 @addField(CR4Player) 
 saved var random_encounters_reworked: CRandomEncounters;
 
@@ -21,4 +20,3 @@ function OnSpawned(spawnData: SEntitySpawnData) {
   rer = this.getRandomEncountersReworked();
   rer.start();
 }
-//#endregion
