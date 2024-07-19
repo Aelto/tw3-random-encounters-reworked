@@ -1,18 +1,6 @@
 
-state rer_bootstrapper in SU_TinyBootstrapperManager extends BaseMod {
-  public function getTag(): name {
-    return 'rer_bootstrapper';
-  }
 
-  public function getMod(): SU_BaseBootstrappedMod {
-    return new CRandomEncounters in parent;
-  }
-}
-
-
-statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
-  default tag = 'rer_bootstrapper';
-
+statemachine class CRandomEncounters {
   var rExtra: CModRExtra;
   var settings: RE_Settings;
   var resources: RE_Resources;
@@ -282,7 +270,7 @@ statemachine class CRandomEncounters extends SU_BaseBootstrappedMod {
 }
 
 function getRandomEncounters(out rer_entity: CRandomEncounters): bool {
-  rer_entity = SUTB_getModByTag('rer_bootstrapper') as CRandomEncounters;
+  rer_entity = thePlayer.getRandomEncountersReworked();
 
   if (rer_entity) {
     return true;

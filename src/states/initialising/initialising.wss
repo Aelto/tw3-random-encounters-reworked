@@ -220,6 +220,7 @@ state Initialising in CRandomEncounters {
       current_version = 3.04;
 
       config.SetVarValue('RERmain', 'RERlevelScaling', 0);
+      config.ApplyGroupPreset('RERcontracts', 0);
 
       NTUTO("RER v3.4", "The mod was successfully updated to v3.4");
     }
