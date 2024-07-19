@@ -195,7 +195,7 @@ class RER_ContractTargetEncounter {
     var map_pin: SU_MapPin = new SU_MapPin in this;
     map_pin.tag = "RER_contract_target";
     map_pin.pin_tag = 'RER_contract_target';
-    map_pin.is_fast_travel = true;
+    map_pin.is_fast_travel = false; // causes issues if used, contract not properly loaded
     map_pin.position = this.location;
     map_pin.description = GetLocStringByKey("rer_mappin_regular_description");
     map_pin.label = GetLocStringByKey("rer_mappin_regular_title");
