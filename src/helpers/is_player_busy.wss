@@ -14,7 +14,7 @@ function isPlayerInScene(): bool {
       || thePlayer.IsInGameplayScene()
       || (
           !RER_isCustomPlayerCharacter() 
-          & !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
+          && !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
         )
       || thePlayer.IsCiri()
       || theGame.IsDialogOrCutscenePlaying()
@@ -26,5 +26,5 @@ function isPlayerInScene(): bool {
 
 // For the Custom Player Character
 function RER_isCustomPlayerCharacter(): bool {
-  return thePlayer.HasTag('nr_replacer_sorceress');
+  return FactsQuerySum("nr_player_type") == 5;
 }
