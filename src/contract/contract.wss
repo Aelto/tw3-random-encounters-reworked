@@ -170,7 +170,7 @@ class RER_Contract {
         break;
     }
 
-    return 1 + modifier;
+    return 1.0 + modifier;
   }
 
   /// TODO:
@@ -193,7 +193,7 @@ class RER_Contract {
         break;
     }
 
-    return 1 / (1 + modifier);
+    return 1.0 / (1.0 + modifier);
   }
 
   public function enemyCountMultiplier(scaling: RER_ContractScaling): float {
@@ -213,7 +213,7 @@ class RER_Contract {
         break;
     }
 
-    return 1 + modifier;
+    return 1.0 + modifier;
   }
 }
 

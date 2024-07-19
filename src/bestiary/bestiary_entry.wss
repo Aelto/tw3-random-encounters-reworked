@@ -273,14 +273,51 @@ abstract class RER_BestiaryEntry {
       for (i = 0; i < created_entities.Size(); i += 1) {
         npc = created_entities[i] as CNewNPC;
 
-        npc.sharedutils_damage_modifiers.PushBack(damage_modifier);
+        // reduced damage isn't very fun, instead scale the health of the target
+        // but also give it some HP regen.
+        if (damage_modifier.damage_received_modifier != 1.0) {
+          npc.abilityManager.SetStatPointMax(
+            BCS_Essence,
+            npc.GetMaxHealth() * (1 / damage_modifier.damage_received_modifier)
+          );
 
-        // past 30% damage reduction monsters get debuffs immunity
-        if (damage_modifier.damage_received_modifier < 0.7) {
-          (npc as CActor).AddBuffImmunity(EET_Knockdown, 'RandomEncountersReworked', false);
-          (npc as CActor).AddBuffImmunity(EET_HeavyKnockdown, 'RandomEncountersReworked', false);
-          (npc as CActor).AddBuffImmunity(EET_KnockdownTypeApplicator, 'RandomEncountersReworked', false);
+          npc.abilityManager.SetStatPointMax(
+            BCS_Vitality,
+            npc.GetMaxHealth() * (1 / damage_modifier.damage_received_modifier)
+          );
+
+          npc.SetHealth(npc.GetMaxHealth());
+
+          if (
+            damage_modifier.damage_received_modifier > 0
+            && damage_modifier.damage_received_modifier < 1
+          ) {
+            var params: SCustomEffectParams;
+
+            params.effectType = EET_AutoEssenceRegen;
+            params.creator = NULL;
+
+            // convert 1% of damage resistance into 1% HP regen per 2 minutes
+            params.effectValue.valueMultiplicative = (1 - damage_modifier.damage_received_modifier) / (60 * 2);
+            NLOG("%HP regen per second = " + params.effectValue.valueMultiplicative);
+            params.sourceName = "random-encounters-reworked";
+            params.duration = -1;
+            
+            npc.AddEffectCustom(params);
+          }
+
+          // past 50% damage reduction monsters get debuffs immunity
+          if (damage_modifier.damage_received_modifier < 0.5) {
+            (npc as CActor).AddBuffImmunity(EET_Knockdown, 'RandomEncountersReworked', false);
+            (npc as CActor).AddBuffImmunity(EET_HeavyKnockdown, 'RandomEncountersReworked', false);
+            (npc as CActor).AddBuffImmunity(EET_KnockdownTypeApplicator, 'RandomEncountersReworked', false);
+          }
+
+          // make sure to reset the modifier
+          damage_modifier.damage_received_modifier = 1;
         }
+
+        npc.sharedutils_damage_modifiers.PushBack(damage_modifier);        
       }
     }
 
