@@ -21,6 +21,7 @@ class RER_ContractBackToCampConfirmation extends ConfirmationPopupData {
     ClosePopup();
     theGame.Unpause( "Popup" );
 
+    this.lootNearbyBags();
     thePlayer.Teleport(this.destination);
     this.finished = true;
   }
@@ -29,5 +30,17 @@ class RER_ContractBackToCampConfirmation extends ConfirmationPopupData {
     ClosePopup();
     theGame.Unpause( "Popup" );
     this.finished = true;
+  }
+
+  private function lootNearbyBags() {
+    var entities : array<CGameplayEntity>;
+
+    FindGameplayEntitiesInRange( entities, thePlayer, 25, 30, , FLAG_ExcludePlayer/*,, 'W3Container'*/ );
+
+    for entity: CGameplayEntity in entities {
+      if (entity as W3Container) {
+        (entity as W3Container).TakeAllItems();
+      }
+    }
   }
 }
