@@ -37,20 +37,16 @@ statemachine class RER_BountyMasterManager {
     if (current_region == "no_mans_land") {
       template_path = "gameplay\community\community_npcs\prologue\regular\temerian_merchant.w2ent";
     }
-
     else if (current_region == "skellige") {
       template_path = "gameplay\community\community_npcs\skellige\regular\skellige_merchant.w2ent";
     }
-
     else if (current_region == "bob") {
       template_path = "dlc\bob\data\gameplay\community\community_npcs\craftsmen\merchant.w2ent";
     }
-  
     else if (current_region == "prolog_village") {
       template_path = "gameplay\community\community_npcs\prologue\regular\nilfgaardian_noble.w2ent";
     }
-
-    else if (current_region == "kaer_morhen") {
+    else { // kaer morhen, or any custom world
       template_path = "dlc\ep1\community\community_npcs\gustfields_hunter.w2ent";
     }
     //Ferroxius - New Bounty Masters END
