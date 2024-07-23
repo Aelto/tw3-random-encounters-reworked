@@ -54,6 +54,17 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     // contracts yet, we remove all of the quest contracts
     // before injecting our errand.
     if (!SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1")) {
+      // force the flaw if the noticeboard has a special tag
+      if (board.HasTag('rer_errand')) {
+        board.AddErrand(
+          ErrandDetailsList(
+            "rer_noticeboard_errand_1",
+            "injected_errand"
+          ),
+          true
+        );
+      }
+
       return;
     }
 
