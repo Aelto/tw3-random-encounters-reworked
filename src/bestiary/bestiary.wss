@@ -1,8 +1,21 @@
+function RER_getBestiary(): RER_Bestiary {
+  var master: CRandomEncounters;
+
+  if (getRandomEncounters(master)) {
+    return master.bestiary;
+  }
+
+  return NULL;
+}
 
 class RER_Bestiary {
   var entries: array<RER_BestiaryEntry>;
   var human_entries: array<RER_BestiaryEntry>;
   var constants: RER_ConstantCreatureTypes;
+
+  // entries that are available for the current region_constraints
+  private var cache_entries_region_constraints: array<RER_BestiaryEntry>;
+  private var cache_entries_region_constraints_timestamp: float;
 
   public function loadSettings() {
     var inGameConfigWrapper: CInGameConfigWrapper;
@@ -268,12 +281,44 @@ class RER_Bestiary {
     return entries[index];
   }
 
+  public function getRandomSeededEntry(seed: int): RER_BestiaryEntry {
+    this.maybeRefreshEntriesRegionConstraints();
+
+    var max: int = this.cache_entries_region_constraints.Size();
+    var index: int = RandNoiseF(seed, max as int) as int;
+
+    return this.cache_entries_region_constraints[index];
+  }
+
   public function isCreatureLarge(creature_type: CreatureType): bool {
     return creature_type >= this.constants.large_creature_begin;
   }
 
   public function isCreatureSmall(creature_type: CreatureType): bool {
     return !this.isCreatureLarge(creature_type);
+  }
+
+  private function maybeRefreshEntriesRegionConstraints() {
+    var should_refresh: bool = SUH_hasElapsed(
+      this.cache_entries_region_constraints_timestamp,
+      60
+    );
+
+    if (should_refresh || this.cache_entries_region_constraints.Size() <= 0) {
+      var current_region: string = SUH_getCurrentRegion();
+      var i: int;
+
+      this.cache_entries_region_constraints_timestamp = SUH_now();
+      this.cache_entries_region_constraints.Clear();
+
+      for (i = 0; i < this.entries.Size(); i += 1) {
+        if (!RER_isRegionConstraintValid(this.entries[i].region_constraint, current_region)) {
+          continue;
+        }
+
+        this.cache_entries_region_constraints.PushBack(this.entries[i]);
+      }
+    }
   }
 
 

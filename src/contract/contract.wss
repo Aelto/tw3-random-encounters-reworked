@@ -70,22 +70,37 @@ class RER_Contract {
   public function speciesList(): array<CreatureType> {
     var output: array<CreatureType>;
     var seed: int = this.seed + ContractSeedOffset_species!;
-    var cmaxf: float = (CreatureMAX as int) as float;
-    var cminf: float = (CreatureARACHAS as int) as float;
 
-    // TODO: exclude difficult species using level & ecosystem impact
-
-    output.PushBack(RandNoiseF(seed, cmaxf, cminf) as int);
+    var bestiary: RER_Bestiary = RER_getBestiary();
 
     // NOTE: that in the current implementation, it is possible to get more than
     // 2 targets, every 25 level adds a 10% chance to get one more species, but
     // these are independant odds.
-    var i: int;
-    for (i = 0; i * 25 < this.factory.level; i += 1) {
-      if (RandNoiseF(seed + i, 1.0) <= 0.10) {
-        output.PushBack(
-          RandNoiseF(seed - i, cmaxf) as int
-        );
+
+    if (bestiary) {
+      output.PushBack(bestiary.getRandomSeededEntry(seed).type);
+
+      var i: int;
+      for (i = 0; i * 25 < this.factory.level; i += 1) {
+        if (RandNoiseF(seed + i, 1.0) <= 0.10) {
+          output.PushBack(bestiary.getRandomSeededEntry(seed - 1).type);
+        }
+      }
+    }
+    // falls back to unfiltered entries if no bestiary
+    else {
+      var cmaxf: float = (CreatureMAX as int) as float;
+      var cminf: float = (CreatureARACHAS as int) as float;
+
+      output.PushBack(RandNoiseF(seed, cmaxf, cminf) as int);
+
+      var i: int;
+      for (i = 0; i * 25 < this.factory.level; i += 1) {
+        if (RandNoiseF(seed + i, 1.0) <= 0.10) {
+          output.PushBack(
+            RandNoiseF(seed - i, cmaxf) as int
+          );
+        }
       }
     }
 
