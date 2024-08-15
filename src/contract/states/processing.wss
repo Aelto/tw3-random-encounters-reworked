@@ -101,6 +101,7 @@ state Processing in RER_ContractManager {
       for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
         if (target_encounter.isSpawnedAndKilled()) {
           parent.setTargetKilled(target_encounter.index);
+          target_encounter.removeMapPin();
         }
 
         if (target_encounter.canSpawn(player_position, destination_radius)) {
@@ -159,6 +160,7 @@ class RER_ContractTargetEncounter {
 
   var encounter: RandomEncountersReworkedHuntingGroundEntity;
   var oneliner: RER_Oneliner;
+  var map_pin: SU_MapPin;
 
   public function init(
     index: int,
@@ -207,6 +209,8 @@ class RER_ContractTargetEncounter {
       .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBounties');
 
     SUMP_addCustomPin(map_pin);
+
+    this.map_pin = map_pin;
   }
 
   public function canSpawn(player_position: Vector, radius: float): bool {
@@ -330,14 +334,25 @@ class RER_ContractTargetEncounter {
       return;
     }
 
-    this.encounter.clean();
+    if (this.encounter) {
+      this.encounter.clean();
+    }
+
     this.removeOneliner();
+    this.removeMapPin();
   }
 
   public function removeOneliner() {
     if (this.oneliner) {
       this.oneliner.unregister();
       delete this.oneliner;
+    }
+  }
+
+  public function removeMapPin() {
+    if (this.map_pin) {
+      SU_removeCustomPin(this.map_pin);
+      delete this.map_pin;
     }
   }
 }
