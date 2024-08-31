@@ -17,7 +17,7 @@ state ListeningForEvents in RER_EventsManager {
 
     // NLOG("RER_EventsManager - State ListeningForEvents - listening started");
 
-    if (!parent.master.settings.is_enabled || !RER_modPowerIsEventSystemEnabled(parent.master.getModPower()) || parent.master.contract_manager.isPlayerInContract()) {
+    if (!parent.master.settings.is_enabled || !RER_modPowerIsEventSystemEnabled(parent.master.getModPower())) {
       parent.GotoState('Waiting');
     }
 
