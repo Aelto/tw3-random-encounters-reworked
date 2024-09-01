@@ -65,10 +65,6 @@ statemachine class RER_ContractManager {
     return this.master.storages.contract.has_ongoing_contract;
   }
 
-  public function isPlayerInContract(): bool {
-    return this.GetCurrentStateName() == 'Processing';
-  }
-
   public function endOngoingContract() {
     this.master.storages.contract.has_ongoing_contract = false;
     this.master.storages.contract.save();
