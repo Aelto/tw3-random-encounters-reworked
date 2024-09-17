@@ -136,8 +136,10 @@ statemachine class RER_BountyMasterManager {
       return;
     }
 
+    var bounty_master: string = GetLocStringByKey("rer_mappin_bounty_master_title");
+
     this.oneliner = RER_onelinerEntity(
-      "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> Bounty Master",
+      "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> " + bounty_master,
       this.bounty_master_entity
     );
   }
