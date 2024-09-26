@@ -24,7 +24,7 @@ state Initialising in CRandomEncounters {
 
     NLOG(" - Player no longer busy");
 
-    Sleep(0.5);
+    Sleep(10);
 
     var is_enabled: bool = theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
     var version: float = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodVersion'));
