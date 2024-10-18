@@ -12,7 +12,7 @@ state Wandering in RandomEncountersReworkedHuntingGroundEntity {
     this.makeEntitiesMoveTowardsBait();
     this.resetEntitiesActions();
 
-    parent.GotoState('Combat');
+    parent.GotoState('RER_Combat');
   }
 
   latent function makeEntitiesMoveTowardsBait() {
