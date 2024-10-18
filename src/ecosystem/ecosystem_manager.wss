@@ -112,6 +112,13 @@ class RER_EcosystemManager {
       NLOG("udpateCountersWithCreatureModifiers, before = " + counters[i]);
       NLOG("udpateCountersWithCreatureModifiers, creature = " + (i as CreatureType) + " modifier = " + modifiers[i]);
 
+      // a counter at 0 indicates that the creature may not be authorized to
+      // spawn under the current conditions.
+      if (counters[i] <= 0) {
+        NLOG("udpateCountersWithCreatureModifiers, counter = 0, skipping");
+        continue;
+      }
+
       // here, it's an added value `+=` and not a `=` so if the modifiers is at
       // 0 it won't change the value rather than setting it at 0.
       // See modifiers as an % increase/decrease.

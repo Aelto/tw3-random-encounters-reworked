@@ -42,6 +42,8 @@ state Waiting in CRandomEncounters {
       if (time_before_updating_frequency_multiplier <= 0) {
         parent.refreshEcosystemFrequencyMultiplier();
         NLOG("ecosystem_frequency_multiplier = " + parent.ecosystem_frequency_multiplier);
+
+        RER_detectAbnormalLevelChanges();
       }
 
       Sleep(5);

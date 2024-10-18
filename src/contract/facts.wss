@@ -2,18 +2,7 @@
 #define const RER_CONTRACT_REPUTATION_FACT_ID = "rer_contract_reputation_fact_id";
 
 function RER_getContractReputationFactValue(): int {
-  var reputation_system_enabled: bool = theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
-
-  if (!reputation_system_enabled) {
-    // when reputation is disabled it defaults to 1 reputation point per 2 levels
-    var player_level: float = RER_getPlayerLevel() as float;
-    var value: float = player_level / 1.5;
-
-    return value as int;
-  }
-
-  return FactsQueryLatestValue(RER_CONTRACT_REPUTATION_FACT_ID!);
+  return Max(FactsQueryLatestValue(RER_CONTRACT_REPUTATION_FACT_ID!), 0);
 }
 
 function RER_setContractReputationFactValue(value: int) {
@@ -27,6 +16,22 @@ function RER_addContractReputationFactValue(gain: int) {
 function RER_removeContractReputationFact() {
   FactsRemove(RER_CONTRACT_REPUTATION_FACT_ID!);
 }
+
+#define const RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID = "rer_contract_preferred_difficulty_fact_id";
+
+function RER_getContractPreferredDifficultyFactValue(): int {
+  return FactsQueryLatestValue(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!);
+}
+
+function RER_setContractPreferredDifficultyFactValue(value: int) {
+  FactsSet(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!, Max(value, 0));
+}
+
+function RER_removeContractPreferredDifficultyFact() {
+  FactsRemove(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!);
+}
+
+
 
 #define const RER_IGNORESLOWBOOT_FACT_ID = "rer_ignoreslowboot_fact_id";
 

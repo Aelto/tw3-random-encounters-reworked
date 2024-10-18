@@ -1,0 +1,348 @@
+
+// CSO stands for ContractSeedOffset
+#define const ContractSeedOffset_species = 10;
+#define const ContractSeedOffset_destination = 20;
+#define const ContractSeedOffset_speciesSecondary = 30;
+#define const ContractSeedOffset_opportunistCheck = 40;
+#define const ContractSeedOffset_opportunistIndex = 50;
+#define const ContractSeedOffset_targetPosition = 60;
+#define const ContractSeedOffset_difficulty = 70;
+#define const ContractSeedOffset_rewards = 80;
+
+struct RER_ContractSeedFactory {
+  /// represents the origin of the contract, usually refers to the Noticeboard's
+  /// WorldPosition
+  var origin: Vector;
+
+  /// represents the difficulty level of the contract, can either be generated
+  /// from the player's reputation, or from the player's level directly.
+  var level: int;
+
+  /// used to differentiate the multiple contracts that may be generated from
+  /// a same origin and for a same level
+  var index: int;
+
+  /// the region in which the contracts happen, not exactly used for data
+  /// generation as a seed but rather to confirm the contract should be
+  /// displayed in the current map.
+  var region_name: string;
+
+  /// a time based offset that can be used to alter the seed as time passes
+  var timeoffset: int;
+}
+
+/// A wrapping class around a contract seed with methods that are able to
+/// generate the final data off the contract factory.
+class RER_Contract {
+  var factory: RER_ContractSeedFactory;
+  var seed: int;
+
+  public function init(factory: RER_ContractSeedFactory): RER_Contract {
+    this.factory = factory;
+
+    this.seed = factory.level * (factory.index + 1)
+      + (factory.origin.X as int) 
+      + (factory.origin.Y as int)
+      + factory.timeoffset;
+
+    return this;
+  }
+
+  public function difficulty(): int {
+    var seed: int = this.seed + ContractSeedOffset_difficulty!;
+
+    var max: int = this.factory.level + 2;
+    var min: int = Max(this.factory.level - 2, 0);
+
+    return RandNoiseF(
+      seed,
+      max as float,
+      min as float
+    ) as int;
+  }
+
+  public function hasBonusRewards(): bool {
+    var species: array<CreatureType> = this.speciesList();
+
+    return RandNoiseF(this.seed + ContractSeedOffset_rewards!, 1.0) <= species.Size() * 0.1;
+  }
+
+  public function speciesList(): array<CreatureType> {
+    var output: array<CreatureType>;
+    var seed: int = this.seed + ContractSeedOffset_species!;
+
+    var bestiary: RER_Bestiary = RER_getBestiary();
+
+    // NOTE: that in the current implementation, it is possible to get more than
+    // 2 targets, every 25 level adds a 10% chance to get one more species, but
+    // these are independant odds.
+
+    if (bestiary) {
+      output.PushBack(bestiary.getRandomSeededEntry(seed).type);
+
+      var i: int;
+      for (i = 0; i * 25 < this.factory.level; i += 1) {
+        if (RandNoiseF(seed + i, 1.0) <= 0.10) {
+          output.PushBack(bestiary.getRandomSeededEntry(seed - 1).type);
+        }
+      }
+    }
+    // falls back to unfiltered entries if no bestiary
+    else {
+      var cmaxf: float = (CreatureMAX as int) as float;
+      var cminf: float = (CreatureARACHAS as int) as float;
+
+      output.PushBack(RandNoiseF(seed, cmaxf, cminf) as int);
+
+      var i: int;
+      for (i = 0; i * 25 < this.factory.level; i += 1) {
+        if (RandNoiseF(seed + i, 1.0) <= 0.10) {
+          output.PushBack(
+            RandNoiseF(seed - i, cmaxf) as int
+          );
+        }
+      }
+    }
+
+    return output;
+  }
+
+  public function destinations(spread: RER_ContractTargetsSpread): array<Vector> {
+    var output: array<Vector>;
+    var destinations: array<Vector> = RER_getClosestDestinationPoints(
+      this.factory.origin,
+      this.maxPointOfInterestDistance()
+    );
+
+    // we'll use the list of species to know how many locations are needed
+    var species: array<CreatureType> = this.speciesList();
+    var seed: int = this.seed + ContractSeedOffset_destination!;
+
+    // if they're grouped then the contract uses the first location for all targets
+    if (spread == RER_ContractTargetsSpread_GROUPED) {
+      var index: int = RandNoiseF(seed, destinations.Size() as float) as int;
+
+      var i: int = 0;
+      for (i = 0; i < species.Size(); i += 1) {
+        output.PushBack(destinations[index]);
+      }
+    }
+    else {
+      var i: int = 0;
+      var index: int = RandNoiseF(seed, destinations.Size() as float) as int;
+
+      for (i = 0; i < species.Size(); i += 1) {
+        // to get close locations we use an offset from the starting point in
+        // each iteration:
+        index = Clamp(index + (RandNoiseF(seed, 4.0) - 2.0) as int, 0, destinations.Size() - 1);
+
+        NLOG("destinations(), seed = " + seed + 1);
+        NLOG("destinations(), index = " + index + " position = " + VecToString(destinations[index]));
+
+        output.PushBack(destinations[index]);
+        destinations.EraseFast(index);
+      }
+    }
+
+
+    return output;
+  }
+
+  public function maxPointOfInterestDistance(): float {
+    return StringToInt(RER_menuContract('RERcontractTargetMaxDistance'));
+  }
+
+  public function destinationRadius(): float {
+    return StringToFloat(RER_menuContract('RERcontractTargetAreaRadius'));
+  }
+
+  public function getPrimaryTargetOffset(index: int): Vector {
+    var seed: int = this.seed + ContractSeedOffset_targetPosition! + index;
+
+    var radius: float = this.destinationRadius();
+
+    return VecRingRandStatic(
+      seed,
+      0,
+      radius * 0.75 // to make sure monsters aren't spawned outside
+    );
+  }
+
+  public function damageDealtModifier(scaling: RER_ContractScaling): float {
+    var modifier: float = 0.015 * (this.factory.level * 0.01);
+
+    switch (scaling) {
+      case RER_ContractScaling_MIXED:
+        modifier *= 0.5;
+        break;
+
+      case RER_ContractScaling_ENEMY_COUNT:
+        modifier *= 0;
+        break;
+
+        case RER_ContractScaling_DAMAGE_MODIFIERS:
+        modifier *= 1;
+        break;
+    }
+
+    return 1.0 + modifier;
+  }
+
+  /// TODO:
+  /// see if it could be healthModifier instead, it could work better with
+  /// other damage scaling mods.
+  public function damageReceivedModifier(scaling: RER_ContractScaling): float {
+    var modifier: float = 0.01 * (this.factory.level * 0.01);
+
+    switch (scaling) {
+      case RER_ContractScaling_MIXED:
+        modifier *= 0.5;
+        break;
+
+      case RER_ContractScaling_ENEMY_COUNT:
+        modifier *= 0;
+        break;
+
+        case RER_ContractScaling_DAMAGE_MODIFIERS:
+        modifier *= 1;
+        break;
+    }
+
+    return 1.0 / (1.0 + modifier);
+  }
+
+  public function enemyCountMultiplier(scaling: RER_ContractScaling): float {
+    var modifier: float = 0.01 * (this.factory.level * 0.01);
+
+    switch (scaling) {
+      case RER_ContractScaling_MIXED:
+        modifier *= 0.5;
+        break;
+
+      case RER_ContractScaling_ENEMY_COUNT:
+        modifier *= 1;
+        break;
+
+        case RER_ContractScaling_DAMAGE_MODIFIERS:
+        modifier *= 0;
+        break;
+    }
+
+    return 1.0 + modifier;
+  }
+}
+
+function RER_getClosestDestinationPoints(starting_point: Vector, max_distance: float): array<Vector> {
+  var sorter_data: array<SU_ArraySorterData>;
+  var mappins: array<SEntityMapPinInfo>;
+  var entities: array<CEntity>;
+  var current_position: Vector;
+  var current_distance: float;
+  var current_region: string;
+  var output: array<Vector>;
+  var i: int;
+
+  var commonMapManager: CCommonMapManager = theGame.GetCommonMapManager();
+  current_region = AreaTypeToName(commonMapManager.GetCurrentArea());
+
+  var max_distance_squared: float = max_distance * max_distance;
+
+  // We use a list of point of interests across the map
+  mappins = RER_getPointOfInterests();
+  for (i = 0; i < mappins.Size(); i += 1) {
+    current_position = mappins[i].entityPosition;
+    current_distance = VecDistanceSquared2D(starting_point, current_position);
+
+    if (current_distance >= max_distance_squared) {
+      continue;
+    }
+
+    sorter_data.PushBack((new RER_ContractLocation in commonMapManager).init(current_position, current_distance));
+  }
+
+  // We also fetch entities with a custom tag to support
+  // custom point of interests. This can prove useful in
+  // new maps from mod who may want to add support for RER
+  // contracts
+  // FindGameplayEntitiesInRange(
+  //   entities,
+  //   thePlayer,
+  //   10000, // range
+  //   500, // maxresults
+  //   'RER_contractPointOfInterest', // tag
+  // );
+
+  theGame.GetEntitiesByTag('RER_contractPointOfInterest', entities);
+
+  for (i = 0; i < entities.Size(); i += 1) {
+    current_position = entities[i].GetWorldPosition();
+    current_distance = VecDistanceSquared2D(starting_point, current_position);
+
+    if (current_distance >= max_distance_squared) {
+      continue;
+    }
+
+    sorter_data.PushBack((new RER_ContractLocation in commonMapManager).init(current_position, current_distance));
+  }
+
+  // we re-use the same variable here
+  sorter_data = SU_sortArray(sorter_data);
+
+  for (i = 0; i < sorter_data.Size(); i += 1) {
+    output.PushBack((sorter_data[i] as RER_ContractLocation).position);
+  }
+
+  return output;
+}
+
+function RER_getPointOfInterests(): array<SEntityMapPinInfo> {
+  var output: array<SEntityMapPinInfo>;
+  var all_pins: array<SEntityMapPinInfo>;
+  var i: int;
+
+  all_pins = theGame
+    .GetCommonMapManager()
+    .GetEntityMapPins(theGame.GetWorld().GetDepotPath());
+
+  for (i = 0; i < all_pins.Size(); i += 1) {
+    if (all_pins[i].entityType == 'MonsterNest'
+      || all_pins[i].entityType == 'InfestedVineyard'
+    //  || all_pins[i].entityType == 'PlaceOfPower'
+      || all_pins[i].entityType == 'BanditCamp'
+      || all_pins[i].entityType == 'BanditCampfire'
+      || all_pins[i].entityType == 'BossAndTreasure'
+      || all_pins[i].entityType == 'RescuingTown'
+      || all_pins[i].entityType == 'DungeonCrawl'
+      || all_pins[i].entityType == 'Hideout'
+      || all_pins[i].entityType == 'Plegmund'
+      || all_pins[i].entityType == 'KnightErrant'
+    //  || all_pins[i].entityType == 'WineContract'
+      || all_pins[i].entityType == 'SignalingStake'
+      || all_pins[i].entityType == 'MonsterNest'
+      || all_pins[i].entityType == 'TreasureHuntMappin'
+      || all_pins[i].entityType == 'PointOfInterestMappin'
+      // the same pins but with Disabled at the end
+      || all_pins[i].entityType == 'MonsterNestDisabled'
+      || all_pins[i].entityType == 'InfestedVineyardDisabled'
+    //  || all_pins[i].entityType == 'PlaceOfPowerDisabled'
+      || all_pins[i].entityType == 'BanditCampDisabled'
+      || all_pins[i].entityType == 'BanditCampfireDisabled'
+      || all_pins[i].entityType == 'BossAndTreasureDisabled'
+      || all_pins[i].entityType == 'RescuingTownDisabled'
+      || all_pins[i].entityType == 'DungeonCrawlDisabled'
+      || all_pins[i].entityType == 'HideoutDisabled'
+      || all_pins[i].entityType == 'PlegmundDisabled'
+      || all_pins[i].entityType == 'KnightErrantDisabled'
+    //  || all_pins[i].entityType == 'WineContractDisabled'
+      || all_pins[i].entityType == 'SignalingStakeDisabled'
+      || all_pins[i].entityType == 'MonsterNestDisabled'
+      || all_pins[i].entityType == 'TreasureHuntMappinDisabled'
+      || all_pins[i].entityType == 'PointOfInterestMappinDisabled'
+      || all_pins[i].entityType == 'PointOfInterestMappinDisabled') {
+      output.PushBack(all_pins[i]);
+    }
+  }
+
+  return output;
+}
+

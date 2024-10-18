@@ -1,0 +1,46 @@
+
+class RER_ContractBackToCampConfirmation extends ConfirmationPopupData {
+  var destination: Vector;
+  var finished: bool;
+
+  public latent function open(destination: Vector) {
+    this.destination = destination;
+    this.SetMessageTitle(GetLocStringByKey("rer_confirm_back_to_camp_title"));
+    this.SetMessageText(GetLocStringByKey("rer_confirm_back_to_camp_description"));
+    theGame.RequestMenu('PopupMenu', this);
+    this.waitUntilClosed();
+  }
+
+  private latent function waitUntilClosed() {
+    while (!this.finished) {
+      SleepOneFrame();
+    }
+  }
+
+  protected function OnUserAccept(): void {
+    ClosePopup();
+    theGame.Unpause( "Popup" );
+
+    this.lootNearbyBags();
+    thePlayer.Teleport(this.destination);
+    this.finished = true;
+  }
+
+  protected function OnUserDecline(): void {
+    ClosePopup();
+    theGame.Unpause( "Popup" );
+    this.finished = true;
+  }
+
+  private function lootNearbyBags() {
+    var entities : array<CGameplayEntity>;
+
+    FindGameplayEntitiesInRange( entities, thePlayer, 25, 30, , FLAG_ExcludePlayer/*,, 'W3Container'*/ );
+
+    for entity: CGameplayEntity in entities {
+      if (entity as W3Container) {
+        (entity as W3Container).TakeAllItems();
+      }
+    }
+  }
+}

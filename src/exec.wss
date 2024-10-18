@@ -82,22 +82,21 @@ exec function reruninstall() {
   }
 
   RER_removeContractReputationFact();
-  _sutbuninstall('rer_bootstrapper');
 
   NDEBUG("RER Uninstall finished.");
 }
 
-exec function rercompletecontract() {
-  var rer_entity : CRandomEncounters;
+// exec function rercompletecontract() {
+//   var rer_entity : CRandomEncounters;
 
-  if (!getRandomEncounters(rer_entity)) {
-    NDEBUG("No entity found with tag <RandomEncounterTag>");
+//   if (!getRandomEncounters(rer_entity)) {
+//     NDEBUG("No entity found with tag <RandomEncounterTag>");
     
-    return;
-  }
+//     return;
+//   }
 
-  rer_entity.contract_manager.completeCurrentContract();
-}
+//   rer_entity.contract_manager.completeOngoingContract();
+// }
 
 exec function rerclearcontractstorage() {
   var rer_entity : CRandomEncounters;

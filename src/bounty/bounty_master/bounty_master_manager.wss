@@ -37,20 +37,16 @@ statemachine class RER_BountyMasterManager {
     if (current_region == "no_mans_land") {
       template_path = "gameplay\community\community_npcs\prologue\regular\temerian_merchant.w2ent";
     }
-
     else if (current_region == "skellige") {
       template_path = "gameplay\community\community_npcs\skellige\regular\skellige_merchant.w2ent";
     }
-
     else if (current_region == "bob") {
       template_path = "dlc\bob\data\gameplay\community\community_npcs\craftsmen\merchant.w2ent";
     }
-  
     else if (current_region == "prolog_village") {
       template_path = "gameplay\community\community_npcs\prologue\regular\nilfgaardian_noble.w2ent";
     }
-
-    else if (current_region == "kaer_morhen") {
+    else { // kaer morhen, or any custom world
       template_path = "dlc\ep1\community\community_npcs\gustfields_hunter.w2ent";
     }
     //Ferroxius - New Bounty Masters END
@@ -140,8 +136,10 @@ statemachine class RER_BountyMasterManager {
       return;
     }
 
+    var bounty_master: string = GetLocStringByKey("rer_mappin_bounty_master_title");
+
     this.oneliner = RER_onelinerEntity(
-      "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> Bounty Master",
+      "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> " + bounty_master,
       this.bounty_master_entity
     );
   }
@@ -172,7 +170,7 @@ statemachine class RER_BountyMasterManager {
         output.PushBack(Vector(-297.9, -1049, 6));
 
         // Holmstein port
-        output.PushBack(Vector(-36, 619, 2));
+        output.PushBack(Vector(-36, 613.5, 2));
 
         // Urialla harbor
         output.PushBack(Vector(1488, 1907, 4.7));

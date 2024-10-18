@@ -66,7 +66,7 @@ function RER_giveItemForLevelNoMansLand(
     inventory.AddAnItem('EP1 Witcher Armor');
     inventory.AddAnItem('EP1 Witcher Boots');
     inventory.AddAnItem('EP1 Witcher Gloves');
-    inventory.AddAnItem('EP1 Witcher Pants ');
+    inventory.AddAnItem('EP1 Witcher Pants');
   } else if (level == 35) {
     inventory.AddAnItem('Devil Saddle');
   } else if (level == 40) {

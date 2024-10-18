@@ -336,7 +336,7 @@
 2115018288|        |rer_mappin_bounty_main_target_title|Bounty main target
 2115018289|        |rer_mappin_bounty_main_target_description|{{creature_type}} were seen in the area. Kill them and collect the bounty reward. <font color="#ffd33d">(Click to fast-travel)</font>
 2115018290|        |rer_mappin_regular_title|Contract target
-2115018291|        |rer_mappin_regular_description|Clues lead to this area, something interesting must be here. <font color="#ffd33d">(Click to fast-travel)</font>
+2115018291|        |rer_mappin_regular_description|Clues lead to this area, something interesting must be here.
 2115018292|        |rer_dialog_farewell|Farewell.
 2115018293|        |rer_dialog_start_bounty|Start bounty
 2115018294|        |rer_dialog_start_bounty_no_conversation|Start bounty (skip conversation)
@@ -455,10 +455,10 @@
 2115018387|        |rer_kill_target|Kill the {{type}}
 2115018388|        |rer_contract_finished|The contract is over
 2115018389|        |rer_reward_results|You exchanged a {{reward_type}} token for: {{item_names}}
-2115018390|        |rer_contract_started|{{species}} contract has started. Search the marker on your map.
+2115018390|        |rer_contract_started|The contract has started. Search the marker on your map.
 2115018391|        |rer_huntsman_redux_bonus|+50% from Huntsman perk
 2115018392|        |rer_complete_more_contracts|Locked: complete more contracts to earn reputation
-2115018393|        |rer_current_reputation|Spend reputation (current: {{reputation}})
+2115018393|        |rer_select_difficulty|Select difficulty (current: {{difficulty}})
 2115018394|        |rer_distance_nearby|UNUSED
 2115018395|        |option_rer_medium_contracts_number|Number of <font color="#d4a72c">medium</font> contracts
 2115018396|        |option_rer_medium_far_contracts_number|UNUSED
@@ -473,7 +473,7 @@
 2115018405|        |rer_bounty_start_popup_title|Bounty information
 2115018406|        |rer_trade_all_tokens|Trade all tokens
 2115018407|        |option_rer_allow_select_difficulty|Allow selecting contracts difficulty
-2115018408|        |option_rer_allow_increased_enemy_count|Allow increased enemy count
+2115018408|        |option_rer_contract_difficulty_scaling|Difficulty scaling
 2115018409|        |option_dlc_sharedutils|MOD: Random Encounters Reworked - Shared Utilities
 2115018410|        |option_rer_tutorial_bounty_level|Bounty level
 2115018411|        |rer_tutorial_bounty_level_title|RER Tutorial - Bounty level
@@ -515,7 +515,7 @@
 2115018447|        |option_rer_tutorial_bounty_master|Bounty master
 2115018448|        |rer_tutorial_bounty_master_title|RER Tutorial - Bounty master
 2115018449|        |rer_reputation_spent_message_not_enough|You do not have enough reputation to spend
-2115018450|        |preset_value_rer_preset_selector|Get preset selector
+2115018450|        |preset_value_rer_preset_selector|Preset selector
 2115018451|        |rer_bounty|Bounty
 2115018452|        |rer_contract|Contract
 2115018453|        |rer_strayed_too_far_cancelled|You strayed too far, your current {{thing}} was cancelled
@@ -533,4 +533,21 @@
 2115018465|        |rer_tracks_examine_hud_message_unknown|The tracks appear to be from an unknown creature
 2115018466|        |option_rer_contract_death_reputation_loss_buffer|Active death counter <font color="#d73a49">(DO NOT EDIT)</font>
 2115018467|        |option_rer_contract_death_reputation_loss_amount|<font color="#8250df">                                :</font> Reputation loss on death
-2115018468|        |option_rer_general_intensity|Mod's general intensity & speed (%)
+2115018468|        |option_rer_level_scaling|Mod & level scaling
+2115018469|        |preset_value_rer_level_scaling_automatic|Detect automatically
+2115018470|        |preset_value_rer_level_scaling_use_levels|Use player levels
+2115018471|        |preset_value_rer_level_scaling_use_playtime|Use play time (3 hours = 1 level)
+2115018472|        |rer_level_scaling_no_level_detected|It looks like you are using a "No Level" mod or a mod that adjusts your level dynamically. The <font color="#CD7D03">Mod & Level scaling</font> setting from <font color="#CD7D03">Random Encounters Reworked</font> is now set to use your play-time instead of the player level.<br /><br />If you don't like this change or if you think there is an error, you can manually change it in <font color="#CD7D03">Random Encounters Reworked</font>'s general mod menu.
+2115018473|        |preset_value_rer_contract_scaling_mixed|Mixed
+2115018474|        |preset_value_rer_contract_scaling_damage_modifiers|+Damage, +HP, +HP Regen
+2115018475|        |preset_value_rer_contract_scaling_enemy_count|Enemy count
+2115018476|        |option_rer_contract_targets_spread|Targets spread behaviour
+2115018477|        |preset_value_rer_contract_targets_spread_spread|Spread over multiple locations
+2115018478|        |preset_value_rer_contract_targets_spread_grouped|Grouped on same location
+2115018479|        |option_rer_contracts_target_max_distance|Target's max distance from noticeboard
+2115018480|        |option_rer_contracts_target_area_radius|Target area's radius
+2115018481|        |rer_contract_crowns_reward|rewards crowns
+2115018482|        |option_rer_allow_back_to_camp|Go back to camp after completion
+2115018483|        |rer_confirm_back_to_camp_title|Go back to camp
+2115018484|        |rer_confirm_back_to_camp_description|Do you wish to auto-collect nearby loot & fast travel back to the noticeboard?
+2115018485|        |option_rer_general_intensity|Mod's general intensity & speed (%)

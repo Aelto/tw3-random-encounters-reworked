@@ -8,7 +8,7 @@ state Waiting in RER_ContractManager {
   }
 
   entry function Waiting_main() {
-    if (parent.master.storages.contract.has_ongoing_contract) {
+    if (parent.hasOngoingContract()) {
       parent.GotoState('Processing');
     }
     else {

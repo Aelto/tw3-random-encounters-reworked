@@ -1,4 +1,35 @@
 
+function RER_menuContract(item: name): string {
+  return RER_menu('RERcontracts', item);
+}
+
+enum RER_ContractScaling {
+  RER_ContractScaling_MIXED = 0,
+  RER_ContractScaling_ENEMY_COUNT = 1,
+  RER_ContractScaling_DAMAGE_MODIFIERS = 2,
+}
+
+function RER_getContractDifficultyScaling(): RER_ContractScaling {
+  return StringToInt(RER_menuContract('RERcontractDifficultyScaling'));
+}
+
+enum RER_ContractTargetsSpread {
+  RER_ContractTargetsSpread_SPREAD = 0,
+  RER_ContractTargetsSpread_GROUPED = 1
+}
+
+function RER_getContractTargetsSpread(): RER_ContractTargetsSpread {
+  return StringToInt(RER_menuContract('RERcontractTargetsSpread'));
+}
+
+function RER_getHoursBeforeNewContract(): int {
+  return StringToInt(RER_menuContract('RERhoursBeforeNewContracts'));
+}
+
+function RER_getAllowBackToCamp(): bool {
+  return RER_menuContract('RERallowBackToCamp');
+}
+
 /**
  * Unique identifier used to differentiate one noticeboard from another
  */

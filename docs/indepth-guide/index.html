@@ -90,7 +90,7 @@
           <li>The quick and easy way by using the menu filelist updater, from <a
               href="https://github.com/Aelto/tw3-menufilelist-updater/releases/latest">Github</a> or <a
               href="https://www.nexusmods.com/witcher3/mods/7171">Nexusmods</a></li>
-          <li>Manually, by adding <span>modRandomEncountersReworked.xml</span> to the two filelists.txt files</li>
+          <li>Manually, by adding <span>modRandomEncountersReworked.xml;</span> to the two filelists.txt files in <span>Witcher3/bin/config/r4game/user_config_matrix/pc </span></li>
         </ul>
       </div>
     </div>
@@ -98,16 +98,21 @@
 
   <section id="part-2">
     <h2>Merging instructions</h2>
-    <blockquote class="info">
-      Merging instructions for known conflicts
-    </blockquote>
 
     <p>
-      If one of the mods you use is in the list below then use the mod specific instructions,
-      otherwise merge everything that includes a sharedutils mod.
+      <u>
+        The mod requires you use the latest version of the game, released June 6 2024.
+      </u>
+      Otherwise you will notice errors that mention the @ (at) character.
     </p>
 
     <p>
+      If your game is up to date then <b>there is nothing to merge to use Random Encounters Reworked</b>.
+      If you have done all of the previous steps, including the menu filelists updating then you may launch
+      the game and go straight to loading the save of your choice.
+    </p>
+
+    <!-- <p>
       Note: the instructions assume you have no custom priority on any of your mods, but if you do then
       you'll have to ensure Shared Imports is always loaded
       first (its name shouldn't be greyed in the script merger window).
@@ -143,68 +148,6 @@
             </ul>
           </li>
         </ul>
-      </div>
-    </details>
-
-    <!-- the sharedutils npc_interaction no longer edits playerInput.ws:
-    <details>
-      <summary>Friendly HUD or Enhanced Edition</summary>
-
-      <blockquote>
-        Note that you may not get the conflict depending on the version of your game
-        or the version of FHUD you use. If you don't get the conflict, then move to
-        the next conflict
-      </blockquote>
-
-      <div>
-        <ul>
-          <li>
-            <span>playerInput.ws</span>
-            <ul>
-              <li>modFriendlyHUD</li>
-              <li>mod_sharedutils_npcInteraction</li>
-            </ul>
-          </li>
-        </ul>
-
-        If a conflict between the two appears (the name of the file is in red),
-        you should merge the files and wait until you are shown the conflict between
-        the two given mods.
-
-        <img src="npc_interaction_fhud_conflict.png" alt="image showing the kdiff3 between sharedutils and FHUD">
-        <i>hold left click on the image to zoom</i>
-      </div>
-
-      <div>
-        On the two top right panels you should see one panel
-        for <span>sharedutils</span> and one for <span>Friendly HUD</span>. To
-        confirm which panel is which mod you should read the comments in the code,
-        the lines starting with <span>//</span>.
-      </div>
-
-      <div>
-        Once you know which side is FHUD and which side is sharedutils, using the
-        <span>B</span> and <span>C</span> letters on the top menu, you should first
-        pick the sharedutils one and in second the FHUD one.
-        <br>
-        Refer to the screenshot to see the expected result in the bottom panel.
-      </div>
-
-      <hr>
-
-      <div>
-        <blockquote>Only if you used the FHUD patch (incompatible with W3EE)</blockquote>
-        <ul>
-          <li>
-            <span>fhudscripts/modMarker.ws</span>
-            <ul>
-              <li>modFriendlyHUD</li>
-              <li>mod000_sharedutilsmappinsfhudpatch</li>
-            </ul>
-          </li>
-        </ul>
-
-        Do no merge it, but make sure it is loaded before FHUD.
       </div>
     </details> -->
   </section>

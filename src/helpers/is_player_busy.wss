@@ -12,11 +12,19 @@ function isPlayerBusy(): bool {
 function isPlayerInScene(): bool {
   return thePlayer.IsInNonGameplayCutscene()
       || thePlayer.IsInGameplayScene()
-      || !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
+      || (
+          !RER_isCustomPlayerCharacter() 
+          && !thePlayer.IsActionAllowed(EIAB_DrawWeapon)
+        )
       || thePlayer.IsCiri()
       || theGame.IsDialogOrCutscenePlaying()
       || theGame.IsCurrentlyPlayingNonGameplayScene()
       || theGame.IsFading()
       || theGame.IsBlackscreen()
       || thePlayer.IsInFistFightMiniGame();
+}
+
+// For the Custom Player Character
+function RER_isCustomPlayerCharacter(): bool {
+  return FactsQuerySum("nr_player_type") == 5;
 }

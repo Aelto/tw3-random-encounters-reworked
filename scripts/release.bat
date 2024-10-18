@@ -31,8 +31,6 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_npcInteraction\" "%modpath%\releas
 XCOPY "%modpath%\shared-utils\mod_sharedutils_noticeboards\" "%modpath%\release\mods\mod_sharedutils_noticeboards\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_helpers\" "%modpath%\release\mods\mod_sharedutils_helpers\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_damagemodifiers\" "%modpath%\release\mods\mod_sharedutils_damagemodifiers\" /e /s /y
-XCOPY "%modpath%\shared-utils\mod_sharedutils_tiny_bootstrapper\" "%modpath%\release\mods\mod_sharedutils_tiny_bootstrapper\" /e /s /y
-XCOPY "%modpath%\shared-utils\mod_sharedutils_storage\" "%modpath%\release\mods\mod_sharedutils_storage\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_glossary\" "%modpath%\release\mods\mod_sharedutils_glossary\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_oneliners\" "%modpath%\release\mods\mod_sharedutils_oneliners\" /e /s /y
 

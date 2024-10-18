@@ -97,8 +97,8 @@ class RER_BestiaryEndrega extends RER_BestiaryEntry {
       .influence(influences.low_indirect_influence) //CreatureGIANT
       .influence(influences.low_indirect_influence) //CreatureSHARLEY
       .influence(influences.no_influence) //CreatureWIGHT
-      .influence(influences.no_influence) //CreatureGRYPHON
-      .influence(influences.no_influence) //CreatureCOCKATRICE
+      .influence(influences.low_bad_influence) //CreatureGRYPHON
+      .influence(influences.low_bad_influence) //CreatureCOCKATRICE
       .influence(influences.low_indirect_influence) //CreatureBASILISK
       .influence(influences.no_influence) //CreatureWYVERN
       .influence(influences.no_influence) //CreatureFORKTAIL

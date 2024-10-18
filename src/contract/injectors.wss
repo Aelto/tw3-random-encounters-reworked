@@ -29,7 +29,6 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
   default tag = "RER_ContractErrandInjector";
   
   public function run(out board: W3NoticeBoard) {
-    var identifier: RER_NoticeboardIdentifier;
     var reputation_system_enabled: bool;
     var master: CRandomEncounters;
     var can_inject_errand: bool;
@@ -47,22 +46,31 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
       return;
     }
 
-    reputation_system_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
-
-    identifier = master.contract_manager.getUniqueIdFromNoticeboard(board);
+    // reputation_system_enabled = theGame.GetInGameConfigWrapper()
+    //   .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
 
     // if the reputation system is enabled but the player
     // does not meet the requirement to see the vanilla
     // contracts yet, we remove all of the quest contracts
     // before injecting our errand.
     if (!SU_replaceFlawWithErrand(board, "rer_noticeboard_errand_1")) {
+      // force the flaw if the noticeboard has a special tag
+      if (board.HasTag('rer_errand')) {
+        board.AddErrand(
+          ErrandDetailsList(
+            "rer_noticeboard_errand_1",
+            "injected_errand"
+          ),
+          true
+        );
+      }
+
       return;
     }
 
-    if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForVanillaContracts()) {
-      this.hideAllQuestErrands(board);
-    }
+    // if (reputation_system_enabled && !master.contract_manager.hasRequiredReputationForVanillaContracts()) {
+    //   this.hideAllQuestErrands(board);
+    // }
   }
 
   public function accepted(out board: W3NoticeBoard, errand_name: string) {

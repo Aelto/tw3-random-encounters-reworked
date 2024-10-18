@@ -1,0 +1,9 @@
+#define const RER_PLAYER_LEVEL_FACT_ID = "rer_player_level_fact_id";
+function RER_getPlayerLevelFactValue(): int {
+  return FactsQueryLatestValue(RER_PLAYER_LEVEL_FACT_ID!);
+}
+
+function RER_setPlayerLevelFactValue(value: int) {
+  FactsSet(RER_PLAYER_LEVEL_FACT_ID!, Max(value, 0));
+}
+

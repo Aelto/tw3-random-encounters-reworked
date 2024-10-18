@@ -51,7 +51,7 @@ class RER_BestiaryHarpy extends RER_BestiaryEntry {
 
     this.ecosystem_delay_multiplier = 2.25;
     this.ecosystem_impact = (new EcosystemCreatureImpactBuilder in thePlayer)
-      .influence(influences.no_influence) //CreatureHUMAN
+      .influence(influences.low_bad_influence) //CreatureHUMAN
       .influence(influences.no_influence) //CreatureARACHAS
       .influence(influences.no_influence) //CreatureENDREGA
       .influence(influences.no_influence) //CreatureGHOUL
@@ -83,7 +83,7 @@ class RER_BestiaryHarpy extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureGARGOYLE
       .influence(influences.no_influence) //CreatureLESHEN
       .influence(influences.no_influence) //CreatureWEREWOLF
-      .influence(influences.no_influence) //CreatureFIEND
+      .influence(influences.low_bad_influence) //CreatureFIEND
       .influence(influences.no_influence) //CreatureEKIMMARA
       .influence(influences.no_influence) //CreatureKATAKAN
       .influence(influences.no_influence) //CreatureGOLEM
@@ -92,7 +92,7 @@ class RER_BestiaryHarpy extends RER_BestiaryEntry {
       .influence(influences.no_influence) //CreatureNOONWRAITH
       .influence(influences.no_influence) //CreatureCHORT
       .influence(influences.friend_with) //CreatureCYCLOP
-      .influence(influences.no_influence) //CreatureTROLL
+      .influence(influences.high_bad_influence) //CreatureTROLL
       .influence(influences.no_influence) //CreatureHAG
       .influence(influences.no_influence) //CreatureFOGLET
       .influence(influences.no_influence) //CreatureBRUXA

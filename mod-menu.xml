@@ -6,6 +6,7 @@
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="RERmodEnabled" value="1" />
                 <Entry varId="Difficulty" value="4" />
+                <Entry varId="RERlevelScaling" value="0" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
             </Preset>
             <Preset id="1" displayName="rer_preset_selector" >
@@ -36,7 +37,21 @@
                 </OptionsArray>
             </Var>
 
-			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+            <Var id="RERlevelScaling" displayName="rer_level_scaling" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_level_scaling_automatic">
+                        <Entry varId="RERlevelScaling" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_level_scaling_use_levels">
+                        <Entry varId="RERlevelScaling" value="1"/>
+                    </Option>
+                    <Option id="2" displayName="rer_level_scaling_use_playtime">
+                        <Entry varId="RERlevelScaling" value="2"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
+
+            <Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERexternalFactorsImpact" displayName="rer_external_factors_coefficient" displayType="SLIDER;1;10;90"/>
             <Var id="RERmodVersion" displayName="rer_mod_version" displayType="SLIDER;0;100;10000"></Var>
@@ -4806,14 +4821,11 @@
                 <Entry varId="RERnoticeboardErrands" value="1" />
 
                 <Entry varId="RERallowLearnNewLocations" value="1" />
-                <Entry varId="RERallowSelectDifficulty" value="0" />
-                <Entry varId="RERallowIncreasedEnemyCount" value="1" />
+                <Entry varId="RERcontractTargetsSpread" value="0" />
+                <Entry varId="RERcontractDifficultyScaling" value="0" />
+                <Entry varId="RERcontractTargetMaxDistance" value="1000" />
+                <Entry varId="RERcontractTargetAreaRadius" value="100" />
                 <Entry varId="RERcontractsGenerationSeed" value="0" />
-
-                <Entry varId="RERcontractsReputationSystemEnabled" value="1" />
-                <Entry varId="RERcontractsReputationSystemVanillaContractsRequirement" value="0" />
-                <Entry varId="RERcontractsDeathReputationLossAmount" value="1" />
-                <Entry varId="RERcontractsRewardOption" value="0" />
             </Preset>
         </PresetsArray>
         <VisibleVars>
@@ -4823,35 +4835,38 @@
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERallowLearnNewLocations" displayName="rer_allow_learn_new_locations" displayType="TOGGLE"></Var>
-            <Var id="RERallowSelectDifficulty" displayName="rer_allow_select_difficulty" displayType="TOGGLE"></Var>
-            <Var id="RERallowIncreasedEnemyCount" displayName="rer_allow_increased_enemy_count" displayType="TOGGLE"></Var>
-            <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
-
+            <Var id="RERallowBackToCamp" displayName="rer_allow_back_to_camp" displayType="TOGGLE"></Var>
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
-            <Var id="RERcontractsReputationSystemEnabled" displayName="rer_contracts_reputation_system_enabled" displayType="TOGGLE"></Var>
-            <Var id="RERcontractsReputationSystemVanillaContractsRequirement" displayName="rer_contracts_reputation_system_vanilla_contracts_requirement" displayType="SLIDER;0;100;100"></Var>
-            <Var id="RERcontractsDeathReputationLossAmount" displayName="rer_contract_death_reputation_loss_amount" displayType="SLIDER;0;100;100"></Var>
-
-
-			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
-
-            <Var id="RERcontractsRewardOption" displayName="rer_contracts_reward_option" displayType="OPTIONS">
+            <Var id="RERcontractTargetsSpread" displayName="rer_contract_targets_spread" displayType="OPTIONS">
                 <OptionsArray>
-                    <Option id="0" displayName="rer_crowns">
-                        <Entry varId="RERcontractsRewardOption" value="0"/>
+                    <Option id="0" displayName="rer_contract_targets_spread_spread">
+                        <Entry varId="RERcontractTargetsSpread" value="0"/>
                     </Option>
-                    <Option id="1" displayName="rer_tokens_of_gratitude">
-                        <Entry varId="RERcontractsRewardOption" value="1"/>
+                    <Option id="1" displayName="rer_contract_targets_spread_grouped">
+                        <Entry varId="RERcontractTargetsSpread" value="1"/>
                     </Option>
                 </OptionsArray>
             </Var>
+            <Var id="RERcontractDifficultyScaling" displayName="rer_contract_difficulty_scaling" displayType="OPTIONS">
+                <OptionsArray>
+                    <Option id="0" displayName="rer_contract_scaling_mixed">
+                        <Entry varId="RERcontractDifficultyScaling" value="0"/>
+                    </Option>
+                    <Option id="1" displayName="rer_contract_scaling_damage_modifiers">
+                        <Entry varId="RERcontractDifficultyScaling" value="1"/>
+                    </Option>
+                    <Option id="2" displayName="rer_contract_scaling_enemy_count">
+                        <Entry varId="RERcontractDifficultyScaling" value="2"/>
+                    </Option>
+                </OptionsArray>
+            </Var>
+            <Var id="RERcontractTargetMaxDistance" displayName="rer_contracts_target_max_distance" displayType="SLIDER;250;5000;4750"/>
+            <Var id="RERcontractTargetAreaRadius" displayName="rer_contracts_target_area_radius" displayType="SLIDER;25;500;475"/>
 
-            <!--
-                on death, increase this slider value by one. Next time a noticeboard
-                is visited the buffer is flushed and the reputation loss is applied.
-                -->
-            <Var id="RERcontractsDeathReputationLossBuffer" displayName="rer_contract_death_reputation_loss_buffer" displayType="SLIDER;0;100;1000" visibilityCondition="RER_Debug"></Var>
+
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+            <Var id="RERcontractsGenerationSeed" displayName="rer_contracts_generation_seed" displayType="SLIDER;0;1000;2000"/>
         </VisibleVars>
     </Group>
 
