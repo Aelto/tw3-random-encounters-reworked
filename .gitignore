@@ -12,3 +12,8 @@ docs/skellige-valid-points-bounties.psd
 dist
 .vscode
 /.vs
+
+
+# Added by cargo
+
+/target

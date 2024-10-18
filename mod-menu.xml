@@ -18,6 +18,8 @@
 
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
+            <Var id="RERgeneralIntensity" displayName="rer_general_intensity" displayType="SLIDER;0;500;500"/>
+
             <Var id="Difficulty" displayName="rer_difficulty" displayType="OPTIONS">
                 <OptionsArray>
                     <Option id="0" displayName="rer_easy">
