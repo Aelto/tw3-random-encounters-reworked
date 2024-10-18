@@ -122,6 +122,21 @@ class RE_Settings {
     .ShowNotification("Random Encounters Reworked settings loaded");
   }
 
+  public function getGeneralIntensity(scale: float): float {
+    // the menu slider is expected to be a number from 0% to 500%,
+    // it is then multiplied by 0.01 to bring it in the [0;5] range
+    var out: float = StringToFloat(
+      theGame.GetInGameConfigWrapper()
+      .GetVarValue('RERmain', 'RERgeneralIntensity')
+    ) * 0.01;
+
+    return PowF(out, scale);
+  }
+
+  public function withGeneralIntensity(v: float, scale: float): float {
+    return v * this.getGeneralIntensity(scale);
+  }
+
   private function loadMainMenuSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.enable_action_camera_scenes = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'enableActionCameraScenes');
   }
