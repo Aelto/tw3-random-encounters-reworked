@@ -3,6 +3,20 @@ function RER_menu(group: name, item: name): string {
   return theGame.GetInGameConfigWrapper()
     .GetVarValue(group, item);
 }
+
+function RER_getGeneralIntensity(scale: float): float {
+  // the menu slider is expected to be a number from 0% to 500%,
+  // it is then multiplied by 0.01 to bring it in the [0;5] range
+  var output: float = StringToFloat(
+    RER_menu('RERmain', 'RERgeneralIntensity')
+  ) * 0.01;
+
+  return PowF(output, scale);
+}
+
+function RER_withGeneralIntensity(v: float, scale: float): float {
+  return v * RER_getGeneralIntensity(scale);
+}
  
 class RE_Settings {
 
@@ -120,21 +134,6 @@ class RE_Settings {
     theGame
     .GetGuiManager()
     .ShowNotification("Random Encounters Reworked settings loaded");
-  }
-
-  public function getGeneralIntensity(scale: float): float {
-    // the menu slider is expected to be a number from 0% to 500%,
-    // it is then multiplied by 0.01 to bring it in the [0;5] range
-    var out: float = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERmain', 'RERgeneralIntensity')
-    ) * 0.01;
-
-    return PowF(out, scale);
-  }
-
-  public function withGeneralIntensity(v: float, scale: float): float {
-    return v * this.getGeneralIntensity(scale);
   }
 
   private function loadMainMenuSettings(inGameConfigWrapper: CInGameConfigWrapper) {
