@@ -8,6 +8,7 @@
                 <Entry varId="Difficulty" value="4" />
                 <Entry varId="RERlevelScaling" value="0" />
                 <Entry varId="RERexternalFactorsImpact" value="2" />
+                <Entry varId="RERgeneralIntensity" value="100" />
             </Preset>
             <Preset id="1" displayName="rer_preset_selector" >
                 <Entry varId="RERmodVersion" value="0" />
