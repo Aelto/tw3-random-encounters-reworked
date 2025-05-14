@@ -355,6 +355,7 @@ class RER_ContractTargetEncounter {
     if (this.map_pin) {
       SU_removeCustomPin(this.map_pin);
       delete this.map_pin;
+      SU_updateMinimapPins();
     }
   }
 }
