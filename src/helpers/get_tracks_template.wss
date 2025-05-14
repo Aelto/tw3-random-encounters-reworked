@@ -380,7 +380,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureKIKIMORE :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh102_arachas_tracks.w2ent",
+        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -391,7 +391,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureCENTIPEDE :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh102_arachas_tracks.w2ent",
+        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -402,7 +402,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureBERSERKER :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh102_arachas_tracks.w2ent",
+        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -479,7 +479,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureARACHAS :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh102_arachas_tracks.w2ent",
+        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -512,7 +512,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureENDREGA :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh102_arachas_tracks.w2ent",
+        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -523,7 +523,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureECHINOPS :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh102_arachas_tracks.w2ent",
+        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
