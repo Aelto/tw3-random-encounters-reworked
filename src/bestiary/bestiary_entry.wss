@@ -249,11 +249,8 @@ abstract class RER_BestiaryEntry {
           (created_entity as CActor)
           .GetInventory()
           .AddMoney(
-            (
-              master.settings.crowns_amounts_by_encounter[encounter_type]
-              * this.crowns_percentage
-              * RandRangeF(1.2, 0.8) // a random value between 80% and 120%
-            ) as int
+            // a random value between 80% and 120%
+            this.getCrowns(master.settings, encounter_type, RandRangeF(1.2, 0.8))
           );
 
           if (!master.settings.enable_encounters_loot) {
@@ -584,6 +581,22 @@ abstract class RER_BestiaryEntry {
     }
 
     return entities;
+  }
+
+  public function getCrowns(
+    settings: RE_Settings,
+    encounter_type: EncounterType,
+    optional multiplier: float
+  ): int {
+    if (multiplier <= 0) {
+      multiplier = 1.0;
+    }
+
+    return FloorF(
+      settings.crowns_amounts_by_encounter[encounter_type]
+      * this.crowns_percentage
+      * multiplier
+    );
   }
 
   public function toLocalizedName(): string {

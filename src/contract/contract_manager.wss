@@ -126,13 +126,16 @@ statemachine class RER_ContractManager {
         var strength: float = bestiary_entry.ecosystem_delay_multiplier;
         var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
 
-        var crowns_amount_settings: float = 
-          (master.settings.crowns_amounts_by_encounter[EncounterType_CONTRACT] / 100.0)
-          * bestiary_entry.crowns_percentage
+        var crowns_amount_settings: float = bestiary_entry.getCrowns(
+          master.settings,
+          EncounterType_CONTRACT,
           // every level increases the upper limit by 1%
-          * RandRangeF(1 + contract.factory.level * 0.01, 0.8 + contract.factory.level * 0.005)
-          * bestiary_entry.ecosystem_delay_multiplier;
-        
+          RandRangeF(
+            1 + contract.factory.level * 0.01,
+            0.8 + contract.factory.level * 0.005
+          )
+        );
+          
         total_crowns_amount += enemy_count * crowns_amount_settings;
       }
       
