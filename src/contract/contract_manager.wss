@@ -163,6 +163,7 @@ statemachine class RER_ContractManager {
     }
 
     RER_addContractReputationFactValue(RoundF(total_reputation_points));
+    contract.onCompletion();
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
     this.endOngoingContract();

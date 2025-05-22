@@ -69,7 +69,9 @@ state DialogChoice in RER_ContractManager {
       var contract: RER_Contract = new RER_Contract in parent;
       contract.init(factory);
 
-      contracts.PushBack(contract);
+      if (!contract.isCompleted()) {
+        contracts.PushBack(contract);
+      }
     }
 
     var choices: array<SSceneChoice>;
@@ -115,9 +117,9 @@ state DialogChoice in RER_ContractManager {
         line += " (" + GetLocStringByKey('rer_contract_crowns_reward') + ")";
       }
 
-      if (contract.hasBonusReputation()) {
-        line += " (" + GetLocStringByKey('rer_contract_reputation_bonus') + ")";
-      }
+      // if (contract.hasBonusReputation()) {
+      //   line += " (" + GetLocStringByKey('rer_contract_reputation_bonus') + ")";
+      // }
 
       choices.PushBack(SSceneChoice(
         upperCaseFirstLetter(line),

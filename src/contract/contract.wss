@@ -234,6 +234,17 @@ class RER_Contract {
 
     return 1.0 + modifier;
   }
+
+  public function onCompletion() {
+    RER_setContractCompletedFact(
+      this.seed,
+      RER_getHoursBeforeNewContract() * 3600
+    );
+  }
+
+  public function isCompleted(): bool {
+    return RER_getContractCompletedFact(this.seed) > 0;
+  }
 }
 
 function RER_getClosestDestinationPoints(starting_point: Vector, max_distance: float): array<Vector> {

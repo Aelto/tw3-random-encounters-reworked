@@ -31,7 +31,15 @@ function RER_removeContractPreferredDifficultyFact() {
   FactsRemove(RER_CONTRACT_PREFERRED_DIFFICULTY_FACT_ID!);
 }
 
+#define const RER_CONTRACT_COMPLETION_PREFIX = "rer_contract_completed";
 
+function RER_setContractCompletedFact(seed: int, duration: int) {
+  FactsSet(RER_CONTRACT_COMPLETION_PREFIX! + seed, 1, duration);
+}
+
+function RER_getContractCompletedFact(seed: int): int {
+  return FactsQuerySum(RER_CONTRACT_COMPLETION_PREFIX! + seed);
+}
 
 #define const RER_IGNORESLOWBOOT_FACT_ID = "rer_ignoreslowboot_fact_id";
 
