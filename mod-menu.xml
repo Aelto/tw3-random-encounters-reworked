@@ -67,10 +67,10 @@
     <Group id="RERencountersGeneral" displayName="Mods.rer_name.rer_encounters_settings.rer_general_settings">
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="customdFrequencyLow" value="80" />
-                <Entry varId="customdFrequencyHigh" value="170" />
-                <Entry varId="customnFrequencyLow" value="65" />
-                <Entry varId="customnFrequencyHigh" value="160" />
+                <Entry varId="customdFrequencyLow" value="300" />
+                <Entry varId="customdFrequencyHigh" value="600" />
+                <Entry varId="customnFrequencyLow" value="240" />
+                <Entry varId="customnFrequencyHigh" value="480" />
                 <Entry varId="RERadditionalDelayPerPlayerLevel" value="-1" />
                 <Entry varId="RERecosystemFrequencyMultiplier" value="50" />
 
@@ -85,7 +85,7 @@
                 <Entry varId="RERstaticEncounterLargeSpawnChance" value="60" />
                 <Entry varId="RERstaticEncounterVersion" value="0" />
 
-                <Entry varId="RERfoottracksRatio" value="30" />
+                <Entry varId="RERfoottracksRatio" value="20" />
                 <Entry varId="RERcancelSpawnsWhenNearQuestMarkers" value="1" />
 
             </Preset>
@@ -5490,7 +5490,7 @@
         <PresetsArray>
             <Preset id="0" displayName="rer_defaults" >
                 <Entry varId="ecosystemCommunityPowerEffect" value="5" />
-                <Entry varId="ecosystemCommunityNaturalDeathSpeed" value="5" />
+                <Entry varId="ecosystemCommunityNaturalDeathSpeed" value="10" />
                 <Entry varId="ecosystemCommunityPowerSpread" value="10" />
             </Preset>
         </PresetsArray>
