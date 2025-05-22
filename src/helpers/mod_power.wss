@@ -17,9 +17,9 @@ function RER_modPowerIsContractSystemEnabled(mod_power: float): bool {
 }
 
 function RER_modPowerIsBountySystemEnabled(mod_power: float): bool {
-  return mod_power >= 0.3;
+  return mod_power >= 0.2;
 }
 
 function RER_modPowerIsEventSystemEnabled(mod_power: float): bool {
-  return mod_power >= 0.4;
+  return mod_power >= 0.3;
 }
