@@ -67,6 +67,10 @@ class RER_Contract {
     return RandNoiseF(this.seed + ContractSeedOffset_rewards!, 1.0) <= species.Size() * 0.1;
   }
 
+  public function hasBonusReputation(): bool {
+    return !this.hasBonusRewards();
+  }
+
   public function speciesList(): array<CreatureType> {
     var output: array<CreatureType>;
     var seed: int = this.seed + ContractSeedOffset_species!;

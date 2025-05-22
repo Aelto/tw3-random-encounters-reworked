@@ -263,7 +263,7 @@
 2115018214|        |panel_rer_optional_features_settings|Optional features
 2115018215|        |panel_rer_encounters_settings|Encounter system
 2115018216|        |preset_Mods_rer_name_rer_optional_features_settings|Optional features
-2115018217|        |option_rer_monster_contract_longevity|UNUSED
+2115018217|        |rer_contract_reputation_bonus|reputation bonus
 2115018218|        |panel_creature_type_multiplier|Creature type multiplier
 2115018219|        |preset_Mods_rer_name_rer_encounters_settings_creature_type_multiplier|Creature type multiplier
 2115018220|        |option_rer_crowns_ambush|<font color="#ffd33d">From ambushes</font>

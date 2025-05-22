@@ -111,9 +111,12 @@ state DialogChoice in RER_ContractManager {
       }
 
       var has_bonus_rewards: bool = contract.hasBonusRewards();
-
       if (has_bonus_rewards) {
         line += " (" + GetLocStringByKey('rer_contract_crowns_reward') + ")";
+      }
+
+      if (contract.hasBonusReputation()) {
+        line += " (" + GetLocStringByKey('rer_contract_reputation_bonus') + ")";
       }
 
       choices.PushBack(SSceneChoice(

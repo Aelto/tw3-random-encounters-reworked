@@ -123,7 +123,6 @@ statemachine class RER_ContractManager {
         .getEntry(this.master, species);
 
       if (has_bonus_rewards) {
-        var strength: float = bestiary_entry.ecosystem_delay_multiplier;
         var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
 
         var crowns_amount_settings: float = bestiary_entry.getCrowns(
@@ -149,6 +148,10 @@ statemachine class RER_ContractManager {
 
     // each additional group grants a 10% bonus
     total_crowns_amount *= 1 + (species_list.Size() * 0.1);
+
+    if (contract.hasBonusReputation()) {
+      total_reputation_points *= 1.5;
+    }
 
     NLOG("completeOngoingContract(), total_crowns_amount = " + total_crowns_amount);
     NLOG("completeOngoingContract(), total_reputation_points = " + total_reputation_points);
