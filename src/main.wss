@@ -80,6 +80,11 @@ statemachine class CRandomEncounters {
 
       power = 1;
     }
+    // player already left White Orchard, slow boot is disabled
+    else if (!SUH_isPlayerInRegion("prolog_village")) {
+      RER_createIgnoreSlowBootFact();
+      power = 1;
+    }
     else {
       NLOG("CRandomEncounters::refreshModPower(): calculating mod power from gametime");
       game_time = theGame.CalculateTimePlayed();
