@@ -385,7 +385,7 @@
 2115018329|        |preset_Mods_rer_name_rer_contracts_settings|Contract system
 2115018330|        |panel_rer_contracts_settings|Contract system
 2115018331|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
-2115018332|        |option_rer_easy_contracts_number|UNUSED
+2115018332|        |option_rer_performance_mode|Performance mode
 2115018333|        |option_rer_hard_nearby_contracts_number|UNUSED
 2115018334|        |option_rer_hard_contracts_number|UNUSED
 2115018335|        |option_rer_hard_far_contracts_number|UNUSED
@@ -546,7 +546,7 @@
 2115018478|        |preset_value_rer_contract_targets_spread_grouped|Grouped on same location
 2115018479|        |option_rer_contracts_target_max_distance|Target's max distance from noticeboard
 2115018480|        |option_rer_contracts_target_area_radius|Target area's radius
-2115018481|        |rer_contract_crowns_reward|rewards crowns
+2115018481|        |rer_contract_crowns_reward|+{{crowns_amount}}{{crowns_icon}}
 2115018482|        |option_rer_allow_back_to_camp|Go back to camp after completion
 2115018483|        |rer_confirm_back_to_camp_title|Go back to camp
 2115018484|        |rer_confirm_back_to_camp_description|Do you wish to auto-collect nearby loot & fast travel back to the noticeboard?

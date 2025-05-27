@@ -30,7 +30,11 @@ class RER_TrailMaker {
   default trail_ratio_index = 1;
 
   public function setTrailRatio(ratio: int) {
-    this.trail_ratio = RoundF(ratio * this.getHighestTrailRatioMultiplier());
+    var ratio_multiplier: float = RER_performanceModeEither::<float>(1.0, 2.0);
+
+    this.trail_ratio = RoundF(
+      ratio * this.getHighestTrailRatioMultiplier() * ratio_multiplier
+    );
     this.trail_ratio_index = 1;
   }
 
@@ -67,7 +71,7 @@ class RER_TrailMaker {
   default tracks_maximum = 200;
 
   public function setTracksMaximum(maximum: int) {
-    this.tracks_maximum = maximum;
+    this.tracks_maximum = RER_performanceModeEither::<int>(maximum, 100);
   }
 
   private var track_resources: array<RER_TrailMakerTrack>;

@@ -308,6 +308,10 @@ class RE_Settings {
       this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
       theGame.SaveUserSettings();
     }
+
+    if (RER_isPerformanceModeEnabled()) {
+      this.kill_threshold_distance = MinF(200, this.kill_threshold_distance);
+    }
   }
 
   private function loadAdvancedLevelsSettings(out inGameConfigWrapper: CInGameConfigWrapper) {

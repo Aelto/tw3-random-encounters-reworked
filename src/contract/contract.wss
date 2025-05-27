@@ -238,28 +238,30 @@ class RER_Contract {
   public function calculateRewards(
     optional species_list: array<CreatureType>
   ): RER_ContractRewards {
-    var has_bonus_rewards: bool = contract.hasBonusRewards();
+    var has_bonus_rewards: bool = this.hasBonusRewards();
     var total_crowns_amount: float = 0;
     var total_reputation_points: float = 0;
 
     if (species_list.Size() <= 0) {
-      species_list = contract.speciesList();
+      species_list = this.speciesList();
     }
 
+    var master: CRandomEncounters = thePlayer.getRandomEncountersReworked();
+
     for species: CreatureType in species_list {
-      var bestiary_entry: RER_BestiaryEntry = this.master.bestiary
-        .getEntry(this.master, species);
+      var bestiary_entry: RER_BestiaryEntry = master.bestiary
+        .getEntry(master, species);
 
       if (has_bonus_rewards) {
-        var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
+        var enemy_count: int = bestiary_entry.getSpawnCount(master);
 
         var crowns_amount_settings: float = bestiary_entry.getCrowns(
           master.settings,
           EncounterType_CONTRACT,
           // every level increases the upper limit by 1%
           RandRangeF(
-            1 + contract.factory.level * 0.01,
-            0.8 + contract.factory.level * 0.005
+            1 + this.factory.level * 0.01,
+            0.8 + this.factory.level * 0.005
           )
         );
           
@@ -277,12 +279,12 @@ class RER_Contract {
     // each additional group grants a 10% bonus
     total_crowns_amount *= 1 + (species_list.Size() * 0.1);
 
-    if (contract.hasBonusReputation()) {
+    if (this.hasBonusReputation()) {
       total_reputation_points *= 1.5;
     }
 
     return RER_ContractRewards(
-      total_crowns_amount,
+      FloorF(total_crowns_amount),
       total_reputation_points
     );
   }

@@ -38,6 +38,10 @@ statemachine class RER_EventsManager extends CEntity {
     NLOG("RER_EventsManager - start()");
 
     this.delay = this.master.settings.event_system_interval;
+
+    if (RER_isPerformanceModeEnabled()) {
+      this.delay *= 3.0;
+    }
     
     // only start the system if the delay is above 0
     if (this.delay > 0) {

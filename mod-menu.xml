@@ -16,6 +16,7 @@
         </PresetsArray>
         <VisibleVars>
             <Var id="RERmodEnabled" displayName="rer_mod_enabled" displayType="TOGGLE"></Var>
+            <Var id="RERperformanceMode" displayName="rer_performance_mode" displayType="TOGGLE"></Var>
 
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 

@@ -1,0 +1,14 @@
+function RER_isPerformanceModeEnabled(): bool {
+  return theGame.GetInGameConfigWrapper().GetVarValue(
+    'RERmain',
+    'RERperformanceMode'
+  );
+}
+
+function RER_performanceModeEither<T>(a: T, b: T): T {
+  if (RER_isPerformanceModeEnabled()) {
+    return b;
+  }
+
+  return a;
+}

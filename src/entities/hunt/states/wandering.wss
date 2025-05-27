@@ -25,6 +25,8 @@ state Wandering in RandomEncountersReworkedHuntEntity {
 
     parent.bait_entity.Teleport(parent.GetWorldPosition());
 
+    var sleep_delay: float = RER_performanceModeEither::<float>(1.0, 5.0);
+
     do {
       if (SUH_areAllEntitiesDead(parent.entities)) {
         NLOG("HuntEntity - wandering state, all entities dead");
@@ -108,7 +110,7 @@ state Wandering in RandomEncountersReworkedHuntEntity {
         }
       }
 
-      Sleep(0.5);
+      Sleep(sleep_delay);
     } while (true);
   }
 

@@ -106,7 +106,7 @@ class SpawnRoller {
     // TODO: ecosystem, make it toggable by the user in case the user doesn't
     // want the ecosystem feature in his game.
     #ifdef ENABLE_ECOSYSTEM {
-      if (true) {
+      if (!RER_isPerformanceModeEnabled()) {
         ecosystem_manager.udpateCountersWithCreatureModifiers(
           this.creatures_counters,
           ecosystem_manager.getCreatureModifiersForEcosystemAreas(

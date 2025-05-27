@@ -33,6 +33,10 @@ class RER_EcosystemManager {
       return output;
     };
 
+    if (RER_isPerformanceModeEnabled()) {
+      return output;
+    }
+
     NLOG("getCurrentEcosystemAreas, current areas count: " + this.master.storages.ecosystem.ecosystem_areas.Size());
 
     player_position = thePlayer.GetWorldPosition();
@@ -95,12 +99,19 @@ class RER_EcosystemManager {
     return output;
   }
 
-  public function udpateCountersWithCreatureModifiers(out counters: array<int>, modifiers: array<float>) {
+  public function udpateCountersWithCreatureModifiers(
+    out counters: array<int>,
+    modifiers: array<float>
+  ) {
     var i: int;
 
     #ifndef ENABLE_ECOSYSTEM {
       return;
     };
+
+    if (RER_isPerformanceModeEnabled()) {
+      return;
+    }
 
     if (counters.Size() != modifiers.Size()) {
       NLOG("attempt at updating counters with creature modifiers, but counters and modifiers are not of the same size");
@@ -143,7 +154,11 @@ class RER_EcosystemManager {
   // value by calculating the % distance from the center of the area to its extremity.
   //
   // NOTE: the function saves the ecosystem storage after the operation.
-  public function updatePowerForCreatureInCurrentEcosystemAreas(creature: CreatureType, power_change: float, position: Vector) {
+  public function updatePowerForCreatureInCurrentEcosystemAreas(
+    creature: CreatureType,
+    power_change: float,
+    position: Vector
+  ) {
     var ecosystem_areas: array<int>;
     var current_ecosystem_area: EcosystemArea;
     var current_index: int;
@@ -153,6 +168,10 @@ class RER_EcosystemManager {
     #ifndef ENABLE_ECOSYSTEM {
       return;
     };
+
+    if (RER_isPerformanceModeEnabled()) {
+      return;
+    }
 
     NLOG("power change for " + creature + " = " + power_change);
     ecosystem_areas = this.getCurrentEcosystemAreas();
@@ -428,6 +447,10 @@ class RER_EcosystemManager {
     #ifndef ENABLE_ECOSYSTEM {
       return 1;
     };
+
+    if (RER_isPerformanceModeEnabled()) {
+      return 1;
+    }
 
     number_of_areas = areas.Size();
     if (number_of_areas <= 0) {

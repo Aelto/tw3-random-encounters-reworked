@@ -119,12 +119,12 @@ statemachine class RER_ContractManager {
     NLOG("completeOngoingContract(), total_reputation_points = " + rewards.reputation);
 
     if (rewards.crowns > 0) {
-      thePlayer.AddMoney(total_crowns_amount as int);
-      thePlayer.DisplayItemRewardNotification('Crowns', total_crowns_amount as int);
+      thePlayer.AddMoney(rewards.crowns as int);
+      thePlayer.DisplayItemRewardNotification('Crowns', rewards.crowns as int);
       theSound.SoundEvent("gui_inventory_buy");
     }
 
-    RER_addContractReputationFactValue(RoundF(total_reputation_points));
+    RER_addContractReputationFactValue(RoundF(rewards.reputation));
     contract.onCompletion();
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
