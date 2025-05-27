@@ -112,9 +112,29 @@ state DialogChoice in RER_ContractManager {
         );
       }
 
-      var has_bonus_rewards: bool = contract.hasBonusRewards();
-      if (has_bonus_rewards) {
-        line += " (" + GetLocStringByKey('rer_contract_crowns_reward') + ")";
+      var rewards: RER_ContractRewards = contract.calculateRewards(species_list);
+
+      var crowns_text: string;
+      var reputation_text: string;
+
+      if (rewards.crowns > 0) {
+        crowns_text = GetLocStringByKey('rer_contract_crowns_reward');
+
+        crowns_text = StrReplace(
+          crowns_text,
+          "{{crowns_amount}}",
+          rewards.crowns
+        );
+
+        crowns_text = StrReplace(
+          crowns_text,
+          "{{crowns_icon}}",
+          "<img src='img://"
+            + thePlayer.inv.GetItemIconPathByName('Crowns')
+            + "' height='48' width='48' vspace='-24' />"
+        );
+
+        line += " (" + crowns_text + ")";
       }
 
       // if (contract.hasBonusReputation()) {

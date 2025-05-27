@@ -113,50 +113,12 @@ statemachine class RER_ContractManager {
       .init(this.getOngoingContractFactory());
 
     NLOG("completeOngoingContract(), seed = " + contract.seed);
+    var rewards: RER_ContractRewards = contract.calculateRewards();
 
-    var has_bonus_rewards: bool = contract.hasBonusRewards();
-    var total_crowns_amount: float = 0;
-    var total_reputation_points: float = 0;
-    var species_list: array<CreatureType> = contract.speciesList();
-    for species: CreatureType in species_list {
-      var bestiary_entry: RER_BestiaryEntry = this.master.bestiary
-        .getEntry(this.master, species);
+    NLOG("completeOngoingContract(), total_crowns_amount = " + rewards.crowns);
+    NLOG("completeOngoingContract(), total_reputation_points = " + rewards.reputation);
 
-      if (has_bonus_rewards) {
-        var enemy_count: int = bestiary_entry.getSpawnCount(this.master);
-
-        var crowns_amount_settings: float = bestiary_entry.getCrowns(
-          master.settings,
-          EncounterType_CONTRACT,
-          // every level increases the upper limit by 1%
-          RandRangeF(
-            1 + contract.factory.level * 0.01,
-            0.8 + contract.factory.level * 0.005
-          )
-        );
-          
-        total_crowns_amount += enemy_count * crowns_amount_settings;
-      }
-      
-      // the amount of reputation depends on the creatures and their ecosystem
-      // impact.
-      total_reputation_points += MaxF(
-        bestiary_entry.ecosystem_delay_multiplier * 0.25,
-        1
-      );
-    }
-
-    // each additional group grants a 10% bonus
-    total_crowns_amount *= 1 + (species_list.Size() * 0.1);
-
-    if (contract.hasBonusReputation()) {
-      total_reputation_points *= 1.5;
-    }
-
-    NLOG("completeOngoingContract(), total_crowns_amount = " + total_crowns_amount);
-    NLOG("completeOngoingContract(), total_reputation_points = " + total_reputation_points);
-
-    if (has_bonus_rewards) {
+    if (rewards.crowns > 0) {
       thePlayer.AddMoney(total_crowns_amount as int);
       thePlayer.DisplayItemRewardNotification('Crowns', total_crowns_amount as int);
       theSound.SoundEvent("gui_inventory_buy");
