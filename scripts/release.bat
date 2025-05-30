@@ -33,6 +33,7 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_helpers\" "%modpath%\release\mods\
 XCOPY "%modpath%\shared-utils\mod_sharedutils_damagemodifiers\" "%modpath%\release\mods\mod_sharedutils_damagemodifiers\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_glossary\" "%modpath%\release\mods\mod_sharedutils_glossary\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_oneliners\" "%modpath%\release\mods\mod_sharedutils_oneliners\" /e /s /y
+XCOPY "%modpath%\shared-utils\mod_sharedutils_menudescriptors\" "%modpath%\release\mods\mod_sharedutils_menudescriptors\" /e /s /y
 
 REM Dependencies
 XCOPY "%modpath%\dependencies\" "%modpath%\release\" /e /s /y
