@@ -185,6 +185,10 @@ class RER_ContractTargetEncounter {
   }
   
   public function createOneliner() {
+    if (this.isEncounterFinished()) {
+      return;
+    }
+
     if (!RER_menu('RERoptionalFeatures', 'RERonelinersContract')) {
       return;
     }
@@ -196,6 +200,10 @@ class RER_ContractTargetEncounter {
   }
 
   public function createMapPin(contract: RER_Contract) {
+    if (this.isEncounterFinished()) {
+      return;
+    }
+
     var map_pin: SU_MapPin = new SU_MapPin in this;
     map_pin.tag = "RER_contract_target";
     map_pin.pin_tag = 'RER_contract_target';
@@ -355,7 +363,7 @@ class RER_ContractTargetEncounter {
     if (this.map_pin) {
       SU_removeCustomPin(this.map_pin);
       delete this.map_pin;
-      SU_updateMinimapPins();
     }
+    SU_updateMinimapPins();
   }
 }
