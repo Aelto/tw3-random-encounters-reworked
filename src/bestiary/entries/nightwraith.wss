@@ -30,7 +30,11 @@ class RER_BestiaryNightwraith extends RER_BestiaryEntry {
     )
   );
 
-  if(theGame.GetDLCManager().IsEP2Available() && theGame.GetDLCManager().IsEP2Enabled()){
+  if(
+    theGame.GetDLCManager().IsEP2Available()
+    && theGame.GetDLCManager().IsEP2Enabled()
+    && RER_getPlayerLevel() > 40
+  ){
     this.template_list.templates.PushBack(
       makeEnemyTemplate(
         "dlc\bob\data\characters\npc_entities\monsters\nightwraith_banshee.w2ent",,,
