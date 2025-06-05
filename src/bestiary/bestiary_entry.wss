@@ -162,10 +162,16 @@ abstract class RER_BestiaryEntry {
       master.settings.trophies_enabled_by_encounter[encounter_type] == false
     );
 
+    // create a seed from the different parameters that will control the
+    // randomness for the rest of the function
+    var seed: int = FloorF(position.X - position.Y + count + (encounter_type as int));
+
     creatures_templates = fillEnemyTemplateList(
       this.template_list,
       count,
-      master.settings.only_known_bestiary_creatures && !RER_flagEnabled(flags, RER_BESF_NO_BESTIARY_FEATURE)
+      seed,
+      master.settings.only_known_bestiary_creatures
+        && !RER_flagEnabled(flags, RER_BESF_NO_BESTIARY_FEATURE)
     );
 
     group_positions = getGroupPositions(

@@ -2,7 +2,12 @@
 /**
  * NOTE: it makes a copy of the list
  **/
-latent function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, total_number_of_enemies: int, optional use_bestiary: bool): EnemyTemplateList {
+latent function fillEnemyTemplateList(
+  enemy_template_list: EnemyTemplateList,
+  total_number_of_enemies: int,
+  seed: int,
+  optional use_bestiary: bool
+): EnemyTemplateList {
   var template_list: EnemyTemplateList;
   var selected_template_to_increment: int;
   var max_tries: int;
@@ -38,7 +43,10 @@ latent function fillEnemyTemplateList(enemy_template_list: EnemyTemplateList, to
   while (total_number_of_enemies > 0 && max_tries > 0) {
     max_tries -= 1;
 
-    selected_template_to_increment = RandRange(template_list.templates.Size());
+    selected_template_to_increment = RandNoiseF(
+      seed + total_number_of_enemies + max_tries,
+      template_list.templates.Size()
+    ) as int;
 
     NLOG("selected template: " + selected_template_to_increment);
 
