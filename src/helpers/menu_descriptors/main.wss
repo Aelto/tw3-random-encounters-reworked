@@ -9,10 +9,36 @@ class RER_MainMenuDescriptor extends SU_MenuDescriptor {
       "Enabling <font color='#CD7D03'>Performance Mode</font> will alter how the mod operates to focus even more on performances, sometimes by ignoring the values from the menu to use pre-defined ones, or by disabling features like the Ecosystem for a smoother experience at the cost of immersion.<br/><br/>Changes to the option requires a reload of the save to take effect."
     );
 
-    this.onHover(
+    this.onHoverDynamic(
       'RERgeneralIntensity',
-      "This slider allows you to instantly speed up or slow down every system in the mod at once, the values of each individual system are then multiplied by the % you specify here.<br/><br/. If you feel like there is too much happening then turning it down to 50% is the way to go, or if you'd like more of what the mod offers then turning it up to 200% will do exactly that."
+      "This slider allows you to instantly speed up or slow down every system in the mod at once, the values of each individual system are then multiplied by the % you specify here.<br/><br/>If you feel like there is too much happening then turning it down to 50% is the way to go, or if you'd like more of what the mod offers then turning it up to 200% will do exactly that."
     );
+  }
+
+  protected function dynamicDescription(
+    /// the current menu
+    menu: string,
+    /// the currently hovered field
+    option: name,
+    /// the current description that's going to be displayed
+    description: string
+  ): string {
+    var value: float;
+
+    if (option == 'RERgeneralIntensity') {
+      value = StringToFloat(
+        theGame
+          .GetInGameConfigWrapper()
+          .GetVarValue('RERmain', option)
+      );
+
+      if (value > 200.0) {
+        return description + "<br/><br/>A value above 200% can cause performance issues from the amount of spawns it will cause, adjust encounter settings and more specifically the death threshold accordingly (a lower value).";
+      }
+    }
+
+    // unchanged description for any result we do not handle.
+    return description;
   }
 }
 
