@@ -102,7 +102,7 @@ state Processing in RER_ContractManager {
         if (target_encounter.isSpawnedAndKilled()) {
           parent.setTargetKilled(target_encounter.index);
           target_encounter.removeMapPin();
-          SU_updateMinimapPins();
+          theSound.SoundEvent("gui_ingame_new_journal");
         }
 
         if (target_encounter.canSpawn(player_position, destination_radius)) {
