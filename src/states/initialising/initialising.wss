@@ -225,6 +225,14 @@ state Initialising in CRandomEncounters {
       NTUTO("RER v3.4", "The mod was successfully updated to v3.4");
     }
 
+    if (current_version < 3.05) {
+      current_version = 3.05;
+
+      config.SetVarValue('RERmain', 'RERgeneralIntensity', 100);
+
+      NTUTO("RER v3.5", "The mod was successfully updated to v3.5");
+    }
+
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }

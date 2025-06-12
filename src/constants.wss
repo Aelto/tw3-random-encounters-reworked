@@ -30,7 +30,7 @@
 #define const ENABLE_ECOSYSTEM;
 
 // if defined, includes code that depend on nextgen features like annotations
-#define const NEXTGEN_FEATURES_NOT;
+#define const NEXTGEN_FEATURES;
 
 #ifdef DEBUG {
   #define const DEBUG_LOOT;
@@ -43,7 +43,7 @@ struct RER_Constants {
    * the Initialising state. And also the default value in the menu
    */
   var version: float;
-  default version = 3.04;
+  default version = 3.05;
 }
 
 // used to define influences the
