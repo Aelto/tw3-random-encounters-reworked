@@ -126,6 +126,8 @@ state Analysing in RER_EcosystemAnalyzer {
   latent function openBookPopup(creatures: array<RER_SurroundingCreaturePercentage>) {
     var sorted_creatures_ascending: array<RER_SurroundingCreaturePercentage>;
     var picked_creature: RER_SurroundingCreaturePercentage;
+    var less_likely_creature_names: string;
+    var teeming_creature_names: string;
     var message: string;
     var i: int;
 
@@ -145,73 +147,52 @@ state Analysing in RER_EcosystemAnalyzer {
       return;
     }
 
-    message = "This area and its vicinity are now teeming with ";
+    message = GetLocStringByKey('rer_surround_ecosystem_popup_body');
 
-    if (sorted_creatures_ascending.Size() > 0) {
-      picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
-      if (picked_creature.percentage > 0) {
-        message += getCreatureNameFromCreatureType(
-          parent.ecosystem_manager.master.bestiary,
-          picked_creature.type
-        );
-      }
-    }
+    teeming_creature_names = "";
+    picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size()-1];
 
-    if (sorted_creatures_ascending.Size() > 1) {
-      picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 2];
-      if (picked_creature.percentage > 0) {
-        message += " and " + getCreatureNameFromCreatureType(
-          parent.ecosystem_manager.master.bestiary,
-          picked_creature.type
-        );
-      }
+    if (picked_creature.percentage > 0) {
+      teeming_creature_names += getCreatureNameFromCreatureType(
+        parent.ecosystem_manager.master.bestiary,
+        picked_creature.type
+      );
     }
     
+    if (sorted_creatures_ascending.Size() > 1) {
+      picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 2];
 
-    if (sorted_creatures_ascending.Size() > 0) {
-      picked_creature = sorted_creatures_ascending[0];
-
-      if (picked_creature.percentage < 0) {
-        message += ". The possibility of encountering " + getCreatureNameFromCreatureType(
-          parent.ecosystem_manager.master.bestiary,
-          picked_creature.type
-        );
+      if (picked_creature.percentage > 0) {
+        teeming_creature_names += " "
+          + GetLocStringByKey('rer_and')
+          + " "
+          + getCreatureNameFromCreatureType(parent.ecosystem_manager.master.bestiary, picked_creature.type);
       }
-
-      if (sorted_creatures_ascending.Size() > 1) {
-        picked_creature = sorted_creatures_ascending[1];
-        message += " and " + getCreatureNameFromCreatureType(
-          parent.ecosystem_manager.master.bestiary,
-          picked_creature.type
-        );
-      }
-
-      message += " is now less likely.";
     }
 
-    if (sorted_creatures_ascending.Size() > 0) {
-      picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
-      message += "<br /><br />" + this.getEcosystemAdvice(picked_creature.type);
+    message = StrReplace(message, "{{teeming_creature_names}}", teeming_creature_names);
+    less_likely_creature_names = "";
+    picked_creature = sorted_creatures_ascending[0];
+
+    if (picked_creature.percentage < 0) {
+      less_likely_creature_names += getCreatureNameFromCreatureType(parent.ecosystem_manager.master.bestiary, picked_creature.type);
     }
+    
+    if (sorted_creatures_ascending.Size() > 1) {
+      picked_creature = sorted_creatures_ascending[1];
+      less_likely_creature_names += " "
+        + GetLocStringByKey('rer_and')
+        + " "
+        + getCreatureNameFromCreatureType(parent.ecosystem_manager.master.bestiary, picked_creature.type);
+    }
+    
+    message = StrReplace(message, "{{less_likely_creature_names}}", less_likely_creature_names);
+    
+    picked_creature = sorted_creatures_ascending[sorted_creatures_ascending.Size() - 1];
+    message = StrReplace(message, "{{ecosystem_advice}}", this.getEcosystemAdvice(picked_creature.type));
+    message = StrReplace(message, "{{ecosystem_delay_multiplier}}", this.getMessageAboutEcosystemDelayMultiplier());
 
-    // first the positive percentages
-    // for (i = 0; i < creatures.Size(); i += 1) {
-    //   if (i > 0) {
-    //     message += ", ";
-    //   }
-
-    //   if (creatures[i].percentage > 0) {
-    //     message += (int)(creatures[i].percentage * 100) + "% with " + getCreatureNameFromCreatureType(
-    //       parent.ecosystem_manager.master.bestiary,
-    //       i
-    //     );
-    //   }
-    // }
-
-    message += "<br /><br />";
-    message += this.getMessageAboutEcosystemDelayMultiplier();
-
-    RER_openPopup("Surrounding ecosystem", message);
+    RER_openPopup(GetLocStringByKey("rer_surround_ecosystem_popup_title"), message);
 
     if (RandRange(10) < 1) {
       (new RER_RandomDialogBuilder in thePlayer)
@@ -260,41 +241,17 @@ state Analysing in RER_EcosystemAnalyzer {
 
   function getEcosystemAdvice(main_creature_type: CreatureType): string {
     var advice: string;
+    var addition_advice: string;
+    var advice_creature_names: string;
     var creatures: array<CreatureType>;
     var i: int;
 
-    advice = "A large community of " + getCreatureNameFromCreatureType(
-      parent.ecosystem_manager.master.bestiary,
-      main_creature_type
-    ) + " lives here due to the abundance of ";
+    advice = GetLocStringByKey("rer_ecosystem_advice");
+    advice = StrReplace(advice, "{{creature_name}}", getCreatureNameFromCreatureType(parent.ecosystem_manager.master.bestiary, main_creature_type));
 
     // first we list the creatures who helped the community form in the area
     creatures = parent.ecosystem_manager.getCommunityReasonsToExist(main_creature_type);
-    for (i = 0; i < creatures.Size(); i += 1) {
-      // we stop after three creatures
-      if (i == 3) {
-        advice += ".";
-        break;
-      }
-
-      // if it's the last creature in the list we add "and"
-      if (i == creatures.Size() - 1 || i == 2) {
-        advice += ", and ";
-      }
-      // we add a quote for the second and third creature
-      else if (i > 0) {
-        advice += ", ";
-      }
-
-      advice += getCreatureNameFromCreatureType(
-        parent.ecosystem_manager.master.bestiary,
-        creatures[i]
-      );
-    }
-
-    // now we explain what we can find because of the wolves
-    advice += " As a result, other creatures such as ";
-    creatures = parent.ecosystem_manager.getCommunityGoodInfluences(main_creature_type);
+    advice_creature_names = "";
     for (i = 0; i < creatures.Size(); i += 1) {
       // we stop after three creatures
       if (i == 3) {
@@ -303,36 +260,50 @@ state Analysing in RER_EcosystemAnalyzer {
 
       // if it's the last creature in the list we add "and"
       if (i == creatures.Size() - 1 || i == 2) {
-        advice += ", and ";
+        advice_creature_names += ", " + GetLocStringByKey("rer_and") + " ";
       }
-      // we add a quote for the second and third creature
       else if (i > 0) {
-        advice += ", ";
+        advice_creature_names += ", ";
       }
 
-      advice += getCreatureNameFromCreatureType(
+      advice_creature_names += getCreatureNameFromCreatureType(
         parent.ecosystem_manager.master.bestiary,
         creatures[i]
       );
     }
+
+    advice = StrReplace(advice, "{{advice_creature_names}}", advice_creature_names);
     
-    advice += " may roam the area.";
+    creatures = parent.ecosystem_manager.getCommunityGoodInfluences(main_creature_type);
+    advice_creature_names = "";
+    for (i = 0; i < creatures.Size(); i += 1) {
+      if (i == 3) {
+        break;
+      }
+      
+      if (i == creatures.Size() - 1 || i == 2) {
+        advice_creature_names += ", " + GetLocStringByKey("rer_and") + " ";
+      }
+      else if (i > 0) {
+        advice_creature_names += ", ";
+      }
 
-    // now we explain what would happen if the player killed wolves
+      advice_creature_names += getCreatureNameFromCreatureType(
+        parent.ecosystem_manager.master.bestiary,
+        creatures[i]
+      );
+    }
+
+    advice = StrReplace(advice, "{{other_creature_names}}", advice_creature_names);
     creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
 
     if (creatures.Size() > 0) {
-      // a small linebreak
-      advice += "<br />";
-
-      advice += "In addition, " + getCreatureNameFromCreatureType(
-        parent.ecosystem_manager.master.bestiary,
-        main_creature_type
-      ) + " prevent ";
-
+      addition_advice = GetLocStringByKey("rer_ecosystem_addition_advice");
+      addition_advice = StrReplace(addition_advice, "{{creature_name}}", getCreatureNameFromCreatureType(parent.ecosystem_manager.master.bestiary, main_creature_type));
       creatures = parent.ecosystem_manager.getCommunityBadInfluences(main_creature_type);
-      for (i = 0; i < creatures.Size(); i += 1) {
-        // we stop after three creatures
+      advice_creature_names = "";
+
+      for (i = 0; i<creatures.Size(); i += 1) {
         if (i == 3) {
           break;
         }
@@ -340,23 +311,20 @@ state Analysing in RER_EcosystemAnalyzer {
         // if it's the last creature in the list we add "and"
         if (i == creatures.Size() - 1 || i == 2) {
           if (creatures.Size() > 2) {
-            advice += ",";
+            advice_creature_names += ",";
           }
 
-          advice += " and ";
+          advice_creature_names += " "+GetLocStringByKey("rer_and")+" ";
         }
-        // we add a quote for the second and third creature
         else if (i > 0) {
-          advice += ", ";
+          advice_creature_names += ", ";
         }
-
-        advice += getCreatureNameFromCreatureType(
-          parent.ecosystem_manager.master.bestiary,
-          creatures[i]
-        );
+        
+        advice_creature_names += getCreatureNameFromCreatureType(parent.ecosystem_manager.master.bestiary, creatures[i]);
       }
 
-      advice += " from residing here.";
+      addition_advice = StrReplace(addition_advice, "{{advice_creature_names}}", advice_creature_names);
+      advice += addition_advice;
     }
 
     return advice;
@@ -364,15 +332,15 @@ state Analysing in RER_EcosystemAnalyzer {
 
   function getMessageAboutEcosystemDelayMultiplier(): string {
     var rate: float;
-    var output: string;
+    var rate_parent: string;
+    var message: string;
 
     parent.ecosystem_manager.master.refreshEcosystemFrequencyMultiplier();
-
     rate = 100 * parent.ecosystem_manager.master.ecosystem_frequency_multiplier;
+    rate_parent = "" + RoundF(rate) + "%";
+    message = StrReplace(GetLocStringByKey("rer_ecosystem_delay_multiplier"), "{{rate_parent}}", rate_parent);
 
-    return "Creatures in the area are multiplying at " 
-      + RoundF(rate)
-      + "% of their usual rate";
+    return message;
   }
 }
 
