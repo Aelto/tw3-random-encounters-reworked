@@ -1,3 +1,5 @@
+#ifdef NEXTGEN_FEATURES {
+
 @wrapMethod(W3ActorRemains)
 function OnItemTaken(itemId: SItemUniqueId, quantity: int) {
   var result: bool = wrappedMethod(itemId, quantity);
@@ -13,3 +15,5 @@ function OnItemTaken(itemId: SItemUniqueId, quantity: int) {
 
   return result;
 }
+
+};

@@ -1,3 +1,5 @@
+#ifdef NEXTGEN_FEATURES {
+
 class RER_ContractsMenuDescriptor extends SU_MenuDescriptor {
   public function build() {
     this.onHover(
@@ -15,3 +17,5 @@ function SU_onMenuEntered(menu: string, out descriptors: array<SU_MenuDescriptor
     descriptors.PushBack(new RER_ContractsMenuDescriptor in this);
   }
 }
+
+};

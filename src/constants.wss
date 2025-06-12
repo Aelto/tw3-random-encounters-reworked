@@ -29,6 +29,9 @@
 // functions and remove most calls to the ecosystem manager as well.
 #define const ENABLE_ECOSYSTEM;
 
+// if defined, includes code that depend on nextgen features like annotations
+#define const NEXTGEN_FEATURES_NOT;
+
 #ifdef DEBUG {
   #define const DEBUG_LOOT;
 };

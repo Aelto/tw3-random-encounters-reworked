@@ -1,3 +1,5 @@
+#ifdef NEXTGEN_FEATURES {
+
 class RER_MainMenuDescriptor extends SU_MenuDescriptor {
   public function build() {
     // this.withFallbackMessage(
@@ -50,3 +52,5 @@ function SU_onMenuEntered(menu: string, out descriptors: array<SU_MenuDescriptor
     descriptors.PushBack(new RER_MainMenuDescriptor in this);
   }
 }
+
+};
