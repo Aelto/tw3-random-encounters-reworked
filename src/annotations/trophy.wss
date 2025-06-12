@@ -1,0 +1,15 @@
+@wrapMethod(W3ActorRemains)
+function OnItemTaken(itemId: SItemUniqueId, quantity: int) {
+  var result: bool = wrappedMethod(itemId, quantity);
+
+  var is_rer_trophy: bool = this.inv.ItemHasTag(itemId, 'RER_Trophy')
+                         || this.inv.ItemHasTag(itemId, 'RER_BountyNotice');
+
+  if (is_rer_trophy) {
+    var item_name: name = this.inv.GetItemName(itemId);
+
+    trophyItemNames.Remove(item_name);
+  }
+
+  return result;
+}
