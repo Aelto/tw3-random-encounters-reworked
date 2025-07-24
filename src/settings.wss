@@ -232,10 +232,6 @@ class RE_Settings {
     );
   }
 
-  public function shouldResetRERSettings(inGameConfigWrapper: CInGameConfigWrapper): bool {
-    return StringToFloat(inGameConfigWrapper.GetVarValue('RERmain', 'RERmodVersion')) <= 0;
-  }
-
   private function loadModEnabledSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     this.is_enabled = inGameConfigWrapper.GetVarValue('RERmain', 'RERmodEnabled');
   }

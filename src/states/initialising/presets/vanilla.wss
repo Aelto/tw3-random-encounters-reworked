@@ -9,8 +9,7 @@ state Vanilla in RER_PresetManager {
 
   entry function Vanilla_applySettings() {
     parent.master.settings.resetRERSettings(theGame.GetInGameConfigWrapper());
-
     parent.done = true;
+    parent.displayPresetAppliedPopup("Defaults / Vanilla");
   }
-
 }

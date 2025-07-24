@@ -8,7 +8,12 @@ class RER_MainMenuDescriptor extends SU_MenuDescriptor {
 
     this.onHover(
       'RERperformanceMode',
-      "Enabling <font color='#CD7D03'>Performance Mode</font> will alter how the mod operates to focus even more on performances, sometimes by ignoring the values from the menu to use pre-defined ones, or by disabling features like the Ecosystem for a smoother experience at the cost of immersion.<br/><br/>Changes to the option requires a reload of the save to take effect."
+      "Enabling <font color='#CD7D03'>Performance Mode</font> will alter how the mod operates to focus even more on performances, sometimes by ignoring the values from the menu to use pre-defined ones, or by disabling features like the Ecosystem for a smoother experience at the cost of immersion. Note that this option is only useful if you notice a framerate drop caused by your CPU being pushed to its maximum capacity.<br/><br/>Changes to the option requires a reload of the save to take effect."
+    );
+
+    this.onHover(
+      'RERmenuPreset',
+      "Setting this option to anything else than <font color='#CD7D03'>No preset</font> will tell the mod to update all of the settings according to the selected preset the next time you load a save. The mod does NOT have to be enabled for this option to take effect, in fact it will also cause the mod to enable itself once the preset is applied."
     );
 
     this.onHoverDynamic(
@@ -35,7 +40,7 @@ class RER_MainMenuDescriptor extends SU_MenuDescriptor {
       );
 
       if (value > 200.0) {
-        return description + "<br/><br/>A value above 200% can cause performance issues from the amount of spawns it will cause, adjust encounter settings and more specifically the death threshold accordingly (a lower value).";
+        return description + "<br/><br/>A value above 200% can cause performance issues from the amount of spawns it will create, adjust encounter settings and more specifically the death threshold accordingly (a lower value).";
       }
     }
 

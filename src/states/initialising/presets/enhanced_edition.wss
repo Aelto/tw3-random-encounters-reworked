@@ -72,8 +72,8 @@ state EnhancedEdition in RER_PresetManager {
     this.wrapperMultiplyFloatValue(wrapper, 'RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 0.65);
 
     theGame.SaveUserSettings();
-
     parent.done = true;
+    parent.displayPresetAppliedPopup("Enhanced Edition (W3EE)");
   }
 
   function wrapperMultiplyFloatValue(wrapper: CInGameConfigWrapper, menu: name, value: name, multiplier: float) {

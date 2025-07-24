@@ -33,10 +33,7 @@ state Initialising in CRandomEncounters {
       return;
     }
 
-    if (parent.settings.shouldResetRERSettings(theGame.GetInGameConfigWrapper())) {
-      this.displayPresetChoiceDialogeMenu();
-    }
-
+    this.tryApplyMenuPreset();
     this.removeAllRerMapPins();
     this.updateSettings();
 
@@ -88,188 +85,30 @@ state Initialising in CRandomEncounters {
     constants = RER_Constants();
     current_version = StringToFloat(config.GetVarValue('RERmain', 'RERmodVersion'));
 
-    if (current_version < 2.07) {
-      config.ApplyGroupPreset('RERcontracts', 0);
-
-      current_version = 2.07;
-    }
-
-    if (current_version < 2.08) {
-      NDEBUG("[RER] The mod was updated to v2.8: the Contract System settings were reset to support the new reputation system");
-
-      // reset the contract tutorial value so it displays again
-      // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
-      config.ApplyGroupPreset('RERcontracts', 0);
-
-      current_version = 2.08;
-    }
-
-    if (current_version < 2.09) {
-      NDEBUG("[RER] The mod was updated to v2.9: the Contract System settings were reset to support updated distance settings");
-
-      // reset the contract tutorial value so it displays again
-      // config.SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 1);
-      config.ApplyGroupPreset('RERcontracts', 0);
-
-      // disable any active bounty from before v2.9 since it won't be compatible
-      // anymore.
-      parent.storages.bounty.current_bounty.is_active = false;
-
-      current_version = 2.09;
-    }
-
-    if (current_version < 2.11) {
-      NDEBUG("[RER] The mod was updated to v2.11");
-
-      current_version = 2.11;
-    }
-
-    if (current_version < 2.12) {
-      var message: string;
-
-      message += "You just updated the Random Encounters Reworked mod to the v2.12, the loot update.<br/><br/>";
-      message += "All of your reward settings were reset following the update. ";
-      message += "To simplify and streamline the loot coming from the mod, all of the old rewards were removed and replaced ";
-      message += "with a central and generic system. This system called the Loot Manager offers four loot categories:";
-      message += "<br/> - Gear";
-      message += "<br/> - Materials";
-      message += "<br/> - Consumables";
-      message += "<br/> - Valuables";
-      message += "<br/>And for each category it offers four loot rarities: ";
-      message += "<br/> - Common";
-      message += "<br/> - Uncommon";
-      message += "<br/> - Rare";
-      message += "<br/> - Exotic";
-      message += "<br/><br/>Now every time RER wants to add loot to something, it sends a call to the loot manager which will ";
-      message += "give it a list of items based on the settings you set in the menu, and this for every feature in the mod.";
-
-      NTUTO("RER v2.12 - The loot update", message);
-
-      config.ApplyGroupPreset('RERrewardsGeneral', 0);
-      config.ApplyGroupPreset('RERcontainerRefill', 0);
-      config.ApplyGroupPreset('RERkillingSpreeCustomLoot', 0);
-      config.ApplyGroupPreset('RERmonsterTrophies', 0);
-      config.ApplyGroupPreset('RERcontracts', 0);
-
-      current_version = 2.12;
-    }
-
-    if (current_version < 2.13) {
-      config.ApplyGroupPreset('RERmonsterTrophies', 0);
-
-      if (RER_playerUsesEnhancedEditionRedux()) {
-        config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 30);
-      }
-
-      current_version = 2.13;
-    }
-
-    if (current_version < 3.0) {
-      current_version = 3.0;
-
-      config.ApplyGroupPreset('RERtutorials', 0);
-    }
-
-    if (current_version < 3.01) {
-      current_version = 3.01;
-
-      var message: string;
-      message += "Random Encounters Reworked was updated to the v3.1 - The Next-Gen update";
-      message += "<br/>A new settings was enabled automatically: disable encounter spawns when near quest markers.";
-      message += "If you wish to turn it off, you can find the toggle at the bottom of the Encounters System, General menu";
-      NTUTO("RER v3.1 - Next-Gen update", message);
-
-      config.SetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 1);
-      config.ApplyGroupPreset('RERtutorials', 0);
-    }
-
-    if (current_version < 3.02) {
-      current_version = 3.02;
-
-      var message: string;
-      message += "Random Encounters Reworked was updated to the v3.2";
-      message += "<br/>This version brings two major changes:";
-      message += "<br/><br/>" + RER_yellowFont("Standalone 3D markers") + " for the various things spawned by the mod "
-               + "were added. You can toggle them ON or OFF in the " + RER_yellowFont("Optional Features") + " menu.";
-
-      message += "<br/><br/>" + RER_yellowFont("Contract rewards streamlining") + ", the random nature of Tokens of Gratitude "
-               + "plus the need to find the bounty master to sell them was frustrating. "
-               + "A new option (that is enabled by default) was added to the Contracts menu to give crowns directly instead "
-               + "of tokens. If you prefer the Tokens way of getting reward, this solution was streamlined to no longer "
-               + "scale with your current reputation but instead scale linearly with the contract's difficulty: 1 plus "
-               + "an additional token every 7 Contract levels";
-
-      NTUTO("RER v3.2 - 3D Markers & Contract rewards", message);
-
-      config.SetVarValue('RERoptionalFeatures', 'RERonelinersBountyMainTarget', 1);
-      config.SetVarValue('RERoptionalFeatures', 'RERonelinersContract', 1);
-      config.SetVarValue('RERoptionalFeatures', 'RERonelinersBountyMaster', 1);
-      config.SetVarValue('RERmonsterCrowns', 'RERcrownsContract', 40);
-      config.SetVarValue('RERcontracts', 'RERcontractsRewardOption', 0);
-    }
-
-    if (current_version < 3.03) {
-      current_version = 3.03;
-
-      config.SetVarValue('RERcontracts', 'RERcontractsDeathReputationLossAmount', 1);
-
-      NTUTO("RER v3.3", "The mod was successfully updated to v3.3");
-    }
-
-    if (current_version < 3.04) {
-      current_version = 3.04;
-
-      config.SetVarValue('RERmain', 'RERlevelScaling', 0);
-      config.ApplyGroupPreset('RERcontracts', 0);
-
-      NTUTO("RER v3.4", "The mod was successfully updated to v3.4");
-    }
-
     if (current_version < 3.05) {
       current_version = 3.05;
 
       config.SetVarValue('RERmain', 'RERgeneralIntensity', 100);
 
-      NTUTO("RER v3.5", "The mod was successfully updated to v3.5");
+      NDEBUG("Random Encounters Reworked was successfully updated to v3.5");
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
     theGame.SaveUserSettings();
   }
 
-  latent function displayPresetChoiceDialogeMenu() {
-    var choices: array<SSceneChoice>;
-    var manager: RER_PresetManager;
-    var response: SSceneChoice;
-
-    manager = new RER_PresetManager in this;
-    manager.master = parent;
-
-    choices = manager.getChoiceList();
-
+  latent function tryApplyMenuPreset() {
     while (isPlayerBusy()) {
       Sleep(5);
     }
 
     Sleep(5);
 
-    (new RER_RandomDialogBuilder in thePlayer).start()
-      .dialog(new REROL_whoa_in_for_one_helluva_ride in thePlayer, true)
-      .play();
-
-    response = SU_setDialogChoicesAndWaitForResponse(choices);
-    SU_closeDialogChoiceInterface();
-    manager.GotoState(response.playGoChunk);
-
+    var manager: RER_PresetManager = new RER_PresetManager in this;
+    manager.tryApplyMenuPreset(RER_getModMenuPreset(), parent);
     while (!manager.done) {
       SleepOneFrame();
     }
-
-    (new RER_RandomDialogBuilder in thePlayer).start()
-      .dialog(new REROL_ready_to_go_now in thePlayer, true)
-      .play();
-
-    theGame.SaveUserSettings();
   }
 
   private function removeAllRerMapPins() {

@@ -3,50 +3,41 @@ statemachine class RER_PresetManager {
   public var done: bool;
   public var master: CRandomEncounters;
 
-  public function getPresetList(): array<RER_Preset> {
-    var output: array<RER_Preset>;
-
-    output.PushBack(RER_Preset(
-      "rer_dialog_preset_vanilla",
-      'Vanilla'
+  public function displayPresetAppliedPopup(preset_name: string) {
+    NDEBUG(StrReplace(
+      GetLocStringByKey()
+      "{{preset_name}}",
+      preset_name
     ));
-
-    output.PushBack(RER_Preset(
-      "rer_dialog_preset_enhanced_edition",
-      'EnhancedEdition'
-    ));
-
-    output.PushBack(RER_Preset(
-      "rer_dialog_preset_exit_do_nothing",
-      'Exit'
-    ));
-
-    return output;
   }
 
-  public function getChoiceList(): array<SSceneChoice> {
-    var presets: array<RER_Preset>;
-    var choices: array<SSceneChoice>;
-    var i: int;
+  public function tryApplyMenuPreset(
+    preset: RER_MenuPreset,
+    master: CRandomEncounters
+  ) {
+    this.done = false;
+    this.master = master;
 
-    presets = this.getPresetList();
-
-    for (i = 0; i < presets.Size(); i += 1) {
-      choices.PushBack(SSceneChoice(
-        GetLocStringByKey(presets[i].dialog_string_key),
-        false,
-        false,
-        false,
-        DialogAction_GAME_DAGGER,
-        presets[i].state_name
-      ));
+     if (preset == RER_MenuPreset_Default) {
+      this.GotoState('Vanilla');
+      return;
     }
 
-    return choices;
+    if (preset == RER_MenuPreset_EnhancedEdition) {
+      this.GotoState('EnhancedEdition');
+      return;
+    }
+
+    this.done = true;
   }
 }
 
-struct RER_Preset {
-  var dialog_string_key: string;
-  var state_name: name;
+enum RER_MenuPreset {
+  RER_MenuPreset_Default = 0,
+  RER_MenuPreset_None = 1,
+  RER_MenuPreset_EnhancedEdition = 2,
+}
+
+function RER_getModMenuPreset(): RER_MenuPreset {
+  return StringToInt(RER_menu('RERmain', 'RERmenuPreset'));
 }

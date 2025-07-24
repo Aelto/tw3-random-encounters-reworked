@@ -557,3 +557,7 @@
 2115018489|        |rer_ecosystem_advice|A large community of {{creature_name}} lives here due to the abundance of {{advice_creature_names}} As a result, other creatures such as {{other_creature_names}} may roam the area.
 2115018490|        |rer_ecosystem_addition_advice|<br />In addition, {{creature_name}} prevent {{advice_creature_names}} from residing here.
 2115018491|        |rer_ecosystem_delay_multiplier|Creatures in the area are multiplying at {{rate_parent}} of their usual rate.
+2115018492|        |option_rer_menu_preset|Menu preset
+2115018493|        |option_rer_menu_preset_enhanced_edition|Enhanced Edition (W3EE)
+2115018494|        |option_rer_menu_preset_none|No preset
+2115018495|        |rer_menu_preset_applied_message|<u>Random Encounters Reworked</u><br/><br/>The mod is enabled and its settings were set to the <font color="#ffd33d">{{preset_name}</font> preset. If you are using an overhaul like Enhanced Edition (W3EE), make sure to visit the mod's general menu to apply the dedicated preset for a smoother experience.
