@@ -95,6 +95,10 @@ state Processing in RER_ContractManager {
         return true;
       }
 
+      if (!parent.hasOngoingContract()) {
+        return false;
+      }
+
       var destination_radius: float = contract.destinationRadius();
       var player_position: Vector = thePlayer.GetWorldPosition();
 
