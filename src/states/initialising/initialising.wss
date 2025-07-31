@@ -24,16 +24,15 @@ state Initialising in CRandomEncounters {
 
     NLOG(" - Player no longer busy");
 
-    Sleep(10);
+    Sleep(5);
+    this.tryApplyMenuPreset();
 
-    var is_enabled: bool = theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodEnabled');
-    var version: float = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERmain', 'RERmodVersion'));
-
+    var is_enabled: bool = RER_menu('RERmain', 'RERmodEnabled');
+    var version: float = StringToFloat(RER_menu('RERmain', 'RERmodVersion'));
     if (!is_enabled && version > 0) {
       return;
     }
 
-    this.tryApplyMenuPreset();
     this.removeAllRerMapPins();
     this.updateSettings();
 
@@ -88,9 +87,8 @@ state Initialising in CRandomEncounters {
     if (current_version < 3.05) {
       current_version = 3.05;
 
-      config.SetVarValue('RERmain', 'RERgeneralIntensity', 100);
-
-      NDEBUG("Random Encounters Reworked was successfully updated to v3.5");
+      // this version is empty as the new preset selection is introduced in that
+      // same version, which will cause every setting to be reset anyway.
     }
 
     config.SetVarValue('RERmain', 'RERmodVersion', constants.version);
@@ -99,13 +97,13 @@ state Initialising in CRandomEncounters {
 
   latent function tryApplyMenuPreset() {
     while (isPlayerBusy()) {
-      Sleep(5);
+      Sleep(1);
     }
 
-    Sleep(5);
+    Sleep(2);
 
     var manager: RER_PresetManager = new RER_PresetManager in this;
-    manager.tryApplyMenuPreset(RER_getModMenuPreset(), parent);
+    manager.tryApplyMenuPreset(parent);
     while (!manager.done) {
       SleepOneFrame();
     }

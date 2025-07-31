@@ -5,18 +5,20 @@ statemachine class RER_PresetManager {
 
   public function displayPresetAppliedPopup(preset_name: string) {
     NDEBUG(StrReplace(
-      GetLocStringByKey()
+      GetLocStringByKey("rer_menu_preset_applied_message"),
       "{{preset_name}}",
       preset_name
     ));
   }
 
-  public function tryApplyMenuPreset(
-    preset: RER_MenuPreset,
-    master: CRandomEncounters
-  ) {
+  public function tryApplyMenuPreset(master: CRandomEncounters) {
     this.done = false;
     this.master = master;
+
+    this.GotoState('Waiting');
+    var preset: RER_MenuPreset = StringToInt(RER_menu('RERmain', 'RERmenuPreset')) as RER_MenuPreset;
+
+    NLOG("RER_PresetManager::tryApplyMenuPreset(), preset = " + preset);
 
      if (preset == RER_MenuPreset_Default) {
       this.GotoState('Vanilla');
@@ -36,8 +38,4 @@ enum RER_MenuPreset {
   RER_MenuPreset_Default = 0,
   RER_MenuPreset_None = 1,
   RER_MenuPreset_EnhancedEdition = 2,
-}
-
-function RER_getModMenuPreset(): RER_MenuPreset {
-  return StringToInt(RER_menu('RERmain', 'RERmenuPreset'));
 }
