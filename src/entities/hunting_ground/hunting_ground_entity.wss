@@ -32,7 +32,7 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
   }
 
   private function addOneliner() {
-    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersHuntingGround')) {
+    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersHuntingGround')) {
       return;
     }
 

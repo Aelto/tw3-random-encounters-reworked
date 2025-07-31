@@ -190,11 +190,11 @@ class RER_ContractTargetEncounter {
   
   public function createOneliner() {
     if (this.isEncounterFinished()) {
-      return;
+      return this.removeOneliner();
     }
 
-    if (!RER_menu('RERoptionalFeatures', 'RERonelinersContract')) {
-      return;
+    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersContract')) {
+      return this.removeOneliner();
     }
 
     this.oneliner = RER_oneliner(
@@ -205,7 +205,7 @@ class RER_ContractTargetEncounter {
 
   public function createMapPin(contract: RER_Contract) {
     if (this.isEncounterFinished()) {
-      return;
+      return this.removeMapPin();
     }
 
     var map_pin: SU_MapPin = new SU_MapPin in this;

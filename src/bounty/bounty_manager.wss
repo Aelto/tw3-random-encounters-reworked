@@ -303,7 +303,7 @@ statemachine class RER_BountyManager extends CEntity {
       return;
     }
 
-    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMainTarget')) {
+    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMainTarget')) {
       return;
     }
 

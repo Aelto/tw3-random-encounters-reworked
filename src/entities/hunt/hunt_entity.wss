@@ -33,11 +33,11 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
   }
 
   private function addOneliner() {
-    if (this.bait_moves_towards_player && !theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersAmbush')) {
+    if (this.bait_moves_towards_player && !RER_menuBool('RERoptionalFeatures', 'RERonelinersAmbush')) {
       return;
     }
 
-    if (!this.bait_moves_towards_player && !theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersHunt')) {
+    if (!this.bait_moves_towards_player && !RER_menuBool('RERoptionalFeatures', 'RERonelinersHunt')) {
       return;
     }
 

@@ -4,6 +4,13 @@ function RER_menu(group: name, item: name): string {
     .GetVarValue(group, item);
 }
 
+function RER_menuBool(group: name, item: name): bool {
+  var value: bool = theGame.GetInGameConfigWrapper()
+    .GetVarValue(group, item);
+
+  return value;
+}
+
 function RER_getGeneralIntensity(scale: float): float {
   // the menu slider is expected to be a number from 0% to 500%,
   // it is then multiplied by 0.01 to bring it in the [0;5] range

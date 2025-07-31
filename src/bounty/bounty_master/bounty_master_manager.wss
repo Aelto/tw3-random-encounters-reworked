@@ -120,8 +120,7 @@ statemachine class RER_BountyMasterManager {
       map_pin.radius = 10;
       map_pin.region = SUH_getCurrentRegion();
       map_pin.is_fast_travel = true;
-      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
-          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerBountyMaster');
+      map_pin.appears_on_minimap = RER_menu('RERoptionalFeatures', 'RERminimapMarkerBountyMaster');
 
       SUMP_addCustomPin(map_pin);
 
@@ -132,7 +131,7 @@ statemachine class RER_BountyMasterManager {
   }
 
   private function addOneliner() {
-    if (!theGame.GetInGameConfigWrapper().GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
+    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
       return;
     }
 
