@@ -103,7 +103,7 @@ state Processing in RER_ContractManager {
       var player_position: Vector = thePlayer.GetWorldPosition();
 
       for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
-        if (target_encounter.isSpawnedAndKilled()) {
+        if (target_encounter.isSpawnedAndKilled() && !target_encounter.isTargetKilledStorage()) {
           parent.setTargetKilled(target_encounter.index);
           target_encounter.removeMapPin();
           theSound.SoundEvent("gui_ingame_new_journal");
