@@ -11,9 +11,6 @@
                 <Entry varId="RERexternalFactorsImpact" value="2" />
                 <Entry varId="RERgeneralIntensity" value="100" />
             </Preset>
-            <Preset id="1" displayName="rer_preset_selector" >
-                <Entry varId="RERmodVersion" value="0" />
-            </Preset>
         </PresetsArray>
         <VisibleVars>
             <Var id="RERmodEnabled" displayName="rer_mod_enabled" displayType="TOGGLE"></Var>
