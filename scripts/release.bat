@@ -35,11 +35,10 @@ XCOPY "%modpath%\shared-utils\mod_sharedutils_glossary\" "%modpath%\release\mods
 XCOPY "%modpath%\shared-utils\mod_sharedutils_oneliners\" "%modpath%\release\mods\mod_sharedutils_oneliners\" /e /s /y
 XCOPY "%modpath%\shared-utils\mod_sharedutils_menudescriptors\" "%modpath%\release\mods\mod_sharedutils_menudescriptors\" /e /s /y
 
-REM Dependencies
+:: Dependencies
 XCOPY "%modpath%\dependencies\" "%modpath%\release\" /e /s /y
 
-@REM it's an optional patch, so it is not included
-@REM XCOPY "%modpath%\shared-utils\mod0000_sharedutilsmappinsfhudpatch\" "%modpath%\release\mods\mod0000_sharedutilsmappinsfhudpatch\" /e /s /y
+call compileblob.bat
 
 if "%1"=="-github" (
   echo "creating github release"
