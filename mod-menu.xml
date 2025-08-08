@@ -18,7 +18,7 @@
 
             <Var id="RERmenuPreset" displayName="rer_menu_preset" displayType="OPTIONS">
                 <OptionsArray>
-                    <Option id="0" displayName="rer_default">
+                    <Option id="0" displayName="rer_menu_preset_default">
                         <Entry varId="RERmenuPreset" value="0"/>
                     </Option>
                     <Option id="1" displayName="rer_menu_preset_none">
