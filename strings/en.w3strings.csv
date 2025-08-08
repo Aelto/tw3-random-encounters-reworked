@@ -561,4 +561,4 @@
 2115018493|        |preset_value_rer_menu_preset_default|Default / Vanilla
 2115018494|        |preset_value_rer_menu_preset_enhanced_edition|Enhanced Edition (W3EE)
 2115018495|        |preset_value_rer_menu_preset_none|Keep current settings
-2115018496|        |rer_menu_preset_applied_message|<u>Random Encounters Reworked</u><br/><br/>The mod is enabled and its settings were set to the <font color="#ffd33d">{{preset_name}</font> preset. If you are using an overhaul like Enhanced Edition (W3EE), make sure to visit the mod's general menu to apply the dedicated preset for a smoother experience.
+2115018496|        |rer_menu_preset_applied_message|<u>Random Encounters Reworked</u><br/><br/>The mod is enabled and its settings were set to the <font color="#ffd33d">{{preset_name}}</font> preset. If you are using an overhaul like Enhanced Edition (W3EE), make sure to visit the mod's general menu to apply the dedicated preset for a smoother experience.
