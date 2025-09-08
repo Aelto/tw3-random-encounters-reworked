@@ -250,7 +250,7 @@ class RER_ContractTargetEncounter {
     ) <= radius * radius;
   }
 
-  private function isTargetKilledStorage(): bool {
+  public function isTargetKilledStorage(): bool {
     return this.manager.isTargetKilled(this.index);
   }
 
