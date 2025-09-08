@@ -1,24 +1,7 @@
 state Waiting in RER_BountyMasterManager {
   event OnEnterState(previous_state_name: name) {
     super.OnEnterState(previous_state_name);
-
     NLOG("RER_BountyMasterManager - Waiting");
-
-    this.Waiting_main();
-  }
-
-  entry function Waiting_main() {
-    var already_has_listener: bool;
-
-    already_has_listener = SU_NpcInteraction_hasEventListenerWithTag(
-      parent.bounty_master_entity as CNewNPC,
-      "RER_StartBountyMasterConversationOnInteraction"
-    );
-
-    if (!already_has_listener) {
-      (parent.bounty_master_entity as CNewNPC)
-        .addInteractionEventListener(new RER_StartBountyMasterConversationOnInteraction in parent.bounty_master_entity);
-    }
   }
 }
 
@@ -37,6 +20,7 @@ class RER_StartBountyMasterConversationOnInteraction extends SU_InteractionEvent
 
     if (rer.bounty_manager.bounty_master_manager.GetCurrentStateName() == 'Waiting') {
       rer.bounty_manager.bounty_master_manager.GotoState('DialogChoice');
+      this.doMovementAdjustment(receptor);
     }
 
     /**
@@ -46,4 +30,33 @@ class RER_StartBountyMasterConversationOnInteraction extends SU_InteractionEvent
     return true;
   }
 
+  function doMovementAdjustment(receptor: CPeristentEntity) {
+    var movement_adjustor: CMovementAdjustor;
+    var slide_ticket: SMovementAdjustmentRequestTicket;
+    var target: CActor;
+
+    target = thePlayer;
+
+    movement_adjustor = (receptor as CActor)
+      .GetMovingAgentComponent()
+      .GetMovementAdjustor();
+
+    slide_ticket = movement_adjustor.GetRequest( 'RotateTowardsPlayer' );
+
+    // cancel any adjustement made with the same name
+    movement_adjustor.CancelByName( 'RotateTowardsPlayer' );
+
+    // and now we create a new request
+    slide_ticket = movement_adjustor.CreateNewRequest( 'RotateTowardsPlayer' );
+
+    movement_adjustor.AdjustmentDuration(
+      slide_ticket,
+      0.25 // 500ms
+    );
+
+    movement_adjustor.RotateTowards(
+      slide_ticket,
+      target
+    );
+  }
 }

@@ -13,7 +13,7 @@ class RER_MainMenuDescriptor extends SU_MenuDescriptor {
 
     this.onHover(
       'RERmenuPreset',
-      "Setting this option to anything else than <font color='#CD7D03'>No preset</font> will tell the mod to update all of the settings according to the selected preset the next time you load a save. The mod does NOT have to be enabled for this option to take effect, in fact it will also cause the mod to enable itself once the preset is applied."
+      "Setting this option to anything else than <font color='#CD7D03'>Keep current settings</font> will tell the mod to update all of the settings according to the selected preset the next time you load a save. The mod does NOT have to be enabled for this option to take effect, in fact it will also cause the mod to enable itself once the preset is applied."
     );
 
     this.onHoverDynamic(

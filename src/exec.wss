@@ -110,7 +110,7 @@ exec function rerclearcontractstorage() {
   rer_entity.storages.contract.completed_contracts.Clear();
 }
 
-exec function rergotobountymaster() {
+exec function rergotobountymaster(optional index: int) {
   var rer_entity : CRandomEncounters;
 
   if (!getRandomEncounters(rer_entity)) {
@@ -119,9 +119,12 @@ exec function rergotobountymaster() {
     return;
   }
 
-  thePlayer.Teleport(
-    rer_entity.bounty_manager.bounty_master_manager.bounty_master_entity.GetWorldPosition()
-  );
+  var position: Vector = rer_entity
+    .bounty_manager
+    .bounty_master_manager
+    .getBountyMasterPosition(index);
+
+  thePlayer.Teleport(position);
 }
 
 function RER_getRandomItemFromDefinition(definition: name): name {

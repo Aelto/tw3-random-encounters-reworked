@@ -1,118 +1,124 @@
 
 statemachine class RER_BountyMasterManager {
-
-  var bounty_master_entity: CEntity;
-
-  var last_talking_time: float;
-
   var bounty_manager: RER_BountyManager;
-
   var picked_seed: int;
-
-  var oneliner: RER_OnelinerEntity;
-
 
   public latent function init(bounty_manager: RER_BountyManager) {
     this.bounty_manager = bounty_manager;
-    this.spawnBountyMaster();
+    this.trySpawnBountyMasters();
     this.GotoState('Waiting');
   }
+  
+  public function bountySeedSelected(seed: int) {
+    this.picked_seed = seed;
 
-  public latent function spawnBountyMaster() {
-    var valid_positions: array<Vector>;
-    var template: CEntityTemplate;
-    var position_index: int;
-    var template_path: string;
-    var map_pin: SU_MapPin;
+    this.GotoState('CreateBounty');
+  }
 
+  //////////////////////////////////////////////////////////////////////////////
+  // spawning logic
+  private var entities: array<CEntity>;
+  private var oneliners: array<RER_OnelinerEntity>;
+
+  public latent function trySpawnBountyMasters() {
     if (!RER_modPowerIsBountySystemEnabled(this.bounty_manager.master.getModPower())) {
       return;
     }
 
+    this.removeBountyMasterPinsAndMarkers();
+
+    var max: int = this.getBountyMastersCount();
+    var i: int;
+
+    for (i = this.countOccupiedPositions(); i < max; i += 1) {
+      this.trySpawnOneBountyMaster(i);
+    }
+  }
+
+  private function getBountyMastersCount(): int {
+    var region: string = SUH_getCurrentRegion();
+
+    if (region == "no_mans_land") {
+      return 3;
+    }
+    else if (region == "skellige") {
+      return 3;
+    }
+    else if (region == "bob") {
+      return 2;
+    }
+    else if (region == "prolog_village") {
+      return 1;
+    }
+    else if (region == "kaer_morhen") {
+      return 1;
+    }
+    else {
+      return 2;
+    }
+  }
+
+  private function getSpawningSeed(): int {
+    return GameTimeHours(theGame.CalculateTimePlayed());
+  }
+
+  private latent function trySpawnOneBountyMaster(index: int) {
+    var position: Vector = this.getBountyMasterPosition(index);
+    if (FloorF(position.X) == 0 && FloorF(position.Y) == 0) {
+      // invalid position
+      return;
+    }
+
+    var template_path: string = this.getBountyMasterTemplatePath();
+    if (template_path == "") {
+      // invalid template path
+      return;
+    }
+
+    var template: CEntityTemplate = LoadResourceAsync(template_path, true) as CEntityTemplate;
+
+    var entity: CEntity = theGame.CreateEntity(
+      template,
+      position + Vector(0,0, 0.1),
+      thePlayer.GetWorldRotation()
+    ) as CEntity;
+
+    entity.AddTag('RER_bounty_master');
+    this.entities.PushBack(entity);
+    this.setupBountyMasterPinsAndMarkers(entity);
+
+    var interaction: RER_StartBountyMasterConversationOnInteraction;
+    interaction = new RER_StartBountyMasterConversationOnInteraction in entity;
+    (entity as CNewNPC).addInteractionEventListener(interaction);
+  }
+
+  private function getBountyMasterTemplatePath(): string {
     var current_region: string = SUH_getCurrentRegion();
 
-    this.bounty_master_entity = theGame.GetEntityByTag('RER_bounty_master');
-
-    //Ferroxius - New Bounty Masters BEGIN
+    //CONTRIBUTION: Ferroxius - New Bounty Masters
     if (current_region == "no_mans_land") {
-      template_path = "gameplay\community\community_npcs\prologue\regular\temerian_merchant.w2ent";
+      return "gameplay\community\community_npcs\prologue\regular\temerian_merchant.w2ent";
     }
     else if (current_region == "skellige") {
-      template_path = "gameplay\community\community_npcs\skellige\regular\skellige_merchant.w2ent";
+      return "gameplay\community\community_npcs\skellige\regular\skellige_merchant.w2ent";
     }
     else if (current_region == "bob") {
-      template_path = "dlc\bob\data\gameplay\community\community_npcs\craftsmen\merchant.w2ent";
+      return "dlc\bob\data\gameplay\community\community_npcs\craftsmen\merchant.w2ent";
     }
     else if (current_region == "prolog_village") {
-      template_path = "gameplay\community\community_npcs\prologue\regular\nilfgaardian_noble.w2ent";
-    }
-    else { // kaer morhen, or any custom world
-      template_path = "dlc\ep1\community\community_npcs\gustfields_hunter.w2ent";
-    }
-    //Ferroxius - New Bounty Masters END
-
-    // every hour of playtime it changes the index in the valid positions
-    valid_positions = this.getBountyMasterValidPositions();
-    position_index = (RandNoiseF(
-      GameTimeHours(theGame.CalculateTimePlayed()),
-      valid_positions.Size()
-    ) as int) % valid_positions.Size(); // the % is just in case
-
-    if (position_index < 0 || position_index > valid_positions.Size() - 1) {
-      position_index = (RandNoiseF(RER_getPlayerLevel(), valid_positions.Size() - 1) as int) % valid_positions.Size();
-    }
-
-    if (position_index < 0 || position_index > valid_positions.Size() - 1) {
-      position_index = 0;
-    }
-
-    // the bounty master already exist
-    if (this.bounty_master_entity) {
-      NLOG("bounty master exists, template = " + StrAfterFirst(this.bounty_master_entity.ToString(), "::"));
-
-      // not the same template as the one asked, we kill the current bounty master
-
-      if (StrAfterFirst(this.bounty_master_entity.ToString(), "::") != template_path) {
-        NLOG("bounty master wrong template");
-        // ((CActor)this.bounty_master_entity).Kill('RER');
-        this.bounty_master_entity.Destroy();
-        delete this.bounty_master_entity;
-      }
-      else {
-        // teleport the bounty master at the current position based on the current playtime
-        bounty_master_entity
-        .TeleportWithRotation(
-          valid_positions[position_index] + Vector(0, 0, 0.2),
-          VecToRotation(thePlayer.GetWorldPosition() - valid_positions[position_index])
-        );
-      }
-
+      return "gameplay\community\community_npcs\prologue\regular\nilfgaardian_noble.w2ent";
     }
     
-    if (!this.bounty_master_entity) {
-      NLOG("bounty master doesn't exist");
+    // kaer morhen, or any custom world
+    return "dlc\ep1\community\community_npcs\gustfields_hunter.w2ent";
+  }
 
-      template = LoadResourceAsync(template_path, true) as CEntityTemplate;
-
-      this.bounty_master_entity = theGame.CreateEntity(
-        template,
-        valid_positions[position_index] + Vector(0, 0, 0.2),
-        thePlayer.GetWorldRotation(),,,,
-        PM_Persist
-      );
-
-      this.bounty_master_entity.AddTag('RER_bounty_master');
-    }
-
-    SU_removeCustomPinByTag("RER_bounty_master");
-
-    if (theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
-
-      map_pin = new SU_MapPin in thePlayer;
+  private function setupBountyMasterPinsAndMarkers(entity: CEntity) {
+    if (RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
+      var map_pin: SU_MapPin = new SU_MapPin in thePlayer;
       map_pin.tag = "RER_bounty_master";
       map_pin.pin_tag = 'RER_bounty_master';
-      map_pin.position = valid_positions[position_index];
+      map_pin.position = entity.GetWorldPosition();
       map_pin.description = GetLocStringByKey("rer_mappin_bounty_master_description");
       map_pin.label = GetLocStringByKey("rer_mappin_bounty_master_title");
       map_pin.type = "QuestAvailableBaW";
@@ -123,27 +129,66 @@ statemachine class RER_BountyMasterManager {
       map_pin.appears_on_minimap = RER_menu('RERoptionalFeatures', 'RERminimapMarkerBountyMaster');
 
       SUMP_addCustomPin(map_pin);
-
-      NLOG("bounty master placed at " + VecToString(valid_positions[position_index]));
     }
 
-    this.addOneliner();
-  }
 
-  private function addOneliner() {
-    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
-      return;
+    if (RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
+      var bounty_master: string = GetLocStringByKey("rer_mappin_bounty_master_title");  
+
+      var oneliner: RER_OnelinerEntity = RER_onelinerEntity(
+        "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> " + bounty_master,
+        entity
+      );
+
+      this.oneliners.PushBack(oneliner);
     }
 
-    var bounty_master: string = GetLocStringByKey("rer_mappin_bounty_master_title");
-
-    this.oneliner = RER_onelinerEntity(
-      "<img src='img://icons/quests/treasurehunt.png' vspace='-24' /> " + bounty_master,
-      this.bounty_master_entity
-    );
+    SU_updateMinimapPins();
   }
 
-  public function getBountyMasterValidPositions(): array<Vector> {
+  private function removeBountyMasterPinsAndMarkers() {
+    SU_removeCustomPinByTag("RER_bounty_master");
+
+    for oneliner: RER_OnelinerEntity in this.oneliners {
+      oneliner.unregister();
+    }
+    this.oneliners.Clear();
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // positions logic
+  private var occupied_positions: array<Vector>;
+
+  private function setPositionOccupied(position: Vector) {
+    this.occupied_positions.PushBack(position);
+  }
+
+  private function isPositionOccupied(position: Vector): bool {
+    return this.occupied_positions.Contains(position);
+  }
+
+  private function countOccupiedPositions(): int {
+    return this.occupied_positions.Size();
+  }
+
+  private function clearOccupiedPositions() {
+    this.occupied_positions.Clear();
+  }
+
+  public function getBountyMasterPosition(index: int): Vector {
+    var positions: array<Vector> = this.getBountyMasterValidPositions();
+
+    var seed: int = this.getSpawningSeed();
+    var position_index: int = FloorF(RandNoiseF(seed + index, positions.Size()));
+
+    var position: Vector = positions[position_index];
+
+    return position;
+  }
+
+  private function getBountyMasterValidPositions(
+    optional ignore_occupied_positions: bool
+  ): array<Vector> {
     var area: EAreaName;
     var area_string: string;
     var output: array<Vector>;
@@ -173,6 +218,18 @@ statemachine class RER_BountyMasterManager {
 
         // Urialla harbor
         output.PushBack(Vector(1488, 1907, 4.7));
+        // Blandare
+        output.PushBack(Vector(696.16,-8.08,49.73));
+        // Whaleyard
+        output.PushBack(Vector(1213.13,420.31,2.23));
+        // An Skellig Harbor
+        output.PushBack(Vector(1481.60,1869.72,0.06));
+        // Larvik village
+        output.PushBack(Vector(2804.80,69.60,28.99));
+        // Fyresdal village
+        output.PushBack(Vector(386.03,-625.42,7.77));
+        // Village near Fyke isle
+        output.PushBack(Vector(200.42,-466.53,1.37));
         break;
 
       case AN_Kaer_Morhen:
@@ -208,6 +265,14 @@ statemachine class RER_BountyMasterManager {
 
         // Upper mill
           output.PushBack(Vector(2497, 2497, 2.8));
+        // Velen - Nilfgardian camp
+        output.PushBack(Vector(2298.48,-857.35,18.08));
+        // Velen - Midcopse village
+        output.PushBack(Vector(-333.23,-228.77,7.51));
+        // Velen - Crossroads inn
+        output.PushBack(Vector(500.23,551.90,11.20));
+        // Novigrad - Alness village
+        output.PushBack(Vector(1548.35,1839.41,6.23));
         break;
 
       default:
@@ -225,6 +290,10 @@ statemachine class RER_BountyMasterManager {
 
           // Tourney grounds
           output.PushBack(Vector(-490.4, -954.3, 61.2));
+          // Francollarts village
+          output.PushBack(Vector(68.36,-1705.32,33.76));
+          // Coronate vineyard
+          output.PushBack(Vector(-287.40,-14.13,17.47));
         }
         else {
           // the real default
@@ -233,13 +302,16 @@ statemachine class RER_BountyMasterManager {
         break;
     }
 
+    if (!ignore_occupied_positions) {
+      this.removeOccupiedPositions(output);
+    }
+
     return output;
   }
 
-  public function bountySeedSelected(seed: int) {
-    this.picked_seed = seed;
-
-    this.GotoState('CreateBounty');
+  private function removeOccupiedPositions(out positions: array<Vector>) {
+    for position: Vector in this.occupied_positions {
+      positions.Remove(position);
+    }
   }
-
 }
