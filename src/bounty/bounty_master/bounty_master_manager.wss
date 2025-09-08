@@ -107,7 +107,7 @@ statemachine class RER_BountyMasterManager {
     SU_removeCustomPinByTag("RER_bounty_master");
 
     if (theGame.GetInGameConfigWrapper()
-        .GetVarValue('RERoptionalFeatures', 'RERmarkersBountyHunting')) {
+        .GetVarValue('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
 
       map_pin = new SU_MapPin in thePlayer;
       map_pin.tag = "RER_bounty_master";
