@@ -126,6 +126,23 @@ statemachine class RER_ContractManager {
 
     RER_addContractReputationFactValue(RoundF(rewards.reputation));
     contract.onCompletion();
+
+    var crowns_icon: string = thePlayer.GetInventory().GetItemIconPathByName('Crowns');
+    crowns_icon = "<img src='img://" + crowns_icon + "' height='48' width='48' vspace='-24' />";
+    
+    var message: string = GetLocStringByKey('rer_contract_completion_rewards_message');
+    message = StrReplace(
+      message,
+      "{{crowns_amount}}",
+      rewards.crowns + " " + crowns_icon
+    );
+    message = StrReplace(
+      message,
+      "{{reputation_amount}}",
+      rewards.reputation
+    );
+
+    NDEBUB(message);
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
     this.endOngoingContract();

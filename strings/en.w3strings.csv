@@ -386,7 +386,7 @@
 2115018330|        |panel_rer_contracts_settings|Contract system
 2115018331|        |option_rer_hours_before_new_contracts|Real life hours before new contracts
 2115018332|        |option_rer_performance_mode|Performance mode
-2115018333|        |option_rer_hard_nearby_contracts_number|UNUSED
+2115018333|        |rer_contract_completion_rewards_message|<font color='#8a5551'>COMPLETED CONTRACT</font><br/><br/>Received rewards:<br/> - crowns: {{crowns_amount}}<br/> - reputation: {{reputation_amount}}
 2115018334|        |option_rer_hard_contracts_number|UNUSED
 2115018335|        |option_rer_hard_far_contracts_number|UNUSED
 2115018336|        |option_rer_allow_learn_new_locations|Allow RER to learn about new locations as you explore
