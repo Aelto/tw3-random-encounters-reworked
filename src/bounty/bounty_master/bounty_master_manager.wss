@@ -114,7 +114,7 @@ statemachine class RER_BountyMasterManager {
   }
 
   private function setupBountyMasterPinsAndMarkers(entity: CEntity) {
-    if (RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMaster')) {
+    if (RER_menuBool('RERoptionalFeatures', 'RERmarkersChallengeMode')) {
       var map_pin: SU_MapPin = new SU_MapPin in thePlayer;
       map_pin.tag = "RER_bounty_master";
       map_pin.pin_tag = 'RER_bounty_master';
