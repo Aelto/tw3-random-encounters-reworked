@@ -142,7 +142,7 @@ statemachine class RER_ContractManager {
       rewards.reputation
     );
 
-    NDEBUB(message);
+    NDEBUG(message);
     thePlayer.DisplayHudMessage(GetLocStringByKeyExt("rer_contract_finished"));
 
     this.endOngoingContract();
