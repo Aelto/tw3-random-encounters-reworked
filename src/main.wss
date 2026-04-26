@@ -15,6 +15,7 @@ statemachine class CRandomEncounters {
   var contract_manager: RER_ContractManager;
   var addon_manager: RER_AddonManager;
   var loot_manager: RER_LootManager;
+  var hunting_manager: RER_HuntingManager;
 
   var boot_time: float;
 
@@ -54,6 +55,7 @@ statemachine class CRandomEncounters {
     contract_manager = new RER_ContractManager in this;
     addon_manager = new RER_AddonManager in this;
     loot_manager = new RER_LootManager in this;
+    hunting_manager = new RER_HuntingManager in this;
 
     this.boot_time = theGame.GetEngineTimeAsSeconds();
 

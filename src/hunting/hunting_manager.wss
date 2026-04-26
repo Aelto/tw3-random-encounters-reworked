@@ -1,0 +1,50 @@
+function RER_getHuntingManager(): RER_HuntingManager {
+  var master: CRandomEncounters;
+
+  if (getRandomEncounters(master)) {
+    return master.hunting_manager;
+  }
+
+  return NULL;
+}
+
+class RER_HuntingManager {
+  public function init(master: CRandomEncounters) {}
+
+  
+
+
+}
+
+class RER_HuntingManager_EncounterTracking {
+  private var previous_tracking_time: float;
+
+  public function onEncounterSpawned(encounter: RER_BaseEncounter) {}
+
+  public function onEncounterDestroyed(encounter: RER_BaseEncounter) {}
+
+  public function onEncounterMoved(encounter: RER_BaseEncounter) {}
+
+  private function tryUpdatingTracking() {
+    var refresh_interval: float = 15.0;
+
+    if (!SUH_hasElapsed(this.previous_tracking_time, refresh_interval)) {
+      return;
+    }
+
+    var now: float = SUH_now();
+  }
+
+
+}
+
+class RER_BaseEncounter extends CEntity {
+  public function onEncounterSpawned() {}
+  public function onEncounterDestroyed() {}
+
+  public function onPositionUpdated(position: Vector) {}
+
+  public function getPosition(): Vector {
+    return this.GetWorldPosition();
+  }
+}
