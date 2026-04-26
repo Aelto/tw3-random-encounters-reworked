@@ -55,6 +55,7 @@ state Initialising in CRandomEncounters {
     parent.horde_manager.init(parent);
     parent.contract_manager.init(parent);
     parent.loot_manager.init(parent);
+    parent.hunting_manager.init(parent);
 
     RER_addTrackerGlossary();
 
