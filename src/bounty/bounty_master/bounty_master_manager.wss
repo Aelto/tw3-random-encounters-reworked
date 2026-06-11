@@ -140,6 +140,13 @@ statemachine class RER_BountyMasterManager {
         entity
       );
 
+      oneliner.setRenderDistance(
+        RER_menuInt(
+          'RERoptionalFeatures',
+          'RERonelinersBountyMasterRenderDistance'
+        )
+      );
+
       this.oneliners.PushBack(oneliner);
     }
 

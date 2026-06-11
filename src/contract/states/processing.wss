@@ -201,6 +201,13 @@ class RER_ContractTargetEncounter {
       " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
       this.location
     );
+
+    this.oneliner.setRenderDistance(
+      RER_menuInt(
+        'RERoptionalFeatures',
+        'RERonelinersContractRenderDistance'
+      )
+    );
   }
 
   public function createMapPin(contract: RER_Contract) {
