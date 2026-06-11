@@ -38,13 +38,13 @@ function RER_giveItemForLevelNoMansLand(
   level: int
 ) {
   if (level == 5) {
-    inventory.AddAnItem('DLC5 Nilfgaardian Armor');
-    inventory.AddAnItem('DLC5 Nilfgaardian Pants');
-    inventory.AddAnItem('DLC5 Nilfgaardian Boots');
-    inventory.AddAnItem('DLC5 Nilfgaardian Gloves');
-    inventory.AddAnItem('DLC5 Nilfgaardian HorseBag');
-    inventory.AddAnItem('DLC5 Nilfgaardian HorseBlinders');
-    inventory.AddAnItem('DLC5 Nilfgaardian HorseSaddle');
+    inventory.AddAnItem('DLC1 Temerian Armor');
+    inventory.AddAnItem('DLC1 Temerian Pants');
+    inventory.AddAnItem('DLC1 Temerian Boots');
+    inventory.AddAnItem('DLC1 Temerian Gloves');
+    inventory.AddAnItem('DLC1 Temerian HorseBag');
+    inventory.AddAnItem('DLC1 Temerian HorseBlinders');
+    inventory.AddAnItem('DLC1 Temerian HorseSaddle');
   } else if (level == 10) {
     inventory.AddAnItem('Ofir Sabre 1');
     inventory.AddAnItem('Crafted Ofir Steel Sword');
@@ -145,13 +145,13 @@ function RER_giveItemForLevelWhiteOrchard(
     inventory.AddAnItem('Viper School steel sword');
     inventory.AddAnItem('Viper School silver sword');
   } else if (level == 10) {
-    inventory.AddAnItem('DLC1 Temerian Armor');
-    inventory.AddAnItem('DLC1 Temerian Pants');
-    inventory.AddAnItem('DLC1 Temerian Boots');
-    inventory.AddAnItem('DLC1 Temerian Gloves');
-    inventory.AddAnItem('DLC1 Temerian HorseBag');
-    inventory.AddAnItem('DLC1 Temerian HorseBlinders');
-    inventory.AddAnItem('DLC1 Temerian HorseSaddle');
+    inventory.AddAnItem('DLC5 Nilfgaardian Armor');
+    inventory.AddAnItem('DLC5 Nilfgaardian Pants');
+    inventory.AddAnItem('DLC5 Nilfgaardian Boots');
+    inventory.AddAnItem('DLC5 Nilfgaardian Gloves');
+    inventory.AddAnItem('DLC5 Nilfgaardian HorseBag');
+    inventory.AddAnItem('DLC5 Nilfgaardian HorseBlinders');
+    inventory.AddAnItem('DLC5 Nilfgaardian HorseSaddle');
   } else {
     RER_giveItemForLevelUnknown(master, inventory, level);
   }

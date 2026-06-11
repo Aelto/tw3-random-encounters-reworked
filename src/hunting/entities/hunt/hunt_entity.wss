@@ -52,7 +52,22 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
         first
       );
       
-      this.oneliner.setRenderDistance(50);
+      if (this.bait_moves_towards_player) {
+        this.oneliner.setRenderDistance(
+          RER_menuInt(
+            'RERoptionalFeatures',
+            'RERonelinersAmbushRenderDistance'
+          )
+        );
+      }
+      else {
+        this.oneliner.setRenderDistance(
+          RER_menuInt(
+            'RERoptionalFeatures',
+            'RERonelinersHuntRenderDistance'
+          )
+        );
+      }
     }
   }
 

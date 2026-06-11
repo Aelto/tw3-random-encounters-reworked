@@ -311,6 +311,13 @@ statemachine class RER_BountyManager extends CEntity {
       " <img src='img://icons/quests/monsterhunt.png' vspace='-10' />",
       this.master.storages.bounty.current_bounty.random_data.main_group.position
     );
+
+    this.oneliner.setRenderDistance(
+      RER_menuInt(
+        'RERoptionalFeatures',
+        'RERonelinersBountyMainTargetRenderDistance'
+      )
+    );
   }
 
   public function removeMarkersForCurrentBounty() {

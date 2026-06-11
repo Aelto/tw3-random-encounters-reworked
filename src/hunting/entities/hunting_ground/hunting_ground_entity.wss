@@ -46,7 +46,13 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
           .text(this.bestiary_entry.toLocalizedName()),
         first
       );
-      this.oneliner.setRenderDistance(50);
+
+      this.oneliner.setRenderDistance(
+        RER_menuInt(
+          'RERoptionalFeatures',
+          'RERonelinersHuntingGroundRenderDistance'
+        )
+      );
     }
   }
 
