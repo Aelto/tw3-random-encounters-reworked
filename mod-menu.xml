@@ -5532,8 +5532,11 @@
                 <Entry varId="RERdynamicCreaturesSize" value="1" />
 
                 <Entry varId="RERonelinersBountyMainTarget" value="1" />
+                <Entry varId="RERonelinersBountyMainTargetRenderDistance" value="1000" />
                 <Entry varId="RERonelinersContract" value="1" />
+                <Entry varId="RERonelinersContractRenderDistance" value="500" />
                 <Entry varId="RERonelinersBountyMaster" value="1" />
+                <Entry varId="RERonelinersBountyMasterRenderDistance" value="500" />
 
             </Preset>
         </PresetsArray>
@@ -5554,6 +5557,8 @@
             <Var id="RERcameraBlendingDisabled" displayName="rer_camera_blending_disabled" displayType="TOGGLE"/>
             <Var id="RERcameraScenesDisabledOnHorse" displayName="rer_camera_immersive_camera_compatibility" displayType="TOGGLE"/>
 
+			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+
             <Var id="RERmarkersBountyHunting" displayName="rer_markers_bounty_hunting" displayType="TOGGLE"></Var>
             <Var id="RERminimapMarkerBountyMaster" displayName="rer_minimap_marker_bounty_master" displayType="TOGGLE"></Var>
             <Var id="RERminimapMarkerBounties" displayName="rer_minimap_marker_bounties" displayType="TOGGLE"></Var>
@@ -5562,11 +5567,17 @@
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
             <Var id="RERonelinersBountyMainTarget" displayName="rer_oneliners_bounty_main_target" displayType="TOGGLE"></Var>
+                <Var id="RERonelinersBountyMainTargetRenderDistance" displayName="rer_oneliners_render_distance" displayType="SLIDER;0;1000;200" tags="indent" />
             <Var id="RERonelinersContract" displayName="rer_oneliners_contract" displayType="TOGGLE"></Var>
+                <Var id="RERonelinersContractRenderDistance" displayName="rer_oneliners_render_distance" displayType="SLIDER;0;1000;200" tags="indent" />
             <Var id="RERonelinersAmbush" displayName="rer_oneliners_ambush" displayType="TOGGLE"></Var>
+                <Var id="RERonelinersAmbushRenderDistance" displayName="rer_oneliners_render_distance" displayType="SLIDER;0;1000;200" tags="indent" />
             <Var id="RERonelinersHuntingGround" displayName="rer_oneliners_hunting_ground" displayType="TOGGLE"></Var>
+                <Var id="RERonelinersHuntingGroundRenderDistance" displayName="rer_oneliners_render_distance" displayType="SLIDER;0;1000;200" tags="indent" />
             <Var id="RERonelinersHunt" displayName="rer_oneliners_hunt" displayType="TOGGLE"></Var>
+                <Var id="RERonelinersHuntRenderDistance" displayName="rer_oneliners_render_distance" displayType="SLIDER;0;1000;200" tags="indent" />
             <Var id="RERonelinersBountyMaster" displayName="rer_oneliners_bounty_master" displayType="TOGGLE"></Var>
+                <Var id="RERonelinersBountyMasterRenderDistance" displayName="rer_oneliners_render_distance" displayType="SLIDER;0;1000;200" tags="indent" />
 
 			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
 
