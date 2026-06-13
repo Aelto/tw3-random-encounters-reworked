@@ -332,6 +332,7 @@ statemachine class RER_BountyManager extends CEntity {
     this.removeMarkersForCurrentBounty();
 
     if (!isBountyActive()) {
+      SU_updateMinimapPins();
       return;
     }
 
