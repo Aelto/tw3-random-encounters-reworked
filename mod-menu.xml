@@ -5590,34 +5590,4 @@
 
         </VisibleVars>
     </Group>
-
-    <Group id="RERtutorials" displayName="Mods.rer_name.rer_tutorials_settings">
-        <PresetsArray>
-            <Preset id="0" displayName="rer_defaults" >
-                <Entry varId="RERtutorialChallengeMode" value="1" />
-                <Entry varId="RERtutorialBountyHunting" value="1" />
-                <Entry varId="RERtutorialNoticeboardEvent" value="1" />
-                <Entry varId="RERtutorialClueExamined" value="1" />
-                <Entry varId="RERtutorialAmbushed" value="1" />
-                <Entry varId="RERtutorialTrophy" value="1" />
-                <Entry varId="RERtutorialEcosystem" value="1" />
-                <Entry varId="RERtutorialStarted" value="1" />
-                <Entry varId="RERtutorialBountyMaster" value="1" />
-                <Entry varId="RERtutorialBountyLevel" value="1" />
-            </Preset>
-        </PresetsArray>
-        <VisibleVars>
-            <Var id="RERtutorialChallengeMode" displayName="rer_tutorial_challenge_mode" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialBountyHunting" displayName="rer_tutorial_bounty_hunting" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialNoticeboardEvent" displayName="rer_tutorial_noticeboard_event" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialClueExamined" displayName="rer_tutorial_clue_examined" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialAmbushed" displayName="rer_tutorial_ambushed" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialTrophy" displayName="rer_tutorial_trophy" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialEcosystem" displayName="rer_tutorial_ecosystem" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialStarted" displayName="rer_tutorial_started" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialBountyMaster" displayName="rer_tutorial_bounty_master" displayType="TOGGLE"></Var>
-            <Var id="RERtutorialBountyLevel" displayName="rer_tutorial_bounty_level" displayType="TOGGLE"></Var>
-        </VisibleVars>
-    </Group>
-
 </UserConfig>
