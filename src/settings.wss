@@ -4,25 +4,50 @@ function RER_menu(group: name, item: name): string {
     .GetVarValue(group, item);
 }
 
-function RER_menuBool(group: name, item: name): bool {
-  var value: bool = theGame.GetInGameConfigWrapper()
-    .GetVarValue(group, item);
+function RER_hasModMenu(): bool {
+  #ifndef ENABLE_MODMENU {
+    return false;
+  };
+
+  #ifdef ENABLE_MODMENU {
+    return true;
+  };
+}
+
+function RER_menuOr(group: name, item: name, or_value: string): string {
+  #ifndef ENABLE_MODMENU {
+    return or_value;
+  };
+
+  #ifdef ENABLE_MODMENU {
+    return RER_menu(group, item);
+  };
+}
+
+function RER_menuBool(group: name, item: name, optional or_value: bool): bool {
+  #ifndef ENABLE_MODMENU {
+    return or_value;
+  };
+
+  var value: bool = RER_menu(group, item);
 
   return value;
 }
 
-function RER_menuFloat(group: name, item: name): float {
-  return StringToFloat(
-    theGame.GetInGameConfigWrapper()
-    .GetVarValue(group, item)
-  );
+function RER_menuFloat(group: name, item: name, optional or_value: float): float {
+  #ifndef ENABLE_MODMENU {
+    return or_value;
+  };
+
+  return StringToFloat(RER_menu(group, item));
 }
 
-function RER_menuInt(group: name, item: name): int {
-  return StringToInt(
-    theGame.GetInGameConfigWrapper()
-    .GetVarValue(group, item)
-  );
+function RER_menuInt(group: name, item: name, optional or_value: int): int {
+  #ifndef ENABLE_MODMENU {
+    return or_value;
+  };
+
+  return StringToInt(RER_menu(group, item));
 }
 
 function RER_getGeneralIntensity(scale: float): float {
