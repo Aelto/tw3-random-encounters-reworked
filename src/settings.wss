@@ -181,103 +181,84 @@ class RE_Settings {
   }
 
   private function loadMainMenuSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.enable_action_camera_scenes = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'enableActionCameraScenes');
+    this.enable_action_camera_scenes = RER_menuBool('RERoptionalFeatures', 'enableActionCameraScenes', false);
   }
 
   private function loadDifficultySettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    selectedDifficulty = StringToInt(inGameConfigWrapper.GetVarValue('RERmain', 'Difficulty'));
-    this.enemy_count_multiplier = StringToInt(inGameConfigWrapper.GetVarValue('RERcreatureTypeMultiplier', 'RERenemyCountMultiplier'));
+    selectedDifficulty = RER_menuInt('RERmain', 'Difficulty', 4);
+    this.enemy_count_multiplier = RER_menuInt('RERcreatureTypeMultiplier', 'RERenemyCountMultiplier', 1);
   }
 
   private function loadGeraltCommentsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.geralt_comments_enabled = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'geraltComments');
+    this.geralt_comments_enabled = RER_menuBool('RERoptionalFeatures', 'geraltComments', false);
   }
 
   private function loadHideNextNotificationsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.hide_next_notifications = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'hideNextNotifications');
+    this.hide_next_notifications = RER_menuBool('RERoptionalFeatures', 'hideNextNotifications', true);
   }
 
   private function loadEnableEncountersLootSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.enable_encounters_loot = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'enableEncountersLoot');
+    this.enable_encounters_loot = RER_menuBool('RERoptionalFeatures', 'enableEncountersLoot', true);
   }
 
   private function loadExternalFactorsCoefficientSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.external_factors_coefficient = StringToFloat(
-      inGameConfigWrapper.GetVarValue('RERmain', 'externalFactorsImpact')
-    );
+    this.external_factors_coefficient = RER_menuFloat('RERmain', 'externalFactorsImpact', 2);
   }
 
   private function loadOnlyKnownBestiaryCreaturesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
     #ifdef ENABLE_BESTIARY_FEATURE {
-      this.only_known_bestiary_creatures = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERonlyKnownBestiaryCreatures');
+      this.only_known_bestiary_creatures = RER_menuBool('RERoptionalFeatures', 'RERonlyKnownBestiaryCreatures', true);
     };
   }
 
   private function loadTrophiesSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesAmbush');
-    this.trophies_enabled_by_encounter[EncounterType_HUNT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesHunt');
-    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesContract');
-    this.trophies_enabled_by_encounter[EncounterType_HUNTINGGROUND] = inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesHuntingGround');
-    this.trophy_pickup_scene_chance = StringToInt(inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrophyPickupAnimation'));
+    this.trophies_enabled_by_encounter[EncounterType_DEFAULT] = RER_menuBool('RERmonsterTrophies', 'RERtrophiesAmbush', true);
+    this.trophies_enabled_by_encounter[EncounterType_HUNT] = RER_menuBool('RERmonsterTrophies', 'RERtrophiesHunt', true);
+    this.trophies_enabled_by_encounter[EncounterType_CONTRACT] = RER_menuBool('RERmonsterTrophies', 'RERtrophiesContract', true);
+    this.trophies_enabled_by_encounter[EncounterType_HUNTINGGROUND] = RER_menuBool('RERmonsterTrophies', 'RERtrophiesHuntingGround', true);
+    this.trophy_pickup_scene_chance = RER_menuInt('RERoptionalFeatures', 'RERtrophyPickupAnimation', 100);
     this.trophy_pickup_scene = this.trophy_pickup_scene_chance > 0;
 
-    this.trophy_price = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterTrophies', 'RERtrophiesPrices'));
+    this.trophy_price = RER_menuInt('RERmonsterTrophies', 'RERtrophiesPrices', 0);
   }
 
   private function loadCrownsSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.crowns_amounts_by_encounter[EncounterType_DEFAULT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsAmbush'));
-    this.crowns_amounts_by_encounter[EncounterType_HUNT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsHunt'));
-    this.crowns_amounts_by_encounter[EncounterType_CONTRACT] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsContract'));
-    this.crowns_amounts_by_encounter[EncounterType_HUNTINGGROUND] = StringToInt(inGameConfigWrapper.GetVarValue('RERmonsterCrowns', 'RERcrownsHuntingGround'));
+    this.crowns_amounts_by_encounter[EncounterType_DEFAULT] = RER_menuInt('RERmonsterCrowns', 'RERcrownsAmbush', 50);
+    this.crowns_amounts_by_encounter[EncounterType_HUNT] = RER_menuInt('RERmonsterCrowns', 'RERcrownsHunt', 30);
+    this.crowns_amounts_by_encounter[EncounterType_CONTRACT] = RER_menuInt('RERmonsterCrowns', 'RERcrownsContract', 40);
+    this.crowns_amounts_by_encounter[EncounterType_HUNTINGGROUND] = RER_menuInt('RERmonsterCrowns', 'RERcrownsHuntingGround', 20);
   }
 
   private function loadCustomFrequencies(inGameConfigWrapper: CInGameConfigWrapper) {
-    customDayMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyHigh'));
-    customDayMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customdFrequencyLow'));
-    customNightMax = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyHigh'));
-    customNightMin = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'customnFrequencyLow'));
-    settlement_delay_multiplier = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'RERsettlementDelayMultiplier'));
-    additional_delay_per_player_level = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERadditionalDelayPerPlayerLevel'));
+    customDayMax = RER_menuInt('RERencountersGeneral', 'customdFrequencyHigh', 600);
+    customDayMin = RER_menuInt('RERencountersGeneral', 'customdFrequencyLow', 300);
+    customNightMax = RER_menuInt('RERencountersGeneral', 'customnFrequencyHigh', 480);
+    customNightMin = RER_menuInt('RERencountersGeneral', 'customnFrequencyLow', 240);
+    settlement_delay_multiplier = RER_menuFloat('RERencountersSettlement', 'RERsettlementDelayMultiplier', 2.0);
+    additional_delay_per_player_level = RER_menuInt('RERencountersGeneral', 'RERadditionalDelayPerPlayerLevel', 0);
   }
 
   private function loadMonsterHuntingGroundChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunting_ground_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundDay', 'allMonsterHuntingGroundChanceDay'));
-    this.all_monster_hunting_ground_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntingGroundNight', 'allMonsterHuntingGroundChanceNight'));
+    this.all_monster_hunting_ground_chance_day = RER_menuInt('RERencountersHuntingGroundDay', 'allMonsterHuntingGroundChanceDay', 85);
+    this.all_monster_hunting_ground_chance_night = RER_menuInt('RERencountersHuntingGroundNight', 'allMonsterHuntingGroundChanceNight', 85;
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_hunt_chance_day = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntDay', 'allMonsterHuntChanceDay'));
-    this.all_monster_hunt_chance_night = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersHuntNight', 'allMonsterHuntChanceNight'));
+    this.all_monster_hunt_chance_day = RER_menuInt('RERencountersHuntDay', 'allMonsterHuntChanceDay', 10);
+    this.all_monster_hunt_chance_night = RER_menuInt('RERencountersHuntNight', 'allMonsterHuntChanceNight', 10);
   }
 
-  private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_contract_chance_day = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencountersContractDay', 'allMonsterContractChanceDay')
-    );
-
-    this.all_monster_contract_chance_night = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencountersContractNight', 'allMonsterContractChanceNight')
-    );
-  }
+  private function loadMonsterContractsChances(inGameConfigWrapper: CInGameConfigWrapper) {}
 
   private function loadMonsterAmbushChances(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.all_monster_ambush_chance_day = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencountersAmbushDay', 'allMonsterAmbushChanceDay')
-    );
-
-    this.all_monster_ambush_chance_night = StringToInt(
-      inGameConfigWrapper.GetVarValue('RERencountersAmbushNight', 'allMonsterAmbushChanceNight')
-    );
+    this.all_monster_ambush_chance_day = RER_menuInt('RERencountersAmbushDay', 'allMonsterAmbushChanceDay', 5);
+    this.all_monster_ambush_chance_night = RER_menuInt('RERencountersAmbushNight', 'allMonsterAmbushChanceNight', 10);
   }
 
-  private function loadMonsterContractsLongevity(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.monster_contract_longevity = StringToFloat(
-      inGameConfigWrapper.GetVarValue('RERencountersContractDay', 'RERMonsterContractLongevity')
-    );
-  }
+  private function loadMonsterContractsLongevity(inGameConfigWrapper: CInGameConfigWrapper) {}
 
   private function loadModEnabledSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.is_enabled = inGameConfigWrapper.GetVarValue('RERmain', 'RERmodEnabled');
+    this.is_enabled = RER_menuBool('RERmain', 'RERmodEnabled', true);
   }
 
   public function resetRERSettings(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -332,20 +313,20 @@ class RE_Settings {
   }
 
   private function loadAdvancedEventSystemSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.event_system_interval = StringToFloat(inGameConfigWrapper.GetVarValue('RERevents', 'eventSystemInterval'));
+    this.event_system_interval = RER_menuFloat('RERevents', 'eventSystemInterval', 0.50);
   }
 
   private function loadAdvancedDistancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
-    this.minimum_spawn_distance   = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'minSpawnDistance'));
-    this.spawn_diameter           = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'spawnDiameter'));
-    this.kill_threshold_distance  = StringToFloat(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
+    this.minimum_spawn_distance   = RER_menuFloat('RERencountersGeneral', 'minSpawnDistance', 60.0);
+    this.spawn_diameter           = RER_menuFloat('RERencountersGeneral', 'spawnDiameter', 140.0);
+    this.kill_threshold_distance  = RER_menuFloat('RERencountersGeneral', 'killThresholdDistance', 500.0);
 
-    if (this.minimum_spawn_distance < 10 || this.spawn_diameter < 10 || this.kill_threshold_distance < 100) {
+    if (this.minimum_spawn_distance < 10.0 || this.spawn_diameter < 10.0 || this.kill_threshold_distance < 100.0) {
       inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
 
-      this.minimum_spawn_distance   = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'minSpawnDistance'));
-      this.spawn_diameter           = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'spawnDiameter'));
-      this.kill_threshold_distance  = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
+      this.minimum_spawn_distance   = RER_menuInt('RERencountersGeneral', 'minSpawnDistance', 60.0);
+      this.spawn_diameter           = RER_menuInt('RERencountersGeneral', 'spawnDiameter', 140.0);
+      this.kill_threshold_distance  = RER_menuInt('RERencountersGeneral', 'killThresholdDistance', 500.0);
       theGame.SaveUserSettings();
     }
 
@@ -355,27 +336,27 @@ class RE_Settings {
   }
 
   private function loadAdvancedLevelsSettings(out inGameConfigWrapper: CInGameConfigWrapper) {
-    this.min_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERminLevelRange'));
-    this.max_level_allowed = StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERmaxLevelRange'));
+    this.min_level_allowed = RER_menuInt('RERencountersGeneral', 'RERminLevelRange', -3);
+    this.max_level_allowed = RER_menuInt('RERencountersGeneral', 'RERmaxLevelRange', 3);
   }
 
   private function loadAdvancedPerformancesSettings(out inGameConfigWrapper : CInGameConfigWrapper) {
     this.foottracks_ratio = 100 / Max(
-      StringToInt(inGameConfigWrapper.GetVarValue('RERencountersGeneral', 'RERfoottracksRatio')),
+      RER_menuInt('RERencountersGeneral', 'RERfoottracksRatio', 20),
       1
     );
-    this.disable_camera_scenes = inGameConfigWrapper.GetVarValue( 'RERoptionalFeatures', 'RERcameraScenesDisabled' );
-    this.use_pathfinding_for_trails = inGameConfigWrapper.GetVarValue('RERoptionalFeatures', 'RERtrailsUsePathFinding');
+    this.disable_camera_scenes = RER_menuBool( 'RERoptionalFeatures', 'RERcameraScenesDisabled', true);
+    this.use_pathfinding_for_trails = RER_menuBool('RERoptionalFeatures', 'RERtrailsUsePathFinding', true);
   }
 
   private function loadEcosystemSettings(out inGameConfigWrapper: CInGameConfigWrapper) {
-    this.ecosystem_community_power_effect = StringToFloat(inGameConfigWrapper.GetVarValue('RERecosystem', 'ecosystemCommunityPowerEffect'));
-    this.ecosystem_community_power_spread = StringToFloat(inGameConfigWrapper.GetVarValue('RERecosystem', 'ecosystemCommunityPowerSpread')) / 100;
-    this.ecosystem_community_natural_death_speed = StringToFloat(inGameConfigWrapper.GetVarValue('RERecosystem', 'ecosystemCommunityNaturalDeathSpeed')) / 100;
+    this.ecosystem_community_power_effect = RER_menuFloat('RERecosystem', 'ecosystemCommunityPowerEffect', 5.0);
+    this.ecosystem_community_power_spread = RER_menuFloat('RERecosystem', 'ecosystemCommunityPowerSpread', 10.0) / 100;
+    this.ecosystem_community_natural_death_speed = RER_menuFloat('RERecosystem', 'ecosystemCommunityNaturalDeathSpeed', 10.0) / 100;
   }
 
   private function loadCitySpawnSettings(inGameConfigWrapper: CInGameConfigWrapper) {
-    this.allow_big_city_spawns = inGameConfigWrapper.GetVarValue('RERencountersSettlement', 'allowSpawnInBigCities');
+    this.allow_big_city_spawns = RER_menuBool('RERencountersSettlement', 'allowSpawnInBigCities', false);
   }
 
   public function toggleEnabledSettings() {
