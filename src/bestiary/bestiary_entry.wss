@@ -468,7 +468,7 @@ abstract class RER_BestiaryEntry {
 
     creatures_preferences = new RER_CreaturePreferences in this;
     creatures_preferences
-      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
+      .setCurrentRegion(SUH_getCurrentRegion());
     
     for (i = 0; i < this.possible_compositions.Size(); i += 1) {
       master.bestiary.entries[this.possible_compositions[i]]

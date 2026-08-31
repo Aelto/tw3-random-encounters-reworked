@@ -58,7 +58,7 @@ class RER_Bestiary {
     creatures_preferences = new RER_CreaturePreferences in this;
 
     creatures_preferences
-      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
+      .setCurrentRegion(SUH_getCurrentRegion());
 
     NLOG("getRandomEntryFromBestiary - flags = " + flags as int);
 

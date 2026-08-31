@@ -1,4 +1,8 @@
 
+exec function rertest() {
+  NLOG("index = " + theGame.GetInGameConfigWrapper().GetGroupIdx( 'RERmain' ));
+}
+
 exec function rerslowboot(optional enabled: bool) {
   if (enabled) {
     RER_removeIgnoreSlowBootFact();
@@ -198,7 +202,7 @@ exec function rergetpincoord() {
   var x: float;
   var y: float;
   var type: int;
-  var area: int;
+  var area: name;
 
   theGame.GetCommonMapManager().GetIdOfFirstUser1MapPin(id);
 
@@ -224,7 +228,7 @@ exec function rertptopin() {
   var x: float;
   var y: float;
   var type: int;
-  var area: int;
+  var area: name;
 
   theGame.GetCommonMapManager().GetIdOfFirstUser1MapPin(id);
 
