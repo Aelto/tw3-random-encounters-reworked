@@ -9,4 +9,3 @@ src = "src"
 dist = "dist" 
 
 [dependencies]
-functional = "./libs/functional"
