@@ -12,11 +12,10 @@ function RER_addKillingSpreeCustomLootToEntities(loot_manager: RER_LootManager, 
 
   NLOG("RER_addKillingSpreeCustomLootToEntities: ecosystem strength = " + ecosystem_strength * 100);
 
-  var increase_per_point: float = StringToFloat(
-    theGame.GetInGameConfigWrapper().GetVarValue(
-      'RERkillingSpreeCustomLoot',
-      'RERkillingSpreeChanceIncreasePerImpactPoint'
-    )
+  var increase_per_point: float = RER_menuFloat(
+    'RERkillingSpreeCustomLoot',
+    'RERkillingSpreeChanceIncreasePerImpactPoint',
+    0.25
   );
 
   for entity: CEntity in entities {

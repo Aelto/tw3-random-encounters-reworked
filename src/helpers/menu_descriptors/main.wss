@@ -33,11 +33,7 @@ class RER_MainMenuDescriptor extends SU_MenuDescriptor {
     var value: float;
 
     if (option == 'RERgeneralIntensity') {
-      value = StringToFloat(
-        theGame
-          .GetInGameConfigWrapper()
-          .GetVarValue('RERmain', option)
-      );
+      value = RER_menuFloat('RERmain', option, 100.0);
 
       if (value > 200.0) {
         return description + "<br/><br/>A value above 200% can cause performance issues from the amount of spawns it will create, adjust encounter settings and more specifically the death threshold accordingly (a lower value).";

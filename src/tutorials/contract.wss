@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowContract(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialMonsterContract')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialMonsterContract', true)) {
     return false;
   }
 

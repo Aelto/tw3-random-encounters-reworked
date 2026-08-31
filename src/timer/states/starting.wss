@@ -25,10 +25,7 @@ state Starting in RER_EventsManager {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    parent.internal_cooldown = StringToFloat(
-      inGameConfigWrapper
-      .GetVarValue('RERevents', 'eventSystemICD')
-    );
+    parent.internal_cooldown = RER_menuFloat('RERevents', 'eventSystemICD', 80.0);
 
     parent.chance_scale = RER_withGeneralIntensity(
       // the chance_scale also scales with the mod power

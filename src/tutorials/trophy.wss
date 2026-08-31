@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowTrophy(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialTrophy')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialTrophy')) {
     return false;
   }
 

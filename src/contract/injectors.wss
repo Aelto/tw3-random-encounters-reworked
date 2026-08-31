@@ -33,8 +33,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
     var master: CRandomEncounters;
     var can_inject_errand: bool;
 
-    can_inject_errand = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERcontracts', 'RERnoticeboardErrands');
+    can_inject_errand = RER_menuBool('RERcontracts', 'RERnoticeboardErrands', true);
 
     if (!getRandomEncounters(master)) {
       NLOG("ERROR: could not get the RER entity for RER_ContractErrandInjector.");
@@ -46,8 +45,7 @@ class RER_ContractErrandInjector extends SU_ErrandInjector {
       return;
     }
 
-    // reputation_system_enabled = theGame.GetInGameConfigWrapper()
-    //   .GetVarValue('RERcontracts', 'RERcontractsReputationSystemEnabled');
+    // reputation_system_enabled = RER_menuBool('RERcontracts', 'RERcontractsReputationSystemEnabled', true);
 
     // if the reputation system is enabled but the player
     // does not meet the requirement to see the vanilla

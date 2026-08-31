@@ -83,7 +83,7 @@ state Initialising in CRandomEncounters {
 
     config = theGame.GetInGameConfigWrapper();
     constants = RER_Constants();
-    current_version = StringToFloat(config.GetVarValue('RERmain', 'RERmodVersion'));
+    current_version = RER_menuFloat('RERmain', 'RERmodVersion', constants.version);
 
     if (current_version < 3.05) {
       current_version = 3.05;

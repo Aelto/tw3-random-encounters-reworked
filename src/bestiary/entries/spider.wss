@@ -11,8 +11,7 @@ class RER_BestiarySpider extends RER_BestiaryEntry {
     this.menu_name = 'Spiders';
     this.localized_name = 'option_rer_spider';
 
-    is_arachnophobia_mode_enabled = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERoptionalFeatures', 'RERarachnophobiaMode');
+    is_arachnophobia_mode_enabled = RER_menuBool('RERoptionalFeatures', 'RERarachnophobiaMode', false);
 
     if (is_arachnophobia_mode_enabled) {
       this.template_list.templates.PushBack(

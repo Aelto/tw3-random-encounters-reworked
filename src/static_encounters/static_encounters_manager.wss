@@ -75,11 +75,7 @@ statemachine class RER_StaticEncounterManager {
     #ifdef ENABLE_STATIC_ENCOUNTERS {
       var used_version: StaticEncountersVariant;
   
-      used_version = StringToInt(
-        theGame
-        .GetInGameConfigWrapper()
-        .GetVarValue('RERencountersGeneral', 'RERstaticEncounterVersion')
-      );
+      used_version = RER_menuInt('RERencountersGeneral', 'RERstaticEncounterVersion', 0);
 
       if (used_version == StaticEncountersVariant_LUCOLIVIER) {
         RER_registerStaticEncountersLucOliver(this.master);

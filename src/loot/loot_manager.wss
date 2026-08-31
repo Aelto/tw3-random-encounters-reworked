@@ -79,39 +79,39 @@ statemachine class RER_LootManager {
     var chance_rare: int;
     var chance_exotic: int;
 
-    chance_multiplier *= StringToFloat(config.GetVarValue('RERrewardsGeneral', 'RERlootGlobalChanceMultiplier'));
+    chance_multiplier *= RER_menuFloat('RERrewardsGeneral', 'RERlootGlobalChanceMultiplier', 1.0);
 
     if (category == LootCategory_Gear) {
-      amount_of_rolls = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearRollsAmount'));
-      items_per_proc = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearItemsPerProc'));
-      chance_common = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearRarityChanceCommon'));
-      chance_uncommon = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearRarityChanceUncommon'));
-      chance_rare = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearRarityChanceRare'));
-      chance_exotic = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearRarityChanceExotic'));
+      amount_of_rolls = RER_menuInt('RERrewardsGeneral', 'RERlootGearRollsAmount', 1);
+      items_per_proc = RER_menuInt('RERrewardsGeneral', 'RERlootGearItemsPerProc', 1);
+      chance_common = RER_menuInt('RERrewardsGeneral', 'RERlootGearRarityChanceCommon', 50);
+      chance_uncommon = RER_menuInt('RERrewardsGeneral', 'RERlootGearRarityChanceUncommon', 25);
+      chance_rare = RER_menuInt('RERrewardsGeneral', 'RERlootGearRarityChanceRare', 10);
+      chance_exotic = RER_menuInt('RERrewardsGeneral', 'RERlootGearRarityChanceExotic', 5);
     }
     else if (category == LootCategory_Materials) {
-      amount_of_rolls = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsRollsAmount'));
-      items_per_proc = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsItemsPerProc'));
-      chance_common = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsRarityChanceCommon'));
-      chance_uncommon = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsRarityChanceUncommon'));
-      chance_rare = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsRarityChanceRare'));
-      chance_exotic = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsRarityChanceExotic'));
+      amount_of_rolls = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsRollsAmount', 2);
+      items_per_proc = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsItemsPerProc', 1);
+      chance_common = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsRarityChanceCommon', 80);
+      chance_uncommon = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsRarityChanceUncommon', 50);
+      chance_rare = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsRarityChanceRare', 20);
+      chance_exotic = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsRarityChanceExotic', 10);
     }
     else if (category == LootCategory_Consumables) {
-      amount_of_rolls = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesRollsAmount'));
-      items_per_proc = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesItemsPerProc'));
-      chance_common = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesRarityChanceCommon'));
-      chance_uncommon = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesRarityChanceUncommon'));
-      chance_rare = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesRarityChanceRare'));
-      chance_exotic = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesRarityChanceExotic'));
+      amount_of_rolls = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesRollsAmount', 1);
+      items_per_proc = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesItemsPerProc', 1);
+      chance_common = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesRarityChanceCommon', 60);
+      chance_uncommon = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesRarityChanceUncommon', 40);
+      chance_rare = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesRarityChanceRare', 20);
+      chance_exotic = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesRarityChanceExotic', 10);
     }
     else if (category == LootCategory_Valuables) {
-      amount_of_rolls = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesRollsAmount'));
-      items_per_proc = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesItemsPerProc'));
-      chance_common = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesRarityChanceCommon'));
-      chance_uncommon = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesRarityChanceUncommon'));
-      chance_rare = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesRarityChanceRare'));
-      chance_exotic = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesRarityChanceExotic'));
+      amount_of_rolls = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesRollsAmount', 1);
+      items_per_proc = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesItemsPerProc', 1);
+      chance_common = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesRarityChanceCommon', 30);
+      chance_uncommon = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesRarityChanceUncommon', 15);
+      chance_rare = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesRarityChanceRare', 10);
+      chance_exotic = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesRarityChanceExotic', 5);
     }
     else {
       NDEBUG("RER Error: RER_LootManager::roll(rng), unhandled category type = " + category);
@@ -209,10 +209,10 @@ statemachine class RER_LootManager {
   private function getRandomCategory(rng: RandomNumberGenerator, out category: RER_LootCategory): bool {
     var config: CInGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    var gear: int = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootGearRatio'));
-    var materials: int = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootMaterialsRatio'));
-    var consumables: int = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootConsumablesRatio'));
-    var valuables: int = StringToInt(config.GetVarValue('RERrewardsGeneral', 'RERlootValuablesRatio'));
+    var gear: int = RER_menuInt('RERrewardsGeneral', 'RERlootGearRatio', 10);
+    var materials: int = RER_menuInt('RERrewardsGeneral', 'RERlootMaterialsRatio', 40);
+    var consumables: int = RER_menuInt('RERrewardsGeneral', 'RERlootConsumablesRatio', 40);
+    var valuables: int = RER_menuInt('RERrewardsGeneral', 'RERlootValuablesRatio', 10);
 
     var total: int = gear + materials + consumables + valuables;
 

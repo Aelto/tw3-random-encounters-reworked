@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowClue(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialClueExamined')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialClueExamined', true)) {
     return false;
   }
 

@@ -279,10 +279,7 @@ state DialogChoice in RER_BountyMasterManager {
     var buying_price: float;
     var quantity: int;
     
-    buying_price = StringToFloat(
-      theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice')
-    ) / 100;
+    buying_price = RER_menuFloat('RERmonsterTrophies', 'RERtrophyMasterBuyingPrice', 50) / 100;
 
     inventory = thePlayer
       .GetInventory();
