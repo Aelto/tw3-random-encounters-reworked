@@ -197,15 +197,14 @@ statemachine class RER_BountyMasterManager {
   private function getBountyMasterValidPositions(
     optional ignore_occupied_positions: bool
   ): array<Vector> {
-    var area: EAreaName;
+    var area: string;
     var area_string: string;
     var output: array<Vector>;
 
-    area = theGame.GetCommonMapManager().GetCurrentArea();
+    area = SUH_getCurrentRegion();
 
     switch (area) {
-      case AN_Prologue_Village:
-      case AN_Prologue_Village_Winter:
+      case "prolog_village":
         // Nilfgaardian garrison
         output.PushBack(Vector(-371.5, 372.5, 1.9));
 
@@ -217,7 +216,7 @@ statemachine class RER_BountyMasterManager {
         
         break;
 
-      case AN_Skellige_ArdSkellig:
+      case "skellige":
         // Holmstein port
         output.PushBack(Vector(-297.9, -1049, 6));
 
@@ -240,13 +239,12 @@ statemachine class RER_BountyMasterManager {
         output.PushBack(Vector(200.42,-466.53,1.37));
         break;
 
-      case AN_Kaer_Morhen:
+      case "kaer_morhen":
         // Crows perch
         output.PushBack(Vector(-91, -22.8, 146));
         break;
 
-      case AN_NMLandNovigrad:
-      case AN_Velen:
+      case "no_mans_land":
         // Blackbough
         output.PushBack(Vector(-186, 187, 7.6));
 
@@ -283,30 +281,25 @@ statemachine class RER_BountyMasterManager {
         output.PushBack(Vector(1548.35,1839.41,6.23));
         break;
 
+      case "bob":
+        // Beauclair port
+        output.PushBack(Vector(-229, -1184, 3.7));
+
+        // Castel vineyard
+        output.PushBack(Vector(-745, -321, 29.4));
+
+        // Cockatrice inn
+        output.PushBack(Vector(-148.6, -635.4, 11.4));
+
+        // Tourney grounds
+        output.PushBack(Vector(-490.4, -954.3, 61.2));
+        // Francollarts village
+        output.PushBack(Vector(68.36,-1705.32,33.76));
+        // Coronate vineyard
+        output.PushBack(Vector(-287.40,-14.13,17.47));
+        break;
+
       default:
-        area_string = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
-
-        if (area_string == "bob") {
-          // Beauclair port
-          output.PushBack(Vector(-229, -1184, 3.7));
-
-          // Castel vineyard
-          output.PushBack(Vector(-745, -321, 29.4));
-
-          // Cockatrice inn
-          output.PushBack(Vector(-148.6, -635.4, 11.4));
-
-          // Tourney grounds
-          output.PushBack(Vector(-490.4, -954.3, 61.2));
-          // Francollarts village
-          output.PushBack(Vector(68.36,-1705.32,33.76));
-          // Coronate vineyard
-          output.PushBack(Vector(-287.40,-14.13,17.47));
-        }
-        else {
-          // the real default
-        }
-
         break;
     }
 

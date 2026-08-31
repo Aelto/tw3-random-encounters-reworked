@@ -87,7 +87,7 @@ class RER_ListenerBloodNecrophages extends RER_EventsListener {
       .setIsInForest(master.rExtra.IsPlayerInForest())
       .setIsInSwamp(master.rExtra.IsPlayerInSwamp())
       .setIsInCity(master.rExtra.isPlayerInSettlement() || master.rExtra.getCustomZone(thePlayer.GetWorldPosition()) == REZ_CITY)
-      .setCurrentRegion(AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea()));
+      .setCurrentRegion(SUH_getCurrentRegion());
 
     creatures_preferences
       .reset();

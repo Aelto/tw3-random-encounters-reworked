@@ -27,8 +27,10 @@ state Initialising in CRandomEncounters {
     Sleep(5);
     this.tryApplyMenuPreset();
 
+    NLOG("index = " + theGame.GetInGameConfigWrapper().GetGroupIdx( 'RERmain' ));
+
     var is_enabled: bool = RER_menuBool('RERmain', 'RERmodEnabled', true);
-    var version: float = RER_menuFloat('RERmain', 'RERmodVersion'));
+    var version: float = RER_menuFloat('RERmain', 'RERmodVersion');
     if (!is_enabled && version > 0) {
       return;
     }

@@ -312,7 +312,7 @@ function RER_getClosestDestinationPoints(starting_point: Vector, max_distance: f
   var i: int;
 
   var commonMapManager: CCommonMapManager = theGame.GetCommonMapManager();
-  current_region = AreaTypeToName(commonMapManager.GetCurrentArea());
+  current_region = SUH_getCurrentRegion();
 
   var max_distance_squared: float = max_distance * max_distance;
 

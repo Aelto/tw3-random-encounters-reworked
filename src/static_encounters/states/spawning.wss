@@ -29,7 +29,7 @@ state Spawning in RER_StaticEncounterManager {
     // writing this comment i have literally no idea of why it would crash.
     Sleep(10);
 
-    current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+    current_region = SUH_getCurrentRegion();
 
     max_distance = RER_menuFloat('RERencountersGeneral', 'killThresholdDistance', 500.0);
 

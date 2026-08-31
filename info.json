@@ -1,0 +1,13 @@
+{
+  "name": "random_encounters_reworked",
+  "modName": "Random Encounters Reworked",
+  "version": "3.6",
+  "gameVersion": "29",
+  "description": "Add randomly generated monster contracts, bounties, ambushes and hunts to the game. Dynamically change the vanilla spawns for unique and varied playthroughs. Simulate an ecosystem and a food chain. Add dynamic events to give more weight to your actions",
+  "author": "",
+  "idSpace": 10000000,
+  "workshopId": 0,
+  "succesfullyCooked": false,
+  "dependencies": [],
+  "useLooseScripts": false
+}

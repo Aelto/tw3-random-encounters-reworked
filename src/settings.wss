@@ -10,7 +10,7 @@ function RER_hasModMenu(): bool {
   };
 
   #ifdef ENABLE_MODMENU {
-    return true;
+    return theGame.GetInGameConfigWrapper().GetGroupIdx('RERmain') >= 0;
   };
 }
 
@@ -240,7 +240,7 @@ class RE_Settings {
 
   private function loadMonsterHuntingGroundChances(inGameConfigWrapper: CInGameConfigWrapper) {
     this.all_monster_hunting_ground_chance_day = RER_menuInt('RERencountersHuntingGroundDay', 'allMonsterHuntingGroundChanceDay', 85);
-    this.all_monster_hunting_ground_chance_night = RER_menuInt('RERencountersHuntingGroundNight', 'allMonsterHuntingGroundChanceNight', 85;
+    this.all_monster_hunting_ground_chance_night = RER_menuInt('RERencountersHuntingGroundNight', 'allMonsterHuntingGroundChanceNight', 85);
   }
 
   private function loadMonsterHuntsChances(inGameConfigWrapper: CInGameConfigWrapper) {
@@ -324,9 +324,9 @@ class RE_Settings {
     if (this.minimum_spawn_distance < 10.0 || this.spawn_diameter < 10.0 || this.kill_threshold_distance < 100.0) {
       inGameConfigWrapper.ApplyGroupPreset('RERadvancedDistances', 0);
 
-      this.minimum_spawn_distance   = RER_menuInt('RERencountersGeneral', 'minSpawnDistance', 60.0);
-      this.spawn_diameter           = RER_menuInt('RERencountersGeneral', 'spawnDiameter', 140.0);
-      this.kill_threshold_distance  = RER_menuInt('RERencountersGeneral', 'killThresholdDistance', 500.0);
+      this.minimum_spawn_distance   = RER_menuInt('RERencountersGeneral', 'minSpawnDistance', 60);
+      this.spawn_diameter           = RER_menuInt('RERencountersGeneral', 'spawnDiameter', 140);
+      this.kill_threshold_distance  = RER_menuInt('RERencountersGeneral', 'killThresholdDistance', 500);
       theGame.SaveUserSettings();
     }
 

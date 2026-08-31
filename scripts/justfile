@@ -1,0 +1,6 @@
+# expects a linux environment, if you're on windows you can use WSL to run
+# the recipes.
+import 'release.justfile'
+
+main:
+  just --list

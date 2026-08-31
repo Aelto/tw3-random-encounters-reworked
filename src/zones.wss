@@ -15,7 +15,7 @@ class CModRExtra {
     var distance: float;
      
     zone = REZ_UNDEF;
-    currentArea = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+    currentArea = SUH_getCurrentRegion();
      
     if (currentArea == "novigrad")
     {
@@ -172,13 +172,13 @@ class CModRExtra {
   }
 
   public function isPlayerInSettlement(optional radius_check: float): bool {
-    var current_area : EAreaName;
+    var current_area : string;
 
     if (radius_check <= 0) {
       radius_check = 50;
     }
 
-    current_area = theGame.GetCommonMapManager().GetCurrentArea();
+    current_area = SUH_getCurrentRegion();
 
     // HACK: it can be a great way to see if a settlement is nearby
     // by looking for a noticeboard. Though some settlements don't have
@@ -189,7 +189,7 @@ class CModRExtra {
 
     // the .isInSettlement() method doesn't work when is skellige
     // it always returns true.
-    if (current_area == AN_Skellige_ArdSkellig) {
+    if (current_area == "skellige") {
       
       return this.isNearGuards(radius_check);
     }
@@ -205,7 +205,7 @@ class CModRExtra {
     spawn_roller.fill_arrays();
     spawn_roller.reset();
 
-    current_area = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
+    current_area = SUH_getCurrentRegion();
 
     if (current_area == "prolog_village") {
       spawn_roller.setHumanVariantCounter(HT_BANDIT, 3);
