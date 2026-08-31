@@ -98,6 +98,35 @@ class RER_BestiaryBruxacity extends RER_BestiaryEntry {
       .build();
   }
 
+  
+  public function loadSettings(inGameConfigWrapper: CInGameConfigWrapper) {
+    this.city_spawn = undefined;
+    this.trophy_chance = undefined;
+    this.region_constraint = undefined;
+    this.creature_type_multiplier = undefined;
+    this.crowns_percentage = NaN;
+
+    this.chances_day.Clear();
+    this.chances_night.Clear();
+
+    var i: int;
+    for (i = 0; i < EncounterType_MAX; i += 1) {
+      this.chances_day.PushBack(0);
+      this.chances_night.PushBack(0);
+    }
+
+    this.chances_day[EncounterType_DEFAULT] = undefined;
+    this.chances_night[EncounterType_DEFAULT] = undefined;
+
+    this.chances_day[EncounterType_HUNT] = undefined;
+    this.chances_night[EncounterType_HUNT] = undefined;
+
+    this.chances_day[EncounterType_HUNTINGGROUND] = undefined;
+    this.chances_night[EncounterType_HUNTINGGROUND] = undefined;
+
+    super.loadSettings(inGameConfigWrapper);
+  }
+
   public function setCreaturePreferences(preferences: RER_CreaturePreferences, encounter_type: EncounterType): RER_CreaturePreferences{
     return super.setCreaturePreferences(preferences, encounter_type);
   }
