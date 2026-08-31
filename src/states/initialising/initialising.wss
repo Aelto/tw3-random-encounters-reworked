@@ -81,6 +81,10 @@ state Initialising in CRandomEncounters {
     var constants: RER_Constants;
     var current_version: float;
 
+    if (!RER_hasModMenu()) {
+      return;
+    }
+
     config = theGame.GetInGameConfigWrapper();
     constants = RER_Constants();
     current_version = RER_menuFloat('RERmain', 'RERmodVersion', constants.version);
@@ -102,6 +106,10 @@ state Initialising in CRandomEncounters {
     }
 
     Sleep(2);
+
+    if (!RER_hasModMenu()) {
+      return;
+    }
 
     var manager: RER_PresetManager = new RER_PresetManager in this;
     manager.tryApplyMenuPreset(parent);
