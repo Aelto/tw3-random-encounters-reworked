@@ -27,7 +27,7 @@ state Initialising in CRandomEncounters {
     Sleep(5);
     this.tryApplyMenuPreset();
 
-    var is_enabled: bool = RER_menu('RERmain', 'RERmodEnabled');
+    var is_enabled: bool = RER_menuBool('RERmain', 'RERmodEnabled', true);
     var version: float = RER_menuFloat('RERmain', 'RERmodVersion'));
     if (!is_enabled && version > 0) {
       return;

@@ -16,7 +16,7 @@ statemachine class RER_PresetManager {
     this.master = master;
 
     this.GotoState('Waiting');
-    var preset: RER_MenuPreset = StringToInt(RER_menu('RERmain', 'RERmenuPreset')) as RER_MenuPreset;
+    var preset: RER_MenuPreset = RER_menuInt('RERmain', 'RERmenuPreset', 0) as RER_MenuPreset;
 
     NLOG("RER_PresetManager::tryApplyMenuPreset(), preset = " + preset);
 
