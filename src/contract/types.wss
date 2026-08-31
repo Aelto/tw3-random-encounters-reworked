@@ -1,6 +1,6 @@
 
-function RER_menuContract(item: name): string {
-  return RER_menu('RERcontracts', item);
+function RER_menuContract(item: name, optional or_value: string): string {
+  return RER_menuOr('RERcontracts', item, or_value);
 }
 
 enum RER_ContractScaling {
@@ -10,7 +10,7 @@ enum RER_ContractScaling {
 }
 
 function RER_getContractDifficultyScaling(): RER_ContractScaling {
-  return StringToInt(RER_menuContract('RERcontractDifficultyScaling'));
+  return StringToInt(RER_menuContract('RERcontractDifficultyScaling', "0"));
 }
 
 enum RER_ContractTargetsSpread {
@@ -19,15 +19,15 @@ enum RER_ContractTargetsSpread {
 }
 
 function RER_getContractTargetsSpread(): RER_ContractTargetsSpread {
-  return StringToInt(RER_menuContract('RERcontractTargetsSpread'));
+  return StringToInt(RER_menuContract('RERcontractTargetsSpread', "0"));
 }
 
 function RER_getHoursBeforeNewContract(): int {
-  return StringToInt(RER_menuContract('RERhoursBeforeNewContracts'));
+  return StringToInt(RER_menuContract('RERhoursBeforeNewContracts', "2"));
 }
 
 function RER_getAllowBackToCamp(): bool {
-  return RER_menuContract('RERallowBackToCamp');
+  return RER_menuContract('RERallowBackToCamp', "false");
 }
 
 /**

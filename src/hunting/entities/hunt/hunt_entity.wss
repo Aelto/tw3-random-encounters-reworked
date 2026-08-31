@@ -33,11 +33,11 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
   }
 
   private function addOneliner() {
-    if (this.bait_moves_towards_player && !RER_menuBool('RERoptionalFeatures', 'RERonelinersAmbush')) {
+    if (this.bait_moves_towards_player && !RER_menuBool('RERoptionalFeatures', 'RERonelinersAmbush', false)) {
       return;
     }
 
-    if (!this.bait_moves_towards_player && !RER_menuBool('RERoptionalFeatures', 'RERonelinersHunt')) {
+    if (!this.bait_moves_towards_player && !RER_menuBool('RERoptionalFeatures', 'RERonelinersHunt', false)) {
       return;
     }
 
@@ -56,7 +56,8 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
         this.oneliner.setRenderDistance(
           RER_menuInt(
             'RERoptionalFeatures',
-            'RERonelinersAmbushRenderDistance'
+            'RERonelinersAmbushRenderDistance',
+            0
           )
         );
       }
@@ -64,7 +65,8 @@ statemachine class RandomEncountersReworkedHuntEntity extends CEntity {
         this.oneliner.setRenderDistance(
           RER_menuInt(
             'RERoptionalFeatures',
-            'RERonelinersHuntRenderDistance'
+            'RERonelinersHuntRenderDistance',
+            0
           )
         );
       }

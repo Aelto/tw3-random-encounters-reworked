@@ -14,7 +14,7 @@ state SeedSelection in RER_BountyMasterManager {
     // The seed 0 is a special case, with this seed everything is completely
     // random and none of the values depend on the seed. Two bounties with
     // the seed 0 are not guaranteed to be the same unlike other seeds.
-    if (RER_menuBool('RERoptionalFeatures', 'RERignoreSeedSelectorWindow')) {
+    if (RER_menuBool('RERoptionalFeatures', 'RERignoreSeedSelectorWindow', true)) {
       parent.bountySeedSelected(0);
     }
     else {

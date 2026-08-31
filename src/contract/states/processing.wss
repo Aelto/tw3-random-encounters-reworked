@@ -193,7 +193,7 @@ class RER_ContractTargetEncounter {
       return this.removeOneliner();
     }
 
-    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersContract')) {
+    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersContract', true)) {
       return this.removeOneliner();
     }
 
@@ -205,7 +205,8 @@ class RER_ContractTargetEncounter {
     this.oneliner.setRenderDistance(
       RER_menuInt(
         'RERoptionalFeatures',
-        'RERonelinersContractRenderDistance'
+        'RERonelinersContractRenderDistance',
+        500
       )
     );
   }
