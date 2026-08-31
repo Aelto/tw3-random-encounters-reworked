@@ -153,11 +153,11 @@ class RER_Contract {
   }
 
   public function maxPointOfInterestDistance(): float {
-    return StringToInt(RER_menuContract('RERcontractTargetMaxDistance'));
+    return StringToInt(RER_menuContract('RERcontractTargetMaxDistance', "1000"));
   }
 
   public function destinationRadius(): float {
-    return StringToFloat(RER_menuContract('RERcontractTargetAreaRadius'));
+    return StringToFloat(RER_menuContract('RERcontractTargetAreaRadius', "100"));
   }
 
   public function getPrimaryTargetOffset(index: int): Vector {

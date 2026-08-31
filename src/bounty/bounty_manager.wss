@@ -303,7 +303,7 @@ statemachine class RER_BountyManager extends CEntity {
       return;
     }
 
-    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMainTarget')) {
+    if (!RER_menuBool('RERoptionalFeatures', 'RERonelinersBountyMainTarget', true)) {
       return;
     }
 
@@ -315,7 +315,8 @@ statemachine class RER_BountyManager extends CEntity {
     this.oneliner.setRenderDistance(
       RER_menuInt(
         'RERoptionalFeatures',
-        'RERonelinersBountyMainTargetRenderDistance'
+        'RERonelinersBountyMainTargetRenderDistance',
+        1000
       )
     );
   }
