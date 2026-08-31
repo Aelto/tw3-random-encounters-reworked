@@ -154,12 +154,6 @@ enum RER_ContractRewardOption {
   RER_ContractRewardOption_TOKENS = 1,
 }
 
-function RER_getContractRewardOption(): RER_ContractRewardOption {
-  return StringToInt(
-    theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERcontracts', 'RERcontractsRewardOption')
-  );
-}
 
 /**
  * Represents a contract and the needed data to identify the contract.

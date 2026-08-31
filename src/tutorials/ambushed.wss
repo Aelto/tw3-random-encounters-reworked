@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowAmbushed(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialAmbushed')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialAmbushed', true)) {
     return false;
   }
 

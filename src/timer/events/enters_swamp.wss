@@ -11,10 +11,7 @@ class RER_ListenerEntersSwamp extends RER_EventsListener {
 
     inGameConfigWrapper = theGame.GetInGameConfigWrapper();
 
-    this.trigger_chance = StringToFloat(
-      inGameConfigWrapper
-      .GetVarValue('RERevents', 'eventEntersSwamp')
-    );
+    this.trigger_chance = RER_menuFloat('RERevents', 'eventEntersSwamp', 8.0);
 
     // the event is only active if its chances to trigger are greater than 0
     this.active = this.trigger_chance > 0;

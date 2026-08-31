@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowEcosystem(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialEcosystem')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialEcosystem')) {
     return false;
   }
 

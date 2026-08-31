@@ -79,7 +79,7 @@ state EnhancedEdition in RER_PresetManager {
   function wrapperMultiplyFloatValue(wrapper: CInGameConfigWrapper, menu: name, value: name, multiplier: float) {
     var fvalue: float;
 
-    fvalue = StringToFloat(wrapper.GetVarValue(menu, value));
+    fvalue = RER_menuFloat(menu, value, 1.0);
     wrapper.SetVarValue(menu, value, fvalue * multiplier);
   }
 

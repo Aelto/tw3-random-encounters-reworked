@@ -40,8 +40,7 @@ state Loading in RER_MonsterNest {
     var map_pin: SU_MapPin;
     var position: Vector;
 
-    can_show_markers = theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERoptionalFeatures', 'RERmarkersContractFirstPhase');
+    can_show_markers = RER_menuBool('RERoptionalFeatures', 'RERmarkersContractFirstPhase', true);
 
     if (can_show_markers) {
       position = parent.GetWorldPosition()
@@ -56,8 +55,7 @@ state Loading in RER_MonsterNest {
       map_pin.filtered_type = "TreasureQuest";
       map_pin.radius = 100;
       map_pin.region = SUH_getCurrentRegion();
-      map_pin.appears_on_minimap = theGame.GetInGameConfigWrapper()
-          .GetVarValue('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives');
+      map_pin.appears_on_minimap = RER_menuBool('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives', true);
 
       SUMP_addCustomPin(map_pin);
 

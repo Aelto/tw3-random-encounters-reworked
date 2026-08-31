@@ -44,10 +44,7 @@ function RER_getPlayerLevel(): int {
 }
 
 function RER_getPlayerScaling(): RER_LevelScaling {
-  return StringToInt(
-    theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERmain', 'RERlevelScaling')
-  );
+  return RER_menuInt('RERmain', 'RERlevelScaling', 0);
 }
 
 function RER_detectAbnormalLevelChanges() {

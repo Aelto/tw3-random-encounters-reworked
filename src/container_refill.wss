@@ -21,30 +21,28 @@ latent function RER_tryRefillRandomContainer(master: CRandomEncounters) {
   var radius: float;
   var i: int;
 
-  radius = StringToFloat(
-    inGameConfigWrapper.GetVarValue(
-      'RERcontainerRefill',
-      'RERcontainerRefillRadius'
-    )
-  );
-
-  number_of_containers = StringToInt(
-    inGameConfigWrapper.GetVarValue(
-      'RERcontainerRefill',
-      'RERcontainerRefillNumberOfContainers'
-    )
-  );
-
-  only_empty_containers = inGameConfigWrapper.GetVarValue(
+  radius = RER_menuFloat(
     'RERcontainerRefill',
-    'RERcontainerRefillOnlyEmptyContainers'
+    'RERcontainerRefillRadius',
+    1000.0
   );
 
-  var menu_chance_multiplier: float = StringToFloat(
-    inGameConfigWrapper.GetVarValue(
-      'RERcontainerRefill',
-      'RERcontainerRefillChanceMultiplier'
-    )
+  number_of_containers = RER_menuInt(
+    'RERcontainerRefill',
+    'RERcontainerRefillNumberOfContainers',
+    1
+  );
+
+  only_empty_containers = RER_menuBool(
+    'RERcontainerRefill',
+    'RERcontainerRefillOnlyEmptyContainers',
+    true
+  );
+
+  var menu_chance_multiplier: float = RER_menuFloat(
+    'RERcontainerRefill',
+    'RERcontainerRefillChanceMultiplier',
+    1.0
   );
 
   FindGameplayEntitiesInRange(

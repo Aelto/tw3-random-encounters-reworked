@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowBountyMaster(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialBountyMaster')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialBountyMaster', true)) {
     return false;
   }
 

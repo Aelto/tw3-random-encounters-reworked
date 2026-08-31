@@ -27,8 +27,7 @@ function RER_isPlayerNearQuestMarker(): bool {
   var player_position: Vector = thePlayer.GetWorldPosition();
   var area_map_pins: array<SAreaMapPinInfo>;
 
-  var can_cancel: bool = theGame.GetInGameConfigWrapper()
-    .GetVarValue('RERencountersGeneral', 'RERcancelSpawnsWhenNearQuestMarkers');
+  var can_cancel: bool = RER_menuBool('RERencountersGeneral', 'RERcancelSpawnsWhenNearQuestMarkers', true);
 
   if (!can_cancel) {
     NLOG("isNearQuestMarker(): settings off, leaving early.");

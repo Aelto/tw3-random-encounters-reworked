@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowStarted(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialStarted')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialStarted')) {
     return false;
   }
 

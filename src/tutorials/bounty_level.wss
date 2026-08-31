@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowBountyLevel(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialBountyLevel')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialBountyLevel', true)) {
     return false;
   }
 

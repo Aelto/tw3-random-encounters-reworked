@@ -1,7 +1,8 @@
 function RER_isPerformanceModeEnabled(): bool {
-  return theGame.GetInGameConfigWrapper().GetVarValue(
+  return RER_menuBool(
     'RERmain',
-    'RERperformanceMode'
+    'RERperformanceMode',
+    true // TODO: maybe read the graphics settings or something?
   );
 }
 

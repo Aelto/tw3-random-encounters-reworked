@@ -31,11 +31,11 @@ state Spawning in RER_StaticEncounterManager {
 
     current_region = AreaTypeToName(theGame.GetCommonMapManager().GetCurrentArea());
 
-    max_distance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'killThresholdDistance'));
+    max_distance = RER_menuFloat('RERencountersGeneral', 'killThresholdDistance', 500.0);
 
     #ifdef ENABLE_STATIC_ENCOUNTERS {
-      small_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterSmallSpawnChance'));
-      large_chance = StringToFloat(theGame.GetInGameConfigWrapper().GetVarValue('RERencountersGeneral', 'RERstaticEncounterLargeSpawnChance'));
+      small_chance = RER_menuFloat('RERencountersGeneral', 'RERstaticEncounterSmallSpawnChance', 80.0);
+      large_chance = RER_menuFloat('RERencountersGeneral', 'RERstaticEncounterLargeSpawnChance', 60.0);
     };
 
     // cancel if both options are set to 0

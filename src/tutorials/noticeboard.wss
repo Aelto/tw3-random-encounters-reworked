@@ -1,7 +1,6 @@
 
 function RER_tutorialTryShowNoticeboard(): bool {
-  if (!theGame.GetInGameConfigWrapper()
-      .GetVarValue('RERtutorials', 'RERtutorialNoticeboardEvent')) {
+  if (!RER_menuBool('RERtutorials', 'RERtutorialNoticeboardEvent')) {
     return false;
   }
 

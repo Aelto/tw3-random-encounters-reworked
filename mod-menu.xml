@@ -84,7 +84,7 @@
                 <Entry varId="customdFrequencyHigh" value="600" />
                 <Entry varId="customnFrequencyLow" value="240" />
                 <Entry varId="customnFrequencyHigh" value="480" />
-                <Entry varId="RERadditionalDelayPerPlayerLevel" value="-1" />
+                <Entry varId="RERadditionalDelayPerPlayerLevel" value="0" />
                 <Entry varId="RERecosystemFrequencyMultiplier" value="50" />
 
                 <Entry varId="minSpawnDistance" value="60" />
