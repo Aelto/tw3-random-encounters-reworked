@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowBountyLevel(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialBountyLevel', true)) {
+  if (!RER_tutorialWasSeen('RERtutorialBountyLevel')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowBountyLevel(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialBountyLevel', 0);
+  RER_tutorialSetSeen('RERtutorialBountyLevel');
 
   theGame.SaveUserSettings();
 

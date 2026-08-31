@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowStarted(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialStarted')) {
+  if (!RER_tutorialWasSeen('RERtutorialStarted')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowStarted(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialStarted', 0);
+  RER_tutorialSetSeen('RERtutorialStarted');
 
   theGame.SaveUserSettings();
 

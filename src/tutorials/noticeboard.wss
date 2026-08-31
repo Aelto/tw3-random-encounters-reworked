@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowNoticeboard(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialNoticeboardEvent')) {
+  if (!RER_tutorialWasSeen('RERtutorialNoticeboardEvent')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowNoticeboard(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialNoticeboardEvent', 0);
+  RER_tutorialSetSeen('RERtutorialNoticeboardEvent');
 
   theGame.SaveUserSettings();
 

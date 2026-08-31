@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowBounty(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialBountyHunting', true)) {
+  if (!RER_tutorialWasSeen('RERtutorialBountyHunting')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowBounty(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialBountyHunting', 0);
+  RER_tutorialSetSeen('RERtutorialBountyHunting');
 
   theGame.SaveUserSettings();
 
