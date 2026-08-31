@@ -1,3 +1,11 @@
 function RER_yellowFont(message: string): string {
   return "<font color='#CD7D03'>" + message + "</font>";
 }
+
+function RER_tutorialWasSeen(tutorial_id: name): bool {
+  return FactsQuerySum(tutorial_id) > 0;
+}
+
+function RER_tutorialSetSeen(tutorial_id: name) {
+  FactsSet(tutorial_id, 1);
+}

@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowAmbushed(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialAmbushed', true)) {
+  if (!RER_tutorialWasSeen('RERtutorialAmbushed')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowAmbushed(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialAmbushed', 0);
+  RER_tutorialSetSeen('RERtutorialAmbushed');
 
   theGame.SaveUserSettings();
 

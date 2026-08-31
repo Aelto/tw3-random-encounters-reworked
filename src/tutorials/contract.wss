@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowContract(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialMonsterContract', true)) {
+  if (!RER_tutorialWasSeen('RERtutorialMonsterContract')) {
     return false;
   }
 
@@ -12,9 +12,7 @@ function RER_tutorialTryShowContract(): bool {
   RER_toggleHUD();
 
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialMonsterContract', 0);
+  RER_tutorialSetSeen('RERtutorialMonsterContract');
 
   theGame.SaveUserSettings();
 

@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowEcosystem(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialEcosystem')) {
+  if (!RER_tutorialWasSeen('RERtutorialEcosystem')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowEcosystem(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialEcosystem', 0);
+  RER_tutorialSetSeen('RERtutorialEcosystem');
 
   theGame.SaveUserSettings();
 

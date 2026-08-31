@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowBountyMaster(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialBountyMaster', true)) {
+  if (!RER_tutorialWasSeen('RERtutorialBountyMaster')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowBountyMaster(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialBountyMaster', 0);
+  RER_tutorialSetSeen('RERtutorialBountyMaster');
 
   theGame.SaveUserSettings();
 

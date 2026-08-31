@@ -1,6 +1,6 @@
 
 function RER_tutorialTryShowClue(): bool {
-  if (!RER_menuBool('RERtutorials', 'RERtutorialClueExamined', true)) {
+  if (!RER_tutorialWasSeen('RERtutorialClueExamined')) {
     return false;
   }
 
@@ -11,9 +11,7 @@ function RER_tutorialTryShowClue(): bool {
   );
   RER_toggleHUD();
 
-  theGame
-    .GetInGameConfigWrapper()
-    .SetVarValue('RERtutorials', 'RERtutorialClueExamined', 0);
+  RER_tutorialSetSeen('RERtutorialClueExamined');
 
   theGame.SaveUserSettings();
 
