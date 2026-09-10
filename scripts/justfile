@@ -4,3 +4,6 @@ import 'release.justfile'
 
 main:
   just --list
+
+update-sharedutils:
+  git submodule update --remote

@@ -24,13 +24,18 @@ release-precompiled:
     @ just scripts/generate-blob-on-windows
     @ mv {{ precompiled_mod }}/content/scripts/blob.rsblob {{ precompiled_mod }}/content/precompiled.rsblob
 
+    @ echo - generating strings for modular release
+    @ just scripts/encode_w3strings
+    @ cp strings/*.w3strings {{ precompiled_mod }}/content/
+    @ cp strings/*.csv {{ precompiled_mod }}/content/
+
     @ just scripts/release-precompiled-zip
     @ echo generating release: precompile <~ [DONE]
 
 [working-directory("../release/precompiled")]
 release-precompiled-zip:
     @ echo - zipping precompiled release
-    @ zip -r modrandom_encounters_reworked_precompiled mods
+    @ zip -r modrandom_encounters_reworked_precompiled mods dlc
 
 [private]
 [working-directory("..")]

@@ -154,6 +154,7 @@ state Processing in RER_ContractManager {
     }
 
     SU_removeCustomPinByTag("RER_contract_target");
+    SU_updateMinimapPins();
   }
 }
 
