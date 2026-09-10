@@ -55,7 +55,7 @@ state Loading in RER_MonsterNest {
       map_pin.filtered_type = "TreasureQuest";
       map_pin.radius = 100;
       map_pin.region = SUH_getCurrentRegion();
-      map_pin.appears_on_minimap = RER_menuBool('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives', true);
+      map_pin.appears_on_minimap = RER_menuBool('RERoptionalFeatures', 'RERminimapMarkerGenericObjectives', false);
 
       SUMP_addCustomPin(map_pin);
 

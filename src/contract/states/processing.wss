@@ -228,7 +228,7 @@ class RER_ContractTargetEncounter {
     map_pin.filtered_type = "MonsterQuest";
     map_pin.radius = contract.destinationRadius();
     map_pin.region = SUH_getCurrentRegion();
-    map_pin.appears_on_minimap = RER_menuBool('RERoptionalFeatures', 'RERminimapMarkerBounties', true);
+    map_pin.appears_on_minimap = RER_menuBool('RERoptionalFeatures', 'RERminimapMarkerBounties', false);
 
     SUMP_addCustomPin(map_pin);
 
