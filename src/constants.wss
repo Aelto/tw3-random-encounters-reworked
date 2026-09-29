@@ -34,7 +34,7 @@
 
 // if defined, enables the mod menu. Otherwise the mod will use hardcoded default
 // values when needed.
-#define const ENABLE_MODMENU_DISABLED;
+#define const ENABLE_MODMENU;
 
 #ifdef DEBUG {
   #define const DEBUG_LOOT;

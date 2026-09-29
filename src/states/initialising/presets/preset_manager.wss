@@ -16,7 +16,17 @@ statemachine class RER_PresetManager {
     this.master = master;
 
     this.GotoState('Waiting');
-    var preset: RER_MenuPreset = RER_menuInt('RERmain', 'RERmenuPreset', 0) as RER_MenuPreset;
+    var preset: RER_MenuPreset = RER_menuInt(
+      'RERmain',
+      'RERmenuPreset',
+      RER_MenuPreset_Default
+    ) as RER_MenuPreset;
+
+    /// Covers the first install case where the menu has no value, and thus
+    /// returns -1 for OPTIONS:
+    if (RER_hasModMenu() && RER_menu('RERmain', 'RERmenuPreset') == "-1") {
+      preset = RER_MenuPreset_Default;
+    }
 
     NLOG("RER_PresetManager::tryApplyMenuPreset(), preset = " + preset);
 

@@ -20,7 +20,13 @@ function RER_menuOr(group: name, item: name, or_value: string): string {
   };
 
   #ifdef ENABLE_MODMENU {
-    return RER_menu(group, item);
+    var value: string = RER_menu(group, item);
+
+    if (value == "" || value == "-1") {
+      return or_value;
+    }
+
+    return value;
   };
 }
 
@@ -28,6 +34,10 @@ function RER_menuBool(group: name, item: name, optional or_value: bool): bool {
   #ifndef ENABLE_MODMENU {
     return or_value;
   };
+
+  if (!RER_hasModMenu()) {
+    return or_value;
+  }
 
   var value: bool = RER_menu(group, item);
 
@@ -39,6 +49,10 @@ function RER_menuFloat(group: name, item: name, optional or_value: float): float
     return or_value;
   };
 
+  if (!RER_hasModMenu()) {
+    return or_value;
+  }
+
   return StringToFloat(RER_menu(group, item));
 }
 
@@ -46,6 +60,10 @@ function RER_menuInt(group: name, item: name, optional or_value: int): int {
   #ifndef ENABLE_MODMENU {
     return or_value;
   };
+
+  if (!RER_hasModMenu()) {
+    return or_value;
+  }
 
   return StringToInt(RER_menu(group, item));
 }
