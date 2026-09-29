@@ -5,10 +5,12 @@ release: compile-cahirc
   @ just release-modular
   @ just release-precompiled
 
-[private]
 [working-directory: ".."]
 compile-cahirc:
-  cahirc .
+  cahirc.exe .
+  
+  @ echo - copy annotations.ws file to dist
+  @ cp src/annotations.ws dist
 
 [private]
 [working-directory: ".."]

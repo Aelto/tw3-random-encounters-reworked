@@ -21,14 +21,20 @@ statemachine class RER_BountyMasterManager {
   private var oneliners: array<RER_OnelinerEntity>;
 
   public latent function trySpawnBountyMasters() {
+    NLOG("trySpawnBountyMasters()");
+
     if (!RER_modPowerIsBountySystemEnabled(this.bounty_manager.master.getModPower())) {
+      NLOG("trySpawnBountyMasters(), canceled from mod power");
       return;
     }
+
 
     this.removeBountyMasterPinsAndMarkers();
 
     var max: int = this.getBountyMastersCount();
     var i: int;
+
+    NLOG("trySpawnBountyMasters(), max = " + max);
 
     for (i = this.countOccupiedPositions(); i < max; i += 1) {
       this.trySpawnOneBountyMaster(i);
@@ -64,6 +70,7 @@ statemachine class RER_BountyMasterManager {
 
   private latent function trySpawnOneBountyMaster(index: int) {
     var position: Vector = this.getBountyMasterPosition(index);
+    NLOG("trySpawnOneBountyMaster(), position = " + VecToString(position));
     if (FloorF(position.X) == 0 && FloorF(position.Y) == 0) {
       // invalid position
       return;
@@ -90,6 +97,8 @@ statemachine class RER_BountyMasterManager {
     var interaction: RER_StartBountyMasterConversationOnInteraction;
     interaction = new RER_StartBountyMasterConversationOnInteraction in entity;
     (entity as CNewNPC).addInteractionEventListener(interaction);
+
+    NLOG("trySpawnOneBountyMaster(), spawned one");
   }
 
   private function getBountyMasterTemplatePath(): string {
@@ -202,6 +211,8 @@ statemachine class RER_BountyMasterManager {
     var output: array<Vector>;
 
     area = SUH_getCurrentRegion();
+
+    NLOG("getBountyMasterValidPositions, region = " + area);
 
     switch (area) {
       case "prolog_village":

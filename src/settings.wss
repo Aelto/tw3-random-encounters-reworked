@@ -53,7 +53,7 @@ function RER_menuInt(group: name, item: name, optional or_value: int): int {
 function RER_getGeneralIntensity(scale: float): float {
   // the menu slider is expected to be a number from 0% to 500%,
   // it is then multiplied by 0.01 to bring it in the [0;5] range
-  var output: float = RER_menuFloat('RERmain', 'RERgeneralIntensity') * 0.01;
+  var output: float = RER_menuFloat('RERmain', 'RERgeneralIntensity', 100.0) * 0.01;
 
   return PowF(output, scale);
 }
