@@ -134,7 +134,7 @@ state DialogChoice in RER_ContractManager {
           "{{crowns_icon}}",
           "<img src='img://"
             + thePlayer.inv.GetItemIconPathByName('Crowns')
-            + "' height='48' width='48' vspace='-24' />"
+            + "' height='24' width='24' vspace='-24' />"
         );
 
         line += " (" + crowns_text + ")";

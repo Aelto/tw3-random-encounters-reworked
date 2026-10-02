@@ -15,7 +15,7 @@ release-precompiled:
 
     @ echo - copy dlc to precompile release
     @ mkdir -p release/precompiled/dlc
-    @ cp -r modRandomEncountersReworked/packed release/precompiled/dlc/dlcrandom_encounters_reworked/
+    @ cp -r redkit_random_encounters_reworked/packed/dlc release/modular/
 
     @ echo - copy metadata to precompile release
     @ cp info.json {{ precompiled_mod }}/content
