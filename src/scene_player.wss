@@ -209,7 +209,7 @@ latent function RER_getStaticCamera(): RER_StaticCamera {
   var template: CEntityTemplate;
   var camera: RER_StaticCamera;
 
-  template = LoadResourceAsync("dlc\modtemplates\randomencounterreworkeddlc\data\rer_static_camera.w2ent", true) as CEntityTemplate;
+  template = LoadResourceAsync("dlc\dlcrandom_encounters_reworked\data\templates\rer_static_camera.w2ent", true) as CEntityTemplate;
   camera = theGame.CreateEntity( template, thePlayer.GetWorldPosition(), thePlayer.GetWorldRotation() ) as RER_StaticCamera;
 
   return camera;

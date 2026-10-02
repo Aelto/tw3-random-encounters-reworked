@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<redxml>
+	<definitions>
+		<abilities>
+			<ability name="base_rer_trophy_stats">
+				<quality type="add" min="2" max="2"/>
+			</ability>
+
+			<ability name="base_rer_bounty_notice_stats">
+				<quality type="add" min="3" max="3"/>
+			</ability>
+		</abilities>
+		<items>
+
+      <item name="rer_bootstrapper">
+        <!-- make sure to add this tag or else the item won't be detected -->
+        <tags>SU_TinyBootstrapperManager</tags>
+      </item>
+
+			<item name="modrer_bounty_notice" category="trophy" stackable="250" weight="0"
+			icon_path="icons\inventory\scrolls\scroll2.dds" localisation_key_name = "rer_bounty_notice" localisation_key_description = "rer_bounty_notice_description" price = "5" >
+				<tags>Trophy, RER_BountyNotice</tags>
+				<base_abilities>
+					<a>base_rer_bounty_notice_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- #region tokens -->
+			<item name="rer_token_gear" category="trophy" stackable="250" weight="0"
+			icon_path="icons/inventory/quests/leshy_talisman-64x64.png" localisation_key_name = "rer_token_gear" localisation_key_description = "rer_token_gear_description" price = "20" >
+				<tags>Trophy, RER_Token, RER_TokenGear</tags>
+				<base_abilities>
+					<a>base_rer_bounty_notice_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="rer_token_consumables" category="trophy" stackable="250" weight="0"
+			icon_path="icons/inventory/quests/leshy_talisman-64x64.png" localisation_key_name = "rer_token_consumables" localisation_key_description = "rer_token_consumables_description" price = "10" >
+				<tags>Trophy, RER_Token, RER_TokenConsumables</tags>
+				<base_abilities>
+					<a>base_rer_bounty_notice_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="rer_token_experience" category="trophy" stackable="250" weight="0"
+			icon_path="icons/inventory/quests/leshy_talisman-64x64.png" localisation_key_name = "rer_token_experience" localisation_key_description = "rer_token_experience_description" price = "15" >
+				<tags>Trophy, RER_Token, RER_TokenExperience</tags>
+				<base_abilities>
+					<a>base_rer_bounty_notice_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="rer_token_materials" category="trophy" stackable="250" weight="0"
+			icon_path="icons/inventory/quests/leshy_talisman-64x64.png" localisation_key_name = "rer_token_materials" localisation_key_description = "rer_token_materials_description" price = "15" >
+				<tags>Trophy, RER_Token, RER_TokenMaterials</tags>
+				<base_abilities>
+					<a>base_rer_bounty_notice_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="rer_token_gold" category="trophy" stackable="250" weight="0"
+			icon_path="icons/inventory/quests/leshy_talisman-64x64.png" localisation_key_name = "rer_token_gold" localisation_key_description = "rer_token_gold_description" price = "25" >
+				<tags>Trophy, RER_Token, RER_TokenGold</tags>
+				<base_abilities>
+					<a>base_rer_bounty_notice_stats</a>
+				</base_abilities>
+			</item>
+			<!-- #endregion tokens -->
+
+			<!-- low prices, the ones used as the base for the prices (100%) -->
+			<!-- medium prices, the base prices multiplied by two (200%) -->
+			<!-- high prices, the base prices multiplied by three (300%) -->
+
+			<item name="modrer_human_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_human" localisation_key_description = "item_desc_trophy" price = "5" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_human_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_human" localisation_key_description = "item_desc_trophy" price = "10" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_human_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_human" localisation_key_description = "item_desc_trophy" price = "15" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_vampire_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_vampire" localisation_key_description = "item_desc_trophy" price = "160" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_vampire_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_vampire" localisation_key_description = "item_desc_trophy" price = "320" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_vampire_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_vampire" localisation_key_description = "item_desc_trophy" price = "480" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_higher_vampire_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_vampire" localisation_key_description = "item_desc_trophy" price = "200" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_higher_vampire_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_vampire" localisation_key_description = "item_desc_trophy" price = "400" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_higher_vampire_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_vampire" localisation_key_description = "item_desc_trophy" price = "600" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_necrophage_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_grave_hag_64x64.png" localisation_key_name = "rer_trophy_necrophage" localisation_key_description = "item_desc_trophy" price = "10" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_necrophage_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_grave_hag_64x64.png" localisation_key_name = "rer_trophy_necrophage" localisation_key_description = "item_desc_trophy" price = "20" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_necrophage_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_grave_hag_64x64.png" localisation_key_name = "rer_trophy_necrophage" localisation_key_description = "item_desc_trophy" price = "30" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_spirit_trophy_low" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_wraith_64x64.png" localisation_key_name = "rer_trophy_spirit" localisation_key_description = "item_desc_trophy" price = "30" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_spirit_trophy_medium" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_wraith_64x64.png" localisation_key_name = "rer_trophy_spirit" localisation_key_description = "item_desc_trophy" price = "60" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_spirit_trophy_high" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_wraith_64x64.png" localisation_key_name = "rer_trophy_spirit" localisation_key_description = "item_desc_trophy" price = "90" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_garkain_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/Alpha-garkain-trophy_64x64.png" localisation_key_name = "rer_trophy_garkain" localisation_key_description = "item_desc_trophy" price = "150" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_garkain_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/Alpha-garkain-trophy_64x64.png" localisation_key_name = "rer_trophy_garkain" localisation_key_description = "item_desc_trophy" price = "300" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_garkain_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/Alpha-garkain-trophy_64x64.png" localisation_key_name = "rer_trophy_garkain" localisation_key_description = "item_desc_trophy" price = "450" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_arachas_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_arachas_64x64.png" localisation_key_name = "rer_trophy_arachas" localisation_key_description = "item_desc_trophy" price = "35" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_arachas_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_arachas_64x64.png" localisation_key_name = "rer_trophy_arachas" localisation_key_description = "item_desc_trophy" price = "70" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_arachas_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_arachas_64x64.png" localisation_key_name = "rer_trophy_arachas" localisation_key_description = "item_desc_trophy" price = "105" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_nightwraith_trophy_low" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_nightwraith_64x64.png" localisation_key_name = "rer_trophy_nightwraith" localisation_key_description = "item_desc_trophy" price = "50" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_nightwraith_trophy_medium" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_nightwraith_64x64.png" localisation_key_name = "rer_trophy_nightwraith" localisation_key_description = "item_desc_trophy" price = "100" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_nightwraith_trophy_high" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_nightwraith_64x64.png" localisation_key_name = "rer_trophy_nightwraith" localisation_key_description = "item_desc_trophy" price = "150" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_noonwraith_trophy_low" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_noonwraith_64x64.png" localisation_key_name = "rer_trophy_noonwraith" localisation_key_description = "item_desc_trophy" price = "50" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_noonwraith_trophy_medium" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_noonwraith_64x64.png" localisation_key_name = "rer_trophy_noonwraith" localisation_key_description = "item_desc_trophy" price = "100" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_noonwraith_trophy_high" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_noonwraith_64x64.png" localisation_key_name = "rer_trophy_noonwraith" localisation_key_description = "item_desc_trophy" price = "150" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_cyclop_trophy_low" category="trophy" stackable="24" weight="0.5"
+			icon_path="icons/inventory/quests/trophy_cyclops_64x64.png" localisation_key_name = "rer_trophy_cyclop" localisation_key_description = "item_desc_trophy" price = "75" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_cyclop_trophy_medium" category="trophy" stackable="24" weight="0.5"
+			icon_path="icons/inventory/quests/trophy_cyclops_64x64.png" localisation_key_name = "rer_trophy_cyclop" localisation_key_description = "item_desc_trophy" price = "150" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_cyclop_trophy_high" category="trophy" stackable="24" weight="0.5"
+			icon_path="icons/inventory/quests/trophy_cyclops_64x64.png" localisation_key_name = "rer_trophy_cyclop" localisation_key_description = "item_desc_trophy" price = "225" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_czart_trophy_low" category="trophy" stackable="24" weight="0.4"
+			icon_path="icons/inventory/quests/trophy_czart_64x64.png" localisation_key_name = "rer_trophy_czart" localisation_key_description = "item_desc_trophy" price = "90" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_czart_trophy_medium" category="trophy" stackable="24" weight="0.4"
+			icon_path="icons/inventory/quests/trophy_czart_64x64.png" localisation_key_name = "rer_trophy_czart" localisation_key_description = "item_desc_trophy" price = "180" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_czart_trophy_high" category="trophy" stackable="24" weight="0.4"
+			icon_path="icons/inventory/quests/trophy_czart_64x64.png" localisation_key_name = "rer_trophy_czart" localisation_key_description = "item_desc_trophy" price = "270" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_forktail_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_forktail_64x64.png" localisation_key_name = "rer_trophy_forktail" localisation_key_description = "item_desc_trophy" price = "90" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_forktail_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_forktail_64x64.png" localisation_key_name = "rer_trophy_forktail" localisation_key_description = "item_desc_trophy" price = "180" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_forktail_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_forktail_64x64.png" localisation_key_name = "rer_trophy_forktail" localisation_key_description = "item_desc_trophy" price = "270" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_wyvern_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_wyvern_64x64.png" localisation_key_name = "rer_trophy_wyvern" localisation_key_description = "item_desc_trophy" price = "95" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wyvern_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_wyvern_64x64.png" localisation_key_name = "rer_trophy_wyvern" localisation_key_description = "item_desc_trophy" price = "190" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wyvern_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_wyvern_64x64.png" localisation_key_name = "rer_trophy_wyvern" localisation_key_description = "item_desc_trophy" price = "285" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_cockatrice_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_cockatris_64x64.png" localisation_key_name = "rer_trophy_cockatrice" localisation_key_description = "item_desc_trophy" price = "95" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_cockatrice_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_cockatris_64x64.png" localisation_key_name = "rer_trophy_cockatrice" localisation_key_description = "item_desc_trophy" price = "190" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_cockatrice_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_cockatris_64x64.png" localisation_key_name = "rer_trophy_cockatrice" localisation_key_description = "item_desc_trophy" price = "285" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_dracolizard_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_dracolizard_64x64.png" localisation_key_name = "rer_trophy_dracolizard" localisation_key_description = "item_desc_trophy" price = "120" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_dracolizard_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_dracolizard_64x64.png" localisation_key_name = "rer_trophy_dracolizard" localisation_key_description = "item_desc_trophy" price = "240" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_dracolizard_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_dracolizard_64x64.png" localisation_key_name = "rer_trophy_dracolizard" localisation_key_description = "item_desc_trophy" price = "360" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_basilisk_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/mq7018_basilisk_trophy_64x64.png" localisation_key_name = "rer_trophy_basilisk" localisation_key_description = "item_desc_trophy" price = "100" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_basilisk_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/mq7018_basilisk_trophy_64x64.png" localisation_key_name = "rer_trophy_basilisk" localisation_key_description = "item_desc_trophy" price = "200" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_basilisk_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/mq7018_basilisk_trophy_64x64.png" localisation_key_name = "rer_trophy_basilisk" localisation_key_description = "item_desc_trophy" price = "300" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_griffin_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_gryphon_64x64.png" localisation_key_name = "rer_trophy_griffin" localisation_key_description = "item_desc_trophy" price = "95" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_griffin_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_gryphon_64x64.png" localisation_key_name = "rer_trophy_griffin" localisation_key_description = "item_desc_trophy" price = "190" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_griffin_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_gryphon_64x64.png" localisation_key_name = "rer_trophy_griffin" localisation_key_description = "item_desc_trophy" price = "285" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_insectoid_trophy_low" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_arachas_64x64.png" localisation_key_name = "rer_trophy_insectoid" localisation_key_description = "item_desc_trophy" price = "20" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_insectoid_trophy_medium" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_arachas_64x64.png" localisation_key_name = "rer_trophy_insectoid" localisation_key_description = "item_desc_trophy" price = "40" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_insectoid_trophy_high" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_arachas_64x64.png" localisation_key_name = "rer_trophy_insectoid" localisation_key_description = "item_desc_trophy" price = "60" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_elemental_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_elemental_64x64.png" localisation_key_name = "rer_trophy_elemental" localisation_key_description = "item_desc_trophy" price = "100" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_elemental_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_elemental_64x64.png" localisation_key_name = "rer_trophy_elemental" localisation_key_description = "item_desc_trophy" price = "200" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_elemental_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_elemental_64x64.png" localisation_key_name = "rer_trophy_elemental" localisation_key_description = "item_desc_trophy" price = "300" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_fiend_trophy_low" category="trophy" stackable="24" weight="0.4"
+			icon_path="icons/inventory/quests/trophy_bies_64x64.png" localisation_key_name = "rer_trophy_fiend" localisation_key_description = "item_desc_trophy" price = "95" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_fiend_trophy_medium" category="trophy" stackable="24" weight="0.4"
+			icon_path="icons/inventory/quests/trophy_bies_64x64.png" localisation_key_name = "rer_trophy_fiend" localisation_key_description = "item_desc_trophy" price = "190" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_fiend_trophy_high" category="trophy" stackable="24" weight="0.4"
+			icon_path="icons/inventory/quests/trophy_bies_64x64.png" localisation_key_name = "rer_trophy_fiend" localisation_key_description = "item_desc_trophy" price = "285" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_grave_hag_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_grave_hag_64x64.png" localisation_key_name = "rer_trophy_grave_hag" localisation_key_description = "item_desc_trophy" price = "30" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_grave_hag_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_grave_hag_64x64.png" localisation_key_name = "rer_trophy_grave_hag" localisation_key_description = "item_desc_trophy" price = "60" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_grave_hag_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_grave_hag_64x64.png" localisation_key_name = "rer_trophy_grave_hag" localisation_key_description = "item_desc_trophy" price = "90" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_wight_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/q702_wicht_trophy_64x64.png" localisation_key_name = "rer_trophy_wight" localisation_key_description = "item_desc_trophy" price = "120" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wight_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/q702_wicht_trophy_64x64.png" localisation_key_name = "rer_trophy_wight" localisation_key_description = "item_desc_trophy" price = "240" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wight_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/q702_wicht_trophy_64x64.png" localisation_key_name = "rer_trophy_wight" localisation_key_description = "item_desc_trophy" price = "360" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_sharley_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/mh701_sharley_matriarch_trophy_64x64.png" localisation_key_name = "rer_trophy_sharley" localisation_key_description = "item_desc_trophy" price = "200" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_sharley_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/mh701_sharley_matriarch_trophy_64x64.png" localisation_key_name = "rer_trophy_sharley" localisation_key_description = "item_desc_trophy" price = "400" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_sharley_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/mh701_sharley_matriarch_trophy_64x64.png" localisation_key_name = "rer_trophy_sharley" localisation_key_description = "item_desc_trophy" price = "600" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_giant_trophy_low" category="trophy" stackable="24" weight="0.5"
+			icon_path="icons/inventory/quests/trophy_cave_troll_64x64.png" localisation_key_name = "rer_trophy_giant" localisation_key_description = "item_desc_trophy" price = "110" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_giant_trophy_medium" category="trophy" stackable="24" weight="0.5"
+			icon_path="icons/inventory/quests/trophy_cave_troll_64x64.png" localisation_key_name = "rer_trophy_giant" localisation_key_description = "item_desc_trophy" price = "220" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_giant_trophy_high" category="trophy" stackable="24" weight="0.5"
+			icon_path="icons/inventory/quests/trophy_cave_troll_64x64.png" localisation_key_name = "rer_trophy_giant" localisation_key_description = "item_desc_trophy" price = "330" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_harpy_trophy_low" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_nightwraith_64x64.png" localisation_key_name = "rer_trophy_harpy" localisation_key_description = "item_desc_trophy" price = "6" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_harpy_trophy_medium" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_nightwraith_64x64.png" localisation_key_name = "rer_trophy_harpy" localisation_key_description = "item_desc_trophy" price = "12" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_harpy_trophy_high" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_nightwraith_64x64.png" localisation_key_name = "rer_trophy_harpy" localisation_key_description = "item_desc_trophy" price = "18" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_ekimmara_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_ekima_64x64.png" localisation_key_name = "rer_trophy_ekimmara" localisation_key_description = "item_desc_trophy" price = "120" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_ekimmara_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_ekima_64x64.png" localisation_key_name = "rer_trophy_ekimmara" localisation_key_description = "item_desc_trophy" price = "240" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_ekimmara_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_ekima_64x64.png" localisation_key_name = "rer_trophy_ekimmara" localisation_key_description = "item_desc_trophy" price = "360" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_katakan_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_katakan_64x64.png" localisation_key_name = "rer_trophy_katakan" localisation_key_description = "item_desc_trophy" price = "120" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_katakan_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_katakan_64x64.png" localisation_key_name = "rer_trophy_katakan" localisation_key_description = "item_desc_trophy" price = "240" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_katakan_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_katakan_64x64.png" localisation_key_name = "rer_trophy_katakan" localisation_key_description = "item_desc_trophy" price = "360" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_leshen_trophy_low" category="trophy" stackable="24" weight="0.25"
+			icon_path="icons/inventory/quests/trophy_lessun_64x64.png" localisation_key_name = "rer_trophy_leshen" localisation_key_description = "item_desc_trophy" price = "105" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_leshen_trophy_medium" category="trophy" stackable="24" weight="0.25"
+			icon_path="icons/inventory/quests/trophy_lessun_64x64.png" localisation_key_name = "rer_trophy_leshen" localisation_key_description = "item_desc_trophy" price = "210" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_leshen_trophy_high" category="trophy" stackable="24" weight="0.25"
+			icon_path="icons/inventory/quests/trophy_lessun_64x64.png" localisation_key_name = "rer_trophy_leshen" localisation_key_description = "item_desc_trophy" price = "315" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_nekker_trophy_low" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_nekker_64x64.png" localisation_key_name = "rer_trophy_nekker" localisation_key_description = "item_desc_trophy" price = "6" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_nekker_trophy_medium" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_nekker_64x64.png" localisation_key_name = "rer_trophy_nekker" localisation_key_description = "item_desc_trophy" price = "12" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_nekker_trophy_high" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/quests/trophy_nekker_64x64.png" localisation_key_name = "rer_trophy_nekker" localisation_key_description = "item_desc_trophy" price = "18" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_troll_trophy_low" category="trophy" stackable="24" weight="0.25"
+			icon_path="icons/inventory/quests/trophy_cave_troll_64x64.png" localisation_key_name = "rer_trophy_troll" localisation_key_description = "item_desc_trophy" price = "25" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_troll_trophy_medium" category="trophy" stackable="24" weight="0.25"
+			icon_path="icons/inventory/quests/trophy_cave_troll_64x64.png" localisation_key_name = "rer_trophy_troll" localisation_key_description = "item_desc_trophy" price = "50" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_troll_trophy_high" category="trophy" stackable="24" weight="0.25"
+			icon_path="icons/inventory/quests/trophy_cave_troll_64x64.png" localisation_key_name = "rer_trophy_troll" localisation_key_description = "item_desc_trophy" price = "75" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_wraith_trophy_low" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_wraith_64x64.png" localisation_key_name = "rer_trophy_wraith" localisation_key_description = "item_desc_trophy" price = "10" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wraith_trophy_medium" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_wraith_64x64.png" localisation_key_name = "rer_trophy_wraith" localisation_key_description = "item_desc_trophy" price = "20" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wraith_trophy_high" category="trophy" stackable="24" weight="0.05"
+			icon_path="icons/inventory/quests/trophy_wraith_64x64.png" localisation_key_name = "rer_trophy_wraith" localisation_key_description = "item_desc_trophy" price = "30" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_beast_trophy_low" category="trophy" stackable="24" weight="0.01"
+			icon_path="icons/inventory/ingredients/alchemy/food_wolf_liver_64x64.png" localisation_key_name = "rer_trophy_beast" localisation_key_description = "item_desc_trophy" price = "3" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_beast_trophy_medium" category="trophy" stackable="24" weight="0.01"
+			icon_path="icons/inventory/ingredients/alchemy/food_wolf_liver_64x64.png" localisation_key_name = "rer_trophy_beast" localisation_key_description = "item_desc_trophy" price = "6" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_beast_trophy_high" category="trophy" stackable="24" weight="0.01"
+			icon_path="icons/inventory/ingredients/alchemy/food_wolf_liver_64x64.png" localisation_key_name = "rer_trophy_beast" localisation_key_description = "item_desc_trophy" price = "9" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_wildhunt_trophy_low" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/ingredients/monstrous/brain_monstrous_64x64.png" localisation_key_name = "rer_trophy_wildhunt" localisation_key_description = "item_desc_trophy" price = "25" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wildhunt_trophy_medium" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/ingredients/monstrous/brain_monstrous_64x64.png" localisation_key_name = "rer_trophy_wildhunt" localisation_key_description = "item_desc_trophy" price = "50" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_wildhunt_trophy_high" category="trophy" stackable="24" weight="0.1"
+			icon_path="icons/inventory/ingredients/monstrous/brain_monstrous_64x64.png" localisation_key_name = "rer_trophy_wildhunt" localisation_key_description = "item_desc_trophy" price = "75" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_fogling_trophy_low" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_fogling_64x64.png" localisation_key_name = "rer_trophy_fogling" localisation_key_description = "item_desc_trophy" price = "25" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_fogling_trophy_medium" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_fogling_64x64.png" localisation_key_name = "rer_trophy_fogling" localisation_key_description = "item_desc_trophy" price = "50" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_fogling_trophy_high" category="trophy" stackable="24" weight="0.3"
+			icon_path="icons/inventory/quests/trophy_fogling_64x64.png" localisation_key_name = "rer_trophy_fogling" localisation_key_description = "item_desc_trophy" price = "75" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+
+			<item name="modrer_werewolf_trophy_low" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_werewolf" localisation_key_description = "item_desc_trophy" price = "110" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_werewolf_trophy_medium" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_werewolf" localisation_key_description = "item_desc_trophy" price = "220" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<item name="modrer_werewolf_trophy_high" category="trophy" stackable="24" weight="0.2"
+			icon_path="icons/inventory/quests/trophy_doppler_64x64.png" localisation_key_name = "rer_trophy_werewolf" localisation_key_description = "item_desc_trophy" price = "330" >
+				<tags>Trophy, RER_Trophy</tags>
+				<base_abilities>
+					<a>base_rer_trophy_stats</a>
+				</base_abilities>
+			</item>
+
+			<!-- ### -->
+			
+		</items>
+	</definitions>	
+</redxml>

@@ -322,7 +322,7 @@ class RER_ContractTargetEncounter {
     );
 
     var rer_entity_template: CEntityTemplate = LoadResourceAsync(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunting_ground_entity.w2ent",
+      "dlc\dlcrandom_encounters_reworked\data\templates\rer_hunting_ground_entity.w2ent",
       true
     ) as CEntityTemplate;
 

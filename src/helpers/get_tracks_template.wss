@@ -14,7 +14,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
     case CreatureNOONWRAITH :
     case CreatureWRAITH :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -28,7 +28,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
         
     case CreatureHUMAN :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\generic_footprints_clue.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\generic_footprints_clue.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -39,7 +39,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureDROWNER:
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -50,7 +50,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureDROWNERDLC:
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -61,7 +61,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureROTFIEND:
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -72,7 +72,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureNEKKER :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -83,7 +83,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureGHOUL :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -94,7 +94,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureALGHOUL :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -105,7 +105,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureFIEND :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -116,7 +116,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureCHORT :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -127,7 +127,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureWEREWOLF :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -138,7 +138,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureLESHEN :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -149,7 +149,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureKATAKAN :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -160,7 +160,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureEKIMMARA :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -171,7 +171,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureELEMENTAL :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -182,7 +182,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureGOLEM :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -193,7 +193,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
     
     case CreatureGIANT :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -204,7 +204,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureCYCLOP :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -215,7 +215,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureGRYPHON :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -226,7 +226,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureWYVERN :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -237,7 +237,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureCOCKATRICE :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -248,7 +248,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureBASILISK :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -259,7 +259,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureFORKTAIL :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -270,7 +270,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureWIGHT :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -281,7 +281,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureSHARLEY :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -292,7 +292,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureHAG :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -303,7 +303,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureFOGLET :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -314,7 +314,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureTROLL :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -325,7 +325,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureBRUXA :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -336,7 +336,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureDETLAFF :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -347,7 +347,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureGARKAIN :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -358,7 +358,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
     
     case CreatureFLEDER :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -369,7 +369,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureGARGOYLE :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -380,7 +380,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureKIKIMORE :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -391,7 +391,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureCENTIPEDE :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -402,7 +402,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureBERSERKER :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -413,7 +413,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureWOLF :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -424,7 +424,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureBEAR :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -435,7 +435,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureBOAR :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -446,7 +446,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreaturePANTHER :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -457,7 +457,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureSPIDER :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -468,7 +468,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureWILDHUNT :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -479,7 +479,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureARACHAS :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -490,7 +490,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureHARPY :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -501,7 +501,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureSIREN :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -512,7 +512,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureENDREGA :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -523,7 +523,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureECHINOPS :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -534,7 +534,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     case CreatureDRACOLIZARD :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -545,7 +545,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     default :
       track.template = LoadResourceAsync(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+        "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
         true
       ) as CEntityTemplate;
 
@@ -556,7 +556,7 @@ latent function getTracksTemplateByCreatureType(create_type: CreatureType): RER_
 
     // case CreatureNIGHTWRAITH :
     //   track.template = LoadResourceAsync(
-    //     "dlc\modtemplates\randomencounterreworkeddlc\data\tracks\mh202_nekker_tracks.w2ent",
+    //     "dlc\dlcrandom_encounters_reworked\data\templates\tracks\mh202_nekker_tracks.w2ent",
     //     true
     //   );
 

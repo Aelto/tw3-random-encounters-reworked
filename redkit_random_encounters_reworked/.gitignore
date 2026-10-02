@@ -1,0 +1,7 @@
+workspace/scripts
+
+publish
+cooked
+packed
+logs
+cook.db

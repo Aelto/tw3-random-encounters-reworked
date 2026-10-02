@@ -1,0 +1,34 @@
+{
+    "files": [
+        {
+            "path": "dlc\\dlcrandom_encounters_reworked\\data\\templates\\tracks\\mh102_arachas_tracks.w2ent",
+            "string_ids": [
+                153013
+            ]
+        },
+        {
+            "path": "dlc\\dlcrandom_encounters_reworked\\data\\templates\\tracks\\mh202_nekker_tracks.w2ent",
+            "string_ids": [
+                153013
+            ]
+        },
+        {
+            "path": "dlc\\dlcrandom_encounters_reworked\\dlcrandom_encounters_reworked.reddlc",
+            "string_ids": [
+                1082377
+            ]
+        },
+        {
+            "path": "dlc\\dlcrandom_encounters_reworked\\data\\templates\\tracks\\generic_footprints_clue.w2ent",
+            "string_ids": [
+                153013
+            ]
+        },
+        {
+            "path": "dlc\\dlcrandom_encounters_reworked\\data\\templates\\tracks\\mh202_nekker_tracks copy.w2ent",
+            "string_ids": [
+                153013
+            ]
+        }
+    ]
+}

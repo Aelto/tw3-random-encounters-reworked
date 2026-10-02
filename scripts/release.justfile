@@ -33,7 +33,7 @@ release-modular:
 
   @ echo - copy dlc to modular release
   @ mkdir -p release/modular/dlc
-  @ cp -r modRandomEncountersReworked/packed release/modular/dlc/dlcrandom_encounters_reworked/
+  @ cp -r redkit_random_encounters_reworked/packed/dlc release/modular/
 
   @ echo - generating modular blob
   @ just scripts/generate-blob-on-windows-modular

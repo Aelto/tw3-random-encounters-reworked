@@ -231,7 +231,7 @@ statemachine class CRandomEncounters {
       NLOG("playing out of combat cutscene");
 
       scene = LoadResource(
-        "dlc\modtemplates\randomencounterreworkeddlc\data\mh_taking_trophy_no_dialogue.w2scene",
+        "dlc\dlcrandom_encounters_reworked\data\templates\mh_taking_trophy_no_dialogue.w2scene",
         true
       ) as CStoryScene;
 

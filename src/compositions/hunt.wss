@@ -62,7 +62,7 @@ class CreatureHuntGryphonComposition extends CompositionSpawner {
 
   protected latent function beforeSpawningEntities(): bool {
     this.rer_entity_template = LoadResourceAsync(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_flying_hunt_entity.w2ent",
+      "dlc\dlcrandom_encounters_reworked\data\templates\rer_flying_hunt_entity.w2ent",
       true
     ) as CEntityTemplate;
 
@@ -140,7 +140,7 @@ class CreatureHuntComposition extends CreatureAmbushWitcherComposition {
     var rer_entity_template: CEntityTemplate;
 
     rer_entity_template = LoadResourceAsync(
-      "dlc\modtemplates\randomencounterreworkeddlc\data\rer_hunt_entity.w2ent",
+      "dlc\dlcrandom_encounters_reworked\data\templates\rer_hunt_entity.w2ent",
       true
     ) as CEntityTemplate;
 

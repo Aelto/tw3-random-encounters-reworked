@@ -1,0 +1,43 @@
+class RER_SceneCamera extends CStaticCamera {
+  public function start() {
+    this.Run();
+    // this.CameraShakeLooped(0.5, CSS_Normal);
+  }
+
+  public function teleportAndLookAt(position: Vector, target: Vector) {
+    var current_rotation: EulerAngles;
+
+    if (this.IsFocused()) {
+      this.FocusDeactivation();
+    }
+    
+    current_rotation = VecToRotation(target - position);
+    // because the Pitch (Y axis) is inverted by default
+    current_rotation.Pitch *= -1;
+
+    this.TeleportWithRotation(position, current_rotation);
+    this.FocusOnStatic(target);
+  }
+}
+
+
+/**
+ * helper function to quickly get a RER_SceneCamera
+ */
+latent function RER_getSceneCamera(): RER_SceneCamera {
+  var template: CEntityTemplate;
+  var camera: RER_SceneCamera;
+
+  template = LoadResourceAsync(
+    "dlc\dlcrandom_encounters_reworked\data\templates\rer_scene_camera.w2ent",
+    true
+  ) as CEntityTemplate;
+  
+  camera = theGame.CreateEntity(
+    template,
+    thePlayer.GetWorldPosition(),
+    thePlayer.GetWorldRotation()
+  ) as RER_SceneCamera;
+
+  return camera;
+}
