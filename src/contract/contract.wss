@@ -238,7 +238,6 @@ class RER_Contract {
   public function calculateRewards(
     optional species_list: array<CreatureType>
   ): RER_ContractRewards {
-    var has_bonus_rewards: bool = this.hasBonusRewards();
     var total_crowns_amount: float = 0;
     var total_reputation_points: float = 0;
 
@@ -252,21 +251,23 @@ class RER_Contract {
       var bestiary_entry: RER_BestiaryEntry = master.bestiary
         .getEntry(master, species);
 
-      if (has_bonus_rewards) {
-        var enemy_count: int = bestiary_entry.getSpawnCount(master);
+      
+      var enemy_count: int = bestiary_entry.getSpawnCount(master);
 
-        var crowns_amount_settings: float = bestiary_entry.getCrowns(
-          master.settings,
-          EncounterType_CONTRACT,
-          // every level increases the upper limit by 1%
-          RandRangeF(
-            1 + this.factory.level * 0.01,
-            0.8 + this.factory.level * 0.005
-          )
-        );
-          
-        total_crowns_amount += enemy_count * crowns_amount_settings;
-      }
+      var crowns_amount_settings: float = bestiary_entry.getCrowns(
+        master.settings,
+        EncounterType_CONTRACT,
+        // every level increases the upper limit by 1%
+        RandRangeF(
+          1 + this.factory.level * 0.01,
+          0.8 + this.factory.level * 0.005
+        )
+      );
+
+      NLOG("calculateRewards(), crowns_amount_settings = " + crowns_amount_settings);
+        
+      // add a +1 flat crown for each opponent
+      total_crowns_amount += enemy_count * (crowns_amount_settings + 1);
       
       // the amount of reputation depends on the creatures and their ecosystem
       // impact.
@@ -283,9 +284,13 @@ class RER_Contract {
       total_reputation_points *= 1.5;
     }
 
+    if (this.hasBonusRewards()) {
+      total_crowns_amount *= 1.5;
+    }
+
     return RER_ContractRewards(
       FloorF(total_crowns_amount),
-      total_reputation_points
+      FloorF(total_reputation_points)
     );
   }
 
