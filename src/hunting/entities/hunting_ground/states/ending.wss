@@ -16,6 +16,11 @@ state Ending in RandomEncountersReworkedHuntingGroundEntity {
       parent.GetWorldPosition()
     );
 
+    if (parent.is_contract_target && !parent.contract_manager.isTargetKilled(parent.contract_index)) {
+      parent.contract_manager.setTargetKilled(parent.contract_index);
+      theSound.SoundEvent("gui_ingame_new_journal");
+    }
+
     // the distance check could cause issues if the player lures monsters outside
     // the radius and kill them there.
     if (parent.is_bounty && distance_from_player < 150 * 150) {

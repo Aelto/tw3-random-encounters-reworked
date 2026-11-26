@@ -66,6 +66,10 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
   public var is_bounty: bool;
   public var bounty_group_index: int;
 
+  public var contract_manager: RER_ContractManager;
+  public var is_contract_target: bool;
+  public var contract_index: int;
+
   // Once activated as a bounty mode it will place a marker on the group and will
   public function activateBountyMode(bounty_manager: RER_BountyManager, group_index: int) {
     this.bounty_manager = bounty_manager;
@@ -73,6 +77,14 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.bounty_group_index = group_index;
 
     NLOG("activateBountyMode - " + group_index);
+  }
+
+  public function activateContractMode(manager: RER_ContractManager, index: int) {
+    this.contract_manager = manager;
+    this.is_contract_target = true;
+    this.contract_index = index;
+
+    NLOG("activateContractMode - " + index);
   }
 
   public latent function clean() {
