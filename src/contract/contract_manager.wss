@@ -86,11 +86,19 @@ statemachine class RER_ContractManager {
   }
 
   public function setTargetKilled(index: int) {
+    while (index >= this.master.storages.contract.killed_targets.Size()) {
+      this.master.storages.contract.killed_targets.PushBack(false);
+    }
+
     this.master.storages.contract.killed_targets[index] = true;
     this.master.storages.contract.save();
   }
 
   public function areAllTargetsKilled(): bool {
+    if (this.master.storages.contract.killed_targets.Size() <= 0) {
+      return false;
+    }
+
     for killed: bool in this.master.storages.contract.killed_targets {
       if (!killed) {
         return false;

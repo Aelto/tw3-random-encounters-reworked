@@ -11,6 +11,8 @@ state Processing in RER_ContractManager {
   }
 
   entry function Processing_main() {
+    this.cleanupEncounters();
+
     if (!parent.hasOngoingContract()) {
       parent.GotoState('Waiting');
       return;
@@ -103,10 +105,13 @@ state Processing in RER_ContractManager {
       var player_position: Vector = thePlayer.GetWorldPosition();
 
       for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
-        if (target_encounter.isSpawnedAndKilled() && !target_encounter.isTargetKilledStorage()) {
-          parent.setTargetKilled(target_encounter.index);
+        if (target_encounter.isSpawnedAndKilled()) {
+          if (!target_encounter.isTargetKilledStorage()) {
+            parent.setTargetKilled(target_encounter.index);
+            theSound.SoundEvent("gui_ingame_new_journal");
+          }
+
           target_encounter.removeMapPin();
-          theSound.SoundEvent("gui_ingame_new_journal");
         }
 
         if (target_encounter.canSpawn(player_position, destination_radius)) {
@@ -149,9 +154,7 @@ state Processing in RER_ContractManager {
   }
 
   event OnLeaveState( nextStateName : name ) {
-    for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
-      target_encounter.removeOneliner();
-    }
+    this.cleanupEncounters();
 
     SU_removeCustomPinByTag("RER_contract_target");
     SU_updateMinimapPins();
@@ -333,7 +336,7 @@ class RER_ContractTargetEncounter {
         thePlayer.GetWorldRotation()
       ) as RandomEncountersReworkedHuntingGroundEntity;
 
-    rer_entity.manual_destruction = true;
+    rer_entity.activateContractMode(this.manager, this.index);
     rer_entity.startEncounter(this.manager.master, entities, bestiary_entry);
 
     return rer_entity;
