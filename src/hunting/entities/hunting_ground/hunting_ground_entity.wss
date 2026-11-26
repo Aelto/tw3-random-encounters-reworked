@@ -84,6 +84,8 @@ statemachine class RandomEncountersReworkedHuntingGroundEntity extends CEntity {
     this.is_contract_target = true;
     this.contract_index = index;
 
+    this.manual_destruction = true;
+
     NLOG("activateContractMode - " + index);
   }
 

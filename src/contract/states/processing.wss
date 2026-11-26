@@ -336,7 +336,6 @@ class RER_ContractTargetEncounter {
         thePlayer.GetWorldRotation()
       ) as RandomEncountersReworkedHuntingGroundEntity;
 
-    rer_entity.manual_destruction = true;
     rer_entity.activateContractMode(this.manager, this.index);
     rer_entity.startEncounter(this.manager.master, entities, bestiary_entry);
 
