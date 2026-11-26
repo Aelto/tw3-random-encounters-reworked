@@ -11,6 +11,12 @@ state DialogChoice in RER_ContractManager {
     super.OnEnterState(previous_state_name);
     NLOG("RER_ContractManager - state DialogChoice");
 
+    if (thePlayer.IsUsingHorse()) {
+      NHUD(GetLocStringByKeyExt("panel_hud_message_actionnotallowed"));
+      parent.GotoState('Waiting');
+      return;
+    }
+
     this.DialogChoice_main();
   }
 
