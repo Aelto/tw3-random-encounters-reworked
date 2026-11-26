@@ -11,6 +11,8 @@ state Processing in RER_ContractManager {
   }
 
   entry function Processing_main() {
+    this.cleanupEncounters();
+
     if (!parent.hasOngoingContract()) {
       parent.GotoState('Waiting');
       return;
@@ -149,9 +151,7 @@ state Processing in RER_ContractManager {
   }
 
   event OnLeaveState( nextStateName : name ) {
-    for target_encounter: RER_ContractTargetEncounter in this.target_encounters {
-      target_encounter.removeOneliner();
-    }
+    this.cleanupEncounters();
 
     SU_removeCustomPinByTag("RER_contract_target");
     SU_updateMinimapPins();
